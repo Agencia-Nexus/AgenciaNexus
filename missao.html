@@ -148,16 +148,6 @@ body.dark-mode .chatbot-messages ol {
       display: none !important;
     }
 
-    body.chat-open .top-left-buttons,
-    body.menu-open .top-left-buttons {
-      display: none !important;
-    }
-
-    body.scrolling .top-left-buttons {
-      opacity: 0;
-      pointer-events: none;
-    }
-
     body.menu-open .back-button,
     body.menu-open .menu-toggle,
     body.menu-open .theme-toggle {
@@ -168,9 +158,7 @@ body.dark-mode .chatbot-messages ol {
 
     body.scrolling .theme-toggle,
     body.scrolling .back-button,
-    body.scrolling .menu-toggle,
-    body.scrolling .topics-toggle,
-    body.scrolling .topics-toggle-mobile {
+    body.scrolling .menu-toggle {
       opacity: 0;
       pointer-events: none;
     }
@@ -364,6 +352,7 @@ body.dark-mode .chatbot-messages ol {
       transform: translateX(-5px);
     }
 
+    /* Menu Toggle */
     .menu-toggle,
     .topics-toggle-mobile {
       background: rgba(255, 255, 255, 0.2);
@@ -863,56 +852,9 @@ body.dark-mode .chatbot-messages ol {
     }
 
     /* ESTILO BASE - garante que a imagem sempre aparece */
-    /* ========== IMAGEM FUNDO.PNG ========== */
-    .header-bg-img {
-      position: absolute;
-      left: -7.9%;
-      top: 90%;
-      transform: translateY(-50%);
-      width: 350px;
-      height: 350px;
-      z-index: 0;
-      opacity: 0.9;
-    }
-
-    /* MOBILE - 768px ou menos */
-    @media (max-width: 768px) {
-      .header {
-        min-height: 290px;
-      }
-
-      .header-bg-img {
-        position: absolute !important;
-        width: 200px !important;
-        height: 200px !important;
-        top: -120px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 0 !important;
-        opacity: 0.9 !important;
-      }
-
-      .header-content {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding-top: 3rem;
-        position: relative;
-        z-index: 1;
-        margin-top: 130px;
-      }
-    }
-
-    /* DESKTOP - 1024px ou mais */
-    @media (min-width: 1024px) {
-      .header {
-        min-height: 220px;
-      }
-
-      .header-bg-img {
+   .header-bg-img {
         position: absolute;
-        left: -1.5%;
+        left: -5.5%;
         top: 77%;
         transform: translateY(-50%);
         width: 250px;
@@ -920,6 +862,25 @@ body.dark-mode .chatbot-messages ol {
         z-index: 0;
         opacity: 0.9;
       }
+
+    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+    /* DESKTOP - 1024px ou mais */
+    @media (min-width: 1024px) {
+      .header {
+        min-height: 220px;
+      }
+
+    .header-bg-img {
+        position: absolute;
+        left: -5.5%;
+        top: 77%;
+        transform: translateY(-50%);
+        width: 250px;
+        height: 250px;
+        z-index: 0;
+        opacity: 0.9;
+      }
+
 
       .header-content {
         position: relative;
@@ -930,7 +891,20 @@ body.dark-mode .chatbot-messages ol {
         text-align: center;
       }
     }
-    /* ========== FIM IMAGEM FUNDO.PNG ========== */
+
+    /* MOBILE - 768px ou menos */
+    @media (max-width: 768px) {
+     .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+      }
+    }
 
     /* MOBILE PEQUENO - 480px ou menos */
     @media (max-width: 480px) {
@@ -1297,9 +1271,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
   
-    /* ======================================== */
     /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
-    /* ======================================== */
     .top-left-buttons {
       position: fixed;
       top: 2rem;
@@ -1318,9 +1290,6 @@ body.dark-mode .chip { background: #2a2a2a; }
       align-items: center;
     }
 
-    /* ======================================== */
-    /* TOPICS BUTTON — mesmo estilo dos outros  */
-    /* ======================================== */
     .topics-toggle {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
@@ -1344,7 +1313,27 @@ body.dark-mode .chip { background: #2a2a2a; }
       transform: scale(1.05);
     }
 
-    /* Topics Dropdown - Desktop */
+    body:not(.dark-mode) .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+
+    body:not(.dark-mode) .topics-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons {
+      display: none !important;
+    }
+
+    body.scrolling .top-left-buttons {
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .topics-dropdown {
       position: fixed;
       top: calc(2rem + 58px);
@@ -1367,9 +1356,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     }
 
-    .topics-dropdown.open {
-      display: flex;
-    }
+    .topics-dropdown.open { display: flex; }
 
     @keyframes topicsDropIn {
       from { opacity: 0; transform: translateY(-10px) scale(0.97); }
@@ -1386,9 +1373,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       transition: all 0.18s ease;
     }
 
-    body.dark-mode .topics-link {
-      color: #f0f0f0;
-    }
+    body.dark-mode .topics-link { color: #f0f0f0; }
 
     .topics-link:hover {
       background: rgba(30, 64, 175, 0.1);
@@ -1396,36 +1381,17 @@ body.dark-mode .chip { background: #2a2a2a; }
       padding-left: 1.4rem;
     }
 
-    body.dark-mode .topics-link:hover {
-      background: rgba(96, 165, 250, 0.15);
-      color: #60a5fa;
-    }
-
     body.chat-open .topics-dropdown,
-    body.menu-open .topics-dropdown {
-      display: none !important;
-    }
+    body.menu-open .topics-dropdown { display: none !important; }
 
-    /* TOPICS MOBILE */
-    .topics-toggle-mobile {
-      display: none;
-    }
-
-    .topics-dropdown-mobile {
-      display: none;
-    }
+    .topics-toggle-mobile { display: none; }
+    .topics-dropdown-mobile { display: none; }
 
     @media (max-width: 768px) {
-      .topics-toggle {
-        display: none !important;
-      }
-
-      .topics-toggle-mobile {
-        display: inline-flex !important;
-      }
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
 
       body:not(.dark-mode) .topics-toggle-mobile {
-        background: rgba(255, 255, 255, 0.2);
         border: 2px solid rgba(0, 0, 0, 0.4);
         color: rgb(27, 27, 27);
       }
@@ -1456,9 +1422,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         box-shadow: 0 8px 32px rgba(0,0,0,0.5);
       }
 
-      .topics-dropdown-mobile.open {
-        display: flex;
-      }
+      .topics-dropdown-mobile.open { display: flex; }
 
       .topics-link-mobile {
         display: block;
@@ -1470,9 +1434,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         transition: all 0.18s ease;
       }
 
-      body.dark-mode .topics-link-mobile {
-        color: #f0f0f0;
-      }
+      body.dark-mode .topics-link-mobile { color: #f0f0f0; }
 
       .topics-link-mobile:hover {
         background: rgba(30, 64, 175, 0.1);
@@ -1481,17 +1443,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       }
 
       body.chat-open .topics-dropdown-mobile,
-      body.menu-open .topics-dropdown-mobile {
-        display: none !important;
-      }
+      body.menu-open .topics-dropdown-mobile { display: none !important; }
     }
-
-    @media (max-width: 480px) {
-      .topics-dropdown-mobile {
-        top: calc(2rem + 116px);
-      }
-    }
-
 </style>
 </head>
 <body>
@@ -1500,7 +1453,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     <span id="themeIcon">🌙</span>
   </button>
 
-  <!-- Wrapper flex: Voltar | Menu | Topics -->
+  <!-- Voltar | Menu | Topics -->
   <div class="top-left-buttons" id="topLeftButtons">
     <div class="top-row">
       <a href="index.html" class="back-button">Voltar</a>
@@ -1509,23 +1462,18 @@ body.dark-mode .chip { background: #2a2a2a; }
       <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
     </div>
   </div>
-
-  <!-- Topics Dropdown Desktop -->
   <div class="topics-dropdown" id="topicsDropdown">
     <a href="#section-missao" class="topics-link" onclick="closeTopics()">🎯 Nossa Missão</a>
     <a href="#section-visao" class="topics-link" onclick="closeTopics()">🔭 Nossa Visão</a>
     <a href="#section-valores" class="topics-link" onclick="closeTopics()">💎 Nossos Valores</a>
     <a href="#section-historia" class="topics-link" onclick="closeTopics()">📖 Nossa História</a>
   </div>
-
-  <!-- Topics Dropdown Mobile -->
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
     <a href="#section-missao" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Nossa Missão</a>
     <a href="#section-visao" class="topics-link-mobile" onclick="closeTopicsMobile()">🔭 Nossa Visão</a>
     <a href="#section-valores" class="topics-link-mobile" onclick="closeTopicsMobile()">💎 Nossos Valores</a>
     <a href="#section-historia" class="topics-link-mobile" onclick="closeTopicsMobile()">📖 Nossa História</a>
   </div>
-
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
   <div class="menu-content" id="menuContent">
@@ -2436,43 +2384,6 @@ const CHIP_ACOES = {
       }
     });
 
-    
-// TOPICS DROPDOWN - DESKTOP
-    function toggleTopics() {
-      const dropdown = document.getElementById('topicsDropdown');
-      dropdown.classList.toggle('open');
-    }
-
-    function closeTopics() {
-      const dropdown = document.getElementById('topicsDropdown');
-      dropdown.classList.remove('open');
-    }
-
-    // TOPICS DROPDOWN - MOBILE
-    function toggleTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.toggle('open');
-    }
-
-    function closeTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.remove('open');
-    }
-
-    // Close topics when clicking outside
-    document.addEventListener('click', (e) => {
-      const toggle = document.getElementById('topicsToggle');
-      const dropdown = document.getElementById('topicsDropdown');
-      const toggleM = document.getElementById('topicsToggleMobile');
-      const dropdownM = document.getElementById('topicsDropdownMobile');
-      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
-        closeTopics();
-      }
-      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
-        closeTopicsMobile();
-      }
-    });
-
     let scrollTimeout;
     window.addEventListener('scroll', () => {
       const scrollBtn = document.getElementById("scrollTopBtn");
@@ -2553,6 +2464,27 @@ function prevSlide() {
 // Auto-play a cada 4 segundos
 setInterval(nextSlide, 4000);
 
-  </script>
+  
+    function toggleTopics() {
+      document.getElementById('topicsDropdown').classList.toggle('open');
+    }
+    function closeTopics() {
+      document.getElementById('topicsDropdown').classList.remove('open');
+    }
+    function toggleTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
+    }
+    function closeTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
+    }
+    document.addEventListener('click', (e) => {
+      const t = document.getElementById('topicsToggle');
+      const d = document.getElementById('topicsDropdown');
+      const tm = document.getElementById('topicsToggleMobile');
+      const dm = document.getElementById('topicsDropdownMobile');
+      if (d && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
+      if (dm && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
+    });
+</script>
 </body>
 </html>
