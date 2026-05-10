@@ -557,7 +557,7 @@ body.dark-mode .btn-secondary {
 
       /* Topics mobile aparece abaixo do Voltar (via flex-column no wrapper) */
       .topics-toggle-mobile {
-        display: inline-flex;
+        display: flex;
         background: rgba(255, 255, 255, 0.2);
         border: 2px solid rgba(255, 255, 255, 0.4);
         backdrop-filter: blur(10px);
@@ -2056,7 +2056,7 @@ body.dark-mode .scroll-top-btn {
     </div>
 
     <!-- Topics mobile: aparece abaixo do Voltar -->
-    <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
+    <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content">Topics</button>
 
   </div>
 
