@@ -381,7 +381,8 @@ body.dark-mode .btn-secondary {
     }
 
     /* Menu Toggle */
-    .menu-toggle {
+    .menu-toggle,
+    .topics-toggle-mobile {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -557,27 +558,7 @@ body.dark-mode .btn-secondary {
         display: none !important;
       }
 
-      /* Topics mobile aparece abaixo do Voltar (via flex-column no wrapper) */
-      .topics-toggle-mobile {
-        display: inline-flex;
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.4);
-        backdrop-filter: blur(10px);
-        padding: 0.8rem 1.5rem !important;
-        border-radius: 50px;
-        cursor: pointer;
-        font-size: 1rem;
-        color: white;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        height: 50px;
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        margin-right: 0 !important;
-        margin-bottom: 0 !important;
-        width: auto !important;
-      }
+      
 
       body:not(.dark-mode) .topics-toggle-mobile {
         background: rgba(255, 255, 255, 0.2);
@@ -643,17 +624,7 @@ body.dark-mode .btn-secondary {
     }
 
     @media (max-width: 480px) {
-      .topics-toggle-mobile {
-        padding: 0.8rem 1.5rem;
-        border-radius: 50px;
-        font-size: 1rem;
-        height: 50px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        width: auto;
-      }
+      
       .topics-dropdown-mobile {
         top: calc(2rem + 116px);
       }
@@ -1673,7 +1644,8 @@ body.dark-mode .quick-btn {
         font-size: 1rem;
       }
 
-      .menu-toggle {
+      .menu-toggle,
+    .topics-toggle-mobile {
         /* posição controlada pelo wrapper .top-left-buttons */
       }
 
@@ -1725,9 +1697,10 @@ body.dark-mode .quick-btn {
         font-size: 0.9rem;
       }
 
-      .menu-toggle {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
+      .menu-toggle,
+    .topics-toggle-mobile {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
         height: 50px;
       }
 
