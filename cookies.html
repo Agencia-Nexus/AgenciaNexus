@@ -70,30 +70,72 @@
 /* BOTOES DO TOPO - MODO PADRÃO (ESCURO) */
 /* ======================================== */
 .back-button,
+.topics-toggle-mobile {
+  position: fixed; top: 2rem; left: 2rem; z-index: 1000;
+  background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+  cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+  height: 50px; justify-content: center; white-space: nowrap;
+}
+
+.back-button:hover {
+  background: rgba(255,255,255,0.3); transform: translateX(-5px);
+}
+
 .menu-toggle,
+.topics-toggle-mobile {
+  position: fixed; top: 2rem; left: calc(2rem + 105px); z-index: 1000;
+  background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+  cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+  height: 50px; display: flex; align-items: center; justify-content: center; min-width: 80px;
+  white-space: nowrap; transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+  background: rgba(255,255,255,0.3); transform: scale(1.05);
+}
+
 .theme-toggle {
-  background: rgba(0, 0, 0, 0.2); /* fundo leve escuro */
-  border: 2px solid rgba(255, 255, 255, 0.4); /* borda clara */
-  color: white; /* texto branco */
+  position: fixed; top: 2rem; right: 2rem; z-index: 1000;
+  background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+  cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+  height: 50px; display: flex; align-items: center; justify-content: center; min-width: 50px;
   transition: all 0.3s ease;
 }
 
-.back-button:hover,
-.menu-toggle:hover,
 .theme-toggle:hover {
-  background: rgba(30, 64, 175, 0.5); /* hover azul */
-  transform: scale(1.05);
+  background: rgba(255,255,255,0.3); transform: scale(1.05);
 }
+
+.topics-toggle {
+  position: fixed; top: 2rem; left: calc(2rem + 210px); z-index: 1000;
+  background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+  cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+  height: 50px; display: flex; align-items: center; justify-content: center;
+  white-space: nowrap; transition: all 0.3s ease;
+}
+
+.topics-toggle:hover {
+  background: rgba(255,255,255,0.3); transform: scale(1.05);
+}
+
 html.dark-mode body {
   background: #0a0a0a !important;
   color: #f0f0f0 !important;
 }
+
 /* ======================================== */
 /* BOTOES DO TOPO - MODO CLARO */
 /* ======================================== */
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
-body:not(.dark-mode) .theme-toggle {
+body:not(.dark-mode) .theme-toggle,
+body:not(.dark-mode) .topics-toggle,
+body:not(.dark-mode) .topics-toggle-mobile {
   background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
   border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
   color: rgb(27, 27, 27); /* texto vermelho escuro */
@@ -101,8 +143,10 @@ body:not(.dark-mode) .theme-toggle {
 
 body:not(.dark-mode) .back-button:hover,
 body:not(.dark-mode) .menu-toggle:hover,
-body:not(.dark-mode) .theme-toggle:hover {
+body:not(.dark-mode) .theme-toggle:hover,
+body:not(.dark-mode) .topics-toggle:hover {
   color: white;
+  background: rgba(30, 64, 175, 0.4);
 }
 
 /* confg bulets chatbot*/
@@ -1011,9 +1055,9 @@ body.dark-mode .btn-primary:hover {
     }
     @media (min-width: 1024px) {
       .header { min-height: 220px; }
-     .header-bg-img {
+      .header-bg-img {
         position: absolute;
-        left: -5.5%;
+        left: -1.5%;
         top: 77%;
         transform: translateY(-50%);
         width: 250px;
@@ -1031,14 +1075,23 @@ body.dark-mode .btn-primary:hover {
         text-align: center;
       }
     }
+
     @media (max-width: 768px) {
       .header { min-height: 290px; }
+
+      .header-content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-top: 3rem;
+      }
 
       .header-bg-img {
         position: absolute !important;
         width: 200px !important;
         height: 200px !important;
-        top: -160px !important;
+        top: -120px !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
         z-index: 0 !important;
