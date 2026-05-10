@@ -203,6 +203,20 @@ body.dark-mode .chatbot-messages ol {
       .header {
         min-height: 250px;
       }
+
+      .back-button,
+      .menu-toggle,
+      .topics-toggle-mobile {
+        padding: 0.8rem 1rem !important;
+        font-size: 0.9rem;
+        height: 50px;
+        width: fit-content !important;
+        min-width: 0 !important;
+      }
+
+      .btn {
+        min-width: auto;
+      }
     }
 
     .header::before {
@@ -239,7 +253,7 @@ body.dark-mode .chatbot-messages ol {
       .header { min-height: 220px; }
    .header-bg-img {
         position: absolute;
-        left: -5.5%;
+        left: -1.5%;
         top: 77%;
         transform: translateY(-50%);
         width: 250px;
@@ -247,6 +261,7 @@ body.dark-mode .chatbot-messages ol {
         z-index: 0;
         opacity: 0.9;
       }
+
 
       .header-content {
         position: relative;
@@ -263,7 +278,7 @@ body.dark-mode .chatbot-messages ol {
         position: absolute !important;
         width: 200px !important;
         height: 200px !important;
-        top: -160px !important;
+        top: -120px !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
         z-index: 0 !important;
@@ -285,7 +300,7 @@ body.dark-mode .chatbot-messages ol {
       .header-content {
         position: relative;
         z-index: 1;
-        margin-top: 125px;
+        margin-top: 130px;
         text-align: center;
       }
     }
@@ -351,6 +366,7 @@ body.dark-mode .chatbot-messages ol {
       height: 50px;
       justify-content: center;
       white-space: nowrap;
+      margin: 0;
     }
 
     .back-button:hover {
@@ -372,10 +388,11 @@ body.dark-mode .chatbot-messages ol {
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       white-space: nowrap;
+      margin: 0;
     }
 
     .menu-toggle:hover {
@@ -707,7 +724,7 @@ body.dark-mode .chatbot-messages ol {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       border: none;
       cursor: pointer;
       display: flex;
@@ -943,10 +960,10 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .chatbot-send-btn {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: #2563eb;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       width: 40px;
       height: 40px;
       cursor: pointer;
@@ -997,11 +1014,7 @@ body.dark-mode .chatbot-messages ol {
       .header h1 { font-size: 2rem; }
       .header p  { font-size: 1rem; }
 
-      .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 90px);
-      }
+
 
       .chatbot-window {
         width: 90vw;
@@ -1026,14 +1039,10 @@ body.dark-mode .chatbot-messages ol {
         font-size: 0.9rem;
       }
 
-      .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 85px);
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
+      .menu-toggle { padding: 0.8rem 1rem; font-size: 0.9rem; }
+
+      .btn {
         min-width: auto;
-        height: 50px;
       }
 
       .theme-toggle {
@@ -1293,9 +1302,13 @@ body.dark-mode .chatbot-messages ol {
       left: 2rem;
       z-index: 1000;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 8px;
-      align-items: flex-start;
+      align-items: center;
+      pointer-events: none;
+    }
+    .top-left-buttons * {
+      pointer-events: auto;
     }
 
     .top-row {
@@ -1317,7 +1330,7 @@ body.dark-mode .chatbot-messages ol {
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       white-space: nowrap;
@@ -1407,6 +1420,7 @@ body.dark-mode .chatbot-messages ol {
       .topics-toggle-mobile { display: inline-flex !important; }
 
       body:not(.dark-mode) .topics-toggle-mobile {
+        background: rgba(255, 255, 255, 0.2);
         border: 2px solid rgba(0, 0, 0, 0.4);
         color: rgb(27, 27, 27);
       }
@@ -1460,27 +1474,6 @@ body.dark-mode .chatbot-messages ol {
       body.chat-open .topics-dropdown-mobile,
       body.menu-open .topics-dropdown-mobile { display: none !important; }
     }
-
-    /* FIX MOBILE: remove inherited margins from .btn so buttons stay in one row */
-    .top-left-buttons .back-button,
-    .top-left-buttons .menu-toggle,
-    .top-left-buttons .topics-toggle,
-    .top-left-buttons .topics-toggle-mobile {
-      margin: 0 !important;
-    }
-
-    /* Ensure top-row stays horizontal on mobile */
-    @media (max-width: 768px) {
-      .top-left-buttons {
-        flex-direction: row !important;
-        align-items: center;
-      }
-      .top-row {
-        flex-direction: row !important;
-        flex-wrap: nowrap;
-        gap: 8px;
-      }
-    }
 </style>
 </head>
 <body>
@@ -1495,22 +1488,25 @@ body.dark-mode .chatbot-messages ol {
       <a href="index.html" class="back-button">Voltar</a>
       <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
       <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
-      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
     </div>
   </div>
   <div class="topics-dropdown" id="topicsDropdown">
-    <a href="#section-dados" class="topics-link" onclick="closeTopics()">🔒 Dados Pessoais</a>
-    <a href="#section-lgpd" class="topics-link" onclick="closeTopics()">📋 LGPD</a>
+    <a href="#section-intro" class="topics-link" onclick="closeTopics()">📖 Introdução</a>
+    <a href="#section-info" class="topics-link" onclick="closeTopics()">📋 Informações Coletadas</a>
+    <a href="#section-uso" class="topics-link" onclick="closeTopics()">🔒 Como Usamos</a>
+    <a href="#section-direitos" class="topics-link" onclick="closeTopics()">⚖️ Seus Direitos (LGPD)</a>
+    <a href="#section-seguranca" class="topics-link" onclick="closeTopics()">🛡️ Segurança dos Dados</a>
     <a href="#section-cookies" class="topics-link" onclick="closeTopics()">🍪 Cookies</a>
-    <a href="#section-direitos" class="topics-link" onclick="closeTopics()">⚖️ Seus Direitos</a>
-    <a href="#section-contato" class="topics-link" onclick="closeTopics()">📧 Contato</a>
+    <a href="#section-obrigacoes" class="topics-link" onclick="closeTopics()">📜 Obrigações da Nexus</a>
   </div>
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
-    <a href="#section-dados" class="topics-link-mobile" onclick="closeTopicsMobile()">🔒 Dados Pessoais</a>
-    <a href="#section-lgpd" class="topics-link-mobile" onclick="closeTopicsMobile()">📋 LGPD</a>
+    <a href="#section-intro" class="topics-link-mobile" onclick="closeTopicsMobile()">📖 Introdução</a>
+    <a href="#section-info" class="topics-link-mobile" onclick="closeTopicsMobile()">📋 Informações Coletadas</a>
+    <a href="#section-uso" class="topics-link-mobile" onclick="closeTopicsMobile()">🔒 Como Usamos</a>
+    <a href="#section-direitos" class="topics-link-mobile" onclick="closeTopicsMobile()">⚖️ Seus Direitos (LGPD)</a>
+    <a href="#section-seguranca" class="topics-link-mobile" onclick="closeTopicsMobile()">🛡️ Segurança dos Dados</a>
     <a href="#section-cookies" class="topics-link-mobile" onclick="closeTopicsMobile()">🍪 Cookies</a>
-    <a href="#section-direitos" class="topics-link-mobile" onclick="closeTopicsMobile()">⚖️ Seus Direitos</a>
-    <a href="#section-contato" class="topics-link-mobile" onclick="closeTopicsMobile()">📧 Contato</a>
   </div>
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -1563,7 +1559,7 @@ body.dark-mode .chatbot-messages ol {
       <!-- POLÍTICA DE PRIVACIDADE                          -->
       <!-- ================================================ -->
 
-      <h2>1. Introdução</h2>
+      <h2 id="section-intro">1. Introdução</h2>
       <p>
         A Agência Nexus ("nós", "nosso" ou "nossa") opera o website e aplicativos da Agência Nexus. Esta página informa você sobre nossas políticas sobre a coleta, uso e divulgação de dados pessoais quando você usa nossos serviços e as escolhas que você tem associadas com esses dados.
       </p>
@@ -1571,7 +1567,7 @@ body.dark-mode .chatbot-messages ol {
         Estamos comprometidos em proteger sua privacidade e garantir que você tenha uma experiência positiva em nossa plataforma. Esta Política de Privacidade explica como coletamos, usamos, compartilhamos e protegemos suas informações pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD).
       </p>
 
-      <h2>2. Informações que Coletamos</h2>
+      <h2 id="section-info">2. Informações que Coletamos</h2>
       <p>Coletamos diferentes tipos de informações para fornecer e melhorar nossos serviços:</p>
       
       <h3>2.1 Informações Fornecidas Diretamente por Você</h3>
@@ -1590,7 +1586,7 @@ body.dark-mode .chatbot-messages ol {
         <li><strong>Dispositivo:</strong> Tipo de dispositivo, sistema operacional, identificadores únicos</li>
       </ul>
 
-      <h2>3. Como Usamos Suas Informações</h2>
+      <h2 id="section-uso">3. Como Usamos Suas Informações</h2>
       <p>Utilizamos as informações coletadas para diversos fins:</p>
       <ul>
         <li>Fornecer, manter e melhorar nossos serviços de recrutamento</li>
@@ -1618,7 +1614,7 @@ body.dark-mode .chatbot-messages ol {
         <li><strong>Proteção de Direitos:</strong> Para proteger nossos direitos, privacidade, segurança ou propriedade</li>
       </ul>
 
-      <h2>5. Seus Direitos sob a LGPD</h2>
+      <h2 id="section-direitos">5. Seus Direitos sob a LGPD</h2>
       <p>
         A Agência Nexus está em total conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018). Seus direitos incluem:
       </p>
@@ -1631,7 +1627,7 @@ body.dark-mode .chatbot-messages ol {
         <li><strong>Direito de Oposição:</strong> Se opor ao processamento de seus dados</li>
       </ul>
 
-      <h2>6. Segurança dos Dados</h2>
+      <h2 id="section-seguranca">6. Segurança dos Dados</h2>
       <p>
         Implementamos medidas técnicas e organizacionais apropriadas para proteger suas informações pessoais contra acesso não autorizado, alteração, divulgação ou destruição. Essas medidas incluem:
       </p>
@@ -1660,7 +1656,7 @@ body.dark-mode .chatbot-messages ol {
         Você pode solicitar a exclusão de seus dados a qualquer momento através de nossos canais de contato. Após sua exclusão, seus dados não serão mais usados, exceto quando exigido por lei.
       </p>
 
-      <h2>8. Cookies e Tecnologias de Rastreamento</h2>
+      <h2 id="section-cookies">8. Cookies e Tecnologias de Rastreamento</h2>
       <p>
         Usamos cookies e tecnologias similares para aprimorar sua experiência:
       </p>
@@ -1780,7 +1776,7 @@ body.dark-mode .chatbot-messages ol {
         <li>Explicações sobre raciocínio lógico</li>
       </ul>
 
-      <h2>Obrigações da Agência Nexus</h2>
+      <h2 id="section-obrigacoes">Obrigações da Agência Nexus</h2>
       <p>
         Como controladora de dados, a Agência Nexus assume as seguintes obrigações:
       </p>
@@ -2468,19 +2464,42 @@ loadSavedTheme();
       document.getElementById('topicsDropdown').classList.remove('open');
     }
     function toggleTopicsMobile() {
-      document.getElementById('topicsDropdownMobile').classList.toggle('open');
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.toggle('open');
     }
     function closeTopicsMobile() {
-      document.getElementById('topicsDropdownMobile').classList.remove('open');
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.remove('open');
     }
     document.addEventListener('click', (e) => {
-      const t = document.getElementById('topicsToggle');
-      const d = document.getElementById('topicsDropdown');
-      const tm = document.getElementById('topicsToggleMobile');
-      const dm = document.getElementById('topicsDropdownMobile');
-      if (d && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
-      if (dm && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
+      const toggle = document.getElementById('topicsToggle');
+      const dropdown = document.getElementById('topicsDropdown');
+      const toggleM = document.getElementById('topicsToggleMobile');
+      const dropdownM = document.getElementById('topicsDropdownMobile');
+      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
+        closeTopics();
+      }
+      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
+        closeTopicsMobile();
+      }
     });
+</script>
+<script>
+// Topics close-on-outside-click - script isolado
+(function() {
+  document.addEventListener('click', function(e) {
+    var toggle = document.getElementById('topicsToggle');
+    var dropdown = document.getElementById('topicsDropdown');
+    var toggleM = document.getElementById('topicsToggleMobile');
+    var dropdownM = document.getElementById('topicsDropdownMobile');
+    if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+    }
+    if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
+      dropdownM.classList.remove('open');
+    }
+  });
+})();
 </script>
 </body>
 </html>
