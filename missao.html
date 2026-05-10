@@ -148,6 +148,16 @@ body.dark-mode .chatbot-messages ol {
       display: none !important;
     }
 
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons {
+      display: none !important;
+    }
+
+    body.scrolling .top-left-buttons {
+      opacity: 0;
+      pointer-events: none;
+    }
+
     body.menu-open .back-button,
     body.menu-open .menu-toggle,
     body.menu-open .theme-toggle {
@@ -158,7 +168,9 @@ body.dark-mode .chatbot-messages ol {
 
     body.scrolling .theme-toggle,
     body.scrolling .back-button,
-    body.scrolling .menu-toggle {
+    body.scrolling .menu-toggle,
+    body.scrolling .topics-toggle,
+    body.scrolling .topics-toggle-mobile {
       opacity: 0;
       pointer-events: none;
     }
@@ -328,10 +340,6 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .back-button {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -345,9 +353,9 @@ body.dark-mode .chatbot-messages ol {
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
       height: 50px;
       justify-content: center;
+      white-space: nowrap;
     }
 
     .back-button:hover {
@@ -356,10 +364,6 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .menu-toggle {
-      position: fixed;
-      top: 2rem;
-      left: calc(2rem + 105px);
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -374,7 +378,7 @@ body.dark-mode .chatbot-messages ol {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 80px;
+      white-space: nowrap;
     }
 
     .menu-toggle:hover {
@@ -857,27 +861,56 @@ body.dark-mode .chatbot-messages ol {
     }
 
     /* ESTILO BASE - garante que a imagem sempre aparece */
-   .header-bg-img {
-        position: absolute;
-        left: -5.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
+    /* ========== IMAGEM FUNDO.PNG ========== */
+    .header-bg-img {
+      position: absolute;
+      left: -7.9%;
+      top: 90%;
+      transform: translateY(-50%);
+      width: 350px;
+      height: 350px;
+      z-index: 0;
+      opacity: 0.9;
+    }
+
+    /* MOBILE - 768px ou menos */
+    @media (max-width: 768px) {
+      .header {
+        min-height: 290px;
       }
 
-    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+      .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -120px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+      }
+
+      .header-content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-top: 3rem;
+        position: relative;
+        z-index: 1;
+        margin-top: 130px;
+      }
+    }
+
     /* DESKTOP - 1024px ou mais */
     @media (min-width: 1024px) {
       .header {
         min-height: 220px;
       }
 
-    .header-bg-img {
+      .header-bg-img {
         position: absolute;
-        left: -5.5%;
+        left: -1.5%;
         top: 77%;
         transform: translateY(-50%);
         width: 250px;
@@ -885,7 +918,6 @@ body.dark-mode .chatbot-messages ol {
         z-index: 0;
         opacity: 0.9;
       }
-
 
       .header-content {
         position: relative;
@@ -896,20 +928,7 @@ body.dark-mode .chatbot-messages ol {
         text-align: center;
       }
     }
-
-    /* MOBILE - 768px ou menos */
-    @media (max-width: 768px) {
-     .header-bg-img {
-        position: absolute !important;
-        width: 200px !important;
-        height: 200px !important;
-        top: -160px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 0 !important;
-        opacity: 0.9 !important;
-      }
-    }
+    /* ========== FIM IMAGEM FUNDO.PNG ========== */
 
     /* MOBILE PEQUENO - 480px ou menos */
     @media (max-width: 480px) {
@@ -1275,7 +1294,203 @@ body.dark-mode .chip { background: #2a2a2a; }
       gap: 0.35rem;
     }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
-  </style>
+  
+    /* ======================================== */
+    /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
+    /* ======================================== */
+    .top-left-buttons {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* ======================================== */
+    /* TOPICS BUTTON — mesmo estilo dos outros  */
+    /* ======================================== */
+    .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .topics-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Topics Dropdown - Desktop */
+    .topics-dropdown {
+      position: fixed;
+      top: calc(2rem + 58px);
+      left: 2rem;
+      z-index: 1001;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0;
+      min-width: 210px;
+      display: none;
+      flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+
+    body.dark-mode .topics-dropdown {
+      background: #1a1a1a;
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .topics-dropdown.open {
+      display: flex;
+    }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block;
+      padding: 0.65rem 1.1rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.18s ease;
+    }
+
+    body.dark-mode .topics-link {
+      color: #f0f0f0;
+    }
+
+    .topics-link:hover {
+      background: rgba(30, 64, 175, 0.1);
+      color: #1e40af;
+      padding-left: 1.4rem;
+    }
+
+    body.dark-mode .topics-link:hover {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+    }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown {
+      display: none !important;
+    }
+
+    /* TOPICS MOBILE */
+    .topics-toggle-mobile {
+      display: none;
+    }
+
+    .topics-dropdown-mobile {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .topics-toggle {
+        display: none !important;
+      }
+
+      .topics-toggle-mobile {
+        display: inline-flex !important;
+      }
+
+      body:not(.dark-mode) .topics-toggle-mobile {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(0, 0, 0, 0.4);
+        color: rgb(27, 27, 27);
+      }
+
+      body:not(.dark-mode) .topics-toggle-mobile:hover {
+        color: white;
+        background: rgba(30, 64, 175, 0.4);
+      }
+
+      .topics-dropdown-mobile {
+        position: fixed;
+        top: calc(2rem + 116px);
+        left: 2rem;
+        z-index: 1001;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0;
+        min-width: 210px;
+        flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+
+      body.dark-mode .topics-dropdown-mobile {
+        background: #1a1a1a;
+        border-color: rgba(255,255,255,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      }
+
+      .topics-dropdown-mobile.open {
+        display: flex;
+      }
+
+      .topics-link-mobile {
+        display: block;
+        padding: 0.65rem 1.1rem;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: all 0.18s ease;
+      }
+
+      body.dark-mode .topics-link-mobile {
+        color: #f0f0f0;
+      }
+
+      .topics-link-mobile:hover {
+        background: rgba(30, 64, 175, 0.1);
+        color: #1e40af;
+        padding-left: 1.4rem;
+      }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topics-dropdown-mobile {
+        top: calc(2rem + 116px);
+      }
+    }
+
+</style>
 </head>
 <body>
 
@@ -1283,9 +1498,31 @@ body.dark-mode .chip { background: #2a2a2a; }
     <span id="themeIcon">🌙</span>
   </button>
 
-  <a href="index.html" class="back-button">Voltar</a>
+  <!-- Wrapper flex: Voltar | Menu | Topics -->
+  <div class="top-left-buttons" id="topLeftButtons">
+    <div class="top-row">
+      <a href="index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
+    </div>
+  </div>
 
-  <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+  <!-- Topics Dropdown Desktop -->
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#section-missao" class="topics-link" onclick="closeTopics()">🎯 Nossa Missão</a>
+    <a href="#section-visao" class="topics-link" onclick="closeTopics()">🔭 Nossa Visão</a>
+    <a href="#section-valores" class="topics-link" onclick="closeTopics()">💎 Nossos Valores</a>
+    <a href="#section-historia" class="topics-link" onclick="closeTopics()">📖 Nossa História</a>
+  </div>
+
+  <!-- Topics Dropdown Mobile -->
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#section-missao" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Nossa Missão</a>
+    <a href="#section-visao" class="topics-link-mobile" onclick="closeTopicsMobile()">🔭 Nossa Visão</a>
+    <a href="#section-valores" class="topics-link-mobile" onclick="closeTopicsMobile()">💎 Nossos Valores</a>
+    <a href="#section-historia" class="topics-link-mobile" onclick="closeTopicsMobile()">📖 Nossa História</a>
+  </div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -2194,6 +2431,43 @@ const CHIP_ACOES = {
           !chatbotWindow.contains(e.target) && 
           !chatbotBtn.contains(e.target)) {
         toggleChatbot();
+      }
+    });
+
+    
+// TOPICS DROPDOWN - DESKTOP
+    function toggleTopics() {
+      const dropdown = document.getElementById('topicsDropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    function closeTopics() {
+      const dropdown = document.getElementById('topicsDropdown');
+      dropdown.classList.remove('open');
+    }
+
+    // TOPICS DROPDOWN - MOBILE
+    function toggleTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.toggle('open');
+    }
+
+    function closeTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.remove('open');
+    }
+
+    // Close topics when clicking outside
+    document.addEventListener('click', (e) => {
+      const toggle = document.getElementById('topicsToggle');
+      const dropdown = document.getElementById('topicsDropdown');
+      const toggleM = document.getElementById('topicsToggleMobile');
+      const dropdownM = document.getElementById('topicsDropdownMobile');
+      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
+        closeTopics();
+      }
+      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
+        closeTopicsMobile();
       }
     });
 
