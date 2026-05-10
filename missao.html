@@ -2486,7 +2486,7 @@ setInterval(nextSlide, 4000);
     function closeTopicsMobile() {
       document.getElementById('topicsDropdownMobile').classList.remove('open');
     }
-    document.addEventListener('click', (e) => {
+    document.addEventListener('mousedown', (e) => {
       const t = document.getElementById('topicsToggle');
       const d = document.getElementById('topicsDropdown');
       const tm = document.getElementById('topicsToggleMobile');
