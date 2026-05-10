@@ -906,7 +906,6 @@ body.dark-mode .chatbot-messages ol {
         margin: 0 auto;
         width: 100%;
         text-align: center;
-        padding-top: 3rem; 
       }
     }
 
@@ -948,6 +947,11 @@ body.dark-mode .chatbot-messages ol {
     @media (max-width: 768px) {
       .header h1 {
         font-size: 2rem;
+          position: relative;
+  z-index: 1;
+  margin-top: 130px;  /* ← aumente esse valor */
+  text-align: center;
+}
       }
 
       .header p {
@@ -966,8 +970,9 @@ body.dark-mode .chatbot-messages ol {
       .content-container {
         padding: 1.5rem;
       }
-    }
+    
 
+    
     @media (max-width: 480px) {
       .header h1 {
         font-size: 1.8rem;
