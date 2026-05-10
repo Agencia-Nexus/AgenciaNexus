@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Documentos | Nexus</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{min-height:100vh;background:#0a0a0a;font-family:'Sora',sans-serif;color:#f0f0f0;}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;}
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(59,130,246,0.03)1px,transparent 1px),
+  linear-gradient(90deg,rgba(59,130,246,0.03)1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;}
+body::after{content:'';position:fixed;top:-10%;left:50%;transform:translateX(-50%);
+  width:700px;height:500px;
+  background:radial-gradient(ellipse,rgba(59,130,246,0.06) 0%,transparent 68%);
+  pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;width:100%;max-width:560px;}
+.logo{text-align:center;margin-bottom:2.2rem;}
+.logo .nome{font-size:1.8rem;font-weight:800;letter-spacing:2px;color:#f0f0f0;}
+.logo .nome span{color:#3b82f6;}
+.logo .sub{font-size:0.68rem;color:#555;letter-spacing:1.5px;text-transform:uppercase;margin-top:0.3rem;}
+.topo{display:flex;align-items:center;justify-content:space-between;
+  background:#111;border:1px solid rgba(59,130,246,0.15);border-radius:16px;
+  padding:1rem 1.4rem;margin-bottom:1.5rem;}
+.topo-info .label{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555;}
+.topo-info .user{font-size:0.82rem;font-weight:600;color:#ccc;}
+.btn-sair{background:transparent;border:1px solid rgba(255,255,255,0.1);
+  border-radius:9px;padding:0.4rem 0.9rem;color:#666;font-family:'Sora',sans-serif;
+  font-size:0.7rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-sair:hover{border-color:#e74c3c;color:#e74c3c;}
+.secao{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;
+  color:#555;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.6rem;}
+.secao::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);}
+.docs{display:flex;flex-direction:column;gap:0.8rem;}
+.doc-card{display:flex;align-items:center;gap:1.1rem;
+  background:#111;border:1px solid rgba(255,255,255,0.07);border-radius:16px;
+  padding:1.2rem 1.4rem;cursor:pointer;transition:all 0.22s;text-decoration:none;color:inherit;}
+.doc-card:hover{border-color:rgba(59,130,246,0.35);background:#141414;
+  transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+.doc-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.icon-verde{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);}
+.icon-laranja{background:rgba(230,115,0,0.1);border:1px solid rgba(230,115,0,0.2);}
+.doc-titulo{font-size:0.9rem;font-weight:700;color:#f0f0f0;margin-bottom:0.2rem;}
+.doc-desc{font-size:0.7rem;color:#555;line-height:1.5;}
+.doc-arrow{color:#444;font-size:1rem;transition:all 0.2s;flex-shrink:0;}
+.doc-card:hover .doc-arrow{color:#3b82f6;transform:translateX(3px);}
+.rodape{text-align:center;margin-top:2rem;font-size:0.62rem;color:#333;letter-spacing:0.5px;line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">
+    <div class="nome">EXIT<span>TUS</span></div>
+    <div class="sub">Recrutamento e Seleção</div>
+  </div>
+  <div class="topo">
+    <div class="topo-info">
+      <div class="label">Logado como</div>
+      <div class="user" id="userEmail">—</div>
+    </div>
+    <button class="btn-sair" onclick="sair()">Sair</button>
+  </div>
+  <div class="secao">Documentos disponíveis</div>
+  <div class="docs">
+    <a class="doc-card" href="carta-abertura-conta.html">
+      <div class="doc-icon icon-verde">🏦</div>
+      <div style="flex:1">
+        <div class="doc-titulo">Carta de Abertura de Conta</div>
+        <div class="doc-desc">Solicitação de abertura de conta corrente PJ junto à instituição financeira, emitida com intermediação Nexus.</div>
+      </div>
+      <div class="doc-arrow">›</div>
+    </a>
+    <a class="doc-card" href="carta-solicitacao-desligamento.html">
+      <div class="doc-icon icon-laranja">🤝</div>
+      <div style="flex:1">
+        <div class="doc-titulo">Carta de Solicitação de Desligamento</div>
+        <div class="doc-desc">Rescisão amigável por acordo entre as partes (Art. 484-A CLT), solicitada pela nova empresa à empresa anterior.</div>
+      </div>
+      <div class="doc-arrow">›</div>
+    </a>
+  </div>
+  <div class="rodape">
+    Agência Nexus – Recrutamento e Seleção · CNPJ: 46.599.025/0001-54<br/>
+    Sistema Nexus ATS · Área Restrita
+  </div>
+</div>
+<script>
+// SEM redirecionamento automático para o login — só mostra o email se logado
+try {
+  const auth = JSON.parse(sessionStorage.getItem('nexus_auth') || 'null');
+  if (!auth || (Date.now() - auth.ts) >= 8 * 60 * 60 * 1000) {
+    // Sessão inválida — vai pro login UMA VEZ, sem loop
+    sessionStorage.removeItem('nexus_auth');
+    window.location.href = 'login-carta.html';
+  } else {
+    document.getElementById('userEmail').textContent = auth.email || '—';
+  }
+} catch(e) {
+  window.location.href = 'login-carta.html';
+}
+function sair() {
+  sessionStorage.removeItem('nexus_auth');
+  window.location.href = 'login-carta.html';
+}
+</script>
+</body>
+</html>

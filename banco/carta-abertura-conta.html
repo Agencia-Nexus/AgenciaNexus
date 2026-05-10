@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Carta de Abertura de Conta | Nexus</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#d8d8d8;font-family:'Lato',sans-serif;padding:1.5rem 1rem 4rem;}
+
+/* TOOLBAR */
+.toolbar{max-width:820px;margin:0 auto 1.2rem;background:#fff;border-radius:10px;
+  padding:0.8rem 1.2rem;display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12);}
+.toolbar h2{flex:1;font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#222;}
+.btn{padding:0.45rem 1rem;border-radius:7px;border:none;font-family:inherit;font-size:0.75rem;
+  font-weight:700;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.3rem;}
+.btn-print{background:#1a1a1a;color:#fff;}
+.btn-print:hover{background:#333;}
+.btn-clear{background:transparent;border:1.5px solid #999;color:#555;}
+.btn-clear:hover{border-color:#333;color:#222;}
+
+/* CARTA */
+.carta{max-width:820px;margin:0 auto;background:#fff;box-shadow:0 4px 28px rgba(0,0,0,0.18);}
+
+/* HEADER */
+.carta-header{padding:1.8rem 2.5rem 1.4rem;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:3px solid #1a1a1a;}
+.logo-area .empresa{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;letter-spacing:1px;}
+.logo-area .sub{font-size:0.72rem;color:#555;margin-top:0.1rem;letter-spacing:0.5px;}
+.logo-area .cnpj{font-size:0.65rem;color:#888;margin-top:0.15rem;}
+.header-right{text-align:right;}
+.header-right .tipo-doc{font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#888;border:1px solid #ddd;border-radius:4px;padding:0.2rem 0.55rem;display:inline-block;}
+
+/* BODY */
+.carta-body{padding:1.8rem 2.5rem 1.5rem;}
+
+/* DESTINATÁRIO */
+.dest{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:1.4rem;
+  padding:0.9rem 1rem;background:#f8f8f8;border-radius:8px;border:1px solid #eee;}
+.dest-full{grid-column:1/-1;}
+.campo-label{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;
+  color:#888;display:block;margin-bottom:0.22rem;}
+.fi{width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;
+  font-family:'Lato',sans-serif;font-size:0.85rem;color:#1a1a1a;padding:0.2rem 0;
+  outline:none;transition:border-color 0.2s;}
+.fi:focus{border-color:#1a1a1a;}
+.fi::placeholder{color:#bbb;font-size:0.81rem;}
+
+/* TÍTULO */
+.carta-titulo{text-align:center;margin:1.2rem 0;}
+.carta-titulo .titulo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#1a1a1a;}
+.carta-titulo .subtitulo{font-size:0.72rem;color:#777;letter-spacing:1px;text-transform:uppercase;margin-top:0.2rem;}
+
+/* DATA */
+.data-bloco{text-align:right;margin-bottom:1.2rem;}
+.data-bloco .fi{width:320px;text-align:right;font-size:0.82rem;}
+
+/* TEXTO */
+.carta-texto{font-size:0.88rem;color:#1a1a1a;line-height:1.85;}
+.carta-texto p{margin-bottom:1rem;}
+.fi-inline{border:none;border-bottom:1px dashed #aaa;background:transparent;
+  font-family:'Lato',sans-serif;font-size:0.88rem;color:#1a1a1a;outline:none;
+  padding:0 0.1rem 0.05rem;transition:border-color 0.2s;min-width:80px;}
+.fi-inline:focus{border-bottom-color:#1a1a1a;border-bottom-style:solid;}
+.fi-inline::placeholder{color:#bbb;}
+
+/* ASSINATURA */
+.assinatura-bloco{margin-top:1.8rem;}
+.assinatura-label{font-size:0.62rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:#888;margin-bottom:0.6rem;display:block;}
+.assinatura-tabs{display:flex;gap:0.4rem;margin-bottom:0.7rem;}
+.atab{background:transparent;border:1px solid #ccc;border-radius:6px;padding:0.3rem 0.7rem;
+  font-family:inherit;font-size:0.7rem;font-weight:700;cursor:pointer;color:#777;transition:all 0.2s;}
+.atab.ativo{background:#1a1a1a;color:#fff;border-color:#1a1a1a;}
+canvas{border:1px solid #ddd;border-radius:6px;display:block;touch-action:none;}
+#uploadArea{width:300px;height:110px;border:1.5px dashed #ccc;border-radius:6px;
+  display:none;align-items:center;justify-content:center;flex-direction:column;
+  gap:0.4rem;cursor:pointer;color:#aaa;font-size:0.75rem;text-align:center;}
+#uploadArea:hover{border-color:#888;color:#555;}
+#sigPreview{display:none;width:300px;height:110px;object-fit:contain;border:1px solid #eee;border-radius:6px;}
+.sig-id{margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px solid #1a1a1a;width:300px;}
+.sig-id .fi{font-size:0.85rem;font-weight:700;margin-bottom:0.2rem;}
+.sig-id .fi-cargo{font-size:0.78rem;font-weight:400;color:#555;}
+
+/* FOOTER */
+.carta-footer{background:#1a1a1a;color:rgba(255,255,255,0.5);padding:0.9rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;font-size:0.63rem;line-height:1.7;}
+.carta-footer strong{color:rgba(255,255,255,0.8);}
+
+/* PRINT */
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none!important;}
+  .carta{box-shadow:none;}
+  .fi,.fi-inline,.sig-id .fi,.sig-id .fi-cargo{border-color:transparent!important;}
+  #uploadArea,.atab,.assinatura-tabs,.canvas-hint{display:none!important;}
+  #sigPreview,canvas{border-color:transparent!important;}
+}
+@media(max-width:600px){
+  .dest{grid-template-columns:1fr;}
+  .carta-header,.carta-body{padding:1.2rem 1.3rem;}
+  .carta-footer{padding:0.8rem 1.3rem;flex-direction:column;gap:0.5rem;}
+  .data-bloco .fi{width:100%;}
+  .sig-id{width:100%;}
+  canvas,#sigPreview,#uploadArea{width:100%!important;}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h2>🏦 Carta de Abertura de Conta</h2>
+  <button class="btn btn-clear" onclick="limparAssinatura()">🗑️ Limpar assinatura</button>
+  <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir / PDF</button>
+</div>
+
+<div class="carta">
+
+  <!-- HEADER -->
+  <div class="carta-header">
+    <div class="logo-area">
+      <div class="empresa">NEXUS</div>
+      <div class="sub">Recrutamento e Seleção</div>
+      <div class="cnpj">CNPJ: 46.599.025/0001-54</div>
+    </div>
+    <div class="header-right">
+      <span class="tipo-doc">Documento Oficial</span>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="carta-body">
+
+    <!-- DESTINATÁRIO -->
+    <div class="dest">
+      <div>
+        <span class="campo-label">Ao Banco</span>
+        <input class="fi" id="nomeBanco" placeholder="Nome do banco" autocomplete="off"/>
+      </div>
+      <div>
+        <span class="campo-label">Agência / Cidade</span>
+        <input class="fi" id="agencia" placeholder="Ex: Ag. Central – Três Coroas/RS" autocomplete="off"/>
+      </div>
+
+    </div>
+
+    <!-- TÍTULO -->
+    <div class="carta-titulo">
+      <div class="titulo">Carta de Abertura de Conta Corrente</div>
+      <div class="subtitulo">Pessoa Jurídica</div>
+    </div>
+
+    <!-- DATA -->
+    <div class="data-bloco">
+      <input class="fi" id="dataLocal" placeholder="Três Coroas/RS, ___ de __________ de 2025" autocomplete="off"/>
+    </div>
+
+    <!-- TEXTO -->
+    <div class="carta-texto">
+      <p>Prezados Senhores,</p>
+
+      <p>
+        Por meio desta carta, a empresa <strong>Agência Nexus – Recrutamento e Seleção</strong>,
+        inscrita no CNPJ sob o nº <strong>46.599.025/0001-54</strong>, com sede em
+        <input class="fi-inline" id="endereco" placeholder="endereço completo" size="38"/>,
+        vem respeitosamente solicitar a abertura de conta corrente pessoa jurídica nessa instituição financeira.
+      </p>
+
+      <p>
+        A empresa atua no segmento de <strong>Recrutamento e Seleção de Pessoal</strong>, prestando
+        serviços de intermediação de mão de obra qualificada a empresas clientes em sua área de abrangência.
+        A conta solicitada destina-se a
+        <input class="fi-inline" id="finalidade" placeholder="finalidade da conta" size="52"/>.
+      </p>
+
+      <p>
+        Declaramos, para os devidos fins, que as informações prestadas são verdadeiras e que nos
+        comprometemos a cumprir todas as normas e regulamentos estabelecidos por essa instituição,
+        bem como as determinações do Banco Central do Brasil.
+      </p>
+
+      <p>
+        Colocamo-nos à inteira disposição para esclarecimentos adicionais que se façam necessários,
+        e aguardamos retorno para prosseguimento dos trâmites de abertura.
+      </p>
+
+      <p>Atenciosamente,</p>
+    </div>
+
+    <!-- ASSINATURA -->
+    <div class="assinatura-bloco">
+      <span class="assinatura-label">Assinatura do Representante Legal</span>
+      <div class="assinatura-tabs">
+        <button class="atab ativo" onclick="setTab('desenhar',this)">✏️ Desenhar</button>
+        <button class="atab" onclick="setTab('upload',this)">📎 Upload</button>
+        <button class="atab" style="margin-left:auto;border-color:#bbb;color:#aaa;" onclick="limparAssinatura()">Limpar</button>
+      </div>
+
+      <canvas id="canvas" width="300" height="110"></canvas>
+      <div id="uploadArea" onclick="document.getElementById('fileInput').click()"
+           ondragover="ev(event)" ondrop="drop(event)">
+        <span style="font-size:1.3rem">📄</span>
+        <span>Clique ou arraste a imagem</span>
+      </div>
+      <img id="sigPreview" alt="Assinatura"/>
+      <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="upload(this)"/>
+
+      <div class="sig-id">
+        <input type="text" class="fi" id="nomeResp" placeholder="Nome completo do responsável" style="font-weight:700;"/>
+        <input type="text" class="fi fi-cargo" id="cargoResp" placeholder="CNPJ: 00.000.000/0000-00" style="margin-top:0.18rem;font-weight:400;color:#555;"/>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- FOOTER -->
+  <div class="carta-footer">
+    <div>
+      <strong>Agência Nexus – Recrutamento e Seleção</strong><br/>
+      CNPJ: 46.599.025/0001-54 &nbsp;·&nbsp; Documento gerado eletronicamente pelo sistema Nexus ATS
+    </div>
+  </div>
+
+</div><!-- /carta -->
+
+<script>
+// ── PROTEÇÃO DE SESSÃO ──
+(function(){
+  try {
+    const auth = JSON.parse(sessionStorage.getItem('nexus_auth') || 'null');
+    if (!auth || (Date.now() - auth.ts) > 8 * 60 * 60 * 1000) {
+      window.location.href = 'login-carta.html';
+    }
+  } catch(e) {
+    window.location.href = 'login-carta.html';
+  }
+})();
+</script>
+
+<script>
+// ── CANVAS ──
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let drawing = false;
+
+function pos(e) {
+  const r = canvas.getBoundingClientRect();
+  const s = e.touches ? e.touches[0] : e;
+  return { x: (s.clientX - r.left) * canvas.width / r.width, y: (s.clientY - r.top) * canvas.height / r.height };
+}
+canvas.addEventListener('mousedown',  e => { drawing=true; ctx.beginPath(); const p=pos(e); ctx.moveTo(p.x,p.y); });
+canvas.addEventListener('mousemove',  e => { if(!drawing) return; ctx.lineWidth=1.8; ctx.lineCap='round'; ctx.strokeStyle='#1a1a1a'; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
+canvas.addEventListener('mouseup',    () => drawing=false);
+canvas.addEventListener('mouseleave', () => drawing=false);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing=true; ctx.beginPath(); const p=pos(e); ctx.moveTo(p.x,p.y); }, {passive:false});
+canvas.addEventListener('touchmove',  e => { e.preventDefault(); if(!drawing) return; ctx.lineWidth=2; ctx.lineCap='round'; ctx.strokeStyle='#1a1a1a'; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); }, {passive:false});
+canvas.addEventListener('touchend',   () => drawing=false);
+
+function setTab(tab, btn) {
+  document.querySelectorAll('.atab').forEach(t => t.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  const prv = document.getElementById('sigPreview');
+  const upl = document.getElementById('uploadArea');
+  if (tab === 'desenhar') {
+    canvas.style.display = 'block';
+    upl.style.display = 'none';
+    prv.style.display = 'none';
+  } else {
+    canvas.style.display = 'none';
+    if (prv.src && prv.src !== window.location.href) { prv.style.display = 'block'; upl.style.display = 'none'; }
+    else { upl.style.display = 'flex'; prv.style.display = 'none'; }
+  }
+}
+
+function limparAssinatura() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const prv = document.getElementById('sigPreview');
+  prv.style.display = 'none'; prv.src = '';
+  document.getElementById('fileInput').value = '';
+  document.getElementById('uploadArea').style.display = 'none';
+  canvas.style.display = 'block';
+  document.querySelectorAll('.atab')[0].click();
+}
+
+function upload(input) {
+  const f = input.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = e => { const p = document.getElementById('sigPreview'); p.src = e.target.result; p.style.display = 'block'; document.getElementById('uploadArea').style.display = 'none'; };
+  r.readAsDataURL(f);
+}
+function ev(e) { e.preventDefault(); e.currentTarget.classList.add('dragover'); }
+function drop(e) {
+  e.preventDefault(); e.currentTarget.classList.remove('dragover');
+  const f = e.dataTransfer.files[0]; if (!f || !f.type.startsWith('image/')) return;
+  const r = new FileReader();
+  r.onload = ev => { const p = document.getElementById('sigPreview'); p.src = ev.target.result; p.style.display = 'block'; document.getElementById('uploadArea').style.display = 'none'; };
+  r.readAsDataURL(f);
+}
+</script>
+</body>
+</html>

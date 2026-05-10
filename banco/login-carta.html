@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Login | Nexus</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{min-height:100vh;background:#0a0a0a;font-family:'Sora',sans-serif;color:#f0f0f0;}
+body{display:flex;align-items:center;justify-content:center;padding:1rem;}
+
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(59,130,246,0.03)1px,transparent 1px),
+  linear-gradient(90deg,rgba(59,130,246,0.03)1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;}
+body::after{content:'';position:fixed;top:-10%;left:50%;transform:translateX(-50%);
+  width:700px;height:500px;
+  background:radial-gradient(ellipse,rgba(59,130,246,0.06) 0%,transparent 68%);
+  pointer-events:none;z-index:0;}
+
+.card{position:relative;z-index:1;width:100%;max-width:400px;
+  background:#111;border:1px solid rgba(59,130,246,0.18);border-radius:24px;
+  padding:2.5rem 2rem;box-shadow:0 24px 64px rgba(0,0,0,0.5);}
+
+.logo{text-align:center;margin-bottom:2rem;}
+.logo .nome{font-size:1.6rem;font-weight:800;letter-spacing:2px;color:#f0f0f0;}
+.logo .nome span{color:#3b82f6;}
+.logo .sub{font-size:0.7rem;color:#666;letter-spacing:1.5px;text-transform:uppercase;margin-top:0.3rem;}
+
+.badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(59,130,246,0.08);
+  border:1px solid rgba(59,130,246,0.2);border-radius:99px;padding:0.25rem 0.8rem;
+  font-size:0.65rem;font-weight:700;color:#3b82f6;margin-bottom:1.8rem;}
+
+h2{font-size:1rem;font-weight:800;margin-bottom:0.25rem;}
+.desc{font-size:0.75rem;color:#666;margin-bottom:1.6rem;}
+
+.frow{margin-bottom:1rem;}
+.fl{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;
+  color:#888;display:block;margin-bottom:0.35rem;}
+.fi{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);
+  border-radius:10px;padding:0.72rem 1rem;color:#f0f0f0;font-family:'Sora',sans-serif;
+  font-size:0.86rem;outline:none;transition:border-color 0.2s;}
+.fi:focus{border-color:#3b82f6;background:rgba(59,130,246,0.03);}
+.fi::placeholder{color:#444;}
+
+.senha-wrap{position:relative;}
+.senha-wrap .fi{padding-right:2.8rem;}
+.toggle-senha{position:absolute;right:0.85rem;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;color:#555;font-size:1rem;
+  transition:color 0.2s;padding:0;}
+.toggle-senha:hover{color:#3b82f6;}
+
+.btn-login{width:100%;background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff;
+  border:none;border-radius:12px;padding:0.9rem;font-family:'Sora',sans-serif;
+  font-size:0.9rem;font-weight:800;cursor:pointer;transition:all 0.2s;margin-top:0.5rem;
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;}
+.btn-login:hover{opacity:0.88;transform:translateY(-1px);}
+.btn-login:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+
+.erro{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);
+  border-radius:10px;padding:0.65rem 0.9rem;font-size:0.77rem;color:#e74c3c;
+  margin-top:1rem;display:none;}
+.erro.show{display:block;}
+
+.loader{width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);
+  border-top-color:#fff;border-radius:50%;animation:sp 0.7s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <div class="nome">EXIT<span>TUS</span></div>
+    <div class="sub">Recrutamento e Seleção</div>
+  </div>
+
+  <div style="text-align:center;">
+    <span class="badge">🏦 Área Restrita — Documentos</span>
+  </div>
+
+  <h2>Entrar</h2>
+  <p class="desc">Acesso exclusivo para colaboradores Nexus.</p>
+
+  <div class="frow">
+    <label class="fl" for="email">E-mail</label>
+    <input class="fi" type="email" id="email" placeholder="seu@email.com" autocomplete="username"/>
+  </div>
+
+  <div class="frow">
+    <label class="fl" for="senha">Senha</label>
+    <div class="senha-wrap">
+      <input class="fi" type="password" id="senha" placeholder="••••••••" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter') entrar()"/>
+      <button class="toggle-senha" type="button" onclick="toggleSenha()" title="Mostrar/ocultar senha">👁</button>
+    </div>
+  </div>
+
+  <button class="btn-login" id="btnLogin" onclick="entrar()">
+    Entrar
+  </button>
+
+  <div class="erro" id="erroMsg"></div>
+</div>
+
+<script>
+const SB  = 'https://huycenqggwkfhvoynnhi.supabase.co';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1eWNlbnFnZ3drZmh2b3lubmhpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMTM1NTEsImV4cCI6MjA4OTc4OTU1MX0.Tg-XchEyLov6xZuILhqUE1f9XRhcCdGXejyHXS6kW8c';
+
+function toggleSenha() {
+  const fi = document.getElementById('senha');
+  fi.type = fi.type === 'password' ? 'text' : 'password';
+}
+
+function erro(msg) {
+  const el = document.getElementById('erroMsg');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function limpaErro() {
+  document.getElementById('erroMsg').classList.remove('show');
+}
+
+async function entrar() {
+  limpaErro();
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const senha = document.getElementById('senha').value;
+
+  if (!email || !senha) { erro('Preencha e-mail e senha.'); return; }
+
+  const btn = document.getElementById('btnLogin');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="loader"></div>';
+
+  try {
+    // Busca só pelo email — evita problemas com chars especiais na senha na URL
+    const res = await fetch(
+      `${SB}/rest/v1/usuarios?email=eq.${encodeURIComponent(email)}&ativo=eq.true&select=id,email,senha,perfil`,
+      { headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY } }
+    );
+
+    if (!res.ok) {
+      erro('Erro ao conectar com o servidor (' + res.status + '). Verifique as permissões da tabela no Supabase.');
+      btn.disabled = false;
+      btn.innerHTML = 'Entrar';
+      return;
+    }
+
+    const data = await res.json();
+
+    if (!data || data.length === 0) {
+      erro('E-mail ou senha incorretos.');
+      btn.disabled = false;
+      btn.innerHTML = 'Entrar';
+      return;
+    }
+
+    // Compara senha no client (trim para evitar espaços acidentais)
+    if (data[0].senha.trim() !== senha) {
+      erro('E-mail ou senha incorretos.');
+      btn.disabled = false;
+      btn.innerHTML = 'Entrar';
+      return;
+    }
+
+    sessionStorage.setItem('nexus_auth', JSON.stringify({
+      email: data[0].email,
+      perfil: data[0].perfil,
+      ts: Date.now()
+    }));
+
+    window.location.href = 'index.html';
+
+  } catch(e) {
+    erro('Erro de conexão. Tente novamente.');
+    btn.disabled = false;
+    btn.innerHTML = 'Entrar';
+  }
+}
+
+// Se já está autenticado, vai direto
+try {
+  const auth = JSON.parse(sessionStorage.getItem('nexus_auth') || 'null');
+  if (auth && (Date.now() - auth.ts) < 8 * 60 * 60 * 1000) {
+    window.location.href = 'index.html';
+  }
+} catch(e) {}
+</script>
+</body>
+</html>

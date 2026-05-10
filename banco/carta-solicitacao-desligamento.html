@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Carta de Solicitação de Desligamento | Nexus</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#d8d8d8;font-family:'Lato',sans-serif;padding:1.5rem 1rem 4rem;}
+
+/* TOOLBAR */
+.toolbar{max-width:820px;margin:0 auto 1.2rem;background:#fff;border-radius:10px;
+  padding:0.8rem 1.2rem;display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12);}
+.toolbar h2{flex:1;font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#222;}
+.btn{padding:0.45rem 1rem;border-radius:7px;border:none;font-family:inherit;font-size:0.75rem;
+  font-weight:700;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.3rem;}
+.btn-print{background:#1a1a1a;color:#fff;}
+.btn-print:hover{background:#333;}
+.btn-clear{background:transparent;border:1.5px solid #999;color:#555;}
+.btn-clear:hover{border-color:#333;color:#222;}
+
+/* CARTA */
+.carta{max-width:820px;margin:0 auto;background:#fff;box-shadow:0 4px 28px rgba(0,0,0,0.18);}
+
+/* PÁGINA */
+.page{background:#fff;padding:2rem 2.5rem;}
+.page+.page{border-top:3px solid #eee;margin-top:0;}
+
+/* MINI HEADER */
+.mini-header{display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:0.8rem;border-bottom:1px solid #eee;margin-bottom:1.4rem;}
+.mini-header .empresa{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;letter-spacing:1px;}
+.mini-header .sub{font-size:0.65rem;color:#888;}
+.mini-header .badge{font-size:0.6rem;color:#aaa;border:1px solid #ddd;border-radius:4px;padding:0.2rem 0.55rem;}
+
+/* HEADER PRINCIPAL */
+.carta-header{display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:1.4rem;border-bottom:3px solid #1a1a1a;margin-bottom:1.4rem;}
+.logo-area .empresa{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;letter-spacing:1px;}
+.logo-area .sub{font-size:0.72rem;color:#555;margin-top:0.1rem;letter-spacing:0.5px;}
+.logo-area .cnpj{font-size:0.65rem;color:#888;margin-top:0.15rem;}
+.header-right{text-align:right;}
+.header-right .tipo-doc{font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#888;border:1px solid #ddd;border-radius:4px;padding:0.2rem 0.55rem;display:inline-block;}
+.header-right .tipo-doc2{font-size:0.6rem;color:#aaa;margin-top:0.3rem;display:block;letter-spacing:0.5px;}
+
+/* BLOCO NOVA EMPRESA */
+.bloco-nova{background:#f0fff4;border:1.5px solid #a8d5b8;border-radius:8px;
+  padding:1rem 1.1rem;margin-bottom:1rem;}
+.bloco-nova-titulo{font-size:0.62rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:1.2px;color:#2d7a4f;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem;}
+.bloco-nova-titulo::before{content:'';display:inline-block;width:10px;height:2px;background:#2d7a4f;border-radius:2px;}
+
+/* BLOCO EMPRESA ANTERIOR */
+.bloco-anterior{background:#fff8f0;border:1.5px solid #f0cfa0;border-radius:8px;
+  padding:1rem 1.1rem;margin-bottom:0;}
+.bloco-anterior-titulo{font-size:0.62rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:1.2px;color:#a05a10;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem;}
+.bloco-anterior-titulo::before{content:'';display:inline-block;width:10px;height:2px;background:#a05a10;border-radius:2px;}
+
+.dest{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+.dest-full{grid-column:1/-1;}
+
+.campo-label{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;
+  color:#888;display:block;margin-bottom:0.22rem;}
+.fi{width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;
+  font-family:'Lato',sans-serif;font-size:0.85rem;color:#1a1a1a;padding:0.2rem 0;
+  outline:none;transition:border-color 0.2s;}
+.fi:focus{border-color:#1a1a1a;}
+.fi::placeholder{color:#bbb;font-size:0.81rem;}
+.fi-verde{border-bottom-color:#2d7a4f;font-weight:700;}
+.fi-verde:focus{border-bottom-color:#1a1a1a;}
+.fi-laranja{border-bottom-color:#a05a10;font-weight:700;}
+.fi-laranja:focus{border-bottom-color:#1a1a1a;}
+
+/* TÍTULO */
+.carta-titulo{text-align:center;margin:1rem 0;}
+.carta-titulo .titulo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#1a1a1a;}
+.carta-titulo .subtitulo{font-size:0.72rem;color:#777;letter-spacing:1px;text-transform:uppercase;margin-top:0.2rem;}
+
+/* DATA */
+.data-bloco{text-align:right;margin-bottom:1rem;}
+.data-bloco .fi{width:340px;text-align:right;font-size:0.82rem;}
+
+/* TEXTO */
+.carta-texto{font-size:0.88rem;color:#1a1a1a;line-height:1.85;}
+.carta-texto p{margin-bottom:1rem;}
+.fi-inline{border:none;border-bottom:1px dashed #aaa;background:transparent;
+  font-family:'Lato',sans-serif;font-size:0.88rem;color:#1a1a1a;outline:none;
+  padding:0 0.1rem 0.05rem;transition:border-color 0.2s;min-width:80px;}
+.fi-inline:focus{border-bottom-color:#1a1a1a;border-bottom-style:solid;}
+.fi-inline::placeholder{color:#bbb;}
+
+/* NOTA */
+.nota-desligamento{background:#fff8f0;border-left:3px solid #e67e00;border-radius:4px;
+  padding:0.55rem 0.9rem;margin:0.8rem 0 0;font-size:0.78rem;color:#7a3c00;line-height:1.6;}
+.nota-desligamento strong{color:#5a2800;}
+
+/* ASSINATURA */
+.assinaturas-duplas{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem;}
+.assinatura-label{font-size:0.62rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:#888;margin-bottom:0.6rem;display:block;}
+.assinatura-tabs{display:flex;gap:0.4rem;margin-bottom:0.7rem;}
+.atab{background:transparent;border:1px solid #ccc;border-radius:6px;padding:0.3rem 0.7rem;
+  font-family:inherit;font-size:0.7rem;font-weight:700;cursor:pointer;color:#777;transition:all 0.2s;}
+.atab.ativo{background:#1a1a1a;color:#fff;border-color:#1a1a1a;}
+canvas{border:1px solid #ddd;border-radius:6px;display:block;touch-action:none;}
+.upload-area{width:100%;height:90px;border:1.5px dashed #ccc;border-radius:6px;
+  display:none;align-items:center;justify-content:center;flex-direction:column;
+  gap:0.4rem;cursor:pointer;color:#aaa;font-size:0.75rem;text-align:center;}
+.upload-area:hover{border-color:#888;color:#555;}
+.sig-preview{display:none;width:100%;height:90px;object-fit:contain;border:1px solid #eee;border-radius:6px;}
+.dig-area{display:none;width:100%;height:90px;border:1px solid #ddd;border-radius:6px;
+  align-items:center;justify-content:center;}
+.dig-area input{width:90%;border:none;outline:none;font-family:'Brush Script MT',cursive;
+  font-size:1.6rem;color:#1a1a1a;text-align:center;background:transparent;}
+.sig-id{margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px solid #1a1a1a;}
+.sig-id .fi{font-size:0.82rem;font-weight:700;margin-bottom:0.15rem;}
+.sig-id .fi-cargo{font-size:0.75rem;font-weight:400;color:#555;}
+.sig-divider{display:flex;align-items:center;justify-content:center;font-size:0.6rem;
+  font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#bbb;
+  gap:0.5rem;margin-bottom:0;}
+.sig-divider::before,.sig-divider::after{content:'';flex:1;height:1px;background:#eee;}
+
+/* FOOTER */
+.carta-footer{background:#1a1a1a;color:rgba(255,255,255,0.5);padding:0.9rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;font-size:0.63rem;line-height:1.7;
+  margin-top:2rem;}
+.carta-footer strong{color:rgba(255,255,255,0.8);}
+
+/* PRINT */
+@media print{
+  @page{size:A4;margin:0;}
+  body{background:#fff;padding:0;margin:0;}
+  .toolbar{display:none!important;}
+  .carta{box-shadow:none;max-width:100%;}
+  .fi,.fi-inline,.sig-id .fi,.sig-id .fi-cargo{border-color:transparent!important;}
+  .fi-verde{border-bottom-color:transparent!important;}
+  .fi-laranja{border-bottom-color:transparent!important;}
+  .upload-area,.atab,.assinatura-tabs{display:none!important;}
+  .dig-area{border-color:transparent!important;}
+  .dig-area input{border:none!important;}
+  .sig-preview,canvas{border-color:transparent!important;}
+  .nota-desligamento{border-left-color:#e67e00;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .bloco-nova{background:#f0fff4;border-color:#a8d5b8;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .bloco-anterior{background:#fff8f0;border-color:#f0cfa0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .carta-footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .page{
+    page-break-after:always;break-after:page;
+    width:210mm;min-height:297mm;
+    padding:1.2cm 1.5cm;
+    display:flex;flex-direction:column;
+    box-sizing:border-box;
+  }
+  .page:last-of-type{page-break-after:avoid;break-after:avoid;}
+  .page+.page{border-top:none;}
+  .page-content{flex:1;}
+  .carta-footer{margin:0 -1.5cm -1.2cm;width:calc(100% + 3cm);}
+  .bloco-nova,.bloco-anterior,.carta-titulo,.data-bloco,
+  .nota-desligamento,.assinaturas-duplas,.assinatura-bloco{
+    page-break-inside:avoid;break-inside:avoid;
+  }
+}
+
+@media(max-width:600px){
+  .dest,.assinaturas-duplas{grid-template-columns:1fr;}
+  .dest-full{grid-column:1;}
+  .page{padding:1.2rem 1.3rem;}
+  .carta-footer{padding:0.8rem 1.3rem;flex-direction:column;gap:0.5rem;}
+  .data-bloco .fi{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h2>🤝 Carta de Solicitação de Desligamento — Intermediação</h2>
+  <button class="btn btn-clear" onclick="limparTudo()">🗑️ Limpar assinaturas</button>
+  <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir / PDF</button>
+</div>
+
+<div class="carta">
+
+  <!-- ══ PÁGINA 1: CAPA ══ -->
+  <div class="page">
+    <div class="page-content">
+
+    <div class="carta-header">
+      <div class="logo-area">
+        <div class="empresa">NEXUS</div>
+        <div class="sub">Recrutamento e Seleção — Agência Intermediadora</div>
+        <div class="cnpj">CNPJ: 46.599.025/0001-54</div>
+      </div>
+      <div class="header-right">
+        <span class="tipo-doc">Documento Oficial</span>
+        <span class="tipo-doc2">Gerado com intermediação Nexus</span>
+      </div>
+    </div>
+
+    <!-- DADOS DA NOVA EMPRESA (solicitante) -->
+    <div class="bloco-nova">
+      <div class="bloco-nova-titulo">Nova Empresa — Solicitante do Desligamento</div>
+      <div class="dest">
+        <div class="dest-full">
+          <span class="campo-label">Razão Social da Nova Empresa</span>
+          <input class="fi fi-verde" id="nomeNovaEmpresa" placeholder="Nome completo da nova empresa" autocomplete="off"/>
+        </div>
+        <div>
+          <span class="campo-label">CNPJ</span>
+          <input class="fi fi-verde" id="cnpjNovaEmpresa" placeholder="00.000.000/0000-00" autocomplete="off"/>
+        </div>
+        <div>
+          <span class="campo-label">Ramo de Atividade</span>
+          <input class="fi" id="ramoNovaEmpresa" placeholder="Ex: Comércio, Serviços, Indústria..." autocomplete="off"/>
+        </div>
+        <div>
+          <span class="campo-label">Endereço Completo</span>
+          <input class="fi" id="enderecoNovaEmpresa" placeholder="Rua, nº, bairro, cidade/UF" autocomplete="off"/>
+        </div>
+        <div>
+          <span class="campo-label">Representante Legal</span>
+          <input class="fi" id="repLegalNova" placeholder="Nome do responsável" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- DADOS DA EMPRESA ANTERIOR (destinatária) -->
+    <div class="bloco-anterior">
+      <div class="bloco-anterior-titulo">Empresa Anterior — Destinatária da Carta</div>
+      <div class="dest">
+        <div class="dest-full">
+          <span class="campo-label">Razão Social da Empresa Anterior</span>
+          <input class="fi fi-laranja" id="nomeEmpresaAnterior" placeholder="Nome da empresa onde o colaborador trabalha atualmente" autocomplete="off"/>
+        </div>
+        <div>
+          <span class="campo-label">CNPJ</span>
+          <input class="fi" id="cnpjAnterior" placeholder="00.000.000/0000-00" autocomplete="off"/>
+        </div>
+        <div>
+          <span class="campo-label">Endereço / Cidade</span>
+          <input class="fi" id="enderecoAnterior" placeholder="Cidade/UF" autocomplete="off"/>
+        </div>
+        <div>
+          <span class="campo-label">Ao(à) Responsável / Setor de RH</span>
+          <input class="fi" id="respAnterior" placeholder="Nome do responsável ou Depto. de RH" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /page-content -->
+    <div class="carta-footer">
+      <div><strong>Agência Nexus – Recrutamento e Seleção</strong> &nbsp;·&nbsp; CNPJ: 46.599.025/0001-54<br/>
+      Documento gerado eletronicamente pelo sistema Nexus ATS · Emitido em caráter de intermediação administrativa</div>
+    </div>
+  </div><!-- /page 1 -->
+
+  <!-- ══ PÁGINA 2: TEXTO ══ -->
+  <div class="page">
+    <div class="page-content">
+
+    <div class="mini-header">
+      <div>
+        <div class="empresa">NEXUS</div>
+        <div class="sub">Recrutamento e Seleção — Agência Intermediadora</div>
+      </div>
+      <span class="badge">Carta de Solicitação de Desligamento</span>
+    </div>
+
+    <div class="carta-titulo">
+      <div class="titulo">Carta de Solicitação de Desligamento</div>
+      <div class="subtitulo">Rescisão Amigável por Acordo entre as Partes</div>
+    </div>
+
+    <div class="data-bloco">
+      <input class="fi" id="dataLocal" placeholder="Três Coroas/RS, ___ de __________ de 2025" autocomplete="off"/>
+    </div>
+
+    <div class="carta-texto">
+      <p>
+        À <strong id="txt-empresa-anterior">__________</strong>,<br/>
+        A(o) <strong id="txt-resp-anterior">__________</strong>.
+      </p>
+
+      <p>Prezados Senhores,</p>
+
+      <p>
+        A empresa <strong id="txt-nova-empresa">__________</strong>,
+        inscrita no CNPJ sob o nº <strong id="txt-cnpj-nova">__________</strong>,
+        com sede em <strong id="txt-end-nova">__________</strong>,
+        atuante no segmento de <strong id="txt-ramo-nova">__________</strong>,
+        vem, por meio desta carta, solicitar, de forma respeitosa e amigável,
+        o desligamento do(a) colaborador(a)
+        <input class="fi-inline" id="nomeColab" placeholder="nome completo do(a) colaborador(a)" size="35"/>
+        de seu quadro de funcionários.
+      </p>
+
+      <p>
+        O(A) referido(a) colaborador(a), portador(a) do CPF nº
+        <input class="fi-inline" id="cpfColab" placeholder="000.000.000-00" size="16" oninput="maskCPF(this)"/>
+        e RG nº <input class="fi-inline" id="rgColab" placeholder="00.000.000-0" size="14"/>,
+        atualmente registrado(a) como
+        <input class="fi-inline" id="cargoAnterior" placeholder="cargo/função na empresa anterior" size="28"/>,
+        foi selecionado(a) e aprovado(a) em processo seletivo conduzido por nossa empresa,
+        com previsão de início das atividades em
+        <input class="fi-inline" id="dataInicio" placeholder="__/__/____" size="12"/>.
+      </p>
+
+      <p>
+        Diante disso, solicitamos que essa empresa, se assim for de sua anuência,
+        proceda ao desligamento do(a) colaborador(a) na modalidade de
+        <strong>rescisão por acordo entre as partes</strong>,
+        nos termos do Art. 484-A da Consolidação das Leis do Trabalho (CLT),
+        garantindo ao(à) trabalhador(a) os direitos previstos em lei para essa modalidade.
+      </p>
+
+      <p>
+        Ressaltamos que a presente solicitação não implica qualquer obrigação ou responsabilidade
+        desta empresa quanto às verbas rescisórias devidas ao(à) colaborador(a),
+        as quais são de responsabilidade exclusiva dessa empregadora.
+        Nossa intenção é tão somente facilitar uma transição profissional digna e transparente,
+        em benefício de todas as partes envolvidas.
+      </p>
+
+      <p>
+        Para fins de agilidade operacional e apoio administrativo, a presente carta foi elaborada
+        e emitida com o suporte da <strong>Agência Nexus – Recrutamento e Seleção</strong>
+        (CNPJ: 46.599.025/0001-54), que atua exclusivamente como <strong>agência intermediadora</strong>
+        neste processo, limitando-se ao papel de suporte na formalização desta solicitação.
+      </p>
+
+      <p>
+        Colocamo-nos à inteira disposição para esclarecimentos adicionais, e agradecemos
+        a atenção e compreensão de Vossas Senhorias.
+      </p>
+
+      <p>Atenciosamente,</p>
+    </div>
+
+    <div class="nota-desligamento">
+      <strong>Nota:</strong> Esta carta foi gerada pelo sistema Nexus ATS em caráter de intermediação administrativa.
+      A <strong>Agência Nexus</strong> não assume qualquer responsabilidade pelas verbas rescisórias e obrigações
+      trabalhistas decorrentes desta rescisão. A solicitação de desligamento é de iniciativa exclusiva da nova empresa
+      identificada acima. A rescisão por acordo (Art. 484-A CLT) deve ser formalizada diretamente entre empregado e empregador.
+    </div>
+
+    </div><!-- /page-content -->
+    <div class="carta-footer">
+      <div><strong>Agência Nexus – Recrutamento e Seleção</strong> &nbsp;·&nbsp; CNPJ: 46.599.025/0001-54<br/>
+      Documento gerado eletronicamente pelo sistema Nexus ATS · Emitido em caráter de intermediação administrativa</div>
+    </div>
+  </div><!-- /page 2 -->
+
+  <!-- ══ PÁGINA 3: ASSINATURAS ══ -->
+  <div class="page page-assinaturas">
+    <div class="page-content">
+
+      <div class="mini-header">
+        <div>
+          <div class="empresa">NEXUS</div>
+          <div class="sub">Recrutamento e Seleção — Agência Intermediadora</div>
+        </div>
+        <span class="badge">Assinaturas</span>
+      </div>
+
+      <div class="sig-divider">Assinaturas</div>
+      <div class="assinaturas-duplas">
+
+        <!-- ASSINATURA NOVA EMPRESA -->
+        <div class="assinatura-bloco">
+          <span class="assinatura-label">Nova Empresa — Representante Legal</span>
+          <div class="assinatura-tabs">
+            <button class="atab ativo" onclick="setTab('c1','desenhar',this)">✏️ Desenhar</button>
+            <button class="atab" onclick="setTab('c1','upload',this)">📎 Upload</button>
+            <button class="atab" onclick="setTab('c1','digitar',this)">⌨️ Digitar</button>
+            <button class="atab" style="margin-left:auto;border-color:#bbb;color:#aaa;" onclick="limparSig('c1')">Limpar</button>
+          </div>
+          <canvas id="c1" width="280" height="90"></canvas>
+          <div class="upload-area" id="up1" onclick="document.getElementById('fi1').click()"
+               ondragover="ev(event)" ondrop="drop(event,'p1')">
+            <span style="font-size:1.2rem">📄</span><span>Clique ou arraste</span>
+          </div>
+          <img id="p1" class="sig-preview" alt="Assinatura nova empresa"/>
+          <input type="file" id="fi1" accept="image/*" style="display:none" onchange="upload(this,'p1','up1')"/>
+          <div class="dig-area" id="dig1">
+            <input type="text" id="digTxt1" placeholder="Digite a assinatura..."/>
+          </div>
+          <div class="sig-id">
+            <input type="text" class="fi" id="nomeResp1" placeholder="Nome do representante legal" style="font-weight:700;"/>
+            <input type="text" class="fi fi-cargo" id="cargoResp1" placeholder="Cargo" style="margin-top:0.18rem;"/>
+          </div>
+        </div>
+
+        <!-- ASSINATURA NEXUS -->
+        <div class="assinatura-bloco">
+          <span class="assinatura-label">Agência Nexus — Responsável pela Intermediação</span>
+          <div class="assinatura-tabs">
+            <button class="atab ativo" onclick="setTab('c2','desenhar',this)">✏️ Desenhar</button>
+            <button class="atab" onclick="setTab('c2','upload',this)">📎 Upload</button>
+            <button class="atab" onclick="setTab('c2','digitar',this)">⌨️ Digitar</button>
+            <button class="atab" style="margin-left:auto;border-color:#bbb;color:#aaa;" onclick="limparSig('c2')">Limpar</button>
+          </div>
+          <canvas id="c2" width="280" height="90"></canvas>
+          <div class="upload-area" id="up2" onclick="document.getElementById('fi2').click()"
+               ondragover="ev(event)" ondrop="drop(event,'p2')">
+            <span style="font-size:1.2rem">📄</span><span>Clique ou arraste</span>
+          </div>
+          <img id="p2" class="sig-preview" alt="Assinatura Nexus"/>
+          <input type="file" id="fi2" accept="image/*" style="display:none" onchange="upload(this,'p2','up2')"/>
+          <div class="dig-area" id="dig2">
+            <input type="text" id="digTxt2" placeholder="Digite a assinatura..."/>
+          </div>
+          <div class="sig-id">
+            <input type="text" class="fi" id="nomeResp2" placeholder="Nome do responsável Nexus" style="font-weight:700;"/>
+            <input type="text" class="fi fi-cargo" id="cargoResp2" placeholder="Cargo — Agência Nexus" style="margin-top:0.18rem;"/>
+          </div>
+        </div>
+
+      </div><!-- /assinaturas-duplas -->
+    </div><!-- /page-content -->
+
+    <div class="carta-footer">
+      <div><strong>Agência Nexus – Recrutamento e Seleção</strong> &nbsp;·&nbsp; CNPJ: 46.599.025/0001-54<br/>
+      Documento gerado eletronicamente pelo sistema Nexus ATS · Emitido em caráter de intermediação administrativa</div>
+    </div>
+
+  </div><!-- /page 3 -->
+
+</div><!-- /carta -->
+
+<script>
+function maskCPF(el){
+  let v = el.value.replace(/\D/g,'').slice(0,11);
+  v = v.replace(/(\d{3})(\d)/,'$1.$2');
+  v = v.replace(/(\d{3})(\d)/,'$1.$2');
+  v = v.replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  el.value = v;
+}
+
+function mirror(id, txtId) {
+  const el = document.getElementById(id);
+  const tx = document.getElementById(txtId);
+  if (!el || !tx) return;
+  el.addEventListener('input', () => { tx.textContent = el.value.trim() || '__________'; });
+}
+mirror('nomeNovaEmpresa','txt-nova-empresa');
+mirror('cnpjNovaEmpresa','txt-cnpj-nova');
+mirror('enderecoNovaEmpresa','txt-end-nova');
+mirror('ramoNovaEmpresa','txt-ramo-nova');
+mirror('nomeEmpresaAnterior','txt-empresa-anterior');
+mirror('respAnterior','txt-resp-anterior');
+
+const ctxMap = {};
+function initCanvas(id) {
+  const c = document.getElementById(id);
+  const ctx = c.getContext('2d');
+  ctxMap[id] = { ctx, drawing: false };
+  function pos(e) {
+    const r = c.getBoundingClientRect();
+    const s = e.touches ? e.touches[0] : e;
+    return { x:(s.clientX-r.left)*c.width/r.width, y:(s.clientY-r.top)*c.height/r.height };
+  }
+  c.addEventListener('mousedown',  e => { ctxMap[id].drawing=true; ctx.beginPath(); const p=pos(e); ctx.moveTo(p.x,p.y); });
+  c.addEventListener('mousemove',  e => { if(!ctxMap[id].drawing) return; ctx.lineWidth=1.8; ctx.lineCap='round'; ctx.strokeStyle='#1a1a1a'; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
+  c.addEventListener('mouseup',    () => ctxMap[id].drawing=false);
+  c.addEventListener('mouseleave', () => ctxMap[id].drawing=false);
+  c.addEventListener('touchstart', e => { e.preventDefault(); ctxMap[id].drawing=true; ctx.beginPath(); const p=pos(e); ctx.moveTo(p.x,p.y); }, {passive:false});
+  c.addEventListener('touchmove',  e => { e.preventDefault(); if(!ctxMap[id].drawing) return; ctx.lineWidth=2; ctx.lineCap='round'; ctx.strokeStyle='#1a1a1a'; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); }, {passive:false});
+  c.addEventListener('touchend',   () => ctxMap[id].drawing=false);
+}
+initCanvas('c1');
+initCanvas('c2');
+
+const tabMap = { c1:'desenhar', c2:'desenhar' };
+function setTab(canvasId, tab, btn) {
+  tabMap[canvasId] = tab;
+  const idx = canvasId === 'c1' ? '1' : '2';
+  btn.closest('.assinatura-bloco').querySelectorAll('.atab').forEach(t => t.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  const c   = document.getElementById(canvasId);
+  const prv = document.getElementById('p'+idx);
+  const upl = document.getElementById('up'+idx);
+  const dig = document.getElementById('dig'+idx);
+  c.style.display='none'; upl.style.display='none'; prv.style.display='none'; dig.style.display='none';
+  if (tab === 'desenhar') { c.style.display='block'; }
+  else if (tab === 'upload') {
+    if (prv.src && prv.src !== window.location.href) { prv.style.display='block'; }
+    else { upl.style.display='flex'; }
+  } else if (tab === 'digitar') { dig.style.display='flex'; }
+}
+
+function limparSig(canvasId) {
+  const idx = canvasId === 'c1' ? '1' : '2';
+  ctxMap[canvasId].ctx.clearRect(0,0,280,90);
+  const prv = document.getElementById('p'+idx);
+  prv.style.display='none'; prv.src='';
+  document.getElementById('fi'+idx).value='';
+  document.getElementById('up'+idx).style.display='none';
+  document.getElementById('dig'+idx).style.display='none';
+  document.getElementById('digTxt'+idx).value='';
+  document.getElementById(canvasId).style.display='block';
+  document.getElementById(canvasId).closest('.assinatura-bloco').querySelectorAll('.atab')[0].click();
+}
+function limparTudo() { limparSig('c1'); limparSig('c2'); }
+
+function upload(input, prevId, uplId) {
+  const f = input.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    const p = document.getElementById(prevId);
+    p.src = e.target.result; p.style.display='block';
+    document.getElementById(uplId).style.display='none';
+  };
+  r.readAsDataURL(f);
+}
+function ev(e) { e.preventDefault(); }
+function drop(e, prevId) {
+  e.preventDefault();
+  const f = e.dataTransfer.files[0]; if (!f || !f.type.startsWith('image/')) return;
+  const uplId = prevId === 'p1' ? 'up1' : 'up2';
+  const r = new FileReader();
+  r.onload = ev => {
+    const p = document.getElementById(prevId);
+    p.src = ev.target.result; p.style.display='block';
+    document.getElementById(uplId).style.display='none';
+  };
+  r.readAsDataURL(f);
+}
+</script>
+</body>
+</html>
