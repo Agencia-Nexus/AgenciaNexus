@@ -345,7 +345,7 @@ body.dark-mode .chatbot-messages ol {
       height: 50px;
       justify-content: center;
       white-space: nowrap;
-      margin: 0 !important;
+      margin: 0;
     }
 
     .back-button:hover {
@@ -367,11 +367,11 @@ body.dark-mode .chatbot-messages ol {
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       white-space: nowrap;
-      margin: 0 !important;
+      margin: 0;
     }
 
     .menu-toggle:hover {
@@ -938,9 +938,7 @@ body.dark-mode .chatbot-messages ol {
         font-size: 1rem;
       }
 
-      .menu-toggle {
-        /* posição controlada pelo wrapper .top-left-buttons */
-      }
+
 
       .chatbot-window {
         width: 90vw;
@@ -965,12 +963,7 @@ body.dark-mode .chatbot-messages ol {
         font-size: 0.9rem;
       }
 
-      .menu-toggle {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-        min-width: auto;
-        height: 50px;
-      }
+      .menu-toggle { padding: 0.8rem 1rem; font-size: 0.9rem; }
 
       .theme-toggle {
         font-size: 0.9rem;
@@ -1299,7 +1292,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       white-space: nowrap;
@@ -1386,22 +1379,7 @@ body.dark-mode .chip { background: #2a2a2a; }
 
     @media (max-width: 768px) {
       .topics-toggle { display: none !important; }
-      .topics-toggle-mobile {
-        display: inline-flex !important;
-        padding: 0.8rem 1.5rem !important;
-        width: auto !important;
-        min-width: 0 !important;
-        max-width: none !important;
-        flex: 0 0 auto !important;
-        box-sizing: border-box !important;
-      }
-      .top-left-buttons .back-button,
-      .top-left-buttons .menu-toggle,
-      .top-left-buttons .topics-toggle-mobile {
-        flex: 0 0 auto !important;
-        min-width: 0 !important;
-        box-sizing: border-box !important;
-      }
+      .topics-toggle-mobile { display: inline-flex !important; }
 
       body:not(.dark-mode) .topics-toggle-mobile {
         background: rgba(255, 255, 255, 0.2);
