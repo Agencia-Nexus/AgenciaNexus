@@ -2448,33 +2448,30 @@ const CHIP_ACOES = {
 
     
 const carousel = document.getElementById('carousel');
-const slides = carousel.querySelectorAll('img');
-let currentIndex = 0;
+if (carousel) {
+  const slides = carousel.querySelectorAll('img');
+  let currentIndex = 0;
 
-// Função para atualizar a posição do carrossel
-function updateCarousel() {
-  const slideWidth = carousel.clientWidth; // pega a largura atual do container
-  carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+  function updateCarousel() {
+    const slideWidth = carousel.clientWidth;
+    carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+  }
+
+  function nextSlide() {
+    currentIndex++;
+    if (currentIndex >= slides.length) currentIndex = 0;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentIndex--;
+    if (currentIndex < 0) currentIndex = slides.length - 1;
+    updateCarousel();
+  }
+
+  window.addEventListener('resize', updateCarousel);
+  setInterval(nextSlide, 4000);
 }
-
-// Avança para o próximo slide
-function nextSlide() {
-  currentIndex++;
-  if (currentIndex >= slides.length) currentIndex = 0;
-  updateCarousel();
-}
-
-// Volta para o slide anterior
-function prevSlide() {
-  currentIndex--;
-  if (currentIndex < 0) currentIndex = slides.length - 1;
-  updateCarousel();
-}
-
-// Recalcular ao redimensionar window.addEventListener('resize', updateCarousel);
-
-// Auto-play a cada 4 segundos
-setInterval(nextSlide, 4000);
 
   
     function toggleTopics() {
@@ -2503,6 +2500,23 @@ setInterval(nextSlide, 4000);
         closeTopicsMobile();
       }
     });
+</script>
+<script>
+// Topics close-on-outside-click - script isolado
+(function() {
+  document.addEventListener('click', function(e) {
+    var toggle = document.getElementById('topicsToggle');
+    var dropdown = document.getElementById('topicsDropdown');
+    var toggleM = document.getElementById('topicsToggleMobile');
+    var dropdownM = document.getElementById('topicsDropdownMobile');
+    if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+    }
+    if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
+      dropdownM.classList.remove('open');
+    }
+  });
+})();
 </script>
 </body>
 </html>
