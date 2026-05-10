@@ -1,0 +1,1243 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<script>
+    if (localStorage.getItem('theme') !== 'light') {
+      document.documentElement.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('dark-mode');
+      });
+    }
+    document.documentElement.style.transition = 'none';
+    window.addEventListener('load', () => {
+      document.documentElement.style.transition = '';
+    });
+  </script>
+
+    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Ferramentas de IA | Agência Nexus</title>
+  <meta name="description" content="Conheça as melhores ferramentas de Inteligência Artificial para turbinar sua carreira, currículo e entrevistas. Dicas práticas da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png" />
+  <link rel="shortcut icon" href="icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="icone.png" />
+</head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #3b82f6;
+    --accent: #60a5fa;
+    --bg-light: #ffffff;
+    --text-light: #1a1a1a;
+    --bg-dark: #0a0a0a;
+    --text-dark: #f0f0f0;
+  }
+html.dark-mode body {
+  background: #0a0a0a !important;
+  color: #f0f0f0 !important;
+}
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg-light);
+    color: var(--text-light);
+    overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  body.dark-mode { background: var(--bg-dark); color: var(--text-dark); }
+
+  body.chat-open .theme-toggle,
+  body.chat-open .back-button,
+  body.chat-open .menu-toggle { display: none !important; }
+
+body.menu-open .back-button,
+body.menu-open .menu-toggle,
+body.menu-open .theme-toggle {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+
+  body.scrolling .theme-toggle,
+  body.scrolling .back-button,
+  body.scrolling .menu-toggle { opacity: 0; pointer-events: none; }
+
+  /* BOTÕES DO TOPO */
+  .back-button, .menu-toggle, .theme-toggle {
+    background: rgba(0,0,0,0.2);
+    border: 2px solid rgba(255,255,255,0.4);
+    color: white;
+    transition: all 0.3s ease;
+  }
+  .back-button:hover  { background: rgba(255,255,255,0.3); transform: translateX(-5px); }
+  .menu-toggle:hover  { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+  .theme-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+  body:not(.dark-mode) .back-button,
+  body:not(.dark-mode) .menu-toggle,
+  body:not(.dark-mode) .theme-toggle {
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(0,0,0,0.4);
+    color: rgb(27,27,27);
+  }
+  body:not(.dark-mode) .back-button:hover,
+  body:not(.dark-mode) .menu-toggle:hover,
+  body:not(.dark-mode) .theme-toggle:hover { color: white; }
+
+  .theme-toggle {
+    position: fixed; top: 2rem; right: 2rem; z-index: 1000;
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+    height: 50px; display: flex; align-items: center; justify-content: center; min-width: 50px;
+  }
+
+  .back-button {
+    position: fixed; top: 2rem; left: 2rem; z-index: 1000;
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    height: 50px; justify-content: center;
+  }
+
+  .menu-toggle {
+    position: fixed; top: 2rem; left: calc(2rem + 105px); z-index: 1000;
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+    height: 50px; display: flex; align-items: center; justify-content: center; min-width: 80px;
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle { left: calc(2rem + 90px); }
+  }
+  @media (max-width: 480px) {
+    .back-button { padding: 0.8rem 1rem; font-size: 0.9rem; }
+    .menu-toggle { left: calc(2rem + 85px); padding: 0.8rem 1rem; font-size: 0.9rem; min-width: auto; }
+    .theme-toggle { font-size: 0.9rem; padding: 0.6rem 1rem; min-width: 45px; }
+  }
+
+  /* OVERLAY */
+  .menu-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 95;
+    display: none; opacity: 0; transition: opacity 0.3s ease;
+  }
+  .menu-overlay.active { display: block; opacity: 1; }
+
+  /* MENU LATERAL */
+  .menu-content {
+    position: fixed; top: 0; left: -100%;
+    width: 300px; height: 100vh;
+    background: var(--bg-light); backdrop-filter: blur(20px);
+    padding: 1.6rem 1.4rem 1.2rem;
+    transition: left 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);
+    box-shadow: 5px 0 30px rgba(0,0,0,0.1);
+    overflow-y: auto; z-index: 97;
+  }
+  body.dark-mode .menu-content { background: var(--bg-dark); }
+  .menu-content.active { left: 0; }
+
+  .menu-section { margin-bottom: 1.1rem; }
+  .menu-section h3 {
+    color: var(--accent); font-size: 0.82rem;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 0.6rem; font-weight: 700;
+  }
+  .menu-link {
+    display: block; padding: 0.6rem 0.8rem;
+    color: var(--text-light); text-decoration: none;
+    border-radius: 7px; margin-bottom: 0.28rem;
+    transition: all 0.3s ease; font-weight: 500; font-size: 0.875rem;
+  }
+  body.dark-mode .menu-link { color: var(--text-dark); }
+  .menu-link:hover { background: var(--primary); color: white; transform: translateX(8px); }
+  .menu-link.active-page { background: rgba(30,64,175,0.12); color: var(--primary); font-weight: 700; }
+  body.dark-mode .menu-link.active-page { color: #38bdf8; background: rgba(30,64,175,0.2); }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+    padding: 3rem 2rem; text-align: center; color: white;
+    position: relative; overflow: hidden;
+    min-height: 250px; display: flex; align-items: center; justify-content: center;
+  }
+  .header::before {
+    content: ''; position: absolute; top: -50%; right: -50%;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 15s ease-in-out infinite;
+  }
+  .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+  .header h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); animation: fadeInDown 1s ease-out; }
+  .header p  { font-size: 1.2rem; opacity: 0.95; animation: fadeInUp 1s ease-out 0.3s both; }
+
+  @media (max-width: 768px) { .header h1 { font-size: 2rem; } .header p { font-size: 1rem; } }
+  @media (max-width: 480px) { .header h1 { font-size: 1.8rem; } }
+
+  /* CONTENT */
+  .content-section { max-width: 1100px; margin: 3rem auto; padding: 0 2rem; }
+
+  .info-bar {
+    width: 100%; margin: 2rem auto;
+    font-size: 1.4rem; font-weight: 800; color: #1e40af;
+    text-align: center; padding: 1rem 0;
+  }
+  body.dark-mode .info-bar { color: #38bdf8; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  body.dark-mode .card { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(59,130,246,0.15); }
+
+  .card-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+
+  .card h3 { color: var(--primary); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.7rem; }
+  body.dark-mode .card h3 { color: #38bdf8; }
+
+  .card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; opacity: 0.85; }
+  body.dark-mode .card p { color: var(--text-dark); }
+
+  .card-tag {
+    display: inline-block; padding: 0.25rem 0.75rem;
+    border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .tag-free     { background: rgba(59,130,246,0.12); color: var(--primary); }
+  .tag-freemium { background: rgba(255,165,0,0.12); color: #b87400; }
+  .tag-pago     { background: rgba(200,0,0,0.08);   color: #b00000; }
+  body.dark-mode .tag-free     { background: rgba(59,130,246,0.2);  color: #38bdf8; }
+  body.dark-mode .tag-freemium { background: rgba(255,165,0,0.2);  color: #ffd080; }
+  body.dark-mode .tag-pago     { background: rgba(200,0,0,0.15);   color: #ff8080; }
+
+  .card-link {
+    display: inline-block; margin-top: 0.5rem;
+    color: var(--primary); font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; transition: all 0.3s ease;
+  }
+  .card-link:hover { color: var(--accent); text-decoration: underline; }
+  body.dark-mode .card-link { color: #38bdf8; }
+
+  .tip-box {
+    background: rgba(59,130,246,0.08);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  body.dark-mode .tip-box { background: rgba(59,130,246,0.18); }
+
+  /* FOOTER */
+  /* BUTTONS */
+  .btn {
+    padding: 0.9rem 2rem; border: none; border-radius: 50px;
+    font-weight: 700; font-size: 1rem; cursor: pointer;
+    transition: all 0.3s ease; font-family: inherit;
+    display: inline-block; text-decoration: none;
+    margin: 0.4rem;
+  }
+  .btn-primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(30,64,175,0.3); }
+  .btn-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+  body.dark-mode .btn-secondary { color: white; border-color: white; }
+  .btn-secondary:hover { background: var(--primary); color: white; }
+
+  /* IMAGEM FUNDO.PNG */
+  /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+  .header-bg-img {
+    position: absolute;
+    left: -7.9%;
+    top: 90%;
+    transform: translateY(-50%);
+    width: 350px;
+    height: 350px;
+    z-index: 0;
+    opacity: 0.9;
+  }
+
+  /* DESKTOP - 1024px ou mais */
+  @media (min-width: 1024px) {
+    .header { min-height: 220px; }
+    .header-bg-img {
+        position: absolute;
+        left: -5.5%;
+        top: 77%;
+        transform: translateY(-50%);
+        width: 250px;
+        height: 250px;
+        z-index: 0;
+        opacity: 0.9;
+      }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* MOBILE - 768px ou menos */
+  @media (max-width: 768px) {
+    .header { min-height: 290px; }
+
+      .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+      }
+  }
+
+  /* MOBILE PEQUENO - 480px ou menos */
+  @media (max-width: 480px) {
+    .header { min-height: 250px; }
+    .header-bg-img {
+      position: absolute;
+      left: 50%;
+      top: -100%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: auto;
+      z-index: 0;
+      opacity: 0.9;
+    }
+    .header-content {
+      position: relative;
+      z-index: 1;
+      margin-top: 125px;
+      text-align: center;
+    }
+  }
+
+  body.chat-open .chatbot-button {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: 0.3s ease;
+  }
+
+  /* CHATBOT */
+  .chatbot-button {
+    position: fixed; bottom: 2rem; right: 1rem;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite; z-index: 100;
+  }
+  .chatbot-button:hover { transform: scale(1.1); }
+  .chatbot-button.active { animation: none; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+  .chatbot-window {
+    display: none; position: fixed; bottom: 2rem; right: 1rem;
+    width: 380px; height: 550px; background: white;
+    border-radius: 15px; box-shadow: 0 5px 40px rgba(0,0,0,0.16);
+    flex-direction: column; z-index: 99;
+  }
+  body.dark-mode .chatbot-window { background: #1e1e1e; }
+  .chatbot-window.active { display: flex; }
+
+  .chatbot-header {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 1rem; border-radius: 15px 15px 0 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .chatbot-header h3 { margin: 0; font-size: 0.95rem; }
+  .chatbot-header p  { margin: 0.3rem 0 0 0; font-size: 0.8rem; opacity: 0.9; }
+  .close-chatbot { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; transition: transform 0.2s; }
+  .close-chatbot:hover { transform: rotate(90deg); }
+
+  .ai-toggle-wrap {
+    display: flex; align-items: center; gap: 7px;
+    padding: 4px 10px 4px 6px; background: rgba(255,255,255,0.15);
+    border-radius: 20px; cursor: pointer; border: 1.5px solid rgba(255,255,255,0.3);
+    transition: all 0.25s; user-select: none;
+  }
+  .ai-toggle-wrap:hover { background: rgba(255,255,255,0.25); }
+  .ai-toggle-wrap.ai-on { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+  .ai-toggle-switch { position: relative; width: 30px; height: 16px; background: rgba(0,0,0,0.25); border-radius: 8px; transition: background 0.25s; flex-shrink: 0; }
+  .ai-toggle-wrap.ai-on .ai-toggle-switch { background: rgba(255,255,255,0.5); }
+  .ai-toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; background: white; border-radius: 50%; transition: transform 0.25s; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+  .ai-toggle-wrap.ai-on .ai-toggle-switch::after { transform: translateX(14px); }
+  .ai-toggle-label { font-size: 0.7rem; font-weight: 700; color: white; letter-spacing: 0.3px; white-space: nowrap; }
+  .ai-mode-badge { display: none; font-size: 0.65rem; background: rgba(255,255,255,0.25); color: white; border-radius: 10px; padding: 1px 7px; font-weight: 700; letter-spacing: 0.5px; animation: pulseBadge 2s infinite; }
+  .ai-on .ai-mode-badge { display: inline-block; }
+  @keyframes pulseBadge { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+
+  .chatbot-messages {
+    flex: 1; overflow-y: auto; padding: 1.5rem;
+    background: #f8f9fa; display: flex; flex-direction: column;
+    gap: 1rem; scroll-behavior: smooth;
+  }
+  body.dark-mode .chatbot-messages { background: #0a0a0a; }
+
+  .message { display: flex; animation: fadeIn 0.3s ease; word-wrap: break-word; }
+  .message.bot  { justify-content: flex-start; }
+  .message.user { justify-content: flex-end; }
+  .message-content {
+    max-width: 75%; padding: 0.9rem 1.2rem; border-radius: 12px;
+    font-size: 0.95rem; line-height: 1.4;
+  }
+  .message.bot  .message-content { background: white; color: #333; border: 1px solid #e0e0e0; }
+  body.dark-mode .message.bot  .message-content { background: #2a2a2a; color: #f0f0f0; border-color: #444; }
+  .message.user .message-content { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
+
+  .chatbot-input-area { padding: 1rem; border-top: 1px solid #e0e0e0; display: flex; gap: 0.7rem; }
+  body.dark-mode .chatbot-input-area { border-top-color: #444; }
+  .chatbot-input { flex: 1; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; font-size: 0.95rem; }
+  body.dark-mode .chatbot-input { background: #2a2a2a; border-color: #444; color: #f0f0f0; }
+  .chatbot-input:focus { outline: none; border-color: var(--primary); }
+  .chatbot-send-btn {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; border: none; border-radius: 8px;
+    width: 40px; height: 40px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    .chatbot-window { bottom: 2rem; right: 0.5rem; left: 0.5rem; width: calc(100% - 1rem); height: 70vh; }
+  }
+
+  .message-content p { margin: 0 0 0.55rem 0; line-height: 1.55; }
+  .message-content p:last-child { margin-bottom: 0; }
+  .message-content strong { font-weight: 700; }
+  .message-content ul { padding-left: 1.2rem; margin: 0.3rem 0 0.6rem; }
+  .message-content li { margin-bottom: 0.25rem; line-height: 1.5; }
+  .typing-dots { display: flex; gap: 4px; align-items: center; padding: 2px 0; }
+  .typing-dots span { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: dotBounce 1.2s infinite; }
+  .typing-dots span:nth-child(2) { animation-delay: .2s; }
+  .typing-dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes dotBounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-5px);opacity:1} }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; padding-left: 4px; }
+  .chip { background: white; border: 1.5px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; white-space: nowrap; }
+  body.dark-mode .chip { background: #2a2a2a; }
+  .chip:hover { background: var(--primary); color: white; transform: translateY(-1px); }
+
+  .chatbot-messages ul, .chatbot-messages ol { padding-left: 1.2rem; margin-bottom: 1rem; }
+  .chatbot-messages li { margin-bottom: 0.4rem; line-height: 1.5; }
+
+  @keyframes fadeInDown { from{opacity:0;transform:translateY(-30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeInUp   { from{opacity:0;transform:translateY(30px)}  to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn     { from{opacity:0;transform:translateY(10px)}  to{opacity:1;transform:translateY(0)} }
+  @keyframes pulse      { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.2)} }
+
+  .scroll-top-btn {
+    position: fixed; bottom: calc(2rem + 60px + 1.4rem); right: 1.15rem;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.55); border: none;
+    color: rgba(59,130,246,0.45); font-size: 0.55rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 99; opacity: 0; pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  body.dark-mode .scroll-top-btn { background: rgba(30,30,30,0.45); color: rgba(100,180,0,0.4); }
+  .scroll-top-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .scroll-top-btn:hover { background: rgba(59,130,246,0.15); color: var(--primary); transform: translateY(-2px); }
+
+    /* ══ FOOTER PROFISSIONAL ══ */
+    footer {
+      --ft-bg:            #f2f5ee;
+      --ft-border:        rgba(79, 114, 20, 0.18);
+      --ft-text:          #1a1a1a;
+      --ft-muted:         rgba(0, 0, 0, 0.45);
+      --ft-social-bg:     rgba(0, 0, 0, 0.06);
+      --ft-social-border: rgba(0, 0, 0, 0.11);
+      --ft-link-color:    rgba(0, 0, 0, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.05);
+      --ft-bottom-border: rgba(0, 0, 0, 0.09);
+      --ft-copy:          rgba(0, 0, 0, 0.38);
+      --ft-copy-strong:   rgba(0, 0, 0, 0.58);
+      --ft-badge:         rgba(0, 0, 0, 0.3);
+      --ft-accent:        #1e40af;
+      --ft-title:         #1e40af;
+
+      background: var(--ft-bg);
+      color: var(--ft-text);
+      padding: 0;
+      border-top: 1px solid var(--ft-border);
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-mode footer {
+      --ft-bg:            #0d0d0d;
+      --ft-border:        rgba(141, 198, 63, 0.15);
+      --ft-text:          #e0e0e0;
+      --ft-muted:         rgba(255, 255, 255, 0.45);
+      --ft-social-bg:     rgba(255, 255, 255, 0.06);
+      --ft-social-border: rgba(255, 255, 255, 0.09);
+      --ft-link-color:    rgba(255, 255, 255, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.25);
+      --ft-bottom-border: rgba(255, 255, 255, 0.07);
+      --ft-copy:          rgba(255, 255, 255, 0.3);
+      --ft-copy-strong:   rgba(255, 255, 255, 0.5);
+      --ft-badge:         rgba(255, 255, 255, 0.25);
+      --ft-accent:        #38bdf8;
+      --ft-title:         #38bdf8;
+    }
+
+    .footer-top {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 560px) {
+      .footer-top { grid-template-columns: 1fr; gap: 1.6rem; padding: 2rem 1.2rem 1.5rem; }
+    }
+
+    .footer-brand {}
+    .footer-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.9rem;
+    }
+    .footer-brand-logo img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .footer-brand-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ft-text);
+      letter-spacing: -0.3px;
+    }
+    .footer-brand-name span { color: var(--ft-accent); }
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--ft-muted);
+      line-height: 1.6;
+      max-width: 280px;
+      margin-bottom: 1.4rem;
+    }
+
+    /* Redes sociais */
+    .footer-social {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .footer-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--ft-social-bg);
+      border: 1px solid var(--ft-social-border);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: var(--ft-muted);
+    }
+    .footer-social-link:hover {
+      background: rgba(56,189,248,0.12);
+      border-color: rgba(56,189,248,0.35);
+      color: var(--ft-accent);
+      transform: translateY(-2px);
+    }
+    .footer-social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Colunas de links */
+    .footer-col-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ft-title);
+      margin-bottom: 1rem;
+    }
+    .footer-col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .footer-col-links a {
+      text-decoration: none;
+      color: var(--ft-link-color);
+      font-size: 0.83rem;
+      transition: color 0.18s;
+    }
+    .footer-col-links a:hover { color: var(--ft-accent); }
+
+    /* Contato */
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--ft-link-color);
+      margin-bottom: 0.55rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .footer-contact-item:hover { color: var(--ft-accent); }
+    .footer-contact-item svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--ft-accent);
+      flex-shrink: 0;
+    }
+
+    /* Linha inferior */
+    .footer-bottom {
+      border-top: 1px solid var(--ft-bottom-border);
+      background: var(--ft-bottom-bg, transparent);
+      padding: 1.1rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 560px) {
+      .footer-bottom { flex-direction: column; text-align: center; padding: 1rem 1.2rem; }
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--ft-copy);
+    }
+    .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
+    .footer-badge {
+      font-size: 0.68rem;
+      color: var(--ft-badge);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+  </style>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
+  <a href="index.html" class="back-button">Voltar</a>
+  <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+  <div class="menu-content" id="menuContent">
+    <div class="menu-section">
+      <h3>Bem-Vindo</h3>
+      <a href="sobre.html" class="menu-link">Sobre</a>
+      <a href="missao.html" class="menu-link">Missão</a>
+      <a href="visao.html" class="menu-link">Visão</a>
+      <a href="valores.html" class="menu-link">Valores</a>
+    </div>
+    <div class="menu-section">
+      <h3>Carreira</h3>
+      <a href="candidato.html" class="menu-link">Candidatos</a>
+      <a href="tutorial.html" class="menu-link">Vídeos</a>
+      <a href="vagas.html" class="menu-link">Vagas</a>
+      <a href="ferramentas-ia.html" class="menu-link active-page">Ferramentas IA</a>
+      <a href="utilidades.html" class="menu-link">Utilidades</a>
+    </div>
+    <div class="menu-section">
+      <h3>Atendimento</h3>
+      <a href="servicos.html" class="menu-link">Serviços</a>
+      <a href="contato.html" class="menu-link">Contato</a>
+    </div>
+    <div class="menu-section">
+      <h3>Informações</h3>
+      <a href="lgbt.html" class="menu-link">LGBT+</a>
+      <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
+      <a href="indexcookies.html" class="menu-link">Cookies</a>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <div style="display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+        <img src="fundo.png" alt="Ferramentas IA" class="header-bg-img">
+        <div>
+          <h1 style="margin:0 0 0.5rem 0;">Ferramentas de IA</h1>
+          <p style="margin:0;">Use a Inteligência Artificial para turbinar seu currículo, entrevistas e carreira</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- SEÇÃO: CURRÍCULO & LINKEDIN                                  -->
+  <!-- ============================================================ -->
+  <div class="info-bar">🤖 Inteligência Artificial</div>
+  <section class="content-section">
+<div class="tip-box">
+  💡 <strong>Dica Nexus:</strong> Use IA para revisar seu currículo antes de enviar. Cole o texto da vaga e peça para a IA comparar com seu currículo, sugerindo melhorias. Isso aumenta muito suas chances de passar pela triagem automática (ATS). Sempre revise: não deixe tudo no modo automático. Adapte seu currículo e candidatura para cada vaga — a IA é uma ferramenta de apoio, mas pode prejudicar se usada de forma inadequada.
+</div>
+
+
+    <div class="cards-grid">
+
+      <div class="card">
+        <span class="card-icon"><img src="bate-papo-gpt.png" width="42" height="42" alt="ChatGPT"></span>
+        <span class="card-tag tag-free">Gratuito</span>
+        <h3>ChatGPT (OpenAI)</h3>
+        <p>O mais famoso. Peça para ele revisar seu currículo, escrever uma carta de apresentação personalizada ou simular uma entrevista. Basta colar o texto da vaga e pedir ajuda, use o GPT para ter ideias, mas sempre revise seu currículo para não ficar robótico.</p>
+        <a href="https://chat.openai.com" target="_blank" class="card-link">→ Acessar ChatGPT</a>
+      </div>
+
+      <div class="card">
+        <span class="card-icon"><img src="icons8-gêmeos-ai-94.png" width="42" height="42" alt="Google Gemini"></span>
+        <span class="card-tag tag-free">Gratuito</span>
+        <h3>Google Gemini</h3>
+        <p>Alternativa do Google ao ChatGPT. Ótimo para pesquisar informações sobre empresas antes de entrevistas e para reescrever trechos do currículo de forma mais profissional.</p>
+        <a href="https://gemini.google.com" target="_blank" class="card-link">→ Acessar Gemini</a>
+      </div>
+
+      <div class="card">
+        <span class="card-icon"><img src="Claude-ai-icon.svg.png" width="42" height="42" alt="Claude Anthropic"></span>
+        <span class="card-tag tag-free">Gratuito</span>
+        <h3>Claude (Anthropic)</h3>
+        <p>Excelente para análises detalhadas de texto. Peça para ele comparar seu currículo com a descrição da vaga e listar lacunas, pontos fortes e sugestões de melhoria.</p>
+        <a href="https://claude.ai" target="_blank" class="card-link">→ Acessar Claude</a>
+      </div>
+
+ <div class="card">
+  <span class="card-icon">
+    <img src="icons8-3d-microsoft-copilot-logo-94.png" width="42" height="42" alt="Microsoft Copilot IA">
+  </span>
+  <span class="card-tag tag-freemium">Freemium</span>
+  <h3>Microsoft Copilot</h3>
+  <p>O Copilot é a IA do Windows e Office que ajuda a gerar textos, planilhas, apresentações e muito mais de forma inteligente, integrando IA diretamente nas suas ferramentas do dia a dia.</p>
+  <a href="https://www.microsoft.com/en-us/microsoft-365/copilot" target="_blank" class="card-link">→ Saiba mais sobre o Copilot</a>
+</div>
+
+    <div class="card">
+  <span class="card-icon">
+    <img src="linkedin (1).png" width="42" height="42" alt="LinkedIn">
+  </span>
+  <span class="card-tag tag-free">Gratuito</span>
+  <h3>LinkedIn</h3>
+  <p>Embora o LinkedIn não seja uma IA por si só, ele integra recursos de inteligência artificial para sugerir melhorias no seu perfil, recomendar habilidades e ajudar a escrever o resumo profissional ("Sobre") de forma mais atrativa.</p>
+  <a href="https://linkedin.com" target="_blank" class="card-link">→ Acessar LinkedIn</a>
+</div>
+
+   <div class="card">
+  <span class="card-icon">
+    <img src="gamma.png" width="42" height="42" alt="Gamma AI">
+  </span>
+  <span class="card-tag tag-freemium">Freemium</span>
+  <h3>Gamma AI</h3>
+  <p>O Gamma AI é uma plataforma de criação de apresentações de slides inteligentes. Ela utiliza IA para gerar layouts, textos e ideias visuais automaticamente, transformando informações em apresentações profissionais de forma rápida e criativa.</p>
+  <a href="https://gamma.app" target="_blank" class="card-link">→ Acessar Gamma AI</a>
+</div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <!-- SEÇÃO: CURRÍCULO & LINKEDIN                                  -->
+  <!-- ============================================================ -->
+  <div class="info-bar">✍️ Edição para Currículo</div>
+  <section class="content-section">
+<div class="tip-box">
+  💡 <strong>Dica Nexus:</strong> Sempre faça seus currículos no Word e converta para PDF. Evite outras ferramentas de criação de currículos: o importante não é a estética, mas sim que o conteúdo chame a atenção.
+</div>
+
+
+
+
+ <div class="cards-grid">
+
+    <div class="card">
+  <span class="card-icon"><img src="canva.png" width="42" height="42" alt="Canva"></span>
+  <span class="card-tag tag-free">Gratuito</span>
+  <h3>Canva</h3>
+<p>
+  O Canva é ótimo para design, edição de imagens e vídeos, e até permite criar currículos visualmente atrativos. Porém, ele não é o ideal para fazer currículos profissionais, o Word é mais recomendado, pois mantém o formato adequado e é compatível com sistemas de triagem automática (ATS).
+</p>
+
+  <a href="https://www.canva.com/resumes/templates/" target="_blank" class="card-link">→ Acessar Canva</a>
+</div>
+
+<div class="card">
+  <span class="card-icon"><img src="palavra.png" width="42" height="42" alt="Microsoft Word"></span>
+  <span class="card-tag tag-free">Gratuito/Office</span>
+  <h3>Microsoft Word</h3>
+  <p>Clássico e amplamente usado, o Word permite criar currículos com formatação profissional. Use modelos prontos ou construa o seu do zero. Fácil de editar e compatível com ATS.</p>
+  <a href="https://www.microsoft.com/pt-br/microsoft-365/word" target="_blank" class="card-link">→ Acessar Word</a>
+</div>
+
+<div class="card">
+  <span class="card-icon"><img src="pdf.png" width="42" height="42" alt="PDF"></span>
+  <span class="card-tag tag-free">Gratuito</span>
+  <h3>PDF</h3>
+  <p>Formato padrão para envio de currículos. Mantém a formatação e garante que seu currículo seja visualizado corretamente em qualquer dispositivo. Sempre converta seu arquivo final para PDF antes de enviar.</p>
+  <a href="#" class="card-link">→ Salvar como PDF</a>
+</div>
+
+</div>
+ </section>
+
+
+
+
+
+   <div style="text-align:center;margin-top:2.5rem;margin-bottom:3rem;">
+      <a href="candidato.html" class="btn btn-primary">Voltar para Candidatos</a>
+      <a href="utilidades.html" class="btn btn-secondary">Ver Utilidades</a>
+    </div>
+
+   
+ 
+   <footer>
+    <div class="footer-top">
+
+      <!-- Coluna 1: Marca + Redes Sociais -->
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <div class="footer-brand-name">Agência <span>Nexus</span></div>
+        </div>
+        <p class="footer-tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
+        <div class="footer-social">
+
+          <!-- Instagram -->
+          <a class="footer-social-link" href="https://www.instagram.com/nexuscarreiras/" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+
+          <!-- Facebook -->
+          <a class="footer-social-link" href="https://www.facebook.com/profile.php?id=61576066286585" target="_blank" rel="noopener" title="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a class="footer-social-link" href="https://www.linkedin.com/company/107064981/admin/dashboard/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+
+          <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/555198503183" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+           <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+          <!-- YouTube -->
+<a class="footer-social-link" href="https://www.youtube.com/@AgenciaNexusRS" target="_blank" rel="noopener" title="YouTube">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M23.498 6.186a2.96 2.96 0 0 0-2.085-2.094C19.63 3.5 12 3.5 12 3.5s-7.63 0-9.413.592A2.96 2.96 0 0 0 .502 6.186 30.2 30.2 0 0 0 0 12a30.2 30.2 0 0 0 .502 5.814 2.96 2.96 0 0 0 2.085 2.094C4.37 20.5 12 20.5 12 20.5s7.63 0 9.413-.592a2.96 2.96 0 0 0 2.085-2.094A30.2 30.2 0 0 0 24 12a30.2 30.2 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+  </svg>
+</a>
+
+
+        <!-- Pinterest -->
+<a class="footer-social-link" href="https://br.pinterest.com/anexus/" target="_blank" rel="noopener" title="Pinterest">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+  </svg>
+</a>
+
+            
+        </div>
+      </div>
+
+         <!-- Coluna 2: Links rápidos -->
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <ul class="footer-col-links">
+          <li><a href="vagas.html">Vagas disponíveis</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="tutorial.html">Vídeos</a></li>
+          <li><a href="servicos.html">Serviços</a></li>
+          <li><a href="sobre.html">Sobre nós</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Contato -->
+      <div>
+        <div class="footer-col-title">Contato</div>
+
+        <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          (51) 99697-6579
+        </a>
+
+            
+
+      <a class="footer-contact-item" href="mailto:adm.agencianexus@outlook.com">
+  <svg viewBox="0 0 24 24">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+  <span>adm.agencianexus@outlook.com</span>
+</a>
+
+
+      </div>
+
+    </div><!-- /footer-top -->
+
+       
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
+    </div>
+
+  </footer>
+
+
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
+
+  <button class="chatbot-button" id="chatbotBtn" onclick="toggleChatbot()">
+    <img src="chatbot.png" alt="Chatbot" style="width:32px;height:32px;">
+  </button>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <div><h3>Agência Nexus</h3><p id="chatbotStatusText">● Assistente virtual</p></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ai-toggle-wrap" id="aiToggleWrap" onclick="toggleModoIA()" title="Ligar/desligar Modo IA (Llama via Groq)">
+          <div class="ai-toggle-switch"></div>
+          <span class="ai-toggle-label">Modo IA</span>
+          <span class="ai-mode-badge">ON</span>
+        </div>
+        <button class="close-chatbot" onclick="toggleChatbot()">✕</button>
+      </div>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages"></div>
+    <div class="chatbot-input-area">
+      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagem()" autocomplete="off">
+      <button class="chatbot-send-btn" onclick="enviarMensagem()">➤</button>
+    </div>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const menuContent = document.getElementById('menuContent');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function toggleMenu() {
+      menuContent.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+      menuContent.style.left = menuContent.classList.contains('active') ? '0' : '-100%';
+    }
+function closeMenu() {
+  menuContent.classList.remove('active');
+  menuOverlay.classList.remove('active');
+  menuContent.style.left = '-100%';
+  setTimeout(() => {
+    document.body.classList.remove('menu-open');
+  }, 300);
+}
+    
+    document.querySelectorAll('.menu-link').forEach(l => l.addEventListener('click', closeMenu));
+
+       // THEME TOGGLE
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  document.documentElement.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const icon = document.getElementById('themeIcon');
+  if (icon) icon.textContent = isDarkMode ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+}
+
+function loadSavedTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const icon = document.getElementById('themeIcon');
+  if (savedTheme !== 'light') {
+    document.body.classList.add('dark-mode');
+    document.documentElement.classList.add('dark-mode');
+    if (icon) icon.textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.documentElement.classList.remove('dark-mode');
+    if (icon) icon.textContent = '🌙';
+  }
+}
+
+loadSavedTheme();
+    
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      const b = document.getElementById('scrollTopBtn');
+      if(b) b.classList.toggle('visible', window.scrollY > 400);
+      document.body.classList.add('scrolling');
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => document.body.classList.remove('scrolling'), 250);
+    });
+
+    // Fechar menu com arrasto
+    let startX=0, currentX=0, isDragging=false;
+    menuContent.addEventListener('touchstart', e => { if(!menuContent.classList.contains('active')) return; startX=e.touches[0].clientX; isDragging=true; menuContent.style.transition='none'; });
+    menuContent.addEventListener('touchmove',  e => { if(!isDragging) return; currentX=e.touches[0].clientX; if(currentX-startX<0) menuContent.style.left=`${currentX-startX}px`; });
+    menuContent.addEventListener('touchend',   () => { if(!isDragging) return; isDragging=false; menuContent.style.transition='left 0.5s cubic-bezier(0.68,-0.55,0.265,1.55)'; if(currentX-startX<-80) closeMenu(); else menuContent.style.left='0'; });
+
+    // CHATBOT INTELIGENTE
+    const KB = {
+      vagas: {
+        gatilhos: ['vaga','vagas','emprego','trabalho','oportunidade','oportunidades','contratar','contratação','posição','posições'],
+        respostas: [
+          'Temos diversas vagas abertas! 🎯\n\nNossas oportunidades incluem:\n- Vagas administrativas\n- Áreas técnicas e operacionais\n- Cargos de liderança\n\nAcesse nossa página de vagas para ver todas as oportunidades disponíveis!',
+          'Estamos sempre com novas vagas! 💼\n\nAtendemos empresas de diversos segmentos na região de Guaíba e Grande Porto Alegre.\n\nQuer ver as vagas disponíveis agora?'
+        ],
+        chips: ['🔍 Ver vagas','👤 Sou candidato','📞 Contato','↩️ Início']
+      },
+      candidato: {
+        gatilhos: ['candidato','candidatar','candidatura','currículo','curriculum','cv','me inscrever','quero trabalhar','procuro emprego','busco emprego'],
+        respostas: [
+          'Que ótimo que você quer se candidatar! 😊\n\nO processo é simples:\n- Acesse nossa página de candidatos\n- Cadastre seu currículo\n- Acompanhe as oportunidades\n\nNossa equipe entra em contato quando surgir uma vaga compatível com seu perfil!',
+          'Adoramos receber novos candidatos! 🌟\n\nCadastre seu currículo em nossa plataforma e fique por dentro de todas as oportunidades. Temos vagas para diversos perfis e áreas!'
+        ],
+        chips: ['👤 Quero me candidatar','🔍 Ver vagas','💡 Dicas de currículo','📞 Contato']
+      },
+      empresa: {
+        gatilhos: ['empresa','contratar profissionais','sou empresa','rh','recursos humanos','processo seletivo','recrutamento','selecionar','headhunting','orçamento'],
+        respostas: [
+          'Perfeito! Ajudamos empresas a encontrar os melhores talentos! 🏢\n\nNossos serviços incluem:\n- **Recrutamento e seleção**\n- **Hunting de executivos**\n- **Consultoria de RH**\n- **Processos seletivos completos**\n\nEntre em contato para um orçamento personalizado!',
+          'Somos especialistas em recrutamento estratégico! 💡\n\nCuidamos de todo o processo seletivo para sua empresa, desde a triagem até a contratação. Economize tempo e encontre os candidatos ideais!'
+        ],
+        chips: ['📞 Falar agora','📧 Enviar e-mail','📊 Nossos números','↩️ Início']
+      },
+      contato: {
+        gatilhos: ['contato','falar','ligar','telefone','whatsapp','email','e-mail','atendimento','fale conosco'],
+        respostas: [
+          'Entre em contato conosco! 📞\n\n**WhatsApp:** (51) 99697-6579\n**E-mail:** adm.agencianexus@outlook.com\n**Horário:** Segunda a Sexta, 8h às 18h\n\nResponde rapidinho! 😊',
+          'Estamos disponíveis para te atender! 💬\n\nFale pelo WhatsApp (51) 99697-6579 ou envie um e-mail para adm.agencianexus@outlook.com.\n\nTeremos prazer em ajudar!'
+        ],
+        chips: ['📞 Falar agora','📧 Enviar e-mail','↩️ Início']
+      },
+      processo: {
+        gatilhos: ['como funciona','processo','etapas','como me candidatar','como funciona o processo','passo a passo','funcionamento'],
+        respostas: [
+          'Nosso processo é simples e transparente! ✅\n\n1. **Cadastro** - Envie seu currículo\n2. **Triagem** - Analisamos seu perfil\n3. **Entrevista** - Conversa com nossa equipe\n4. **Match** - Indicamos para a vaga ideal\n5. **Contratação** - Acompanhamos até o fim!\n\nSimples assim! 😊',
+        ],
+        chips: ['👤 Sou candidato','🔍 Ver vagas','📞 Contato','↩️ Início']
+      },
+      gratuito: {
+        gatilhos: ['gratuito','grátis','custo','taxa','pago','cobrar','cobrança','valor','preço'],
+        respostas: [
+          'Para candidatos é **100% gratuito**! 🎉\n\nNunca cobramos nada de quem está buscando emprego. Nossa remuneração vem apenas das empresas contratantes.\n\nCadastre-se sem nenhum custo!',
+        ],
+        chips: ['👤 Sou candidato','🔍 Ver vagas','📞 Contato','↩️ Início']
+      },
+      curriculo: {
+        gatilhos: ['dica','dicas','curriculo','currículo','como fazer','melhorar','aprimorar'],
+        respostas: [
+          'Dicas de ouro para o seu currículo! 📄\n\n- **Seja objetivo** - máximo 2 páginas\n- **Foto profissional** - boa iluminação, fundo neutro\n- **Destaque conquistas** - não só responsabilidades\n- **Palavras-chave** - use termos da área\n- **Revisão** - zero erros de português!\n\nNossa página de Utilidades tem muito mais dicas! 💡',
+        ],
+        chips: ['👤 Sou candidato','🔍 Ver vagas','📞 Contato','↩️ Início']
+      },
+      tempo: {
+        gatilhos: ['tempo','quanto tempo','demora','prazo','quando','rapidez'],
+        respostas: [
+          'O tempo varia conforme a vaga! ⏱️\n\nEm média:\n- **Resposta inicial:** 2 a 5 dias úteis\n- **Processo seletivo:** 1 a 4 semanas\n- **Vagas urgentes:** pode ser mais rápido!\n\nMantemos você informado em cada etapa.',
+        ],
+        chips: ['👤 Sou candidato','🔍 Ver vagas','📞 Contato','↩️ Início']
+      },
+      resultados: {
+        gatilhos: ['resultado','resultados','taxa','sucesso','cases','números','estatística'],
+        respostas: [
+          'Nossos números falam por si! 📊\n\n- ✅ Alta taxa de sucesso em contratações\n- 🏢 Empresas parceiras na região\n- 👥 Candidatos colocados no mercado\n- ⭐ Avaliação positiva de clientes\n\nSomos referência em recrutamento na região de Guaíba!',
+        ],
+        chips: ['🏢 Sou empresa, quero orçamento','📞 Contato','↩️ Início']
+      },
+      fallback: {
+        respostas: [
+          'Posso te ajudar! 😊 Sobre o que você quer saber?\n\nPosso informar sobre **vagas**, **candidatura**, **serviços para empresas**, **contato** e muito mais!',
+          'Boa pergunta! 🤔 Não encontrei uma resposta exata, mas nossa equipe pode te ajudar. Que tal entrar em contato diretamente?'
+        ],
+        chips: ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']
+      }
+    };
+
+    const CHIP_ACOES = {
+      '🏢 Sou empresa, quero orçamento':   () => processarTexto('quero contratar profissionais'),
+      '🏢 Quero contratar':                () => processarTexto('quero contratar profissionais'),
+      '🏢 Sou empresa':                    () => processarTexto('sou empresa'),
+      '📞 Contato':                        () => processarTexto('contato'),
+      '📞 Falar agora':                    () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com especialista':         () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com a equipe':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '📧 Enviar e-mail':                  () => window.location.href='mailto:adm.agencianexus@outlook.com',
+      '🔍 Ver vagas':                      () => window.location.href='vagas.html',
+      '👤 Sou candidato':                  () => processarTexto('quero me candidatar'),
+      '👤 Quero me candidatar':            () => window.location.href='candidato.html',
+      '📋 Como funciona':                  () => processarTexto('como funciona o processo'),
+      '📋 Como me candidatar':             () => processarTexto('como funciona o processo'),
+      '💡 Dicas de currículo':             () => processarTexto('dicas curriculo'),
+      '💰 É gratuito?':                    () => processarTexto('é gratuito'),
+      '⏱️ Quanto tempo leva?':             () => processarTexto('quanto tempo demora'),
+      '📊 Nossos números':                 () => processarTexto('resultados taxa de sucesso'),
+      '↩️ Início':                         () => mostrarBemVindo(),
+      '↩️ Voltar ao início':               () => mostrarBemVindo(),
+    };
+
+    let aberto=false, digitando=false;
+    function toggleChatbot() {
+      aberto=!aberto;
+      document.getElementById('chatbotBtn').classList.toggle('active', aberto);
+      document.getElementById('chatbotWindow').classList.toggle('active', aberto);
+      document.body.classList.toggle('chat-open', aberto);
+      if(aberto && !document.getElementById('chatbotMessages').children.length) setTimeout(()=>mostrarBemVindo(),300);
+    }
+     function mostrarBemVindo() {
+      document.getElementById('chatbotMessages').innerHTML = '';
+      mostrarSequencia([
+        'Olá! 👋 Sou o assistente virtual da **Agência Nexus**!',
+        'Pode me perguntar qualquer coisa — vagas, processo seletivo, dicas, contato... Estou aqui pra ajudar! 😊'
+      ], ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato'], 0);
+    }
+    
+    function mostrarSequencia(textos,chips,index) {
+      if(index>=textos.length){adicionarChips(chips);return;}
+      mostrarTyping(()=>{ adicionarBubbleBot(markdownParaHTML(textos[index])); setTimeout(()=>mostrarSequencia(textos,chips,index+1),400); }, index===0?800:600);
+    }
+    function enviarMensagem() {
+      const input=document.getElementById('chatbotInput'); const texto=input.value.trim();
+      if(!texto||digitando) return; input.value=''; adicionarBubbleUser(texto);
+      if(modoIA){ responderComIA(texto); } else { setTimeout(()=>processarTexto(texto), 300); }
+    }
+    function processarTexto(texto) {
+      const lower = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      let melhorCategoria = null, melhorPontuacao = 0;
+      for (const [cat, dados] of Object.entries(KB)) {
+        if (cat === 'fallback' || !dados.gatilhos) continue;
+        let pts = 0;
+        for (const g of dados.gatilhos) {
+          const gn = g.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+          if (lower.includes(gn)) pts += gn.split(' ').length;
+        }
+        if (pts > melhorPontuacao) { melhorPontuacao = pts; melhorCategoria = cat; }
+      }
+      const dados = melhorPontuacao > 0 ? KB[melhorCategoria] : KB.fallback;
+      const resposta = dados.respostas[Math.floor(Math.random() * dados.respostas.length)];
+      mostrarTyping(() => {
+        adicionarBubbleBot(markdownParaHTML(resposta));
+        setTimeout(() => adicionarChips(dados.chips || KB.fallback.chips), 300);
+      }, 800);
+    }
+    function mostrarTyping(cb,delay) {
+      digitando=true; const msgs=document.getElementById('chatbotMessages');
+      const el=document.createElement('div'); el.className='message bot'; el.id='typing-indicator';
+      el.innerHTML='<div class="message-content"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+      msgs.appendChild(el); msgs.scrollTop=msgs.scrollHeight;
+      setTimeout(()=>{ document.getElementById('typing-indicator')?.remove(); digitando=false; cb(); },delay);
+    }
+    function adicionarChips(chips) { const msgs=document.getElementById('chatbotMessages'); const div=document.createElement('div'); div.innerHTML='<div class="chip-row">'+chips.map(c=>`<button class="chip" onclick="clicarChip('${c.replace(/'/g,"\\'")}'">${c}</button>`).join('')+'</div>'; msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight; }
+    function clicarChip(chip) { adicionarBubbleUser(chip); const a=CHIP_ACOES[chip]; if(a){setTimeout(a,200);}else{setTimeout(()=>processarTexto(chip),300);} }
+    function adicionarBubbleBot(html) { const msgs=document.getElementById('chatbotMessages'); const div=document.createElement('div'); div.className='message bot'; div.innerHTML=`<div class="message-content">${html}</div>`; msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight; }
+    function adicionarBubbleUser(texto) { const msgs=document.getElementById('chatbotMessages'); const div=document.createElement('div'); div.className='message user'; div.innerHTML=`<div class="message-content">${escapeHtml(texto)}</div>`; msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight; }
+    function markdownParaHTML(texto) {
+      function processarInline(str) {
+        return str
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#38bdf8;text-decoration:underline;">$1</a>');
+      }
+      const linhas=texto.split('\n'); const blocos=[]; let lista=[];
+      function fechar(){ if(lista.length){blocos.push('<ul>'+lista.map(i=>`<li>${i}</li>`).join('')+'</ul>');lista=[];} }
+      for(let l of linhas){ l=l.trim(); if(/^[-\*] (.+)/.test(l)){lista.push(processarInline(l.replace(/^[-\*] /,'')));continue;} fechar(); if(!l)continue; blocos.push(`<p>${processarInline(l)}</p>`); } fechar(); return blocos.join('');
+    }
+    function escapeHtml(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // ============= MODO IA (Llama via Edge Function Supabase) =============
+    let modoIA = false;
+    const EDGE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co/functions/v1/chatbot-groq';
+
+    function toggleModoIA() {
+      modoIA = !modoIA;
+      const wrap = document.getElementById('aiToggleWrap');
+      const statusText = document.getElementById('chatbotStatusText');
+      wrap.classList.toggle('ai-on', modoIA);
+      if (modoIA) {
+        statusText.textContent = '🤖 Modo IA ativo (Llama)';
+        adicionarBubbleBot(markdownParaHTML('🤖 **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
+      } else {
+        statusText.textContent = '● Assistente virtual';
+        adicionarBubbleBot(markdownParaHTML('💬 Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
+        setTimeout(() => adicionarChips(['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']), 300);
+      }
+    }
+
+    async function responderComIA(texto) {
+      mostrarTyping(async () => {
+        try {
+          const resp = await fetch(EDGE_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4'
+            },
+            body: JSON.stringify({ mensagem: texto })
+          });
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.erro || `Erro ${resp.status}`);
+          }
+          const data = await resp.json();
+          const resposta = data.resposta || 'Não consegui gerar uma resposta.';
+          adicionarBubbleBot(markdownParaHTML(resposta));
+          setTimeout(() => adicionarChips(['💬 Continuar','📞 Falar com humano','↩️ Voltar ao início']), 300);
+        } catch (e) {
+          adicionarBubbleBot(markdownParaHTML(`❌ **Erro na IA:** ${e.message}\n\nTente novamente em instantes.`));
+        }
+      }, 1000);
+    }
+    // FIM CHATBOT INTELIGENTE
+
+    document.getElementById('chatbotWindow').addEventListener('click', e=>e.stopPropagation());
+    document.addEventListener('click', e=>{
+      const cw=document.getElementById('chatbotWindow'); const cb=document.getElementById('chatbotBtn');
+      if(cw.classList.contains('active')&&!cw.contains(e.target)&&!cb.contains(e.target)) toggleChatbot();
+    });
+      document.addEventListener('click', e=>{
+      const m=document.getElementById('menuContent'); const mo=document.getElementById('menuOverlay'); const mt=document.querySelector('.menu-toggle');
+      if(m.classList.contains('active')&&!m.contains(e.target)&&!mo.contains(e.target)&&!mt.contains(e.target)) closeMenu();
+    });
+  </script>
+</body>
+</html>

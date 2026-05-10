@@ -1,0 +1,3688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+    <script>
+    if (localStorage.getItem('theme') !== 'light') {
+      document.documentElement.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('dark-mode');
+      });
+    }
+    document.documentElement.style.transition = 'none';
+    window.addEventListener('load', () => {
+      document.documentElement.style.transition = '';
+    });
+  </script>
+  
+  <!-- Meta Tags Essenciais -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <!-- Título e Descrição -->
+  <title>Serviços | Agência Nexus – Soluções em Recrutamento</title>
+  <meta name="description" content="Conheça os serviços da Agência Nexus em recrutamento e seleção: testes comportamentais, análise de perfil, consultoria personalizada e soluções completas para conectar profissionais e empresas." />
+  <meta name="keywords" content="serviços, recrutamento, seleção, consultoria RH, testes comportamentais, análise de perfil, consultoria personalizada, soluções profissionais" />
+
+  <!-- Meta Tags de Rastreamento -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Agência Nexus" />
+  <meta name="publisher" content="Agência Nexus" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="language" content="Portuguese" />
+
+  <!-- Open Graph (Redes Sociais) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Serviços | Agência Nexus" />
+  <meta property="og:description" content="Soluções completas em recrutamento e seleção de profissionais, incluindo testes comportamentais e análise de perfil." />
+  <meta property="og:url" content="https://agencianexus.github.io/agencianexus/servicos.html" />
+  <meta property="og:image" content="https://agencianexus.github.io/agencianexus/og-image-servicos.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Agência Nexus" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Serviços | Agência Nexus" />
+  <meta name="twitter:description" content="Descubra os serviços da Agência Nexus: recrutamento, seleção, testes comportamentais e consultoria personalizada para empresas e profissionais." />
+  <meta name="twitter:image" content="https://agencianexus.github.io/agencianexus/og-image-servicos.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://agencianexus.github.io/agencianexus/servicos.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png" />
+  <link rel="shortcut icon" href="icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="icone.png" />
+</head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+html.dark-mode body {
+  background: #0a0a0a !important;
+  color: #f0f0f0 !important;
+}
+    
+/* ======================================== */
+/* BOTOES DO TOPO - MODO PADRÃO (ESCURO) */
+/* ======================================== */
+.back-button,
+.menu-toggle,
+.theme-toggle {
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover,
+.menu-toggle:hover,
+.theme-toggle:hover {
+  background: rgba(79, 114, 20, 0.4);
+  transform: scale(1.05);
+}
+
+/* ======================================== */
+/* BOTOES DO TOPO - MODO CLARO */
+/* ======================================== */
+body:not(.dark-mode) .back-button,
+body:not(.dark-mode) .menu-toggle,
+body:not(.dark-mode) .theme-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  color: rgb(27, 27, 27);
+}
+
+body:not(.dark-mode) .back-button:hover,
+body:not(.dark-mode) .menu-toggle:hover,
+body:not(.dark-mode) .theme-toggle:hover {
+  color: white;
+}
+
+/* confg bulets chatbot*/
+.chatbot-messages ul,
+.chatbot-messages ol {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.chatbot-messages li {
+  margin-bottom: 0.4rem;
+  line-height: 1.5;
+}
+
+body.dark-mode .chatbot-messages ul,
+body.dark-mode .chatbot-messages ol {
+  color: #f0f0f0;
+}
+
+    :root {
+      --primary: #3b82f6;
+      --accent: #60a5fa;
+      --bg-light: #ffffff;
+      --text-light: #1a1a1a;
+      --bg-dark: #0a0a0a;
+      --text-dark: #f0f0f0;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.chat-open .theme-toggle,
+    body.chat-open .back-button,
+    body.chat-open .menu-toggle {
+      display: none !important;
+    }
+
+    body.menu-open .back-button,
+    body.menu-open .menu-toggle,
+    body.menu-open .theme-toggle {
+      display: none !important;
+          pointer-events: none !important;
+
+    }
+
+    body.scrolling .theme-toggle,
+    body.scrolling .back-button,
+    body.scrolling .menu-toggle {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 95;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .menu-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .header {
+      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        min-height: 290px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        min-height: 250px;
+      }
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: pulse 15s ease-in-out infinite;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    body.dark-mode .btn-secondary {
+      color: #ffffff;
+      border-color: #ffffff;
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    body.dark-mode .btn-secondary:hover {
+      background: #ffffff;
+      color: var(--primary);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+    body.dark-mode .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(79, 114, 20, 0.3);
+    }
+
+    body.dark-mode .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(144, 238, 144, 0.4);
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      display: inline-block;
+      text-decoration: none;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      height: 50px;
+      justify-content: center;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(-5px);
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 2rem;
+      left: calc(2rem + 105px);
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .menu-content {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 300px;
+      height: 100vh;
+      background: var(--bg-light);
+      backdrop-filter: blur(20px);
+      padding: 1.6rem 1.4rem 1.2rem;
+      transition: left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      z-index: 97;
+    }
+
+    body.dark-mode .menu-content {
+      background: var(--bg-dark);
+    }
+
+    .menu-content.active {
+      left: 0;
+    }
+
+    .menu-section {
+      margin-bottom: 1.1rem;
+    }
+
+    .menu-section h3 {
+      color: var(--accent);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+    }
+
+    .menu-link {
+      display: block;
+      padding: 0.6rem 0.8rem;
+      color: var(--text-light);
+      text-decoration: none;
+      border-radius: 7px;
+      margin-bottom: 0.28rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    body.dark-mode .menu-link {
+      color: var(--text-dark);
+    }
+
+    .menu-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateX(8px);
+    }
+
+    .menu-link.active-page {
+      background: rgba(79, 114, 20, 0.12);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    body.dark-mode .menu-link.active-page {
+      color: #38bdf8;
+      background: rgba(79, 114, 20, 0.2);
+    }
+
+    .content-section {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .content-container {
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1s ease-out 0.5s both;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      line-height: 1.8;
+    }
+
+    body.dark-mode .content-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .content-container h2 {
+      color: var(--primary);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .content-container h2:first-child {
+      margin-top: 0;
+    }
+
+    .content-container h2::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .content-container h3 {
+      color: var(--accent);
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    .content-container p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      
+      
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      word-spacing: -0.03em;
+      overflow-wrap: break-word;
+    }
+
+    body.dark-mode .content-container p {
+      color: var(--text-dark);
+    }
+
+    .highlight-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-list li {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .highlight-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.1), rgba(100, 124, 1, 0.05));
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+    }
+
+    body.dark-mode .highlight-box {
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.15), rgba(100, 124, 1, 0.1));
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .value-card {
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.05), rgba(100, 124, 1, 0.05));
+      border: 2px solid rgba(79, 114, 20, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .value-card {
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.1), rgba(100, 124, 1, 0.1));
+      border-color: rgba(79, 114, 20, 0.3);
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(79, 114, 20, 0.15);
+    }
+
+    .value-card h4 {
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .value-card p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 0;
+    }
+
+    .chatbot-button {
+      position: fixed;
+      bottom: 2rem;
+      right: 1rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 20px rgba(79, 114, 20, 0.4);
+      transition: all 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+      z-index: 100;
+    }
+
+    .chatbot-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(79, 114, 20, 0.6);
+    }
+
+    .chatbot-button.active {
+      animation: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .chatbot-window {
+      display: none;
+      position: fixed;
+      bottom: 2.0rem;
+      right: 1rem;
+      width: 380px;
+      height: 550px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+      flex-direction: column;
+      z-index: 99;
+    }
+
+    #chatbotBtn.active {
+      display: none;
+    }
+
+    body.dark-mode .chatbot-window {
+      bottom: 1.5rem;
+      background: #1e1e1e;
+    }
+
+    .chatbot-window.active {
+      display: flex;
+    }
+
+    .chatbot-header {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 1rem;
+      border-radius: 15px 15px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbot-header h3 {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .chatbot-header p {
+      margin: 0.3rem 0 0 0;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .ai-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px 4px 6px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: all 0.25s;
+      user-select: none;
+    }
+    .ai-toggle-wrap:hover { background: rgba(255,255,255,0.25); }
+    .ai-toggle-wrap.ai-on {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.6);
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+    .ai-toggle-switch {
+      position: relative;
+      width: 30px;
+      height: 16px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      transition: background 0.25s;
+      flex-shrink: 0;
+    }
+    .ai-toggle-wrap.ai-on .ai-toggle-switch { background: rgba(255,255,255,0.5); }
+    .ai-toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 12px; height: 12px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .ai-toggle-wrap.ai-on .ai-toggle-switch::after { transform: translateX(14px); }
+    .ai-toggle-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .ai-mode-badge {
+      display: none;
+      font-size: 0.65rem;
+      background: rgba(255,255,255,0.25);
+      color: white;
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      animation: pulseBadge 2s infinite;
+    }
+    .ai-on .ai-mode-badge { display: inline-block; }
+    @keyframes pulseBadge {
+      0%,100% { opacity:1; } 50% { opacity:0.6; }
+    }
+
+    .close-chatbot {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .close-chatbot:hover {
+      transform: rotate(90deg);
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      scroll-behavior: smooth;
+    }
+
+    body.dark-mode .chatbot-messages {
+      background: #0a0a0a;
+    }
+
+    .message {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+      word-wrap: break-word;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.bot {
+      justify-content: flex-start;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message-content {
+      max-width: 75%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .message.bot .message-content {
+      background: white;
+      color: #333;
+      border: 1px solid #e0e0e0;
+    }
+
+    body.dark-mode .message.bot .message-content {
+      background: #2a2a2a;
+      color: #f0f0f0;
+      border: 1px solid #444;
+    }
+
+    .message.user .message-content {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+    .quick-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      width: 100%;
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
+      box-sizing: border-box;
+    }
+
+    .quick-btn {
+      background: white;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      text-align: left;
+      word-wrap: break-word;
+      white-space: normal;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    body.dark-mode .quick-btn {
+      background: #2a2a2a;
+      border-color: var(--primary);
+    }
+
+    .quick-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .chatbot-input-area {
+      padding: 1rem;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    body.dark-mode .chatbot-input-area {
+      border-top: 1px solid #444;
+    }
+
+    .chatbot-input {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+    }
+
+    body.dark-mode .chatbot-input {
+      background: #2a2a2a;
+      border-color: #444;
+      color: #f0f0f0;
+    }
+
+    .chatbot-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .chatbot-send-btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: transform 0.2s;
+    }
+
+    .chatbot-send-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+     .header-bg-img {
+        position: absolute;
+        left: -5.5%;
+        top: 77%;
+        transform: translateY(-50%);
+        width: 250px;
+        height: 250px;
+        z-index: 0;
+        opacity: 0.9;
+      }
+
+    @media (min-width: 1024px) {
+      .header { min-height: 220px; }
+      .header-bg-img {
+        position: absolute;
+        left: -5.5%;
+        top: 77%;
+        transform: translateY(-50%);
+        width: 250px;
+        height: 250px;
+        z-index: 0;
+        opacity: 0.9;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+      }
+    }
+    @media (max-width: 768px) {
+      .header { min-height: 290px; }
+         .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+      }
+    }
+    @media (max-width: 480px) {
+      .header { min-height: 250px; }
+      .header-bg-img {
+        position: absolute;
+        left: 50%;
+        top: -100%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: auto;
+        z-index: 0;
+        opacity: 0.9;
+      }
+      .header-content {
+        position: relative;
+        z-index: 1;
+        margin-top: 125px;
+        text-align: center;
+      }
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      justify-items: center;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.05), rgba(100, 124, 1, 0.05));
+      border: 2px solid rgba(79, 114, 20, 0.2);
+      border-radius: 15px;
+      padding: 2rem 1rem;
+      width: 100%;
+      max-width: 250px;
+      height: 180px;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(79, 114, 20, 0.2);
+    }
+
+    .stat-card h3 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-weight: 800;
+      transition: color 0.3s ease;
+    }
+
+    .stat-card p {
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+
+    body.dark-mode .stat-card {
+      background: rgba(79, 114, 20, 0.1);
+      border-color: rgba(79, 114, 20, 0.3);
+    }
+
+    body.dark-mode .stat-card p {
+      color: var(--text-dark);
+    }
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.8rem; /* menos espaço entre os cards */
+  }
+
+  .stat-card {
+    max-width: 120px;     /* cards menores */
+    padding: 0.8rem 0.6rem;
+    height: auto;         /* altura automática */
+  }
+
+  .stat-card h3 {
+    font-size: 1.2rem;    /* número menor */
+  }
+
+  .stat-card p {
+    font-size: 0.75rem;   /* texto menor */
+  }
+}
+
+    /* PROPOSAL BOX */
+    .mission-section {
+      background: transparent;
+      padding: 1.5rem 0 0;
+      text-align: center;
+    }
+
+    .mission-text {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 3rem;
+      color: var(--text-light);
+    }
+
+    .proposal-box {
+      background: rgba(59,130,246,0.06);
+      border: 1.5px solid rgba(59,130,246,0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: 0 10px 25px rgba(59,130,246,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+    }
+    body.dark-mode .proposal-box {
+      background: rgba(59,130,246,0.12);
+      border-color: rgba(59,130,246,0.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .proposal-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(59,130,246,0.25);
+    }
+
+    .proposal-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-light);
+    }
+    body.dark-mode .proposal-box h3 { color: var(--text-dark); }
+
+    .proposal-box p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+      opacity: 0.75;
+    }
+    body.dark-mode .proposal-box p { color: var(--text-dark); }
+
+    .download-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #1e40af, #1e40af);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(135deg, #1e40af, #1e40af);
+      transform: scale(1.05);
+    }
+
+    /* ── DOWNLOAD CARDS ── */
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 768px) { .download-grid { grid-template-columns: 1fr; } }
+
+    .download-card {
+      position: relative;
+      border-radius: 18px;
+      padding: 2rem 1.5rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.35s cubic-bezier(.175,.885,.32,1.275), box-shadow 0.35s ease;
+      overflow: hidden;
+    }
+    .download-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0); transition: background 0.2s ease; pointer-events: none;
+    }
+    .download-card:hover { transform: translateY(-8px); }
+    .download-card:hover::after { background: rgba(255,255,255,0.07); }
+
+    .download-card.card-proposta { background: linear-gradient(135deg, #2d6a4f, #40916c); box-shadow: 0 8px 32px rgba(45,106,79,0.35); }
+    .download-card.card-proposta:hover { box-shadow: 0 18px 50px rgba(45,106,79,0.45); }
+    .download-card.card-word     { background: linear-gradient(135deg, #1a56a0, #2878d0); box-shadow: 0 8px 32px rgba(26,86,160,0.35); }
+    .download-card.card-word:hover     { box-shadow: 0 18px 50px rgba(26,86,160,0.45); }
+    .download-card.card-excel    { background: linear-gradient(135deg, #1d6b28, #2ea04b); box-shadow: 0 8px 32px rgba(29,107,40,0.35); }
+    .download-card.card-excel:hover    { box-shadow: 0 18px 50px rgba(29,107,40,0.45); }
+
+    .dl-icon {
+      width: 72px; height: 72px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem; flex-shrink: 0;
+      overflow: hidden;
+      padding: 10px;
+    }
+    .dl-icon-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .download-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; color: white; hyphens: none; -webkit-hyphens: none; }
+    .download-card .dl-desc {
+      font-size: 0.85rem; opacity: 0.85; line-height: 1.4;
+      color: rgba(255,255,255,0.9); flex: 1; margin-bottom: 0;
+      hyphens: none; -webkit-hyphens: none; word-break: normal;
+    }
+    .dl-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.2); color: white;
+      border: 2px solid rgba(255,255,255,0.5);
+      padding: 0.6rem 1.4rem; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      position: relative; z-index: 1;
+      margin-top: 1.5rem; flex-shrink: 0; white-space: nowrap;
+    }
+    .dl-cta:hover { background: rgba(255,255,255,0.32); border-color: rgba(255,255,255,0.8); }
+    .dl-badge {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.2); color: white;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 0.25rem 0.7rem; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .header p {
+        font-size: 1rem;
+      }
+
+      .menu-toggle {
+        position: fixed;
+        top: 2rem;
+        left: calc(2rem + 90px);
+      }
+
+      .chatbot-window {
+        width: 90vw;
+        height: 60vh;
+        bottom: 2rem;
+        right: 0.5rem;
+      }
+
+      .content-container {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+
+      .back-button {
+        margin-right: 0.3rem;
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .menu-toggle {
+        position: fixed;
+        top: 2rem;
+        left: calc(2rem + 85px);
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        min-width: auto;
+        height: 50px;
+      }
+
+      .theme-toggle {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        min-width: 45px;
+      }
+
+      .chatbot-button {
+        bottom: 2rem;
+        right: 1rem;
+      }
+
+      .chatbot-window {
+        bottom: 2rem;
+        right: 0.5rem;
+        left: 0.5rem;
+        width: calc(100% - 1rem);
+        height: 70vh;
+        max-height: 70vh;
+      }
+
+      .btn {
+        width: 100%;
+        margin-right: 0;
+        padding: 0.9rem 1.5rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .mission-text {
+        font-size: 1.4rem;
+      }
+
+      .proposal-box {
+        padding: 1.5rem;
+      }
+
+      .download-btn {
+        padding: 0.65rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+        .message-content p { margin: 0 0 0.55rem 0; line-height: 1.55; }
+.message-content p:last-child { margin-bottom: 0; }
+.message-content strong { font-weight: 700; }
+.message-content ul { padding-left: 1.2rem; margin: 0.3rem 0 0.6rem; }
+.message-content li { margin-bottom: 0.25rem; line-height: 1.5; }
+.typing-dots { display: flex; gap: 4px; align-items: center; padding: 2px 0; }
+.typing-dots span { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: dotBounce 1.2s infinite; }
+.typing-dots span:nth-child(2) { animation-delay: .2s; }
+.typing-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes dotBounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-5px);opacity:1} }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; padding-left: 4px; }
+.chip { background: white; border: 1.5px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; white-space: nowrap; }
+body.dark-mode .chip { background: #2a2a2a; }
+.chip:hover { background: var(--primary); color: white; transform: translateY(-1px); }
+
+    .scroll-top-btn {
+      position: fixed;
+      bottom: calc(2rem + 60px + 1.4rem);
+      right: 1.15rem;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      border: none;
+      color: rgba(59,130,246,0.45);
+      font-size: 0.55rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: none;
+      z-index: 99;
+      opacity: 0; pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+    body.dark-mode .scroll-top-btn {
+      background: rgba(30,30,30,0.45);
+      color: rgba(100,180,0,0.4);
+    }
+    .scroll-top-btn.visible {
+      opacity: 1; pointer-events: auto; transform: translateY(0);
+    }
+    .scroll-top-btn:hover {
+      background: rgba(59,130,246,0.15);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+  
+    /* ══ FOOTER PROFISSIONAL ══ */
+    footer {
+      --ft-bg:            #f2f5ee;
+      --ft-border:        rgba(79, 114, 20, 0.18);
+      --ft-text:          #1a1a1a;
+      --ft-muted:         rgba(0, 0, 0, 0.45);
+      --ft-social-bg:     rgba(0, 0, 0, 0.06);
+      --ft-social-border: rgba(0, 0, 0, 0.11);
+      --ft-link-color:    rgba(0, 0, 0, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.05);
+      --ft-bottom-border: rgba(0, 0, 0, 0.09);
+      --ft-copy:          rgba(0, 0, 0, 0.38);
+      --ft-copy-strong:   rgba(0, 0, 0, 0.58);
+      --ft-badge:         rgba(0, 0, 0, 0.3);
+      --ft-accent:        #1e40af;
+      --ft-title:         #1e40af;
+
+      background: var(--ft-bg);
+      color: var(--ft-text);
+      padding: 0;
+      border-top: 1px solid var(--ft-border);
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-mode footer {
+      --ft-bg:            #0d0d0d;
+      --ft-border:        rgba(141, 198, 63, 0.15);
+      --ft-text:          #e0e0e0;
+      --ft-muted:         rgba(255, 255, 255, 0.45);
+      --ft-social-bg:     rgba(255, 255, 255, 0.06);
+      --ft-social-border: rgba(255, 255, 255, 0.09);
+      --ft-link-color:    rgba(255, 255, 255, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.25);
+      --ft-bottom-border: rgba(255, 255, 255, 0.07);
+      --ft-copy:          rgba(255, 255, 255, 0.3);
+      --ft-copy-strong:   rgba(255, 255, 255, 0.5);
+      --ft-badge:         rgba(255, 255, 255, 0.25);
+      --ft-accent:        #38bdf8;
+      --ft-title:         #38bdf8;
+    }
+
+    .footer-top {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 560px) {
+      .footer-top { grid-template-columns: 1fr; gap: 1.6rem; padding: 2rem 1.2rem 1.5rem; }
+    }
+
+    .footer-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.9rem;
+    }
+    .footer-brand-logo img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .footer-brand-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ft-text);
+      letter-spacing: -0.3px;
+    }
+    .footer-brand-name span { color: var(--ft-accent); }
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--ft-muted);
+      line-height: 1.6;
+      max-width: 280px;
+      margin-bottom: 1.4rem;
+    }
+
+    /* Redes sociais */
+    .footer-social {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .footer-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--ft-social-bg);
+      border: 1px solid var(--ft-social-border);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: var(--ft-muted);
+    }
+    .footer-social-link:hover {
+      background: rgba(56,189,248,0.12);
+      border-color: rgba(56,189,248,0.35);
+      color: var(--ft-accent);
+      transform: translateY(-2px);
+    }
+    .footer-social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Colunas de links */
+    .footer-col-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ft-title);
+      margin-bottom: 1rem;
+    }
+    .footer-col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .footer-col-links a {
+      text-decoration: none;
+      color: var(--ft-link-color);
+      font-size: 0.83rem;
+      transition: color 0.18s;
+    }
+    .footer-col-links a:hover { color: var(--ft-accent); }
+
+    /* Contato */
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--ft-link-color);
+      margin-bottom: 0.55rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .footer-contact-item:hover { color: var(--ft-accent); }
+    .footer-contact-item svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--ft-accent);
+      flex-shrink: 0;
+    }
+
+    /* Linha inferior */
+    .footer-bottom {
+      border-top: 1px solid var(--ft-bottom-border);
+      background: var(--ft-bottom-bg, transparent);
+      padding: 1.1rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 560px) {
+      .footer-bottom { flex-direction: column; text-align: center; padding: 1rem 1.2rem; }
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--ft-copy);
+    }
+    .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
+    .footer-badge {
+      font-size: 0.68rem;
+      color: var(--ft-badge);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span id="themeIcon">🌙</span>
+  </button>
+
+  <a href="index.html" class="back-button">Voltar</a>
+
+  <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+  <div class="menu-content" id="menuContent">
+    <div class="menu-section">
+      <h3>Bem-Vindo</h3>
+      <a href="sobre.html" class="menu-link">Sobre</a>
+      <a href="missao.html" class="menu-link">Missão</a>
+      <a href="visao.html" class="menu-link">Visão</a>
+      <a href="valores.html" class="menu-link">Valores</a>
+    </div>
+    <div class="menu-section">
+      <h3>Carreira</h3>
+      <a href="candidato.html" class="menu-link">Candidatos</a>
+      <a href="tutorial.html" class="menu-link">Vídeos</a>
+      <a href="vagas.html" class="menu-link">Vagas</a>
+      <a href="ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
+      <a href="utilidades.html" class="menu-link">Utilidades</a>
+    </div>
+    <div class="menu-section">
+      <h3>Atendimento</h3>
+      <a href="servicos.html" class="menu-link active-page">Serviços</a>
+      <a href="contato.html" class="menu-link">Contato</a>
+    </div>
+    <div class="menu-section">
+      <h3>ℹInformações</h3>
+      <a href="lgbt.html" class="menu-link">LGBT+</a>
+      <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
+      <a href="indexcookies.html" class="menu-link">Cookies</a>
+    </div>
+  </div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+        <img src="fundo.png" alt="Nossos Serviços" class="header-bg-img">
+        <div>
+          <h1 style="margin: 0 0 0.5rem 0;">Nossos Serviços</h1>
+          <p>Soluções completas e estratégicas em recrutamento, seleção e consultoria de RH</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="content-section">
+    <div class="content-container">
+      <h2 style="text-align:center; margin-bottom:2rem;">Nossos Resultados no RS</h2>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3><span class="counter" data-target="500">0</span>+</h3>
+          <p>Profissionais</p>
+        </div>
+        <div class="stat-card">
+          <h3><span class="counter" data-target="90">0</span>+</h3>
+          <p>Empresas</p>
+        </div>
+        <div class="stat-card">
+          <h3><span class="counter" data-target="300">0</span>+</h3>
+          <p>Estagiários</p>
+        </div>
+        <div class="stat-card">
+          <h3><span class="counter" data-target="200">0</span>+</h3>
+          <p>CLTs</p>
+        </div>
+        <div class="stat-card">
+          <h3><span class="counter" data-target="1500">0</span>+</h3>
+          <p>Seletivas</p>
+        </div>
+        <div class="stat-card">
+          <h3>95%</h3>
+          <p>Satisfação</p>
+        </div>
+      </div>
+
+      <!-- MAPA RS -->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+      <h2 style="text-align:center; margin-top:2.5rem; margin-bottom:1rem;">Cidades Atendidas</h2>
+      <div id="mapa-rs" style="width:100%; height:420px; border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.2);"></div>
+
+      <script>
+      (function() {
+        const cidades = [
+          { nome: 'Porto Alegre',    lat: -30.0346, lng: -51.2177, vagas: 1, },
+          { nome: 'Guaíba',          lat: -30.1131, lng: -51.3247, vagas: 13, },
+          { nome: 'Eldorado do Sul', lat: -30.0844, lng: -51.5578, vagas: 2,   },
+        ];
+
+        function initMap() {
+          const map = L.map('mapa-rs', {
+            center: [-30.08, -51.35],
+            zoom: 10,
+            scrollWheelZoom: false,
+            zoomControl: true
+          });
+
+          L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap © CARTO',
+            maxZoom: 14
+          }).addTo(map);
+
+          cidades.forEach(c => {
+            const size = c.vagas > 20 ? 52 : c.vagas > 10 ? 44 : 38;
+            const icon = L.divIcon({
+              className: '',
+              html: `<div style="width:${size}px;height:${size}px;background:#1e40af;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,0.35);cursor:pointer;">${c.vagas}</div>`,
+              iconSize: [size, size],
+              iconAnchor: [size/2, size/2],
+              popupAnchor: [0, -(size/2 + 6)]
+            });
+
+            L.marker([c.lat, c.lng], { icon })
+              .addTo(map)
+              .bindPopup(`
+                <div style="text-align:center;padding:4px 8px;">
+                  <strong style="color:#1e40af;font-size:1rem;">📍 ${c.nome}</strong><br>
+                  <span style="font-size:0.82rem;">🔍 <b>${c.vagas}</b> vagas abertas</span><br>
+                </div>
+              `, { maxWidth: 200 });
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initMap);
+        } else {
+          initMap();
+        }
+      })();
+      </script>
+      <!-- FIM MAPA -->
+
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-container">
+      <h2>Somos Especialistas em Recrutamento</h2>
+      <p>
+        A Agência Nexus é uma agência de RH de que combina tecnologia, criatividade e expertise humana para conectar as melhores empresas com os profissionais ideais. Atuamos em todo o processo seletivo, desde a identificação de necessidades até a integração do novo colaborador, com abordagens personalizadas para cada tipo de contratação.
+      </p>
+
+      <div class="highlight-box">
+        <strong>💼 Nossa Força:</strong> Combinamos análise de dados, inteligência artificial, busca ativa e conhecimento profundo de mercado para entregar resultados excepcionais em todas as nossas operações.
+      </div>
+
+      <h2>Tipos de Contratação</h2>
+      <p>
+        Trabalhamos com diversos formatos de contratação, adequando nossa estratégia a cada necessidade:
+      </p>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <h4><img src="10207manstudentlightskintone_110568.png" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:6px;"> Estágio</h4>
+          <p>Identificamos talentos em formação com potencial de crescimento.</p>
+        </div>
+        <div class="value-card">
+          <h4><img src="avatar_construction_worker_job_man_person_icon_221367.png" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:6px;"> CLT - Efetivo</h4>
+          <p>Recrutamento estratégico para posições permanentes, com análise profunda de compatibilidade, nível cultural e competências técnicas e comportamentais, com aplicação de testes</p>
+        </div>
+        <div class="value-card">
+          <h4><img src="man_person_people_avatar_icon_230017.png" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:6px;"> Aprendiz</h4>
+          <p>Seleção de aprendizes profissionais com foco em desenvolvimento integral, atendendo às exigências legais e criando oportunidades reais.</p>
+        </div>
+        <div class="value-card">
+          <h4><img src="10302manofficeworker_110645.png" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:6px;"> PJ - Pessoa Jurídica</h4>
+          <p>Captação de profissionais autônomos e MEIs para projetos específicos, com avaliação rigorosa de credibilidade e capacidade técnica.</p>
+        </div>
+      </div>
+
+      <h2>Multi-Canal com Alcance de 1.6M de Pessoas</h2>
+      <p>
+        Utilizamos uma abordagem omnichannel inteligente que combina o poder das redes sociais, sistemas de IA e publicidade segmentada para alcançar os melhores candidatos. Nossa estratégia de divulgação é baseada em nichos específicos, garantindo que cada vaga chegue ao público-alvo certo.
+      </p>
+
+      <div class="highlight-box">
+        <strong>📱 Nossos Canais Principais:</strong>
+        <ul style="margin-top: 1rem; list-style: none; padding-left: 0;">
+          <li><strong>Facebook:</strong> Alcance massivo na rede do mais populosa do mundo</li>
+          <li><strong>Instagram:</strong> Conteúdo visual e stories para atração de talentos mais jovens</li>
+          <li><strong>LinkedIn:</strong> Busca de profissionais experientes e networking</li>
+          <li><strong>Sistemas de IA:</strong> Análise preditiva e matching automático de perfis</li>
+          <li><strong>Busca Ativa:</strong> Prospecção direta de talentos em bases de dados especializadas</li>
+        </ul>
+      </div>
+
+      <p>
+        Com um alcance combinado de <strong>1.6 milhão de pessoas</strong> em nossa rede, conseguimos atingir diferentes nichos de mercado: tecnologia, saúde, comércio, manufatura, serviços, administração e muito mais. Cada campanha é customizada para o tipo de profissional que você procura.
+      </p>
+
+      <h2>Serviços da Nexus</h2>
+      <p>
+        Nossa gama completa de serviços cobre toda a jornada de recrutamento e desenvolvimento de pessoas:
+      </p>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <h4><img src="iconfinder-documents07-1622836_121949.png" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:6px;"> Processo Seletivo Completo</h4>
+          <p>Da divulgação estratégica à entrevista final, com triagem de currículo, testes técnicos e comportamentais, construção de pareceres.</p>
+        </div>
+        <div class="value-card">
+          <h4><img src="application_smartphone_platform_mobile_icon_142269.png" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:6px;"> Segmentação por Nicho</h4>
+          <p>Campanhas personalizadas para cada setor: Tech, Saúde, Varejo, Manufatura, Serviços, etc.</p>
+        </div>
+        <div class="value-card">
+          <h4><img src="robot_icon-icons.com_60269.png" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:6px;"> IA e Sistema ATS</h4>
+          <p>Plataforma de IA que analisa automaticamente candidatos, identifica melhores matches e agiliza o processo.</p>
+        </div>
+        <div class="value-card">
+          <h4><img src="icons8-candidatos-64.png" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:6px;"> Busca Ativa de Candidatos</h4>
+          <p>Prospecção estratégica de profissionais no mercado, mesmo aqueles não em busca ativa.</p>
+        </div>
+      </div>
+
+      <h2>Por Que Escolher a Nexus?</h2>
+      <p>
+        Em um mercado de recrutamento competitivo, o diferencial está na combinação de tecnologia, expertise e relacionamento. A Nexus oferece:
+      </p>
+
+      <ul class="highlight-list">
+        <li><strong>Tecnologia:</strong> Sistema ATS com inteligência artificial que acelera e qualifica o processo seletivo</li>
+        <li><strong>Alcance Exponencial:</strong> 1.6 milhões de pessoas em nossa rede através de múltiplos canais</li>
+        <li><strong>Estratégia Customizada:</strong> Cada vaga recebe uma abordagem única baseada no nicho e perfil desejado</li>
+        <li><strong>Análise Comportamental:</strong> Testes validados e entrevistas estruturadas para avaliar muito além do CV</li>
+      </ul>
+
+      <h2>Nossa Metodologia de Recrutamento</h2>
+      <p>
+        O sucesso está em combinar o melhor da tecnologia com o toque humano:
+      </p>
+
+      <ul class="highlight-list">
+        <li><strong>Análise Estratégica:</strong> Entendemos profundamente a necessidade da vaga e cultura da empresa</li>
+        <li><strong>Busca Multi-Canal:</strong> Utilizamos redes sociais, ATS, headhunting e bancos de talentos simultaneamente</li>
+        <li><strong>Triagem Inteligente:</strong> Realizamos a pré-análise de candidatos, reduzindo tempo e viés</li>
+        <li><strong>Testes Comportamentais:</strong> Avaliações validadas que predizem desempenho</li>
+        <li><strong>Entrevistas Estruturadas:</strong> Processo padronizado que garante consistência e qualidade</li>
+      </ul>
+
+      
+      <h2>Nossos Compromissos</h2>
+      <p>
+        Atuamos com rigor, ética e responsabilidade em todas as nossas operações:
+      </p>
+
+      <ul class="highlight-list">
+        <li><strong>LGPD:</strong> Conformidade total com Lei Geral de Proteção de Dados</li>
+        <li><strong>Leis Trabalhistas:</strong> Cumprimento de todas as legislações federais, estaduais e municipais</li>
+        <li><strong>Ética Profissional:</strong> Transparência, integridade e honestidade em todas as transações</li>
+        <li><strong>Diversidade e Inclusão:</strong> Política contra discriminação de qualquer tipo</li>
+        <li><strong>Confidencialidade:</strong> Proteção absoluta de dados e informações sensíveis</li>
+      </ul>
+
+      <div class="highlight-box">
+<strong>🚀 Visão Futura:</strong> Expandir gradualmente nossa atuação para novas regiões, aprimorar continuamente nossos sistemas, aprimorar uso de IA e fortalecer a Nexus como uma referência.</div>
+      
+    
+      <section class="mission-section">
+        <div class="mission-container">
+<h2 style="text-align:center; margin-bottom:0.5rem;">📥 Modelos para Download</h2>
+<p style="text-align:center; margin-bottom:0;">Baixe gratuitamente nossos modelos prontos para agilizar seu processo:</p>
+
+<div class="download-grid">
+
+<div class="download-card card-proposta">
+  <span class="dl-badge">PDF</span>
+
+  <div class="dl-icon">
+    <img src="pdf.png" alt="PDF" class="dl-icon-img">
+  </div>
+
+  <h3>Proposta Comercial</h3>
+  <p class="dl-desc">Confira todos os detalhes e oportunidades que a Agência Nexus preparou para a sua empresa.</p>
+
+  <a href="https://drive.google.com/uc?export=download&id=1I2VMbdldKLk_4jVh4CaqSU3ctXNEiztj"
+     target="_blank" rel="noopener noreferrer" class="dl-cta">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7,10 12,15 17,10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Baixar Modelo
+  </a>
+</div>
+
+<div class="download-card card-word">
+  <span class="dl-badge">Word</span>
+
+  <div class="dl-icon">
+    <img src="palavra.png" alt="Word" class="dl-icon-img">
+  </div>
+
+  <h3>Abertura de Vaga</h3>
+  <p class="dl-desc">Formulário em Word para abertura de novas vagas com todas as informações necessárias para o processo.</p>
+
+        <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/ABERTUDA%20DE%20VAGA.docx" download class="dl-cta">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7,10 12,15 17,10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Baixar Modelo
+  </a>
+</div>
+
+
+<div class="download-card card-excel">
+  <span class="dl-badge">Excel</span>
+
+  <div class="dl-icon">
+    <img src="xls.png" alt="Excel" class="dl-icon-img">
+  </div>
+
+  <h3>Abertura de Vaga</h3>
+  <p class="dl-desc">Planilha Excel para abertura de vagas.</p>
+
+        <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/FICHA%20DE%20ABERTURA%20DE%20VAGA.xlsx" download class="dl-cta">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7,10 12,15 17,10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Baixar Modelo
+  </a>
+</div>
+
+</div>
+
+        </div>
+      </section>
+
+      <div style="text-align: center; margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="index.html" class="btn btn-primary" style="text-align: center;">Voltar</a>
+        <a href="contato.html" class="btn btn-secondary" style="text-align: center;">Fale Conosco</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       FICHA DE ABERTURA DE VAGA
+  ══════════════════════════════════════════ -->
+  <section id="ficha-vaga" style="padding: 0 2rem 4rem; max-width: 1000px; margin: 0 auto;">
+
+    <style>
+      /* ── Ficha: variáveis locais ── */
+      #ficha-vaga {
+        --fv-gold:    #c9a84c;
+        --fv-gold2:   #e8c86b;
+        --fv-green:   #1e40af;
+        --fv-green2:  #38bdf8;
+        --fv-ink:     #0f1117;
+        --fv-ink3:    #5a5e72;
+        --fv-rule:    #d8dae8;
+        --fv-rule2:   #eceef7;
+        --fv-r:       12px;
+      }
+      body.dark-mode #ficha-vaga {
+        --fv-rule:  rgba(255,255,255,0.1);
+        --fv-rule2: rgba(255,255,255,0.06);
+        --fv-ink3:  #9ca3af;
+      }
+
+      /* ── Hero da ficha ── */
+      .fv-hero {
+        background: linear-gradient(135deg, #0f1117 0%, #1a1f0a 60%, #0f1117 100%);
+        border-radius: 20px;
+        padding: 2.8rem 2.8rem 2.4rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(56,189,248,0.15);
+      }
+      .fv-hero::before {
+        content: '';
+        position: absolute;
+        top: -80px; right: -80px;
+        width: 340px; height: 340px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .fv-hero::after {
+        content: '';
+        position: absolute;
+        bottom: -40px; left: -40px;
+        width: 220px; height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .fv-hero-eyebrow {
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 3px;
+        text-transform: uppercase; color: var(--fv-gold2);
+        margin-bottom: 0.55rem; opacity: 0.9;
+      }
+      .fv-hero-title {
+        font-size: 2.1rem; line-height: 1.15;
+        color: #fff; margin-bottom: 0.4rem;
+        font-weight: 800;
+      }
+      .fv-hero-title em { color: var(--fv-gold2); font-style: normal; }
+      .fv-hero-sub {
+        font-size: 0.88rem; color: rgba(255,255,255,0.5);
+        max-width: 500px; line-height: 1.6;
+      }
+      .fv-hero-meta {
+        display: flex; gap: 1rem; margin-top: 1.6rem; flex-wrap: wrap;
+      }
+      .fv-chip {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 99px; padding: 0.3rem 0.85rem;
+        font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.65);
+      }
+      .fv-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--fv-gold2); }
+
+      /* ── Progress bar ── */
+      .fv-progress {
+        display: flex; margin-bottom: 1.5rem;
+        border-radius: 10px; overflow: hidden;
+        border: 1px solid var(--fv-rule);
+        background: white;
+      }
+      body.dark-mode .fv-progress { background: #1a1a1a; }
+      .fv-step {
+        flex: 1; padding: 0.65rem 0.4rem;
+        display: flex; align-items: center; justify-content: center;
+        gap: 0.35rem; font-size: 0.7rem; font-weight: 600;
+        color: var(--fv-ink3); cursor: pointer;
+        border-right: 1px solid var(--fv-rule);
+        transition: all 0.2s; text-align: center;
+      }
+      .fv-step:last-child { border-right: none; }
+      .fv-step.active { background: #0f1117; color: #fff; }
+      .fv-step.done { background: rgba(56,189,248,0.1); color: var(--fv-green2); }
+      .fv-step .sn {
+        width: 20px; height: 20px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.62rem; font-weight: 700;
+        background: rgba(0,0,0,0.07); flex-shrink: 0;
+      }
+      .fv-step.active .sn { background: rgba(255,255,255,0.18); }
+      .fv-step.done .sn { background: var(--fv-green); color: #fff; }
+
+      /* ── Cards / seções ── */
+      .fv-section {
+        background: white;
+        border: 1px solid var(--fv-rule);
+        border-radius: var(--fv-r);
+        margin-bottom: 1rem;
+        overflow: hidden;
+        display: none;
+        animation: fvFadeUp 0.35s ease both;
+      }
+      body.dark-mode .fv-section { background: #141414; }
+      .fv-section.fv-visible { display: block; }
+      @keyframes fvFadeUp { from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;} }
+
+      .fv-sec-hdr {
+        padding: 1rem 1.3rem;
+        display: flex; align-items: center; gap: 0.65rem;
+        border-bottom: 1px solid var(--fv-rule2);
+        background: linear-gradient(135deg, #fafbff 0%, #ffffff 100%);
+      }
+      body.dark-mode .fv-sec-hdr { background: #1a1a1a; }
+      .fv-sec-ico {
+        width: 34px; height: 34px; border-radius: 9px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem; flex-shrink: 0;
+      }
+      .fv-ico-gold   { background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.28); }
+      .fv-ico-blue   { background: rgba(79,70,229,0.08); border: 1px solid rgba(79,70,229,0.2); }
+      .fv-ico-green  { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.22); }
+      .fv-ico-purple { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); }
+      .fv-ico-teal   { background: rgba(20,184,166,0.08); border: 1px solid rgba(20,184,166,0.2); }
+      .fv-ico-red    { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
+      .fv-sec-title  { font-size: 0.9rem; font-weight: 700; }
+      .fv-sec-sub    { font-size: 0.7rem; color: var(--fv-ink3); margin-top: 0.05rem; }
+      .fv-body { padding: 1.3rem; }
+
+      /* ── Grids ── */
+      .fv-g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+      .fv-g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.85rem; }
+      .fv-g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.85rem; }
+
+      /* ── Fields ── */
+      .fv-field { display: flex; flex-direction: column; gap: 0.28rem; }
+      .fv-label {
+        font-size: 0.65rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.6px;
+        color: var(--fv-ink3);
+      }
+      .fv-label .req { color: #ef4444; margin-left: 2px; }
+      .fv-field input[type=text],
+      .fv-field input[type=email],
+      .fv-field input[type=tel],
+      .fv-field input[type=number],
+      .fv-field input[type=date],
+      .fv-field select,
+      .fv-field textarea {
+        font-family: inherit;
+        font-size: 0.85rem; color: #1a1a1a;
+        background: #fff;
+        border: 1.5px solid var(--fv-rule);
+        border-radius: 8px;
+        padding: 0.55rem 0.8rem;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        width: 100%;
+      }
+      body.dark-mode .fv-field input,
+      body.dark-mode .fv-field select,
+      body.dark-mode .fv-field textarea {
+        background: #1e1e1e; color: #f0f0f0;
+        border-color: rgba(255,255,255,0.12);
+      }
+      .fv-field input:focus,
+      .fv-field select:focus,
+      .fv-field textarea:focus {
+        border-color: var(--fv-gold);
+        box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+      }
+      .fv-field input::placeholder,
+      .fv-field textarea::placeholder { color: #b0b5c8; }
+      .fv-field textarea { resize: vertical; min-height: 85px; line-height: 1.6; }
+      .fv-field select {
+        cursor: pointer; appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat; background-position: right 0.8rem center;
+        padding-right: 2.2rem;
+      }
+
+      /* ── Divider com label ── */
+      .fv-divider {
+        text-align: center; margin: 1rem 0; position: relative;
+      }
+      .fv-divider::before {
+        content: ''; position: absolute; top: 50%; left: 0; right: 0;
+        height: 1px; background: var(--fv-rule2);
+      }
+      .fv-divider span {
+        position: relative; background: #fff;
+        padding: 0 0.8rem; font-size: 0.65rem;
+        color: var(--fv-ink3); font-weight: 700;
+        text-transform: uppercase; letter-spacing: 1px;
+      }
+      body.dark-mode .fv-divider span { background: #141414; }
+
+      /* ── Toggle grid ── */
+      .fv-toggle-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.5rem;
+      }
+      .fv-toggle {
+        display: flex; align-items: center; gap: 0.45rem;
+        background: #fafbff; border: 1.5px solid var(--fv-rule);
+        border-radius: 8px; padding: 0.48rem 0.65rem;
+        cursor: pointer; transition: all 0.18s;
+        font-size: 0.78rem; font-weight: 500; color: #2a2d3a;
+        user-select: none;
+      }
+      body.dark-mode .fv-toggle { background: #1e1e1e; color: #f0f0f0; }
+      .fv-toggle:hover { border-color: var(--fv-gold); background: rgba(201,168,76,0.06); }
+      .fv-toggle.checked { background: #0f1117; color: #fff; border-color: #0f1117; }
+      .fv-chk {
+        width: 16px; height: 16px; border-radius: 4px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.62rem; flex-shrink: 0;
+        border: 1.5px solid var(--fv-rule); background: #fff;
+      }
+      .fv-toggle.checked .fv-chk { background: var(--fv-gold); border-color: var(--fv-gold); color: #0f1117; }
+
+      /* ── Benefícios tags ── */
+      .fv-benef-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+      .fv-benef-tag {
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        padding: 0.38rem 0.75rem; border-radius: 99px;
+        border: 1.5px solid var(--fv-rule); background: #fafbff;
+        font-size: 0.76rem; font-weight: 500; cursor: pointer;
+        transition: all 0.18s; color: #2a2d3a;
+      }
+      body.dark-mode .fv-benef-tag { background: #1e1e1e; color: #f0f0f0; }
+      .fv-benef-tag:hover { border-color: var(--fv-green); color: var(--fv-green2); }
+      .fv-benef-tag.active {
+        background: rgba(56,189,248,0.1); border-color: var(--fv-green2);
+        color: var(--fv-green2); font-weight: 600;
+      }
+
+      /* ── Competências ── */
+      .fv-comp-add { display: flex; gap: 0.5rem; margin-bottom: 0.7rem; }
+      .fv-comp-add input { flex: 1; }
+      .fv-comp-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+      .fv-comp-chip {
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        background: #0f1117; color: #fff;
+        border-radius: 99px; padding: 0.25rem 0.6rem;
+        font-size: 0.73rem; font-weight: 600;
+      }
+      .fv-comp-chip button {
+        background: none; border: none; color: rgba(255,255,255,0.55);
+        cursor: pointer; font-size: 0.8rem; line-height: 1; padding: 0;
+      }
+      .fv-comp-chip button:hover { color: #fff; }
+
+      /* ── Valor inline ── */
+      .fv-valor-inline { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+      .fv-valor-inline input { width: 130px; flex-shrink: 0; }
+      .fv-valor-lbl { font-size: 0.76rem; color: var(--fv-ink3); }
+
+      /* ── Status row ── */
+      .fv-status-row {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 0.5rem;
+        padding: 0.7rem 1rem;
+        background: rgba(201,168,76,0.07);
+        border: 1px solid rgba(201,168,76,0.25);
+        border-radius: 8px; margin-bottom: 1rem;
+      }
+      .fv-status-lbl { font-size: 0.7rem; font-weight: 700; color: var(--fv-ink3); }
+      .fv-status-val { font-size: 0.8rem; font-weight: 700; color: var(--fv-green2); }
+
+      /* ── Assinatura ── */
+      .fv-assin {
+        border: 2px dashed var(--fv-rule); border-radius: 10px;
+        padding: 1.2rem; text-align: center; min-height: 76px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        cursor: pointer; transition: border-color 0.2s;
+        color: var(--fv-ink3); font-size: 0.8rem;
+      }
+      .fv-assin:hover { border-color: var(--fv-gold); }
+
+      /* ── Nav ── */
+      .fv-nav {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 1.1rem 0 0; gap: 1rem;
+      }
+      .fv-btn {
+        font-family: inherit; font-size: 0.82rem; font-weight: 700;
+        border-radius: 8px; padding: 0.58rem 1.2rem;
+        border: none; cursor: pointer;
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        transition: all 0.2s; white-space: nowrap;
+      }
+      .fv-btn-outline {
+        background: transparent; color: var(--fv-ink3);
+        border: 1.5px solid var(--fv-rule); font-size: 0.8rem;
+      }
+      body.dark-mode .fv-btn-outline { color: #9ca3af; border-color: rgba(255,255,255,0.15); }
+      .fv-btn-outline:hover { border-color: var(--fv-ink3); color: #1a1a1a; }
+      body.dark-mode .fv-btn-outline:hover { color: #f0f0f0; }
+      .fv-btn-gold { background: var(--fv-gold); color: #0f1117; font-weight: 800; }
+      .fv-btn-gold:hover { background: var(--fv-gold2); transform: translateY(-1px); }
+      .fv-btn-green { background: var(--fv-green); color: #fff; font-weight: 800; }
+      .fv-btn-green:hover { background: #38bdf8; transform: translateY(-1px); }
+      .fv-btn-ghost {
+        background: rgba(255,255,255,0.08); color: #fff;
+        border: 1px solid rgba(255,255,255,0.15);
+      }
+      .fv-btn-ghost:hover { background: rgba(255,255,255,0.14); }
+
+      /* ── Topbar da ficha ── */
+      .fv-topbar {
+        background: #0f1117;
+        border-radius: 16px 16px 0 0;
+        padding: 0.75rem 1.4rem;
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 0.6rem;
+        border: 1px solid rgba(56,189,248,0.15);
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+      .fv-topbar-brand {
+        font-size: 1rem; font-weight: 800; color: #fff;
+        display: flex; align-items: center; gap: 0.5rem;
+      }
+      .fv-topbar-brand span { color: var(--fv-gold2); }
+      .fv-topbar-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+      /* ── Modal ── */
+      .fv-modal {
+        position: fixed; inset: 0; z-index: 600;
+        background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+        display: none; align-items: center; justify-content: center; padding: 1rem;
+      }
+      .fv-modal.show { display: flex; }
+      .fv-modal-box {
+        background: #fff; border-radius: 16px;
+        padding: 2rem; width: 100%; max-width: 480px;
+        box-shadow: 0 24px 64px rgba(0,0,0,0.35); position: relative;
+        animation: fvFadeUp 0.3s ease both;
+      }
+      body.dark-mode .fv-modal-box { background: #1a1a1a; color: #f0f0f0; }
+      .fv-modal-box h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.3rem; }
+      .fv-modal-sub { font-size: 0.8rem; color: var(--fv-ink3); margin-bottom: 1.3rem; }
+      .fv-modal-close {
+        position: absolute; top: 1rem; right: 1rem;
+        background: rgba(0,0,0,0.07); border: none; border-radius: 8px;
+        width: 30px; height: 30px; cursor: pointer; font-size: 0.9rem;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .fv-modal-close:hover { background: rgba(0,0,0,0.14); }
+      body.dark-mode .fv-modal-close { background: rgba(255,255,255,0.1); color: #fff; }
+
+      /* ── Toast ── */
+      .fv-toast {
+        position: fixed; bottom: 1.5rem; left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #0f1117; color: #fff;
+        font-size: 0.82rem; font-weight: 600;
+        padding: 0.65rem 1.4rem; border-radius: 99px;
+        opacity: 0; pointer-events: none;
+        transition: all 0.3s; z-index: 9998;
+        white-space: nowrap;
+      }
+      .fv-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+      .fv-toast.ok  { background: var(--fv-green); }
+      .fv-toast.err { background: #dc3545; }
+
+      /* ── Seção título ── */
+      .fv-section-intro {
+        text-align: center; margin-bottom: 2rem;
+      }
+      .fv-section-intro h2 {
+        font-size: 1.9rem; font-weight: 800;
+        color: var(--text-light); margin-bottom: 0.5rem;
+      }
+      body.dark-mode .fv-section-intro h2 { color: var(--text-dark); }
+      .fv-section-intro h2 span { color: var(--primary); }
+      .fv-section-intro p {
+        font-size: 0.95rem; color: var(--text-light); opacity: 0.7;
+        max-width: 560px; margin: 0 auto;
+      }
+      body.dark-mode .fv-section-intro p { color: var(--text-dark); }
+
+      /* ── Wrapper com borda verde ── */
+      .fv-wrapper {
+        border: 1px solid rgba(56,189,248,0.2);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      }
+      body.dark-mode .fv-wrapper {
+        border-color: rgba(56,189,248,0.15);
+        box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      }
+      .fv-inner { padding: 1.4rem 1.4rem 0.5rem; }
+
+      /* ── Responsive ── */
+      @media (max-width: 640px) {
+        .fv-g2, .fv-g3, .fv-g4 { grid-template-columns: 1fr; }
+        .fv-hero { padding: 1.5rem 1.2rem 1.3rem; border-radius: 12px; }
+        .fv-hero-title { font-size: 1.55rem; }
+        .fv-progress { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+        .fv-step { flex: 0 0 auto; min-width: 68px; font-size: 0.62rem; flex-direction: column; gap: 0.2rem; }
+        .fv-topbar { border-radius: 12px 12px 0 0; }
+        .fv-topbar-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+        .fv-topbar-actions .fv-btn { justify-content: center; font-size: 0.72rem; }
+        .fv-comp-add { flex-direction: column; }
+        .fv-nav { flex-direction: column-reverse; gap: 0.5rem; }
+        .fv-nav .fv-btn { width: 100%; justify-content: center; }
+        .fv-valor-inline { flex-direction: column; align-items: flex-start; }
+        .fv-valor-inline input { width: 100%; }
+        .fv-modal-box { padding: 1.4rem 1.1rem; max-height: 90vh; overflow-y: auto; }
+        .fv-section-intro h2 { font-size: 1.5rem; }
+        input[type=text].fv-fs,input[type=email].fv-fs,input[type=tel].fv-fs,
+        input[type=number].fv-fs,input[type=date].fv-fs,select.fv-fs,textarea.fv-fs { font-size: 16px; }
+      }
+    </style>
+
+    <!-- Título da seção -->
+    <div class="fv-section-intro">
+      <h2>📋 Abrir uma <span>Vaga Conosco</span></h2>
+      <p>Preencha a ficha abaixo e nossa equipe entrará em contato para iniciar o processo seletivo imediatamente.</p>
+    </div>
+
+    <!-- Wrapper com topbar + conteúdo -->
+    <div class="fv-wrapper">
+
+      <!-- Topbar -->
+      <div class="fv-topbar">
+        <div class="fv-topbar-brand">
+          <span>✦</span> Agência <span>Nexus</span>
+          <span style="color:rgba(255,255,255,0.3);font-weight:400;font-size:0.75rem;margin-left:0.3rem;">· Ficha de Abertura de Vaga</span>
+        </div>
+        <div class="fv-topbar-actions">
+          <button class="fv-btn fv-btn-ghost" onclick="fvSalvarRascunho()">💾 Rascunho</button>
+          <button class="fv-btn fv-btn-gold"  onclick="fvGerarPDF()">⬇ Baixar PDF</button>
+          <button class="fv-btn fv-btn-green" onclick="fvAbrirModalEmail()">✉ Enviar</button>
+        </div>
+      </div>
+
+      <!-- Inner -->
+      <div class="fv-inner">
+
+        <!-- Progress -->
+        <div class="fv-progress">
+          <div class="fv-step active" onclick="fvIrPara(1)"><div class="sn">1</div>Empresa</div>
+          <div class="fv-step"        onclick="fvIrPara(2)"><div class="sn">2</div>Vaga</div>
+          <div class="fv-step"        onclick="fvIrPara(3)"><div class="sn">3</div>Benefícios</div>
+          <div class="fv-step"        onclick="fvIrPara(4)"><div class="sn">4</div>Perfil</div>
+          <div class="fv-step"        onclick="fvIrPara(5)"><div class="sn">5</div>Processo</div>
+          <div class="fv-step"        onclick="fvIrPara(6)"><div class="sn">6</div>Finalizar</div>
+        </div>
+
+        <!-- ════ ETAPA 1 — EMPRESA ════ -->
+        <div class="fv-section fv-visible" id="fvSec1">
+          <div class="fv-sec-hdr">
+            <div class="fv-sec-ico fv-ico-gold">🏢</div>
+            <div><div class="fv-sec-title">Dados da Empresa Contratante</div><div class="fv-sec-sub">Informações cadastrais e de contato</div></div>
+          </div>
+          <div class="fv-body">
+            <div class="fv-g2" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Razão Social <span class="req">*</span></label><input type="text" id="fv_razaoSocial" placeholder="Nome jurídico completo"/></div>
+              <div class="fv-field"><label class="fv-label">Nome Fantasia</label><input type="text" id="fv_nomeFantasia" placeholder="Como a empresa é conhecida"/></div>
+            </div>
+            <div class="fv-g3" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">CNPJ <span class="req">*</span></label><input type="text" id="fv_cnpj" placeholder="00.000.000/0001-00" maxlength="18"/></div>
+              <div class="fv-field"><label class="fv-label">Segmento <span class="req">*</span></label>
+                <select id="fv_segmento">
+                  <option value="">— Selecione —</option>
+                  <option>Indústria / Manufatura</option><option>Comércio / Varejo</option>
+                  <option>Serviços</option><option>Tecnologia / TI</option>
+                  <option>Saúde / Farmácia</option><option>Agronegócio</option>
+                  <option>Construção Civil</option><option>Logística / Transporte</option>
+                  <option>Educação</option><option>Financeiro / Contabilidade</option>
+                  <option>Alimentação / Food Service</option><option>Outro</option>
+                </select>
+              </div>
+              <div class="fv-field"><label class="fv-label">Porte</label>
+                <select id="fv_porte">
+                  <option value="">— Selecione —</option>
+                  <option>MEI (até 1 funcionário)</option><option>Microempresa (até 9)</option>
+                  <option>Pequena (10–49)</option><option>Média (50–249)</option><option>Grande (250+)</option>
+                </select>
+              </div>
+            </div>
+            <div class="fv-g2" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Município <span class="req">*</span></label><input type="text" id="fv_municipio" placeholder="Cidade"/></div>
+              <div class="fv-field"><label class="fv-label">CEP</label><input type="text" id="fv_cep" placeholder="00000-000" maxlength="9"/></div>
+            </div>
+            <div class="fv-divider"><span>Contato Responsável</span></div>
+            <div class="fv-g3" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Nome do Responsável <span class="req">*</span></label><input type="text" id="fv_responsavel" placeholder="Quem assina a ficha"/></div>
+              <div class="fv-field"><label class="fv-label">Cargo / Departamento</label><input type="text" id="fv_cargoResp" placeholder="Ex: Gerente de RH"/></div>
+              <div class="fv-field"><label class="fv-label">E-mail <span class="req">*</span></label><input type="email" id="fv_emailEmpresa" placeholder="contato@empresa.com"/></div>
+            </div>
+            <div class="fv-g2">
+              <div class="fv-field"><label class="fv-label">Telefone</label><input type="tel" id="fv_telefone" placeholder="(51) 9 9999-9999"/></div>
+              <div class="fv-field"><label class="fv-label">WhatsApp</label><input type="tel" id="fv_whatsapp" placeholder="(51) 9 9999-9999"/></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ ETAPA 2 — VAGA ════ -->
+        <div class="fv-section" id="fvSec2">
+          <div class="fv-sec-hdr">
+            <div class="fv-sec-ico fv-ico-blue">💼</div>
+            <div><div class="fv-sec-title">Informações da Vaga</div><div class="fv-sec-sub">Cargo, tipo de contratação e remuneração</div></div>
+          </div>
+          <div class="fv-body">
+            <div class="fv-g2" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Título do Cargo <span class="req">*</span></label><input type="text" id="fv_cargo" placeholder="Ex: Auxiliar Administrativo"/></div>
+              <div class="fv-field"><label class="fv-label">CBO</label><input type="text" id="fv_cbo" placeholder="Ex: 4110-05"/></div>
+            </div>
+            <div class="fv-g3" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Tipo de Contrato <span class="req">*</span></label>
+                <select id="fv_tipoContrato">
+                  <option value="">— Selecione —</option>
+                  <option>CLT – Efetivo</option><option>CLT – Temporário</option>
+                  <option>PJ – Pessoa Jurídica</option><option>Estágio</option>
+                  <option>Jovem Aprendiz</option><option>Freelancer</option>
+                </select>
+              </div>
+              <div class="fv-field"><label class="fv-label">Modalidade</label>
+                <select id="fv_modalidade">
+                  <option value="">— Selecione —</option>
+                  <option>Presencial</option><option>Híbrido</option>
+                  <option>Home Office</option><option>Externo / Campo</option>
+                </select>
+              </div>
+              <div class="fv-field"><label class="fv-label">Nº de Vagas</label><input type="number" id="fv_numVagas" placeholder="1" min="1"/></div>
+            </div>
+            <div class="fv-g2" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Salário / Remuneração</label><input type="text" id="fv_salario" placeholder="Ex: R$ 2.150,00 ou A combinar"/></div>
+              <div class="fv-field"><label class="fv-label">Urgência</label>
+                <select id="fv_urgencia">
+                  <option value="">— Selecione —</option>
+                  <option>🟢 Normal (30 dias)</option>
+                  <option>🟡 Prioritária (15 dias)</option>
+                  <option>🔴 Urgente (7 dias)</option>
+                </select>
+              </div>
+            </div>
+            <div class="fv-g2" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Jornada de Trabalho</label><input type="text" id="fv_jornada" placeholder="Ex: Seg–Sex 07:30–17:48"/></div>
+              <div class="fv-field"><label class="fv-label">Local de Trabalho</label><input type="text" id="fv_localTrabalho" placeholder="Cidade ou endereço da operação"/></div>
+            </div>
+            <div class="fv-field">
+              <label class="fv-label">Descrição Detalhada da Vaga <span class="req">*</span></label>
+              <textarea id="fv_descricao" rows="4" placeholder="Descreva as principais atividades, responsabilidades e contexto da posição…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ ETAPA 3 — BENEFÍCIOS ════ -->
+        <div class="fv-section" id="fvSec3">
+          <div class="fv-sec-hdr">
+            <div class="fv-sec-ico fv-ico-green">🎁</div>
+            <div><div class="fv-sec-title">Pacote de Benefícios</div><div class="fv-sec-sub">Selecione os benefícios oferecidos</div></div>
+          </div>
+          <div class="fv-body">
+            <div class="fv-benef-grid" id="fvBenefGrid"></div>
+            <div id="fvBenefValores" style="margin-top:.85rem;display:flex;flex-direction:column;gap:.55rem;"></div>
+            <div class="fv-divider" style="margin-top:.85rem;"><span>Outros</span></div>
+            <div class="fv-field">
+              <label class="fv-label">Outros benefícios não listados</label>
+              <textarea id="fv_outrosBenef" rows="2" placeholder="Ex: Uniforme, Estacionamento, Academia conveniada…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ ETAPA 4 — PERFIL ════ -->
+        <div class="fv-section" id="fvSec4">
+          <div class="fv-sec-hdr">
+            <div class="fv-sec-ico fv-ico-purple">👤</div>
+            <div><div class="fv-sec-title">Perfil do Candidato</div><div class="fv-sec-sub">Requisitos, competências e diversidade</div></div>
+          </div>
+          <div class="fv-body">
+            <div class="fv-g3" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Escolaridade Mínima <span class="req">*</span></label>
+                <select id="fv_escolaridade">
+                  <option value="">— Selecione —</option>
+                  <option>Fundamental Incompleto</option><option>Fundamental Completo</option>
+                  <option>Médio Incompleto</option><option>Médio Completo</option>
+                  <option>Técnico</option><option>Superior Cursando</option>
+                  <option>Superior Completo</option><option>Pós-Graduação</option>
+                </select>
+              </div>
+              <div class="fv-field"><label class="fv-label">Experiência</label>
+                <select id="fv_experiencia">
+                  <option value="">— Selecione —</option>
+                  <option>Não exige</option><option>6 meses</option>
+                  <option>1 ano</option><option>2 anos</option>
+                  <option>3 anos</option><option>5 anos ou mais</option>
+                </select>
+              </div>
+              <div class="fv-field"><label class="fv-label">CNH</label>
+                <select id="fv_cnh">
+                  <option value="">— Não exige —</option>
+                  <option>A (moto)</option><option>B (carro)</option>
+                  <option>AB</option><option>C</option><option>D</option><option>E</option>
+                </select>
+              </div>
+            </div>
+            <div class="fv-field" style="margin-bottom:.85rem">
+              <label class="fv-label">Requisitos Obrigatórios</label>
+              <textarea id="fv_requisitosObrig" rows="3" placeholder="Liste os requisitos indispensáveis que o candidato DEVE ter…"></textarea>
+            </div>
+            <div class="fv-field" style="margin-bottom:.85rem">
+              <label class="fv-label">Diferenciais / Desejáveis</label>
+              <textarea id="fv_diferenciais" rows="2" placeholder="Competências valorizadas, mas não eliminatórias…"></textarea>
+            </div>
+            <div class="fv-divider"><span>Hard Skills</span></div>
+            <div style="margin-bottom:.85rem">
+              <div class="fv-comp-add">
+                <input type="text" id="fv_hardInput" placeholder="Ex: Excel Avançado, SAP, AutoCAD…" onkeydown="if(event.key==='Enter'){event.preventDefault();fvAddComp('hard');}"/>
+                <button class="fv-btn fv-btn-outline" onclick="fvAddComp('hard')">+ Add</button>
+              </div>
+              <div class="fv-comp-list" id="fv_hardList"></div>
+            </div>
+            <div class="fv-divider"><span>Soft Skills</span></div>
+            <div style="margin-bottom:.85rem">
+              <div class="fv-comp-add">
+                <input type="text" id="fv_softInput" placeholder="Ex: Proatividade, Comunicação, Trabalho em equipe…" onkeydown="if(event.key==='Enter'){event.preventDefault();fvAddComp('soft');}"/>
+                <button class="fv-btn fv-btn-outline" onclick="fvAddComp('soft')">+ Add</button>
+              </div>
+              <div class="fv-comp-list" id="fv_softList"></div>
+            </div>
+            <div class="fv-divider"><span>Diversidade & Inclusão</span></div>
+            <div class="fv-toggle-grid">
+              <label class="fv-toggle checked" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Feminino</label>
+              <label class="fv-toggle checked" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Masculino</label>
+              <label class="fv-toggle" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> PCD</label>
+              <label class="fv-toggle" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> LGBTQIA+</label>
+              <label class="fv-toggle" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> 50+ anos</label>
+              <label class="fv-toggle" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Jovem Aprendiz</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ ETAPA 5 — PROCESSO ════ -->
+        <div class="fv-section" id="fvSec5">
+          <div class="fv-sec-hdr">
+            <div class="fv-sec-ico fv-ico-teal">🔍</div>
+            <div><div class="fv-sec-title">Processo Seletivo</div><div class="fv-sec-sub">Etapas, testes e critérios</div></div>
+          </div>
+          <div class="fv-body">
+            <div class="fv-g2" style="margin-bottom:.85rem">
+              <div>
+                <div class="fv-label" style="margin-bottom:.45rem;">Etapas do Processo</div>
+                <div class="fv-toggle-grid">
+                  <label class="fv-toggle checked" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Triagem Curricular</label>
+                  <label class="fv-toggle checked" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> DISC Comportamental</label>
+                  <label class="fv-toggle checked" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Pré-entrevista</label>
+                  <label class="fv-toggle" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Teste Técnico</label>
+                  <label class="fv-toggle" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Dinâmica em Grupo</label>
+                  <label class="fv-toggle" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Entrevista Final</label>
+                  <label class="fv-toggle" onclick="fvToggleItem(this)"><div class="fv-chk">✓</div> Exame Admissional</label>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:.75rem;">
+                <div class="fv-field"><label class="fv-label">Perfil DISC Desejado</label>
+                  <select id="fv_discDesejado">
+                    <option value="">— Sem preferência —</option>
+                    <option>D — Dominância (executor)</option>
+                    <option>I — Influência (comunicador)</option>
+                    <option>S — Estabilidade (colaborador)</option>
+                    <option>C — Conformidade (analítico)</option>
+                  </select>
+                </div>
+                <div class="fv-field"><label class="fv-label">Decisor Final</label><input type="text" id="fv_decisorFinal" placeholder="Ex: Gerente de Operações"/></div>
+                <div class="fv-field"><label class="fv-label">Honorários</label>
+                  <select id="fv_honorarios">
+                    <option value="">— A definir —</option>
+                    <option>1 salário do contratado</option>
+                    <option>1,5 salários do contratado</option>
+                    <option>2 salários do contratado</option>
+                    <option>Tabela personalizada</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="fv-field" style="margin-bottom:.85rem">
+              <label class="fv-label">Observações para o Recrutador</label>
+              <textarea id="fv_obsRecrutador" rows="3" placeholder="Informações sigilosas, contexto adicional, particularidades da vaga…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ ETAPA 6 — FINALIZAR ════ -->
+        <div class="fv-section" id="fvSec6">
+          <div class="fv-sec-hdr">
+            <div class="fv-sec-ico fv-ico-red">✅</div>
+            <div><div class="fv-sec-title">Confirmação & Envio</div><div class="fv-sec-sub">Revisão final antes de gerar o documento</div></div>
+          </div>
+          <div class="fv-body">
+            <div class="fv-status-row">
+              <div><div class="fv-status-lbl">Gerado em</div><div class="fv-status-val" id="fvStatusData">—</div></div>
+              <div><div class="fv-status-lbl">Empresa</div><div class="fv-status-val" id="fvStatusEmpresa">—</div></div>
+              <div><div class="fv-status-lbl">Cargo</div><div class="fv-status-val" id="fvStatusCargo">—</div></div>
+              <div><div class="fv-status-lbl">Status</div><div class="fv-status-val">🟡 Aguardando aprovação</div></div>
+            </div>
+            <div class="fv-g2" style="margin-bottom:.85rem">
+              <div class="fv-field"><label class="fv-label">Consultor Responsável (Nexus)</label><input type="text" id="fv_consultorNexus" placeholder="Nome do consultor"/></div>
+              <div class="fv-field"><label class="fv-label">Data de Abertura</label><input type="date" id="fv_dataAbertura"/></div>
+            </div>
+            <div class="fv-field" style="margin-bottom:1rem">
+              <label class="fv-label">Observações Gerais / Acordo Comercial</label>
+              <textarea id="fv_obsGerais" rows="3" placeholder="Condições especiais, descontos negociados, formas de pagamento…"></textarea>
+            </div>
+            <div class="fv-assin" onclick="fvToast('Assinatura digital disponível na versão Pro','err')">
+              🖊 Clique para assinar digitalmente (versão Pro)
+              <span style="font-size:.68rem;margin-top:.2rem;">ou imprima e assine manualmente</span>
+            </div>
+            <div style="display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1rem;">
+              <button class="fv-btn fv-btn-gold"    onclick="fvGerarPDF()"         style="flex:1;justify-content:center;padding:.85rem;">⬇ Baixar PDF</button>
+              <button class="fv-btn fv-btn-green"   onclick="fvAbrirModalEmail()"  style="flex:1;justify-content:center;padding:.85rem;">✉ Enviar E-mail</button>
+              <button class="fv-btn fv-btn-outline"  onclick="window.print()"       style="flex:1;justify-content:center;padding:.85rem;">🖨 Imprimir</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nav entre etapas -->
+        <div class="fv-nav" id="fvNav">
+          <button class="fv-btn fv-btn-outline" id="fvBtnPrev" onclick="fvNavPrev()" style="display:none;">← Anterior</button>
+          <div style="flex:1;"></div>
+          <button class="fv-btn fv-btn-gold"    id="fvBtnNext" onclick="fvNavNext()">Próxima etapa →</button>
+        </div>
+      </div><!-- /fv-inner -->
+    </div><!-- /fv-wrapper -->
+  </section>
+
+  <!-- Modal e-mail ficha -->
+  <div class="fv-modal" id="fvModalEmail">
+    <div class="fv-modal-box">
+      <button class="fv-modal-close" onclick="fvFecharModalEmail()">✕</button>
+      <h3>Enviar Ficha por E-mail</h3>
+      <p class="fv-modal-sub">O PDF será gerado e o e-mail aberto com os dados preenchidos.</p>
+      <div class="fv-field" style="margin-bottom:.75rem"><label class="fv-label">Destinatário</label><input type="email" id="fv_emailDest" placeholder="empresa@email.com"/></div>
+      <div class="fv-field" style="margin-bottom:.75rem"><label class="fv-label">Assunto</label><input type="text" id="fv_emailAssunto" value="Ficha de Abertura de Vaga — Agência Nexus"/></div>
+      <div class="fv-field" style="margin-bottom:1.1rem"><label class="fv-label">Mensagem</label>
+        <textarea id="fv_emailCorpo" rows="5">Prezado(a),
+
+Segue a Ficha de Abertura de Vaga formalizada pela Agência Nexus.
+
+Por favor, revise os dados e retorne com a aprovação para iniciarmos o processo seletivo.
+
+Atenciosamente,
+Equipe Agência Nexus
+adm.agencianexus@outlook.com</textarea>
+      </div>
+      <div style="display:flex;gap:.55rem;">
+        <button class="fv-btn fv-btn-green"   onclick="fvEnviarEmail()"    style="flex:1;justify-content:center;">✉ Gmail</button>
+        <button class="fv-btn fv-btn-outline"  onclick="fvEnviarOutlook()"  style="flex:1;justify-content:center;">📨 Outlook</button>
+      </div>
+      <div style="margin-top:.5rem;">
+        <button class="fv-btn fv-btn-outline"  onclick="fvCopiarCorpo()"    style="width:100%;justify-content:center;font-size:.76rem;">📋 Copiar texto</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="fv-toast" id="fvToast"></div>
+
+  <!-- FICHA JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+  (function(){
+    'use strict';
+
+    /* ── State ── */
+    let fvEtapa = 1;
+    const FV_TOTAL = 6;
+    const fvHard = [], fvSoft = [];
+    const fvBenefAtivos = new Set();
+
+    /* ── Benefícios ── */
+    const FV_BENEFICIOS = [
+      {id:'vt',   ico:'🚌', lbl:'Vale-Transporte',     valor:false},
+      {id:'vr',   ico:'🍽', lbl:'Vale-Refeição',        valor:true, vlbl:'R$/dia'},
+      {id:'va',   ico:'🛒', lbl:'Vale-Alimentação',     valor:true, vlbl:'R$/mês'},
+      {id:'saude',ico:'🏥', lbl:'Plano de Saúde',       valor:false},
+      {id:'odonto',ico:'🦷',lbl:'Plano Odontológico',   valor:false},
+      {id:'vida', ico:'🛡', lbl:'Seguro de Vida',        valor:false},
+      {id:'plr',  ico:'📈', lbl:'Participação nos Lucros',valor:false},
+      {id:'bonus',ico:'💰', lbl:'Bônus / Comissão',     valor:true, vlbl:'%'},
+      {id:'onibus',ico:'🏭',lbl:'Ônibus da Empresa',    valor:false},
+      {id:'estacio',ico:'🅿',lbl:'Estacionamento',       valor:false},
+      {id:'almoco',ico:'🍱',lbl:'Almoço no Local',       valor:false},
+      {id:'unif', ico:'👕', lbl:'Uniforme Fornecido',    valor:false},
+      {id:'home', ico:'💻', lbl:'Auxílio Home Office',   valor:true, vlbl:'R$/mês'},
+      {id:'facul',ico:'🎓', lbl:'Auxílio Faculdade',     valor:true, vlbl:'%'},
+      {id:'academia',ico:'🏋',lbl:'Academia Conveniada', valor:false},
+    ];
+
+    /* ── Init ── */
+    (function init(){
+      const hoje = new Date();
+      const fmt  = hoje.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+      const el   = document.getElementById('fvStatusData');
+      if(el) el.textContent = fmt;
+      const da   = document.getElementById('fv_dataAbertura');
+      if(da) da.valueAsDate = hoje;
+
+      fvRenderBeneficios();
+      fvCarregarRascunho();
+
+      /* CNPJ mask */
+      const cnpjEl = document.getElementById('fv_cnpj');
+      if(cnpjEl) cnpjEl.addEventListener('input', function(){
+        let v = this.value.replace(/\D/g,'');
+        if(v.length>2)  v = v.slice(0,2)+'.'+v.slice(2);
+        if(v.length>6)  v = v.slice(0,6)+'.'+v.slice(6);
+        if(v.length>10) v = v.slice(0,10)+'/'+v.slice(10);
+        if(v.length>15) v = v.slice(0,15)+'-'+v.slice(15);
+        this.value = v.slice(0,18);
+      });
+
+      /* CEP mask */
+      const cepEl = document.getElementById('fv_cep');
+      if(cepEl) cepEl.addEventListener('input', function(){
+        let v = this.value.replace(/\D/g,'');
+        if(v.length>5) v = v.slice(0,5)+'-'+v.slice(5);
+        this.value = v.slice(0,9);
+      });
+
+      /* status auto-update */
+      ['fv_razaoSocial','fv_nomeFantasia','fv_cargo'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('input', fvAtualizarStatus);
+      });
+    })();
+
+    /* ── Benefícios ── */
+    function fvRenderBeneficios(){
+      const grid = document.getElementById('fvBenefGrid');
+      if(!grid) return;
+      grid.innerHTML = FV_BENEFICIOS.map(b=>
+        `<div class="fv-benef-tag" id="fvbtag_${b.id}" onclick="fvToggleBenef('${b.id}')">
+          <span>${b.ico}</span> ${b.lbl}
+        </div>`
+      ).join('');
+    }
+
+    window.fvToggleBenef = function(id){
+      const tag   = document.getElementById('fvbtag_'+id);
+      const benef = FV_BENEFICIOS.find(b=>b.id===id);
+      if(fvBenefAtivos.has(id)){
+        fvBenefAtivos.delete(id);
+        tag.classList.remove('active');
+        const vi = document.getElementById('fvbval_'+id);
+        if(vi) vi.remove();
+      } else {
+        fvBenefAtivos.add(id);
+        tag.classList.add('active');
+        if(benef.valor){
+          const wrap = document.getElementById('fvBenefValores');
+          const div  = document.createElement('div');
+          div.id       = 'fvbval_'+id;
+          div.className = 'fv-valor-inline';
+          div.innerHTML =
+            `<span style="font-size:.9rem">${benef.ico}</span>
+             <span class="fv-valor-lbl" style="min-width:150px;font-weight:600">${benef.lbl}:</span>
+             <input type="text" placeholder="${benef.vlbl}" style="width:130px;" id="fvbvali_${id}"/>`;
+          wrap.appendChild(div);
+        }
+      }
+    };
+
+    /* ── Toggle ── */
+    window.fvToggleItem = function(el){ el.classList.toggle('checked'); };
+
+    /* ── Competências ── */
+    window.fvAddComp = function(tipo){
+      const inp  = document.getElementById('fv_'+tipo+'Input');
+      const val  = inp.value.trim();
+      if(!val) return;
+      const list = tipo==='hard' ? fvHard : fvSoft;
+      if(list.includes(val)){ fvToast('Já adicionado','err'); return; }
+      list.push(val);
+      fvRenderComps(tipo);
+      inp.value = ''; inp.focus();
+    };
+    window.fvRemoveComp = function(tipo,val){
+      const list = tipo==='hard' ? fvHard : fvSoft;
+      const idx  = list.indexOf(val);
+      if(idx>=0) list.splice(idx,1);
+      fvRenderComps(tipo);
+    };
+    function fvRenderComps(tipo){
+      const list = tipo==='hard' ? fvHard : fvSoft;
+      const el   = document.getElementById('fv_'+tipo+'List');
+      if(!el) return;
+      el.innerHTML = list.map(v=>
+        `<div class="fv-comp-chip">${v}
+          <button onclick="fvRemoveComp('${tipo}','${v.replace(/'/g,"\\'")}')">×</button>
+        </div>`
+      ).join('');
+    }
+
+    /* ── Navegação ── */
+    window.fvIrPara = function(n){
+      for(let i=1;i<=FV_TOTAL;i++){
+        const s = document.getElementById('fvSec'+i);
+        if(s) s.classList.remove('fv-visible');
+      }
+      const target = document.getElementById('fvSec'+n);
+      if(target) target.classList.add('fv-visible');
+      fvEtapa = n;
+      fvAtualizarProgress();
+      fvAtualizarNav();
+      /* Scroll suave até o topo da ficha */
+      const ficha = document.getElementById('ficha-vaga');
+      if(ficha) ficha.scrollIntoView({behavior:'smooth', block:'start'});
+    };
+    window.fvNavNext = function(){ if(fvEtapa<FV_TOTAL) fvIrPara(fvEtapa+1); };
+    window.fvNavPrev = function(){ if(fvEtapa>1)        fvIrPara(fvEtapa-1); };
+
+    function fvAtualizarProgress(){
+      document.querySelectorAll('.fv-step').forEach((s,i)=>{
+        s.classList.remove('active','done');
+        if(i+1===fvEtapa)     s.classList.add('active');
+        else if(i+1<fvEtapa)  s.classList.add('done');
+      });
+    }
+    function fvAtualizarNav(){
+      const prev = document.getElementById('fvBtnPrev');
+      const next = document.getElementById('fvBtnNext');
+      if(prev) prev.style.display = fvEtapa>1 ? 'flex' : 'none';
+      if(next) next.style.display = fvEtapa<FV_TOTAL ? 'flex' : 'none';
+    }
+
+    /* ── Status ── */
+    function fvAtualizarStatus(){
+      const emp   = (document.getElementById('fv_nomeFantasia')||{}).value ||
+                    (document.getElementById('fv_razaoSocial')||{}).value  || '—';
+      const cargo = (document.getElementById('fv_cargo')||{}).value || '—';
+      const se = document.getElementById('fvStatusEmpresa'); if(se) se.textContent = emp;
+      const sc = document.getElementById('fvStatusCargo');   if(sc) sc.textContent = cargo;
+      const as = document.getElementById('fv_emailAssunto'); if(as) as.value = `Ficha de Abertura de Vaga — ${cargo} | Agência Nexus`;
+    }
+
+    /* ── Rascunho ── */
+    window.fvSalvarRascunho = function(){
+      try{
+        const campos = ['fv_razaoSocial','fv_nomeFantasia','fv_cnpj','fv_segmento','fv_porte',
+          'fv_municipio','fv_cep','fv_responsavel','fv_cargoResp','fv_emailEmpresa','fv_telefone','fv_whatsapp',
+          'fv_cargo','fv_cbo','fv_tipoContrato','fv_modalidade','fv_numVagas','fv_salario','fv_urgencia',
+          'fv_jornada','fv_localTrabalho','fv_descricao','fv_outrosBenef',
+          'fv_escolaridade','fv_experiencia','fv_cnh','fv_requisitosObrig','fv_diferenciais',
+          'fv_discDesejado','fv_decisorFinal','fv_honorarios','fv_obsRecrutador',
+          'fv_consultorNexus','fv_dataAbertura','fv_obsGerais'];
+        const data = {};
+        campos.forEach(id=>{ const el=document.getElementById(id); if(el) data[id]=el.value; });
+        data._hard = fvHard; data._soft = fvSoft;
+        data._benefAtivos = [...fvBenefAtivos];
+        localStorage.setItem('nexus_fv_v1', JSON.stringify(data));
+        fvToast('💾 Rascunho salvo!','ok');
+      }catch(e){ fvToast('Erro ao salvar','err'); }
+    };
+    function fvCarregarRascunho(){
+      try{
+        const saved = localStorage.getItem('nexus_fv_v1');
+        if(!saved) return;
+        const data  = JSON.parse(saved);
+        Object.keys(data).forEach(id=>{
+          if(id.startsWith('_')) return;
+          const el = document.getElementById(id);
+          if(el) el.value = data[id];
+        });
+        if(data._hard) { data._hard.forEach(v=>{if(!fvHard.includes(v)) fvHard.push(v);}); fvRenderComps('hard'); }
+        if(data._soft) { data._soft.forEach(v=>{if(!fvSoft.includes(v)) fvSoft.push(v);}); fvRenderComps('soft'); }
+        if(data._benefAtivos) data._benefAtivos.forEach(id=>{ if(!fvBenefAtivos.has(id)) fvToggleBenef(id); });
+        fvAtualizarStatus();
+        fvToast('Rascunho carregado!','ok');
+      }catch(e){}
+    }
+
+    /* ── Coletar dados ── */
+    function fvColetar(){
+      const g = id => (document.getElementById(id)||{}).value||'';
+      const benefList = [];
+      fvBenefAtivos.forEach(id=>{
+        const b = FV_BENEFICIOS.find(x=>x.id===id); if(!b) return;
+        let str = b.lbl;
+        if(b.valor){ const inp=document.getElementById('fvbvali_'+id); if(inp&&inp.value) str+=': '+inp.value+' '+b.vlbl; }
+        benefList.push(str);
+      });
+      const checkedIn = (sel) => [...document.querySelectorAll(sel+' .fv-toggle.checked')].map(e=>e.textContent.trim());
+      return {
+        empresa:{ razaoSocial:g('fv_razaoSocial'), nomeFantasia:g('fv_nomeFantasia'), cnpj:g('fv_cnpj'),
+          segmento:g('fv_segmento'), porte:g('fv_porte'), municipio:g('fv_municipio'), cep:g('fv_cep'),
+          responsavel:g('fv_responsavel'), cargoResp:g('fv_cargoResp'), emailEmpresa:g('fv_emailEmpresa'),
+          telefone:g('fv_telefone'), whatsapp:g('fv_whatsapp') },
+        vaga:{ cargo:g('fv_cargo'), cbo:g('fv_cbo'), tipoContrato:g('fv_tipoContrato'),
+          modalidade:g('fv_modalidade'), numVagas:g('fv_numVagas')||'1', salario:g('fv_salario'),
+          urgencia:g('fv_urgencia'), jornada:g('fv_jornada'), localTrabalho:g('fv_localTrabalho'),
+          descricao:g('fv_descricao') },
+        beneficios: benefList, outrosBenef: g('fv_outrosBenef'),
+        perfil:{ escolaridade:g('fv_escolaridade'), experiencia:g('fv_experiencia'), cnh:g('fv_cnh'),
+          requisitosObrig:g('fv_requisitosObrig'), diferenciais:g('fv_diferenciais'),
+          hardSkills:[...fvHard], softSkills:[...fvSoft],
+          diversidade: checkedIn('#fvSec4') },
+        processo:{ etapas: checkedIn('#fvSec5'), discDesejado:g('fv_discDesejado'),
+          decisorFinal:g('fv_decisorFinal'), honorarios:g('fv_honorarios'), obsRecrutador:g('fv_obsRecrutador') },
+        finalizacao:{ consultorNexus:g('fv_consultorNexus'), dataAbertura:g('fv_dataAbertura'), obsGerais:g('fv_obsGerais') }
+      };
+    }
+
+    /* ── Gerar PDF ── */
+    window.fvGerarPDF = async function(){
+      const btn = event && event.target ? event.target : {};
+      if(btn.textContent) btn.textContent = '⏳ Gerando...';
+      if(btn.disabled !== undefined) btn.disabled = true;
+      try{
+        const { jsPDF } = window.jspdf;
+        const d   = fvColetar();
+        const doc = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+        const W=210, M=18, CW=W-M*2;
+        let y = 0;
+
+        const INK=[15,17,23], INK3=[90,94,114], GOLD=[201,168,76],
+              GREEN=[79,114,20], RULE=[216,218,232], WHITE=[255,255,255],
+              GREENL=[240,247,230], GOLDL=[253,248,236];
+        const fc  = (r,g,b)  => doc.setTextColor(r,g,b);
+        const ff  = (n,s,st='normal') => { doc.setFont(n,st); doc.setFontSize(s); };
+        const rect= (x,y,w,h,...rgb) => { doc.setFillColor(...rgb); doc.rect(x,y,w,h,'F'); };
+        const chkY= (n=10) => { if(y+n>280){ doc.addPage(); y=20; } };
+        const row2= (l1,v1,l2,v2) => {
+          chkY(8); ff('helvetica',7); fc(...INK3);
+          doc.text(l1,M,y); doc.text(l2,M+CW/2+3,y);
+          ff('helvetica',8.5,'bold'); fc(...INK);
+          doc.text(String(v1||'—').substring(0,38),M,y+4.5);
+          doc.text(String(v2||'—').substring(0,38),M+CW/2+3,y+4.5);
+          doc.setDrawColor(...RULE); doc.setLineWidth(0.3);
+          doc.line(M,y+8,M+CW/2-2,y+8); doc.line(M+CW/2+3,y+8,M+CW,y+8);
+          y+=11;
+        };
+        const row1= (lbl,val,full=false) => {
+          if(!val) return; chkY(8);
+          ff('helvetica',7); fc(...INK3); doc.text(lbl,M,y);
+          ff('helvetica',8.5,'bold'); fc(...INK);
+          const lines = doc.splitTextToSize(String(val), full?CW:CW/2);
+          doc.text(lines,M,y+4.5); y += lines.length*4.5+7;
+          doc.setDrawColor(...RULE); doc.setLineWidth(0.3); doc.line(M,y-2,M+CW,y-2);
+        };
+        const secHdr = (titulo,ico) => {
+          chkY(14);
+          rect(M,y,CW,8,...INK);
+          ff('helvetica',9,'bold'); fc(...GOLD); doc.text(ico+'  '+titulo.toUpperCase(),M+3,y+5.5);
+          y+=12;
+        };
+
+        /* Capa */
+        rect(0,0,W,46,...INK);
+        doc.setFillColor(...GOLD); doc.rect(0,46,W,1.5,'F');
+        ff('helvetica',9,'bold'); fc(...GOLD); doc.text('✦  AGÊNCIA EXITTUS',M,14);
+        ff('helvetica',7); fc(180,185,200); doc.text('Recrutamento & Seleção de Talentos',M,19.5);
+        ff('helvetica',22,'bold'); fc(...WHITE); doc.text('FICHA DE ABERTURA',M,32);
+        ff('helvetica',11); fc(...GOLD); doc.text('DE VAGA',M,39);
+        ff('helvetica',7.5); fc(180,185,200);
+        doc.text('Emitido em '+new Date().toLocaleDateString('pt-BR'),W-M-2,14,'right');
+        ff('helvetica',8,'bold'); fc(...GOLD);
+        doc.text(d.empresa.nomeFantasia||d.empresa.razaoSocial||'Empresa',W-M-2,20,'right');
+        y=56;
+
+        secHdr('Dados da Empresa','🏢');
+        row2('RAZÃO SOCIAL',d.empresa.razaoSocial,'NOME FANTASIA',d.empresa.nomeFantasia);
+        row2('CNPJ',d.empresa.cnpj,'SEGMENTO',d.empresa.segmento);
+        row2('MUNICÍPIO / CEP',d.empresa.municipio+' '+d.empresa.cep,'PORTE',d.empresa.porte);
+        row2('RESPONSÁVEL',d.empresa.responsavel,'CARGO',d.empresa.cargoResp);
+        row2('E-MAIL',d.empresa.emailEmpresa,'TEL / WHATSAPP',d.empresa.telefone||d.empresa.whatsapp);
+        y+=4;
+
+        secHdr('Vaga Ofertada','💼');
+        row2('CARGO',d.vaga.cargo,'CBO',d.vaga.cbo);
+        row2('TIPO CONTRATO',d.vaga.tipoContrato,'MODALIDADE',d.vaga.modalidade);
+        row2('Nº VAGAS',d.vaga.numVagas,'URGÊNCIA',d.vaga.urgencia||'Normal');
+        row2('SALÁRIO',d.vaga.salario,'LOCAL',d.vaga.localTrabalho);
+        row2('JORNADA',d.vaga.jornada,'','');
+        if(d.vaga.descricao){ row1('DESCRIÇÃO',d.vaga.descricao,true); }
+        y+=4;
+
+        if(d.beneficios.length){
+          secHdr('Pacote de Benefícios','🎁');
+          d.beneficios.forEach((b,i)=>{
+            if(i%2===0){ chkY(7); }
+            const col = i%2; const bx = M+col*(CW/2+3);
+            rect(bx,y-4,CW/2-2,6,...GREENL);
+            ff('helvetica',8.5,'bold'); fc(...GREEN);
+            doc.text('✓  '+b, bx+2, y);
+            if(col===1||i===d.beneficios.length-1) y+=7;
+          });
+          y+=4;
+        }
+
+        secHdr('Perfil do Candidato','👤');
+        row2('ESCOLARIDADE',d.perfil.escolaridade,'EXPERIÊNCIA',d.perfil.experiencia);
+        row2('CNH',d.perfil.cnh,'','');
+        if(d.perfil.requisitosObrig) row1('REQUISITOS OBRIGATÓRIOS',d.perfil.requisitosObrig,true);
+        if(d.perfil.hardSkills.length) row1('HARD SKILLS',d.perfil.hardSkills.join(' · '),true);
+        if(d.perfil.softSkills.length) row1('SOFT SKILLS',d.perfil.softSkills.join(' · '),true);
+        if(d.perfil.diversidade.length) row2('DIVERSIDADE & INCLUSÃO',d.perfil.diversidade.join(', '),'','');
+        y+=4;
+
+        secHdr('Processo Seletivo','🔍');
+        if(d.processo.etapas.length) row1('ETAPAS',d.processo.etapas.join(' → '),true);
+        row2('DISC DESEJADO',d.processo.discDesejado,'DECISOR FINAL',d.processo.decisorFinal);
+        row2('HONORÁRIOS',d.processo.honorarios,'','');
+        if(d.processo.obsRecrutador){ chkY(10); rect(M,y-2,CW,8,...GOLDL); row1('⚠ OBS. SIGILOSAS',d.processo.obsRecrutador,true); }
+
+        /* Rodapé */
+        const tp = doc.internal.getNumberOfPages();
+        for(let p=1;p<=tp;p++){
+          doc.setPage(p);
+          doc.setFillColor(...INK); doc.rect(0,287,W,10,'F');
+          ff('helvetica',6.5); fc(160,165,180);
+          doc.text('Agência Nexus · adm.agencianexus@outlook.com',M,293);
+          doc.text('Pág. '+p+'/'+tp,W-M,293,'right');
+          fc(...GOLD); doc.text('CONFIDENCIAL',W/2,293,'center');
+        }
+
+        const arq = `Ficha_Nexus_${(d.empresa.nomeFantasia||d.empresa.razaoSocial||'Empresa').replace(/\s/g,'_')}_${(d.vaga.cargo||'Vaga').replace(/\s/g,'_')}.pdf`;
+        doc.save(arq);
+        fvToast('✅ PDF gerado!','ok');
+      }catch(e){ console.error(e); fvToast('Erro: '+e.message,'err'); }
+      if(btn.textContent) btn.textContent = '⬇ Baixar PDF';
+      if(btn.disabled !== undefined) btn.disabled = false;
+    };
+
+    /* ── E-mail ── */
+    window.fvAbrirModalEmail = function(){
+      const d = fvColetar();
+      const el = document.getElementById('fv_emailDest');
+      if(el && d.empresa.emailEmpresa) el.value = d.empresa.emailEmpresa;
+      const as = document.getElementById('fv_emailAssunto');
+      if(as) as.value = `Ficha de Abertura de Vaga — ${d.vaga.cargo||'Vaga'} | Agência Nexus`;
+      document.getElementById('fvModalEmail').classList.add('show');
+    };
+    window.fvFecharModalEmail = function(){ document.getElementById('fvModalEmail').classList.remove('show'); };
+    window.fvEnviarEmail = function(){
+      const dest = (document.getElementById('fv_emailDest')||{}).value||'';
+      const ass  = (document.getElementById('fv_emailAssunto')||{}).value||'';
+      const corp = (document.getElementById('fv_emailCorpo')||{}).value||'';
+      if(!dest){ fvToast('Informe o destinatário','err'); return; }
+      window.open('https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(dest)+'&su='+encodeURIComponent(ass)+'&body='+encodeURIComponent(corp),'_blank');
+      fvToast('✅ Gmail aberto!','ok'); fvFecharModalEmail();
+    };
+    window.fvEnviarOutlook = function(){
+      const dest = (document.getElementById('fv_emailDest')||{}).value||'';
+      const ass  = (document.getElementById('fv_emailAssunto')||{}).value||'';
+      const corp = (document.getElementById('fv_emailCorpo')||{}).value||'';
+      if(!dest){ fvToast('Informe o destinatário','err'); return; }
+      window.open('https://outlook.live.com/mail/0/deeplink/compose?to='+encodeURIComponent(dest)+'&subject='+encodeURIComponent(ass)+'&body='+encodeURIComponent(corp),'_blank');
+      fvToast('✅ Outlook aberto!','ok'); fvFecharModalEmail();
+    };
+    window.fvCopiarCorpo = function(){
+      const txt = (document.getElementById('fv_emailCorpo')||{}).value||'';
+      navigator.clipboard.writeText(txt).then(()=>fvToast('📋 Copiado!','ok')).catch(()=>fvToast('Erro ao copiar','err'));
+    };
+
+    /* ── Toast ── */
+    window.fvToast = function(msg, tipo='ok'){
+      const el = document.getElementById('fvToast');
+      if(!el) return;
+      el.textContent = msg;
+      el.className = 'fv-toast show '+(tipo==='err'?'err':'ok');
+      clearTimeout(el._t);
+      el._t = setTimeout(()=>el.classList.remove('show'), 3000);
+    };
+
+    /* ── Fechar modal clicando fora ── */
+    const modal = document.getElementById('fvModalEmail');
+    if(modal) modal.addEventListener('click', e=>{ if(e.target===modal) fvFecharModalEmail(); });
+
+    /* ── Autosave 60s ── */
+    setInterval(()=>{
+      try{
+        const d={'fv_razaoSocial':0,'fv_cargo':0,'fv_tipoContrato':0};
+        const out={};
+        Object.keys(d).forEach(id=>{ const el=document.getElementById(id); if(el) out[id]=el.value; });
+        localStorage.setItem('nexus_fv_autosave', JSON.stringify(out));
+      }catch(e){}
+    }, 60000);
+
+  })();
+  </script>
+  <!-- /FICHA DE ABERTURA DE VAGA -->
+
+ <!-- Footer -->
+  
+ 
+  
+   <footer>
+    <div class="footer-top">
+
+      <!-- Coluna 1: Marca + Redes Sociais -->
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <div class="footer-brand-name">Agência <span>Nexus</span></div>
+        </div>
+        <p class="footer-tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
+        <div class="footer-social">
+
+          <!-- Instagram -->
+          <a class="footer-social-link" href="https://www.instagram.com/nexuscarreiras/" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+
+          <!-- Facebook -->
+          <a class="footer-social-link" href="https://www.facebook.com/profile.php?id=61576066286585" target="_blank" rel="noopener" title="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a class="footer-social-link" href="https://www.linkedin.com/company/107064981/admin/dashboard/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+
+          <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/555198503183" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+           <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+          <!-- YouTube -->
+<a class="footer-social-link" href="https://www.youtube.com/@AgenciaNexusRS" target="_blank" rel="noopener" title="YouTube">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M23.498 6.186a2.96 2.96 0 0 0-2.085-2.094C19.63 3.5 12 3.5 12 3.5s-7.63 0-9.413.592A2.96 2.96 0 0 0 .502 6.186 30.2 30.2 0 0 0 0 12a30.2 30.2 0 0 0 .502 5.814 2.96 2.96 0 0 0 2.085 2.094C4.37 20.5 12 20.5 12 20.5s7.63 0 9.413-.592a2.96 2.96 0 0 0 2.085-2.094A30.2 30.2 0 0 0 24 12a30.2 30.2 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+  </svg>
+</a>
+
+
+        <!-- Pinterest -->
+<a class="footer-social-link" href="https://br.pinterest.com/anexus/" target="_blank" rel="noopener" title="Pinterest">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+  </svg>
+</a>
+
+            
+        </div>
+      </div>
+
+         <!-- Coluna 2: Links rápidos -->
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <div class="footer-col-links">
+          <div><a href="vagas.html">Vagas disponíveis</a></div>
+          <div><a href="contato.html">Contato</a></div>
+          <div><a href="tutorial.html">Vídeos</a></div>
+          <div><a href="servicos.html">Serviços</a></div>
+          <div><a href="sobre.html">Sobre nós</a></div>
+        </div>
+      </div>
+
+      <!-- Coluna 3: Contato -->
+      <div>
+        <div class="footer-col-title">Contato</div>
+
+        <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          (51) 99697-6579
+        </a>
+
+      <a class="footer-contact-item" href="mailto:adm.agencianexus@outlook.com">
+  <svg viewBox="0 0 24 24">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+  <span>adm.agencianexus@outlook.com</span>
+</a>
+
+
+      </div>
+
+    </div><!-- /footer-top -->
+
+
+       
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
+    </div>
+
+  </footer>
+
+
+
+
+
+
+  <!-- Botão Voltar ao Topo -->
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
+
+  <!-- Chatbot -->
+<!-- NOVO -->
+  <button class="chatbot-button" id="chatbotBtn" onclick="toggleChatbot()">
+    <img src="chatbot.png" alt="Chatbot" style="width:32px; height:32px;">
+  </button>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <div>
+        <h3>Agência Nexus</h3>
+        <p id="chatbotStatusText">● Assistente virtual</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ai-toggle-wrap" id="aiToggleWrap" onclick="toggleModoIA()" title="Ligar/desligar Modo IA (Llama via Groq)">
+          <div class="ai-toggle-switch"></div>
+          <span class="ai-toggle-label">Modo IA</span>
+          <span class="ai-mode-badge">ON</span>
+        </div>
+        <button class="close-chatbot" onclick="toggleChatbot()">✕</button>
+      </div>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages"></div>
+    <div class="chatbot-input-area">
+      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagem()" autocomplete="off">
+      <button class="chatbot-send-btn" onclick="enviarMensagem()">➤</button>
+    </div>
+  </div>
+
+  <!-- Chatbot -->
+<!-- NOVO -->
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+    const menuContent = document.getElementById('menuContent');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    function toggleMenu() {
+      menuContent.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+      
+      if (!menuContent.classList.contains('active')) {
+        menuContent.style.left = '-100%';
+      } else {
+        menuContent.style.left = '0';
+      }
+    }
+
+function closeMenu() {
+  menuContent.classList.remove('active');
+  menuOverlay.classList.remove('active');
+  menuContent.style.left = '-100%';
+  setTimeout(() => {
+    document.body.classList.remove('menu-open');
+  }, 300);
+}
+
+    document.querySelectorAll('.menu-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      document.documentElement.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      document.getElementById('themeIcon').textContent = isDarkMode ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    }
+
+    function loadSavedTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme !== 'light') {
+        document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
+        document.getElementById('themeIcon').textContent = '☀️';
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.documentElement.classList.remove('dark-mode');
+        document.getElementById('themeIcon').textContent = '🌙';
+      }
+    }
+
+    loadSavedTheme();
+
+    
+    // iNICIO CHATBOT INTELIGENTE
+    const KB = {
+      saudacoes: {
+        gatilhos: ['oi','olá','ola','hey','bom dia','boa tarde','boa noite','hello','e aí','e ai','tudo bem'],
+        respostas: [
+          'Olá! 😊 Que bom ter você aqui! Sou o assistente da **Agência Nexus**.\n\nPosso te ajudar com vagas, processo seletivo, serviços ou qualquer dúvida. Por onde quer começar?',
+          'Oi! 👋 Bem-vindo à **Nexus**! Você é candidato buscando oportunidade ou empresa buscando talentos?'
+        ],
+        chips: ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato','↩️ Voltar ao início'] 
+      },
+      vagas: {
+        gatilhos: ['vaga','vagas','emprego','trabalho','oportunidade','oportunidades','contratando','procuro emprego','quero trabalhar','busco','aberta','disponível','disponíveis','oferta'],
+        respostas: [
+          'Ótimo! 🎯 Temos vagas abertas para diversos perfis — **CLT, PJ e Estágio** em empresas parceiras.\n\nPara candidatos o serviço é **100% gratuito**. Quer ver o que temos disponível?'
+        ],
+        chips: ['🌐 Ver vagas online','💬 WhatsApp','📋 Como me candidatar','💰 É gratuito?','↩️ Voltar ao início'] 
+      },
+      candidato: {
+        gatilhos: ['candidato','me candidatar','candidatura','currículo','curriculo','cadastrar','inscr','participar','processo seletivo','seleção','entrevista','como funciona','quero participar','primeiro passo'],
+        respostas: [
+          'Perfeito! 😊 Nosso processo é simples e **100% gratuito** para candidatos:\n\n- Inscrição e análise do seu perfil\n- Entrevista preliminar conosco\n- Testes técnicos ou comportamentais\n- Dinâmica com a empresa\n- Proposta e contratação\n\nO prazo médio é de **7 a 30 dias**. Quer começar?'
+        ],
+        chips: ['💬 Quero me cadastrar','💡 Dicas de currículo','⏱️ Quanto tempo leva?','🌐 Ver vagas','↩️ Voltar ao início'] 
+      },
+      gratuito: {
+        gatilhos: ['gratuito','grátis','gratis','pago','custa','custo','preço','preco','valor','cobrar','cobrança','taxa'],
+        respostas: [
+          'Boa pergunta! 💚\n\n**Para candidatos:** totalmente **GRATUITO** em todas as etapas.\n\n**Para empresas:** taxa de sucesso — **só cobramos se a contratação acontecer**. Valores variam conforme Estágio, CLT ou PJ.'
+        ],
+        chips: ['💬 Quero me cadastrar grátis','🏢 Sou empresa, quero orçamento','📞 Falar com especialista']
+      },
+      empresa: {
+        gatilhos: ['empresa','contratar','funcionário','funcionario','colaborador','equipe','rh','recursos humanos','recrutamento','headhunter','busco profissional','preciso de'],
+        respostas: [
+          'Excelente! 🏢 Ajudamos empresas a encontrar os profissionais certos com agilidade:\n\n- Recrutamento e Seleção completo\n- Testes técnicos e comportamentais\n- Background Check\n- Consultoria em RH\n- Treinamentos corporativos\n\n**95% de taxa de sucesso** e preenchimento médio em **7 dias**!'
+        ],
+        chips: ['📊 Nossos números','💰 Como funciona a cobrança','💬 Solicitar orçamento','📞 Falar agora','↩️ Voltar ao início'] 
+      },
+  contato: {
+        gatilhos: ['contato','telefone','whatsapp','zap','ligar','email','e-mail','endereço','endereco','onde fica','localização','agendar','reunião','conversar','falar'],
+        respostas: [
+          'Claro! 📞 Estamos sempre disponíveis:\n\n- **WhatsApp:** (51) 99697-6579\n- **E-mail:** adm.agencianexus@outlook.com\n- **Endereço:** R. São José, 584 - sala 204, Guaíba - RS\n\nO jeito mais rápido é pelo WhatsApp — respondemos em minutos!'
+        ],
+        chips: ['💬 Abrir WhatsApp agora','📧 Enviar e-mail','↩️ Voltar ao início']
+      },
+      numeros: {
+        gatilhos: ['resultados','números','numeros','taxa','sucesso','aproveitamento','quantos','colocados','cases','estatística','comprovado'],
+        respostas: [
+          'Nossos números falam por si! 📊\n\n- **+500** profissionais colocados\n- **95%** de taxa de sucesso\n- Preenchimento médio em **7 dias**\n- Empresas de **diversos segmentos**\n- **Satisfação garantida** em todas as etapas'
+        ],
+        chips: ['🏢 Quero contratar','👤 Quero me candidatar','💬 Falar com especialista','↩️ Voltar ao início'] 
+      },
+      tempo: {
+        gatilhos: ['quanto tempo','prazo','demora','rápido','rapido','urgente','dias','semana','quando'],
+        respostas: [
+          'Boa pergunta! ⏱️\n\n- Preenchimento médio: **7 dias**\n- Prazo máximo: até **30 dias**\n\nDepende do perfil e da vaga, mas trabalhamos com agilidade!'
+        ],
+        chips: ['💬 Quero começar logo','📋 Como funciona o processo','📞 Falar agora','↩️ Voltar ao início'] 
+      },
+      dicas: {
+        gatilhos: ['dica','dicas','como melhorar','linkedin','foto','entrevista bem','preparar','ajuda','orientação'],
+        respostas: [
+          'Adoro essa pergunta! 💡 Dicas de ouro da Nexus:\n\n- **Currículo:** objetivo, atualizado, com foto profissional\n- **LinkedIn:** perfil completo com experiências e recomendações\n- **Carta de apresentação:** personalize pra cada vaga\n- **Resposta rápida:** quando entrarmos em contato, responda logo!\n- **Foco:** candidate-se a vagas que combinam com seu perfil'
+        ],
+        chips: ['💬 Quero orientação personalizada','🌐 Ver vagas disponíveis','📋 Como funciona o processo','↩️ Voltar ao início'] 
+      },
+      agradecimento: {
+        gatilhos: ['obrigado','obrigada','valeu','vlw','thanks','grato','grata','ótimo','otimo','perfeito','excelente','show','massa'],
+        respostas: [
+          'Fico feliz em ajudar! 😊 Qualquer dúvida é só chamar. Boa sorte na sua jornada com a Nexus! 🚀',
+          'Que bom! 💚 Sucesso pra você! 🌟'
+        ],
+        chips: ['🌐 Ver vagas','📞 Falar com equipe','↩️ Início']
+      },
+      fallback: {
+        respostas: [
+          'Hmm, não entendi muito bem. 🤔 Mas posso te ajudar com essas opções:',
+          'Deixa eu entender melhor! 😊 Sobre qual desses assuntos você quer saber?'
+        ],
+        chips: ['🔍 Ver vagas','👤 Sou candidato','🏢 Sou empresa','📞 Falar com a equipe','↩️ Voltar ao início'] 
+      }
+    };
+    
+
+const CHIP_ACOES = {
+      '🌐 Ver vagas online':               () => window.open('vagas.html','_blank'),
+      '🌐 Ver vagas':                      () => window.open('vagas.html','_blank'),
+      '🌐 Ver vagas disponíveis':          () => window.open('vagas.html','_blank'),
+      '💬 WhatsApp':                       () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Abrir WhatsApp agora':           () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Falar agora':                    () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Falar com especialista':         () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Falar com a equipe':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Solicitar orçamento':            () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Quero me cadastrar':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Quero me cadastrar grátis':      () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Quero começar logo':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Quero orientação personalizada': () => window.open('https://wa.me/5551996976579','_blank'),
+      '🏢 Sou empresa, quero orçamento':   () => processarTexto('quero contratar profissionais'),
+      '🏢 Quero contratar':                () => processarTexto('quero contratar profissionais'),
+      '🏢 Sou empresa':                    () => processarTexto('sou empresa'),
+      '📞 Contato':                        () => processarTexto('contato'),
+      '📞 Falar agora':                    () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com especialista':         () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com a equipe':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '📧 Enviar e-mail':                  () => window.location.href='mailto:adm.agencianexus@outlook.com',
+      '🔍 Ver vagas':                      () => processarTexto('vagas disponíveis'),
+      '👤 Sou candidato':                  () => processarTexto('quero me candidatar'),
+      '👤 Quero me candidatar':            () => processarTexto('quero me candidatar'),
+      '📋 Como funciona':                  () => processarTexto('como funciona o processo'),
+      '📋 Como me candidatar':             () => processarTexto('como funciona o processo'),
+      '📋 Como funciona o processo':       () => processarTexto('como funciona o processo'),
+      '💡 Dicas de currículo':             () => processarTexto('dicas curriculo'),
+      '💰 É gratuito?':                    () => processarTexto('é gratuito'),
+      '💰 Como funciona a cobrança':       () => processarTexto('custo taxa'),
+      '⏱️ Quanto tempo leva?':             () => processarTexto('quanto tempo demora'),
+      '📊 Nossos números':                 () => processarTexto('resultados taxa de sucesso'),
+      '📊 Cases de sucesso':               () => processarTexto('resultados taxa de sucesso'),
+      '↩️ Início':                         () => mostrarBemVindo(),
+      '↩️ Voltar ao início':               () => mostrarBemVindo(),
+    };
+
+    let aberto = false;
+    let digitando = false;
+
+    function toggleChatbot() {
+      aberto = !aberto;
+      document.getElementById('chatbotBtn').classList.toggle('active', aberto);
+      document.getElementById('chatbotWindow').classList.toggle('active', aberto);
+      document.body.classList.toggle('chat-open', aberto);
+      if (aberto && !document.getElementById('chatbotMessages').children.length) {
+        setTimeout(() => mostrarBemVindo(), 300);
+      }
+    }
+
+    function mostrarBemVindo() {
+      document.getElementById('chatbotMessages').innerHTML = '';
+      mostrarSequencia([
+        'Olá! 👋 Sou o assistente virtual da **Agência Nexus**!',
+        'Pode me perguntar qualquer coisa — vagas, processo seletivo, dicas, contato... Estou aqui pra ajudar! 😊'
+      ], ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato'], 0);
+    }
+
+    function mostrarSequencia(textos, chips, index) {
+      if (index >= textos.length) { adicionarChips(chips); return; }
+      mostrarTyping(() => {
+        adicionarBubbleBot(markdownParaHTML(textos[index]));
+        setTimeout(() => mostrarSequencia(textos, chips, index + 1), 400);
+      }, index === 0 ? 800 : 600);
+    }
+
+    function enviarMensagem() {
+      const input = document.getElementById('chatbotInput');
+      const texto = input.value.trim();
+      if (!texto || digitando) return;
+      input.value = '';
+      adicionarBubbleUser(texto);
+      if (modoIA) {
+        responderComIA(texto);
+      } else {
+        setTimeout(() => processarTexto(texto), 300);
+      }
+    }
+
+    function processarTexto(texto) {
+      const lower = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      let melhorCategoria = null, melhorPontuacao = 0;
+      for (const [cat, dados] of Object.entries(KB)) {
+        if (cat === 'fallback' || !dados.gatilhos) continue;
+        let pts = 0;
+        for (const g of dados.gatilhos) {
+          const gn = g.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+          if (lower.includes(gn)) pts += gn.split(' ').length;
+        }
+        if (pts > melhorPontuacao) { melhorPontuacao = pts; melhorCategoria = cat; }
+      }
+      const dados = melhorPontuacao > 0 ? KB[melhorCategoria] : KB.fallback;
+      const resposta = dados.respostas[Math.floor(Math.random() * dados.respostas.length)];
+      mostrarTyping(() => {
+        adicionarBubbleBot(markdownParaHTML(resposta));
+        setTimeout(() => adicionarChips(dados.chips || KB.fallback.chips), 300);
+      }, 800);
+    }
+
+    function mostrarTyping(callback, delay) {
+      digitando = true;
+      const msgs = document.getElementById('chatbotMessages');
+      const el = document.createElement('div');
+      el.className = 'message bot'; el.id = 'typing-indicator';
+      el.innerHTML = '<div class="message-content"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+      msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight;
+      setTimeout(() => {
+        document.getElementById('typing-indicator')?.remove();
+        digitando = false;
+        callback();
+      }, delay);
+    }
+
+    function adicionarChips(chips) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.innerHTML = '<div class="chip-row">' +
+        chips.map(c => `<button class="chip" onclick="clicarChip('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('') +
+      '</div>';
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function clicarChip(chip) {
+      adicionarBubbleUser(chip);
+      const acao = CHIP_ACOES[chip];
+      if (acao) { setTimeout(acao, 200); } else { setTimeout(() => processarTexto(chip), 300); }
+    }
+
+    function adicionarBubbleBot(html) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.className = 'message bot';
+      div.innerHTML = `<div class="message-content">${html}</div>`;
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function adicionarBubbleUser(texto) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.className = 'message user';
+      div.innerHTML = `<div class="message-content">${escapeHtml(texto)}</div>`;
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+        function markdownParaHTML(texto) {
+      function processarInline(str) {
+        return str
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#38bdf8;text-decoration:underline;">$1</a>');
+      }
+      const linhas = texto.split('\n');
+      const blocos = []; let listaAtual = [];
+      function fecharLista() {
+        if (listaAtual.length) { blocos.push('<ul>'+listaAtual.map(i=>`<li>${i}</li>`).join('')+'</ul>'); listaAtual = []; }
+      }
+      for (let linha of linhas) {
+        linha = linha.trim();
+        if (/^[-\*] (.+)/.test(linha)) {
+          listaAtual.push(processarInline(linha.replace(/^[-\*] /,'')));
+          continue;
+        }
+        fecharLista();
+        if (!linha) continue;
+        blocos.push(`<p>${processarInline(linha)}</p>`);
+      }
+      fecharLista();
+      return blocos.join('');
+    }
+
+    function escapeHtml(t) {
+      return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+    // FIM CHATBOT INTELIGENTE
+
+    // ============= MODO IA (Llama via Edge Function Supabase) =============
+    let modoIA = false;
+
+    const EDGE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co/functions/v1/chatbot-groq';
+
+    function toggleModoIA() {
+      modoIA = !modoIA;
+      const wrap = document.getElementById('aiToggleWrap');
+      const statusText = document.getElementById('chatbotStatusText');
+      wrap.classList.toggle('ai-on', modoIA);
+      if (modoIA) {
+        statusText.textContent = '\u{1F916} Modo IA ativo (Llama)';
+        adicionarBubbleBot(markdownParaHTML('\u{1F916} **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
+      } else {
+        statusText.textContent = '● Assistente virtual';
+        adicionarBubbleBot(markdownParaHTML('\u{1F4AC} Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
+        setTimeout(() => adicionarChips(['\u{1F464} Sou candidato','\u{1F3E2} Sou empresa','\u{1F50D} Ver vagas','\u{1F4DE} Contato']), 300);
+      }
+    }
+
+    async function responderComIA(texto) {
+      mostrarTyping(async () => {
+        try {
+          const resp = await fetch(EDGE_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4'
+            },
+            body: JSON.stringify({ mensagem: texto })
+          });
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.erro || `Erro ${resp.status}`);
+          }
+          const data = await resp.json();
+          const resposta = data.resposta || 'Não consegui gerar uma resposta.';
+          adicionarBubbleBot(markdownParaHTML(resposta));
+          setTimeout(() => adicionarChips(['\u{1F4AC} Continuar','\u{1F4DE} Falar com humano','\u{21A9}\uFE0F Voltar ao início']), 300);
+        } catch (e) {
+          adicionarBubbleBot(markdownParaHTML(`\u274C **Erro na IA:** ${e.message}\n\nTente novamente em instantes.`));
+        }
+      }, 1000);
+    }
+    // FIM MODO IA
+
+
+
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('menuContent');
+      const menuOverlay = document.getElementById('menuOverlay');
+      const menuToggle = document.querySelector('.menu-toggle');
+      if (menu.classList.contains('active') && 
+          !menu.contains(e.target) && 
+          !menuOverlay.contains(e.target) &&
+          !menuToggle.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    document.getElementById('chatbotWindow').addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      const chatbotBtn = document.getElementById('chatbotBtn');
+      if (chatbotWindow.classList.contains('active') && 
+          !chatbotWindow.contains(e.target) && 
+          !chatbotBtn.contains(e.target)) {
+        toggleChatbot();
+      }
+    });
+
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      const scrollBtn = document.getElementById("scrollTopBtn");
+      if (scrollBtn) scrollBtn.classList.toggle("visible", window.scrollY > 400);
+
+      document.body.classList.add('scrolling');
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        document.body.classList.remove('scrolling');
+      }, 250);
+    });
+
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    menuContent.addEventListener('touchstart', (e) => {
+      if (!menuContent.classList.contains('active')) return;
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      menuContent.style.transition = 'none';
+    }, false);
+
+    menuContent.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+      const deltaX = currentX - startX;
+      if (deltaX < 0) {
+        menuContent.style.left = `${deltaX}px`;
+      }
+    }, false);
+
+    menuContent.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const deltaX = currentX - startX;
+      menuContent.style.transition = 'left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+      if (deltaX < -50) {
+        closeMenu();
+      } else {
+        menuContent.style.left = '0';
+      }
+    });
+
+    menuOverlay.addEventListener('click', () => {
+      closeMenu();
+    });
+
+
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const current = +counter.innerText;
+        const increment = Math.ceil(target / 100);
+        if (current < target) {
+          counter.innerText = current + increment;
+          setTimeout(updateCount, 50);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+    });
+  </script>
+
+</body>
+</html>
