@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><script src="../supabase-config.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>NPS Candidatos | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.6rem;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--accent);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.nps-score{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:2rem;text-align:center;margin-bottom:1.2rem;}
+.nps-val{font-size:5rem;font-weight:900;line-height:1;color:var(--accent);margin-bottom:0.3rem;}
+.nps-label{font-size:0.82rem;color:var(--muted);font-weight:600;}
+.nps-grade{font-size:0.72rem;font-weight:800;padding:0.3rem 1rem;border-radius:99px;display:inline-block;margin-top:0.5rem;}
+.grade-excelente{background:rgba(46,204,113,0.15);color:var(--green);border:1px solid rgba(46,204,113,0.3);}
+.grade-bom{background:rgba(59,130,246,0.12);color:var(--accent);border:1px solid rgba(59,130,246,0.28);}
+.grade-melhoria{background:rgba(243,156,18,0.1);color:var(--orange);border:1px solid rgba(243,156,18,0.25);}
+.grade-critico{background:rgba(231,76,60,0.1);color:var(--red);border:1px solid rgba(231,76,60,0.25);}
+.kpi-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;text-align:center;}
+.kpi-val{font-size:1.6rem;font-weight:900;line-height:1;}.kpi-label{font-size:0.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.5rem;margin-bottom:1rem;}
+.card-title{font-size:0.78rem;font-weight:800;margin-bottom:1rem;}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+/* SCALE */
+.scale-row{display:flex;gap:0.25rem;justify-content:center;flex-wrap:wrap;margin:0.8rem 0;}
+.scale-btn{width:44px;height:44px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);cursor:pointer;font-size:0.85rem;font-weight:800;color:var(--muted);transition:all 0.15s;font-family:inherit;}
+.scale-btn:hover{transform:translateY(-2px);}
+.scale-btn.s0,.scale-btn.s1,.scale-btn.s2,.scale-btn.s3,.scale-btn.s4,.scale-btn.s5,.scale-btn.s6{border-color:rgba(231,76,60,0.35);color:var(--red);}
+.scale-btn.s7,.scale-btn.s8{border-color:rgba(243,156,18,0.35);color:var(--orange);}
+.scale-btn.s9,.scale-btn.s10{border-color:rgba(46,204,113,0.35);color:var(--green);}
+.scale-btn.selected{transform:scale(1.15);font-size:1rem;}
+.scale-btn.s0.selected,.scale-btn.s1.selected,.scale-btn.s2.selected,.scale-btn.s3.selected,.scale-btn.s4.selected,.scale-btn.s5.selected,.scale-btn.s6.selected{background:rgba(231,76,60,0.2);}
+.scale-btn.s7.selected,.scale-btn.s8.selected{background:rgba(243,156,18,0.2);}
+.scale-btn.s9.selected,.scale-btn.s10.selected{background:rgba(46,204,113,0.2);}
+/* RESPOSTA LISTA */
+.resp-list{display:flex;flex-direction:column;gap:0.4rem;max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.resp-item{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 0.7rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:9px;}
+.resp-score{font-size:1.1rem;font-weight:900;width:28px;text-align:center;flex-shrink:0;}
+.resp-nome{font-size:0.75rem;font-weight:700;flex:1;}
+.resp-comment{font-size:0.65rem;color:var(--muted);}
+.resp-data{font-size:0.6rem;color:var(--muted2);flex-shrink:0;}
+.fi{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}.fi:focus{border-color:var(--accent);}.fi::placeholder{color:var(--muted2);}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}.toast.show{transform:translateY(0);opacity:1;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page, .wrap, .wrapper {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child { width: 100% !important; }
+  .hero .btn, .hero button { width: 100% !important; justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3,
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Formulários */
+  .form-card { padding: 1rem !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Filtros */
+  .filters, .discFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .filters::-webkit-scrollbar, .discFilters::-webkit-scrollbar { display: none !important; }
+  .fc, .filter-chip { flex-shrink: 0 !important; }
+
+  /* Listas de itens */
+  .notif-item, .resp-item, .hist-item, .user-row, .polling-row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .notif-msg { white-space: normal !important; font-size: 0.72rem !important; }
+
+  /* Mapa de talentos */
+  .quadrante-wrap { aspect-ratio: 1 !important; max-height: 280px !important; }
+  .talent-table { font-size: 0.68rem !important; }
+  .talent-table th, .talent-table td { padding: 0.38rem 0.4rem !important; }
+
+  /* NPS scale */
+  .scale-row { gap: 0.2rem !important; margin: 0.6rem 0 !important; }
+  .scale-btn { width: 36px !important; height: 36px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+  .nps-val { font-size: 3.5rem !important; }
+  .nps-score { padding: 1.2rem !important; }
+  .kpi-row.nps { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Permissões */
+  .role-grid { grid-template-columns: 1fr !important; }
+  .role-card { padding: 1rem !important; }
+  .perm-item { font-size: 0.68rem !important; }
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Equipe */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.6rem !important; }
+  .member-ava { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; }
+  .member-card { padding: 1rem !important; }
+  .member-btns { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* Fit Predictor */
+  .result-box { padding: 1rem !important; }
+  .score-num { font-size: 3.5rem !important; }
+  .bar-label { width: 70px !important; font-size: 0.6rem !important; }
+  .insights { font-size: 0.7rem !important; }
+  .hist-list { max-height: 200px !important; }
+
+  /* Inteligência / busca IA */
+  .search-inner { flex-direction: column !important; }
+  .s-input { width: 100% !important; }
+  .search-box { padding: 0.9rem !important; }
+
+  /* Notificações */
+  .notif-list { max-height: 300px !important; }
+  .kpi-row .kpi { text-align: center; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Seção labels */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Topbar (emails / entrevista) */
+  .topbar, .tbar {
+    padding: 0.7rem 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+  .topbar-actions { gap: 0.4rem !important; }
+  .topbar-actions .btn, .topbar-actions button { font-size: 0.68rem !important; padding: 0.38rem 0.65rem !important; }
+}
+
+</style></head><body>
+<div class="page">
+  <div class="hero"><div class="eyebrow">Qualidade</div><div class="title">NPS de <span>Candidatos</span></div><div class="sub">Net Promoter Score — satisfação dos candidatos com o processo seletivo</div></div>
+  
+  <div class="nps-score">
+    <div class="nps-val" id="npsVal">—</div>
+    <div class="nps-label">Net Promoter Score</div>
+    <div class="nps-grade" id="npsGrade">Sem dados</div>
+    <div style="font-size:0.7rem;color:var(--muted);margin-top:0.6rem;">Promotores (9-10) − Detratores (0-6) / Total × 100</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kPromo" style="color:var(--green);">0</div><div class="kpi-label">Promotores</div></div>
+    <div class="kpi"><div class="kpi-val" id="kNeutro" style="color:var(--orange);">0</div><div class="kpi-label">Neutros</div></div>
+    <div class="kpi"><div class="kpi-val" id="kDetrat" style="color:var(--red);">0</div><div class="kpi-label">Detratores</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">➕ Registrar nova avaliação</div>
+    <div style="margin-bottom:0.8rem;display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+      <div><label style="font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;">Nome do candidato</label><input class="fi" id="nNome" placeholder="Nome (opcional)"/></div>
+      <div><label style="font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;">Comentário</label><input class="fi" id="nComment" placeholder="Feedback opcional"/></div>
+    </div>
+    <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.5rem;text-align:center;">De 0 a 10, o quanto você indicaria nossa agência para um amigo?</div>
+    <div class="scale-row" id="scaleRow"></div>
+    <div style="display:flex;justify-content:space-between;font-size:0.62rem;color:var(--muted);margin-bottom:1rem;"><span>Muito improvável</span><span>Muito provável</span></div>
+    <button class="btn btn-accent" onclick="salvarNPS()" style="width:100%;justify-content:center;">✅ Registrar avaliação</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Histórico de avaliações (<span id="totalResp">0</span>)</div>
+    <div class="resp-list" id="respList"><div style="text-align:center;padding:1rem;color:var(--muted2);font-size:0.75rem;">Nenhuma avaliação registrada ainda.</div></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// ── Agência Nexus ATS — nps-candidatos.html (Supabase) ─────────────
+const TABELA = 'nps_candidatos';
+let _respostas = [], _selected = null;
+
+async function init() {
+  // monta escala
+  const sr = document.getElementById('scaleRow');
+  sr.innerHTML = [0,1,2,3,4,5,6,7,8,9,10].map(n =>
+    `<button class="scale-btn s${n}" onclick="selScore(${n})">${n}</button>`
+  ).join('');
+  try {
+    _respostas = await sbGet(TABELA, 'order=criado_em.desc');
+  } catch(e) {
+    console.error('Supabase erro NPS candidatos:', e);
+    toast('⚠️ Erro ao carregar avaliações', true);
+    _respostas = [];
+  }
+  renderNPS();
+}
+
+function selScore(n) {
+  _selected = n;
+  document.querySelectorAll('.scale-btn').forEach((b, i) => b.classList.toggle('selected', i === n));
+}
+
+async function salvarNPS() {
+  if (_selected === null) { toast('Selecione uma nota de 0 a 10', true); return; }
+  const r = {
+    id:      'r' + Date.now(),
+    nota:    _selected,
+    nome:    (document.getElementById('nNome').value || '').trim() || 'Anônimo',
+    comment: (document.getElementById('nComment').value || '').trim()
+  };
+  try {
+    const salvo = await sbPost(TABELA, r);
+    _respostas.unshift(salvo || r);
+    renderNPS();
+    document.getElementById('nNome').value = '';
+    document.getElementById('nComment').value = '';
+    document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+    _selected = null;
+    toast('✅ Avaliação registrada!');
+  } catch(e) {
+    console.error(e);
+    toast('❌ Erro ao salvar: ' + e.message, true);
+  }
+}
+
+function renderNPS() {
+  const total  = _respostas.length;
+  const promo  = _respostas.filter(r => r.nota >= 9).length;
+  const detrat = _respostas.filter(r => r.nota <= 6).length;
+  const neutro = total - promo - detrat;
+  const nps    = total ? Math.round(((promo - detrat) / total) * 100) : null;
+
+  document.getElementById('kPromo').textContent   = promo;
+  document.getElementById('kNeutro').textContent  = neutro;
+  document.getElementById('kDetrat').textContent  = detrat;
+  document.getElementById('totalResp').textContent = total;
+
+  const npsEl   = document.getElementById('npsVal');
+  const gradeEl = document.getElementById('npsGrade');
+  if (nps === null) {
+    npsEl.textContent = '—'; gradeEl.textContent = 'Sem dados'; gradeEl.className = 'nps-grade';
+  } else {
+    npsEl.textContent = nps;
+    npsEl.style.color = nps >= 50 ? 'var(--green)' : nps >= 0 ? 'var(--accent)' : nps >= -25 ? 'var(--orange)' : 'var(--red)';
+    if      (nps >= 75) { gradeEl.textContent = '🏆 Excelente';   gradeEl.className = 'nps-grade grade-excelente'; }
+    else if (nps >= 50) { gradeEl.textContent = '👍 Muito bom';   gradeEl.className = 'nps-grade grade-bom'; }
+    else if (nps >= 0)  { gradeEl.textContent = '📈 Em melhoria'; gradeEl.className = 'nps-grade grade-melhoria'; }
+    else                { gradeEl.textContent = '⚠️ Crítico';     gradeEl.className = 'nps-grade grade-critico'; }
+  }
+
+  const el = document.getElementById('respList');
+  if (!_respostas.length) {
+    el.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--muted2);font-size:0.75rem;">Nenhuma avaliação ainda.</div>';
+    return;
+  }
+  const fmtData = iso => iso ? new Date(iso).toLocaleDateString('pt-BR') : '';
+  el.innerHTML = _respostas.map(r => {
+    const cor = r.nota >= 9 ? 'var(--green)' : r.nota >= 7 ? 'var(--orange)' : 'var(--red)';
+    return `<div class="resp-item">
+      <div class="resp-score" style="color:${cor};">${r.nota}</div>
+      <div style="flex:1;min-width:0;"><div class="resp-nome">${esc(r.nome)}</div>${r.comment ? `<div class="resp-comment">${esc(r.comment)}</div>` : ''}</div>
+      <div class="resp-data">${fmtData(r.criado_em)}</div>
+    </div>`;
+  }).join('');
+}
+
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+let _tt;
+function toast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => t.classList.remove('show'), 3000);
+}
+init();
+</script></body></html>

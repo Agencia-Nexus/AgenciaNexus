@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Configurações | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#a78bfa;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.8rem;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);opacity:0.8;margin-bottom:0.35rem;}
+.hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.hero-title span{color:var(--accent);}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+.card-title{font-size:0.82rem;font-weight:800;margin-bottom:1rem;}
+.f-label{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.f-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.f-input:focus{border-color:var(--accent);}
+.f-input::placeholder{color:var(--muted2);}
+.f-select{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2rem;}
+.f-select option{background:#161616;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+@media(max-width:600px){.grid-2{grid-template-columns:1fr;}}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:10px;padding:0.55rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}
+.btn-red:hover{background:rgba(231,76,60,0.18);}
+.row{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.row:last-child{border-bottom:none;padding-bottom:0;}
+.row-info strong{font-size:0.82rem;font-weight:700;display:block;margin-bottom:0.1rem;}
+.row-info span{font-size:0.68rem;color:var(--muted);}
+/* TOGGLE */
+.toggle{width:40px;height:22px;border-radius:99px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.12);cursor:pointer;transition:all 0.2s;position:relative;flex-shrink:0;}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:all 0.2s;}
+.toggle.on{background:var(--accent);border-color:var(--accent);}
+.toggle.on::after{left:20px;}
+/* MEMBER */
+.member-row{display:flex;align-items:center;gap:0.8rem;padding:0.75rem 0.9rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;margin-bottom:0.5rem;}
+.member-ava{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:900;color:#fff;flex-shrink:0;}
+.member-info{flex:1;min-width:0;}
+.member-name{font-size:0.8rem;font-weight:700;}
+.member-email{font-size:0.62rem;color:var(--muted);}
+.role-badge{font-size:0.58rem;font-weight:800;padding:0.15rem 0.55rem;border-radius:99px;flex-shrink:0;}
+.role-admin{background:rgba(59,130,246,0.12);color:var(--accent);}
+.role-rec{background:rgba(52,152,219,0.12);color:var(--blue);}
+.badge-ok{background:rgba(59,130,246,0.1);color:var(--green);border:1px solid rgba(59,130,246,0.25);font-size:0.62rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:99px;}
+.badge-warn{background:rgba(243,156,18,0.1);color:var(--orange);border:1px solid rgba(243,156,18,0.25);font-size:0.62rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:99px;}
+.integ-row{display:flex;align-items:center;gap:0.8rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.integ-row:last-child{border-bottom:none;}
+.integ-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.integ-info{flex:1;}
+.integ-name{font-size:0.78rem;font-weight:700;margin-bottom:0.1rem;}
+.integ-desc{font-size:0.62rem;color:var(--muted);}
+.msg{font-size:0.72rem;font-weight:600;margin-top:0.5rem;min-height:1rem;}
+.msg.ok{color:var(--green);}
+.msg.err{color:var(--red);}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page { padding: 1rem 0.9rem 4rem !important; }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-right, .hero > div[style*="display:flex"], .hero > div:last-child {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  .hero-right .btn, .hero .btn, .hero button { justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-grid, .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.35rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3, .charts-grid,
+  .grid-2-col, .grid-3-col { grid-template-columns: 1fr !important; }
+
+  /* Cards */
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Botões */
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Toolbar / busca */
+  .toolbar { flex-wrap: wrap !important; }
+  .search-inp { width: 100% !important; min-width: unset !important; }
+
+  /* Seções */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Tabelas — scroll horizontal */
+  .log-table, .conv-table, .vaga-table {
+    overflow-x: auto !important;
+    display: block !important;
+  }
+  .log-table table { min-width: 520px !important; }
+  .conv-table, .vaga-table { min-width: 480px !important; }
+  .log-table th, .log-table td { padding: 0.45rem 0.6rem !important; font-size: 0.68rem !important; }
+
+  /* Rows de export/backup */
+  .export-row, .row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .export-ico { display: none !important; }
+  .export-row .btn { width: 100% !important; justify-content: center !important; }
+
+  /* Config rows */
+  .row { padding: 0.6rem 0 !important; }
+  .row-info strong { font-size: 0.76rem !important; }
+
+  /* Cards de clientes/roles */
+  .clients-grid, .role-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .client-card { padding: 1rem !important; }
+  .cc-btns { flex-wrap: wrap !important; }
+
+  /* Agendamento: layout de coluna única */
+  .layout { grid-template-columns: 1fr !important; }
+  .cal-card { padding: 0.8rem !important; border-radius: 14px !important; }
+
+  /* Period buttons (analytics) */
+  .period-btns { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .pbtn { font-size: 0.65rem !important; padding: 0.3rem 0.6rem !important; }
+
+  /* Funil de conversão */
+  .funil-step { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .funil-label { width: auto !important; text-align: left !important; flex: 0 0 100% !important; font-size: 0.65rem !important; }
+  .funil-bar-wrap { flex: 1 1 100% !important; height: 32px !important; }
+  .funil-num { width: auto !important; }
+  .funil-pct { width: auto !important; }
+
+  /* DISC quick links */
+  .quick-links { gap: 0.35rem !important; }
+  .qlink { font-size: 0.68rem !important; padding: 0.38rem 0.7rem !important; }
+
+  /* Dashboard específico */
+  .disc-dist-row { flex-direction: column !important; }
+  .top-vagas-list .tv-row { flex-wrap: wrap !important; gap: 0.4rem !important; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Info box */
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Paginação */
+  .pg { gap: 0.25rem !important; }
+  .pg-btn { padding: 0.28rem 0.5rem !important; font-size: 0.65rem !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Sistema</div>
+    <div class="hero-title">Config. <span>Geral</span></div>
+  </div>
+
+  <!-- AGÊNCIA -->
+  <div class="sec-label">Dados da agência</div>
+  <div class="card">
+    <div class="card-title">🏢 Informações da empresa</div>
+    <div class="grid-2">
+      <div><label class="f-label">Nome da agência</label><input class="f-input" id="cfgNomeAgencia" placeholder="Agência Nexus" value="Agência Nexus"/></div>
+      <div><label class="f-label">Cidade / Estado</label><input class="f-input" id="cfgCidade" placeholder="Guaíba, RS" value="Guaíba, RS"/></div>
+    </div>
+    <div class="grid-2">
+      <div><label class="f-label">E-mail da agência</label><input class="f-input" id="cfgEmail" placeholder="contato@nexus.com.br"/></div>
+      <div><label class="f-label">Telefone</label><input class="f-input" id="cfgTel" placeholder="(51) 9 9999-9999"/></div>
+    </div>
+    <button class="btn btn-accent" onclick="salvarAgencia()">💾 Salvar</button>
+    <div class="msg" id="agenciaMsg"></div>
+  </div>
+
+  <!-- CREDENCIAIS -->
+  <div class="sec-label">Acesso e segurança</div>
+  <div class="card">
+    <div class="card-title">🔑 Alterar credenciais de acesso</div>
+    <div id="credList"></div>
+  </div>
+
+  <!-- EQUIPE -->
+  <div class="sec-label">Equipe interna</div>
+  <div class="card">
+    <div class="card-title">👥 Membros da equipe</div>
+    <div id="membros"></div>
+    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+      <div class="grid-2">
+        <div><label class="f-label">Nome</label><input class="f-input" id="novoNome" placeholder="Nome do membro"/></div>
+        <div><label class="f-label">E-mail</label><input class="f-input" id="novoEmail" type="email" placeholder="email@nexus.com.br"/></div>
+      </div>
+      <div class="grid-2" style="margin-top:0.5rem;">
+        <div>
+          <label class="f-label">Perfil</label>
+          <select class="f-select" id="novoPerfil">
+            <option value="recrutador">Recrutador</option>
+            <option value="admin">Administrador</option>
+            <option value="visualizador">Visualizador</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:flex-end;">
+          <button class="btn btn-accent" style="width:100%;justify-content:center;" onclick="adicionarMembro()">➕ Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREFERÊNCIAS -->
+  <div class="sec-label">Preferências do sistema</div>
+  <div class="card">
+    <div class="card-title">⚙️ Comportamento do painel</div>
+    <div class="row">
+      <div class="row-info"><strong>Ordenar candidatos por fit score</strong><span>Exibe candidatos do maior para o menor score automaticamente</span></div>
+      <div class="toggle" id="togFit" onclick="togglePref('ordemFit',this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-info"><strong>Mostrar badge de ranking</strong><span>Exibe 🥇🥈🥉 nos cards de candidatos</span></div>
+      <div class="toggle" id="togRank" onclick="togglePref('rankBadge',this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-info"><strong>Abrir no Dashboard ao entrar</strong><span>Em vez de abrir na tela de boas-vindas</span></div>
+      <div class="toggle" id="togDash" onclick="togglePref('dashInicio',this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-info"><strong>Notificações de novos candidatos</strong><span>Alertas em tempo real ao receber novos perfis DISC</span></div>
+      <div class="toggle" id="togNotif" onclick="togglePref('notifAtiva',this)"></div>
+    </div>
+  </div>
+
+  <!-- INTEGRAÇÕES -->
+  <div class="sec-label">Integrações & Serviços</div>
+  <div class="card">
+    <div class="card-title">🔗 Serviços conectados</div>
+    <div class="integ-row">
+      <div class="integ-ico" style="background:rgba(59,130,246,0.1);">🗄️</div>
+      <div class="integ-info"><div class="integ-name">Supabase</div><div class="integ-desc">Banco de dados PostgreSQL · Candidatos, vagas, pipeline</div></div>
+      <span class="badge-ok">✓ Conectado</span>
+    </div>
+    <div class="integ-row">
+      <div class="integ-ico" style="background:rgba(234,67,53,0.1);">📧</div>
+      <div class="integ-info"><div class="integ-name">Gmail / Outlook</div><div class="integ-desc">Envio de e-mails via abertura de janela — sem API necessária</div></div>
+      <span class="badge-ok">✓ Ativo</span>
+    </div>
+    <div class="integ-row">
+      <div class="integ-ico" style="background:rgba(37,211,102,0.1);">📱</div>
+      <div class="integ-info"><div class="integ-name">WhatsApp Web</div><div class="integ-desc">Links wa.me para contato rápido com candidatos</div></div>
+      <span class="badge-ok">✓ Ativo</span>
+    </div>
+    <div class="integ-row">
+      <div class="integ-ico" style="background:rgba(52,152,219,0.1);">🔮</div>
+      <div class="integ-info"><div class="integ-name">Gemini API (Google)</div><div class="integ-desc">IA gratuita para triagem e análise de perfis</div></div>
+      <span class="badge-warn">Configurar chave</span>
+    </div>
+    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+      <label class="f-label">Gemini API Key (opcional)</label>
+      <div style="display:flex;gap:0.6rem;">
+        <input class="f-input" id="geminiKey" type="password" placeholder="AIza..." style="margin-bottom:0;flex:1;"/>
+        <button class="btn btn-accent" onclick="salvarGemini()">💾 Salvar</button>
+      </div>
+      <div class="msg" id="geminiMsg"></div>
+    </div>
+  </div>
+
+  <!-- BANCO DE DADOS -->
+  <div class="sec-label">Banco de dados</div>
+  <div class="card">
+    <div class="card-title">🗄️ Supabase</div>
+    <div class="grid-2">
+      <div><label class="f-label">URL do projeto</label><input class="f-input" id="sbUrl" placeholder="https://xxx.supabase.co"/></div>
+      <div><label class="f-label">Chave pública (anon key)</label><input class="f-input" id="sbKey" type="password" placeholder="sb_publishable_..."/></div>
+    </div>
+    <button class="btn btn-accent" onclick="salvarSB()">💾 Atualizar conexão</button>
+    <button class="btn btn-ghost" style="margin-left:0.5rem;" onclick="testarSB()">🔌 Testar conexão</button>
+    <div class="msg" id="sbMsg"></div>
+  </div>
+
+  <!-- DANGER ZONE -->
+  <div class="sec-label">Zona de perigo</div>
+  <div class="card" style="border-color:rgba(231,76,60,0.2);">
+    <div class="card-title" style="color:var(--red);">⚠️ Ações irreversíveis</div>
+    <div class="row">
+      <div class="row-info"><strong>Limpar pipeline local</strong><span>Remove todos os candidatos do kanban (não apaga do banco)</span></div>
+      <button class="btn btn-red" onclick="limparPipeline()">Limpar pipeline</button>
+    </div>
+    <div class="row">
+      <div class="row-info"><strong>Limpar log de auditoria</strong><span>Apaga o histórico de ações salvo localmente</span></div>
+      <button class="btn btn-red" onclick="limparLog()">Limpar log</button>
+    </div>
+    <div class="row">
+      <div class="row-info"><strong>Limpar agenda</strong><span>Remove todos os eventos de agendamento de entrevistas</span></div>
+      <button class="btn btn-red" onclick="limparAgenda()">Limpar agenda</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let SB_URL='',SB_KEY='',PIPE_KEY='nexus_pipeline_v1';
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;PIPE_KEY=c.pipe_key||PIPE_KEY;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;}});
+lerCtx();
+
+// Prefs
+function getPrefs(){try{return JSON.parse(localStorage.getItem('nexus_prefs')||'{}');}catch(e){return{};}}
+function savePrefs(p){try{localStorage.setItem('nexus_prefs',JSON.stringify(p));}catch(e){}}
+function togglePref(key,el){
+  const p=getPrefs(); p[key]=!p[key]; savePrefs(p);
+  el.classList.toggle('on',!!p[key]);
+  toast(`${key}: ${p[key]?'ativado':'desativado'}`);
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  lerCtx();
+  // Preenche URL/Key do Supabase
+  document.getElementById('sbUrl').value=SB_URL||'';
+  document.getElementById('sbKey').value=SB_KEY||'';
+  // Gemini
+  try{const k=localStorage.getItem('nexus_gemini_key')||'';document.getElementById('geminiKey').value=k?'••••••':'';}catch(e){}
+  // Prefs
+  const p=getPrefs();
+  ['togFit','togRank','togDash','togNotif'].forEach((id,i)=>{
+    const keys=['ordemFit','rankBadge','dashInicio','notifAtiva'];
+    document.getElementById(id).classList.toggle('on',!!p[keys[i]]);
+  });
+  // Membros
+  renderMembros();
+  renderCredenciais();
+  // Agência
+  try{const ag=JSON.parse(localStorage.getItem('nexus_agencia')||'{}');if(ag.nome)document.getElementById('cfgNomeAgencia').value=ag.nome;if(ag.cidade)document.getElementById('cfgCidade').value=ag.cidade;if(ag.email)document.getElementById('cfgEmail').value=ag.email;if(ag.tel)document.getElementById('cfgTel').value=ag.tel;}catch(e){}
+});
+
+function salvarAgencia(){
+  try{localStorage.setItem('nexus_agencia',JSON.stringify({nome:document.getElementById('cfgNomeAgencia').value,cidade:document.getElementById('cfgCidade').value,email:document.getElementById('cfgEmail').value,tel:document.getElementById('cfgTel').value}));}catch(e){}
+  const el=document.getElementById('agenciaMsg');el.className='msg ok';el.textContent='✅ Salvo com sucesso!';setTimeout(()=>el.textContent='',3000);
+}
+
+function getMembros(){try{return JSON.parse(localStorage.getItem('nexus_membros')||'[]');}catch(e){return[];}}
+function saveMembros(m){try{localStorage.setItem('nexus_membros',JSON.stringify(m));}catch(e){}}
+function renderMembros(){
+  const lista=getMembros();
+  const el=document.getElementById('membros');
+  if(!lista.length){el.innerHTML='<div style="font-size:0.75rem;color:var(--muted2);padding:0.5rem 0;">Nenhum membro adicionado.</div>';return;}
+  el.innerHTML=lista.map((m,i)=>`<div class="member-row">
+    <div class="member-ava" style="background:linear-gradient(135deg,${['#1e40af','#3498db','#9b59b6','#e74c3c'][i%4]},${['#3b82f6','#2ecc71','#a78bfa','#f39c12'][i%4]});">${(m.nome||'?')[0].toUpperCase()}</div>
+    <div class="member-info"><div class="member-name">${esc(m.nome)}</div><div class="member-email">${esc(m.email)}</div></div>
+    <span class="role-badge ${m.perfil==='admin'?'role-admin':'role-rec'}">${m.perfil}</span>
+    <button onclick="removerMembro(${i})" style="background:none;border:none;color:rgba(231,76,60,0.4);cursor:pointer;font-size:0.9rem;padding:0.2rem 0.4rem;border-radius:6px;transition:all 0.15s;" onmouseover="this.style.color='#e74c3c'" onmouseout="this.style.color='rgba(231,76,60,0.4)'">🗑</button>
+  </div>`).join('');
+}
+function adicionarMembro(){
+  const nome=(document.getElementById('novoNome').value||'').trim();
+  const email=(document.getElementById('novoEmail').value||'').trim();
+  if(!nome||!email){toast('Preencha nome e e-mail',true);return;}
+  const lista=getMembros();lista.push({nome,email,perfil:document.getElementById('novoPerfil').value});saveMembros(lista);
+  document.getElementById('novoNome').value='';document.getElementById('novoEmail').value='';
+  renderMembros();toast('✅ Membro adicionado');
+}
+function removerMembro(i){const l=getMembros();l.splice(i,1);saveMembros(l);renderMembros();toast('Membro removido');}
+
+function renderCredenciais(){
+  const USUARIOS=[
+    {nome:'Administrador',email:'admin@nexus.com.br',role:'admin'},
+    {nome:'Recrutador',email:'rh@nexus.com.br',role:'recrutador'},
+  ];
+  document.getElementById('credList').innerHTML=USUARIOS.map((u,i)=>`
+    <div class="row">
+      <div class="row-info"><strong>${u.nome}</strong><span>${u.email}</span></div>
+      <div style="display:flex;gap:0.5rem;align-items:center;">
+        <input type="password" id="senha${i}" class="f-input" style="width:140px;margin:0;" placeholder="Nova senha"/>
+        <button class="btn btn-ghost" style="font-size:0.7rem;" onclick="toast('⚠️ Senhas são gerenciadas no arquivo disc-admin.html')">💾</button>
+      </div>
+    </div>`).join('');
+}
+
+function salvarSB(){
+  const url=document.getElementById('sbUrl').value.trim();const key=document.getElementById('sbKey').value.trim();
+  if(!url||!key){toast('Preencha URL e chave',true);return;}
+  try{const ctx=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');ctx.sb_url=url;ctx.sb_key=key;localStorage.setItem('nexus_ctx_v3',JSON.stringify(ctx));}catch(e){}
+  const el=document.getElementById('sbMsg');el.className='msg ok';el.textContent='✅ Conexão atualizada. Recarregue a página para aplicar.';
+}
+async function testarSB(){
+  const url=document.getElementById('sbUrl').value.trim()||SB_URL;const key=document.getElementById('sbKey').value.trim()||SB_KEY;
+  const el=document.getElementById('sbMsg');el.className='msg';el.textContent='Testando...';
+  try{const r=await fetch(`${url}/rest/v1/disc_historico?limit=1`,{headers:{'apikey':key,'Authorization':'Bearer '+key}});
+    if(r.ok){el.className='msg ok';el.textContent='✅ Conexão bem-sucedida!';}
+    else{el.className='msg err';el.textContent='❌ Erro '+r.status+' — verifique URL e chave.';}
+  }catch(e){el.className='msg err';el.textContent='❌ Erro de conexão: '+e.message;}
+}
+function salvarGemini(){
+  const k=(document.getElementById('geminiKey').value||'').trim();
+  if(k&&k!=='••••••') try{localStorage.setItem('nexus_gemini_key',k);}catch(e){}
+  const el=document.getElementById('geminiMsg');el.className='msg ok';el.textContent='✅ Chave salva.';setTimeout(()=>el.textContent='',3000);
+}
+
+// Danger Zone
+function limparPipeline(){if(!confirm('Limpar pipeline? Esta ação não pode ser desfeita.'))return;try{localStorage.removeItem(PIPE_KEY);}catch(e){}toast('✅ Pipeline limpo');window.parent.postMessage({tipo:'nexus_kpi'},'*');}
+function limparLog(){if(!confirm('Limpar log de auditoria?'))return;try{localStorage.removeItem('nexus_audit_log');}catch(e){}toast('✅ Log limpo');}
+function limparAgenda(){if(!confirm('Limpar todos os agendamentos?'))return;try{localStorage.removeItem('nexus_agenda_v1');}catch(e){}toast('✅ Agenda limpa');}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+let _tt;function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(err?' err':'');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3500);}
+</script>
+</body>
+</html>

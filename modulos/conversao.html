@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Taxa de Conversão | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.6rem;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--purple,#a78bfa);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:#a78bfa;}
+.sub{font-size:0.8rem;color:var(--muted);}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;}
+.kpi-val{font-size:1.8rem;font-weight:900;line-height:1;}.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.5rem;margin-bottom:1rem;}
+.card-title{font-size:0.78rem;font-weight:800;margin-bottom:1rem;}
+/* FUNIL VISUAL */
+.funil{display:flex;flex-direction:column;align-items:center;gap:0.3rem;padding:1rem 0;}
+.funil-step{width:100%;max-width:500px;display:flex;align-items:center;gap:1rem;}
+.funil-bar-wrap{flex:1;height:40px;border-radius:8px;overflow:hidden;position:relative;cursor:default;}
+.funil-bar-fill{height:100%;border-radius:8px;display:flex;align-items:center;padding-left:1rem;font-size:0.72rem;font-weight:800;color:rgba(255,255,255,0.9);transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+.funil-label{font-size:0.72rem;font-weight:700;width:110px;text-align:right;flex-shrink:0;}
+.funil-num{font-size:0.75rem;font-weight:800;width:50px;text-align:right;flex-shrink:0;}
+.funil-pct{font-size:0.62rem;color:var(--muted);width:40px;text-align:right;flex-shrink:0;}
+.step-arrow{text-align:center;font-size:0.7rem;color:var(--muted2);}
+/* TABELA */
+.conv-table{width:100%;border-collapse:collapse;}
+.conv-table th{padding:0.55rem 0.8rem;text-align:left;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+.conv-table td{padding:0.6rem 0.8rem;font-size:0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);}
+.conv-table tr:last-child td{border-bottom:none;}
+.bar-inline{height:5px;border-radius:99px;background:rgba(255,255,255,0.06);margin-top:0.2rem;overflow:hidden;}
+.bar-inline-fill{height:100%;border-radius:99px;}
+.spinner{width:16px;height:16px;border:2px solid var(--muted2);border-top-color:#a78bfa;border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}@keyframes spin{to{transform:rotate(360deg)}}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page { padding: 1rem 0.9rem 4rem !important; }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-right, .hero > div[style*="display:flex"], .hero > div:last-child {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  .hero-right .btn, .hero .btn, .hero button { justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-grid, .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.35rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3, .charts-grid,
+  .grid-2-col, .grid-3-col { grid-template-columns: 1fr !important; }
+
+  /* Cards */
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Botões */
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Toolbar / busca */
+  .toolbar { flex-wrap: wrap !important; }
+  .search-inp { width: 100% !important; min-width: unset !important; }
+
+  /* Seções */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Tabelas — scroll horizontal */
+  .log-table, .conv-table, .vaga-table {
+    overflow-x: auto !important;
+    display: block !important;
+  }
+  .log-table table { min-width: 520px !important; }
+  .conv-table, .vaga-table { min-width: 480px !important; }
+  .log-table th, .log-table td { padding: 0.45rem 0.6rem !important; font-size: 0.68rem !important; }
+
+  /* Rows de export/backup */
+  .export-row, .row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .export-ico { display: none !important; }
+  .export-row .btn { width: 100% !important; justify-content: center !important; }
+
+  /* Config rows */
+  .row { padding: 0.6rem 0 !important; }
+  .row-info strong { font-size: 0.76rem !important; }
+
+  /* Cards de clientes/roles */
+  .clients-grid, .role-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .client-card { padding: 1rem !important; }
+  .cc-btns { flex-wrap: wrap !important; }
+
+  /* Agendamento: layout de coluna única */
+  .layout { grid-template-columns: 1fr !important; }
+  .cal-card { padding: 0.8rem !important; border-radius: 14px !important; }
+
+  /* Period buttons (analytics) */
+  .period-btns { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .pbtn { font-size: 0.65rem !important; padding: 0.3rem 0.6rem !important; }
+
+  /* Funil de conversão */
+  .funil-step { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .funil-label { width: auto !important; text-align: left !important; flex: 0 0 100% !important; font-size: 0.65rem !important; }
+  .funil-bar-wrap { flex: 1 1 100% !important; height: 32px !important; }
+  .funil-num { width: auto !important; }
+  .funil-pct { width: auto !important; }
+
+  /* DISC quick links */
+  .quick-links { gap: 0.35rem !important; }
+  .qlink { font-size: 0.68rem !important; padding: 0.38rem 0.7rem !important; }
+
+  /* Dashboard específico */
+  .disc-dist-row { flex-direction: column !important; }
+  .top-vagas-list .tv-row { flex-wrap: wrap !important; gap: 0.4rem !important; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Info box */
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Paginação */
+  .pg { gap: 0.25rem !important; }
+  .pg-btn { padding: 0.28rem 0.5rem !important; font-size: 0.65rem !important; }
+}
+
+@media (max-width: 640px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr) !important; }
+  .funil { padding: 0.5rem 0 !important; }
+  .funil-step { flex-wrap: wrap !important; }
+  .funil-label { flex: 1 1 100% !important; font-size: 0.65rem !important; }
+  .funil-bar-fill { font-size: 0.6rem !important; }
+  .step-arrow { font-size: 0.62rem !important; }
+}
+
+</style></head><body>
+<div class="page">
+  <div class="hero"><div class="eyebrow">Qualidade · Analytics</div><div class="title">Taxa de <span>Conversão</span></div><div class="sub">Funil completo do processo seletivo — da avaliação à aprovação</div></div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kTotal" style="color:var(--accent);">—</div><div class="kpi-label">Avaliados</div></div>
+    <div class="kpi"><div class="kpi-val" id="kComFit" style="color:var(--blue);">—</div><div class="kpi-label">Com Fit Score</div></div>
+    <div class="kpi"><div class="kpi-val" id="kComEnt" style="color:var(--orange);">—</div><div class="kpi-label">Com Entrevista</div></div>
+    <div class="kpi"><div class="kpi-val" id="kPipeline" style="color:#a78bfa;">—</div><div class="kpi-label">No Pipeline</div></div>
+    <div class="kpi"><div class="kpi-val" id="kAprovados" style="color:var(--green);">—</div><div class="kpi-label">Aprovados</div></div>
+    <div class="kpi"><div class="kpi-val" id="kTaxa" style="color:var(--green);">—</div><div class="kpi-label">Taxa final</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🔽 Funil de conversão</div>
+    <div class="funil" id="funilWrap"><div style="display:flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.78rem;padding:1rem;"><div class="spinner"></div>Calculando...</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 Conversão por vaga</div>
+    <div style="overflow-x:auto;"><table class="conv-table" id="vagaTable"><tbody><tr><td><div style="display:flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.78rem;"><div class="spinner"></div>Carregando...</div></td></tr></tbody></table></div>
+  </div>
+</div>
+<script>
+let SB_URL='',SB_KEY='',PIPE_KEY='nexus_pipeline_v1';
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;PIPE_KEY=c.pipe_key||PIPE_KEY;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;if(!_loaded)init();}});
+let _loaded=false;
+async function init(){
+  lerCtx();if(!SB_URL){setTimeout(()=>{lerCtx();if(SB_URL)init();},500);return;}
+  _loaded=true;
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?order=criado_em.desc`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const hist=await r.json();if(!Array.isArray(hist))return;
+    const pipe=(() => {try{return JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');}catch(e){return {};}})();
+    let pipeTotal=0,aprovados=0;
+    Object.values(pipe).forEach(vm=>Object.values(vm||{}).forEach(et=>{pipeTotal++;if(et==='aprovado')aprovados++;}));
+    const comFit=hist.filter(h=>h.fit_score).length;
+    const comEnt=hist.filter(h=>h.entrevista_json||h.resumo_ia).length;
+    const total=hist.length;
+    document.getElementById('kTotal').textContent=total;
+    document.getElementById('kComFit').textContent=comFit;
+    document.getElementById('kComEnt').textContent=comEnt;
+    document.getElementById('kPipeline').textContent=pipeTotal;
+    document.getElementById('kAprovados').textContent=aprovados;
+    document.getElementById('kTaxa').textContent=total?Math.round(aprovados/total*100)+'%':'—';
+    const etapas=[
+      {label:'Avaliados',val:total,cor:'#3498db'},
+      {label:'Com Fit Score',val:comFit,cor:'#3b82f6'},
+      {label:'Com Entrevista',val:comEnt,cor:'#f39c12'},
+      {label:'No Pipeline',val:pipeTotal,cor:'#a78bfa'},
+      {label:'Aprovados',val:aprovados,cor:'#2ecc71'},
+    ];
+    const maxV=total||1;
+    const fw=document.getElementById('funilWrap');
+    fw.innerHTML=etapas.map((et,i)=>{
+      const pct=Math.round((et.val/maxV)*100);
+      const ppct=i===0?100:Math.round((et.val/(etapas[i-1].val||1))*100);
+      return `${i>0?'<div class="step-arrow">↓ '+ppct+'% →</div>':''}<div class="funil-step">
+        <div class="funil-label" style="color:${et.cor};">${et.label}</div>
+        <div class="funil-bar-wrap"><div class="funil-bar-fill" style="width:0%;background:${et.cor}80;" data-w="${pct}">${et.val}</div></div>
+        <div class="funil-num" style="color:${et.cor};">${et.val}</div>
+        <div class="funil-pct">${pct}%</div>
+      </div>`;
+    }).join('');
+    requestAnimationFrame(()=>{document.querySelectorAll('.funil-bar-fill[data-w]').forEach(el=>{setTimeout(()=>{el.style.width=el.dataset.w+'%';},50);});});
+    // Tabela por vaga
+    const vagaCnt={};hist.forEach(h=>{if(!h.vaga)return;if(!vagaCnt[h.vaga])vagaCnt[h.vaga]={total:0,fit:0,ent:0,aprov:0};vagaCnt[h.vaga].total++;if(h.fit_score)vagaCnt[h.vaga].fit++;if(h.entrevista_json||h.resumo_ia)vagaCnt[h.vaga].ent++;});
+    Object.entries(pipe).forEach(([slug,vm])=>{Object.entries(vm||{}).forEach(([cid,et])=>{const h=hist.find(x=>String(x.id)===cid);if(h&&h.vaga&&vagaCnt[h.vaga]){if(et==='aprovado')vagaCnt[h.vaga].aprov++;}});});
+    const sorted=Object.entries(vagaCnt).sort((a,b)=>b[1].total-a[1].total);
+    const maxT=sorted[0]?.[1]?.total||1;
+    document.getElementById('vagaTable').innerHTML=`<thead><tr><th>Vaga</th><th>Avaliados</th><th>Com Fit</th><th>Com Entrev.</th><th>Aprovados</th><th>Taxa</th></tr></thead><tbody>${sorted.map(([v,d])=>{
+      const taxa=Math.round((d.aprov/d.total)*100);
+      const bw=Math.round((d.total/maxT)*100);
+      return `<tr><td style="font-weight:700;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(v)}</td>
+        <td><div style="font-weight:700;">${d.total}</div><div class="bar-inline"><div class="bar-inline-fill" style="width:${bw}%;background:var(--blue);"></div></div></td>
+        <td>${Math.round(d.fit/d.total*100)}%</td>
+        <td>${Math.round(d.ent/d.total*100)}%</td>
+        <td style="color:var(--green);font-weight:700;">${d.aprov}</td>
+        <td><span style="font-weight:800;color:${taxa>=20?'var(--green)':taxa>=10?'var(--accent)':'var(--orange)'};">${taxa}%</span></td>
+      </tr>`;
+    }).join('')}</tbody>`;
+  }catch(e){document.getElementById('funilWrap').innerHTML=`<div style="color:var(--red);font-size:0.78rem;">Erro: ${esc(e.message)}</div>`;}
+}
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+lerCtx();if(SB_URL)init();else setTimeout(()=>{lerCtx();if(SB_URL)init();else init();},400);
+</script></body></html>

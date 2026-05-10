@@ -1,0 +1,635 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Avaliação DISC | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+body::after{content:'';position:fixed;top:-20%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse at center,rgba(59,130,246,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;max-width:1100px;margin:0;}
+
+/* ── HERO ── */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--C);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--C);}
+.sub{font-size:0.8rem;color:var(--muted);}
+
+/* ── KPI ── */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:0.7rem;margin-bottom:1.8rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;position:relative;overflow:hidden;transition:border-color 0.2s;}
+.kpi:hover{border-color:var(--border2);}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kpi-color,var(--accent));opacity:0.6;}
+.kpi-val{font-size:1.8rem;font-weight:900;line-height:1;}
+.kpi-label{font-size:0.58rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+
+/* ── BUTTONS ── */
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;transform:translateY(-1px);}
+.btn-blue{background:rgba(52,152,219,0.1);color:var(--C);border-color:rgba(52,152,219,0.25);}.btn-blue:hover{background:rgba(52,152,219,0.18);}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+
+/* ── SECTION LABEL ── */
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── QUICK LINKS ── */
+.quick-links{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+.qlink{text-decoration:none;color:inherit;font-family:inherit;font-size:0.75rem;font-weight:700;border-radius:10px;padding:0.48rem 1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.04);}
+.qlink-blue{color:var(--C);border-color:rgba(52,152,219,0.28);}.qlink-blue:hover{background:rgba(52,152,219,0.1);}
+.qlink-orange{color:#f39c12;border-color:rgba(243,156,18,0.28);}.qlink-orange:hover{background:rgba(243,156,18,0.1);}
+.qlink-purple{color:#a78bfa;border-color:rgba(167,139,250,0.28);}.qlink-purple:hover{background:rgba(167,139,250,0.1);}
+.qlink-green{color:var(--accent);border-color:var(--border2);}.qlink-green:hover{background:rgba(59,130,246,0.08);}
+
+/* ── DISC INPUT ── */
+.disc-field-label{font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.4rem;font-weight:700;}
+.disc-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.58rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.disc-input:focus{border-color:var(--accent);}
+.disc-input::placeholder{color:var(--muted);}
+
+/* ── DISC BUTTONS ── */
+.disc-btn{width:100%;border:none;border-radius:10px;padding:0.65rem 1rem;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:0.5rem;}
+.disc-btn:hover{opacity:0.88;transform:translateY(-1px);}
+.disc-btn-primary{background:linear-gradient(135deg,#185FA5,#378ADD);color:#fff;}
+.disc-btn-green{background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;}
+.disc-btn-secondary{background:rgba(52,152,219,0.12);color:#3498db;border:1px solid rgba(52,152,219,0.3)!important;}
+.disc-btn-secondary-green{background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.3)!important;}
+.disc-btn-ghost{background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1)!important;}
+.disc-btn-ghost:hover{background:rgba(255,255,255,0.1);color:var(--text);}
+.disc-link-copiado{display:none;font-size:0.72rem;color:#2ecc71;text-align:center;margin-top:0.2rem;font-weight:700;}
+
+/* ── MAIN GRID ── */
+.disc-main-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem;}
+@media(max-width:800px){.disc-main-grid{grid-template-columns:1fr!important;}}
+
+/* ── CARD BASE ── */
+.d-card{background:var(--card);border-radius:20px;padding:1.6rem;display:flex;flex-direction:column;gap:1.1rem;}
+.d-card-blue{border:1px solid rgba(52,152,219,0.22);}
+.d-card-green{border:1px solid rgba(59,130,246,0.22);}
+.d-card-plain{border:1px solid var(--border);}
+
+/* ── CRITERIOS ── */
+.criterio-row{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0.7rem;background:rgba(255,255,255,0.02);border-radius:9px;border:1px solid rgba(255,255,255,0.05);}
+.criterio-label{flex:1;}
+.criterio-label strong{font-size:0.72rem;font-weight:700;display:block;}
+.criterio-label span{font-size:0.62rem;color:var(--muted);}
+.criterio-peso{font-size:0.8rem;font-weight:900;}
+.criterio-result{padding:0.5rem 0.7rem;border-radius:9px;}
+.criterio-result-title{font-size:0.65rem;color:var(--muted);margin-bottom:0.2rem;}
+.criterio-result-txt{font-size:0.72rem;font-weight:700;}
+
+/* ── PERFIS ── */
+.perfis-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.7rem;margin-bottom:1.5rem;}
+@media(max-width:700px){.perfis-grid{grid-template-columns:repeat(2,1fr);}}
+.perfil-card{border-radius:13px;padding:0.9rem;}
+.perfil-emoji{font-size:1.2rem;margin-bottom:0.4rem;}
+.perfil-titulo{font-size:0.88rem;font-weight:900;margin-bottom:0.3rem;}
+.perfil-desc{font-size:0.65rem;color:var(--muted);line-height:1.5;}
+
+/* ── ACTIVITY LIST ── */
+.activity-list{display:flex;flex-direction:column;gap:0.5rem;}
+.activity-item{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:13px;padding:0.8rem 1rem;display:flex;align-items:center;gap:0.85rem;text-decoration:none;color:inherit;transition:all 0.18s;cursor:pointer;}
+.activity-item:hover{border-color:var(--border2);background:rgba(59,130,246,0.03);}
+.activity-badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.activity-info{flex:1;min-width:0;}
+.activity-nome{font-size:0.82rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.activity-meta{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;}
+.activity-right{text-align:right;flex-shrink:0;}
+.activity-perfil{font-size:0.8rem;font-weight:900;}
+.activity-combo{font-size:0.62rem;color:var(--muted);margin-top:0.05rem;}
+.activity-pcts{font-size:0.58rem;color:var(--muted2);margin-top:0.02rem;}
+.disc-pill{font-size:0.65rem;font-weight:800;padding:0.15rem 0.5rem;border-radius:99px;margin-left:0.3rem;vertical-align:middle;}
+.fit-val{font-size:0.72rem;font-weight:800;}
+
+/* ── SPINNER / TOAST ── */
+.spinner{width:16px;height:16px;border:2px solid var(--muted2);border-top-color:var(--C);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-row{display:flex;align-items:center;justify-content:center;padding:2rem;gap:0.5rem;color:var(--muted);font-size:0.78rem;}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.empty-txt{text-align:center;padding:2rem;color:var(--muted2);font-size:0.78rem;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page { padding: 1rem 0.9rem 4rem !important; }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-right, .hero > div[style*="display:flex"], .hero > div:last-child {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  .hero-right .btn, .hero .btn, .hero button { justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-grid, .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.35rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3, .charts-grid,
+  .grid-2-col, .grid-3-col { grid-template-columns: 1fr !important; }
+
+  /* Cards */
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Botões */
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Toolbar / busca */
+  .toolbar { flex-wrap: wrap !important; }
+  .search-inp { width: 100% !important; min-width: unset !important; }
+
+  /* Seções */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Tabelas — scroll horizontal */
+  .log-table, .conv-table, .vaga-table {
+    overflow-x: auto !important;
+    display: block !important;
+  }
+  .log-table table { min-width: 520px !important; }
+  .conv-table, .vaga-table { min-width: 480px !important; }
+  .log-table th, .log-table td { padding: 0.45rem 0.6rem !important; font-size: 0.68rem !important; }
+
+  /* Rows de export/backup */
+  .export-row, .row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .export-ico { display: none !important; }
+  .export-row .btn { width: 100% !important; justify-content: center !important; }
+
+  /* Config rows */
+  .row { padding: 0.6rem 0 !important; }
+  .row-info strong { font-size: 0.76rem !important; }
+
+  /* Cards de clientes/roles */
+  .clients-grid, .role-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .client-card { padding: 1rem !important; }
+  .cc-btns { flex-wrap: wrap !important; }
+
+  /* Agendamento: layout de coluna única */
+  .layout { grid-template-columns: 1fr !important; }
+  .cal-card { padding: 0.8rem !important; border-radius: 14px !important; }
+
+  /* Period buttons (analytics) */
+  .period-btns { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .pbtn { font-size: 0.65rem !important; padding: 0.3rem 0.6rem !important; }
+
+  /* Funil de conversão */
+  .funil-step { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .funil-label { width: auto !important; text-align: left !important; flex: 0 0 100% !important; font-size: 0.65rem !important; }
+  .funil-bar-wrap { flex: 1 1 100% !important; height: 32px !important; }
+  .funil-num { width: auto !important; }
+  .funil-pct { width: auto !important; }
+
+  /* DISC quick links */
+  .quick-links { gap: 0.35rem !important; }
+  .qlink { font-size: 0.68rem !important; padding: 0.38rem 0.7rem !important; }
+
+  /* Dashboard específico */
+  .disc-dist-row { flex-direction: column !important; }
+  .top-vagas-list .tv-row { flex-wrap: wrap !important; gap: 0.4rem !important; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Info box */
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Paginação */
+  .pg { gap: 0.25rem !important; }
+  .pg-btn { padding: 0.28rem 0.5rem !important; font-size: 0.65rem !important; }
+}
+
+@media (max-width: 640px) {
+  .quick-links { overflow-x: auto !important; flex-wrap: nowrap !important; scrollbar-width: none !important; padding-bottom: 0.2rem !important; }
+  .quick-links::-webkit-scrollbar { display: none !important; }
+  .qlink { flex-shrink: 0 !important; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr) !important; }
+  .hero { flex-direction: column !important; align-items: flex-start !important; gap: 0.8rem !important; }
+  .hero > div[style*="display:flex"] { width: 100% !important; flex-wrap: wrap !important; }
+  .hero .btn { flex: 1 !important; justify-content: center !important; }
+  .disc-input { font-size: 0.8rem !important; }
+}
+
+</style>
+</head><body>
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Avaliação Comportamental</div>
+      <div class="title">Testes <span>DISC</span></div>
+      <div class="sub">Aplique testes presencialmente ou envie links. Resultados salvos automaticamente.</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <button class="btn btn-ghost" onclick="navegar('banco-talentos')">👥 Banco de Talentos</button>
+      <button class="btn btn-accent" onclick="navegar('triagem')">📝 Ir para Triagem</button>
+    </div>
+  </div>
+
+  <!-- ── KPI ROW ── -->
+  <div class="kpi-row">
+    <div class="kpi" style="--kpi-color:var(--accent);">
+      <div class="kpi-val" id="kTotal" style="color:var(--accent);">—</div>
+      <div class="kpi-label">Total avaliações</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--D);">
+      <div class="kpi-val" id="kD" style="color:var(--D);">—</div>
+      <div class="kpi-label">Dominante</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--I);">
+      <div class="kpi-val" id="kI" style="color:var(--I);">—</div>
+      <div class="kpi-label">Influente</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--S);">
+      <div class="kpi-val" id="kS" style="color:var(--S);">—</div>
+      <div class="kpi-label">Estável</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--C);">
+      <div class="kpi-val" id="kC" style="color:var(--C);">—</div>
+      <div class="kpi-label">Criterioso</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--muted);">
+      <div class="kpi-val" id="kHoje" style="color:var(--muted);">—</div>
+      <div class="kpi-label">Hoje</div>
+    </div>
+  </div>
+
+  <!-- ── QUICK LINKS ── -->
+  <div class="sec-label">Navegar</div>
+  <div class="quick-links">
+    <a href="disc.html" target="_blank" class="qlink qlink-green">🧠 DISC Ipsativo</a>
+    <a href="disc-classico.html" target="_blank" class="qlink qlink-blue">📋 DISC Clássico</a>
+    <a href="disc-resultado.html" target="_blank" class="qlink qlink-orange">📊 Resultado</a>
+    <a href="disc-historico.html" target="_blank" class="qlink qlink-blue">🗂️ Histórico</a>
+    <a href="entrevista.html" target="_blank" class="qlink qlink-purple">🎤 Pré-entrevista IA</a>
+  </div>
+
+  <!-- ── APLICAR TESTE + CRITÉRIOS ── -->
+  <div class="sec-label">Aplicar teste DISC</div>
+
+  <div class="disc-main-grid">
+
+    <!-- Card: Aplicar / Copiar Link -->
+    <div class="d-card d-card-blue">
+      <div style="display:flex;align-items:center;gap:0.8rem;">
+        <div style="width:44px;height:44px;border-radius:13px;background:rgba(52,152,219,0.12);border:1px solid rgba(52,152,219,0.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🧠</div>
+        <div>
+          <div style="font-size:0.95rem;font-weight:800;">Aplicar Teste DISC</div>
+          <div style="font-size:0.72rem;color:var(--muted);">Presencial ou envio de link ao candidato</div>
+        </div>
+      </div>
+
+      <!-- Vaga -->
+      <div>
+        <label class="disc-field-label">Vaga associada <span style="font-weight:400;text-transform:none;letter-spacing:0;">(opcional)</span></label>
+        <input type="text" id="discVagaInput" class="disc-input" placeholder="Ex: Técnico em Manutenção"/>
+      </div>
+
+      <!-- Clássico -->
+      <div style="background:rgba(52,152,219,0.06);border:1px solid rgba(52,152,219,0.15);border-radius:14px;padding:1rem;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#3498db;flex-shrink:0;"></div>
+          <span style="font-size:0.72rem;font-weight:800;color:#3498db;text-transform:uppercase;letter-spacing:1px;">Clássico</span>
+          <div style="flex:1;height:1px;background:rgba(52,152,219,0.2);"></div>
+          <span style="font-size:0.62rem;color:var(--muted2);background:rgba(52,152,219,0.1);padding:0.1rem 0.5rem;border-radius:99px;">pesos × 1.5 / 1.0 / 0.7</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+          <button class="disc-btn disc-btn-primary" onclick="discAplicarAgora('classico')">▶ Presencial</button>
+          <button class="disc-btn disc-btn-secondary" onclick="discCopiarLink('classico')">🔗 Copiar link</button>
+        </div>
+      </div>
+
+      <!-- Ipsativo / Avançado -->
+      <div style="background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.15);border-radius:14px;padding:1rem;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></div>
+          <span style="font-size:0.72rem;font-weight:800;color:#3b82f6;text-transform:uppercase;letter-spacing:1px;">Avançado (Ipsativo)</span>
+          <div style="flex:1;height:1px;background:rgba(59,130,246,0.2);"></div>
+          <span style="font-size:0.62rem;color:var(--muted2);background:rgba(59,130,246,0.1);padding:0.1rem 0.5rem;border-radius:99px;">pesos 4 : 3 : 2 : 1</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+          <button class="disc-btn disc-btn-green" onclick="discAplicarAgora('ipsativo')">▶ Presencial</button>
+          <button class="disc-btn disc-btn-secondary-green" onclick="discCopiarLink('ipsativo')">🔗 Copiar link</button>
+        </div>
+      </div>
+
+      <!-- Sem vaga -->
+      <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:0.9rem;display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+        <button class="disc-btn disc-btn-ghost" onclick="discSemVaga('classico')" style="font-size:0.75rem;">🔓 Clássico s/ vaga</button>
+        <button class="disc-btn disc-btn-ghost" onclick="discSemVaga('ipsativo')" style="font-size:0.75rem;">🔓 Avançado s/ vaga</button>
+      </div>
+
+      <p class="disc-link-copiado" id="discLinkCopiado">✅ Link copiado!</p>
+    </div><!-- /aplicar card -->
+
+    <!-- Coluna direita: Critérios -->
+    <div style="display:flex;flex-direction:column;gap:1.2rem;">
+
+      <!-- Critérios Clássico -->
+      <div class="d-card" style="border:1px solid rgba(52,152,219,0.18);flex:1;">
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+          <div style="width:32px;height:32px;border-radius:9px;background:rgba(52,152,219,0.12);border:1px solid rgba(52,152,219,0.25);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">📐</div>
+          <div>
+            <div style="font-size:0.82rem;font-weight:800;">Método Clássico</div>
+            <div style="font-size:0.65rem;color:var(--muted);">Escolha de adjetivos com pesos fixos</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.45rem;">
+          <div class="criterio-row">
+            <span style="font-size:0.75rem;">🥇</span>
+            <div class="criterio-label"><strong>Mais me descreve</strong><span>1ª escolha — peso máximo</span></div>
+            <span class="criterio-peso" style="color:#3498db;">× 1.5</span>
+          </div>
+          <div class="criterio-row">
+            <span style="font-size:0.75rem;">🥈</span>
+            <div class="criterio-label"><strong>Segunda escolha</strong><span>2ª escolha — peso médio</span></div>
+            <span class="criterio-peso" style="color:#3498db;">× 1.0</span>
+          </div>
+          <div class="criterio-row">
+            <span style="font-size:0.75rem;">🥉</span>
+            <div class="criterio-label"><strong>Terceira escolha</strong><span>3ª escolha — peso reduzido</span></div>
+            <span class="criterio-peso" style="color:#3498db;">× 0.7</span>
+          </div>
+          <div class="criterio-result" style="background:rgba(52,152,219,0.06);border:1px solid rgba(52,152,219,0.15);">
+            <div class="criterio-result-title">Resultado</div>
+            <div class="criterio-result-txt">Perfil dominante = letra com maior soma ponderada entre os blocos de palavras.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Critérios Ipsativo -->
+      <div class="d-card" style="border:1px solid rgba(59,130,246,0.18);flex:1;">
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+          <div style="width:32px;height:32px;border-radius:9px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">🎯</div>
+          <div>
+            <div style="font-size:0.82rem;font-weight:800;">Método Avançado (Ipsativo)</div>
+            <div style="font-size:0.65rem;color:var(--muted);">Ranking forçado em blocos de 4 opções</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.45rem;">
+          <div class="criterio-row">
+            <span style="font-size:0.75rem;">1️⃣</span>
+            <div class="criterio-label"><strong>Mais me descreve</strong><span>Posição 1 — mais relevante</span></div>
+            <span class="criterio-peso" style="color:#3b82f6;">4 pts</span>
+          </div>
+          <div class="criterio-row">
+            <span style="font-size:0.75rem;">2️⃣</span>
+            <div class="criterio-label"><strong>Segunda posição</strong><span>Posição 2</span></div>
+            <span class="criterio-peso" style="color:#3b82f6;">3 pts</span>
+          </div>
+          <div class="criterio-row">
+            <span style="font-size:0.75rem;">3️⃣</span>
+            <div class="criterio-label"><strong>Terceira posição</strong><span>Posição 3</span></div>
+            <span class="criterio-peso" style="color:#3b82f6;">2 pts</span>
+          </div>
+          <div class="criterio-row">
+            <span style="font-size:0.75rem;">4️⃣</span>
+            <div class="criterio-label"><strong>Menos me descreve</strong><span>Posição 4 — menor relevância</span></div>
+            <span class="criterio-peso" style="color:#3b82f6;">1 pt</span>
+          </div>
+          <div class="criterio-result" style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);">
+            <div class="criterio-result-title">Resultado</div>
+            <div class="criterio-result-txt">Perfil dominante = maior soma de pontos (4+3+2+1) acumulados em todos os blocos.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /critérios col -->
+  </div><!-- /grid -->
+
+  <!-- ── 4 PERFIS DISC ── -->
+  <div class="sec-label">Os 4 perfis DISC</div>
+  <div class="perfis-grid" style="margin-bottom:1.8rem;">
+    <div class="perfil-card" style="background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);">
+      <div class="perfil-emoji">🔴</div>
+      <div class="perfil-titulo" style="color:#e74c3c;">D — Dominância</div>
+      <div class="perfil-desc">Direto, decisivo e orientado a resultados. Gosta de desafios, controle e ritmo acelerado.</div>
+    </div>
+    <div class="perfil-card" style="background:rgba(243,156,18,0.07);border:1px solid rgba(243,156,18,0.2);">
+      <div class="perfil-emoji">🟡</div>
+      <div class="perfil-titulo" style="color:#f39c12;">I — Influência</div>
+      <div class="perfil-desc">Comunicativo, entusiasta e persuasivo. Gosta de interação social e reconhecimento.</div>
+    </div>
+    <div class="perfil-card" style="background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);">
+      <div class="perfil-emoji">🟢</div>
+      <div class="perfil-titulo" style="color:#2ecc71;">S — Estabilidade</div>
+      <div class="perfil-desc">Paciente, colaborativo e constante. Valoriza harmonia, equipe e previsibilidade.</div>
+    </div>
+    <div class="perfil-card" style="background:rgba(52,152,219,0.07);border:1px solid rgba(52,152,219,0.2);">
+      <div class="perfil-emoji">🔵</div>
+      <div class="perfil-titulo" style="color:#3498db;">C — Conformidade</div>
+      <div class="perfil-desc">Analítico, preciso e criterioso. Valoriza qualidade, dados e seguir processos.</div>
+    </div>
+  </div>
+
+  <!-- ── ÚLTIMAS AVALIAÇÕES ── -->
+  <div class="sec-label">Últimas avaliações DISC</div>
+  <div id="activityWrap">
+    <div class="loading-row"><div class="spinner"></div>Carregando...</div>
+  </div>
+
+</div><!-- /page -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── CONSTANTES ───────────────────────────────────────────────────────────────
+const SUPABASE_URL_DEFAULT = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY_DEFAULT = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+
+const CORES  = {D:'#e74c3c', I:'#f39c12', S:'#2ecc71', C:'#3498db'};
+const EMOJIS = {D:'🔴', I:'🟡', S:'🟢', C:'🔵'};
+const COMBOS = {
+  DI:'Realizador Influente', DS:'Executor Consistente', DC:'Estrategista Analítico',
+  ID:'Influenciador Decisivo', IS:'Comunicador Acolhedor', IC:'Comunicador Criterioso',
+  SD:'Apoiador Assertivo', SI:'Facilitador Inspirador', SC:'Colaborador Meticuloso',
+  CD:'Analítico Decisivo', CI:'Analítico Relacional', CS:'Especialista Confiável'
+};
+
+// ─── CREDENCIAIS ──────────────────────────────────────────────────────────────
+let SB_URL = SUPABASE_URL_DEFAULT;
+let SB_KEY = SUPABASE_KEY_DEFAULT;
+
+function lerCtx(){
+  try{
+    const c = JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');
+    if(c.sb_url){ SB_URL = c.sb_url; SB_KEY = c.sb_key; }
+  }catch(e){}
+}
+
+window.addEventListener('message', e => {
+  if(e.data?.tipo === 'nexus_ctx'){
+    SB_URL = e.data.sb_url || SB_URL;
+    SB_KEY = e.data.sb_key || SB_KEY;
+    if(!_loaded) init();
+  }
+});
+
+// ─── BASE URL ─────────────────────────────────────────────────────────────────
+// Usa a URL do documento pai se estiver dentro de um iframe, senão usa a própria
+function getBase(){
+  try {
+    const src = window.frameElement
+      ? (document.referrer || window.parent.location.href)
+      : window.location.href;
+    return src.replace(/\/[^/?#]*(\?.*)?$/, '');
+  } catch(e) {
+    return window.location.href.replace(/\/[^/?#]*(\?.*)?$/, '');
+  }
+}
+
+// ─── FUNÇÕES DISC ─────────────────────────────────────────────────────────────
+function discGetVaga(){ return (document.getElementById('discVagaInput').value||'').trim(); }
+
+function discArquivo(modo){
+  return modo === 'classico' ? 'disc-classico.html' : 'disc.html';
+}
+
+function discAplicarAgora(modo){
+  const vaga   = discGetVaga();
+  const arq    = discArquivo(modo);
+  const params = new URLSearchParams({ canal:'formulario_interno' });
+  if(modo === 'ipsativo') params.set('modo','ipsativo');
+  if(vaga) params.set('vaga', vaga);
+  const url = getBase() + '/' + arq + '?' + params.toString();
+  window.open(url, '_blank');
+}
+
+function discCopiarLink(modo){
+  const vaga   = discGetVaga();
+  const arq    = discArquivo(modo);
+  const params = new URLSearchParams({ canal:'formulario_interno' });
+  if(modo === 'ipsativo') params.set('modo','ipsativo');
+  if(vaga) params.set('vaga', vaga);
+  const link = getBase() + '/' + arq + '?' + params.toString();
+  navigator.clipboard.writeText(link).then(()=>{
+    const el = document.getElementById('discLinkCopiado');
+    el.style.display = 'block';
+    setTimeout(()=>{ el.style.display = 'none'; }, 3000);
+    toast('✅ Link copiado!');
+  }).catch(()=>{ prompt('Copie o link:', link); });
+}
+
+function discSemVaga(modo){
+  const arq = discArquivo(modo);
+  const params = modo === 'ipsativo' ? '?modo=ipsativo' : '';
+  const url = getBase() + '/' + arq + params;
+  window.open(url, '_blank');
+}
+
+// ─── SUPABASE ─────────────────────────────────────────────────────────────────
+let _loaded = false;
+
+async function init(){
+  lerCtx();
+  if(!SB_URL){ setTimeout(()=>{ lerCtx(); if(SB_URL) init(); }, 500); return; }
+  _loaded = true;
+  try{
+    const r = await fetch(
+      `${SB_URL}/rest/v1/disc_historico?order=criado_em.desc`,
+      { headers:{ 'apikey':SB_KEY, 'Authorization':'Bearer '+SB_KEY } }
+    );
+    const arr = await r.json();
+    if(!Array.isArray(arr)) throw new Error('resposta inesperada');
+    renderKPIs(arr);
+    renderActivity(arr.slice(0,12));
+  }catch(e){
+    document.getElementById('activityWrap').innerHTML =
+      '<div class="empty-txt" style="color:#e74c3c;">❌ Erro ao conectar ao banco. Verifique as credenciais.</div>';
+  }
+}
+
+// ─── KPIs ─────────────────────────────────────────────────────────────────────
+function renderKPIs(arr){
+  const cnt = {D:0,I:0,S:0,C:0};
+  arr.forEach(h=>{ if(cnt[h.dom]!==undefined) cnt[h.dom]++; });
+  const hoje = new Date().toLocaleDateString('pt-BR');
+  document.getElementById('kTotal').textContent = arr.length;
+  document.getElementById('kD').textContent     = cnt.D;
+  document.getElementById('kI').textContent     = cnt.I;
+  document.getElementById('kS').textContent     = cnt.S;
+  document.getElementById('kC').textContent     = cnt.C;
+  document.getElementById('kHoje').textContent  = arr.filter(h => h.data === hoje).length;
+}
+
+// ─── ATIVIDADE ────────────────────────────────────────────────────────────────
+function renderActivity(arr){
+  const wrap = document.getElementById('activityWrap');
+  if(!arr.length){
+    wrap.innerHTML = '<div class="empty-txt">📋 Nenhum candidato avaliado ainda.</div>';
+    return;
+  }
+  wrap.innerHTML = `<div class="activity-list">${arr.map(h=>{
+    const cor   = CORES[h.dom]  || '#888';
+    const emoji = EMOJIS[h.dom] || '⬜';
+    const combo = h.combo_nome  || (COMBOS[(h.dom||'')+(h.sec||'')] || `${h.dom||'?'}+${h.sec||'?'}`);
+    const pcts  = h.pct_d ? `D:${h.pct_d}% · I:${h.pct_i}% · S:${h.pct_s}% · C:${h.pct_c}%` : '';
+    const fit   = h.fit_score ? parseInt(h.fit_score) : null;
+    const fitCor= fit ? (fit>=80?'#2ecc71': fit>=65?'#3b82f6': fit>=45?'#f39c12':'#e74c3c') : '#666';
+    const href  = h.url || '#';
+    return `<a class="activity-item" href="${esc(href)}" target="_blank">
+      <div class="activity-badge" style="background:${cor}18;border:2px solid ${cor}33;">${emoji}</div>
+      <div class="activity-info">
+        <div class="activity-nome">${esc(h.nome||'—')}</div>
+        <div class="activity-meta">📋 ${esc(h.vaga||'—')} &nbsp;·&nbsp; 📅 ${h.data||'—'}</div>
+      </div>
+      <div class="activity-right">
+        <div class="activity-perfil" style="color:${cor};">${h.dom||'?'}+${h.sec||'?'}</div>
+        <div class="activity-combo">${esc(combo)}</div>
+        ${pcts  ? `<div class="activity-pcts">${pcts}</div>` : ''}
+        ${fit !== null ? `<div class="fit-val" style="color:${fitCor};margin-top:0.15rem;">${fit}%</div>` : ''}
+      </div>
+    </a>`;
+  }).join('')}
+  <div style="text-align:center;margin-top:1rem;">
+    <a href="disc-historico.html" target="_blank" style="font-size:0.78rem;color:var(--accent);text-decoration:none;font-weight:700;opacity:0.8;">Ver todos no histórico →</a>
+  </div>
+  </div>`;
+}
+
+// ─── UTILITÁRIOS ──────────────────────────────────────────────────────────────
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function navegar(mod){ window.parent.postMessage({tipo:'nexus_navegar', mod}, '*'); }
+
+let _tt;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show';
+  clearTimeout(_tt);
+  _tt = setTimeout(()=> t.classList.remove('show'), 3000);
+}
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────────
+lerCtx();
+if(SB_URL) init();
+else setTimeout(()=>{ lerCtx(); init(); }, 400);
+</script>
+</body></html>

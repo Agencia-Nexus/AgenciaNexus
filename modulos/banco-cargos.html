@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<script src="../nexus-security.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Banco por Cargo | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#1a3a6b;--accent:#3b82f6;
+  --bg:#0a0a0a;--card:#131313;--card2:#161616;
+  --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.3);
+  --text:#f0f0f0;--muted:#777;--muted2:#444;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+
+/* HEADER */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.title span{color:var(--accent);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-blue{background:rgba(59,130,246,0.1);color:var(--accent);border-color:rgba(59,130,246,0.25);}.btn-blue:hover{background:rgba(59,130,246,0.18);}
+
+/* STATS BAR */
+.stats-bar{background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.18);border-radius:14px;padding:0.9rem 1.2rem;margin-bottom:1.2rem;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center;}
+.stat-item{display:flex;flex-direction:column;gap:0.1rem;}
+.stat-val{font-size:1.3rem;font-weight:900;color:var(--accent);line-height:1;}
+.stat-lbl{font-size:0.58rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.stat-div{width:1px;height:32px;background:rgba(255,255,255,0.07);}
+.stat-disc{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;}
+.stat-disc-item{display:flex;flex-direction:column;align-items:center;gap:0.05rem;}
+.stat-disc-val{font-size:0.9rem;font-weight:900;}
+.stat-disc-lbl{font-size:0.5rem;font-weight:700;text-transform:uppercase;}
+
+/* FILTROS */
+.filtros-wrap{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.filtros-wrap input,.filtros-wrap select{background:#131313;border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.52rem 0.85rem;color:#f0f0f0;font-family:inherit;font-size:0.8rem;outline:none;transition:border-color 0.2s;}
+.filtros-wrap input:focus,.filtros-wrap select:focus{border-color:var(--accent);}
+.filtros-wrap input{flex:1;min-width:200px;max-width:320px;}
+.filtros-wrap select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.7rem center;padding-right:2rem;}
+.filtros-wrap select option{background:#161616;color:#f0f0f0;}
+.count-txt{font-size:0.72rem;color:var(--muted);align-self:center;margin-left:auto;}
+
+/* CARGO CARD */
+.secao-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:1rem;transition:border-color 0.2s;}
+.secao-card:hover{border-color:var(--border2);}
+.secao-hdr{display:flex;align-items:center;gap:0.85rem;padding:1rem 1.1rem;border-left:3px solid var(--accent);cursor:pointer;user-select:none;}
+.secao-hdr:hover{background:rgba(255,255,255,0.015);}
+.secao-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.secao-nome{font-size:0.95rem;font-weight:800;color:var(--text);}
+.secao-meta{font-size:0.65rem;color:var(--muted);margin-top:0.08rem;}
+.secao-btn{font-family:inherit;font-size:0.68rem;font-weight:700;border-radius:8px;padding:0.3rem 0.7rem;border:1px solid;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.secao-btn:hover{opacity:0.8;}
+.secao-btn-icon{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:7px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.8rem;transition:all 0.15s;}
+.secao-btn-icon:hover{background:rgba(255,255,255,0.09);}
+.secao-toggle{background:none;border:none;color:var(--muted);font-size:0.75rem;cursor:pointer;transition:transform 0.22s;width:24px;text-align:center;}
+.secao-toggle.collapsed{transform:rotate(-90deg);}
+.secao-body{padding:0 1rem 0.85rem;display:flex;flex-direction:column;gap:0.55rem;}
+.secao-body.hidden{display:none;}
+.secao-empty{text-align:center;padding:1.2rem;font-size:0.78rem;color:var(--muted);border:1px dashed rgba(255,255,255,0.07);border-radius:12px;margin-top:0.2rem;}
+.secao-add-btn-inline{font-family:inherit;font-size:0.7rem;font-weight:700;color:var(--accent);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:7px;padding:0.25rem 0.65rem;cursor:pointer;margin-top:0.4rem;}
+.secao-add-btn-inline:hover{background:rgba(59,130,246,0.14);}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:4rem 2rem;color:var(--muted);}
+.empty-state-ico{font-size:3rem;margin-bottom:1rem;opacity:0.5;}
+.empty-state h3{font-size:1.1rem;font-weight:800;margin-bottom:0.5rem;color:#555;}
+.empty-state p{font-size:0.8rem;line-height:1.6;max-width:380px;margin:0 auto 1.2rem;}
+
+/* CANDIDATO CARD — igual ao banco-talentos */
+.cand-card{background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:0.9rem 1rem 0.8rem;position:relative;transition:border-color 0.2s,box-shadow 0.2s;}
+.cand-card:hover{border-color:rgba(59,130,246,0.25);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+.cand-card-inner{display:flex;align-items:flex-start;gap:0.8rem;}
+.cand-avatar{width:38px;height:38px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;cursor:pointer;}
+.cand-info{flex:1;min-width:0;}
+.cand-nome{font-size:0.95rem;font-weight:800;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.2px;}
+.cand-meta{font-size:0.7rem;color:#555;margin-top:0.18rem;line-height:1.4;}
+.cand-chips{display:flex;flex-wrap:wrap;gap:0.25rem;margin-top:0.4rem;}
+.chip{font-size:0.65rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:99px;border:1px solid;}
+.chip-disc{background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#3b82f6;}
+.fit-bar-row{display:flex;align-items:center;gap:0.45rem;margin-top:0.28rem;}
+.fit-bar-lbl{font-size:0.57rem;font-weight:700;width:52px;flex-shrink:0;}
+.fit-bar-track{flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.fit-bar-fill{height:100%;border-radius:99px;}
+.fit-bar-pct{font-size:0.63rem;font-weight:700;width:30px;text-align:right;}
+.fit-bar-src{font-size:0.53rem;color:#555;width:26px;}
+.cand-foot{display:flex;flex-direction:column;gap:0.22rem;margin-top:0.5rem;}
+.cand-foot-toggle{display:flex;align-items:center;gap:0.28rem;background:none;border:none;cursor:pointer;padding:0.18rem 0.3rem;border-radius:6px;color:#444;font-family:inherit;font-size:0.52rem;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.18s;margin-top:0.45rem;border-top:1px solid rgba(255,255,255,0.05);padding-top:0.45rem;width:100%;}
+.cand-foot-toggle:hover{color:#3b82f6;}
+.cand-foot-toggle .ft-chev{font-size:0.55rem;transition:transform 0.22s;display:inline-block;}
+.cand-foot-toggle.open .ft-chev{transform:rotate(180deg);}
+.cand-foot-body{overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;}
+.cand-foot-body.collapsed{max-height:0!important;opacity:0;}
+.cand-foot-group{display:flex;gap:0.22rem;width:100%;flex-wrap:wrap;}
+.cand-foot-group .btn-sm{flex:1 1 0;justify-content:center;text-align:center;min-width:0;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;height:26px;padding:0 0.4rem;display:inline-flex;align-items:center;gap:0.2rem;font-size:0.62rem;}
+.cand-foot-label{font-size:0.44rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#333;margin-bottom:0.12rem;margin-top:0.35rem;display:flex;align-items:center;gap:0.35rem;}
+.cand-foot-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.04);}
+.cand-foot-label:first-child{margin-top:0;}
+.btn-sm{font-family:inherit;font-size:0.64rem;font-weight:700;border-radius:6px;padding:0.22rem 0.5rem;border:1px solid;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-flex;align-items:center;gap:0.18rem;}
+.btn-sm:hover{opacity:0.8;transform:translateY(-1px);}
+.cands-grid{display:flex;flex-direction:column;gap:0.55rem;}
+/* STATUS DOTS */
+.status-dots-card{display:flex;flex-direction:row;align-items:center;gap:5px;}
+.card-top-right{position:absolute;top:0.4rem;right:0.6rem;display:flex;flex-direction:row;align-items:center;gap:0.4rem;z-index:2;}
+.status-dots-row{display:flex;gap:5px;align-items:center;}
+.status-dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);flex-shrink:0;cursor:default;transition:transform 0.15s;}
+.status-dot:hover{transform:scale(1.18);}
+.status-dot.disc{background:#3498db;box-shadow:0 0 7px rgba(52,152,219,0.6);}.status-dot.disc.off{background:rgba(52,152,219,0.1);border-color:rgba(52,152,219,0.25);}
+.status-dot.entrevista{background:#f39c12;box-shadow:0 0 7px rgba(243,156,18,0.6);}.status-dot.entrevista.off{background:rgba(243,156,18,0.1);border-color:rgba(243,156,18,0.25);}
+.status-dot.curriculo{background:#2ecc71;box-shadow:0 0 7px rgba(59,130,246,0.6);}.status-dot.curriculo.off{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.25);}
+.status-dot.parecer{background:#a78bfa;box-shadow:0 0 7px rgba(167,139,250,0.6);}.status-dot.parecer.off{background:rgba(167,139,250,0.1);border-color:rgba(167,139,250,0.25);}
+.status-dot-count{font-size:0.55rem;font-weight:800;color:#555;}
+.status-pend-lbl{font-size:0.5rem;font-weight:800;color:#e74c3c;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:99px;padding:0.05rem 0.38rem;animation:pendPls 2s ease infinite;}
+@keyframes pendPls{0%,100%{opacity:1;}50%{opacity:0.5;}}
+/* BADGE DESTAQUE */
+.badge-destaque{display:inline-flex;align-items:center;gap:0.25rem;background:linear-gradient(135deg,rgba(251,191,36,0.18),rgba(245,158,11,0.1));border:1px solid rgba(251,191,36,0.45);border-radius:99px;padding:0.18rem 0.6rem;font-size:0.63rem;font-weight:800;color:#fbbf24;letter-spacing:0.3px;white-space:nowrap;}
+.cand-card.is-destaque{border-color:rgba(251,191,36,0.35);}
+.cand-card.is-destaque:hover{border-color:rgba(251,191,36,0.6);}
+.cand-card.is-destaque::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(251,191,36,0.04),transparent 60%);pointer-events:none;}
+/* ADERÊNCIA BIG */
+.ader-big-wrap{display:flex;align-items:center;justify-content:space-between;margin-top:0.45rem;padding:0.38rem 0.65rem;border-radius:9px;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);}
+.ader-big-lbl{font-size:0.54rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#666;}
+.ader-big-num{font-size:1.4rem;font-weight:900;line-height:1;letter-spacing:-1px;}
+.ader-big-src{font-size:0.5rem;font-weight:600;color:#555;margin-top:0.08rem;}
+
+/* STATUS CONTATO SELECT */
+.status-contato-sel{font-family:inherit;font-size:0.62rem;font-weight:700;border-radius:99px;padding:0.1rem 0.55rem;border:1px solid;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;transition:all 0.18s;background-image:none;}
+.status-contato-sel.sc-pendente{background:rgba(119,119,119,0.13);border-color:rgba(119,119,119,0.3);color:#888;}
+.status-contato-sel.sc-respondeu{background:rgba(59,130,246,0.13);border-color:rgba(59,130,246,0.35);color:#3b82f6;}
+.status-contato-sel.sc-nao_respondeu{background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.3);color:#e74c3c;}
+.status-contato-sel.sc-sem_retorno{background:rgba(243,156,18,0.12);border-color:rgba(243,156,18,0.3);color:#f39c12;}
+.status-contato-sel.sc-pendencia_docs{background:rgba(52,152,219,0.12);border-color:rgba(52,152,219,0.3);color:#3498db;}
+.status-contato-sel.sc-pendencia_info{background:rgba(167,139,250,0.13);border-color:rgba(167,139,250,0.35);color:#a78bfa;}
+.status-contato-sel option{background:#1a1a1a;color:#f0f0f0;}
+
+/* BADGE CARGO */
+.badge-cargo{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.58rem;font-weight:700;padding:0.12rem 0.5rem;border-radius:99px;border:1px solid;}
+
+/* ═══ MODAL BASE ═══ */
+.overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.modal-box{background:#111;border:1px solid var(--border2);border-radius:22px;width:100%;max-width:460px;padding:1.8rem;position:relative;max-height:90vh;overflow-y:auto;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:var(--muted);font-size:0.95rem;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:#fff;}
+.modal-title{font-size:1rem;font-weight:900;margin-bottom:0.2rem;}
+.modal-sub{font-size:0.75rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.55;}
+.field-lbl{font-size:0.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;}
+.field-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.83rem;outline:none;transition:border-color 0.2s;}
+.field-inp:focus{border-color:var(--accent);}
+.field-inp::placeholder{color:#555;}
+select.field-inp{background-color:#1a1a1a;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;padding-right:2.2rem;-webkit-appearance:none;appearance:none;cursor:pointer;}
+select.field-inp option{background:#1e1e1e;color:#f0f0f0;}
+.save-btn{width:100%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;padding:0.7rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;transition:opacity 0.2s;}
+.save-btn:hover{opacity:0.88;}
+
+/* COR PICKER */
+.cor-picker{display:flex;gap:0.45rem;flex-wrap:wrap;margin-top:0.4rem;}
+.cor-opt{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all 0.15s;flex-shrink:0;}
+.cor-opt:hover{transform:scale(1.15);}
+.cor-opt.sel{border-color:#fff;transform:scale(1.1);}
+
+/* ADD CANDIDATO */
+.add-cand-list{max-height:320px;overflow-y:auto;margin:0.8rem 0;display:flex;flex-direction:column;gap:0.45rem;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;}
+.add-cand-list::-webkit-scrollbar{width:3px;}
+.add-cand-list::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.3);border-radius:99px;}
+.add-cand-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:0.6rem 0.8rem;cursor:pointer;display:flex;align-items:center;gap:0.7rem;transition:all 0.15s;}
+.add-cand-item:hover{background:rgba(59,130,246,0.07);border-color:rgba(59,130,246,0.25);}
+.add-cand-item.selected{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.4);}
+.add-cand-av{width:30px;height:30px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+.add-cand-nome{font-size:0.8rem;font-weight:700;}
+.add-cand-sub{font-size:0.62rem;color:var(--muted);}
+.add-cand-check{margin-left:auto;font-size:0.9rem;opacity:0;}
+.add-cand-item.selected .add-cand-check{opacity:1;}
+.add-busca{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.5rem 0.75rem;color:#f0f0f0;font-family:inherit;font-size:0.78rem;outline:none;margin-bottom:0.6rem;}
+.add-busca:focus{border-color:var(--accent);}
+.add-busca::placeholder{color:#555;}
+
+/* MOVER MODAL */
+.mover-cargo-list{display:flex;flex-direction:column;gap:0.4rem;margin:0.8rem 0;}
+.mover-cargo-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.7rem 0.9rem;cursor:pointer;display:flex;align-items:center;gap:0.7rem;transition:all 0.15s;}
+.mover-cargo-item:hover{background:rgba(59,130,246,0.07);border-color:rgba(59,130,246,0.25);}
+.mover-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+/* ═══ MODAL PERFIL COMPLETO ═══ */
+.perfil-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:1rem;overflow:hidden;}
+.perfil-box{background:#111;border:1px solid rgba(59,130,246,0.22);border-radius:20px;width:100%;max-width:700px;position:relative;display:flex;flex-direction:column;max-height:calc(100vh - 2rem);min-height:0;}
+.perfil-hdr{padding:1.2rem 1.6rem 0.9rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:flex-start;gap:0.9rem;flex-shrink:0;}
+.perfil-avatar-lg{width:48px;height:48px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.perfil-body{padding:1rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:0.85rem;overflow-y:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;}
+.perfil-body::-webkit-scrollbar{width:4px;}
+.perfil-body::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.3);border-radius:99px;}
+.perfil-sec{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem 1.1rem;}
+.perfil-sec-title{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#3b82f6;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.4rem;}
+.perfil-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.perfil-inp:focus{border-color:#3b82f6;}
+.perfil-inp::placeholder{color:#555;}
+.perfil-inp.ta{resize:vertical;min-height:64px;font-size:0.78rem;line-height:1.5;}
+select.perfil-inp{background-color:#1a1a1a;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;padding-right:2.2rem;-webkit-appearance:none;appearance:none;cursor:pointer;}
+select.perfil-inp option{background:#1e1e1e;color:#f0f0f0;}
+.perfil-lbl{font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;}
+.perfil-save-btn{background:linear-gradient(135deg,#1a3a6b,#3b82f6);color:#fff;border:none;border-radius:9px;padding:0.6rem 1.2rem;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;width:100%;}
+.perfil-save-btn:hover{opacity:0.88;}
+.perfil-save-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* COPIAR PARA OUTRO CARGO */
+.copiar-cargo-list{display:flex;flex-direction:column;gap:0.4rem;margin:0.8rem 0;max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#fff;font-family:'Sora',sans-serif;font-size:0.83rem;font-weight:800;padding:0.65rem 1.5rem;border-radius:99px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:99999;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.erro{background:#e74c3c;color:#fff;}
+
+/* BOTÃO PARECER FINAL */
+.btn-parecer-final{display:flex;align-items:center;gap:0.4rem;width:100%;background:linear-gradient(135deg,rgba(167,139,250,0.15),rgba(139,92,246,0.25));border:1.5px solid rgba(167,139,250,0.5);border-radius:12px;padding:0.55rem 0.85rem;color:#c4b5fd;font-family:inherit;font-size:0.78rem;font-weight:800;cursor:pointer;transition:all 0.2s;margin-top:0.5rem;justify-content:space-between;}
+.btn-parecer-final:hover{background:linear-gradient(135deg,rgba(167,139,250,0.25),rgba(139,92,246,0.38));border-color:rgba(167,139,250,0.75);color:#ddd6fe;}
+.btn-parecer-final .pf-left{display:flex;align-items:center;gap:0.5rem;}
+.btn-parecer-final .pf-badge{font-size:0.55rem;font-weight:700;background:rgba(167,139,250,0.3);border:1px solid rgba(167,139,250,0.4);border-radius:99px;padding:0.1rem 0.45rem;color:#c4b5fd;letter-spacing:0.5px;text-transform:uppercase;}
+
+/* AUTOCOMPLETE SUGESTÕES */
+.sug-item{padding:0.55rem 0.9rem;font-size:0.8rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:0.6rem;transition:background 0.12s;border-bottom:1px solid rgba(255,255,255,0.04);}
+.sug-item:last-child{border-bottom:none;}
+.sug-item:hover,.sug-item.focused{background:rgba(59,130,246,0.12);}
+.sug-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sug-nome{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sug-nome em{color:var(--accent);font-style:normal;font-weight:800;}
+.sug-count{font-size:0.65rem;color:#555;flex-shrink:0;}
+.sug-header{padding:0.3rem 0.9rem;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#444;background:#111;}
+.loading-wrap{text-align:center;padding:3rem;color:var(--muted);font-size:0.82rem;}
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid rgba(59,130,246,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin-bottom:0.5rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .page{padding:1rem 0.85rem 5rem;}
+  .hero{flex-direction:column;align-items:flex-start;gap:0.8rem;}
+  .title{font-size:1.2rem;}
+  .stats-bar{gap:0.8rem;padding:0.75rem 0.9rem;}
+  .filtros-wrap{flex-direction:column;gap:0.4rem;}
+  .filtros-wrap input{min-width:unset;max-width:100%;}
+  .overlay{padding:0.5rem;align-items:flex-end;}
+  .modal-box{border-radius:20px 20px 0 0;max-height:92vh;}
+  .perfil-overlay{padding:0;align-items:flex-end;}
+  .perfil-box{border-radius:20px 20px 0 0;max-height:95vh;}
+  .toast{width:90%;text-align:center;}
+}
+
+    /* ── PARECER FINAL / SENHA ── */
+    .pf-overlay{position:fixed;inset:0;z-index:11000;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+    .pf-box{background:#0e0e0e;border:1px solid rgba(167,139,250,0.35);border-radius:22px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;position:relative;padding:1.8rem;scrollbar-width:thin;scrollbar-color:rgba(167,139,250,0.3) transparent;}
+    .pf-box::-webkit-scrollbar{width:4px;}
+    .pf-box::-webkit-scrollbar-thumb{background:rgba(167,139,250,0.3);border-radius:99px;}
+    .pf-title{font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:0.3rem;}
+    .pf-heading{font-size:1rem;font-weight:900;color:#f0f0f0;margin-bottom:0.15rem;}
+    .pf-sub{font-size:0.72rem;color:#666;margin-bottom:1.3rem;line-height:1.5;}
+    .pf-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.6rem 0.85rem;color:#f0f0f0;font-family:inherit;font-size:0.83rem;outline:none;transition:border-color 0.2s;}
+    .pf-inp:focus{border-color:#a78bfa;}
+    .pf-inp::placeholder{color:#555;}
+    .pf-sec{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem 1.1rem;margin-bottom:0.75rem;}
+    .pf-sec-title{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#a78bfa;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem;}
+    .pf-btn-primary{width:100%;background:linear-gradient(135deg,#5b21b6,#a78bfa);color:#fff;border:none;border-radius:11px;padding:0.78rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;transition:all 0.2s;}
+    .pf-btn-primary:hover{opacity:0.88;}
+    .pf-btn-primary:disabled{opacity:0.4;cursor:not-allowed;}
+    .pf-btn-ghost{background:rgba(255,255,255,0.04);color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.7rem 1rem;font-family:inherit;font-size:0.82rem;cursor:pointer;}
+    .pf-lock-indicator{display:flex;align-items:center;gap:0.6rem;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:0.65rem 0.9rem;margin-bottom:1rem;}
+    .pf-lock-dot{width:8px;height:8px;border-radius:50%;background:#a78bfa;flex-shrink:0;animation:pfPulse 2s ease infinite;}
+    @keyframes pfPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+    .pf-link-preview{display:flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.25);border-radius:10px;padding:0.6rem 0.9rem;margin-top:0.5rem;}
+    .pf-link-preview a{font-size:0.72rem;font-weight:700;color:#3b82f6;text-decoration:none;word-break:break-all;flex:1;}
+    .pf-link-preview a:hover{text-decoration:underline;}
+    .pf-pwd-overlay{position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.95);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+    .pf-pwd-box{background:#0e0e0e;border:1px solid rgba(167,139,250,0.4);border-radius:20px;padding:2rem;width:100%;max-width:360px;text-align:center;}
+    .pf-pwd-inp{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(167,139,250,0.35);border-radius:10px;padding:0.75rem 1rem;color:#f0f0f0;font-family:inherit;font-size:1rem;text-align:center;letter-spacing:4px;outline:none;}
+    .pf-pwd-inp:focus{border-color:#a78bfa;}
+    .pf-pwd-inp.shake{animation:_pfShake 0.35s ease;}
+    @keyframes _pfShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Pipeline · ATS</div>
+      <div class="title">Banco por <span>Cargo</span> <span id="headerCount" style="display:inline-flex;align-items:center;justify-content:center;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);color:#3b82f6;font-size:0.7rem;font-weight:900;border-radius:99px;padding:0.1rem 0.65rem;vertical-align:middle;margin-left:0.4rem;letter-spacing:0;">0</span></div>
+      <div class="sub">Candidatos organizados por cargo pretendido — perfil completo, multi-cargo, filtros avançados.</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+      <button class="btn btn-ghost" onclick="exportarCSV()">📊 Exportar CSV</button>
+      <button class="btn btn-ghost" onclick="abrirModalImportCSV()" style="color:#a78bfa;border-color:rgba(167,139,250,0.3);">📥 Importar CSV</button>
+      <button class="btn btn-blue" id="btnAtualizar" onclick="atualizarBanco()">↺ Atualizar</button>
+      <button class="btn btn-blue" onclick="abrirModalNovoCargo()">💼 Novo Cargo</button>
+      <button class="btn btn-accent" onclick="abrirAddCandGlobal()">+ Adicionar Candidato</button>
+      <button class="btn" style="background:rgba(167,139,250,0.12);color:#a78bfa;border-color:rgba(167,139,250,0.35);" onclick="abrirModalPesos()" title="Configurar pesos de aderência por vaga">⚖️ Pesos</button>
+      <button class="btn btn-ghost" onclick="window.parent.postMessage({tipo:'nexus_navegar',mod:'pipeline'},'*')">⊞ Pipeline</button>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar" id="statsBar" style="display:none;">
+    <div class="stat-item">
+      <div class="stat-val" id="statTotal">0</div>
+      <div class="stat-lbl">Candidatos</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-val" id="statCargos">0</div>
+      <div class="stat-lbl">Cargos</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-val" id="statFit">0</div>
+      <div class="stat-lbl">Com Fit</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-disc">
+      <div class="stat-disc-item"><div class="stat-disc-val" id="statD" style="color:#e74c3c;">0</div><div class="stat-disc-lbl" style="color:#e74c3c;">D</div></div>
+      <div class="stat-disc-item"><div class="stat-disc-val" id="statI" style="color:#f39c12;">0</div><div class="stat-disc-lbl" style="color:#f39c12;">I</div></div>
+      <div class="stat-disc-item"><div class="stat-disc-val" id="statS" style="color:#3b82f6;">0</div><div class="stat-disc-lbl" style="color:#3b82f6;">S</div></div>
+      <div class="stat-disc-item"><div class="stat-disc-val" id="statC" style="color:#8b5cf6;">0</div><div class="stat-disc-lbl" style="color:#8b5cf6;">C</div></div>
+    </div>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="filtros-wrap">
+    <input type="text"  style="display:none;" aria-hidden="true" tabindex="-1" autocomplete="username"/>
+    <input type="email" style="display:none;" aria-hidden="true" tabindex="-1" autocomplete="email"/>
+    <div style="position:relative;flex:1;min-width:200px;max-width:320px;">
+      <input type="search" id="fBusca" name="busca_cargos_x9k" placeholder="🔍 Buscar candidato, vaga ou cargo…" oninput="onBuscaInput()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:100%;" onfocus="onBuscaFocus()" onblur="setTimeout(fecharSugestoes,180)" onkeydown="onBuscaKey(event)"/>
+      <div id="buscaSugestoes" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:8888;background:#1a1a1a;border:1px solid rgba(59,130,246,0.35);border-radius:10px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.6);max-height:260px;overflow-y:auto;"></div>
+    </div>
+    <select id="fPerfil" onchange="renderCargos()">
+      <option value="">Todos os perfis</option>
+      <option value="D">🔴 Dominância (D)</option>
+      <option value="I">🟡 Influência (I)</option>
+      <option value="S">🟢 Estabilidade (S)</option>
+      <option value="C">🔵 Conformidade (C)</option>
+    </select>
+    <select id="fCargo" onchange="renderCargos()">
+      <option value="">Todos os cargos</option>
+    </select>
+    <select id="fFit" onchange="renderCargos()">
+      <option value="">Todos — Fit</option>
+      <option value="com">Com Fit Score</option>
+      <option value="sem">Sem Fit Score</option>
+      <option value="80">Fit ≥ 80%</option>
+      <option value="65">Fit ≥ 65%</option>
+    </select>
+    <select id="fStatus" onchange="renderCargos()">
+      <option value="">Todos — Status</option>
+      <option value="respondeu">✅ Respondeu</option>
+      <option value="nao_respondeu">❌ Não respondeu</option>
+      <option value="sem_retorno">⏳ Sem retorno</option>
+      <option value="pendencia_docs">📁 Pendência docs</option>
+      <option value="pendencia_info">📋 Pendência info</option>
+    </select>
+    <select id="fDocs" onchange="renderCargos()">
+      <option value="">Todos — Docs</option>
+      <option value="ok">📁 Docs completos</option>
+      <option value="pend">⏳ Docs pendentes</option>
+    </select>
+    <span class="count-txt" id="cCount"></span>
+  </div>
+
+  <!-- CARGOS -->
+  <div id="cargosWrap">
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      <div>Carregando candidatos…</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ MODAL: NOVO / EDITAR CARGO ══ -->
+<div class="overlay" id="modalCargo" style="display:none;" onclick="if(event.target===this)fecharModalCargo()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="fecharModalCargo()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;" id="mCargoEyebrow">Novo Cargo</div>
+    <div class="modal-title" id="mCargoTitle">Criar novo cargo</div>
+    <p class="modal-sub">Nomeie o cargo para organizar candidatos por função pretendida.</p>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">Nome do cargo</label>
+      <input type="text" id="mCargoNome" class="field-inp" placeholder="Ex: Analista de RH, Operador de Produção…" maxlength="60" onkeydown="if(event.key==='Enter')salvarCargo()"/>
+    </div>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">📝 Descrição (opcional)</label>
+      <input type="text" id="mCargoDesc" class="field-inp" placeholder="Ex: Candidatos com perfil para liderança operacional"/>
+    </div>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">🏷️ Nível do cargo</label>
+      <select id="mCargoNivel" class="field-inp">
+        <option value="">Sem nível definido</option>
+        <option value="estagiario">🎓 Estagiário</option>
+        <option value="junior">🔵 Júnior</option>
+        <option value="pleno">🟡 Pleno</option>
+        <option value="senior">🟢 Sênior</option>
+        <option value="especialista">⭐ Especialista</option>
+        <option value="coordenador">📋 Coordenador</option>
+        <option value="gerente">💼 Gerente</option>
+        <option value="diretor">🏛️ Diretor</option>
+      </select>
+    </div>
+    <div style="margin-bottom:1.1rem;">
+      <label class="field-lbl">Cor identificadora</label>
+      <div class="cor-picker" id="corPickerCargo"></div>
+    </div>
+    <button onclick="salvarCargo()" class="save-btn" id="mCargoSaveBtn">💾 Criar cargo</button>
+    <div id="mCargoEditId" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL: ADICIONAR CANDIDATO ══ -->
+<div class="overlay" id="modalAddCand" style="display:none;" onclick="if(event.target===this)fecharModalAddCand()">
+  <div class="modal-box" style="max-width:520px;">
+    <button class="modal-close" onclick="fecharModalAddCand()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;">Banco de Talentos · Importar</div>
+    <div class="modal-title">Adicionar candidato</div>
+    <p class="modal-sub" id="mAddSub">Selecione candidatos do Banco de Talentos para adicionar ao cargo.</p>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">Cargo de destino</label>
+      <select id="mAddCargo" class="field-inp" style="background-color:#1a1a1a;">
+        <option value="">Selecione um cargo…</option>
+      </select>
+    </div>
+    <input type="text" id="mAddBusca" class="add-busca" placeholder="🔍 Buscar candidato no banco…" oninput="filtrarListaAdd()"/>
+    <div style="margin-bottom:0.5rem;">
+      <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.72rem;color:var(--muted);">
+        <input type="checkbox" id="mAddMostrarTodos" style="accent-color:var(--accent);cursor:pointer;" onchange="filtrarListaAdd()"/>
+        Mostrar candidatos já em algum cargo
+      </label>
+    </div>
+    <div class="add-cand-list" id="mAddList"></div>
+    <div style="display:flex;gap:0.6rem;margin-top:0.5rem;">
+      <button onclick="confirmarAddCand()" class="save-btn" style="flex:1;">✅ Adicionar selecionados</button>
+      <button onclick="fecharModalAddCand()" style="background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.7rem 1rem;font-family:inherit;font-size:0.8rem;cursor:pointer;">Cancelar</button>
+    </div>
+    <div id="mAddMsg" style="display:none;text-align:center;font-size:0.7rem;color:#3b82f6;margin-top:0.4rem;font-weight:700;"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL: GERENCIAR CARGOS DO CANDIDATO ══ -->
+<div class="overlay" id="modalMover" style="display:none;" onclick="if(event.target===this)fecharModalMover()">
+  <div class="modal-box" style="max-width:420px;">
+    <button class="modal-close" onclick="fecharModalMover()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;">Gerenciar Cargos</div>
+    <div class="modal-title">Cargos de <span id="mMoverNome" style="color:var(--accent);">—</span></div>
+    <p class="modal-sub">Selecione em quais cargos este candidato deve aparecer. Pode ser em múltiplos cargos simultaneamente.</p>
+    <div class="mover-cargo-list" id="mMoverLista"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.3rem;">
+      <button onclick="salvarCargosDoMover()" class="save-btn" style="flex:1;">✅ Salvar cargos</button>
+      <button onclick="removerDoCargo()" style="background:rgba(231,76,60,0.1);color:#e74c3c;border:1px solid rgba(231,76,60,0.25);border-radius:10px;padding:0.7rem 0.85rem;font-family:inherit;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">↩️ Devolver ao Banco</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: CONFIRMAR EXCLUIR CARGO ══ -->
+<div class="overlay" id="modalDelCargo" style="display:none;" onclick="if(event.target===this)fecharDelCargo()">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <button class="modal-close" onclick="fecharDelCargo()">✕</button>
+    <div style="font-size:2rem;margin-bottom:0.5rem;">🗑️</div>
+    <div class="modal-title" style="color:#e74c3c;">Excluir cargo?</div>
+    <p class="modal-sub">O cargo <strong id="delCargoNome" style="color:#f0f0f0;">—</strong> será removido. Os candidatos voltam ao estado sem cargo.</p>
+    <div style="display:flex;gap:0.6rem;margin-top:0.5rem;">
+      <button onclick="executarDelCargo()" style="flex:1;background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:0.75rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">🗑️ Excluir</button>
+      <button onclick="fecharDelCargo()" style="background:rgba(255,255,255,0.06);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.75rem 1.1rem;font-family:inherit;font-size:0.82rem;cursor:pointer;">Cancelar</button>
+    </div>
+    <div id="delCargoId" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL: COPIAR PARA OUTRO CARGO ══ -->
+<div class="overlay" id="modalCopiarCargo" style="display:none;" onclick="if(event.target===this)fecharModalCopiarCargo()">
+  <div class="modal-box" style="max-width:420px;">
+    <button class="modal-close" onclick="fecharModalCopiarCargo()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#f39c12;margin-bottom:0.3rem;">Multi-cargo · Copiar</div>
+    <div class="modal-title">Copiar <span id="mCopiarNome" style="color:#f39c12;">—</span> para outro cargo</div>
+    <p class="modal-sub">O candidato permanece no cargo atual e também aparecerá nos cargos selecionados abaixo.</p>
+    <div class="copiar-cargo-list" id="mCopiarLista"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.3rem;">
+      <button onclick="salvarCopiarCargo()" class="save-btn" style="flex:1;background:linear-gradient(135deg,#b45309,#f59e0b);color:#000;">📋 Adicionar aos cargos selecionados</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL PERFIL COMPLETO ══ -->
+<div class="perfil-overlay" id="modalPerfilCargo" style="display:none;" onclick="if(event.target===this)fecharPerfilCargo()">
+  <div class="perfil-box">
+    <button onclick="fecharPerfilCargo()" style="position:absolute;top:0.85rem;right:0.85rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;z-index:1;">✕</button>
+    <div class="perfil-hdr">
+      <div class="perfil-avatar-lg" id="paAvatar" style="border-color:#888;color:#888;">⬜</div>
+      <div style="flex:1;min-width:0;">
+        <div id="paNome" style="font-size:1rem;font-weight:900;padding-right:2rem;"></div>
+        <div id="paMeta" style="font-size:0.7rem;color:#777;margin-top:0.1rem;"></div>
+        <div id="paCargoBadge" style="margin-top:0.4rem;display:flex;gap:0.3rem;flex-wrap:wrap;"></div>
+        <div id="paAcoes" style="display:flex;gap:0.4rem;margin-top:0.55rem;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+    <div class="perfil-body">
+
+      <!-- AÇÕES BANCO DE CARGOS -->
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button onclick="devolverAoBancoFromPerfil()" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:0.4rem;background:rgba(231,76,60,0.1);border:1.5px solid rgba(231,76,60,0.3);border-radius:12px;padding:0.7rem;color:#e74c3c;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;">
+          ↩️ Devolver ao Banco de Talentos
+        </button>
+        <button onclick="abrirCopiarCargoFromPerfil()" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:0.4rem;background:rgba(243,156,18,0.1);border:1.5px solid rgba(243,156,18,0.3);border-radius:12px;padding:0.7rem;color:#f39c12;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;">
+          📋 Copiar para outro cargo
+        </button>
+        <button onclick="abrirGerenciarCargosFromPerfil()" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:0.4rem;background:rgba(59,130,246,0.08);border:1.5px solid rgba(59,130,246,0.25);border-radius:12px;padding:0.7rem;color:#3b82f6;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;">
+          🗂️ Gerenciar cargos
+        </button>
+      </div>
+      <!-- MOVER PARA OUTRAS ÁREAS -->
+      <div style="background:rgba(167,139,250,0.04);border:1px solid rgba(167,139,250,0.15);border-radius:12px;padding:0.75rem 0.9rem;">
+        <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#a78bfa;margin-bottom:0.55rem;">🔀 Copiar / Mover para outras áreas</div>
+        <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+          <button onclick="moverParaEntrevistadosFromPerfil()" style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:0.35rem;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.28);border-radius:9px;padding:0.52rem 0.6rem;color:#f59e0b;font-family:inherit;font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s;">🎤 → Entrevistados</button>
+          <button onclick="moverParaAreaFromPerfil()" style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:0.35rem;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.28);border-radius:9px;padding:0.52rem 0.6rem;color:#2ecc71;font-family:inherit;font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s;">🗂️ → Área</button>
+          <button onclick="moverParaPendenciasFromPerfil()" style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:0.35rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:9px;padding:0.52rem 0.6rem;color:#f59e0b;font-family:inherit;font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s;">⏳ → Pendências</button>
+          <button onclick="moverParaPipelineFromPerfil()" style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:0.35rem;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:9px;padding:0.52rem 0.6rem;color:#3b82f6;font-family:inherit;font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s;">🚀 → Pipeline</button>
+        </div>
+      </div>
+
+      <!-- SCORES -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">📊 Scores de Compatibilidade</div>
+        <div id="paScores"></div>
+      </div>
+
+      <!-- ORIGEM E DISC -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">🔍 Origem &amp; DISC</div>
+        <div id="paOrigemConteudo"></div>
+      </div>
+
+      <!-- DADOS DO CANDIDATO -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">👤 Dados do Candidato</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div><label class="perfil-lbl">Nome</label><input type="text" id="paNomeEdit" class="perfil-inp" placeholder="Nome completo"/></div>
+          <div><label class="perfil-lbl">Cargo pretendido</label><input type="text" id="paVagaEdit" class="perfil-inp" placeholder="Título do cargo"/></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div>
+            <label class="perfil-lbl">📧 E-mail</label>
+            <div style="display:flex;gap:0.3rem;">
+              <input type="email" id="paEmail" class="perfil-inp" placeholder="candidato@email.com" style="flex:1;min-width:0;" autocomplete="off"/>
+              <button onclick="var e=document.getElementById('paEmail').value.trim();if(e)window.open('mailto:'+e);else mostrarToast('Preencha o e-mail',true);" style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);border-radius:8px;padding:0 0.6rem;font-size:1.1rem;cursor:pointer;flex-shrink:0;">📧</button>
+            </div>
+          </div>
+          <div>
+            <label class="perfil-lbl">📲 WhatsApp / Telefone</label>
+            <div style="display:flex;gap:0.3rem;">
+              <input type="text" id="paTel" class="perfil-inp" placeholder="(51) 9 9999-9999" maxlength="16" oninput="mascaraTelCargo(this)" style="flex:1;min-width:0;" autocomplete="off"/>
+              <button onclick="var n=document.getElementById('paTel').value.replace(/\D/g,'');if(n)window.top.open('https://wa.me/55'+n);else mostrarToast('Preencha o telefone',true);" style="background:rgba(37,211,102,0.15);color:#25D366;border:1px solid rgba(37,211,102,0.3);border-radius:8px;padding:0 0.6rem;font-size:1.1rem;cursor:pointer;flex-shrink:0;">📲</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">🔗 LinkedIn / Perfil externo</label>
+          <div style="display:flex;gap:0.3rem;">
+            <input type="url" id="paLinkExt" class="perfil-inp" placeholder="https://linkedin.com/in/…" style="flex:1;min-width:0;"/>
+            <button onclick="var l=document.getElementById('paLinkExt').value.trim();if(l)window.open(l);else mostrarToast('Preencha o link',true);" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.3);border-radius:8px;padding:0 0.6rem;font-size:1.1rem;cursor:pointer;flex-shrink:0;">🔗</button>
+          </div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">📍 Cidade / Localização</label>
+          <input type="text" id="paCidade" class="perfil-inp" placeholder="Ex: Porto Alegre, RS"/>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">📄 Currículo (Google Drive, Dropbox…)</label>
+          <div style="display:flex;gap:0.3rem;">
+            <input type="url" id="paCurriculo" class="perfil-inp" placeholder="https://drive.google.com/file/…" style="flex:1;min-width:0;"/>
+            <button onclick="var c=document.getElementById('paCurriculo').value.trim();if(c)window.open(c);else mostrarToast('Preencha o link',true);" style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);border-radius:8px;padding:0 0.6rem;font-size:1.1rem;cursor:pointer;flex-shrink:0;">📄</button>
+          </div>
+        </div>
+        <button onclick="salvarDadosCandCargo()" class="perfil-save-btn">💾 Salvar dados</button>
+        <div id="paSaveDadosMsg" style="display:none;text-align:center;font-size:0.72rem;color:#3b82f6;margin-top:0.4rem;font-weight:700;">✓ Salvo!</div>
+      </div>
+
+      <!-- SCORES MANUAIS -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">✏️ Ajuste de Scores</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div><label class="perfil-lbl">Fit Score manual (0–100)</label><input type="number" min="0" max="100" id="paFitManual" class="perfil-inp" placeholder="Ex: 72"/></div>
+          <div><label class="perfil-lbl">Aderência ao cargo (0–100)</label><input type="number" min="0" max="100" id="paAderencia" class="perfil-inp" placeholder="Ex: 65"/></div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">🧑‍💼 Score do Recrutador (0–100)</label>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <input type="number" min="0" max="100" id="paScoreRec" class="perfil-inp" placeholder="Ex: 85" style="flex:1;" oninput="paAtualizarPreviewScoreRec(this)"/>
+            <div id="paScoreRecPreview" style="font-size:1rem;font-weight:900;min-width:40px;text-align:center;color:#777;">—</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div><label class="perfil-lbl">Link DISC</label><input type="url" id="paLinkDisc" class="perfil-inp" placeholder="https://…"/></div>
+          <div><label class="perfil-lbl">Link Fit Score</label><input type="url" id="paLinkFit" class="perfil-inp" placeholder="https://…"/></div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.18);border-radius:9px;padding:0.5rem 0.75rem;">
+            <input type="checkbox" id="paDocCompleta" style="accent-color:#3b82f6;width:16px;height:16px;cursor:pointer;flex-shrink:0;"/>
+            <div>
+              <div style="font-size:0.78rem;font-weight:700;color:#3b82f6;">📁 Documentação completa</div>
+              <div style="font-size:0.62rem;color:#666;">Marque quando o candidato tiver toda a documentação entregue</div>
+            </div>
+          </label>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">💬 Status de Contato</label>
+          <select id="paStatusContato" class="perfil-inp" style="background-color:#1a1a1a;" onchange="salvarStatusContatoPerfilCargo()">
+            <option value="">— Sem status</option>
+            <option value="respondeu">✅ Respondeu</option>
+            <option value="nao_respondeu">❌ Não respondeu</option>
+            <option value="sem_retorno">⏳ Sem retorno</option>
+            <option value="pendencia_docs">📁 Pendência docs</option>
+            <option value="pendencia_info">📋 Pendência info</option>
+          </select>
+        </div>
+        <button onclick="salvarManualCargo()" class="perfil-save-btn">💾 Salvar scores</button>
+        <div id="paSaveMsg" style="display:none;text-align:center;font-size:0.72rem;color:#3b82f6;margin-top:0.4rem;font-weight:700;">✓ Salvo!</div>
+
+        <!-- MOVER PARA PIPELINE -->
+        <div style="margin-top:0.8rem;">
+          <label class="perfil-lbl">🚀 Mover para pipeline</label>
+          <div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap;">
+            <select id="paMoverVaga" class="perfil-inp" style="flex:1;min-width:140px;">
+              <option value="">Selecione uma vaga ativa…</option>
+            </select>
+            <select id="paMoverEtapa" class="perfil-inp" style="width:130px;">
+              <option value="triagem">🔵 Triagem</option>
+              <option value="pre">🟣 Pré-seleção</option>
+              <option value="entrevista">🟡 Entrevista</option>
+              <option value="finalista">🟢 Finalista</option>
+              <option value="aprovado">✅ Aprovado</option>
+            </select>
+            <button onclick="moverParaPipelinePerfil()" style="background:rgba(59,130,246,0.2);color:#3b82f6;border:1px solid rgba(59,130,246,0.4);border-radius:9px;padding:0.58rem 0.7rem;font-family:inherit;font-size:0.75rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;">➕</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══ SUPABASE — via módulo de segurança ═══
+const SUPABASE_URL = (typeof NexusSec!=='undefined'&&NexusSec._url)||'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = (typeof NexusSec!=='undefined'&&NexusSec._key)||'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+const PIPE_KEY     = 'nexus_pipeline_v1';
+const CARGOS_KEY   = 'nexus_cargos_v1';
+const ASSIGN_KEY   = 'nexus_cargos_assign_v1';
+const VAGA_OVERRIDE_KEY = 'nexus_vaga_cargo_overrides';
+const SB_CARGOS    = 'cargos_secoes';
+const SB_ASSIGN    = 'cargos_assign';
+
+const COR  = {D:'#e74c3c',I:'#f39c12',S:'#3b82f6',C:'#8b5cf6'};
+const EMO  = {D:'🔴',I:'🟡',S:'🔵',C:'🟣'};
+const COMBOS = {'DI':'Realizador Influente','DS':'Executor Consistente','DC':'Estrategista Analítico','ID':'Influenciador Decisivo','IS':'Comunicador Acolhedor','IC':'Comunicador Criterioso','SD':'Apoiador Assertivo','SI':'Facilitador Inspirador','SC':'Colaborador Meticuloso','CD':'Analítico Decisivo','CI':'Analítico Relacional','CS':'Especialista Confiável'};
+const CARGO_CORES = ['#3b82f6','#8b5cf6','#3b82f6','#3b82f6','#f59e0b','#ef4444','#ec4899','#f97316','#3b82f6','#6366f1'];
+const NIVEL_LABELS = {estagiario:'🎓 Estagiário',junior:'🔵 Júnior',pleno:'🟡 Pleno',senior:'🟢 Sênior',especialista:'⭐ Especialista',coordenador:'📋 Coordenador',gerente:'💼 Gerente',diretor:'🏛️ Diretor'};
+
+const _SC_LABELS = { respondeu:'✅ Respondeu', nao_respondeu:'❌ Não respondeu', sem_retorno:'⏳ Sem retorno', pendencia_docs:'📁 Pendência docs', pendencia_info:'📋 Pendência info' };
+function _scClass(v){ const m={respondeu:'sc-respondeu',nao_respondeu:'sc-nao_respondeu',sem_retorno:'sc-sem_retorno',pendencia_docs:'sc-pendencia_docs',pendencia_info:'sc-pendencia_info'}; return m[v]||'sc-pendente'; }
+
+/* ═══ ESTADO GLOBAL ═══ */
+let _allCands  = [];
+let _cargos    = [];
+let _assign    = {};
+let _collapsos = {};
+let _addSelectedIds = new Set();
+let _addCargoTarget = null;
+let _moverCandId    = null;
+let _copiarCandId   = null;
+let _perfilAtual    = null;
+let _corSelecionada = CARGO_CORES[0];
+let _vagasList      = [];
+let _vagaOverrides  = {};
+
+/* ═══ UTILS ═══ */
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function mostrarToast(msg, erro=false){
+  const t = document.getElementById('toast'); if(!t) return;
+  t.textContent = msg; t.className = 'toast'+(erro?' erro':'');
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+function gerarId(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+
+function mascaraTelCargo(input){
+  let v = input.value.replace(/\D/g,'');
+  if(v.length > 11) v = v.slice(0,11);
+  if(v.length <= 10) v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/,'($1) $2'+(v.length>6?'-':'')+'$3');
+  else v = v.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})/,'($1) $2 $3'+(v.length>8?'-':'')+'$4');
+  input.value = v;
+}
+
+/* ═══ SUPABASE HELPERS ═══ */
+async function sbGet(table, filter=''){
+  const url = `${SUPABASE_URL}/rest/v1/${table}?select=*${filter}&order=criado_em.asc`;
+  const res = await fetch(url,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+  if(!res.ok){ const txt = await res.text(); throw new Error('sbGet '+table+' HTTP '+res.status+': '+txt); }
+  return res.json();
+}
+async function sbUpsert(table, data){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`,{
+    method:'POST',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+    body:JSON.stringify(data)
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res;
+}
+async function sbDelete(table, eq){
+  const [col,val] = eq.split('=');
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${col}=eq.${encodeURIComponent(val)}`,{
+    method:'DELETE',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  });
+  if(!res.ok) throw new Error(await res.text());
+}
+async function sbPatch(table, filter, data){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}`,{
+    method:'PATCH',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify(data)
+  });
+  if(!res.ok) throw new Error('Supabase '+res.status);
+}
+
+/* ═══ SUPABASE — CARGOS ═══ */
+async function carregarCargosDB(){
+  try{
+    const rows = await sbGet(SB_CARGOS);
+    const cargos = rows.map(r=>({id:r.id,nome:r.nome,cor:r.cor,descricao:r.descricao||'',nivel:r.nivel||'',criado_em:r.criado_em}));
+    localStorage.setItem(CARGOS_KEY, JSON.stringify(cargos));
+    return cargos;
+  }catch(e){
+    console.warn('Supabase cargos offline:', e.message);
+    try{ return JSON.parse(localStorage.getItem(CARGOS_KEY))||[]; }catch{ return []; }
+  }
+}
+async function salvarCargoDB(cargo){
+  try{
+    await sbUpsert(SB_CARGOS,[{id:cargo.id,nome:cargo.nome,cor:cargo.cor,descricao:cargo.descricao||null,nivel:cargo.nivel||null,criado_em:cargo.criado_em||new Date().toISOString()}]);
+    localStorage.setItem(CARGOS_KEY, JSON.stringify(_cargos));
+  }catch(e){
+    console.warn('Supabase salvarCargo erro — salvando só no localStorage:', e.message);
+    localStorage.setItem(CARGOS_KEY, JSON.stringify(_cargos));
+    throw e;
+  }
+}
+async function deletarCargoDB(id){
+  try{
+    await sbDelete(SB_CARGOS,`id=${id}`);
+    localStorage.setItem(CARGOS_KEY, JSON.stringify(_cargos));
+  }catch(e){
+    console.warn('Supabase deletarCargo erro:', e.message);
+    localStorage.setItem(CARGOS_KEY, JSON.stringify(_cargos));
+    throw e;
+  }
+}
+
+/* ═══ SUPABASE — ASSIGN ═══ */
+async function carregarAssignDB(){
+  // Tenta buscar com coluna "vaga" — se falhar (coluna não existe), tenta sem ela
+  async function _fetchAssign(fields){
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${SB_ASSIGN}?select=${fields}`,
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Cache-Control':'no-cache'}});
+    if(!res.ok){ const t=await res.text(); throw new Error('HTTP '+res.status+': '+t); }
+    return res.json();
+  }
+
+  let rows = null;
+  let temVaga = true;
+  try{
+    rows = await _fetchAssign('cand_id,cargo_id,vaga');
+  }catch(e1){
+    // Coluna "vaga" pode não existir — tenta sem ela
+    try{
+      rows = await _fetchAssign('cand_id,cargo_id');
+      temVaga = false;
+    }catch(e2){
+      console.warn('Supabase assign offline:', e2.message);
+    }
+  }
+
+  if(Array.isArray(rows)){
+    const assignFinal = {};
+    _vagaOverrides = {};
+    rows.forEach(r=>{
+      if(!r.cargo_id) return;
+      const cid = String(r.cand_id);
+      if(!assignFinal[cid]) assignFinal[cid] = [];
+      const cargoIdStr = String(r.cargo_id);
+      if(!assignFinal[cid].includes(cargoIdStr)) assignFinal[cid].push(cargoIdStr);
+      if(temVaga && r.vaga) _vagaOverrides[cid+'||'+cargoIdStr] = r.vaga;
+    });
+    localStorage.setItem(ASSIGN_KEY, JSON.stringify(assignFinal));
+    try{ const ov=localStorage.getItem(VAGA_OVERRIDE_KEY); if(ov) Object.assign(_vagaOverrides,JSON.parse(ov)); }catch{}
+    return assignFinal;
+  }
+  try{ return JSON.parse(localStorage.getItem(ASSIGN_KEY))||{}; }catch{ return {}; }
+}
+
+function salvarAssign(a){ try{ localStorage.setItem(ASSIGN_KEY, JSON.stringify(a)); }catch{} }
+
+async function salvarAssignDB(candId, cargoIds){
+  const heads = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'};
+  try{ await fetch(`${SUPABASE_URL}/rest/v1/${SB_ASSIGN}?cand_id=eq.${encodeURIComponent(candId)}`,{method:'DELETE',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}); }catch{}
+  if(!cargoIds||!cargoIds.length) return;
+  const rows = cargoIds.map(cid=>({cand_id:String(candId),cargo_id:cid,vaga:_vagaOverrides[String(candId)+'||'+cid]||null}));
+  try{ await fetch(`${SUPABASE_URL}/rest/v1/${SB_ASSIGN}`,{method:'POST',headers:heads,body:JSON.stringify(rows)}); }catch(e){ console.warn('salvarAssignDB erro:', e.message); }
+}
+
+function getCargosDoCandiato(candId){
+  const cid = String(candId);
+  const val = _assign[cid];
+  if(!val) return [];
+  if(Array.isArray(val)) return val;
+  return val ? [val] : [];
+}
+
+/* ═══ FETCH CANDIDATOS ═══ */
+async function fetchCandidatos(){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/disc_historico?select=*&order=data.desc`,
+    {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+  if(!res.ok) throw new Error('Erro ao buscar candidatos: '+res.status);
+  _allCands = await res.json();
+}
+
+/* ═══ PIPELINE ═══ */
+async function savePipeEntry(vagaSlug, candId, etapa){
+  const h={'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'};
+  const r=await fetch(SUPABASE_URL+'/rest/v1/pipeline?on_conflict=vaga_slug,candidato_id',{method:'POST',headers:h,body:JSON.stringify({vaga_slug:vagaSlug,candidato_id:String(candId),etapa,atualizado_em:new Date().toISOString()})});
+  if(!r.ok){const t=await r.text();throw new Error(r.status+': '+t);}
+  try{const pipe=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');if(!pipe[vagaSlug])pipe[vagaSlug]={};pipe[vagaSlug][String(candId)]=etapa;localStorage.setItem(PIPE_KEY,JSON.stringify(pipe));}catch(e){}
+}
+
+/* ═══ AUTOCOMPLETE BUSCA ═══ */
+let _sugIdx = -1;
+
+function onBuscaFocus(){
+  const inp = document.getElementById('fBusca');
+  inp.style.borderColor = 'var(--accent)';
+  if((inp.value||'').trim().length > 0) renderSugestoes(inp.value);
+}
+
+function onBuscaInput(){
+  const val = document.getElementById('fBusca').value;
+  _sugIdx = -1;
+  if(val.trim().length === 0){
+    fecharSugestoes();
+    renderCargos();
+    return;
+  }
+  renderSugestoes(val);
+  renderCargos();
+}
+
+function renderSugestoes(q){
+  const box = document.getElementById('buscaSugestoes');
+  const t = q.toLowerCase().trim();
+  if(!t){ fecharSugestoes(); return; }
+
+  // Sugestões de cargos
+  const cargosMatch = _cargos.filter(c=>(c.nome||'').toLowerCase().includes(t));
+  // Sugestões de candidatos (top 5 por nome)
+  const candsMatch = _allCands.filter(c=>(c.nome||'').toLowerCase().includes(t)).slice(0,5);
+
+  if(!cargosMatch.length && !candsMatch.length){ fecharSugestoes(); return; }
+
+  let html = '';
+
+  if(cargosMatch.length){
+    html += `<div class="sug-header">Cargos</div>`;
+    html += cargosMatch.slice(0,8).map((c,i)=>{
+      const total = _allCands.filter(h=>getCargosDoCandiato(h.id).includes(c.id)).length;
+      const nomeHL = esc(c.nome).replace(new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<em>$1</em>');
+      return `<div class="sug-item" data-idx="${i}" onmousedown="selecionarCargo('${esc(c.id)}','${esc(c.nome)}')">
+        <div class="sug-dot" style="background:${c.cor||'#3b82f6'};"></div>
+        <span class="sug-nome">${nomeHL}</span>
+        <span class="sug-count">${total} cand.</span>
+      </div>`;
+    }).join('');
+  }
+
+  if(candsMatch.length){
+    html += `<div class="sug-header">Candidatos</div>`;
+    html += candsMatch.map((c,i)=>{
+      const nomeHL = esc(c.nome||'').replace(new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<em>$1</em>');
+      return `<div class="sug-item" onmousedown="selecionarCandidato('${esc(String(c.id))}','${esc(c.nome||'')}')">
+        <span style="font-size:0.9rem;">${c.dom==='D'?'🔴':c.dom==='I'?'🟡':c.dom==='S'?'🟢':c.dom==='C'?'🔵':'⚪'}</span>
+        <span class="sug-nome">${nomeHL}</span>
+        <span class="sug-count">${esc((c.vaga||'').slice(0,20))}</span>
+      </div>`;
+    }).join('');
+  }
+
+  box.innerHTML = html;
+  box.style.display = 'block';
+}
+
+function selecionarCargo(id, nome){
+  document.getElementById('fCargo').value = id;
+  document.getElementById('fBusca').value = '';
+  fecharSugestoes();
+  renderCargos();
+  // Expande o cargo selecionado
+  if(_collapsos[id] !== false){ _collapsos[id] = false; }
+}
+
+function selecionarCandidato(id, nome){
+  // Busca pelo nome do candidato
+  document.getElementById('fBusca').value = nome;
+  fecharSugestoes();
+  renderCargos();
+}
+
+function fecharSugestoes(){
+  const box = document.getElementById('buscaSugestoes');
+  if(box) box.style.display = 'none';
+  _sugIdx = -1;
+  const inp = document.getElementById('fBusca');
+  if(inp) inp.style.borderColor = 'rgba(255,255,255,0.1)';
+}
+
+function onBuscaKey(e){
+  const box = document.getElementById('buscaSugestoes');
+  const items = box ? box.querySelectorAll('.sug-item') : [];
+  if(!items.length) return;
+  if(e.key==='ArrowDown'){
+    e.preventDefault();
+    _sugIdx = Math.min(_sugIdx+1, items.length-1);
+    items.forEach((el,i)=>el.classList.toggle('focused',i===_sugIdx));
+  } else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    _sugIdx = Math.max(_sugIdx-1, 0);
+    items.forEach((el,i)=>el.classList.toggle('focused',i===_sugIdx));
+  } else if(e.key==='Enter' && _sugIdx>=0){
+    e.preventDefault();
+    items[_sugIdx]?.dispatchEvent(new MouseEvent('mousedown'));
+  } else if(e.key==='Escape'){
+    fecharSugestoes();
+  }
+}
+
+/* ═══ INIT ═══ */
+async function init(){
+  try{
+    _cargos = await carregarCargosDB();
+    _assign = await carregarAssignDB();
+    await fetchCandidatos();
+    fetch(`${SUPABASE_URL}/rest/v1/vagas?order=criado_em.desc`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}})
+      .then(r=>r.json()).then(v=>{ if(Array.isArray(v)) _vagasList=v; }).catch(()=>{});
+    renderTudo();
+    document.getElementById('statsBar').style.display = 'flex';
+    iniciarCorPickerCargo();
+  }catch(e){
+    console.error('Erro no init:', e);
+    const wrap = document.getElementById('cargosWrap');
+    if(wrap) wrap.innerHTML = `<div class="empty-state">
+      <div class="empty-state-ico">⚠️</div>
+      <h3 style="color:#e74c3c;">Erro ao carregar</h3>
+      <p>Não foi possível conectar ao servidor.<br>${e.message}</p>
+      <button class="btn btn-accent" onclick="location.reload()" style="margin-top:1rem;">🔄 Tentar novamente</button>
+    </div>`;
+  }
+}
+
+function renderTudo(){ renderStats(); renderFiltroCargos(); renderCargos(); }
+
+/* ═══ DISC ═══ */
+function estimarFitDisc(h){
+  if(!h.pct_d&&!h.pct_i&&!h.pct_s&&!h.pct_c) return null;
+  const d=parseFloat(h.pct_d)||0,i=parseFloat(h.pct_i)||0,s=parseFloat(h.pct_s)||0,c=parseFloat(h.pct_c)||0;
+  const vals=[d,i,s,c].sort((a,b)=>b-a);
+  const media=(d+i+s+c)/4;
+  const score=vals[0]*0.50+vals[1]*0.30+vals[2]*0.15+vals[3]*0.05;
+  const desvio=Math.sqrt(vals.reduce((acc,v)=>acc+Math.pow(v-media,2),0)/4);
+  return Math.min(100,Math.round(score*(desvio<15?1.05:1.0)));
+}
+function calcularAderencia(h){
+  if(h.aderencia_manual!=null) return {valor:parseInt(h.aderencia_manual),fonte:'man.'};
+  const disc=estimarFitDisc(h);
+  const fit=h.fit_score?parseInt(h.fit_score):null;
+  if(fit!=null&&disc!=null) return {valor:Math.round(fit*0.60+disc*0.40),fonte:'calc'};
+  if(fit!=null) return {valor:fit,fonte:'fit'};
+  if(disc!=null) return {valor:disc,fonte:'est.'};
+  return null;
+}
+
+/* ═══ STATS ═══ */
+function _notificarBadgeCargos(count){
+  try{ window.parent.postMessage({tipo:'nexus_badge_update', modulo:'cargos', count},'*'); }catch(e){}
+  try{ window.top.postMessage({tipo:'nexus_badge_update', modulo:'cargos', count},'*'); }catch(e){}
+}
+
+function _countCargosAssigned(){
+  return _allCands.filter(c=>getCargosDoCandiato(c.id).length>0).length;
+}
+
+function renderStats(){
+  const assignedIds = new Set(Object.keys(_assign).filter(cid=>getCargosDoCandiato(cid).length>0));
+  const cands = _allCands.filter(c=>assignedIds.has(String(c.id)));
+  document.getElementById('statTotal').textContent = cands.length;
+  document.getElementById('statCargos').textContent = _cargos.length;
+  const hc = document.getElementById('headerCount'); if(hc) hc.textContent = cands.length;
+  const comFit = cands.filter(c=>c.fit_score||c.fit_manual||c.url_resultado_fit).length;
+  document.getElementById('statFit').textContent = comFit;
+  const p = {D:0,I:0,S:0,C:0};
+  cands.forEach(c=>{ if(p[c.dom]!=null) p[c.dom]++; });
+  document.getElementById('statD').textContent = p.D;
+  document.getElementById('statI').textContent = p.I;
+  document.getElementById('statS').textContent = p.S;
+  document.getElementById('statC').textContent = p.C;
+  _notificarBadgeCargos(cands.length);
+}
+
+/* ═══ FILTRO CARGOS SELECT ═══ */
+function renderFiltroCargos(){
+  const sel = document.getElementById('fCargo');
+  const val = sel.value;
+  sel.innerHTML = '<option value="">Todos os cargos</option>' +
+    _cargos.map(c=>`<option value="${esc(c.id)}">${esc(c.nome)}${c.nivel?' · '+( NIVEL_LABELS[c.nivel]||c.nivel):''}</option>`).join('');
+  if(val) sel.value = val;
+}
+
+/* ═══ RENDER CARGOS ═══ */
+function renderCargos(){
+  const wrap = document.getElementById('cargosWrap');
+  const busca    = (document.getElementById('fBusca')?.value||'').toLowerCase();
+  const perfil   = document.getElementById('fPerfil')?.value||'';
+  const cargoFil = document.getElementById('fCargo')?.value||'';
+  const fitFil   = document.getElementById('fFit')?.value||'';
+  const statusFil = document.getElementById('fStatus')?.value||'';
+  const docsFil   = document.getElementById('fDocs')?.value||'';
+
+  function filtrarCand(c, cargoNome){
+    if(busca){
+      const b = busca.toLowerCase();
+      const matchNome  = (c.nome||'').toLowerCase().includes(b);
+      const matchVaga  = (c.vaga||'').toLowerCase().includes(b);
+      const matchCargo = cargoNome ? cargoNome.toLowerCase().includes(b) : false;
+      if(!matchNome && !matchVaga && !matchCargo) return false;
+    }
+    if(perfil && c.dom !== perfil) return false;
+    if(fitFil==='com' && !(c.fit_score||c.fit_manual||c.url_resultado_fit)) return false;
+    if(fitFil==='sem' && (c.fit_score||c.fit_manual||c.url_resultado_fit)) return false;
+    if(fitFil==='80'){ const f=parseInt(c.fit_score||c.fit_manual||0); if(f<80) return false; }
+    if(fitFil==='65'){ const f=parseInt(c.fit_score||c.fit_manual||0); if(f<65) return false; }
+    if(statusFil && c.status_contato!==statusFil) return false;
+    if(docsFil==='ok' && !c.doc_completa) return false;
+    if(docsFil==='pend' && c.doc_completa) return false;
+    return true;
+  }
+
+  const semCargoIds = Object.entries(_assign)
+    .filter(([cid, val])=>{ const arr=Array.isArray(val)?val:(val?[val]:[]); return arr.filter(cid2=>_cargos.find(c=>c.id===cid2)).length===0; })
+    .map(([cid])=>cid);
+  let semCargoCands = _allCands.filter(c=>semCargoIds.includes(String(c.id))).filter(c=>filtrarCand(c,''));
+
+  if(!_cargos.length){
+    if(semCargoCands.length){
+      wrap.innerHTML = `<div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:14px;padding:0.9rem 1.2rem;margin-bottom:1rem;">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--accent);margin-bottom:0.3rem;">📥 ${semCargoCands.length} candidato${semCargoCands.length>1?'s':''} aguardando organização</div>
+        <div style="font-size:0.7rem;color:#888;margin-bottom:0.85rem;">Adicionados mas sem cargo. Crie um cargo para organizá-los.</div>
+        <button class="btn btn-accent" onclick="abrirModalNovoCargo()" style="margin-bottom:0.85rem;">💼 Criar primeiro cargo</button>
+        <div class="cands-grid">${semCargoCands.map(c=>candCardSemCargo(c)).join('')}</div>
+      </div>`;
+    } else {
+      wrap.innerHTML = `<div class="empty-state">
+        <div class="empty-state-ico">💼</div>
+        <h3>Nenhum cargo criado</h3>
+        <p>Crie cargos para organizar os candidatos por função pretendida. Ex: Analista de RH, Operador de Produção, Técnico de Manutenção…</p>
+        <button class="btn btn-accent" onclick="abrirModalNovoCargo()">💼 Criar primeiro cargo</button>
+      </div>`;
+    }
+    document.getElementById('cCount').textContent = '';
+    return;
+  }
+
+  const cargosParaRender = cargoFil ? _cargos.filter(c=>c.id===cargoFil) : _cargos;
+  let totalVis = 0;
+  if(!cargoFil) totalVis += semCargoCands.length;
+
+  const semCargoHtml = (!cargoFil && semCargoCands.length) ? `
+    <div class="secao-card" style="border-color:rgba(255,255,255,0.12);margin-bottom:1rem;">
+      <div class="secao-hdr" style="border-left-color:#666;" onclick="toggleCargo('__sem_cargo__')">
+        <div class="secao-dot" style="background:#555;"></div>
+        <div style="flex:1;min-width:0;">
+          <div class="secao-nome" style="color:#aaa;">📥 Sem cargo</div>
+          <div class="secao-meta">${semCargoCands.length} candidato${semCargoCands.length!==1?'s':''} · Adicionados, aguardando organização</div>
+        </div>
+        <button class="secao-toggle${_collapsos['__sem_cargo__']!==false?' collapsed':''}" onclick="event.stopPropagation();toggleCargo('__sem_cargo__')">▼</button>
+      </div>
+      <div class="secao-body${_collapsos['__sem_cargo__']!==false?' hidden':''}" id="body-__sem_cargo__">
+        <div class="cands-grid">${semCargoCands.map(c=>candCardSemCargo(c)).join('')}</div>
+      </div>
+    </div>` : '';
+
+  wrap.innerHTML = semCargoHtml + cargosParaRender.map(cargo=>{
+    let cands = _allCands.filter(c=>getCargosDoCandiato(c.id).includes(cargo.id)).filter(c=>filtrarCand(c, cargo.nome||''));
+    // Oculta seção sem resultados quando há filtro ativo — MAS mantém se o nome do cargo bate com a busca
+    const cargoNomeBate = busca && (cargo.nome||'').toLowerCase().includes(busca.toLowerCase());
+    if((busca||perfil||fitFil||statusFil||docsFil) && cands.length===0 && !cargoNomeBate) return '';
+    totalVis += cands.length;
+    return renderCargoCard(cargo, cands);
+  }).join('');
+
+  const txt = totalVis===1?'1 candidato':`${totalVis} candidatos`;
+  document.getElementById('cCount').textContent = txt+' em '+(cargosParaRender.length+((!cargoFil&&semCargoCands.length)?1:0))+' cargo(s)';
+  const hc=document.getElementById('headerCount'); if(hc) hc.textContent=totalVis;
+}
+
+function renderCargoCard(cargo, cands){
+  const cor = cargo.cor || '#3b82f6';
+  const collapsed = _collapsos[cargo.id] !== false;
+  const nivelHtml = cargo.nivel ? `<span style="font-size:0.6rem;font-weight:700;color:${cor};background:${cor}18;border:1px solid ${cor}33;border-radius:99px;padding:0.08rem 0.45rem;">${NIVEL_LABELS[cargo.nivel]||cargo.nivel}</span>` : '';
+  const descHtml = cargo.descricao ? `<div style="font-size:0.6rem;color:#555;margin-top:0.1rem;">${esc(cargo.descricao)}</div>` : '';
+
+  return `<div class="secao-card">
+    <div class="secao-hdr" style="border-left-color:${cor};" onclick="toggleCargo('${esc(cargo.id)}')">
+      <div class="secao-dot" style="background:${cor};"></div>
+      <div style="flex:1;min-width:0;">
+        <div class="secao-nome" style="display:flex;align-items:center;gap:0.4rem;">${esc(cargo.nome)} ${nivelHtml}</div>
+        ${descHtml}
+        <div class="secao-meta">${cands.length} candidato${cands.length!==1?'s':''}</div>
+      </div>
+      <div style="display:flex;gap:0.35rem;align-items:center;flex-shrink:0;" onclick="event.stopPropagation()">
+        <button onclick="abrirAddCand('${esc(cargo.id)}')" class="secao-btn" style="background:${cor}18;color:${cor};border-color:${cor}35;">+ Cand.</button>
+        <button onclick="editarCargo('${esc(cargo.id)}')" class="secao-btn-icon" title="Editar cargo">✏️</button>
+        <button onclick="confirmarDelCargo('${esc(cargo.id)}')" class="secao-btn-icon" style="color:#e74c3c;" title="Excluir cargo">🗑️</button>
+      </div>
+      <button class="secao-toggle${collapsed?' collapsed':''}" onclick="event.stopPropagation();toggleCargo('${esc(cargo.id)}')">▼</button>
+    </div>
+    <div class="secao-body${collapsed?' hidden':''}" id="body-${esc(cargo.id)}">
+      ${cands.length
+        ? `<div class="cands-grid">${cands.map(c=>candCardCargo(c,cargo)).join('')}</div>`
+        : `<div class="secao-empty">Nenhum candidato neste cargo · <button class="secao-add-btn-inline" onclick="abrirAddCand('${esc(cargo.id)}')">Adicionar candidato</button></div>`
+      }
+      ${cands.length ? `<div style="display:flex;justify-content:flex-end;padding-top:0.3rem;"><button onclick="abrirAddCand('${esc(cargo.id)}')" class="secao-add-btn-inline">+ Adicionar candidato</button></div>` : ''}
+    </div>
+  </div>`;
+}
+
+function toggleCargo(id){
+  _collapsos[id] = !(_collapsos[id] !== false);
+  renderCargos();
+}
+
+/* ═══ CARD SEM CARGO ═══ */
+function candCardSemCargo(h){
+  if(!h||!h.id) return '';
+  const cor = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const temDisc = !!(h.dom||h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  const _temEntrevista = !!(h.entrevista_json||h.resumo_ia||h.url_resultado_fit||h.fit_score);
+  const _temCurriculo  = !!h.curriculo_url;
+  const _temParecer    = !!h.parecer_final_link;
+  const _dot = (tipo,ativo,titulo) => `<span class="status-dot ${tipo}${ativo?'':' off'}" title="${titulo}"></span>`;
+  const _tresOk = temDisc && _temEntrevista && _temCurriculo;
+  const _completo = _tresOk && _temParecer;
+  const _pendDocs = [temDisc,_temEntrevista,_temCurriculo].filter(b=>!b).length;
+  const statusDots = `<div class="status-dots-card"><div class="status-dots-row">${_dot('disc',temDisc,temDisc?'✅ DISC':'⬜ DISC pendente')}${_dot('entrevista',_temEntrevista,_temEntrevista?'✅ Entrevista':'⬜ Entrevista pendente')}${_dot('curriculo',_temCurriculo,_temCurriculo?'✅ Currículo':'⬜ Currículo pendente')}${_dot('parecer',_temParecer,_temParecer?'✅ Parecer':'⬜ Parecer pendente')}</div>${_completo?'<span class="status-dot-count" style="color:#3b82f6;font-size:0.5rem;font-weight:800;">Completo</span>':_pendDocs>0?`<span class="status-pend-lbl">${_pendDocs} pendente${_pendDocs>1?'s':''}</span>`:'<span class="status-dot-count">OK</span>'}</div>`;
+  return `<div class="cand-card">
+    <div class="card-top-right">${statusDots}</div>
+    <div class="cand-card-inner">
+      <div class="cand-avatar" style="background:${temDisc?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDisc?cor+'40':'rgba(255,255,255,0.12)'};color:${temDisc?cor:'#555'};" onclick="abrirPerfilCargo('${esc(h.id)}')">${temDisc?emoji:'?'}</div>
+      <div class="cand-info">
+        <div class="cand-nome" onclick="abrirPerfilCargo('${esc(h.id)}')">${esc(h.nome||'—')}</div>
+        <div class="cand-meta"><span>📋 ${esc(h.vaga||'—')} · 📅 ${esc((h.data||'').substring(0,10))}</span></div>
+      </div>
+    </div>
+    <div class="cand-foot">
+      <button class="cand-foot-toggle" onclick="toggleFootBtns(this)"><span class="ft-chev">▼</span> Ações</button>
+      <div class="cand-foot-body collapsed" style="max-height:0;">
+        <div class="cand-foot-label">🚀 Movimentação</div>
+        <div class="cand-foot-group">
+          <button class="btn-sm" onclick="abrirPerfilCargo('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);">👤 Perfil</button>
+          <button class="btn-sm" onclick="abrirModalMover('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);">💼 Definir cargo</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ═══ CARD COM CARGO ═══ */
+function candCardCargo(h, cargo){
+  if(!h||!h.id) return '';
+  const cor   = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const combo = h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`;
+  const _fitRaw = parseInt(h.fit_score); const _fitOk = h.fit_score != null && !isNaN(_fitRaw);
+  const _manRaw = parseInt(h.fit_manual); const _manOk = h.fit_manual != null && !isNaN(_manRaw);
+  const fit   = _fitOk ? _fitRaw : (_manOk ? _manRaw : null);
+  const fitCor= fit!=null ? (fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c') : '#777';
+  const temDisc = !!(h.dom||h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  const acor = cargo.cor||'#3b82f6';
+  const vagaKey = String(h.id)+'||'+String(cargo.id);
+  const vagaDisplay = _vagaOverrides[vagaKey] || h.vaga || '—';
+  const todosCargos = getCargosDoCandiato(h.id).map(cid=>_cargos.find(c=>c.id===cid)).filter(Boolean);
+  const outrasBadges = todosCargos.filter(c=>c.id!==cargo.id)
+    .map(c=>`<span class="badge-cargo" style="background:${c.cor||'#3b82f6'}15;border-color:${c.cor||'#3b82f6'}35;color:${c.cor||'#3b82f6'};">+${esc(c.nome)}</span>`).join('');
+  const fitEst = estimarFitDisc(h);
+  const aderCalc = calcularAderencia(h);
+  const ader = aderCalc ? aderCalc.valor : null;
+  const aderSrc = aderCalc ? aderCalc.fonte : null;
+  const isAderManual = h.aderencia_manual != null;
+
+  let chips = temDisc
+    ? `<span class="chip chip-disc">${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</span>`
+    : `<span class="chip" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.15);color:#666;">Sem DISC</span>`;
+  if(fit!=null) chips+=`<span class="chip" style="background:${fitCor}15;border-color:${fitCor}33;color:${fitCor};">Fit ${fit}%</span>`;
+  if(ader!=null) chips+=`<span class="chip" style="background:rgba(167,139,250,0.12);border-color:rgba(167,139,250,0.35);color:#a78bfa;font-weight:800;">📊 ${ader}% vaga</span>`;
+  if(h.score_recrutador!=null){ const sr=parseInt(h.score_recrutador),sc=sr>=80?'#2ecc71':sr>=65?'#3b82f6':sr>=45?'#f39c12':'#e74c3c'; chips+=`<span class="chip" style="background:${sc}15;border-color:${sc}33;color:${sc};">🧑‍💼 ${sr}%</span>`; }
+  if(fitEst!=null){ const cfe=fitEst>=80?'#2ecc71':fitEst>=65?'#3b82f6':fitEst>=45?'#f39c12':'#e74c3c'; chips+=`<span class="chip" style="background:${cfe}15;border-color:${cfe}33;color:${cfe};" title="DISC estimado">🧠 DISC ${fitEst}%</span>`; }
+  if(h.doc_completa) chips+=`<span class="chip" style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:#2ecc71;">📁 Docs OK</span>`;
+  if(h.status_contato){ const _scColors={nao_respondeu:'#e74c3c',sem_retorno:'#f39c12',pendencia_docs:'#3498db',pendencia_info:'#a78bfa',respondeu:'#2ecc71'}; const _c=_scColors[h.status_contato]||'#888'; chips+=`<span class="chip" style="background:${_c}15;border-color:${_c}33;color:${_c};">${_SC_LABELS[h.status_contato]||h.status_contato}</span>`; }
+  if(outrasBadges) chips += outrasBadges;
+
+  let bars='';
+  if(fitEst!=null){ const c=fitEst>=80?'#2ecc71':fitEst>=65?'#3b82f6':fitEst>=45?'#f39c12':'#e74c3c'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${c};">🧠 DISC</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${fitEst}%;background:${c};"></div></div><span class="fit-bar-pct" style="color:${c};">${fitEst}%</span><span class="fit-bar-src">est.</span></div>`; }
+  if(_fitOk){ const fs=_fitRaw,c=fs>=80?'#2ecc71':fs>=65?'#3b82f6':fs>=45?'#f39c12':'#e74c3c'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${c};">🤖 Fit</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${fs}%;background:${c};"></div></div><span class="fit-bar-pct" style="color:${c};">${fs}%</span><span class="fit-bar-src">real</span></div>`; }
+  else if(_manOk){ const fm=_manRaw,c='#3498db'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${c};">✏️ Man.</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${fm}%;background:${c};"></div></div><span class="fit-bar-pct" style="color:${c};">${fm}%</span><span class="fit-bar-src">rec.</span></div>`; }
+  if(ader!=null){ const aderGrad=isAderManual?'linear-gradient(90deg,#7c3aed,#a78bfa)':'linear-gradient(90deg,#5b21b6,#a78bfa)'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:#a78bfa;">📊 Ader</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${ader}%;background:${aderGrad};"></div></div><span class="fit-bar-pct" style="color:#a78bfa;">${ader}%</span><span class="fit-bar-src">${aderSrc||'pond.'}</span></div>`; }
+  if(h.score_recrutador!=null){ const sv=parseInt(h.score_recrutador),sc=sv>=80?'#2ecc71':sv>=65?'#3b82f6':sv>=45?'#f39c12':'#e74c3c'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${sc};">🧑‍💼 Rec.</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${sv}%;background:linear-gradient(90deg,#e67e22,#f39c12);"></div></div><span class="fit-bar-pct" style="color:${sc};">${sv}%</span><span class="fit-bar-src">rec.</span></div>`; }
+
+  // Status dots
+  const _temDisc = temDisc;
+  const _temEntrevista = !!(h.entrevista_json||h.resumo_ia||h.url_resultado_fit||h.fit_score);
+  const _temCurriculo  = !!h.curriculo_url;
+  const _temParecer    = !!h.parecer_final_link;
+  const _dot = (tipo,ativo,titulo) => `<span class="status-dot ${tipo}${ativo?'':' off'}" title="${titulo}"></span>`;
+  const _tresOk = _temDisc && _temEntrevista && _temCurriculo;
+  const _completo = _tresOk && _temParecer;
+  const _pendDocs = [_temDisc,_temEntrevista,_temCurriculo].filter(b=>!b).length;
+  const statusDots = `<div class="status-dots-card"><div class="status-dots-row">${_dot('disc',_temDisc,_temDisc?'✅ DISC':'⬜ DISC pendente')}${_dot('entrevista',_temEntrevista,_temEntrevista?'✅ Entrevista':'⬜ Entrevista pendente')}${_dot('curriculo',_temCurriculo,_temCurriculo?'✅ Currículo':'⬜ Currículo pendente')}${_dot('parecer',_temParecer,_temParecer?'✅ Parecer':'⬜ Parecer pendente')}</div>${_completo?'<span class="status-dot-count" style="color:#3b82f6;font-size:0.5rem;font-weight:800;">Completo</span>':_tresOk?'<span class="status-dot-count" style="color:#2ecc71;font-size:0.5rem;font-weight:800;">Ótimo</span>':_pendDocs>0?`<span class="status-pend-lbl">${_pendDocs} pendente${_pendDocs>1?'s':''}</span>`:'<span class="status-dot-count">OK</span>'}</div>`;
+
+  // Mini radar
+  let miniRadar = '';
+  if(temDisc){
+    const _d=parseFloat(h.pct_d)||0,_i=parseFloat(h.pct_i)||0,_s=parseFloat(h.pct_s)||0,_c=parseFloat(h.pct_c)||0;
+    const _cx=22,_cy=22,_r=16;
+    function _rp(ang,pct){const rad=(ang-90)*Math.PI/180,l=_r*(pct/100);return[_cx+l*Math.cos(rad),_cy+l*Math.sin(rad)];}
+    const _pts=[_rp(0,_d),_rp(90,_i),_rp(180,_s),_rp(270,_c)];
+    const _poly=_pts.map(p=>p.join(',')).join(' ');
+    const _domCor2=h.dom==='D'?'#e74c3c':h.dom==='I'?'#f39c12':h.dom==='S'?'#2ecc71':'#3498db';
+    const _grids=[25,50,75,100].map(p=>{const pp=[0,90,180,270].map(a=>_rp(a,p));return`<polygon points="${pp.map(x=>x.join(',')).join(' ')}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>`;}).join('');
+    const _axes=[0,90,180,270].map(a=>{const[x,y]=_rp(a,100);return`<line x1="${_cx}" y1="${_cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>`;}).join('');
+    miniRadar=`<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" width="36" height="36" title="DISC: D${_d}% I${_i}% S${_s}% C${_c}%" style="flex-shrink:0;">${_grids}${_axes}<polygon points="${_poly}" fill="${_domCor2}30" stroke="${_domCor2}" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
+  }
+
+  const parecerUrl = `../disc-parecer.html?t=${encodeURIComponent(h.id||'')}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(vagaDisplay)}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}`;
+  const _IS = 'width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;';
+  const isDestaque = h.candidato_destaque===true||h.candidato_destaque==='true';
+
+  const _g1 = [];
+  const _g2 = [];
+  const _g3 = [];
+
+  _g1.push(`<button class="btn-sm" onclick="abrirPerfilCargo('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+  _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
+  if(h.url) _g1.push(`<a class="btn-sm" href="${esc(h.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);"><img src="disc2.png" style="${_IS}" alt=""> DISC</a>`);
+  if(h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="fitcultural2.png" style="${_IS}" alt=""> Fit</a>`);
+  _g1.push(`<button class="btn-sm" onclick="(()=>{_perfilAtual=_allCands.find(x=>String(x.id)==='${esc(h.id)}');abrirSenhaParecerCargo();})();" style="background:rgba(167,139,250,0.12);color:#c4b5fd;border-color:rgba(167,139,250,0.35);font-weight:800;"><img src="parecer3.png" style="${_IS}" alt=""> Parecer Final</button>`);
+
+  _g2.push(`<button class="btn-sm" onclick="abrirCopiarCargo('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(243,156,18,0.08);color:#f39c12;border-color:rgba(243,156,18,0.2);">📋 Copiar</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirModalMover('${esc(h.id)}','${esc(h.nome||'')}')" style="background:${acor}12;color:${acor};border-color:${acor}35;">🗂️ Gerenciar</button>`);
+  _g2.push(`<button class="btn-sm" onclick="devolverAoBancoDireto('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.08);color:#e74c3c;border-color:rgba(231,76,60,0.2);">↩️ Devolver</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipeCargo('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="triagem2.png" style="${_IS}" alt=""> → Pipeline</button>`);
+  _g2.push(`<button class="btn-sm" onclick="navegar('banco-areas')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);font-weight:800;"><img src="area2.png" style="${_IS}" alt=""> → Área</button>`);
+
+  if(h.link_externo) _g3.push(`<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
+  if(h.curriculo_url||h.curriculo_link) _g3.push(`<a class="btn-sm" href="${esc(h.curriculo_url||h.curriculo_link)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
+  if(h.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
+  if(h.tel_externo) _g3.push(`<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`);
+
+  const footHtml = `
+    <div class="cand-foot-label">👤 Perfil & Avaliação</div>
+    <div class="cand-foot-group">${_g1.join('')}</div>
+    <div class="cand-foot-label">🚀 Movimentação</div>
+    <div class="cand-foot-group">${_g2.join('')}</div>
+    ${_g3.length ? `<div class="cand-foot-label">💬 Comunicação</div><div class="cand-foot-group">${_g3.join('')}</div>` : ''}
+  `;
+
+  return `<div class="cand-card${isDestaque?' is-destaque':''}">
+    <div class="card-top-right">
+      ${isDestaque?'<span class="badge-destaque">⭐ Destaque</span>':''}
+      ${miniRadar}
+      ${statusDots}
+    </div>
+    <div class="cand-card-inner">
+      <div class="cand-avatar" style="background:${temDisc?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDisc?cor+'40':'rgba(255,255,255,0.12)'};color:${temDisc?cor:'#555'};" onclick="abrirPerfilCargo('${esc(h.id)}')">${temDisc?emoji:'?'}</div>
+      <div class="cand-info">
+        <div class="cand-nome" onclick="abrirPerfilCargo('${esc(h.id)}')">${esc(h.nome||'—')}</div>
+        <div class="cand-meta">
+          <span>💼 ${esc(vagaDisplay)} &nbsp;·&nbsp; 📅 ${esc((h.data||'').substring(0,10))}${h.cidade?' &nbsp;·&nbsp; 📍 '+esc(h.cidade):''}</span>
+          <select class="status-contato-sel ${_scClass(h.status_contato)}" onchange="salvarStatusContatoCard('${esc(h.id)}',this)" onclick="event.stopPropagation()" title="Status de contato">
+            <option value="" ${!h.status_contato?'selected':''}>💬 Status</option>
+            <option value="respondeu" ${h.status_contato==='respondeu'?'selected':''}>✅ Respondeu</option>
+            <option value="nao_respondeu" ${h.status_contato==='nao_respondeu'?'selected':''}>❌ Não respondeu</option>
+            <option value="sem_retorno" ${h.status_contato==='sem_retorno'?'selected':''}>⏳ Sem retorno</option>
+            <option value="pendencia_docs" ${h.status_contato==='pendencia_docs'?'selected':''}>📁 Pendência docs</option>
+            <option value="pendencia_info" ${h.status_contato==='pendencia_info'?'selected':''}>📋 Pendência info</option>
+          </select>
+        </div>
+        <div class="cand-chips">${chips}</div>
+        ${h.recomendacao_admin?`<div style="font-size:0.7rem;color:#aaa;margin-top:0.35rem;line-height:1.45;background:rgba(255,255,255,0.03);border-radius:7px;padding:0.4rem 0.55rem;border-left:2px solid rgba(59,130,246,0.3);">💡 ${esc(h.recomendacao_admin.substring(0,140))}${h.recomendacao_admin.length>140?'…':''}</div>`:''}
+      </div>
+    </div>
+    <div class="cand-foot">
+      ${ader!=null?`<div class="ader-big-wrap"><div><div class="ader-big-lbl">📊 Aderência à vaga</div><div class="ader-big-src">${isAderManual?'Manual':'Calculado'} · ${aderSrc||'pond.'}</div></div><div style="text-align:right;"><div class="ader-big-num" style="color:${ader>=80?'#2ecc71':ader>=65?'#3b82f6':ader>=45?'#f39c12':'#e74c3c'};">${ader}<span style="font-size:0.9rem;font-weight:700;opacity:0.7;">%</span></div></div></div>`:''}
+      ${bars?`<button class="cand-foot-toggle" onclick="toggleFitBars(this)"><span class="ft-chev">▼</span> Scores</button>
+      <div class="cand-foot-body collapsed" style="max-height:0;">
+        <div style="padding:0.2rem 0 0.35rem;">${bars}</div>
+      </div>`:''}
+      <button class="cand-foot-toggle" onclick="toggleFootBtns(this)"><span class="ft-chev">▼</span> Ações</button>
+      <div class="cand-foot-body collapsed" style="max-height:0;">
+        ${footHtml}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ═══ STATUS CONTATO (CARD) ═══ */
+async function salvarStatusContatoCard(candId, sel){
+  const status = sel.value;
+  sel.className = 'status-contato-sel ' + _scClass(status);
+  const cand = _allCands.find(c=>String(c.id)===String(candId));
+  if(cand) cand.status_contato = status;
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(candId)}`,{status_contato:status||null});
+  }catch(e){ mostrarToast('Erro ao salvar status: '+e.message,true); }
+}
+
+/* ═══ MODAL: NOVO CARGO ═══ */
+function iniciarCorPickerCargo(){
+  const picker = document.getElementById('corPickerCargo');
+  if(!picker) return;
+  picker.innerHTML = CARGO_CORES.map(c=>`<div class="cor-opt${c===_corSelecionada?' sel':''}" style="background:${c};" onclick="selecionarCorCargo('${c}',this)" title="${c}"></div>`).join('');
+}
+function selecionarCorCargo(cor, el){
+  _corSelecionada = cor;
+  document.querySelectorAll('#corPickerCargo .cor-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function abrirModalNovoCargo(){
+  document.getElementById('mCargoEyebrow').textContent = 'Novo Cargo';
+  document.getElementById('mCargoTitle').textContent = 'Criar novo cargo';
+  document.getElementById('mCargoNome').value = '';
+  document.getElementById('mCargoDesc').value = '';
+  document.getElementById('mCargoNivel').value = '';
+  document.getElementById('mCargoEditId').textContent = '';
+  document.getElementById('mCargoSaveBtn').textContent = '💾 Criar cargo';
+  _corSelecionada = CARGO_CORES[0];
+  iniciarCorPickerCargo();
+  document.getElementById('modalCargo').style.display = 'flex';
+  setTimeout(()=>document.getElementById('mCargoNome').focus(),100);
+}
+
+function editarCargo(id){
+  const cargo = _cargos.find(c=>c.id===id); if(!cargo) return;
+  document.getElementById('mCargoEyebrow').textContent = 'Editar Cargo';
+  document.getElementById('mCargoTitle').textContent = 'Editar cargo';
+  document.getElementById('mCargoNome').value = cargo.nome;
+  document.getElementById('mCargoDesc').value = cargo.descricao||'';
+  document.getElementById('mCargoNivel').value = cargo.nivel||'';
+  document.getElementById('mCargoEditId').textContent = id;
+  document.getElementById('mCargoSaveBtn').textContent = '💾 Salvar alterações';
+  _corSelecionada = cargo.cor || CARGO_CORES[0];
+  iniciarCorPickerCargo();
+  document.getElementById('modalCargo').style.display = 'flex';
+  setTimeout(()=>document.getElementById('mCargoNome').focus(),100);
+}
+
+async function salvarCargo(){
+  const nome  = document.getElementById('mCargoNome').value.trim();
+  const desc  = document.getElementById('mCargoDesc').value.trim();
+  const nivel = document.getElementById('mCargoNivel').value;
+  if(!nome){ mostrarToast('Informe o nome do cargo',true); return; }
+  const editId = document.getElementById('mCargoEditId').textContent.trim();
+  const btn = document.getElementById('mCargoSaveBtn');
+  btn.disabled = true; btn.textContent = '⏳ Salvando…';
+  try{
+    if(editId){
+      const cargo = _cargos.find(c=>c.id===editId);
+      if(cargo){ cargo.nome=nome; cargo.cor=_corSelecionada; cargo.descricao=desc; cargo.nivel=nivel; }
+      await salvarCargoDB(cargo);
+      mostrarToast('✅ Cargo atualizado!');
+    } else {
+      const novo = {id:gerarId(), nome, cor:_corSelecionada, descricao:desc, nivel, criado_em:new Date().toISOString()};
+      _cargos.push(novo);
+      await salvarCargoDB(novo);
+      mostrarToast('✅ Cargo criado!');
+    }
+    fecharModalCargo();
+    renderTudo();
+  }catch(e){ mostrarToast('Erro ao salvar: '+e.message,true); }
+  finally{ btn.disabled=false; btn.textContent=editId?'💾 Salvar alterações':'💾 Criar cargo'; }
+}
+
+function fecharModalCargo(){ document.getElementById('modalCargo').style.display='none'; }
+
+/* ═══ MODAL: EXCLUIR CARGO ═══ */
+function confirmarDelCargo(id){
+  const cargo = _cargos.find(c=>c.id===id); if(!cargo) return;
+  document.getElementById('delCargoNome').textContent = cargo.nome;
+  document.getElementById('delCargoId').textContent = id;
+  document.getElementById('modalDelCargo').style.display='flex';
+}
+function fecharDelCargo(){ document.getElementById('modalDelCargo').style.display='none'; }
+async function executarDelCargo(){
+  const id = document.getElementById('delCargoId').textContent.trim(); if(!id) return;
+  try{
+    _cargos = _cargos.filter(c=>c.id!==id);
+    await deletarCargoDB(id);
+    fecharDelCargo(); renderTudo();
+    mostrarToast('🗑️ Cargo excluído.');
+  }catch(e){ mostrarToast('Erro ao excluir: '+e.message,true); }
+}
+
+/* ═══ MODAL: ADD CANDIDATO ═══ */
+function abrirAddCandGlobal(){
+  _addCargoTarget = null;
+  const sel = document.getElementById('mAddCargo');
+  sel.innerHTML = '<option value="">Selecione um cargo…</option>' +
+    _cargos.map(c=>`<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
+  sel.value = '';
+  filtrarListaAdd();
+  document.getElementById('mAddBusca').value='';
+  document.getElementById('mAddSub').textContent='Selecione candidatos do Banco de Talentos para adicionar ao cargo.';
+  document.getElementById('mAddMsg').style.display='none';
+  _addSelectedIds = new Set();
+  document.getElementById('modalAddCand').style.display='flex';
+}
+
+function abrirAddCand(cargoId){
+  _addCargoTarget = cargoId;
+  const cargo = _cargos.find(c=>c.id===cargoId);
+  const sel = document.getElementById('mAddCargo');
+  sel.innerHTML = '<option value="">Selecione um cargo…</option>' +
+    _cargos.map(c=>`<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
+  sel.value = cargoId;
+  document.getElementById('mAddSub').textContent = `Adicionando ao cargo: ${cargo?cargo.nome:'—'}`;
+  document.getElementById('mAddBusca').value='';
+  document.getElementById('mAddMsg').style.display='none';
+  _addSelectedIds = new Set();
+  filtrarListaAdd();
+  document.getElementById('modalAddCand').style.display='flex';
+}
+
+function filtrarListaAdd(){
+  const busca = (document.getElementById('mAddBusca').value||'').toLowerCase();
+  const mostrarTodos = document.getElementById('mAddMostrarTodos').checked;
+  const cargoId = document.getElementById('mAddCargo').value;
+  const lista = document.getElementById('mAddList');
+
+  const assignedIds = new Set(
+    mostrarTodos ? [] :
+    Object.entries(_assign)
+      .filter(([cid,v])=>{ const arr=Array.isArray(v)?v:(v?[v]:[]); return arr.some(aid=>_cargos.find(c=>c.id===aid)); })
+      .map(([cid])=>cid)
+  );
+
+  let cands = _allCands.filter(c=>{
+    if(!mostrarTodos && assignedIds.has(String(c.id)) && !_addSelectedIds.has(c.id)) return false;
+    if(busca && !(c.nome||'').toLowerCase().includes(busca) && !(c.vaga||'').toLowerCase().includes(busca)) return false;
+    return true;
+  });
+
+  lista.innerHTML = cands.slice(0,80).map(c=>{
+    const sel = _addSelectedIds.has(c.id);
+    const cor = COR[c.dom]||'#888';
+    const emoji = EMO[c.dom]||'?';
+    const temDisc = !!(c.url||(c.pct_d&&parseFloat(c.pct_d)>0));
+    const jaNoCargo = cargoId && getCargosDoCandiato(c.id).includes(cargoId);
+    return `<div class="add-cand-item${sel?' selected':''}" onclick="toggleAddCand(${c.id})">
+      <div class="add-cand-av" style="border-color:${temDisc?cor+'55':'rgba(255,255,255,0.1)'};background:${temDisc?cor+'12':'rgba(255,255,255,0.03)'};color:${temDisc?cor:'#555'};">${temDisc?emoji:'?'}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="add-cand-nome">${esc(c.nome||'—')}</div>
+        <div class="add-cand-sub">💼 ${esc(c.vaga||'—')} · 📅 ${esc((c.data||'').substring(0,10))}${jaNoCargo?' · <span style="color:#3b82f6;font-weight:700;">já neste cargo</span>':''}</div>
+      </div>
+      <div class="add-cand-check" style="color:var(--accent);">✓</div>
+    </div>`;
+  }).join('') || '<p style="text-align:center;font-size:0.8rem;color:#555;padding:1.5rem;">Nenhum candidato encontrado.</p>';
+}
+
+function toggleAddCand(id){
+  if(_addSelectedIds.has(id)) _addSelectedIds.delete(id);
+  else _addSelectedIds.add(id);
+  filtrarListaAdd();
+}
+
+async function confirmarAddCand(){
+  const cargoId = document.getElementById('mAddCargo').value;
+  if(!cargoId){ mostrarToast('Selecione um cargo de destino',true); return; }
+  if(!_addSelectedIds.size){ mostrarToast('Selecione ao menos um candidato',true); return; }
+  const cargo = _cargos.find(c=>c.id===cargoId);
+  let count = 0;
+  for(const id of _addSelectedIds){
+    const cid = String(id);
+    if(!_assign[cid]) _assign[cid] = [];
+    if(Array.isArray(_assign[cid])){ if(!_assign[cid].includes(cargoId)) _assign[cid].push(cargoId); }
+    else { const anterior=_assign[cid]; _assign[cid]=anterior?[anterior]:[]; if(!_assign[cid].includes(cargoId)) _assign[cid].push(cargoId); }
+    await salvarAssignDB(id, _assign[cid]);
+    count++;
+  }
+  salvarAssign(_assign);
+  const msg = document.getElementById('mAddMsg');
+  if(msg){ msg.textContent=`✅ ${count} candidato${count!==1?'s':''} adicionado${count!==1?'s':''} ao cargo "${cargo?cargo.nome:''}"!`; msg.style.display='block'; }
+  setTimeout(()=>{ fecharModalAddCand(); renderTudo(); mostrarToast(`✅ ${count} adicionado${count!==1?'s':''}!`); }, 800);
+}
+function fecharModalAddCand(){ document.getElementById('modalAddCand').style.display='none'; _addSelectedIds=new Set(); }
+
+/* ═══ MODAL: GERENCIAR CARGOS (MULTI-CARGO) ═══ */
+function abrirModalMover(candId, nome){
+  _moverCandId = candId;
+  document.getElementById('mMoverNome').textContent = nome;
+  const lista = document.getElementById('mMoverLista');
+  const atuais = getCargosDoCandiato(candId);
+  const cand = _allCands.find(x=>String(x.id)===String(candId));
+  lista.innerHTML = _cargos.map(cargo=>{
+    const marcado = atuais.includes(cargo.id);
+    const vagaAtual = _vagaOverrides[String(candId)+'||'+cargo.id] || cand?.vaga || '';
+    return `<div class="mover-cargo-item" onclick="toggleMoverCargo('${esc(cargo.id)}',this)" id="mover-cargo-${esc(cargo.id)}" style="${marcado?'border-color:'+cargo.cor+'55;background:'+cargo.cor+'0e;':''}">
+      <div style="width:18px;height:18px;border-radius:5px;border:1.5px solid ${marcado?cargo.cor:'rgba(255,255,255,0.2)'};background:${marcado?cargo.cor+'30':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.75rem;color:${cargo.cor};transition:all 0.15s;" id="chk-cargo-${esc(cargo.id)}">${marcado?'✓':''}</div>
+      <div class="mover-dot" style="background:${cargo.cor||'#3b82f6'};"></div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.82rem;font-weight:700;">${esc(cargo.nome)}${cargo.nivel?' <span style="font-size:0.62rem;color:#666;">('+( NIVEL_LABELS[cargo.nivel]||cargo.nivel)+')</span>':''}</div>
+        ${cargo.descricao?`<div style="font-size:0.62rem;color:#666;">${esc(cargo.descricao)}</div>`:''}
+        <input type="text" id="vaga-cargo-input-${esc(cargo.id)}" value="${esc(vagaAtual)}" placeholder="Vaga neste cargo (opcional)…" onclick="event.stopPropagation()" style="margin-top:0.35rem;width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:0.3rem 0.55rem;color:#f0f0f0;font-family:inherit;font-size:0.7rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='${cargo.cor||'#3b82f6'}'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"/>
+      </div>
+      <span style="font-size:0.63rem;color:${cargo.cor};font-weight:700;${marcado?'':'display:none;'}" id="lbl-cargo-${esc(cargo.id)}">✓ incluso</span>
+    </div>`;
+  }).join('') || '<p style="text-align:center;font-size:0.78rem;color:#555;padding:1rem;">Nenhum cargo criado.</p>';
+  lista.dataset.sel = JSON.stringify(atuais);
+  document.getElementById('modalMover').style.display = 'flex';
+}
+
+function toggleMoverCargo(cargoId, el){
+  const lista = document.getElementById('mMoverLista');
+  let sel = []; try{ sel=JSON.parse(lista.dataset.sel||'[]'); }catch{}
+  const idx = sel.indexOf(cargoId);
+  const cargo = _cargos.find(c=>c.id===cargoId);
+  const cor = cargo?.cor||'#3b82f6';
+  const chk = document.getElementById('chk-cargo-'+cargoId);
+  const lbl = document.getElementById('lbl-cargo-'+cargoId);
+  if(idx>=0){
+    sel.splice(idx,1); el.style.borderColor=''; el.style.background='';
+    if(chk){chk.style.borderColor='rgba(255,255,255,0.2)';chk.style.background='transparent';chk.textContent='';}
+    if(lbl) lbl.style.display='none';
+  } else {
+    sel.push(cargoId); el.style.borderColor=cor+'55'; el.style.background=cor+'0e';
+    if(chk){chk.style.borderColor=cor;chk.style.background=cor+'30';chk.textContent='✓';}
+    if(lbl){lbl.style.display='';lbl.style.color=cor;}
+  }
+  lista.dataset.sel = JSON.stringify(sel);
+}
+
+async function salvarCargosDoMover(){
+  if(!_moverCandId) return;
+  const lista = document.getElementById('mMoverLista');
+  let novosCargos = []; try{ novosCargos=JSON.parse(lista.dataset.sel||'[]'); }catch{}
+  _cargos.forEach(cargo=>{
+    const inp = document.getElementById('vaga-cargo-input-'+cargo.id);
+    if(!inp) return;
+    const v = (inp.value||'').trim();
+    const key = String(_moverCandId)+'||'+String(cargo.id);
+    if(v) _vagaOverrides[key] = v;
+    else delete _vagaOverrides[key];
+  });
+  localStorage.setItem(VAGA_OVERRIDE_KEY, JSON.stringify(_vagaOverrides));
+  _assign[String(_moverCandId)] = novosCargos;
+  salvarAssign(_assign);
+  await salvarAssignDB(_moverCandId, novosCargos);
+  fecharModalMover();
+  renderTudo();
+  const nomes = novosCargos.map(cid=>_cargos.find(c=>c.id===cid)?.nome||'?').join(', ');
+  const cand = _allCands.find(x=>String(x.id)===String(_moverCandId));
+  mostrarToast(novosCargos.length?`✅ ${cand?.nome||'Candidato'} em: ${nomes}`:'↩️ Candidato removido de todos os cargos');
+}
+
+function removerDoCargo(){
+  if(!_moverCandId) return;
+  const id = String(_moverCandId);
+  const nome = (_allCands.find(x=>String(x.id)===id)?.nome)||'Candidato';
+  delete _assign[id]; salvarAssign(_assign); salvarAssignDB(id,[]);
+  fecharModalMover(); renderTudo();
+  mostrarToast(`↩️ ${nome} devolvido ao Banco de Talentos.`);
+}
+
+function removerDoCargoDireto(id, nome, cargoId){
+  const cid = String(id);
+  const cargos = getCargosDoCandiato(cid);
+  const novos = cargoId ? cargos.filter(c=>c!==cargoId) : [];
+  if(novos.length) _assign[cid] = novos;
+  else delete _assign[cid];
+  if(cargoId){
+    const key = cid+'||'+String(cargoId);
+    delete _vagaOverrides[key];
+    localStorage.setItem(VAGA_OVERRIDE_KEY, JSON.stringify(_vagaOverrides));
+  }
+  salvarAssign(_assign);
+  salvarAssignDB(id, novos);
+  renderTudo();
+  mostrarToast(cargoId?`↩️ ${nome} removido deste cargo.`:`↩️ ${nome} devolvido ao Banco de Talentos.`);
+}
+
+function fecharModalMover(){ document.getElementById('modalMover').style.display='none'; _moverCandId=null; }
+
+/* ═══ MODAL: COPIAR PARA OUTRO CARGO ═══ */
+function abrirCopiarCargo(candId, nome){
+  _copiarCandId = candId;
+  document.getElementById('mCopiarNome').textContent = nome;
+  const atuais = getCargosDoCandiato(candId);
+  const lista = document.getElementById('mCopiarLista');
+  lista.innerHTML = _cargos.filter(c=>!atuais.includes(c.id)).map(cargo=>{
+    const cor = cargo.cor||'#3b82f6';
+    return `<div class="mover-cargo-item" onclick="toggleCopiarCargo('${esc(cargo.id)}',this)" id="copiar-cargo-${esc(cargo.id)}">
+      <div class="mover-dot" style="background:${cor};"></div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.82rem;font-weight:700;">${esc(cargo.nome)}</div>
+        ${cargo.descricao?`<div style="font-size:0.62rem;color:#666;">${esc(cargo.descricao)}</div>`:''}
+      </div>
+      <span style="font-size:0.7rem;color:${cor};font-weight:700;display:none;" id="lbl-copiar-${esc(cargo.id)}">✓</span>
+    </div>`;
+  }).join('') || '<p style="text-align:center;font-size:0.78rem;color:#555;padding:1rem;">Sem outros cargos disponíveis.</p>';
+  lista.dataset.sel = '[]';
+  document.getElementById('modalCopiarCargo').style.display='flex';
+}
+function toggleCopiarCargo(cargoId, el){
+  const lista = document.getElementById('mCopiarLista');
+  let sel=[]; try{ sel=JSON.parse(lista.dataset.sel||'[]'); }catch{}
+  const cargo = _cargos.find(c=>c.id===cargoId);
+  const cor = cargo?.cor||'#3b82f6';
+  const lbl = document.getElementById('lbl-copiar-'+cargoId);
+  const idx = sel.indexOf(cargoId);
+  if(idx>=0){ sel.splice(idx,1); el.style.borderColor='';el.style.background=''; if(lbl)lbl.style.display='none'; }
+  else { sel.push(cargoId); el.style.borderColor=cor+'55';el.style.background=cor+'0e'; if(lbl){lbl.style.display='';lbl.style.color=cor;} }
+  lista.dataset.sel = JSON.stringify(sel);
+}
+async function salvarCopiarCargo(){
+  if(!_copiarCandId) return;
+  const lista = document.getElementById('mCopiarLista');
+  let novosCargos=[]; try{ novosCargos=JSON.parse(lista.dataset.sel||'[]'); }catch{}
+  if(!novosCargos.length){ mostrarToast('Selecione ao menos um cargo',true); return; }
+  const cid = String(_copiarCandId);
+  const atuais = getCargosDoCandiato(cid);
+  const merged = [...new Set([...atuais,...novosCargos])];
+  _assign[cid] = merged;
+  salvarAssign(_assign);
+  await salvarAssignDB(cid, merged);
+  fecharModalCopiarCargo(); renderTudo();
+  mostrarToast(`📋 Candidato copiado para ${novosCargos.length} cargo${novosCargos.length>1?'s':''}!`);
+}
+function fecharModalCopiarCargo(){ document.getElementById('modalCopiarCargo').style.display='none'; _copiarCandId=null; }
+
+/* ═══ MODAL PERFIL COMPLETO ═══ */
+function abrirPerfilCargo(candId){
+  const h = _allCands.find(c=>String(c.id)===String(candId));
+  if(!h) return;
+  _perfilAtual = h;
+  const cor = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const temDisc = !!(h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+
+  // Header
+  const av = document.getElementById('paAvatar');
+  av.textContent = temDisc?emoji:'?';
+  av.style.borderColor = temDisc?cor:'#555';
+  av.style.color = temDisc?cor:'#555';
+  av.style.background = temDisc?cor+'18':'rgba(255,255,255,0.04)';
+  document.getElementById('paNome').textContent = h.nome||'—';
+  document.getElementById('paMeta').textContent = `💼 ${h.vaga||'—'} · 📅 ${(h.data||'').substring(0,10)}${h.cidade?' · 📍 '+h.cidade:''}`;
+
+  // Cargo badges
+  const badgeWrap = document.getElementById('paCargoBadge');
+  const todosCargos = getCargosDoCandiato(candId).map(cid=>_cargos.find(c=>c.id===cid)).filter(Boolean);
+  badgeWrap.innerHTML = todosCargos.map(c=>`<span class="badge-cargo" style="background:${c.cor||'#3b82f6'}15;border-color:${c.cor||'#3b82f6'}35;color:${c.cor||'#3b82f6'};">💼 ${esc(c.nome)}</span>`).join('');
+
+  // Ações rápidas
+  const numW=(h.tel_externo||'').replace(/\D/g,'');
+  let acoes='';
+  if(h.email_externo) acoes+=`<a class="btn-sm" href="mailto:${esc(h.email_externo)}" style="background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);">📧</a>`;
+  if(numW) acoes+=`<a class="btn-sm" href="https://wa.me/55${numW}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);">📲 WA</a>`;
+  if(h.url) acoes+=`<a class="btn-sm" href="${esc(h.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);">🧠 DISC</a>`;
+  if(h.url_resultado_fit) acoes+=`<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);">🎯 Fit</a>`;
+  if(h.curriculo_link) acoes+=`<a class="btn-sm" href="${esc(h.curriculo_link)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(255,255,255,0.05);color:#aaa;border-color:rgba(255,255,255,0.12);">📄 CV</a>`;
+  document.getElementById('paAcoes').innerHTML = acoes;
+
+  // Scores
+  const fit=h.fit_score?parseInt(h.fit_score):(h.fit_manual?parseInt(h.fit_manual):null);
+  const fitEst=estimarFitDisc(h);
+  const aderCalc=calcularAderencia(h);
+  let scoresHtml='';
+  const mkBar=(lbl,val,cor2,src)=>`<div class="fit-bar-row" style="margin-top:0.4rem;">
+    <span class="fit-bar-lbl" style="color:${cor2};font-size:0.62rem;width:120px;">${lbl}</span>
+    <div class="fit-bar-track" style="height:6px;"><div class="fit-bar-fill" style="width:${val}%;background:${cor2};"></div></div>
+    <span class="fit-bar-pct" style="color:${cor2};font-size:0.7rem;">${val}%</span>
+    <span class="fit-bar-src">${src}</span>
+  </div>`;
+  if(fitEst!=null){ const c2=fitEst>=80?'#3b82f6':fitEst>=65?'#3b82f6':fitEst>=45?'#f39c12':'#e74c3c'; scoresHtml+=mkBar('🧠 DISC Est.',fitEst,c2,'est.'); }
+  if(fit!=null){ const c2=fit>=80?'#3b82f6':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c'; scoresHtml+=mkBar('🎯 Fit Score',fit,c2,'real'); }
+  if(aderCalc){ const c2=aderCalc.valor>=80?'#3b82f6':aderCalc.valor>=65?'#3b82f6':aderCalc.valor>=45?'#f39c12':'#e74c3c'; scoresHtml+=mkBar('📊 Aderência',aderCalc.valor,c2,aderCalc.fonte); }
+  if(h.score_recrutador!=null){ const sv=parseInt(h.score_recrutador); const c2=sv>=80?'#3b82f6':sv>=65?'#3b82f6':sv>=45?'#f39c12':'#e74c3c'; scoresHtml+=mkBar('🧑‍💼 Recrutador',sv,c2,'rec.'); }
+  document.getElementById('paScores').innerHTML = scoresHtml||'<p style="font-size:0.75rem;color:#555;">Nenhum score disponível.</p>';
+
+  // DISC
+  let discHtml='';
+  if(temDisc){
+    const combo = h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`;
+    discHtml = `<div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.5rem;">
+      ${['D','I','S','C'].map(k=>{const v=parseFloat(h['pct_'+k.toLowerCase()])||0;const c2=COR[k]||'#888';return `<div style="flex:1;min-width:60px;text-align:center;background:${c2}12;border:1px solid ${c2}33;border-radius:10px;padding:0.5rem 0.3rem;"><div style="font-size:1.1rem;font-weight:900;color:${c2};">${Math.round(v)}%</div><div style="font-size:0.55rem;font-weight:700;color:${c2};text-transform:uppercase;">${k}</div></div>`;}).join('')}
+    </div>
+    <div style="font-size:0.72rem;color:#aaa;">Perfil: <strong style="color:${cor};">${emoji} ${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</strong></div>`;
+  } else {
+    discHtml='<p style="font-size:0.75rem;color:#555;">Sem resultado DISC disponível.</p>';
+  }
+  document.getElementById('paOrigemConteudo').innerHTML = discHtml;
+
+  // Preencher campos editáveis
+  document.getElementById('paNomeEdit').value = h.nome||'';
+  document.getElementById('paVagaEdit').value = h.vaga||'';
+  document.getElementById('paEmail').value = h.email_externo||'';
+  document.getElementById('paTel').value = h.tel_externo||'';
+  document.getElementById('paLinkExt').value = h.link_externo||'';
+  document.getElementById('paCidade').value = h.cidade||'';
+  document.getElementById('paCurriculo').value = h.curriculo_link||'';
+  document.getElementById('paFitManual').value = h.fit_manual||'';
+  document.getElementById('paAderencia').value = h.aderencia_manual||'';
+  document.getElementById('paScoreRec').value = h.score_recrutador||'';
+  document.getElementById('paLinkDisc').value = h.url||'';
+  document.getElementById('paLinkFit').value = h.url_resultado_fit||'';
+  document.getElementById('paDocCompleta').checked = !!h.doc_completa;
+  document.getElementById('paStatusContato').value = h.status_contato||'';
+  const srPrev=document.getElementById('paScoreRecPreview');
+  if(h.score_recrutador!=null){const sv=parseInt(h.score_recrutador);srPrev.textContent=sv+'%';srPrev.style.color=sv>=80?'#3b82f6':sv>=65?'#3b82f6':sv>=45?'#f39c12':'#e74c3c';}
+  else{srPrev.textContent='—';srPrev.style.color='#777';}
+
+  // Vagas para pipeline
+  const selV = document.getElementById('paMoverVaga');
+  selV.innerHTML = '<option value="">Selecione uma vaga ativa…</option>';
+  _vagasList.forEach(v=>{ const o=document.createElement('option'); o.value=v.slug||v.id||''; o.textContent=(v.titulo||v.nome||'—'); selV.appendChild(o); });
+
+  document.getElementById('modalPerfilCargo').style.display='flex';
+}
+
+function fecharPerfilCargo(){ document.getElementById('modalPerfilCargo').style.display='none'; _perfilAtual=null; }
+
+function paAtualizarPreviewScoreRec(inp){
+  const v=parseInt(inp.value);
+  const prev=document.getElementById('paScoreRecPreview');
+  if(!inp.value||isNaN(v)){prev.textContent='—';prev.style.color='#777';return;}
+  const c=v>=80?'#3b82f6':v>=65?'#3b82f6':v>=45?'#f39c12':'#e74c3c';
+  prev.textContent=v+'%';prev.style.color=c;
+}
+
+async function salvarDadosCandCargo(){
+  if(!_perfilAtual) return;
+  const h = _perfilAtual;
+  const payload = {
+    nome: document.getElementById('paNomeEdit').value.trim()||h.nome,
+    vaga: document.getElementById('paVagaEdit').value.trim()||null,
+    email_externo: document.getElementById('paEmail').value.trim()||null,
+    tel_externo: document.getElementById('paTel').value.trim()||null,
+    link_externo: document.getElementById('paLinkExt').value.trim()||null,
+    cidade: document.getElementById('paCidade').value.trim()||null,
+    curriculo_link: document.getElementById('paCurriculo').value.trim()||null,
+  };
+  const btn=document.querySelector('#modalPerfilCargo .perfil-save-btn');
+  if(btn){btn.disabled=true;btn.textContent='⏳ Salvando…';}
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(h.id)}`,payload);
+    Object.assign(h,payload);
+    const idx=_allCands.findIndex(x=>x.id===h.id); if(idx>=0) Object.assign(_allCands[idx],payload);
+    const msg=document.getElementById('paSaveDadosMsg');
+    msg.style.display='block'; setTimeout(()=>msg.style.display='none',2500);
+    mostrarToast('✅ Dados salvos!');
+    renderTudo();
+  }catch(e){ mostrarToast('Erro ao salvar: '+e.message,true); }
+  finally{ if(btn){btn.disabled=false;btn.textContent='💾 Salvar dados';} }
+}
+
+async function salvarManualCargo(){
+  if(!_perfilAtual) return;
+  const h = _perfilAtual;
+  const payload = {
+    fit_manual: document.getElementById('paFitManual').value||null,
+    aderencia_manual: document.getElementById('paAderencia').value||null,
+    score_recrutador: document.getElementById('paScoreRec').value||null,
+    url: document.getElementById('paLinkDisc').value.trim()||null,
+    url_resultado_fit: document.getElementById('paLinkFit').value.trim()||null,
+    doc_completa: document.getElementById('paDocCompleta').checked,
+    status_contato: document.getElementById('paStatusContato').value||null,
+  };
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(h.id)}`,payload);
+    Object.assign(h,payload);
+    const idx=_allCands.findIndex(x=>x.id===h.id); if(idx>=0) Object.assign(_allCands[idx],payload);
+    const msg=document.getElementById('paSaveMsg');
+    msg.style.display='block'; setTimeout(()=>msg.style.display='none',2500);
+    mostrarToast('✅ Scores salvos!');
+    renderTudo();
+  }catch(e){ mostrarToast('Erro ao salvar: '+e.message,true); }
+}
+
+async function salvarStatusContatoPerfilCargo(){
+  if(!_perfilAtual) return;
+  const status = document.getElementById('paStatusContato').value;
+  _perfilAtual.status_contato = status;
+  const idx=_allCands.findIndex(x=>x.id===_perfilAtual.id);
+  if(idx>=0) _allCands[idx].status_contato=status;
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(_perfilAtual.id)}`,{status_contato:status||null});
+    mostrarToast('✅ Status salvo!');
+    renderTudo();
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+async function moverParaPipelinePerfil(){
+  if(!_perfilAtual) return;
+  const vagaSlug = document.getElementById('paMoverVaga').value;
+  const etapa = document.getElementById('paMoverEtapa').value;
+  if(!vagaSlug){ mostrarToast('Selecione uma vaga',true); return; }
+  try{
+    await savePipeEntry(vagaSlug, _perfilAtual.id, etapa);
+    mostrarToast(`✅ Movido para pipeline: ${etapa}!`);
+  }catch(e){ mostrarToast('Erro ao mover: '+e.message,true); }
+}
+
+/* Botões do perfil que abrem outros modais */
+function devolverAoBancoFromPerfil(){
+  if(!_perfilAtual) return;
+  const id=String(_perfilAtual.id);
+  const nome=_perfilAtual.nome||'Candidato';
+  delete _assign[id]; salvarAssign(_assign); salvarAssignDB(id,[]);
+  fecharPerfilCargo(); renderTudo();
+  mostrarToast(`↩️ ${nome} devolvido ao Banco de Talentos.`);
+}
+function abrirCopiarCargoFromPerfil(){
+  if(!_perfilAtual) return;
+  fecharPerfilCargo();
+  setTimeout(()=>abrirCopiarCargo(_perfilAtual?.id||'',_perfilAtual?.nome||''),180);
+}
+function abrirGerenciarCargosFromPerfil(){
+  if(!_perfilAtual) return;
+  const h=_perfilAtual;
+  fecharPerfilCargo();
+  setTimeout(()=>abrirModalMover(h.id,h.nome||'—'),180);
+}
+
+/* ═══ EXPORTAR CSV ═══ */
+function exportarCSV(){
+  const assignedIds = new Set(Object.keys(_assign).filter(cid=>getCargosDoCandiato(cid).length>0));
+  const cands = _allCands.filter(c=>assignedIds.has(String(c.id)));
+  if(!cands.length){ mostrarToast('Nenhum candidato para exportar',true); return; }
+  const header=['Nome','Cargo Pretendido','Cargos','DISC','Fit Score','Aderência','Score Recrutador','Status Contato','Docs','Cidade','Email','Tel','Data'].join(';');
+  const rows = cands.map(h=>{
+    const cargosNomes = getCargosDoCandiato(h.id).map(cid=>_cargos.find(c=>c.id===cid)?.nome||'?').join(' | ');
+    const fit=h.fit_score||h.fit_manual||'';
+    const aderCalc=calcularAderencia(h);
+    return [
+      h.nome||'', h.vaga||'', cargosNomes,
+      h.dom?(h.dom+(h.sec?'+'+h.sec:'')):'',
+      fit, aderCalc?aderCalc.valor:'',
+      h.score_recrutador||'', h.status_contato||'',
+      h.doc_completa?'Sim':'Não',
+      h.cidade||'', h.email_externo||'', h.tel_externo||'',
+      (h.data||'').substring(0,10)
+    ].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';');
+  });
+  const csv = [header,...rows].join('\n');
+  const blob = new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = (window.top||window).document.createElement('a'); a.href=url; a.download='banco-cargos.csv';
+  (window.top||window).document.body.appendChild(a); a.click();
+  setTimeout(()=>{ (window.top||window).document.body.removeChild(a); URL.revokeObjectURL(url); },200);
+  mostrarToast('📊 CSV exportado!');
+}
+
+/* ═══ START ═══ */
+window.addEventListener('DOMContentLoaded', init);
+
+/* ═══ DEVOLVER AO BANCO — direto do card ═══ */
+function devolverAoBancoDireto(id, nome){
+  const cid = String(id);
+  delete _assign[cid];
+  salvarAssign(_assign);
+  salvarAssignDB(cid, []);
+  renderTudo();
+  mostrarToast('↩️ ' + nome + ' devolvido ao Banco de Talentos.');
+  _notificarBadgeCargos(_countCargosAssigned());
+}
+
+/* ═══ MOVER PARA OUTRAS ÁREAS — modal do card ═══ */
+let _moverOutrasAreasId = null, _moverOutrasAreasNome = '';
+
+function abrirMoverOutrasAreas(id, nome){
+  _moverOutrasAreasId   = id;
+  _moverOutrasAreasNome = nome;
+  document.getElementById('mAreasNome').textContent = nome;
+  document.getElementById('modalMoverAreas').style.display = 'flex';
+}
+function fecharMoverAreas(){ document.getElementById('modalMoverAreas').style.display = 'none'; }
+
+async function confirmarMoverAreas(destino){
+  const id   = _moverOutrasAreasId;
+  const nome = _moverOutrasAreasNome;
+  fecharMoverAreas();
+  if(!id){ mostrarToast('Candidato não identificado', true); return; }
+  if(destino==='entrevistados') await _executarMoverEntrevistados(id, nome);
+  else if(destino==='area')     await _executarMoverArea(id, nome);
+  else if(destino==='pendencias') await _executarMoverPendencias(id, nome);
+  else if(destino==='banco')    devolverAoBancoDireto(id, nome);
+}
+
+/* ═══ MOVER — perfil ═══ */
+function moverParaEntrevistadosFromPerfil(){
+  if(!_perfilAtual) return;
+  const id = String(_perfilAtual.id||''), nome = _perfilAtual.nome||'Candidato';
+  fecharPerfilCargo();
+  setTimeout(()=> _executarMoverEntrevistados(id, nome), 180);
+}
+function moverParaAreaFromPerfil(){
+  if(!_perfilAtual) return;
+  const id = String(_perfilAtual.id||''), nome = _perfilAtual.nome||'Candidato';
+  fecharPerfilCargo();
+  setTimeout(()=> _executarMoverArea(id, nome), 180);
+}
+function moverParaPendenciasFromPerfil(){
+  if(!_perfilAtual) return;
+  const id = String(_perfilAtual.id||''), nome = _perfilAtual.nome||'Candidato';
+  fecharPerfilCargo();
+  setTimeout(()=> _executarMoverPendencias(id, nome), 180);
+}
+function moverParaPipelineFromPerfil(){
+  if(!_perfilAtual) return;
+  const vagaSel = document.getElementById('paMoverVaga');
+  const etapaSel = document.getElementById('paMoverEtapa');
+  if(!vagaSel || !vagaSel.value){ mostrarToast('Selecione uma vaga no campo Pipeline abaixo antes de mover', true); return; }
+  moverParaPipelinePerfil();
+}
+
+/* ═══ EXECUTORES ═══ */
+async function _executarMoverEntrevistados(id, nome){
+  try{
+    const res = await fetch(SUPABASE_URL+'/rest/v1/entrevistados_assign',{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({cand_id: String(id)})
+    });
+    if(!res.ok){ const t=await res.text(); throw new Error(t); }
+    mostrarToast('🎤 ' + nome + ' enviado para Entrevistados!');
+    _notificarBadgeCargos(_countCargosAssigned());
+  }catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+
+async function _executarMoverPendencias(id, nome){
+  try{
+    const res = await fetch(SUPABASE_URL+'/rest/v1/pendencias_assign',{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({cand_id: String(id), tipo:'sem_retorno'})
+    });
+    if(!res.ok){ const t=await res.text(); throw new Error(t); }
+    mostrarToast('⏳ ' + nome + ' enviado para Pendências!');
+    _notificarBadgeCargos(_countCargosAssigned());
+  }catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+
+async function _executarMoverArea(id, nome){
+  try{
+    const res = await fetch(SUPABASE_URL+'/rest/v1/areas_assign',{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({cand_id: String(id)})
+    });
+    if(!res.ok){ const t=await res.text(); throw new Error(t); }
+    mostrarToast('🗂️ ' + nome + ' enviado para Banco de Áreas!');
+    _notificarBadgeCargos(_countCargosAssigned());
+  }catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+// ═══ MINI PIPELINE ═══
+let _miniPipeCandIdCargo = null;
+let _miniPipeCandNomeCargo = null;
+
+function abrirMiniPipeCargo(id, nome){
+  _miniPipeCandIdCargo = id;
+  _miniPipeCandNomeCargo = nome;
+  const modal = document.getElementById('miniPipeModalCargo');
+  const nomeEl = document.getElementById('miniPipeNomeCargo');
+  const vagaSel = document.getElementById('miniPipeVagaCargo');
+  const msg = document.getElementById('miniPipeMsgCargo');
+  if(nomeEl) nomeEl.textContent = nome || 'Candidato';
+  if(msg) msg.textContent = '';
+  if(vagaSel){
+    if(typeof _vagasList !== 'undefined' && _vagasList && _vagasList.length){
+      vagaSel.innerHTML = '<option value="">Selecione uma vaga ativa…</option>' +
+        _vagasList.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join('');
+    } else {
+      fetch(`${SUPABASE_URL}/rest/v1/vagas?select=slug,titulo&order=criado_em.desc`,
+        {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}})
+        .then(r=>r.json()).then(vagas=>{
+          if(Array.isArray(vagas)&&vagas.length){
+            vagaSel.innerHTML = '<option value="">Selecione uma vaga ativa…</option>' +
+              vagas.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join('');
+          } else vagaSel.innerHTML='<option value="">Nenhuma vaga encontrada</option>';
+        }).catch(()=>{ vagaSel.innerHTML='<option value="">Erro ao carregar</option>'; });
+    }
+  }
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharMiniPipeCargo(){
+  const modal = document.getElementById('miniPipeModalCargo');
+  if(modal) modal.style.display = 'none';
+  document.body.style.overflow = '';
+  _miniPipeCandIdCargo = null;
+  _miniPipeCandNomeCargo = null;
+}
+
+async function confirmarMiniPipeCargo(abrirPipeline=false){
+  if(!_miniPipeCandIdCargo) return;
+  const vagaSel  = document.getElementById('miniPipeVagaCargo');
+  const etapaSel = document.getElementById('miniPipeEtapaCargo');
+  const btn      = document.getElementById('miniPipeBtnCargo');
+  const msg      = document.getElementById('miniPipeMsgCargo');
+  const vagaSlug = vagaSel?.value;
+  const etapa    = etapaSel?.value || 'triagem';
+  if(!vagaSlug){
+    if(msg){ msg.style.color='#e74c3c'; msg.textContent='⚠️ Selecione uma vaga.'; }
+    return;
+  }
+  if(btn){ btn.textContent='⏳ Movendo…'; btn.disabled=true; }
+  if(msg) msg.textContent='';
+  try{
+    if(typeof savePipeEntry === 'function') await savePipeEntry(vagaSlug, _miniPipeCandIdCargo, etapa);
+    const vagaTitulo = vagaSel.options[vagaSel.selectedIndex]?.text || vagaSlug;
+    const etapaLabel = etapaSel.options[etapaSel.selectedIndex]?.text || etapa;
+    mostrarToast(`✅ ${_miniPipeCandNomeCargo||'Candidato'} → ${vagaTitulo} (${etapaLabel})`);
+    try{
+      const msg2 = {tipo:'nexus_pipeline_reload', vagaSlug};
+      if(window.parent && window.parent !== window) window.parent.postMessage(msg2,'*');
+      if(window.top && window.top !== window) window.top.postMessage(msg2,'*');
+    }catch(pe){}
+    fecharMiniPipeCargo();
+    if(abrirPipeline){
+      const pipeUrl = `pipeline.html?vaga=${encodeURIComponent(vagaSlug)}`;
+      try{
+        if(window.parent && window.parent !== window){
+          window.parent.postMessage({tipo:'nexus_navegar', url:pipeUrl, vagaSlug},'*');
+        } else { window.top.location.href = pipeUrl; }
+      }catch(ne){ window.open(pipeUrl,'_blank'); }
+    }
+  }catch(e){
+    if(msg){ msg.style.color='#e74c3c'; msg.textContent='❌ '+e.message; }
+  }finally{
+    if(btn){ btn.textContent='🚀 Mover'; btn.disabled=false; }
+  }
+}
+
+// ═══ PARECER FINAL — Banco de Cargos ═══
+const PF_SESSION_KEY_CARGO = 'nexus_pf_auth';
+let _pfAutenticadoCargo = false;
+let _pfCallbackCargo = null;
+
+async function _sha256Cargo(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function _buscarHashEsperadoCargo(){
+  try{
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/configuracoes_aderencia?vaga_key=eq._sistema&select=pesos`,
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}
+    );
+    if(!res.ok) return null;
+    const rows = await res.json();
+    if(Array.isArray(rows) && rows[0]?.pesos?.parecer_hash) return rows[0].pesos.parecer_hash;
+    return null;
+  }catch(e){ return null; }
+}
+
+async function verificarSenhaParecerCargo(){
+  const inp = document.getElementById('pfPwdInputCargo');
+  const senha = inp.value;
+  if(!senha){ document.getElementById('pfPwdErroCargo').textContent='Digite a senha para continuar.'; return; }
+  const hashDigitado = await _sha256Cargo(senha);
+  const hashEsperado = await _buscarHashEsperadoCargo();
+  if(!hashEsperado){
+    document.getElementById('pfPwdErroCargo').textContent='⚠️ Senha não configurada. Peça ao administrador.';
+    inp.classList.add('shake'); setTimeout(()=>inp.classList.remove('shake'),450); return;
+  }
+  if(hashDigitado !== hashEsperado){
+    document.getElementById('pfPwdErroCargo').textContent='❌ Senha incorreta. Tente novamente.';
+    inp.value=''; inp.classList.add('shake'); setTimeout(()=>inp.classList.remove('shake'),450); return;
+  }
+  _pfAutenticadoCargo = true;
+  try{ sessionStorage.setItem(PF_SESSION_KEY_CARGO, hashDigitado); }catch(e){}
+  fecharSenhaParecerCargo();
+  if(_pfCallbackCargo){ _pfCallbackCargo(); _pfCallbackCargo=null; }
+}
+
+function _estaAutenticadoCargo(){
+  if(_pfAutenticadoCargo) return true;
+  try{ const s=sessionStorage.getItem(PF_SESSION_KEY_CARGO); if(s){_pfAutenticadoCargo=true;return true;} }catch(e){}
+  return false;
+}
+
+function abrirSenhaParecerCargo(){
+  if(_estaAutenticadoCargo()){ abrirParecerFinalCargo(); return; }
+  _pfCallbackCargo = abrirParecerFinalCargo;
+  const inp = document.getElementById('pfPwdInputCargo');
+  inp.value=''; document.getElementById('pfPwdErroCargo').textContent='';
+  document.getElementById('modalSenhaParecerCargo').style.display='flex';
+  setTimeout(()=>inp.focus(),100);
+}
+
+function fecharSenhaParecerCargo(){
+  document.getElementById('modalSenhaParecerCargo').style.display='none';
+}
+
+function abrirParecerFinalCargo(){
+  if(!_perfilAtual) return;
+  const h = _perfilAtual;
+  document.getElementById('pfSubCandCargo').textContent = `${h.nome||'—'} · ${h.vaga||'—'}`;
+  const linkEl = document.getElementById('pfLinkInputCargo');
+  linkEl.value = h.parecer_final_link || '';
+  _atualizarPreviewLinkPFCargo(linkEl.value);
+  document.getElementById('pfObsInputCargo').value = h.parecer_final_obs || '';
+  document.getElementById('pfStatusInputCargo').value = h.parecer_final_status || '';
+  document.getElementById('pfSaveMsgCargo').style.display='none';
+  linkEl.oninput = ()=>_atualizarPreviewLinkPFCargo(linkEl.value.trim());
+  document.getElementById('modalParecerFinalCargo').style.display='flex';
+}
+
+function _atualizarPreviewLinkPFCargo(link){
+  const wrap  = document.getElementById('pfLinkPreviewWrapCargo');
+  const a     = document.getElementById('pfLinkPreviewACargo');
+  if(link && link.startsWith('http')){
+    wrap.style.display='flex'; a.href=link;
+    try{ const u=new URL(link); a.textContent=u.hostname.replace('www.','')+u.pathname.substring(0,30); }catch(e){ a.textContent=link.substring(0,60); }
+  } else { wrap.style.display='none'; }
+}
+
+async function salvarParecerFinalCargo(){
+  if(!_perfilAtual) return;
+  const link   = document.getElementById('pfLinkInputCargo').value.trim();
+  const obs    = document.getElementById('pfObsInputCargo').value.trim();
+  const status = document.getElementById('pfStatusInputCargo').value;
+  const payload = { parecer_final_link: link||null, parecer_final_obs: obs||null, parecer_final_status: status||null };
+  const btn = document.getElementById('pfSaveBtnCargo');
+  btn.disabled=true; btn.textContent='⏳ Salvando…';
+  try{
+    const heads = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'};
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/disc_historico?id=eq.${encodeURIComponent(_perfilAtual.id)}`,
+      {method:'PATCH', headers:heads, body:JSON.stringify(payload)});
+    if(!res.ok){ const b=await res.text(); throw new Error('Supabase '+res.status+': '+b); }
+    Object.assign(_perfilAtual, payload);
+    const idx=_allCands.findIndex(x=>x.id===_perfilAtual.id);
+    if(idx>=0) Object.assign(_allCands[idx], payload);
+    _atualizarPreviewLinkPFCargo(link);
+    const msg=document.getElementById('pfSaveMsgCargo');
+    msg.style.display='block'; setTimeout(()=>msg.style.display='none',3000);
+    mostrarToast('✅ Parecer Final salvo!');
+  }catch(e){ mostrarToast('Erro ao salvar: '+e.message, true); }
+  finally{ btn.disabled=false; btn.textContent='💾 Salvar Parecer Final'; }
+}
+
+function fecharParecerFinalCargo(){
+  document.getElementById('modalParecerFinalCargo').style.display='none';
+}
+
+
+async function atualizarBanco(){
+  const btn = document.getElementById('btnAtualizar');
+  if(btn){ btn.textContent='⏳ Atualizando...'; btn.disabled=true; }
+  await init();
+  if(btn){ btn.textContent='↺ Atualizar'; btn.disabled=false; }
+  mostrarToast('✅ Lista atualizada!');
+}
+
+function abrirModalPesos(){
+  document.getElementById('modalPesos').style.display = 'flex';
+}
+function fecharModalPesos(){ document.getElementById('modalPesos').style.display='none'; }
+
+function navegar(mod){ window.parent.postMessage({tipo:'nexus_navegar',mod},'*'); }
+
+
+function toggleFitBars(btn){
+  const body = btn.nextElementSibling;
+  if(!body.classList.contains('collapsed')){ body.classList.add('collapsed'); body.style.maxHeight='0'; btn.classList.remove('open'); }
+  else { body.classList.remove('collapsed'); body.style.maxHeight=body.scrollHeight+'px'; btn.classList.add('open'); }
+}
+function toggleFootBtns(btn){
+  const body = btn.nextElementSibling;
+  const isCollapsed = body.classList.contains('collapsed');
+  if(isCollapsed){ body.classList.remove('collapsed'); body.style.maxHeight=body.scrollHeight+'px'; btn.classList.add('open'); }
+  else { body.classList.add('collapsed'); body.style.maxHeight='0'; btn.classList.remove('open'); }
+}
+</script>
+
+
+<!-- ══ MODAL: MOVER PARA OUTRAS ÁREAS ══ -->
+<div class="overlay" id="modalMoverAreas" style="display:none;" onclick="if(event.target===this)fecharMoverAreas()">
+  <div class="modal-box" style="max-width:400px;">
+    <button class="modal-close" onclick="fecharMoverAreas()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:0.3rem;">Movimentação</div>
+    <div class="modal-title">Mover <span id="mAreasNome" style="color:#a78bfa;">—</span></div>
+    <p class="modal-sub">Escolha para qual área enviar este candidato. Ele continuará no Banco por Cargo também.</p>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem;">
+      <button onclick="confirmarMoverAreas('entrevistados')" style="display:flex;align-items:center;gap:0.7rem;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:11px;padding:0.75rem 1rem;color:#f59e0b;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.18s;text-align:left;">
+        <span style="font-size:1.3rem;">🎤</span>
+        <div><div style="font-weight:800;">Entrevistados</div><div style="font-size:0.65rem;color:#888;margin-top:0.05rem;">Candidatos em processo de entrevista</div></div>
+      </button>
+      <button onclick="confirmarMoverAreas('area')" style="display:flex;align-items:center;gap:0.7rem;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.28);border-radius:11px;padding:0.75rem 1rem;color:#2ecc71;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.18s;text-align:left;">
+        <span style="font-size:1.3rem;">🗂️</span>
+        <div><div style="font-weight:800;">Banco de Áreas</div><div style="font-size:0.65rem;color:#888;margin-top:0.05rem;">Organizado por área de atuação</div></div>
+      </button>
+      <button onclick="confirmarMoverAreas('pendencias')" style="display:flex;align-items:center;gap:0.7rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:11px;padding:0.75rem 1rem;color:#f59e0b;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.18s;text-align:left;">
+        <span style="font-size:1.3rem;">⏳</span>
+        <div><div style="font-weight:800;">Pendências</div><div style="font-size:0.65rem;color:#888;margin-top:0.05rem;">Aguardando contato ou documentação</div></div>
+      </button>
+      <button onclick="confirmarMoverAreas('banco')" style="display:flex;align-items:center;gap:0.7rem;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);border-radius:11px;padding:0.75rem 1rem;color:#e74c3c;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.18s;text-align:left;">
+        <span style="font-size:1.3rem;">↩️</span>
+        <div><div style="font-weight:800;">Devolver ao Banco de Talentos</div><div style="font-size:0.65rem;color:#888;margin-top:0.05rem;">Remove do Banco por Cargo</div></div>
+      </button>
+    </div>
+    <button onclick="fecharMoverAreas()" style="width:100%;background:rgba(255,255,255,0.04);color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem;font-family:inherit;font-size:0.8rem;cursor:pointer;">Cancelar</button>
+  </div>
+</div>
+
+
+
+<!-- ══ MODAL MINI PIPELINE — Banco de Cargos ══ -->
+<div id="miniPipeModalCargo" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharMiniPipeCargo()">
+  <div style="background:#111317;border:1px solid rgba(59,130,246,0.25);border-radius:16px;padding:1.5rem;width:100%;max-width:400px;box-shadow:0 24px 60px rgba(0,0,0,0.6);">
+    <div style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#3b82f6;margin-bottom:0.4rem;">🚀 Mover para Pipeline</div>
+    <div id="miniPipeNomeCargo" style="font-size:1rem;font-weight:800;color:#eeeef0;margin-bottom:1rem;"></div>
+    <label style="font-size:0.65rem;color:#666;text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.35rem;">Vaga</label>
+    <select id="miniPipeVagaCargo" style="width:100%;background:#1a1b1f;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#eeeef0;font-family:inherit;font-size:0.85rem;outline:none;margin-bottom:0.75rem;cursor:pointer;">
+      <option value="">Selecione uma vaga ativa…</option>
+    </select>
+    <label style="font-size:0.65rem;color:#666;text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.35rem;">Etapa</label>
+    <select id="miniPipeEtapaCargo" style="width:100%;background:#1a1b1f;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#eeeef0;font-family:inherit;font-size:0.85rem;outline:none;margin-bottom:1.1rem;cursor:pointer;">
+      <option value="triagem">🔵 Triagem</option>
+      <option value="pre">🟣 Pré-seleção</option>
+      <option value="entrevista">🟡 Entrevista</option>
+      <option value="finalista">🟢 Finalista</option>
+      <option value="aprovado">✅ Aprovado</option>
+    </select>
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+      <button id="miniPipeBtnCargo" onclick="confirmarMiniPipeCargo(false)" style="flex:2;min-width:120px;background:linear-gradient(135deg,#1a3a6b,#3b82f6);color:#fff;border:none;border-radius:10px;padding:0.75rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">🚀 Mover</button>
+      <button onclick="confirmarMiniPipeCargo(true)" style="flex:3;min-width:160px;background:linear-gradient(135deg,#1a3a6b,#3498db);color:#fff;border:none;border-radius:10px;padding:0.75rem;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;">🚀 Mover e Abrir Pipeline</button>
+      <button onclick="fecharMiniPipeCargo()" style="flex:1;min-width:80px;background:rgba(255,255,255,0.05);color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.75rem;font-family:inherit;font-size:0.85rem;cursor:pointer;">Cancelar</button>
+    </div>
+    <div id="miniPipeMsgCargo" style="min-height:1rem;font-size:0.72rem;margin-top:0.6rem;text-align:center;"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL SENHA PARECER FINAL — Banco de Cargos ══ -->
+<div class="pf-pwd-overlay" id="modalSenhaParecerCargo" style="display:none;" onclick="if(event.target===this)fecharSenhaParecerCargo()">
+  <div class="pf-pwd-box">
+    <div style="font-size:2.2rem;margin-bottom:0.75rem;">🔐</div>
+    <div style="font-size:0.95rem;font-weight:900;color:#f0f0f0;margin-bottom:0.15rem;">Área Restrita</div>
+    <div style="font-size:0.72rem;color:#666;margin-bottom:1.3rem;line-height:1.5;">Digite a senha para acessar o Parecer Final.<br>Este conteúdo não é visível para o candidato.</div>
+    <input type="password" id="pfPwdInputCargo" class="pf-pwd-inp" placeholder="••••••••" onkeydown="if(event.key==='Enter')verificarSenhaParecerCargo()"/>
+    <div id="pfPwdErroCargo" style="font-size:0.72rem;color:#e74c3c;min-height:1.1rem;margin:0.55rem 0 0.8rem;font-weight:700;"></div>
+    <div style="display:flex;gap:0.6rem;">
+      <button onclick="verificarSenhaParecerCargo()" style="flex:2;background:linear-gradient(135deg,#5b21b6,#a78bfa);color:#fff;border:none;border-radius:11px;padding:0.7rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;">Entrar</button>
+      <button onclick="fecharSenhaParecerCargo()" class="pf-btn-ghost" style="flex:1;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL PARECER FINAL — Banco de Cargos ══ -->
+<div class="pf-overlay" id="modalParecerFinalCargo" style="display:none;" onclick="if(event.target===this)fecharParecerFinalCargo()">
+  <div class="pf-box">
+    <button onclick="fecharParecerFinalCargo()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;z-index:1;">✕</button>
+    <div class="pf-title">Banco de Cargos · Candidato</div>
+    <div class="pf-heading">📑 Parecer Final</div>
+    <div class="pf-sub" id="pfSubCandCargo">Documento de avaliação completa do candidato — uso interno restrito.</div>
+    <div class="pf-lock-indicator">
+      <div class="pf-lock-dot"></div>
+      <div>
+        <div style="font-size:0.72rem;font-weight:700;color:#c4b5fd;">Área protegida por senha</div>
+        <div style="font-size:0.6rem;color:#555;margin-top:0.05rem;">Este conteúdo não é visível para o candidato</div>
+      </div>
+    </div>
+    <div class="pf-sec">
+      <div class="pf-sec-title">🔗 Link do Parecer Final</div>
+      <div style="font-size:0.68rem;color:#666;margin-bottom:0.65rem;line-height:1.55;">Cole o link externo do parecer completo. Herdado automaticamente nos demais módulos.</div>
+      <div style="display:flex;gap:0.4rem;align-items:center;">
+        <input type="url" id="pfLinkInputCargo" class="pf-inp" placeholder="https://drive.google.com/file/… ou https://notion.so/…" style="flex:1;min-width:0;"/>
+        <button onclick="var l=document.getElementById('pfLinkInputCargo').value.trim();if(l)window.top.open(l,'_blank');else mostrarToast('Sem link cadastrado',true);" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.3);border-radius:8px;padding:0.6rem 0.7rem;font-size:1rem;cursor:pointer;flex-shrink:0;">🔗</button>
+      </div>
+      <div id="pfLinkPreviewWrapCargo" style="display:none;" class="pf-link-preview">
+        <span style="font-size:0.85rem;">📎</span>
+        <a id="pfLinkPreviewACargo" href="#" target="_blank" onclick="window.top.open(this.href,'_blank');return false;">—</a>
+        <button onclick="document.getElementById('pfLinkInputCargo').value='';document.getElementById('pfLinkPreviewWrapCargo').style.display='none';" style="background:none;border:none;color:#e74c3c;cursor:pointer;font-size:0.75rem;flex-shrink:0;">✕</button>
+      </div>
+    </div>
+    <div class="pf-sec">
+      <div class="pf-sec-title">📝 Observações Internas</div>
+      <textarea id="pfObsInputCargo" class="pf-inp" rows="4" placeholder="Ex: Candidato aprovado na entrevista técnica. Aguardando retorno do gestor." style="resize:vertical;min-height:80px;font-size:0.78rem;line-height:1.6;"></textarea>
+    </div>
+    <div class="pf-sec">
+      <div class="pf-sec-title">📊 Status do Parecer</div>
+      <select id="pfStatusInputCargo" class="pf-inp">
+        <option value="">— Sem status definido —</option>
+        <option value="em_andamento">⏳ Em andamento</option>
+        <option value="concluido">✅ Concluído</option>
+        <option value="aprovado">🟢 Candidato aprovado</option>
+        <option value="em_espera">🟡 Em espera</option>
+        <option value="reprovado">🔴 Candidato reprovado</option>
+        <option value="banco">🗃️ Direcionado ao banco</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:0.6rem;margin-top:0.5rem;">
+      <button onclick="salvarParecerFinalCargo()" class="pf-btn-primary" id="pfSaveBtnCargo" style="flex:2;">💾 Salvar Parecer Final</button>
+      <button onclick="fecharParecerFinalCargo()" class="pf-btn-ghost" style="flex:1;">Cancelar</button>
+    </div>
+    <div id="pfSaveMsgCargo" style="display:none;text-align:center;font-size:0.72rem;color:#a78bfa;margin-top:0.5rem;font-weight:700;">✓ Parecer salvo e herdado para os demais módulos!</div>
+  </div>
+</div>
+
+<!-- MODAL PESOS -->
+<div id="modalPesos" style="display:none;position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharModalPesos()">
+  <div style="background:#111;border:1px solid rgba(167,139,250,0.3);border-radius:20px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;position:relative;padding:1.6rem;">
+    <button onclick="fecharModalPesos()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:0.3rem;">Configuração · Aderência à Vaga</div>
+    <h3 style="font-size:1rem;font-weight:900;margin-bottom:0.15rem;color:#f0f0f0;">⚖️ Pesos por Vaga</h3>
+    <p style="font-size:0.72rem;color:#666;margin-bottom:1.2rem;line-height:1.5;">Configure a <strong style="color:#a78bfa;">importância relativa</strong> de cada pilar. O sistema normaliza automaticamente.</p>
+    <div id="pesosConfigWrap" style="margin-bottom:1rem;">
+      <p style="font-size:0.75rem;color:#555;text-align:center;padding:1rem 0;">Os pesos são gerenciados no Banco de Talentos.<br/>Use o ⚖️ Pesos do Banco de Talentos para configurar.</p>
+    </div>
+    <div style="display:flex;gap:0.6rem;">
+      <button onclick="fecharModalPesos()" style="flex:1;background:rgba(255,255,255,0.04);color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.8rem;font-family:inherit;font-size:0.88rem;cursor:pointer;">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: IMPORTAR CSV ══ -->
+<div class="overlay" id="modalImportCSV" style="display:none;" onclick="if(event.target===this)fecharModalImportCSV()">
+  <div class="modal-box" style="max-width:540px;">
+    <button class="modal-close" onclick="fecharModalImportCSV()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:0.3rem;">Banco por Cargo · Importar</div>
+    <div class="modal-title">Importar CSV</div>
+    <p class="modal-sub" style="margin-bottom:1rem;">O CSV deve ter cabeçalho com as colunas: <strong>Nome, Cargo Pretendido, Cargos, DISC, Fit Score, Aderência, Score Recrutador, Status Contato, Docs, Cidade, Email, Tel</strong>. A coluna <em>Cargos</em> aceita múltiplos cargos separados por <code>|</code>.</p>
+    <div style="border:2px dashed rgba(167,139,250,0.3);border-radius:12px;padding:2rem;text-align:center;margin-bottom:1rem;cursor:pointer;" onclick="document.getElementById('impFileInputCargos').click()">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">📂</div>
+      <div style="font-size:0.8rem;color:var(--muted);">Clique para selecionar o arquivo CSV</div>
+      <div id="impFileNameCargos" style="font-size:0.72rem;color:#a78bfa;margin-top:0.4rem;font-weight:700;"></div>
+      <input type="file" id="impFileInputCargos" accept=".csv" style="display:none;" onchange="impLerArquivoCargos(this)">
+    </div>
+    <div id="impPreviewCargos" style="display:none;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:0.75rem 1rem;margin-bottom:0.85rem;font-size:0.72rem;color:var(--muted);"></div>
+    <div style="display:flex;gap:0.6rem;">
+      <button onclick="impConfirmarCargos()" id="impBtnConfirmCargos" class="save-btn" style="flex:1;background:linear-gradient(135deg,#6d28d9,#a78bfa);color:#fff;" disabled>✅ Importar candidatos</button>
+      <button onclick="fecharModalImportCSV()" style="background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.7rem 1rem;font-family:inherit;font-size:0.8rem;cursor:pointer;">Cancelar</button>
+    </div>
+    <div id="impMsgCargos" style="display:none;text-align:center;font-size:0.7rem;margin-top:0.5rem;font-weight:700;"></div>
+  </div>
+</div>
+
+<script>
+/* ═══ IMPORTAR CSV — BANCO-CARGOS ═══ */
+let _impDadosCargos = [];
+
+function abrirModalImportCSV(){
+  _impDadosCargos = [];
+  document.getElementById('impFileNameCargos').textContent = '';
+  document.getElementById('impPreviewCargos').style.display = 'none';
+  document.getElementById('impBtnConfirmCargos').disabled = true;
+  document.getElementById('impMsgCargos').style.display = 'none';
+  document.getElementById('impFileInputCargos').value = '';
+  document.getElementById('modalImportCSV').style.display = 'flex';
+}
+function fecharModalImportCSV(){
+  document.getElementById('modalImportCSV').style.display = 'none';
+}
+
+function impLerArquivoCargos(input){
+  const file = input.files[0]; if(!file) return;
+  document.getElementById('impFileNameCargos').textContent = file.name;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      let text = e.target.result;
+      if(text.charCodeAt(0)===0xFEFF) text=text.slice(1);
+      const lines = text.split(/\r?\n/).filter(l=>l.trim());
+      if(lines.length<2){ throw new Error('CSV vazio ou sem dados'); }
+      const sep = lines[0].includes(';') ? ';' : ',';
+      const parseRow = row => {
+        const cols=[]; let cur='', inQ=false;
+        for(let i=0;i<row.length;i++){
+          const c=row[i];
+          if(c==='"'){ if(inQ&&row[i+1]==='"'){cur+='"';i++;} else inQ=!inQ; }
+          else if(c===sep&&!inQ){ cols.push(cur.trim()); cur=''; }
+          else cur+=c;
+        }
+        cols.push(cur.trim()); return cols;
+      };
+      const headers = parseRow(lines[0]).map(h=>h.toLowerCase().replace(/[^a-záéíóúã ]/g,'').trim());
+      const idx = n => headers.findIndex(h=>h.includes(n));
+      const iNome=idx('nome'), iCargosCol=idx('cargos'), iVaga=idx('cargo pretendido'),
+            iDisc=idx('disc'), iFit=idx('fit'), iAder=idx('ader'),
+            iScore=idx('score'), iStatus=idx('status'), iDocs=idx('docs'),
+            iCidade=idx('cidade'), iEmail=idx('email'), iTel=idx('tel');
+      if(iNome<0) throw new Error('Coluna "Nome" não encontrada');
+      const dados = [];
+      for(let i=1;i<lines.length;i++){
+        const cols=parseRow(lines[i]);
+        const get=(j)=>j>=0?(cols[j]||'').replace(/^"|"$/g,'').trim():'';
+        const discRaw=get(iDisc);
+        const [dom,sec]=discRaw.includes('+')?discRaw.split('+').map(s=>s.trim()):[discRaw,''];
+        dados.push({
+          nome:get(iNome), vaga:get(iVaga), cargosStr:get(iCargosCol),
+          dom, sec, fit_score:get(iFit), aderencia:get(iAder),
+          score_recrutador:get(iScore), status_contato:get(iStatus),
+          doc_completa:get(iDocs).toLowerCase().includes('sim'),
+          cidade:get(iCidade), email_externo:get(iEmail), tel_externo:get(iTel)
+        });
+      }
+      _impDadosCargos = dados;
+      const prev=document.getElementById('impPreviewCargos');
+      prev.style.display='block';
+      prev.innerHTML=`<strong style="color:#a78bfa;">${dados.length}</strong> candidato(s) encontrado(s) no arquivo.<br><span style="font-size:0.65rem;">Primeiros nomes: ${dados.slice(0,5).map(d=>d.nome||'—').join(', ')}${dados.length>5?', …':''}</span>`;
+      document.getElementById('impBtnConfirmCargos').disabled=false;
+    } catch(err){
+      const prev=document.getElementById('impPreviewCargos');
+      prev.style.display='block';
+      prev.style.borderColor='rgba(231,76,60,0.3)';
+      prev.innerHTML='<span style="color:#e74c3c;">❌ Erro: '+err.message+'</span>';
+    }
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+async function impConfirmarCargos(){
+  if(!_impDadosCargos.length) return;
+  const btn=document.getElementById('impBtnConfirmCargos');
+  const msg=document.getElementById('impMsgCargos');
+  btn.disabled=true; btn.textContent='⏳ Importando…';
+  msg.style.display='block'; msg.style.color='#a78bfa'; msg.textContent='Processando candidatos…';
+
+  let ok=0, erros=0;
+  for(const d of _impDadosCargos){
+    if(!d.nome) continue;
+    try {
+      // Upsert candidato no banco principal
+      const extra = {};
+      if(d.cidade) extra.cidade=d.cidade;
+      const payload = {
+        nome:d.nome, vaga:d.vaga||'', dom:d.dom||'', sec:d.sec||'',
+        fit_score:d.fit_score||'', score_recrutador:d.score_recrutador||'',
+        status_contato:d.status_contato||'', doc_completa:d.doc_completa,
+        email_externo:d.email_externo||'', tel_externo:d.tel_externo||'',
+        extra_dados: Object.keys(extra).length ? JSON.stringify(extra) : undefined
+      };
+      Object.keys(payload).forEach(k=>payload[k]===undefined&&delete payload[k]);
+
+      const SB_URL = window._SB_URL || (typeof SB_URL!=='undefined'?SB_URL:'');
+      const SB_KEY = window._SB_KEY || (typeof SB_KEY!=='undefined'?SB_KEY:'');
+      const HEADS = {'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'resolution=merge-duplicates,return=representation'};
+
+      // Upsert candidato (merge by nome+vaga)
+      const resCand = await fetch(SB_URL+'/rest/v1/candidatos?on_conflict=nome,vaga', {method:'POST',headers:HEADS,body:JSON.stringify(payload)});
+      const candArr = await resCand.json();
+      const cand = Array.isArray(candArr)?candArr[0]:candArr;
+      if(!cand||!cand.id) { erros++; continue; }
+      const cid = String(cand.id);
+
+      // Processar cargos
+      const cargosNomes = d.cargosStr.split('|').map(s=>s.trim()).filter(Boolean);
+      const novosCargoIds = [];
+      for(const cNome of cargosNomes){
+        if(!cNome) continue;
+        // Buscar cargo existente
+        const busca = await fetch(SB_URL+'/rest/v1/cargos?nome=eq.'+encodeURIComponent(cNome)+'&select=id', {headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});
+        const cArr = await busca.json();
+        let cargoId;
+        if(cArr&&cArr.length>0){ cargoId=cArr[0].id; }
+        else {
+          // Criar cargo
+          const cRes = await fetch(SB_URL+'/rest/v1/cargos', {method:'POST',headers:{...HEADS,Prefer:'return=representation'},body:JSON.stringify({nome:cNome,cor:'#3b82f6'})});
+          const cNew = await cRes.json();
+          cargoId = Array.isArray(cNew)?cNew[0]?.id:cNew?.id;
+        }
+        if(cargoId) novosCargoIds.push(cargoId);
+      }
+
+      // Salvar assign
+      if(novosCargoIds.length>0){
+        const assignPayload = {candidato_id:parseInt(cid), cargo_ids:novosCargoIds};
+        await fetch(SB_URL+'/rest/v1/cargo_assign?on_conflict=candidato_id', {method:'POST',headers:HEADS,body:JSON.stringify(assignPayload)});
+      }
+      ok++;
+    } catch(e){ erros++; }
+  }
+
+  msg.textContent = `✅ ${ok} importado(s)${erros>0?' · ⚠️ '+erros+' erro(s)':''}.`;
+  msg.style.color = erros>0?'#f59e0b':'#93c5fd';
+  btn.textContent = '✅ Importar candidatos';
+  setTimeout(()=>{ fecharModalImportCSV(); if(typeof atualizarBanco==='function') atualizarBanco(); },1200);
+}
+</script>
+
+</body>
+</html>

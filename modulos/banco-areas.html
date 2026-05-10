@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<script src="../nexus-security.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Banco por Área | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#1a3a6b;--accent:#3b82f6;
+  --bg:#0a0a0a;--card:#131313;--card2:#161616;
+  --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.3);
+  --text:#f0f0f0;--muted:#777;--muted2:#444;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+
+/* HEADER */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.title span{color:var(--accent);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-green{background:rgba(59,130,246,0.1);color:var(--accent);border-color:rgba(59,130,246,0.25);}.btn-green:hover{background:rgba(59,130,246,0.18);}
+
+/* STATS BAR */
+.stats-bar{background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.18);border-radius:14px;padding:0.9rem 1.2rem;margin-bottom:1.2rem;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center;}
+.stat-item{display:flex;flex-direction:column;gap:0.1rem;}
+.stat-val{font-size:1.3rem;font-weight:900;color:var(--accent);line-height:1;}
+.stat-lbl{font-size:0.58rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.stat-div{width:1px;height:32px;background:rgba(255,255,255,0.07);}
+.stat-disc{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;}
+.stat-disc-item{display:flex;flex-direction:column;align-items:center;gap:0.05rem;}
+.stat-disc-val{font-size:0.9rem;font-weight:900;}
+.stat-disc-lbl{font-size:0.5rem;font-weight:700;text-transform:uppercase;}
+
+/* FILTROS */
+.filtros-wrap{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.filtros-wrap input,.filtros-wrap select{background:#131313;border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.52rem 0.85rem;color:#f0f0f0;font-family:inherit;font-size:0.8rem;outline:none;transition:border-color 0.2s;}
+.filtros-wrap input:focus,.filtros-wrap select:focus{border-color:var(--accent);}
+.filtros-wrap input{flex:1;min-width:200px;max-width:320px;}
+.filtros-wrap select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.7rem center;padding-right:2rem;}
+.filtros-wrap select option{background:#161616;color:#f0f0f0;}
+.count-txt{font-size:0.72rem;color:var(--muted);align-self:center;margin-left:auto;}
+
+/* AREA CARD */
+.secao-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:1rem;transition:border-color 0.2s;}
+.secao-card:hover{border-color:var(--border2);}
+.secao-hdr{display:flex;align-items:center;gap:0.85rem;padding:1rem 1.1rem;border-left:3px solid var(--accent);cursor:pointer;user-select:none;}
+.secao-hdr:hover{background:rgba(255,255,255,0.015);}
+.secao-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.secao-nome{font-size:0.95rem;font-weight:800;color:var(--text);}
+.secao-meta{font-size:0.65rem;color:var(--muted);margin-top:0.08rem;}
+.secao-btn{font-family:inherit;font-size:0.68rem;font-weight:700;border-radius:8px;padding:0.3rem 0.7rem;border:1px solid;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.secao-btn:hover{opacity:0.8;}
+.secao-btn-icon{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:7px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.8rem;transition:all 0.15s;}
+.secao-btn-icon:hover{background:rgba(255,255,255,0.09);}
+.secao-toggle{background:none;border:none;color:var(--muted);font-size:0.75rem;cursor:pointer;transition:transform 0.22s;width:24px;text-align:center;}
+.secao-toggle.collapsed{transform:rotate(-90deg);}
+.secao-body{padding:0 1rem 0.85rem;display:flex;flex-direction:column;gap:0.55rem;}
+.secao-body.hidden{display:none;}
+.secao-empty{text-align:center;padding:1.2rem;font-size:0.78rem;color:var(--muted);border:1px dashed rgba(255,255,255,0.07);border-radius:12px;margin-top:0.2rem;}
+.secao-add-btn-inline{font-family:inherit;font-size:0.7rem;font-weight:700;color:var(--accent);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:7px;padding:0.25rem 0.65rem;cursor:pointer;margin-top:0.4rem;}
+.secao-add-btn-inline:hover{background:rgba(59,130,246,0.14);}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:4rem 2rem;color:var(--muted);}
+.empty-state-ico{font-size:3rem;margin-bottom:1rem;opacity:0.5;}
+.empty-state h3{font-size:1.1rem;font-weight:800;margin-bottom:0.5rem;color:#555;}
+.empty-state p{font-size:0.8rem;line-height:1.6;max-width:380px;margin:0 auto 1.2rem;}
+
+/* CANDIDATO CARD — igual ao banco-talentos */
+.cand-card{background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:0.9rem 1rem 0.8rem;position:relative;transition:border-color 0.2s,box-shadow 0.2s;}
+.cand-card:hover{border-color:rgba(59,130,246,0.25);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+.cand-card-inner{display:flex;align-items:flex-start;gap:0.8rem;}
+.cand-avatar{width:38px;height:38px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;cursor:pointer;}
+.cand-info{flex:1;min-width:0;}
+.cand-nome{font-size:0.95rem;font-weight:800;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.2px;}
+.cand-meta{font-size:0.7rem;color:#555;margin-top:0.18rem;line-height:1.4;}
+.cand-chips{display:flex;flex-wrap:wrap;gap:0.25rem;margin-top:0.4rem;}
+.chip{font-size:0.65rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:99px;border:1px solid;}
+.chip-disc{background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#3b82f6;}
+.fit-bar-row{display:flex;align-items:center;gap:0.45rem;margin-top:0.28rem;}
+.fit-bar-lbl{font-size:0.57rem;font-weight:700;width:52px;flex-shrink:0;}
+.fit-bar-track{flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.fit-bar-fill{height:100%;border-radius:99px;}
+.fit-bar-pct{font-size:0.63rem;font-weight:700;width:30px;text-align:right;}
+.fit-bar-src{font-size:0.53rem;color:#555;width:26px;}
+.cand-foot{display:flex;flex-direction:column;gap:0.22rem;margin-top:0.5rem;}
+.cand-foot-toggle{display:flex;align-items:center;gap:0.28rem;background:none;border:none;cursor:pointer;padding:0.18rem 0.3rem;border-radius:6px;color:#444;font-family:inherit;font-size:0.52rem;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.18s;margin-top:0.45rem;border-top:1px solid rgba(255,255,255,0.05);padding-top:0.45rem;width:100%;}
+.cand-foot-toggle:hover{color:#3b82f6;}
+.cand-foot-toggle .ft-chev{font-size:0.55rem;transition:transform 0.22s;display:inline-block;}
+.cand-foot-toggle.open .ft-chev{transform:rotate(180deg);}
+.cand-foot-body{overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;}
+.cand-foot-body.collapsed{max-height:0!important;opacity:0;}
+.cand-foot-group{display:flex;gap:0.22rem;width:100%;flex-wrap:wrap;}
+.cand-foot-group .btn-sm{flex:1 1 0;justify-content:center;text-align:center;min-width:0;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;height:26px;padding:0 0.4rem;display:inline-flex;align-items:center;gap:0.2rem;font-size:0.62rem;}
+.cand-foot-label{font-size:0.44rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#333;margin-bottom:0.12rem;margin-top:0.35rem;display:flex;align-items:center;gap:0.35rem;}
+.cand-foot-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.04);}
+.cand-foot-label:first-child{margin-top:0;}
+.btn-sm{font-family:inherit;font-size:0.64rem;font-weight:700;border-radius:6px;padding:0.22rem 0.5rem;border:1px solid;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-flex;align-items:center;gap:0.18rem;}
+.btn-sm:hover{opacity:0.8;transform:translateY(-1px);}
+.cands-grid{display:flex;flex-direction:column;gap:0.55rem;}
+/* STATUS DOTS */
+.status-dots-card{display:flex;flex-direction:row;align-items:center;gap:5px;}
+.card-top-right{position:absolute;top:0.4rem;right:0.6rem;display:flex;flex-direction:row;align-items:center;gap:0.4rem;z-index:2;}
+.status-dots-row{display:flex;gap:5px;align-items:center;}
+.status-dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);flex-shrink:0;cursor:default;transition:transform 0.15s;}
+.status-dot:hover{transform:scale(1.18);}
+.status-dot.disc{background:#3498db;box-shadow:0 0 7px rgba(52,152,219,0.6);}.status-dot.disc.off{background:rgba(52,152,219,0.1);border-color:rgba(52,152,219,0.25);}
+.status-dot.entrevista{background:#f39c12;box-shadow:0 0 7px rgba(243,156,18,0.6);}.status-dot.entrevista.off{background:rgba(243,156,18,0.1);border-color:rgba(243,156,18,0.25);}
+.status-dot.curriculo{background:#2ecc71;box-shadow:0 0 7px rgba(59,130,246,0.6);}.status-dot.curriculo.off{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.25);}
+.status-dot.parecer{background:#a78bfa;box-shadow:0 0 7px rgba(167,139,250,0.6);}.status-dot.parecer.off{background:rgba(167,139,250,0.1);border-color:rgba(167,139,250,0.25);}
+.status-dot-count{font-size:0.55rem;font-weight:800;color:#555;}
+.status-pend-lbl{font-size:0.5rem;font-weight:800;color:#e74c3c;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:99px;padding:0.05rem 0.38rem;animation:pendPls 2s ease infinite;}
+@keyframes pendPls{0%,100%{opacity:1;}50%{opacity:0.5;}}
+/* BADGE DESTAQUE */
+.badge-destaque{display:inline-flex;align-items:center;gap:0.25rem;background:linear-gradient(135deg,rgba(251,191,36,0.18),rgba(245,158,11,0.1));border:1px solid rgba(251,191,36,0.45);border-radius:99px;padding:0.18rem 0.6rem;font-size:0.63rem;font-weight:800;color:#fbbf24;letter-spacing:0.3px;white-space:nowrap;}
+.cand-card.is-destaque{border-color:rgba(251,191,36,0.35);}
+.cand-card.is-destaque:hover{border-color:rgba(251,191,36,0.6);}
+.cand-card.is-destaque::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(251,191,36,0.04),transparent 60%);pointer-events:none;}
+/* ADERÊNCIA BIG */
+.ader-big-wrap{display:flex;align-items:center;justify-content:space-between;margin-top:0.45rem;padding:0.38rem 0.65rem;border-radius:9px;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);}
+.ader-big-lbl{font-size:0.54rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#666;}
+.ader-big-num{font-size:1.4rem;font-weight:900;line-height:1;letter-spacing:-1px;}
+.ader-big-src{font-size:0.5rem;font-weight:600;color:#555;margin-top:0.08rem;}
+
+/* STATUS CONTATO SELECT */
+.status-contato-sel{font-family:inherit;font-size:0.62rem;font-weight:700;border-radius:99px;padding:0.1rem 0.55rem;border:1px solid;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;transition:all 0.18s;background-image:none;}
+.status-contato-sel.sc-pendente{background:rgba(119,119,119,0.13);border-color:rgba(119,119,119,0.3);color:#888;}
+.status-contato-sel.sc-respondeu{background:rgba(59,130,246,0.13);border-color:rgba(59,130,246,0.35);color:#2ecc71;}
+.status-contato-sel.sc-nao_respondeu{background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.3);color:#e74c3c;}
+.status-contato-sel.sc-sem_retorno{background:rgba(243,156,18,0.12);border-color:rgba(243,156,18,0.3);color:#f39c12;}
+.status-contato-sel.sc-pendencia_docs{background:rgba(52,152,219,0.12);border-color:rgba(52,152,219,0.3);color:#3498db;}
+.status-contato-sel.sc-pendencia_info{background:rgba(167,139,250,0.13);border-color:rgba(167,139,250,0.35);color:#a78bfa;}
+.status-contato-sel option{background:#1a1a1a;color:#f0f0f0;}
+
+/* BADGE AREA */
+.badge-area{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.58rem;font-weight:700;padding:0.12rem 0.5rem;border-radius:99px;border:1px solid;}
+
+/* ═══ MODAL BASE ═══ */
+.overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.modal-box{background:#111;border:1px solid var(--border2);border-radius:22px;width:100%;max-width:460px;padding:1.8rem;position:relative;max-height:90vh;overflow-y:auto;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:var(--muted);font-size:0.95rem;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:#fff;}
+.modal-title{font-size:1rem;font-weight:900;margin-bottom:0.2rem;}
+.modal-sub{font-size:0.75rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.55;}
+.field-lbl{font-size:0.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;}
+.field-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.83rem;outline:none;transition:border-color 0.2s;}
+.field-inp:focus{border-color:var(--accent);}
+.field-inp::placeholder{color:#555;}
+select.field-inp{background-color:#1a1a1a;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;padding-right:2.2rem;-webkit-appearance:none;appearance:none;cursor:pointer;}
+select.field-inp option{background:#1e1e1e;color:#f0f0f0;}
+.save-btn{width:100%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;padding:0.7rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;transition:opacity 0.2s;}
+.save-btn:hover{opacity:0.88;}
+
+/* COR PICKER */
+.cor-picker{display:flex;gap:0.45rem;flex-wrap:wrap;margin-top:0.4rem;}
+.cor-opt{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all 0.15s;flex-shrink:0;}
+.cor-opt:hover{transform:scale(1.15);}
+.cor-opt.sel{border-color:#fff;transform:scale(1.1);}
+
+/* ADD CANDIDATO */
+.add-cand-list{max-height:320px;overflow-y:auto;margin:0.8rem 0;display:flex;flex-direction:column;gap:0.45rem;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;}
+.add-cand-list::-webkit-scrollbar{width:3px;}
+.add-cand-list::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.3);border-radius:99px;}
+.add-cand-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:0.6rem 0.8rem;cursor:pointer;display:flex;align-items:center;gap:0.7rem;transition:all 0.15s;}
+.add-cand-item:hover{background:rgba(59,130,246,0.07);border-color:rgba(59,130,246,0.25);}
+.add-cand-item.selected{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.4);}
+.add-cand-av{width:30px;height:30px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+.add-cand-nome{font-size:0.8rem;font-weight:700;}
+.add-cand-sub{font-size:0.62rem;color:var(--muted);}
+.add-cand-check{margin-left:auto;font-size:0.9rem;opacity:0;}
+.add-cand-item.selected .add-cand-check{opacity:1;}
+.add-busca{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.5rem 0.75rem;color:#f0f0f0;font-family:inherit;font-size:0.78rem;outline:none;margin-bottom:0.6rem;}
+.add-busca:focus{border-color:var(--accent);}
+.add-busca::placeholder{color:#555;}
+
+/* MOVER MODAL */
+.mover-area-list{display:flex;flex-direction:column;gap:0.4rem;margin:0.8rem 0;}
+.mover-area-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.7rem 0.9rem;cursor:pointer;display:flex;align-items:center;gap:0.7rem;transition:all 0.15s;}
+.mover-area-item:hover{background:rgba(59,130,246,0.07);border-color:rgba(59,130,246,0.25);}
+.mover-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+/* ═══ MODAL PERFIL COMPLETO ═══ */
+.perfil-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:1rem;overflow:hidden;}
+.perfil-box{background:#111;border:1px solid rgba(59,130,246,0.22);border-radius:20px;width:100%;max-width:700px;position:relative;display:flex;flex-direction:column;max-height:calc(100vh - 2rem);min-height:0;}
+.perfil-hdr{padding:1.2rem 1.6rem 0.9rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:flex-start;gap:0.9rem;flex-shrink:0;}
+.perfil-avatar-lg{width:48px;height:48px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.perfil-body{padding:1rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:0.85rem;overflow-y:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;}
+.perfil-body::-webkit-scrollbar{width:4px;}
+.perfil-body::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.3);border-radius:99px;}
+.perfil-sec{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem 1.1rem;}
+.perfil-sec-title{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#3b82f6;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.4rem;}
+.perfil-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.perfil-inp:focus{border-color:#3b82f6;}
+.perfil-inp::placeholder{color:#555;}
+.perfil-inp.ta{resize:vertical;min-height:64px;font-size:0.78rem;line-height:1.5;}
+select.perfil-inp{background-color:#1a1a1a;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;padding-right:2.2rem;-webkit-appearance:none;appearance:none;cursor:pointer;}
+select.perfil-inp option{background:#1e1e1e;color:#f0f0f0;}
+.perfil-lbl{font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;}
+.perfil-save-btn{background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border:none;border-radius:9px;padding:0.6rem 1.2rem;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;width:100%;}
+.perfil-save-btn:hover{opacity:0.88;}
+.perfil-save-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.import-preview{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 0.85rem;font-size:0.72rem;line-height:1.7;margin-top:0.55rem;display:none;}
+.tag-ok{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.22);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#2ecc71;}
+.tag-warn{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(243,156,18,0.1);border:1px solid rgba(243,156,18,0.22);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#f39c12;}
+.tag-miss{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#e74c3c;}
+.ent-row{margin-bottom:0.65rem;}
+.ent-lbl{font-size:0.58rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;margin-bottom:0.18rem;}
+.ent-val{font-size:0.77rem;color:#bbb;line-height:1.55;}
+
+/* ═══ MODAL COPIAR PARA ÁREA ═══ */
+.copiar-area-list{display:flex;flex-direction:column;gap:0.4rem;margin:0.8rem 0;max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#000;font-family:'Sora',sans-serif;font-size:0.83rem;font-weight:800;padding:0.65rem 1.5rem;border-radius:99px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:99999;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.erro{background:#e74c3c;color:#fff;}
+
+/* ── BOTÃO PARECER FINAL ── */
+.btn-parecer-final{display:flex;align-items:center;gap:0.4rem;width:100%;background:linear-gradient(135deg,rgba(167,139,250,0.15),rgba(139,92,246,0.25));border:1.5px solid rgba(167,139,250,0.5);border-radius:12px;padding:0.55rem 0.85rem;color:#c4b5fd;font-family:inherit;font-size:0.78rem;font-weight:800;cursor:pointer;transition:all 0.2s;margin-top:0.5rem;justify-content:space-between;}
+.btn-parecer-final:hover{background:linear-gradient(135deg,rgba(167,139,250,0.25),rgba(139,92,246,0.38));border-color:rgba(167,139,250,0.75);color:#ddd6fe;}
+.btn-parecer-final .pf-left{display:flex;align-items:center;gap:0.5rem;}
+.btn-parecer-final .pf-badge{font-size:0.55rem;font-weight:700;background:rgba(167,139,250,0.3);border:1px solid rgba(167,139,250,0.4);border-radius:99px;padding:0.1rem 0.45rem;color:#c4b5fd;letter-spacing:0.5px;text-transform:uppercase;}
+/* ── MODAL PARECER FINAL ── */
+.pf-overlay{position:fixed;inset:0;z-index:11000;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.pf-box{background:#0e0e0e;border:1px solid rgba(167,139,250,0.35);border-radius:22px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;position:relative;padding:1.8rem;scrollbar-width:thin;scrollbar-color:rgba(167,139,250,0.3) transparent;}
+.pf-box::-webkit-scrollbar{width:4px;}
+.pf-box::-webkit-scrollbar-thumb{background:rgba(167,139,250,0.3);border-radius:99px;}
+.pf-title{font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:0.3rem;}
+.pf-heading{font-size:1rem;font-weight:900;color:#f0f0f0;margin-bottom:0.15rem;}
+.pf-sub{font-size:0.72rem;color:#666;margin-bottom:1.3rem;line-height:1.5;}
+.pf-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.6rem 0.85rem;color:#f0f0f0;font-family:inherit;font-size:0.83rem;outline:none;transition:border-color 0.2s;}
+.pf-inp:focus{border-color:#a78bfa;}
+.pf-inp::placeholder{color:#555;}
+.pf-sec{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem 1.1rem;margin-bottom:0.75rem;}
+.pf-sec-title{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#a78bfa;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem;}
+.pf-btn-primary{width:100%;background:linear-gradient(135deg,#5b21b6,#a78bfa);color:#fff;border:none;border-radius:11px;padding:0.78rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;transition:all 0.2s;}
+.pf-btn-primary:hover{opacity:0.88;}
+.pf-btn-primary:disabled{opacity:0.4;cursor:not-allowed;}
+.pf-btn-ghost{background:rgba(255,255,255,0.04);color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.7rem 1rem;font-family:inherit;font-size:0.82rem;cursor:pointer;}
+.pf-lock-indicator{display:flex;align-items:center;gap:0.6rem;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:0.65rem 0.9rem;margin-bottom:1rem;}
+.pf-lock-dot{width:8px;height:8px;border-radius:50%;background:#a78bfa;flex-shrink:0;animation:pfPulse 2s ease infinite;}
+@keyframes pfPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.pf-link-preview{display:flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.25);border-radius:10px;padding:0.6rem 0.9rem;margin-top:0.5rem;}
+.pf-link-preview a{font-size:0.72rem;font-weight:700;color:#3b82f6;text-decoration:none;word-break:break-all;flex:1;}
+.pf-link-preview a:hover{text-decoration:underline;}
+.pf-pwd-overlay{position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.95);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.pf-pwd-box{background:#0e0e0e;border:1px solid rgba(167,139,250,0.4);border-radius:20px;padding:2rem;width:100%;max-width:380px;text-align:center;}
+.pf-pwd-inp{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(167,139,250,0.3);border-radius:10px;padding:0.75rem 1rem;color:#f0f0f0;font-family:inherit;font-size:1rem;font-weight:700;letter-spacing:4px;text-align:center;outline:none;transition:border-color 0.2s;}
+.pf-pwd-inp:focus{border-color:#a78bfa;}
+.pf-pwd-inp.shake{animation:pfShake 0.4s ease;}
+@keyframes pfShake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-6px);}40%,80%{transform:translateX(6px));}
+
+/* LOADING */
+.loading-wrap{text-align:center;padding:3rem;color:var(--muted);font-size:0.82rem;}
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid rgba(59,130,246,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin-bottom:0.5rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* AUTOCOMPLETE SUGESTÕES */
+#buscaSugestoes .sug-item{padding:0.55rem 0.9rem !important;font-size:0.8rem !important;font-weight:600 !important;cursor:pointer !important;display:flex !important;align-items:center !important;gap:0.6rem !important;transition:background 0.12s;border-bottom:1px solid rgba(255,255,255,0.04) !important;background:transparent !important;color:#f0f0f0 !important;border-radius:0 !important;margin:0 !important;width:100% !important;box-sizing:border-box !important;}
+#buscaSugestoes .sug-item:last-child{border-bottom:none !important;}
+#buscaSugestoes .sug-item:hover,#buscaSugestoes .sug-item.focused{background:rgba(59,130,246,0.12) !important;}
+#buscaSugestoes .sug-dot{width:8px !important;height:8px !important;border-radius:50% !important;flex-shrink:0 !important;display:inline-block !important;}
+#buscaSugestoes .sug-nome{flex:1 !important;white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;font-size:0.8rem !important;}
+#buscaSugestoes .sug-nome em{color:var(--accent) !important;font-style:normal !important;font-weight:800 !important;}
+#buscaSugestoes .sug-count{font-size:0.65rem !important;color:#555 !important;flex-shrink:0 !important;}
+#buscaSugestoes .sug-header{padding:0.3rem 0.9rem !important;font-size:0.6rem !important;font-weight:700 !important;letter-spacing:1.5px !important;text-transform:uppercase !important;color:#aaa !important;background:#111 !important;display:block !important;}
+#buscaSugestoes::-webkit-scrollbar{width:3px;}
+#buscaSugestoes::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.3);border-radius:99px;}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .page{padding:1rem 0.85rem 5rem;}
+  .hero{flex-direction:column;align-items:flex-start;gap:0.8rem;}
+  .title{font-size:1.2rem;}
+  .stats-bar{gap:0.8rem;padding:0.75rem 0.9rem;}
+  .filtros-wrap{flex-direction:column;gap:0.4rem;}
+  .filtros-wrap input{min-width:unset;max-width:100%;}
+  .overlay{padding:0.5rem;align-items:flex-end;}
+  .modal-box{border-radius:20px 20px 0 0;max-height:92vh;}
+  .perfil-overlay{padding:0;align-items:flex-end;}
+  .perfil-box{border-radius:20px 20px 0 0;max-height:95vh;}
+  .toast{width:90%;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Pipeline · ATS</div>
+      <div class="title">Banco por <span>Área</span> <span id="headerCount" style="display:inline-flex;align-items:center;justify-content:center;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);color:#3b82f6;font-size:0.7rem;font-weight:900;border-radius:99px;padding:0.1rem 0.65rem;vertical-align:middle;margin-left:0.4rem;letter-spacing:0;">0</span></div>
+      <div class="sub">Candidatos organizados por área de atuação — perfil completo, multi-área, filtros avançados.</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+      <button class="btn btn-ghost" onclick="exportarCSV()">📊 Exportar CSV</button>
+      <button class="btn btn-ghost" onclick="abrirImportCSVAreas()" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">📥 Importar CSV</button>
+      <button class="btn btn-green" onclick="abrirModalNovaArea()">📂 Nova Área</button>
+      <button class="btn btn-accent" onclick="abrirAddCandGlobal()">+ Adicionar Candidato</button>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar" id="statsBar" style="display:none;">
+    <div class="stat-item">
+      <div class="stat-val" id="statTotal">0</div>
+      <div class="stat-lbl">Candidatos</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-val" id="statAreas">0</div>
+      <div class="stat-lbl">Áreas</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-val" id="statFit">0</div>
+      <div class="stat-lbl">Com Fit</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-disc">
+      <div class="stat-disc-item"><div class="stat-disc-val" id="statD" style="color:#e74c3c;">0</div><div class="stat-disc-lbl" style="color:#e74c3c;">D</div></div>
+      <div class="stat-disc-item"><div class="stat-disc-val" id="statI" style="color:#f39c12;">0</div><div class="stat-disc-lbl" style="color:#f39c12;">I</div></div>
+      <div class="stat-disc-item"><div class="stat-disc-val" id="statS" style="color:#2ecc71;">0</div><div class="stat-disc-lbl" style="color:#2ecc71;">S</div></div>
+      <div class="stat-disc-item"><div class="stat-disc-val" id="statC" style="color:#3498db;">0</div><div class="stat-disc-lbl" style="color:#3498db;">C</div></div>
+    </div>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="filtros-wrap">
+    <!-- Honeypots anti-autofill: o browser preenche estes campos invisíveis em vez do real -->
+    <input type="text"  style="display:none;" aria-hidden="true" tabindex="-1" autocomplete="username"/>
+    <input type="email" style="display:none;" aria-hidden="true" tabindex="-1" autocomplete="email"/>
+    <div style="position:relative;flex:1;min-width:200px;max-width:320px;">
+      <input type="search" id="fBusca" name="busca_areas_x9k" placeholder="🔍 Buscar candidato, vaga ou área…" oninput="onBuscaInput()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:100%;" onfocus="onBuscaFocus()" onblur="setTimeout(fecharSugestoes,180)" onkeydown="onBuscaKey(event)"/>
+      <div id="buscaSugestoes" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:8888;background:#1a1a1a;border:1px solid rgba(59,130,246,0.35);border-radius:10px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.6);max-height:260px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;"></div>
+    </div>
+    <select id="fPerfil" onchange="renderAreas()">
+      <option value="">Todos os perfis</option>
+      <option value="D">🔴 Dominância (D)</option>
+      <option value="I">🟡 Influência (I)</option>
+      <option value="S">🟢 Estabilidade (S)</option>
+      <option value="C">🔵 Conformidade (C)</option>
+    </select>
+    <select id="fArea" onchange="renderAreas()">
+      <option value="">Todas as áreas</option>
+    </select>
+    <select id="fFit" onchange="renderAreas()">
+      <option value="">Todos — Fit</option>
+      <option value="com">Com Fit Score</option>
+      <option value="sem">Sem Fit Score</option>
+      <option value="80">Fit ≥ 80%</option>
+      <option value="65">Fit ≥ 65%</option>
+    </select>
+    <select id="fStatus" onchange="renderAreas()">
+      <option value="">Todos — Status</option>
+      <option value="respondeu">✅ Respondeu</option>
+      <option value="nao_respondeu">❌ Não respondeu</option>
+      <option value="sem_retorno">⏳ Sem retorno</option>
+      <option value="pendencia_docs">📁 Pendência docs</option>
+      <option value="pendencia_info">📋 Pendência info</option>
+    </select>
+    <select id="fDocs" onchange="renderAreas()">
+      <option value="">Todos — Docs</option>
+      <option value="ok">📁 Docs completos</option>
+      <option value="pend">⏳ Docs pendentes</option>
+    </select>
+    <span class="count-txt" id="cCount"></span>
+  </div>
+
+  <!-- ÁREAS -->
+  <div id="areasWrap">
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      <div>Carregando candidatos…</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ MODAL: NOVA / EDITAR ÁREA ══ -->
+<div class="overlay" id="modalArea" style="display:none;" onclick="if(event.target===this)fecharModalArea()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="fecharModalArea()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;" id="mAreaEyebrow">Nova Área</div>
+    <div class="modal-title" id="mAreaTitle">Criar nova área</div>
+    <p class="modal-sub">Nomeie a área de atuação onde os candidatos serão organizados.</p>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">Nome da área</label>
+      <input type="text" id="mAreaNome" class="field-inp" placeholder="Ex: Almoxarifado, Manutenção, RH…" maxlength="60" onkeydown="if(event.key==='Enter')salvarArea()"/>
+    </div>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">📝 Descrição (opcional)</label>
+      <input type="text" id="mAreaDesc" class="field-inp" placeholder="Ex: Candidatos com perfil para estoque e logística interna"/>
+    </div>
+    <div style="margin-bottom:1.1rem;">
+      <label class="field-lbl">Cor identificadora</label>
+      <div class="cor-picker" id="corPicker"></div>
+    </div>
+    <button onclick="salvarArea()" class="save-btn" id="mAreaSaveBtn">💾 Criar área</button>
+    <div id="mAreaEditId" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL: ADICIONAR CANDIDATO ══ -->
+<div class="overlay" id="modalAddCand" style="display:none;" onclick="if(event.target===this)fecharModalAddCand()">
+  <div class="modal-box" style="max-width:520px;">
+    <button class="modal-close" onclick="fecharModalAddCand()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;">Banco de Talentos · Importar</div>
+    <div class="modal-title">Adicionar candidato</div>
+    <p class="modal-sub" id="mAddSub">Selecione candidatos do Banco de Talentos para adicionar à área.</p>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">Área de destino</label>
+      <select id="mAddArea" class="field-inp" style="background-color:#1a1a1a;">
+        <option value="">Selecione uma área…</option>
+      </select>
+    </div>
+    <input type="text" id="mAddBusca" class="add-busca" placeholder="🔍 Buscar candidato no banco…" oninput="filtrarListaAdd()"/>
+    <div style="margin-bottom:0.5rem;">
+      <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.72rem;color:var(--muted);">
+        <input type="checkbox" id="mAddMostrarTodos" style="accent-color:var(--accent);cursor:pointer;" onchange="filtrarListaAdd()"/>
+        Mostrar candidatos já em alguma área
+      </label>
+    </div>
+    <div class="add-cand-list" id="mAddList"></div>
+    <div style="display:flex;gap:0.6rem;margin-top:0.5rem;">
+      <button onclick="confirmarAddCand()" class="save-btn" style="flex:1;">✅ Adicionar selecionados</button>
+      <button onclick="fecharModalAddCand()" style="background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.7rem 1rem;font-family:inherit;font-size:0.8rem;cursor:pointer;">Cancelar</button>
+    </div>
+    <div id="mAddMsg" style="display:none;text-align:center;font-size:0.7rem;color:#2ecc71;margin-top:0.4rem;font-weight:700;"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL: GERENCIAR ÁREAS DO CANDIDATO ══ -->
+<div class="overlay" id="modalMover" style="display:none;" onclick="if(event.target===this)fecharModalMover()">
+  <div class="modal-box" style="max-width:420px;">
+    <button class="modal-close" onclick="fecharModalMover()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;">Gerenciar Áreas</div>
+    <div class="modal-title">Áreas de <span id="mMoverNome" style="color:var(--accent);">—</span></div>
+    <p class="modal-sub">Selecione em quais áreas este candidato deve aparecer. Pode ser em múltiplas áreas simultaneamente.</p>
+    <div class="mover-area-list" id="mMoverLista"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.3rem;">
+      <button onclick="salvarAreasDoMover()" class="save-btn" style="flex:1;">✅ Salvar áreas</button>
+      <button onclick="removerDaArea()" style="background:rgba(231,76,60,0.1);color:#e74c3c;border:1px solid rgba(231,76,60,0.25);border-radius:10px;padding:0.7rem 0.85rem;font-family:inherit;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">↩️ Devolver ao Banco</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: CONFIRMAR EXCLUIR ÁREA ══ -->
+<div class="overlay" id="modalDelArea" style="display:none;" onclick="if(event.target===this)fecharDelArea()">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <button class="modal-close" onclick="fecharDelArea()">✕</button>
+    <div style="font-size:2rem;margin-bottom:0.5rem;">🗑️</div>
+    <div class="modal-title" style="color:#e74c3c;">Excluir área?</div>
+    <p class="modal-sub">A área <strong id="delAreaNome" style="color:#f0f0f0;">—</strong> será removida. Os candidatos voltam ao estado sem área.</p>
+    <div style="display:flex;gap:0.6rem;margin-top:0.5rem;">
+      <button onclick="executarDelArea()" style="flex:1;background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:0.75rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">🗑️ Excluir</button>
+      <button onclick="fecharDelArea()" style="background:rgba(255,255,255,0.06);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.75rem 1.1rem;font-family:inherit;font-size:0.82rem;cursor:pointer;">Cancelar</button>
+    </div>
+    <div id="delAreaId" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL: COPIAR PARA OUTRA ÁREA ══ -->
+<div class="overlay" id="modalCopiarArea" style="display:none;" onclick="if(event.target===this)fecharModalCopiarArea()">
+  <div class="modal-box" style="max-width:420px;">
+    <button class="modal-close" onclick="fecharModalCopiarArea()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#f39c12;margin-bottom:0.3rem;">Multi-área · Copiar</div>
+    <div class="modal-title">Copiar <span id="mCopiarNome" style="color:#f39c12;">—</span> para outra área</div>
+    <p class="modal-sub">O candidato permanece na área atual e também aparecerá nas áreas selecionadas abaixo.</p>
+    <div class="copiar-area-list" id="mCopiarLista"></div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.3rem;">
+      <button onclick="salvarCopiarArea()" class="save-btn" style="flex:1;background:linear-gradient(135deg,#b45309,#f59e0b);color:#000;">📋 Adicionar às áreas selecionadas</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL PERFIL COMPLETO ══ -->
+<div class="perfil-overlay" id="modalPerfilArea" style="display:none;" onclick="if(event.target===this)fecharPerfilArea()">
+  <div class="perfil-box">
+    <button onclick="fecharPerfilArea()" style="position:absolute;top:0.85rem;right:0.85rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;z-index:1;">✕</button>
+    <!-- HEADER -->
+    <div class="perfil-hdr">
+      <div class="perfil-avatar-lg" id="paAvatar" style="border-color:#888;color:#888;">⬜</div>
+      <div style="flex:1;min-width:0;">
+        <div id="paNome" style="font-size:1rem;font-weight:900;padding-right:2rem;"></div>
+        <div id="paMeta" style="font-size:0.7rem;color:#777;margin-top:0.1rem;"></div>
+        <!-- ÁREA BADGE -->
+        <div id="paAreaBadge" style="margin-top:0.4rem;display:flex;gap:0.3rem;flex-wrap:wrap;"></div>
+        <!-- BOTÃO PARECER FINAL -->
+        <button class="btn-parecer-final" onclick="abrirSenhaParecerArea()" id="btnParecerFinalArea">
+          <span class="pf-left"><span style="font-size:1.05rem;">📑</span><span>Parecer Final do Candidato</span><span class="pf-badge" id="pfBadgeStatusArea">sem link</span></span>
+          <span style="font-size:0.75rem;opacity:0.6;">🔐 →</span>
+        </button>
+        <!-- BOTÕES AÇÃO RÁPIDA -->
+        <div id="paAcoes" style="display:flex;gap:0.4rem;margin-top:0.55rem;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+    <div class="perfil-body">
+
+      <!-- AÇÕES BANCO DE ÁREAS — destaque -->
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button onclick="devolverAoBancoFromPerfil()" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:0.4rem;background:rgba(231,76,60,0.1);border:1.5px solid rgba(231,76,60,0.3);border-radius:12px;padding:0.7rem;color:#e74c3c;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;">
+          ↩️ Devolver ao Banco de Talentos
+        </button>
+        <button onclick="abrirCopiarAreaFromPerfil()" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:0.4rem;background:rgba(243,156,18,0.1);border:1.5px solid rgba(243,156,18,0.3);border-radius:12px;padding:0.7rem;color:#f39c12;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;">
+          📋 Copiar para outra área
+        </button>
+        <button onclick="abrirGerenciarAreasFromPerfil()" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:0.4rem;background:rgba(59,130,246,0.08);border:1.5px solid rgba(59,130,246,0.25);border-radius:12px;padding:0.7rem;color:#3b82f6;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;">
+          🗂️ Gerenciar áreas
+        </button>
+      </div>
+
+      <!-- SCORES -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">📊 Scores de Compatibilidade</div>
+        <div id="paScores"></div>
+      </div>
+
+      <!-- ORIGEM E DISC -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">🔍 Origem &amp; DISC</div>
+        <div id="paOrigemConteudo"></div>
+      </div>
+
+      <!-- DADOS DO CANDIDATO -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">👤 Dados do Candidato</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div>
+            <label class="perfil-lbl">Nome</label>
+            <input type="text" id="paNomeEdit" class="perfil-inp" placeholder="Nome completo"/>
+          </div>
+          <div>
+            <label class="perfil-lbl">Vaga</label>
+            <input type="text" id="paVagaEdit" class="perfil-inp" placeholder="Título da vaga"/>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div>
+            <label class="perfil-lbl">📧 E-mail</label>
+            <div style="display:flex;gap:0.3rem;">
+              <input type="email" id="paEmail" class="perfil-inp" placeholder="candidato@email.com" style="flex:1;min-width:0;" autocomplete="off"/>
+              <button onclick="var e=document.getElementById('paEmail').value.trim();if(e)window.open('mailto:'+e);else mostrarToast('Preencha o e-mail',true);" style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);border-radius:8px;padding:0 0.6rem;font-size:1.1rem;cursor:pointer;flex-shrink:0;">📧</button>
+            </div>
+          </div>
+          <div>
+            <label class="perfil-lbl">📲 WhatsApp / Telefone</label>
+            <div style="display:flex;gap:0.3rem;">
+              <input type="text" id="paTel" class="perfil-inp" placeholder="(51) 9 9999-9999" maxlength="16" oninput="mascaraTelArea(this)" style="flex:1;min-width:0;" autocomplete="off"/>
+              <button onclick="var n=document.getElementById('paTel').value.replace(/\D/g,'');if(n)window.top.open('https://wa.me/55'+n);else mostrarToast('Preencha o telefone',true);" style="background:rgba(37,211,102,0.15);color:#25D366;border:1px solid rgba(37,211,102,0.3);border-radius:8px;padding:0 0.6rem;font-size:1.1rem;cursor:pointer;flex-shrink:0;">📲</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">🔗 LinkedIn / Perfil externo</label>
+          <div style="display:flex;gap:0.3rem;">
+            <input type="url" id="paLinkExt" class="perfil-inp" placeholder="https://linkedin.com/in/…" style="flex:1;min-width:0;"/>
+            <button onclick="var l=document.getElementById('paLinkExt').value.trim();if(l)window.open(l);else mostrarToast('Preencha o link',true);" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.3);border-radius:8px;padding:0 0.6rem;font-size:1.1rem;cursor:pointer;flex-shrink:0;">🔗</button>
+          </div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">📍 Cidade / Localização</label>
+          <input type="text" id="paCidade" class="perfil-inp" placeholder="Ex: Porto Alegre, RS"/>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">📄 Currículo (Google Drive, Dropbox…)</label>
+          <div style="display:flex;gap:0.3rem;">
+            <input type="url" id="paCurriculo" class="perfil-inp" placeholder="https://drive.google.com/file/…" style="flex:1;min-width:0;"/>
+            <button onclick="var c=document.getElementById('paCurriculo').value.trim();if(c)window.open(c);else mostrarToast('Preencha o link',true);" style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);border-radius:8px;padding:0 0.6rem;font-size:1.1rem;cursor:pointer;flex-shrink:0;">📄</button>
+          </div>
+        </div>
+        <button onclick="salvarDadosCandArea()" class="perfil-save-btn">💾 Salvar dados</button>
+        <div id="paSaveDadosMsg" style="display:none;text-align:center;font-size:0.72rem;color:#2ecc71;margin-top:0.4rem;font-weight:700;">✓ Salvo!</div>
+      </div>
+
+      <!-- SCORES MANUAIS -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">✏️ Ajuste de Scores</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div><label class="perfil-lbl">Fit Score manual (0–100)</label><input type="number" min="0" max="100" id="paFitManual" class="perfil-inp" placeholder="Ex: 72"/></div>
+          <div><label class="perfil-lbl">Aderência à vaga (0–100)</label><input type="number" min="0" max="100" id="paAderencia" class="perfil-inp" placeholder="Ex: 65"/></div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">🧑‍💼 Score do Recrutador (0–100)</label>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <input type="number" min="0" max="100" id="paScoreRec" class="perfil-inp" placeholder="Ex: 85" style="flex:1;" oninput="paAtualizarPreviewScoreRec(this)"/>
+            <div id="paScoreRecPreview" style="font-size:1rem;font-weight:900;min-width:40px;text-align:center;color:#777;">—</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div><label class="perfil-lbl">Link DISC</label><input type="url" id="paLinkDisc" class="perfil-inp" placeholder="https://…"/></div>
+          <div><label class="perfil-lbl">Link Fit Score</label><input type="url" id="paLinkFit" class="perfil-inp" placeholder="https://…"/></div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.18);border-radius:9px;padding:0.5rem 0.75rem;">
+            <input type="checkbox" id="paDocCompleta" style="accent-color:#2ecc71;width:16px;height:16px;cursor:pointer;flex-shrink:0;"/>
+            <div>
+              <div style="font-size:0.78rem;font-weight:700;color:#2ecc71;">📁 Documentação completa</div>
+              <div style="font-size:0.62rem;color:#666;">Marque quando o candidato tiver toda a documentação entregue</div>
+            </div>
+          </label>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <label class="perfil-lbl">💬 Status de Contato</label>
+          <select id="paStatusContato" class="perfil-inp" style="background-color:#1a1a1a;" onchange="salvarStatusContatoPerfilArea()">
+            <option value="">— Sem status</option>
+            <option value="respondeu">✅ Respondeu</option>
+            <option value="nao_respondeu">❌ Não respondeu</option>
+            <option value="sem_retorno">⏳ Sem retorno</option>
+            <option value="pendencia_docs">📁 Pendência docs</option>
+            <option value="pendencia_info">📋 Pendência info</option>
+          </select>
+        </div>
+        <button onclick="salvarManualArea()" class="perfil-save-btn">💾 Salvar scores</button>
+        <div id="paSaveMsg" style="display:none;text-align:center;font-size:0.72rem;color:#2ecc71;margin-top:0.4rem;font-weight:700;">✓ Salvo!</div>
+
+        <!-- MOVER PARA PIPELINE -->
+        <div style="margin-top:0.8rem;">
+          <label class="perfil-lbl">🚀 Mover para pipeline</label>
+          <div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap;">
+            <select id="paMoverVaga" class="perfil-inp" style="flex:1;min-width:140px;">
+              <option value="">Selecione uma vaga ativa…</option>
+            </select>
+            <select id="paMoverEtapa" class="perfil-inp" style="width:130px;">
+              <option value="triagem">🔵 Triagem</option>
+              <option value="pre">🟣 Pré-seleção</option>
+              <option value="entrevista">🟡 Entrevista</option>
+              <option value="finalista">🟢 Finalista</option>
+              <option value="aprovado">✅ Aprovado</option>
+            </select>
+            <button onclick="moverParaPipelinePerfil()" style="background:rgba(59,130,246,0.2);color:#3b82f6;border:1px solid rgba(59,130,246,0.4);border-radius:9px;padding:0.58rem 0.7rem;font-family:inherit;font-size:0.75rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;">➕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTREVISTA IA -->
+      <div class="perfil-sec" id="paEntrevistaWrap" style="display:none;">
+        <div class="perfil-sec-title">🎤 Resultado da Entrevista IA</div>
+        <div id="paEntrevistaConteudo"></div>
+      </div>
+
+      <!-- IMPORTAR URL -->
+      <div class="perfil-sec">
+        <button onclick="var w=document.getElementById('paImportarWrap');w.style.display=w.style.display==='none'?'block':'none';" style="width:100%;background:rgba(52,152,219,0.06);color:#3498db;border:1px solid rgba(52,152,219,0.18);border-radius:8px;padding:0.4rem;font-family:inherit;font-size:0.72rem;font-weight:700;cursor:pointer;">⚡ Importar resultado por link (DISC ou Entrevista)</button>
+        <div id="paImportarWrap" style="display:none;margin-top:0.65rem;">
+          <div class="perfil-sec-title" style="color:#3498db;">⚡ Importar resultado por link</div>
+          <textarea id="paUrlImport" class="perfil-inp ta" placeholder="https://agencianexus.github.io/agencianexus/entrevista-resultado.html?nome=…" style="min-height:72px;"></textarea>
+          <div class="import-preview" id="paImportPreview"></div>
+          <div style="display:flex;gap:0.5rem;margin-top:0.6rem;">
+            <button onclick="importarUrlArea()" class="perfil-save-btn" style="flex:1;">⚡ Importar e Salvar</button>
+            <button onclick="document.getElementById('paUrlImport').value='';document.getElementById('paImportPreview').style.display='none';" style="background:rgba(255,255,255,0.05);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.6rem 0.9rem;font-family:inherit;font-size:0.78rem;cursor:pointer;">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══ SUPABASE — via módulo de segurança ═══
+const SUPABASE_URL = (typeof NexusSec!=='undefined'&&NexusSec._url)||'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = (typeof NexusSec!=='undefined'&&NexusSec._key)||'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+const PIPE_KEY = 'nexus_pipeline_v1';
+const AREAS_KEY  = 'nexus_areas_v2';
+const ASSIGN_KEY = 'nexus_areas_assign_v2';
+const VAGA_OVERRIDE_KEY = 'nexus_vaga_area_overrides';
+const SB_AREAS   = 'areas_secoes';
+const SB_ASSIGN  = 'areas_assign';
+
+const COR  = {D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+const EMO  = {D:'🔴',I:'🟡',S:'🟢',C:'🔵'};
+const COMBOS = {'DI':'Realizador Influente','DS':'Executor Consistente','DC':'Estrategista Analítico','ID':'Influenciador Decisivo','IS':'Comunicador Acolhedor','IC':'Comunicador Criterioso','SD':'Apoiador Assertivo','SI':'Facilitador Inspirador','SC':'Colaborador Meticuloso','CD':'Analítico Decisivo','CI':'Analítico Relacional','CS':'Especialista Confiável'};
+const AREA_CORES = ['#2ecc71','#3b82f6','#f59e0b','#8b5cf6','#ef4444','#ec4899','#2563eb','#f97316','#a855f7','#3b82f6'];
+
+const _SC_LABELS = { respondeu:'✅ Respondeu', nao_respondeu:'❌ Não respondeu', sem_retorno:'⏳ Sem retorno', pendencia_docs:'📁 Pendência docs', pendencia_info:'📋 Pendência info' };
+function _scClass(v){ const m={respondeu:'sc-respondeu',nao_respondeu:'sc-nao_respondeu',sem_retorno:'sc-sem_retorno',pendencia_docs:'sc-pendencia_docs',pendencia_info:'sc-pendencia_info'}; return m[v]||'sc-pendente'; }
+
+/* ═══ ESTADO GLOBAL ═══ */
+let _allCands  = [];
+let _areas     = [];
+let _assign    = {};
+let _collapsos = {};
+let _addSelectedIds = new Set();
+let _addAreaTarget  = null;
+let _moverCandId    = null;
+let _copiarCandId   = null;
+let _perfilAtual    = null;
+let _corSelecionada = AREA_CORES[0];
+let _vagasList      = [];
+let _vagaOverrides  = {}; // "candId||areaId" -> vaga name por área
+
+/* ═══ UTILS ═══ */
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function mostrarToast(msg, erro=false){
+  const t = document.getElementById('toast'); if(!t) return;
+  t.textContent = msg; t.className = 'toast'+(erro?' erro':'');
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+function gerarId(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+
+function mascaraTelArea(input){
+  let v = input.value.replace(/\D/g,'');
+  if(v.length > 11) v = v.slice(0,11);
+  if(v.length <= 10) v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/,'($1) $2'+(v.length>6?'-':'')+'$3');
+  else v = v.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})/,'($1) $2 $3'+(v.length>8?'-':'')+'$4');
+  input.value = v;
+}
+
+/* ═══ SUPABASE HELPERS ═══ */
+async function sbGet(table, filter=''){
+  const url = `${SUPABASE_URL}/rest/v1/${table}?select=*${filter}&order=criado_em.asc`;
+  const res = await fetch(url,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+  if(!res.ok){ const txt = await res.text(); throw new Error('sbGet '+table+' HTTP '+res.status+': '+txt); }
+  return res.json();
+}
+async function sbUpsert(table, data){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`,{
+    method:'POST',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+    body:JSON.stringify(data)
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res;
+}
+async function sbDelete(table, eq){
+  const [col,val] = eq.split('=');
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${col}=eq.${encodeURIComponent(val)}`,{
+    method:'DELETE',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  });
+  if(!res.ok) throw new Error(await res.text());
+}
+async function sbPatch(table, filter, data){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}`,{
+    method:'PATCH',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify(data)
+  });
+  if(!res.ok) throw new Error('Supabase '+res.status);
+}
+
+/* ═══ SUPABASE DB ═══ */
+async function carregarAreasDB(){
+  try{
+    const rows = await sbGet(SB_AREAS);
+    const areas = rows.map(r=>({id:r.id,nome:r.nome,cor:r.cor,descricao:r.descricao||'',criado_em:r.criado_em}));
+    localStorage.setItem(AREAS_KEY, JSON.stringify(areas));
+    return areas;
+  }catch(e){
+    console.warn('Supabase areas offline:', e.message);
+    try{ return JSON.parse(localStorage.getItem(AREAS_KEY))||[]; }catch{ return []; }
+  }
+}
+async function salvarAreaDB(area){
+  // ── SUPABASE PRIMEIRO ──────────────────────────────────────
+  try{
+    await sbUpsert(SB_AREAS,[{id:area.id,nome:area.nome,cor:area.cor,descricao:area.descricao||null,criado_em:area.criado_em||new Date().toISOString()}]);
+    localStorage.setItem(AREAS_KEY, JSON.stringify(_areas));
+  }catch(e){
+    console.warn('Supabase salvarArea erro — salvando só no localStorage:', e.message);
+    localStorage.setItem(AREAS_KEY, JSON.stringify(_areas));
+    throw e;
+  }
+}
+async function deletarAreaDB(id){
+  // ── SUPABASE PRIMEIRO ──────────────────────────────────────
+  try{
+    await sbDelete(SB_AREAS,`id=${id}`);
+    localStorage.setItem(AREAS_KEY, JSON.stringify(_areas));
+  }catch(e){
+    console.warn('Supabase deletarArea erro:', e.message);
+    localStorage.setItem(AREAS_KEY, JSON.stringify(_areas));
+    throw e;
+  }
+}
+
+async function carregarAssignDB(){
+  // ── SUPABASE É A FONTE DE VERDADE ──────────────────────────
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${SB_ASSIGN}?select=cand_id,area_id,vaga`,
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Cache-Control':'no-cache'}});
+    if(res.ok){
+      const rows = await res.json();
+      const assignFinal = {};
+      _vagaOverrides = {};
+      if(Array.isArray(rows)){
+        rows.forEach(r=>{
+          if(!r.area_id) return;
+          const cid = String(r.cand_id);
+          if(!assignFinal[cid]) assignFinal[cid] = [];
+          if(!assignFinal[cid].includes(r.area_id)) assignFinal[cid].push(r.area_id);
+          if(r.vaga) _vagaOverrides[cid+'||'+r.area_id] = r.vaga;
+        });
+      }
+      // Atualiza cache local com dados frescos do Supabase
+      localStorage.setItem(ASSIGN_KEY, JSON.stringify(assignFinal));
+      localStorage.setItem(VAGA_OVERRIDE_KEY, JSON.stringify(_vagaOverrides));
+      return assignFinal;
+    }
+  }catch(e){ console.warn('Supabase assign indisponível — usando cache localStorage:', e.message); }
+
+  // ── PLANO B: localStorage (somente se Supabase falhou) ─────
+  try{
+    const raw = JSON.parse(localStorage.getItem(ASSIGN_KEY)||'{}');
+    const assignFinal = {};
+    Object.entries(raw).forEach(([cid, val])=>{
+      if(Array.isArray(val)) assignFinal[cid] = val.filter(Boolean);
+      else if(val) assignFinal[cid] = [String(val)];
+    });
+    try{ Object.assign(_vagaOverrides, JSON.parse(localStorage.getItem(VAGA_OVERRIDE_KEY)||'{}')); }catch{}
+    return assignFinal;
+  }catch{ return {}; }
+}
+
+async function salvarAssignDB(candId, areaIds){
+  // ── SUPABASE PRIMEIRO ──────────────────────────────────────
+  try{
+    await sbDelete(SB_ASSIGN, `cand_id=${candId}`);
+    if(Array.isArray(areaIds) && areaIds.length)
+      await sbUpsert(SB_ASSIGN, areaIds.map(aid=>({
+        cand_id: String(candId),
+        area_id: String(aid),
+        vaga: _vagaOverrides[String(candId)+'||'+String(aid)]||null
+      })));
+  }catch(e){
+    console.warn('Supabase assign error:', e.message);
+    // ── PLANO B: localStorage somente se Supabase falhou ─────
+    localStorage.setItem(ASSIGN_KEY, JSON.stringify(_assign));
+    localStorage.setItem(VAGA_OVERRIDE_KEY, JSON.stringify(_vagaOverrides));
+  }
+}
+
+function getAreasDoCandiato(candId){
+  const val = _assign[String(candId)];
+  if(!val) return [];
+  if(Array.isArray(val)) return val;
+  return val ? [val] : [];
+}
+function salvarAreas(a){ localStorage.setItem(AREAS_KEY, JSON.stringify(a)); }
+function salvarAssign(a){ /* localStorage desativado — Supabase é a fonte de verdade */ }
+
+/* ═══ FETCH CANDIDATOS ═══ */
+async function fetchCandidatos(){
+  try{
+    let todos = [];
+    let offset = 0;
+    const limite = 1000;
+    while(true){
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/disc_historico?select=*&order=criado_em.desc&limit=${limite}&offset=${offset}`,
+        {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Cache-Control':'no-cache'}}
+      );
+      if(!res.ok){ const txt = await res.text(); throw new Error('HTTP '+res.status+': '+txt); }
+      const data = await res.json();
+      if(!Array.isArray(data)||data.length===0) break;
+      // Extrai e-mail/tel da URL se não tiver no campo
+      data.forEach(h=>{
+        if(!h.email_externo){ const u=h.url||h.url_resultado_fit||''; if(u){ try{const p=new URL(u).searchParams;const em=p.get('email');if(em)h.email_externo=decodeURIComponent(em).toLowerCase().trim();}catch(e){} } }
+        if(!h.tel_externo){ const u=h.url||h.url_resultado_fit||''; if(u){ try{const p=new URL(u).searchParams;const t=p.get('tel')||p.get('telefone');if(t)h.tel_externo=t;}catch(e){} } }
+      });
+      todos = todos.concat(data);
+      if(data.length < limite) break;
+      offset += limite;
+    }
+    _allCands = todos;
+  }catch(e){
+    console.error('fetchCandidatos falhou:', e);
+    mostrarToast('Erro ao carregar candidatos: '+e.message, true);
+    _allCands = [];
+  }
+}
+
+/* ═══ AUTOCOMPLETE BUSCA ═══ */
+let _sugIdx = -1;
+
+function onBuscaFocus(){
+  const inp = document.getElementById('fBusca');
+  inp.style.borderColor = 'var(--accent)';
+  if((inp.value||'').trim().length > 0) renderSugestoes(inp.value);
+}
+
+function onBuscaInput(){
+  const val = document.getElementById('fBusca').value;
+  _sugIdx = -1;
+  if(val.trim().length === 0){
+    fecharSugestoes();
+    renderAreas();
+    return;
+  }
+  renderSugestoes(val);
+  renderAreas();
+}
+
+function renderSugestoes(q){
+  const box = document.getElementById('buscaSugestoes');
+  const t = q.toLowerCase().trim();
+  if(!t){ fecharSugestoes(); return; }
+
+  const areasMatch = _areas.filter(a=>(a.nome||'').toLowerCase().includes(t));
+  const candsMatch = _allCands.filter(c=>(c.nome||'').toLowerCase().includes(t)).slice(0,5);
+
+  if(!areasMatch.length && !candsMatch.length){ fecharSugestoes(); return; }
+
+  let html = '';
+
+  const SI = 'display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.05);color:#f0f0f0;background:transparent;transition:background 0.12s;';
+  const SH = 'display:block;padding:4px 14px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#555;background:#111;border-bottom:1px solid rgba(255,255,255,0.05);';
+  const SD = 'width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block;';
+  const SN = 'flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+  const SC = 'font-size:11px;color:#555;flex-shrink:0;white-space:nowrap;';
+
+  if(areasMatch.length){
+    html += `<div style="${SH}">Áreas</div>`;
+    html += areasMatch.slice(0,8).map((a,i)=>{
+      const total = _allCands.filter(h=>getAreasDoCandiato(h.id).includes(a.id)).length;
+      const nomeHL = esc(a.nome).replace(new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<em style="color:#2ecc71;font-style:normal;font-weight:800;">$1</em>');
+      return `<div style="${SI}" onmouseover="this.style.background='rgba(59,130,246,0.12)'" onmouseout="this.style.background='transparent'" onmousedown="selecionarArea('${esc(a.id)}','${esc(a.nome)}')">
+        <div style="${SD}background:${a.cor||'#2ecc71'};"></div>
+        <span style="${SN}">${nomeHL}</span>
+        <span style="${SC}">${total} cand.</span>
+      </div>`;
+    }).join('');
+  }
+
+  if(candsMatch.length){
+    html += `<div style="${SH}">Candidatos</div>`;
+    html += candsMatch.map((c,i)=>{
+      const nomeHL = esc(c.nome||'').replace(new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<em style="color:#2ecc71;font-style:normal;font-weight:800;">$1</em>');
+      const emoji = c.dom==='D'?'🔴':c.dom==='I'?'🟡':c.dom==='S'?'🟢':c.dom==='C'?'🔵':'⚪';
+      return `<div style="${SI}" onmouseover="this.style.background='rgba(59,130,246,0.12)'" onmouseout="this.style.background='transparent'" onmousedown="selecionarCandidato('${esc(String(c.id))}','${esc(c.nome||'')}')">
+        <span style="font-size:14px;flex-shrink:0;">${emoji}</span>
+        <span style="${SN}">${nomeHL}</span>
+        <span style="${SC}">${esc((c.vaga||'').slice(0,20))}</span>
+      </div>`;
+    }).join('');
+  }
+
+  box.innerHTML = html;
+  box.style.display = 'block';
+}
+
+function selecionarArea(id, nome){
+  document.getElementById('fArea').value = id;
+  document.getElementById('fBusca').value = '';
+  fecharSugestoes();
+  renderAreas();
+  if(_collapsos[id] !== false){ _collapsos[id] = false; }
+}
+
+function selecionarCandidato(id, nome){
+  document.getElementById('fBusca').value = nome;
+  fecharSugestoes();
+  renderAreas();
+}
+
+function fecharSugestoes(){
+  const box = document.getElementById('buscaSugestoes');
+  if(box) box.style.display = 'none';
+  _sugIdx = -1;
+  const inp = document.getElementById('fBusca');
+  if(inp) inp.style.borderColor = 'rgba(255,255,255,0.1)';
+}
+
+function onBuscaKey(e){
+  const box = document.getElementById('buscaSugestoes');
+  const items = box ? box.querySelectorAll('.sug-item') : [];
+  if(!items.length) return;
+  if(e.key==='ArrowDown'){
+    e.preventDefault();
+    _sugIdx = Math.min(_sugIdx+1, items.length-1);
+    items.forEach((el,i)=>el.classList.toggle('focused',i===_sugIdx));
+  } else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    _sugIdx = Math.max(_sugIdx-1, 0);
+    items.forEach((el,i)=>el.classList.toggle('focused',i===_sugIdx));
+  } else if(e.key==='Enter' && _sugIdx>=0){
+    e.preventDefault();
+    items[_sugIdx]?.dispatchEvent(new MouseEvent('mousedown'));
+  } else if(e.key==='Escape'){
+    fecharSugestoes();
+  }
+}
+
+/* ═══ INIT ═══ */
+
+// ═══ PIPELINE — salvar/remover ═══
+async function savePipeEntry(vagaSlug, candId, etapa){
+  const h={'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'};
+  const r=await fetch(SUPABASE_URL+'/rest/v1/pipeline?on_conflict=vaga_slug,candidato_id',{method:'POST',headers:h,body:JSON.stringify({vaga_slug:vagaSlug,candidato_id:String(candId),etapa,atualizado_em:new Date().toISOString()})});
+  if(!r.ok){const t=await r.text();throw new Error(r.status+': '+t);}
+  try{const pipe=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');if(!pipe[vagaSlug])pipe[vagaSlug]={};pipe[vagaSlug][String(candId)]=etapa;localStorage.setItem(PIPE_KEY,JSON.stringify(pipe));}catch(e){}
+}
+
+async function init(){
+  try{
+    _areas  = await carregarAreasDB();
+    _assign = await carregarAssignDB();
+    await fetchCandidatos();
+    // Carrega vagas
+    fetch(`${SUPABASE_URL}/rest/v1/vagas?order=criado_em.desc`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}})
+      .then(r=>r.json()).then(v=>{ if(Array.isArray(v)) _vagasList=v; }).catch(()=>{});
+    renderTudo();
+    document.getElementById('statsBar').style.display = 'flex';
+  }catch(e){
+    console.error('Erro no init:', e);
+    const wrap = document.getElementById('areasWrap');
+    if(wrap) wrap.innerHTML = `<div class="empty-state">
+      <div class="empty-state-ico">⚠️</div>
+      <h3 style="color:#e74c3c;">Erro ao carregar</h3>
+      <p>Não foi possível conectar ao servidor.<br>${e.message}</p>
+      <button class="btn btn-accent" onclick="location.reload()" style="margin-top:1rem;">🔄 Tentar novamente</button>
+    </div>`;
+  }
+}
+
+function renderTudo(){
+  renderStats();
+  renderFiltroAreas();
+  renderAreas();
+}
+
+/* ═══ DISC ESTIMADO + ADERÊNCIA ═══ */
+function estimarFitDisc(h){
+  if(!h.pct_d&&!h.pct_i&&!h.pct_s&&!h.pct_c) return null;
+  const d=parseFloat(h.pct_d)||0,i=parseFloat(h.pct_i)||0,s=parseFloat(h.pct_s)||0,c=parseFloat(h.pct_c)||0;
+  const vals=[d,i,s,c].sort((a,b)=>b-a);
+  const media=(d+i+s+c)/4;
+  const score=vals[0]*0.50+vals[1]*0.30+vals[2]*0.15+vals[3]*0.05;
+  const desvio=Math.sqrt(vals.reduce((acc,v)=>acc+Math.pow(v-media,2),0)/4);
+  return Math.min(100,Math.round(score*(desvio<15?1.05:1.0)));
+}
+function calcularAderencia(h){
+  if(h.aderencia_manual!=null) return {valor:parseInt(h.aderencia_manual),fonte:'man.'};
+  const disc=estimarFitDisc(h);
+  const fit=h.fit_score?parseInt(h.fit_score):null;
+  if(fit!=null&&disc!=null) return {valor:Math.round(fit*0.60+disc*0.40),fonte:'calc'};
+  if(fit!=null) return {valor:fit,fonte:'fit'};
+  if(disc!=null) return {valor:disc,fonte:'est.'};
+  return null;
+}
+
+/* ═══ STATS ═══ */
+function renderStats(){
+  const assignedIds = new Set(Object.keys(_assign).filter(cid=>getAreasDoCandiato(cid).length>0));
+  const cands = _allCands.filter(c=>assignedIds.has(String(c.id)));
+  document.getElementById('statTotal').textContent = cands.length;
+  document.getElementById('statAreas').textContent = _areas.length;
+  // Atualiza badge do título
+  const hc = document.getElementById('headerCount');
+  if(hc) hc.textContent = cands.length;
+  const comFit = cands.filter(c=>c.fit_score||c.fit_manual||c.url_resultado_fit).length;
+  document.getElementById('statFit').textContent = comFit;
+  const p = {D:0,I:0,S:0,C:0};
+  cands.forEach(c=>{ if(p[c.dom]!=null) p[c.dom]++; });
+  document.getElementById('statD').textContent = p.D;
+  document.getElementById('statI').textContent = p.I;
+  document.getElementById('statS').textContent = p.S;
+  document.getElementById('statC').textContent = p.C;
+}
+
+/* ═══ FILTRO ÁREAS SELECT ═══ */
+function renderFiltroAreas(){
+  const sel = document.getElementById('fArea');
+  const val = sel.value;
+  sel.innerHTML = '<option value="">Todas as áreas</option>' +
+    _areas.map(a=>`<option value="${esc(a.id)}">${esc(a.nome)}</option>`).join('');
+  if(val) sel.value = val;
+}
+
+/* ═══ RENDER ÁREAS ═══ */
+function renderAreas(){
+  const wrap = document.getElementById('areasWrap');
+  const busca   = (document.getElementById('fBusca')?.value||'').toLowerCase();
+  const perfil  = document.getElementById('fPerfil')?.value||'';
+  const areaFil = document.getElementById('fArea')?.value||'';
+  const fitFil  = document.getElementById('fFit')?.value||'';
+  const statusFil = document.getElementById('fStatus')?.value||'';
+  const docsFil  = document.getElementById('fDocs')?.value||'';
+
+  function filtrarCand(c, areaNome){
+    if(busca){
+      const b = busca.toLowerCase();
+      const matchNome  = (c.nome||'').toLowerCase().includes(b);
+      const matchVaga  = (c.vaga||'').toLowerCase().includes(b);
+      const matchArea  = areaNome ? areaNome.toLowerCase().includes(b) : false;
+      if(!matchNome && !matchVaga && !matchArea) return false;
+    }
+    if(perfil && c.dom !== perfil) return false;
+    if(fitFil==='com' && !(c.fit_score||c.fit_manual||c.url_resultado_fit)) return false;
+    if(fitFil==='sem' && (c.fit_score||c.fit_manual||c.url_resultado_fit)) return false;
+    if(fitFil==='80'){ const f=parseInt(c.fit_score||c.fit_manual||0); if(f<80) return false; }
+    if(fitFil==='65'){ const f=parseInt(c.fit_score||c.fit_manual||0); if(f<65) return false; }
+    if(statusFil && c.status_contato!==statusFil) return false;
+    if(docsFil==='ok' && !c.doc_completa) return false;
+    if(docsFil==='pend' && c.doc_completa) return false;
+    return true;
+  }
+
+  // Candidatos sem nenhuma área válida
+  const semAreaIds = Object.entries(_assign)
+    .filter(([cid, val])=>{ const arr=Array.isArray(val)?val:(val?[val]:[]); return arr.filter(aid=>_areas.find(a=>a.id===aid)).length===0; })
+    .map(([cid])=>cid);
+  let semAreaCands = _allCands.filter(c=>semAreaIds.includes(String(c.id))).filter(c=>filtrarCand(c,''));
+
+  if(!_areas.length){
+    if(semAreaCands.length){
+      wrap.innerHTML = `<div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:14px;padding:0.9rem 1.2rem;margin-bottom:1rem;">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--accent);margin-bottom:0.3rem;">📥 ${semAreaCands.length} candidato${semAreaCands.length>1?'s':''} aguardando organização</div>
+        <div style="font-size:0.7rem;color:#888;margin-bottom:0.85rem;">Adicionados mas sem área. Crie uma área para organizá-los.</div>
+        <button class="btn btn-accent" onclick="abrirModalNovaArea()" style="margin-bottom:0.85rem;">📂 Criar primeira área</button>
+        <div class="cands-grid">${semAreaCands.map(c=>candCardSemArea(c)).join('')}</div>
+      </div>`;
+    } else {
+      wrap.innerHTML = `<div class="empty-state">
+        <div class="empty-state-ico">📂</div>
+        <h3>Nenhuma área criada</h3>
+        <p>Crie áreas de atuação para organizar os candidatos por segmento. Ex: Almoxarifado, Produção, Manutenção, Logística…</p>
+        <button class="btn btn-accent" onclick="abrirModalNovaArea()">📂 Criar primeira área</button>
+      </div>`;
+    }
+    document.getElementById('cCount').textContent = '';
+    return;
+  }
+
+  const areasParaRender = areaFil ? _areas.filter(a=>a.id===areaFil) : _areas;
+  let totalVis = 0;
+  if(!areaFil) totalVis += semAreaCands.length;
+
+  const semAreaHtml = (!areaFil && semAreaCands.length) ? `
+    <div class="secao-card" style="border-color:rgba(255,255,255,0.12);margin-bottom:1rem;">
+      <div class="secao-hdr" style="border-left-color:#666;" onclick="toggleArea('__sem_area__')">
+        <div class="secao-dot" style="background:#555;"></div>
+        <div style="flex:1;min-width:0;">
+          <div class="secao-nome" style="color:#aaa;">📥 Sem área</div>
+          <div class="secao-meta">${semAreaCands.length} candidato${semAreaCands.length!==1?'s':''} · Adicionados, aguardando organização</div>
+        </div>
+        <button class="secao-toggle${_collapsos['__sem_area__']!==false?' collapsed':''}" onclick="event.stopPropagation();toggleArea('__sem_area__')">▼</button>
+      </div>
+      <div class="secao-body${_collapsos['__sem_area__']!==false?' hidden':''}" id="body-__sem_area__">
+        <div class="cands-grid">${semAreaCands.map(c=>candCardSemArea(c)).join('')}</div>
+      </div>
+    </div>` : '';
+
+  wrap.innerHTML = semAreaHtml + areasParaRender.map(a=>{
+    let cands = _allCands.filter(c=>getAreasDoCandiato(c.id).includes(a.id)).filter(c=>filtrarCand(c, a.nome||''));
+    const areaNomeBate = busca && (a.nome||'').toLowerCase().includes(busca.toLowerCase());
+    if((busca||perfil||fitFil||statusFil||docsFil) && cands.length===0 && !areaNomeBate) return '';
+    totalVis += cands.length;
+    return renderAreaCard(a, cands);
+  }).join('');
+
+  const txt = totalVis===1?'1 candidato':`${totalVis} candidatos`;
+  document.getElementById('cCount').textContent = txt+' em '+(areasParaRender.length+((!areaFil&&semAreaCands.length)?1:0))+' área(s)';
+  const hc=document.getElementById('headerCount'); if(hc) hc.textContent=totalVis;
+}
+
+function renderAreaCard(area, cands){
+  const cor = area.cor || '#2ecc71';
+  const collapsed = _collapsos[area.id] !== false;
+  const descHtml = area.descricao ? `<div style="font-size:0.6rem;color:#555;margin-top:0.1rem;">${esc(area.descricao)}</div>` : '';
+
+  return `<div class="secao-card">
+    <div class="secao-hdr" style="border-left-color:${cor};" onclick="toggleArea('${esc(area.id)}')">
+      <div class="secao-dot" style="background:${cor};"></div>
+      <div style="flex:1;min-width:0;">
+        <div class="secao-nome">${esc(area.nome)}</div>
+        ${descHtml}
+        <div class="secao-meta">${cands.length} candidato${cands.length!==1?'s':''}</div>
+      </div>
+      <div style="display:flex;gap:0.35rem;align-items:center;flex-shrink:0;" onclick="event.stopPropagation()">
+        <button onclick="abrirAddCand('${esc(area.id)}')" class="secao-btn" style="background:${cor}18;color:${cor};border-color:${cor}35;">+ Cand.</button>
+        <button onclick="editarArea('${esc(area.id)}')" class="secao-btn-icon" title="Editar área">✏️</button>
+        <button onclick="confirmarDelArea('${esc(area.id)}')" class="secao-btn-icon" style="color:#e74c3c;" title="Excluir área">🗑️</button>
+      </div>
+      <button class="secao-toggle${collapsed?' collapsed':''}" onclick="event.stopPropagation();toggleArea('${esc(area.id)}')">▼</button>
+    </div>
+    <div class="secao-body${collapsed?' hidden':''}" id="body-${esc(area.id)}">
+      ${cands.length
+        ? `<div class="cands-grid">${cands.map(c=>candCardArea(c,area)).join('')}</div>`
+        : `<div class="secao-empty">Nenhum candidato nesta área · <button class="secao-add-btn-inline" onclick="abrirAddCand('${esc(area.id)}')">Adicionar candidato</button></div>`
+      }
+      ${cands.length ? `<div style="display:flex;justify-content:flex-end;padding-top:0.3rem;"><button onclick="abrirAddCand('${esc(area.id)}')" class="secao-add-btn-inline">+ Adicionar candidato</button></div>` : ''}
+    </div>
+  </div>`;
+}
+
+function toggleArea(id){
+  _collapsos[id] = !(_collapsos[id] !== false);
+  renderAreas();
+}
+
+/* ═══ CARD CANDIDATO (COM ÁREA) ═══ */
+function candCardArea(h, area){
+  if(!h||!h.id) return '';
+  const cor   = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const combo = h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`;
+  const _fitRaw = parseInt(h.fit_score); const _fitOk = h.fit_score != null && !isNaN(_fitRaw);
+  const _manRaw = parseInt(h.fit_manual); const _manOk = h.fit_manual != null && !isNaN(_manRaw);
+  const fit   = _fitOk ? _fitRaw : (_manOk ? _manRaw : null);
+  const fitCor= fit!=null ? (fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c') : '#777';
+  const temDisc = !!(h.dom||h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  const acor = area.cor||'#2ecc71';
+  const vagaKey = String(h.id)+'||'+String(area.id);
+  const vagaDisplay = _vagaOverrides[vagaKey] || h.vaga || '—';
+  const todasAreas = getAreasDoCandiato(h.id).map(aid=>_areas.find(a=>a.id===aid)).filter(Boolean);
+  const outrasBadges = todasAreas.filter(a=>a.id!==area.id)
+    .map(a=>`<span class="badge-area" style="background:${a.cor||'#2ecc71'}15;border-color:${a.cor||'#2ecc71'}35;color:${a.cor||'#2ecc71'};">+${esc(a.nome)}</span>`).join('');
+
+  const fitEst = estimarFitDisc(h);
+  const aderCalc = calcularAderencia(h);
+  const ader = aderCalc ? aderCalc.valor : null;
+  const aderSrc = aderCalc ? aderCalc.fonte : null;
+  const isAderManual = h.aderencia_manual != null;
+
+  // Chips
+  let chips = temDisc
+    ? `<span class="chip chip-disc">${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</span>`
+    : `<span class="chip" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.15);color:#666;">Sem DISC</span>`;
+  if(fit!=null) chips+=`<span class="chip" style="background:${fitCor}15;border-color:${fitCor}33;color:${fitCor};">Fit ${fit}%</span>`;
+  if(ader!=null) chips+=`<span class="chip" style="background:rgba(167,139,250,0.12);border-color:rgba(167,139,250,0.35);color:#a78bfa;font-weight:800;">📊 ${ader}% vaga</span>`;
+  if(h.score_recrutador!=null){ const sr=parseInt(h.score_recrutador),sc=sr>=80?'#2ecc71':sr>=65?'#3b82f6':sr>=45?'#f39c12':'#e74c3c'; chips+=`<span class="chip" style="background:${sc}15;border-color:${sc}33;color:${sc};">🧑‍💼 ${sr}%</span>`; }
+  if(fitEst!=null){ const cfe=fitEst>=80?'#2ecc71':fitEst>=65?'#3b82f6':fitEst>=45?'#f39c12':'#e74c3c'; chips+=`<span class="chip" style="background:${cfe}15;border-color:${cfe}33;color:${cfe};" title="DISC estimado">🧠 DISC ${fitEst}%</span>`; }
+  if(h.doc_completa) chips+=`<span class="chip" style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:#2ecc71;">📁 Docs OK</span>`;
+  if(h.status_contato){ const _scColors={nao_respondeu:'#e74c3c',sem_retorno:'#f39c12',pendencia_docs:'#3498db',pendencia_info:'#a78bfa',respondeu:'#2ecc71'}; const _c=_scColors[h.status_contato]||'#888'; chips+=`<span class="chip" style="background:${_c}15;border-color:${_c}33;color:${_c};">${_SC_LABELS[h.status_contato]||h.status_contato}</span>`; }
+  if(outrasBadges) chips += outrasBadges;
+
+  // Barras fit
+  let bars = '';
+  if(fitEst!=null){ const c=fitEst>=80?'#2ecc71':fitEst>=65?'#3b82f6':fitEst>=45?'#f39c12':'#e74c3c'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${c};">🧠 DISC</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${fitEst}%;background:${c};"></div></div><span class="fit-bar-pct" style="color:${c};">${fitEst}%</span><span class="fit-bar-src">est.</span></div>`; }
+  if(_fitOk){ const fs=_fitRaw,c=fs>=80?'#2ecc71':fs>=65?'#3b82f6':fs>=45?'#f39c12':'#e74c3c'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${c};">🤖 Fit</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${fs}%;background:${c};"></div></div><span class="fit-bar-pct" style="color:${c};">${fs}%</span><span class="fit-bar-src">real</span></div>`; }
+  else if(_manOk){ const fm=_manRaw,c='#3498db'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${c};">✏️ Man.</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${fm}%;background:${c};"></div></div><span class="fit-bar-pct" style="color:${c};">${fm}%</span><span class="fit-bar-src">rec.</span></div>`; }
+  if(ader!=null){ const aderGrad=isAderManual?'linear-gradient(90deg,#7c3aed,#a78bfa)':'linear-gradient(90deg,#5b21b6,#a78bfa)'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:#a78bfa;">📊 Ader</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${ader}%;background:${aderGrad};"></div></div><span class="fit-bar-pct" style="color:#a78bfa;">${ader}%</span><span class="fit-bar-src">${aderSrc||'pond.'}</span></div>`; }
+  if(h.score_recrutador!=null){ const sv=parseInt(h.score_recrutador),sc=sv>=80?'#2ecc71':sv>=65?'#3b82f6':sv>=45?'#f39c12':'#e74c3c'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${sc};">🧑‍💼 Rec.</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${sv}%;background:linear-gradient(90deg,#e67e22,#f39c12);"></div></div><span class="fit-bar-pct" style="color:${sc};">${sv}%</span><span class="fit-bar-src">rec.</span></div>`; }
+
+  // Status dots
+  const _temDisc = temDisc;
+  const _temEntrevista = !!(h.entrevista_json||h.resumo_ia||h.url_resultado_fit||h.fit_score);
+  const _temCurriculo  = !!h.curriculo_url;
+  const _temParecer    = !!h.parecer_final_link;
+  const _dot = (tipo,ativo,titulo) => `<span class="status-dot ${tipo}${ativo?'':' off'}" title="${titulo}"></span>`;
+  const _tresOk = _temDisc && _temEntrevista && _temCurriculo;
+  const _completo = _tresOk && _temParecer;
+  const _pendDocs = [_temDisc,_temEntrevista,_temCurriculo].filter(b=>!b).length;
+  const statusDots = `<div class="status-dots-card">
+    <div class="status-dots-row">
+      ${_dot('disc',_temDisc,_temDisc?'✅ DISC realizado':'⬜ DISC pendente')}
+      ${_dot('entrevista',_temEntrevista,_temEntrevista?'✅ Entrevista / Fit feito':'⬜ Entrevista pendente')}
+      ${_dot('curriculo',_temCurriculo,_temCurriculo?'✅ Currículo anexado':'⬜ Currículo pendente')}
+      ${_dot('parecer',_temParecer,_temParecer?'✅ Parecer emitido':'⬜ Parecer pendente')}
+    </div>
+    ${_completo?`<span class="status-dot-count" style="color:#3b82f6;font-size:0.5rem;font-weight:800;">Completo</span>`:_tresOk?`<span class="status-dot-count" style="color:#2ecc71;font-size:0.5rem;font-weight:800;">Ótimo</span>`:_pendDocs>0?`<span class="status-pend-lbl">${_pendDocs} pendente${_pendDocs>1?'s':''}</span>`:`<span class="status-dot-count">OK</span>`}
+  </div>`;
+
+  // Mini radar
+  let miniRadar = '';
+  if(temDisc){
+    const _d=parseFloat(h.pct_d)||0,_i=parseFloat(h.pct_i)||0,_s=parseFloat(h.pct_s)||0,_c=parseFloat(h.pct_c)||0;
+    const _cx=22,_cy=22,_r=16;
+    function _rp(ang,pct){const rad=(ang-90)*Math.PI/180,l=_r*(pct/100);return[_cx+l*Math.cos(rad),_cy+l*Math.sin(rad)];}
+    const _pts=[_rp(0,_d),_rp(90,_i),_rp(180,_s),_rp(270,_c)];
+    const _poly=_pts.map(p=>p.join(',')).join(' ');
+    const _domCor2=h.dom==='D'?'#e74c3c':h.dom==='I'?'#f39c12':h.dom==='S'?'#2ecc71':'#3498db';
+    const _grids=[25,50,75,100].map(p=>{const pp=[0,90,180,270].map(a=>_rp(a,p));return`<polygon points="${pp.map(x=>x.join(',')).join(' ')}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>`;}).join('');
+    const _axes=[0,90,180,270].map(a=>{const[x,y]=_rp(a,100);return`<line x1="${_cx}" y1="${_cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>`;}).join('');
+    miniRadar=`<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" width="36" height="36" title="DISC: D${_d}% I${_i}% S${_s}% C${_c}%" style="flex-shrink:0;">${_grids}${_axes}<polygon points="${_poly}" fill="${_domCor2}30" stroke="${_domCor2}" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
+  }
+
+  // Parecer URL
+  const parecerUrl = `../disc-parecer.html?t=${encodeURIComponent(h.id||'')}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(vagaDisplay)}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}`;
+
+  // Botões — grupos
+  const _IS = 'width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;';
+  const _g1 = [];
+  const _g2 = [];
+  const _g3 = [];
+
+  _g1.push(`<button class="btn-sm" onclick="abrirPerfilArea('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+  _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
+  if(h.url) _g1.push(`<a class="btn-sm" href="${esc(h.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);"><img src="disc2.png" style="${_IS}" alt=""> DISC</a>`);
+  if(h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="fitcultural2.png" style="${_IS}" alt=""> Fit Cultural</a>`);
+  _g1.push(`<button class="btn-sm" onclick="(()=>{_perfilAtual=_allCands.find(x=>String(x.id)==='${esc(h.id)}');abrirSenhaParecerArea();})();" style="background:rgba(167,139,250,0.12);color:#c4b5fd;border-color:rgba(167,139,250,0.35);font-weight:800;"><img src="parecer3.png" style="${_IS}" alt=""> Parecer Final</button>`);
+
+  _g2.push(`<button class="btn-sm" onclick="abrirCopiarArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.25);">📋 Copiar área</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirModalMover('${esc(h.id)}','${esc(h.nome||'')}')" style="background:${acor}12;color:${acor};border-color:${acor}35;">🗂️ Gerenciar</button>`);
+  _g2.push(`<button class="btn-sm" onclick="removerDaAreaDireto('${esc(h.id)}','${esc(h.nome||'')}','${esc(area.id)}')" style="background:rgba(231,76,60,0.08);color:#e74c3c;border-color:rgba(231,76,60,0.2);">↩️ Devolver</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipeArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="triagem2.png" style="${_IS}" alt=""> → Pipeline</button>`);
+  _g2.push(`<button class="btn-sm" onclick="navegar('banco-cargos')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);font-weight:800;"><img src="cargo2.png" style="${_IS}" alt=""> → Cargo</button>`);
+
+  if(h.link_externo) _g3.push(`<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
+  if(h.curriculo_url) _g3.push(`<a class="btn-sm" href="${esc(h.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
+  if(h.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
+  if(h.tel_externo) _g3.push(`<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`);
+
+  const footHtml = `
+    <div class="cand-foot-label">👤 Perfil & Avaliação</div>
+    <div class="cand-foot-group">${_g1.join('')}</div>
+    <div class="cand-foot-label">🚀 Movimentação</div>
+    <div class="cand-foot-group">${_g2.join('')}</div>
+    ${_g3.length ? `<div class="cand-foot-label">💬 Comunicação</div><div class="cand-foot-group">${_g3.join('')}</div>` : ''}
+  `;
+
+  const isDestaque = h.candidato_destaque===true||h.candidato_destaque==='true';
+
+  return `<div class="cand-card${isDestaque?' is-destaque':''}">
+    <div class="card-top-right">
+      ${isDestaque?'<span class="badge-destaque">⭐ Destaque</span>':''}
+      ${miniRadar}
+      ${statusDots}
+    </div>
+    <div class="cand-card-inner">
+      <div class="cand-avatar" style="background:${temDisc?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDisc?cor+'40':'rgba(255,255,255,0.12)'};color:${temDisc?cor:'#555'};" onclick="abrirPerfilArea('${esc(h.id)}')">${temDisc?emoji:'?'}</div>
+      <div class="cand-info">
+        <div class="cand-nome" onclick="abrirPerfilArea('${esc(h.id)}')">${esc(h.nome||'—')}</div>
+        <div class="cand-meta">
+          <span>📋 ${esc(vagaDisplay)} &nbsp;·&nbsp; 📅 ${esc((h.data||'').substring(0,10))}${h.cidade?' &nbsp;·&nbsp; 📍 '+esc(h.cidade):''}</span>
+          <select class="status-contato-sel ${_scClass(h.status_contato)}" onchange="salvarStatusContatoCard('${esc(h.id)}',this)" onclick="event.stopPropagation()" title="Status de contato">
+            <option value="" ${!h.status_contato?'selected':''}>💬 Status</option>
+            <option value="respondeu" ${h.status_contato==='respondeu'?'selected':''}>✅ Respondeu</option>
+            <option value="nao_respondeu" ${h.status_contato==='nao_respondeu'?'selected':''}>❌ Não respondeu</option>
+            <option value="sem_retorno" ${h.status_contato==='sem_retorno'?'selected':''}>⏳ Sem retorno</option>
+            <option value="pendencia_docs" ${h.status_contato==='pendencia_docs'?'selected':''}>📁 Pendência docs</option>
+            <option value="pendencia_info" ${h.status_contato==='pendencia_info'?'selected':''}>📋 Pendência info</option>
+          </select>
+        </div>
+        <div class="cand-chips">${chips}</div>
+        ${h.recomendacao_admin?`<div style="font-size:0.7rem;color:#aaa;margin-top:0.35rem;line-height:1.45;background:rgba(255,255,255,0.03);border-radius:7px;padding:0.4rem 0.55rem;border-left:2px solid rgba(59,130,246,0.3);">💡 ${esc(h.recomendacao_admin.substring(0,140))}${h.recomendacao_admin.length>140?'…':''}</div>`:''}
+      </div>
+    </div>
+    <div class="cand-foot">
+      ${ader!=null?`<div class="ader-big-wrap" title="${isAderManual?'Aderência manual':'Aderência calculada'}">
+          <div><div class="ader-big-lbl">📊 Aderência à vaga</div><div class="ader-big-src">${isAderManual?'Manual':'Calculado'} · ${aderSrc||'pond.'}</div></div>
+          <div style="text-align:right;"><div class="ader-big-num" style="color:${ader>=80?'#2ecc71':ader>=65?'#3b82f6':ader>=45?'#f39c12':'#e74c3c'};">${ader}<span style="font-size:0.9rem;font-weight:700;opacity:0.7;">%</span></div></div>
+        </div>`:''}
+      ${bars?`<button class="cand-foot-toggle" onclick="toggleFitBars(this)"><span class="ft-chev">▼</span> Scores</button>
+      <div class="cand-foot-body collapsed" style="max-height:0;">
+        <div style="padding:0.2rem 0 0.35rem;">${bars}</div>
+      </div>`:''}
+      <button class="cand-foot-toggle" onclick="toggleFootBtns(this)">
+        <span class="ft-chev">▼</span> Ações
+      </button>
+      <div class="cand-foot-body collapsed" style="max-height:0;">
+        ${footHtml}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ═══ CARD SEM ÁREA ═══ */
+function candCardSemArea(h){
+  if(!h||!h.id) return '';
+  const cor   = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const combo = h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`;
+  const _fitRaw = parseInt(h.fit_score); const _fitOk = h.fit_score != null && !isNaN(_fitRaw);
+  const _manRaw = parseInt(h.fit_manual); const _manOk = h.fit_manual != null && !isNaN(_manRaw);
+  const fit   = _fitOk ? _fitRaw : (_manOk ? _manRaw : null);
+  const fitCor= fit!=null?(fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c'):'#777';
+  const temDisc = !!(h.dom||h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  const fitEst = estimarFitDisc(h);
+  const aderCalc = calcularAderencia(h);
+  const ader = aderCalc ? aderCalc.valor : null;
+  const aderSrc = aderCalc ? aderCalc.fonte : null;
+  const isAderManual = h.aderencia_manual != null;
+
+  const _temDisc = temDisc;
+  const _temEntrevista = !!(h.entrevista_json||h.resumo_ia||h.url_resultado_fit||h.fit_score);
+  const _temCurriculo  = !!h.curriculo_url;
+  const _temParecer    = !!h.parecer_final_link;
+  const _dot = (tipo,ativo,titulo) => `<span class="status-dot ${tipo}${ativo?'':' off'}" title="${titulo}"></span>`;
+  const _tresOk = _temDisc && _temEntrevista && _temCurriculo;
+  const _completo = _tresOk && _temParecer;
+  const _pendDocs = [_temDisc,_temEntrevista,_temCurriculo].filter(b=>!b).length;
+  const statusDots = `<div class="status-dots-card">
+    <div class="status-dots-row">
+      ${_dot('disc',_temDisc,_temDisc?'✅ DISC realizado':'⬜ DISC pendente')}
+      ${_dot('entrevista',_temEntrevista,_temEntrevista?'✅ Entrevista / Fit feito':'⬜ Entrevista pendente')}
+      ${_dot('curriculo',_temCurriculo,_temCurriculo?'✅ Currículo anexado':'⬜ Currículo pendente')}
+      ${_dot('parecer',_temParecer,_temParecer?'✅ Parecer emitido':'⬜ Parecer pendente')}
+    </div>
+    ${_completo?`<span class="status-dot-count" style="color:#3b82f6;font-size:0.5rem;font-weight:800;">Completo</span>`:_pendDocs>0?`<span class="status-pend-lbl">${_pendDocs} pendente${_pendDocs>1?'s':''}</span>`:`<span class="status-dot-count">OK</span>`}
+  </div>`;
+
+  let miniRadar = '';
+  if(temDisc){
+    const _d=parseFloat(h.pct_d)||0,_i=parseFloat(h.pct_i)||0,_s=parseFloat(h.pct_s)||0,_c=parseFloat(h.pct_c)||0;
+    const _cx=22,_cy=22,_r=16;
+    function _rp(ang,pct){const rad=(ang-90)*Math.PI/180,l=_r*(pct/100);return[_cx+l*Math.cos(rad),_cy+l*Math.sin(rad)];}
+    const _pts=[_rp(0,_d),_rp(90,_i),_rp(180,_s),_rp(270,_c)];
+    const _poly=_pts.map(p=>p.join(',')).join(' ');
+    const _domCor2=h.dom==='D'?'#e74c3c':h.dom==='I'?'#f39c12':h.dom==='S'?'#2ecc71':'#3498db';
+    const _grids=[25,50,75,100].map(p=>{const pp=[0,90,180,270].map(a=>_rp(a,p));return`<polygon points="${pp.map(x=>x.join(',')).join(' ')}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>`;}).join('');
+    const _axes=[0,90,180,270].map(a=>{const[x,y]=_rp(a,100);return`<line x1="${_cx}" y1="${_cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>`;}).join('');
+    miniRadar=`<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" width="36" height="36" title="DISC: D${_d}% I${_i}% S${_s}% C${_c}%" style="flex-shrink:0;">${_grids}${_axes}<polygon points="${_poly}" fill="${_domCor2}30" stroke="${_domCor2}" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
+  }
+
+  let chips = temDisc
+    ? `<span class="chip chip-disc">${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</span>`
+    : `<span class="chip" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.15);color:#666;">Sem DISC</span>`;
+  if(fit!=null) chips+=`<span class="chip" style="background:${fitCor}15;border-color:${fitCor}33;color:${fitCor};">Fit ${fit}%</span>`;
+  if(ader!=null) chips+=`<span class="chip" style="background:rgba(167,139,250,0.12);border-color:rgba(167,139,250,0.35);color:#a78bfa;font-weight:800;">📊 ${ader}% vaga</span>`;
+
+  const _IS = 'width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;';
+  const _g2 = [];
+  _g2.push(`<button class="btn-sm" onclick="abrirPerfilArea('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirModalMover('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);">↕️ Organizar</button>`);
+  _g2.push(`<button class="btn-sm" onclick="removerDaAreaDireto('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.08);color:#e74c3c;border-color:rgba(231,76,60,0.2);">↩️ Devolver</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipeArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="triagem2.png" style="${_IS}" alt=""> → Pipeline</button>`);
+
+  return `<div class="cand-card">
+    <div class="card-top-right">
+      ${miniRadar}
+      ${statusDots}
+    </div>
+    <div class="cand-card-inner">
+      <div class="cand-avatar" style="background:${temDisc?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDisc?cor+'40':'rgba(255,255,255,0.12)'};color:${temDisc?cor:'#555'};" onclick="abrirPerfilArea('${esc(h.id)}')">${temDisc?emoji:'?'}</div>
+      <div class="cand-info">
+        <div class="cand-nome" onclick="abrirPerfilArea('${esc(h.id)}')">${esc(h.nome||'—')}</div>
+        <div class="cand-meta">📋 ${esc(h.vaga||'—')} · 📅 ${esc((h.data||'').substring(0,10))}</div>
+        <div class="cand-chips">${chips}</div>
+      </div>
+    </div>
+    <div class="cand-foot">
+      ${ader!=null?`<div class="ader-big-wrap"><div><div class="ader-big-lbl">📊 Aderência</div><div class="ader-big-src">${isAderManual?'Manual':'Calculado'}</div></div><div style="text-align:right;"><div class="ader-big-num" style="color:${ader>=80?'#2ecc71':ader>=65?'#3b82f6':ader>=45?'#f39c12':'#e74c3c'};">${ader}<span style="font-size:0.9rem;font-weight:700;opacity:0.7;">%</span></div></div></div>`:''}
+      <button class="cand-foot-toggle" onclick="toggleFootBtns(this)">
+        <span class="ft-chev">▼</span> Ações
+      </button>
+      <div class="cand-foot-body collapsed" style="max-height:0;">
+        <div class="cand-foot-label">🚀 Movimentação</div>
+        <div class="cand-foot-group">${_g2.join('')}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ═══ STATUS CONTATO (CARD) ═══ */
+async function salvarStatusContatoCard(id, sel){
+  const valor = sel.value||null;
+  sel.className = 'status-contato-sel ' + _scClass(valor||'');
+  const idx = _allCands.findIndex(x=>String(x.id)===String(id));
+  if(idx>=0) _allCands[idx].status_contato = valor;
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(id)}`,{status_contato:valor});
+    mostrarToast(valor ? '💬 Status: '+(_SC_LABELS[valor]||valor) : '💬 Status removido');
+  }catch(e){ mostrarToast('Erro ao salvar status: '+e.message, true); }
+}
+
+/* ═══ MODAL: NOVA / EDITAR ÁREA ═══ */
+function abrirModalNovaArea(){
+  document.getElementById('mAreaEyebrow').textContent = 'Nova Área';
+  document.getElementById('mAreaTitle').textContent = 'Criar nova área';
+  document.getElementById('mAreaNome').value = '';
+  document.getElementById('mAreaDesc').value = '';
+  document.getElementById('mAreaEditId').textContent = '';
+  document.getElementById('mAreaSaveBtn').textContent = '💾 Criar área';
+  renderCorPicker('');
+  document.getElementById('modalArea').style.display = 'flex';
+  setTimeout(()=>document.getElementById('mAreaNome').focus(), 100);
+}
+
+function editarArea(id){
+  const a = _areas.find(x=>x.id===id); if(!a) return;
+  document.getElementById('mAreaEyebrow').textContent = 'Editar Área';
+  document.getElementById('mAreaTitle').textContent = 'Editar área';
+  document.getElementById('mAreaNome').value = a.nome;
+  document.getElementById('mAreaDesc').value = a.descricao||'';
+  document.getElementById('mAreaEditId').textContent = id;
+  document.getElementById('mAreaSaveBtn').textContent = '💾 Salvar alterações';
+  renderCorPicker(a.cor||'');
+  document.getElementById('modalArea').style.display = 'flex';
+  setTimeout(()=>document.getElementById('mAreaNome').focus(), 100);
+}
+
+function renderCorPicker(corAtual){
+  _corSelecionada = corAtual || AREA_CORES[0];
+  const picker = document.getElementById('corPicker');
+  picker.innerHTML = AREA_CORES.map(c=>
+    `<div class="cor-opt${c===_corSelecionada?' sel':''}" style="background:${c};" onclick="selecionarCor('${c}')" title="${c}"></div>`
+  ).join('');
+}
+function selecionarCor(c){ _corSelecionada=c; renderCorPicker(c); }
+
+function salvarArea(){
+  const nome   = (document.getElementById('mAreaNome').value||'').trim();
+  const desc   = (document.getElementById('mAreaDesc').value||'').trim();
+  const editId = document.getElementById('mAreaEditId').textContent.trim();
+  if(!nome){ mostrarToast('Digite o nome da área', true); document.getElementById('mAreaNome').focus(); return; }
+  if(editId){
+    const idx = _areas.findIndex(a=>a.id===editId);
+    if(idx>=0){ _areas[idx].nome=nome; _areas[idx].cor=_corSelecionada; _areas[idx].descricao=desc; salvarAreaDB(_areas[idx]); }
+  } else {
+    const nova = {id:gerarId(),nome,cor:_corSelecionada,descricao:desc,criado_em:new Date().toISOString()};
+    _areas.push(nova);
+    salvarAreaDB(nova);
+  }
+  salvarAreas(_areas);
+  fecharModalArea();
+  renderTudo();
+  mostrarToast(editId?'✅ Área atualizada!':'✅ Área criada!');
+}
+function fecharModalArea(){ document.getElementById('modalArea').style.display='none'; }
+
+/* ═══ MODAL: CONFIRMAR EXCLUIR ÁREA ═══ */
+function confirmarDelArea(id){
+  const a = _areas.find(x=>x.id===id); if(!a) return;
+  document.getElementById('delAreaNome').textContent = a.nome;
+  document.getElementById('delAreaId').textContent   = id;
+  document.getElementById('modalDelArea').style.display = 'flex';
+}
+function fecharDelArea(){ document.getElementById('modalDelArea').style.display='none'; }
+function executarDelArea(){
+  const id = document.getElementById('delAreaId').textContent.trim();
+  Object.keys(_assign).forEach(cid=>{
+    const arr = getAreasDoCandiato(cid).filter(aid=>aid!==id);
+    if(arr.length < getAreasDoCandiato(cid).length){ _assign[cid]=arr; salvarAssignDB(cid,arr); }
+  });
+  salvarAssign(_assign);
+  _areas = _areas.filter(a=>a.id!==id);
+  salvarAreas(_areas);
+  deletarAreaDB(id);
+  fecharDelArea();
+  renderTudo();
+  mostrarToast('Área removida. Candidatos devolvidos ao Banco.');
+}
+
+/* ═══ MODAL: ADICIONAR CANDIDATO ═══ */
+function abrirAddCandGlobal(){ _addAreaTarget=null; abrirModalAddCand(null); }
+function abrirAddCand(areaId){ _addAreaTarget=areaId; abrirModalAddCand(areaId); }
+
+function abrirModalAddCand(areaId){
+  _addSelectedIds = new Set();
+  document.getElementById('mAddBusca').value = '';
+  document.getElementById('mAddMsg').style.display = 'none';
+  document.getElementById('mAddMostrarTodos').checked = false;
+  const sel = document.getElementById('mAddArea');
+  sel.innerHTML = '<option value="">Selecione uma área…</option>' +
+    _areas.map(a=>`<option value="${esc(a.id)}">${esc(a.nome)}</option>`).join('');
+  if(areaId) sel.value = areaId;
+  const sub = document.getElementById('mAddSub');
+  if(areaId){ const a=_areas.find(x=>x.id===areaId); sub.textContent=`Selecione candidatos para a área "${a?a.nome:''}"`;
+  } else { sub.textContent='Selecione candidatos e a área de destino.'; }
+  filtrarListaAdd();
+  document.getElementById('modalAddCand').style.display = 'flex';
+  setTimeout(()=>document.getElementById('mAddBusca').focus(), 100);
+}
+
+function filtrarListaAdd(){
+  const busca = (document.getElementById('mAddBusca').value||'').toLowerCase();
+  const mostrarTodos = document.getElementById('mAddMostrarTodos').checked;
+  const assignedIds = new Set(Object.keys(_assign).filter(cid=>getAreasDoCandiato(cid).some(aid=>_areas.find(a=>a.id===aid))));
+  let lista = _allCands;
+  if(!mostrarTodos) lista = lista.filter(c=>!assignedIds.has(String(c.id)));
+  if(busca) lista = lista.filter(c=>(c.nome||'').toLowerCase().includes(busca)||(c.vaga||'').toLowerCase().includes(busca));
+  lista = lista.slice(0, 80);
+  const wrap = document.getElementById('mAddList');
+  if(!lista.length){ wrap.innerHTML=`<div style="text-align:center;padding:1.5rem;font-size:0.78rem;color:var(--muted);">${_allCands.length===0?'Nenhum candidato no banco.':'Nenhum candidato encontrado.'}</div>`; return; }
+  wrap.innerHTML = lista.map(c=>{
+    const cor=COR[c.dom]||'#888'; const emoji=EMO[c.dom]||'⬜'; const sel=_addSelectedIds.has(String(c.id));
+    const areasAtuais=getAreasDoCandiato(c.id).map(aid=>_areas.find(a=>a.id===aid)).filter(Boolean);
+    const areasLabel=areasAtuais.length?areasAtuais.map(a=>`<span style="color:${a.cor||'#2ecc71'};font-weight:700;">${esc(a.nome)}</span>`).join(', '):'';
+    return `<div class="add-cand-item${sel?' selected':''}" onclick="toggleAddCand('${esc(c.id)}',this)">
+      <div class="add-cand-av" style="border-color:${cor};color:${cor};">${emoji}</div>
+      <div style="flex:1;min-width:0;"><div class="add-cand-nome">${esc(c.nome||'—')}</div><div class="add-cand-sub">${esc(c.vaga||'—')}${areasLabel?' · '+areasLabel:''}</div></div>
+      <span class="add-cand-check">✅</span>
+    </div>`;
+  }).join('');
+}
+
+function toggleAddCand(id, el){
+  if(_addSelectedIds.has(id)){ _addSelectedIds.delete(id); el.classList.remove('selected'); }
+  else { _addSelectedIds.add(id); el.classList.add('selected'); }
+}
+
+async function confirmarAddCand(){
+  const areaId = document.getElementById('mAddArea').value;
+  if(!areaId){ mostrarToast('Selecione uma área de destino', true); return; }
+  if(!_addSelectedIds.size){ mostrarToast('Selecione ao menos um candidato', true); return; }
+  const area = _areas.find(a=>a.id===areaId);
+  let count = 0;
+  for(const id of _addSelectedIds){
+    const cid = String(id);
+    if(!_assign[cid]) _assign[cid] = [];
+    if(Array.isArray(_assign[cid])){ if(!_assign[cid].includes(areaId)) _assign[cid].push(areaId); }
+    else { const anterior=_assign[cid]; _assign[cid]=anterior?[anterior]:[]; if(!_assign[cid].includes(areaId)) _assign[cid].push(areaId); }
+    await salvarAssignDB(id, _assign[cid]);
+    count++;
+  }
+  salvarAssign(_assign);
+  const msg = document.getElementById('mAddMsg');
+  if(msg){ msg.textContent=`✅ ${count} candidato${count!==1?'s':''} adicionado${count!==1?'s':''} à área "${area?area.nome:''}"!`; msg.style.display='block'; }
+  setTimeout(()=>{ fecharModalAddCand(); renderTudo(); mostrarToast(`✅ ${count} adicionado${count!==1?'s':''}!`); }, 800);
+}
+function fecharModalAddCand(){ document.getElementById('modalAddCand').style.display='none'; _addSelectedIds=new Set(); }
+
+/* ═══ MODAL: GERENCIAR ÁREAS (MULTI-ÁREA) ═══ */
+function abrirModalMover(candId, nome){
+  _moverCandId = candId;
+  document.getElementById('mMoverNome').textContent = nome;
+  const lista = document.getElementById('mMoverLista');
+  const atuais = getAreasDoCandiato(candId);
+  const cand = _allCands.find(x=>String(x.id)===String(candId));
+  lista.innerHTML = _areas.map(a=>{
+    const marcado = atuais.includes(a.id);
+    const vagaAtual = _vagaOverrides[String(candId)+'||'+a.id] || cand?.vaga || '';
+    return `<div class="mover-area-item" onclick="toggleMoverArea('${esc(a.id)}',this)" id="mover-area-${esc(a.id)}" style="${marcado?'border-color:'+a.cor+'55;background:'+a.cor+'0e;':''}">
+      <div style="width:18px;height:18px;border-radius:5px;border:1.5px solid ${marcado?a.cor:'rgba(255,255,255,0.2)'};background:${marcado?a.cor+'30':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.75rem;color:${a.cor};transition:all 0.15s;" id="chk-area-${esc(a.id)}">${marcado?'✓':''}</div>
+      <div class="mover-dot" style="background:${a.cor||'#2ecc71'};"></div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.82rem;font-weight:700;">${esc(a.nome)}</div>
+        ${a.descricao?`<div style="font-size:0.62rem;color:#666;">${esc(a.descricao)}</div>`:''}
+        <input type="text" id="vaga-area-input-${esc(a.id)}" value="${esc(vagaAtual)}" placeholder="Vaga nesta área (opcional)…" onclick="event.stopPropagation()" style="margin-top:0.35rem;width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:0.3rem 0.55rem;color:#f0f0f0;font-family:inherit;font-size:0.7rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='${a.cor||'#2ecc71'}'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"/>
+      </div>
+      <span style="font-size:0.63rem;color:${a.cor};font-weight:700;${marcado?'':'display:none;'}" id="lbl-area-${esc(a.id)}">✓ incluso</span>
+    </div>`;
+  }).join('') || '<p style="text-align:center;font-size:0.78rem;color:#555;padding:1rem;">Nenhuma área criada.</p>';
+  lista.dataset.sel = JSON.stringify(atuais);
+  document.getElementById('modalMover').style.display = 'flex';
+}
+
+function toggleMoverArea(areaId, el){
+  const lista = document.getElementById('mMoverLista');
+  let sel = []; try{ sel=JSON.parse(lista.dataset.sel||'[]'); }catch{}
+  const idx = sel.indexOf(areaId);
+  const area = _areas.find(a=>a.id===areaId);
+  const cor = area?.cor||'#2ecc71';
+  const chk = document.getElementById('chk-area-'+areaId);
+  const lbl = document.getElementById('lbl-area-'+areaId);
+  if(idx>=0){
+    sel.splice(idx,1); el.style.borderColor=''; el.style.background='';
+    if(chk){chk.style.borderColor='rgba(255,255,255,0.2)';chk.style.background='transparent';chk.textContent='';}
+    if(lbl) lbl.style.display='none';
+  } else {
+    sel.push(areaId); el.style.borderColor=cor+'55'; el.style.background=cor+'0e';
+    if(chk){chk.style.borderColor=cor;chk.style.background=cor+'30';chk.textContent='✓';}
+    if(lbl){lbl.style.display='';lbl.style.color=cor;}
+  }
+  lista.dataset.sel = JSON.stringify(sel);
+}
+
+async function salvarAreasDoMover(){
+  if(!_moverCandId) return;
+  const lista = document.getElementById('mMoverLista');
+  let novasAreas = []; try{ novasAreas=JSON.parse(lista.dataset.sel||'[]'); }catch{}
+  // Salvar vaga override por área
+  _areas.forEach(a=>{
+    const inp = document.getElementById('vaga-area-input-'+a.id);
+    if(!inp) return;
+    const v = (inp.value||'').trim();
+    const key = String(_moverCandId)+'||'+String(a.id);
+    if(v) _vagaOverrides[key] = v;
+    else delete _vagaOverrides[key];
+  });
+  localStorage.setItem(VAGA_OVERRIDE_KEY, JSON.stringify(_vagaOverrides));
+  _assign[String(_moverCandId)] = novasAreas;
+  salvarAssign(_assign);
+  await salvarAssignDB(_moverCandId, novasAreas);
+  fecharModalMover();
+  renderTudo();
+  const nomes = novasAreas.map(aid=>_areas.find(a=>a.id===aid)?.nome||'?').join(', ');
+  const cand = _allCands.find(x=>String(x.id)===String(_moverCandId));
+  mostrarToast(novasAreas.length?`✅ ${cand?.nome||'Candidato'} em: ${nomes}`:'↩️ Candidato removido de todas as áreas');
+}
+
+function removerDaArea(){
+  if(!_moverCandId) return;
+  const id = String(_moverCandId);
+  const nome = (_allCands.find(x=>String(x.id)===id)?.nome)||'Candidato';
+  delete _assign[id]; salvarAssign(_assign); salvarAssignDB(id,[]);
+  fecharModalMover(); renderTudo();
+  mostrarToast(`↩️ ${nome} devolvido ao Banco de Talentos.`);
+}
+
+function removerDaAreaDireto(id, nome, areaId){
+  const cid = String(id);
+  const areas = getAreasDoCandiato(cid);
+  const novas = areaId ? areas.filter(a=>a!==areaId) : [];
+  if(novas.length) _assign[cid] = novas;
+  else delete _assign[cid];
+  // Limpa vaga override dessa área específica
+  if(areaId){
+    const key = cid+'||'+String(areaId);
+    delete _vagaOverrides[key];
+    localStorage.setItem(VAGA_OVERRIDE_KEY, JSON.stringify(_vagaOverrides));
+  }
+  salvarAssign(_assign);
+  salvarAssignDB(id, novas);
+  renderTudo();
+  const areaNome = areaId ? (_areas.find(a=>a.id===areaId)?.nome||'área') : 'todas as áreas';
+  mostrarToast(`↩️ ${nome} removido de "${areaNome}".`);
+}
+
+function fecharModalMover(){ document.getElementById('modalMover').style.display='none'; _moverCandId=null; }
+
+/* ═══ MODAL: COPIAR PARA OUTRA ÁREA ═══ */
+function abrirCopiarArea(candId, nome){
+  _copiarCandId = candId;
+  document.getElementById('mCopiarNome').textContent = nome;
+  const atuais = getAreasDoCandiato(candId);
+  const lista = document.getElementById('mCopiarLista');
+
+  const areasDisponiveis = _areas.filter(a=>!atuais.includes(a.id));
+  if(!areasDisponiveis.length){
+    lista.innerHTML = '<p style="text-align:center;font-size:0.78rem;color:#555;padding:1rem;">O candidato já está em todas as áreas disponíveis.</p>';
+  } else {
+    lista.innerHTML = areasDisponiveis.map(a=>`
+      <div class="mover-area-item" onclick="toggleCopiarArea('${esc(a.id)}',this)" id="copiar-area-${esc(a.id)}">
+        <div style="width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(255,255,255,0.2);background:transparent;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.75rem;color:${a.cor};transition:all 0.15s;" id="cchk-area-${esc(a.id)}"></div>
+        <div class="mover-dot" style="background:${a.cor||'#2ecc71'};"></div>
+        <div style="flex:1;"><div style="font-size:0.82rem;font-weight:700;">${esc(a.nome)}</div>${a.descricao?`<div style="font-size:0.62rem;color:#666;">${esc(a.descricao)}</div>`:''}</div>
+      </div>`).join('');
+  }
+  lista.dataset.sel = JSON.stringify([]);
+  document.getElementById('modalCopiarArea').style.display = 'flex';
+}
+
+function toggleCopiarArea(areaId, el){
+  const lista = document.getElementById('mCopiarLista');
+  let sel = []; try{ sel=JSON.parse(lista.dataset.sel||'[]'); }catch{}
+  const idx = sel.indexOf(areaId);
+  const area = _areas.find(a=>a.id===areaId);
+  const cor = area?.cor||'#2ecc71';
+  const chk = document.getElementById('cchk-area-'+areaId);
+  if(idx>=0){
+    sel.splice(idx,1); el.style.borderColor=''; el.style.background='';
+    if(chk){chk.style.borderColor='rgba(255,255,255,0.2)';chk.style.background='transparent';chk.textContent='';}
+  } else {
+    sel.push(areaId); el.style.borderColor=cor+'55'; el.style.background=cor+'0e';
+    if(chk){chk.style.borderColor=cor;chk.style.background=cor+'30';chk.textContent='✓';}
+  }
+  lista.dataset.sel = JSON.stringify(sel);
+}
+
+async function salvarCopiarArea(){
+  if(!_copiarCandId) return;
+  const lista = document.getElementById('mCopiarLista');
+  let novasAreas = []; try{ novasAreas=JSON.parse(lista.dataset.sel||'[]'); }catch{}
+  if(!novasAreas.length){ mostrarToast('Selecione ao menos uma área', true); return; }
+  const cid = String(_copiarCandId);
+  if(!_assign[cid]) _assign[cid] = [];
+  novasAreas.forEach(aid=>{ if(!_assign[cid].includes(aid)) _assign[cid].push(aid); });
+  salvarAssign(_assign);
+  await salvarAssignDB(cid, _assign[cid]);
+  fecharModalCopiarArea();
+  renderTudo();
+  const cand = _allCands.find(x=>String(x.id)===cid);
+  const nomesAreas = novasAreas.map(aid=>_areas.find(a=>a.id===aid)?.nome||'?').join(', ');
+  mostrarToast(`✅ ${cand?.nome||'Candidato'} copiado para: ${nomesAreas}`);
+}
+
+function fecharModalCopiarArea(){ document.getElementById('modalCopiarArea').style.display='none'; _copiarCandId=null; }
+
+/* ═══ MODAL PERFIL COMPLETO ═══ */
+function abrirPerfilArea(id){
+  const h = _allCands.find(x=>String(x.id)===String(id));
+  if(!h) return;
+  _perfilAtual = h;
+  const cor   = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const combo = h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`;
+
+  // Avatar
+  document.getElementById('paAvatar').textContent = !!(h.url||(h.pct_d&&parseFloat(h.pct_d)>0)) ? emoji : '?';
+  document.getElementById('paAvatar').style.borderColor = cor;
+  document.getElementById('paAvatar').style.color = cor;
+  document.getElementById('paNome').textContent = h.nome||'—';
+  document.getElementById('paMeta').textContent = `${h.dom||'?'}+${h.sec||'?'} · ${combo} · ${h.vaga||'—'} · ${h.data||'—'}`;
+
+  // Badges de área
+  const todasAreas = getAreasDoCandiato(h.id).map(aid=>_areas.find(a=>a.id===aid)).filter(Boolean);
+  document.getElementById('paAreaBadge').innerHTML = todasAreas.map(a=>`<span class="badge-area" style="background:${a.cor}20;border-color:${a.cor}50;color:${a.cor};">📂 ${esc(a.nome)}</span>`).join('');
+
+  // Scores
+  const fitScore  = h.fit_score  ? parseInt(h.fit_score)  : null;
+  const fitManual = h.fit_manual ? parseInt(h.fit_manual) : null;
+  const fitEst    = paEstimarFitDisc(h);
+  let scoresHtml = '';
+  [[fitEst,'🧠 DISC (estimado)','est.'],[fitScore,'🎯 Fit Cultural','real'],[fitManual,'✏️ Manual','rec.']]
+    .forEach(([v,label,src])=>{
+      if(v==null) return;
+      const c=v>=80?'#2ecc71':v>=65?'#3b82f6':v>=45?'#f39c12':'#e74c3c';
+      scoresHtml+=`<div class="fit-bar-row" style="margin-bottom:0.35rem;"><span class="fit-bar-lbl" style="color:${c};">${label}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${v}%;background:${c};"></div></div><span class="fit-bar-pct" style="color:${c};">${v}%</span><span class="fit-bar-src">${src}</span></div>`;
+    });
+  if(h.score_recrutador!=null){ const sr=parseInt(h.score_recrutador),sc=sr>=80?'#2ecc71':sr>=65?'#3b82f6':sr>=45?'#f39c12':'#e74c3c'; scoresHtml+=`<div class="fit-bar-row" style="margin-bottom:0.35rem;"><span class="fit-bar-lbl" style="color:${sc};">🧑‍💼 Recrutador</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${sr}%;background:linear-gradient(90deg,#e67e22,#f39c12);"></div></div><span class="fit-bar-pct" style="color:${sc};">${sr}%</span><span class="fit-bar-src">rec.</span></div>`; }
+  if(h.aderencia_manual!=null){ const av=parseInt(h.aderencia_manual); const ac=av>=80?'#2ecc71':av>=65?'#3b82f6':av>=45?'#f39c12':'#e74c3c'; scoresHtml+=`<div class="fit-bar-row" style="margin-bottom:0.35rem;"><span class="fit-bar-lbl" style="color:#a78bfa;">📊 Aderência vaga</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${av}%;background:linear-gradient(90deg,#7c3aed,#a78bfa);"></div></div><span class="fit-bar-pct" style="color:#a78bfa;">${av}%</span><span class="fit-bar-src">man.</span></div>`; }
+  if(h.pilar_livre_valor!=null){ const pl=parseInt(h.pilar_livre_valor),pln=h.pilar_livre_nome||'Pilar Livre'; const plc=pl>=80?'#2ecc71':pl>=65?'#3b82f6':pl>=45?'#f39c12':'#e74c3c'; scoresHtml+=`<div class="fit-bar-row" style="margin-bottom:0.35rem;"><span class="fit-bar-lbl" style="color:${plc};">🔧 ${esc(pln.substring(0,10))}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${pl}%;background:linear-gradient(90deg,#2563eb,#1d4ed8);"></div></div><span class="fit-bar-pct" style="color:${plc};">${pl}%</span><span class="fit-bar-src">livre</span></div>`; }
+  document.getElementById('paScores').innerHTML = scoresHtml || '<p style="font-size:0.75rem;color:#555;">Nenhum score ainda.</p>';
+
+  // Botões ação rápida
+  const _baseP = 'https://agencianexus.github.io/agencianexus/';
+  const numW = (h.tel_externo||'').replace(/\D/g,'');
+  const waTxt = encodeURIComponent('Olá '+((h.nome||'').split(' ')[0])+'! Aqui é da Agência Nexus. Tudo bem?');
+  const _temDisc = !!(h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  const _btn = (ico, lbl, href, bg, cor2, bord, tgt) => `<a href="${href}" onclick="${tgt?'window.top.open(this.href,\'_blank\');return false;':''}" style="display:flex;flex-direction:column;align-items:center;gap:0.25rem;background:${bg};border:1.5px solid ${bord};border-radius:12px;padding:0.6rem 0.4rem;text-decoration:none;flex:1;min-width:60px;max-width:90px;"><span style="font-size:1.4rem;line-height:1;">${ico}</span><span style="font-size:0.58rem;font-weight:700;color:${cor2};text-align:center;white-space:nowrap;">${lbl}</span></a>`;
+  let acoes = '';
+  const _discUrlPerfil = _temDisc ? (h.url||(_baseP+'disc-resultado.html?nome='+encodeURIComponent(h.nome||'')+'&perfil='+(h.dom||'D')+'&sec='+(h.sec||'I')+'&d='+(h.pct_d||0)+'&i='+(h.pct_i||0)+'&s='+(h.pct_s||0)+'&c='+(h.pct_c||0))) : (_baseP+'disc.html?nome='+encodeURIComponent(h.nome||''));
+  acoes += _btn('🧠',_temDisc?'DISC':'Fazer DISC',esc(_discUrlPerfil),_temDisc?'rgba(52,152,219,0.12)':'rgba(52,152,219,0.05)','#3498db',_temDisc?'rgba(52,152,219,0.3)':'rgba(52,152,219,0.15)','_blank');
+  if(h.url_resultado_fit) acoes+=_btn('🎯','Fit Cultural',esc(h.url_resultado_fit),'rgba(59,130,246,0.12)','#3b82f6','rgba(59,130,246,0.3)','_blank');
+  if(h.email_externo) acoes+=_btn('✉️','E-mail','mailto:'+esc(h.email_externo),'rgba(52,152,219,0.1)','#3498db','rgba(52,152,219,0.28)','');
+  if(numW) acoes+=_btn('💬','WhatsApp','https://wa.me/55'+numW+'?text='+waTxt,'rgba(37,211,102,0.1)','#25D366','rgba(37,211,102,0.28)','_blank');
+  if(h.curriculo_url) acoes+=_btn('📄','Currículo',esc(h.curriculo_url),'rgba(52,152,219,0.1)','#3498db','rgba(52,152,219,0.28)','_blank');
+  if(h.link_externo) acoes+=_btn('🔗','LinkedIn',esc(h.link_externo),'rgba(167,139,250,0.1)','#a78bfa','rgba(167,139,250,0.25)','_blank');
+  document.getElementById('paAcoes').innerHTML = acoes;
+
+  // Preenche campos de dados
+  document.getElementById('paNomeEdit').value = h.nome||'';
+  document.getElementById('paVagaEdit').value = h.vaga||'';
+  document.getElementById('paEmail').value    = h.email_externo||'';
+  document.getElementById('paTel').value      = h.tel_externo||'';
+  document.getElementById('paLinkExt').value  = h.link_externo||'';
+  document.getElementById('paCurriculo').value= h.curriculo_url||'';
+  if(document.getElementById('paCidade')) document.getElementById('paCidade').value = h.cidade||'';
+  document.getElementById('paFitManual').value= h.fit_manual||'';
+  document.getElementById('paAderencia').value= h.aderencia_manual!=null?h.aderencia_manual:'';
+  const srEl=document.getElementById('paScoreRec'); if(srEl){srEl.value=h.score_recrutador!=null?h.score_recrutador:'';paAtualizarPreviewScoreRec(srEl);}
+  const dcEl=document.getElementById('paDocCompleta'); if(dcEl) dcEl.checked=!!h.doc_completa;
+  document.getElementById('paLinkDisc').value = h.url||'';
+  document.getElementById('paLinkFit').value  = h.url_resultado_fit||'';
+  const scEl=document.getElementById('paStatusContato'); if(scEl){scEl.value=h.status_contato||'';}
+  if(document.getElementById('paSaveDadosMsg')) document.getElementById('paSaveDadosMsg').style.display='none';
+  if(document.getElementById('paSaveMsg')) document.getElementById('paSaveMsg').style.display='none';
+  if(document.getElementById('paImportarWrap')) document.getElementById('paImportarWrap').style.display='none';
+
+  // Origem e DISC
+  paRenderOrigem(h);
+  // Entrevista
+  paRenderEntrevista(h);
+
+  _atualizarBadgeParecerArea(h);
+  document.getElementById('modalPerfilArea').style.display = 'flex';
+  // Populate pipeline vaga select
+  const paMoverVaga = document.getElementById('paMoverVaga');
+  if(paMoverVaga){
+    if(_vagasList && _vagasList.length){
+      paMoverVaga.innerHTML = '<option value="">Selecione uma vaga ativa…</option>' + _vagasList.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join('');
+    } else {
+      fetch(`${SUPABASE_URL}/rest/v1/vagas?select=slug,titulo&order=criado_em.desc`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}})
+        .then(r=>r.json()).then(vagas=>{
+          if(Array.isArray(vagas)&&vagas.length){ _vagasList=vagas; paMoverVaga.innerHTML='<option value="">Selecione uma vaga ativa…</option>'+vagas.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join(''); }
+          else paMoverVaga.innerHTML='<option value="">Nenhuma vaga encontrada</option>';
+        }).catch(()=>{ paMoverVaga.innerHTML='<option value="">Erro ao carregar</option>'; });
+    }
+  }
+}
+
+function paEstimarFitDisc(h){
+  if(!h.pct_d&&!h.pct_i&&!h.pct_s&&!h.pct_c) return null;
+  const d=parseFloat(h.pct_d)||0,i=parseFloat(h.pct_i)||0,s=parseFloat(h.pct_s)||0,c=parseFloat(h.pct_c)||0;
+  const vals=[d,i,s,c].sort((a,b)=>b-a);
+  const media=(d+i+s+c)/4;
+  const score=vals[0]*0.50+vals[1]*0.30+vals[2]*0.15+vals[3]*0.05;
+  const desvio=Math.sqrt(vals.reduce((acc,v)=>acc+Math.pow(v-media,2),0)/4);
+  return Math.min(100,Math.round(score*(desvio<15?1.05:1.0)));
+}
+
+function paRenderOrigem(h){
+  const temDisc = !!(h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  const temFit  = !!(h.url_resultado_fit||h.fit_score);
+  let origem;
+  if(temDisc&&temFit)  origem={label:'DISC + Entrevista',cor:'#2ecc71',ico:'🧠🎯',desc:'Candidato realizou o DISC e a entrevista.'};
+  else if(temDisc)     origem={label:'Via DISC',cor:'#3498db',ico:'🧠',desc:'Entrou pelo teste DISC.'};
+  else if(temFit)      origem={label:'Via Entrevista',cor:'#f39c12',ico:'🎤',desc:'Entrou direto pela entrevista.'};
+  else                 origem={label:'Cadastro Manual',cor:'#a78bfa',ico:'✏️',desc:'Adicionado manualmente.'};
+
+  let html = `<div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+    <span style="font-size:1.1rem;">${origem.ico}</span>
+    <div><div style="font-size:0.8rem;font-weight:800;color:${origem.cor};">${origem.label}</div><div style="font-size:0.7rem;color:#777;margin-top:0.1rem;">${origem.desc}</div></div>
+  </div>`;
+
+  let links=[];
+  if(h.url) links.push(`<a href="${esc(h.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.68rem;font-weight:700;color:#3498db;background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.22);border-radius:7px;padding:0.22rem 0.55rem;text-decoration:none;">🧠 Ver DISC</a>`);
+  if(h.url_resultado_fit) links.push(`<a href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.68rem;font-weight:700;color:#3b82f6;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.22);border-radius:7px;padding:0.22rem 0.55rem;text-decoration:none;">🎯 Ver Entrevista</a>`);
+  if(links.length) html+=`<div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.75rem;">${links.join('')}</div>`;
+
+  if(temDisc){
+    const d=parseFloat(h.pct_d)||0,i=parseFloat(h.pct_i)||0,s=parseFloat(h.pct_s)||0,c=parseFloat(h.pct_c)||0;
+    const combo=h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`;
+    html+=`<div style="background:rgba(52,152,219,0.05);border:1px solid rgba(52,152,219,0.15);border-radius:10px;padding:0.75rem 0.9rem;">
+      <div style="font-size:0.68rem;font-weight:700;color:#3498db;margin-bottom:0.5rem;">✅ Perfil DISC: ${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</div>
+      ${[['D',d,'#e74c3c'],['I',i,'#f39c12'],['S',s,'#2ecc71'],['C',c,'#3498db']].map(([l,v,cor])=>
+        `<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem;"><span style="font-size:0.62rem;font-weight:700;color:${cor};width:12px;">${l}</span><div style="flex:1;height:5px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;"><div style="height:100%;width:${v}%;background:${cor};border-radius:99px;"></div></div><span style="font-size:0.65rem;color:${cor};width:30px;text-align:right;">${Math.round(v)}%</span></div>`
+      ).join('')}
+    </div>`;
+  } else {
+    html+=`<div style="background:rgba(231,76,60,0.06);border:1px solid rgba(231,76,60,0.18);border-radius:10px;padding:0.75rem 0.9rem;">
+      <div style="font-size:0.72rem;font-weight:700;color:#e74c3c;margin-bottom:0.3rem;">⚠️ DISC não realizado</div>
+      <div style="font-size:0.68rem;color:#888;line-height:1.5;">Este candidato ainda não possui perfil DISC.</div>
+    </div>`;
+  }
+  document.getElementById('paOrigemConteudo').innerHTML = html;
+}
+
+function paRenderEntrevista(h){
+  const wrap = document.getElementById('paEntrevistaWrap');
+  const cont = document.getElementById('paEntrevistaConteudo');
+  if(!h.fit_score&&!h.entrevista_json&&!h.pontos_fortes){ wrap.style.display='none'; return; }
+  wrap.style.display='block';
+  let entrev=null; try{entrev=h.entrevista_json?JSON.parse(h.entrevista_json):null;}catch(e){}
+  const pf=(h.pontos_fortes||'').split(' | ').map(s=>s.trim()).filter(Boolean);
+  const pa=(h.pontos_atencao||'').split(' | ').map(s=>s.trim()).filter(Boolean);
+  const ra=(h.requisitos_atendidos||'').split(' | ').map(s=>s.trim()).filter(Boolean);
+  const rm=(h.requisitos_ausentes||'').split(' | ').map(s=>s.trim()).filter(Boolean);
+  const fit=h.fit_score?parseInt(h.fit_score):null;
+  const cor2=fit?(fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c'):'#777';
+  let html='';
+  if(fit) html+=`<div style="display:flex;align-items:center;gap:0.75rem;background:rgba(0,0,0,0.2);border-radius:8px;padding:0.65rem 0.85rem;margin-bottom:0.7rem;"><div style="font-size:1.8rem;font-weight:900;color:${cor2};">${fit}%</div><div><div style="font-size:0.82rem;font-weight:800;color:#f0f0f0;">Fit ${h.fit_nivel||''}</div>${h.recomendacao_admin?`<div style="font-size:0.7rem;color:#aaa;margin-top:0.1rem;">${esc(h.recomendacao_admin)}</div>`:''}</div></div>`;
+  if(pf.length) html+=`<div class="ent-row"><div class="ent-lbl">✅ Pontos fortes</div><div style="display:flex;flex-wrap:wrap;gap:0.3rem;">${pf.map(t=>`<span class="tag-ok">✓ ${esc(t)}</span>`).join('')}</div></div>`;
+  if(pa.length) html+=`<div class="ent-row"><div class="ent-lbl">⚠️ Pontos de atenção</div><div style="display:flex;flex-wrap:wrap;gap:0.3rem;">${pa.map(t=>`<span class="tag-warn">⚠ ${esc(t)}</span>`).join('')}</div></div>`;
+  if(ra.length||rm.length) html+=`<div class="ent-row"><div class="ent-lbl">📋 Requisitos</div><div style="display:flex;flex-wrap:wrap;gap:0.3rem;">${ra.map(t=>`<span class="tag-ok">✔ ${esc(t)}</span>`).join('')}${rm.map(t=>`<span class="tag-miss">✕ ${esc(t)}</span>`).join('')}</div></div>`;
+  if(entrev){
+    const campos=[['📖 Trajetória','historia'],['🎯 Exp. com a vaga','exp_vaga'],['🧑‍💼 Diferencial','diferencial'],['💭 Motivação','motivacao'],['📌 Extras','extra']];
+    html+=`<details style="margin-top:0.5rem;"><summary style="font-size:0.68rem;font-weight:700;color:#5b9cf6;cursor:pointer;list-style:none;display:flex;align-items:center;gap:0.3rem;">▼ Ver respostas do candidato</summary><div style="margin-top:0.65rem;display:flex;flex-direction:column;gap:0.55rem;">`;
+    if(entrev.conquistas?.length) html+=`<div class="ent-row"><div class="ent-lbl">🏆 Conquistas</div><div style="display:flex;flex-wrap:wrap;gap:0.3rem;">${entrev.conquistas.map(c=>`<span class="tag-ok">★ ${esc(c)}</span>`).join('')}</div></div>`;
+    campos.forEach(([lbl,key])=>{ if(entrev[key]) html+=`<div class="ent-row"><div class="ent-lbl">${lbl}</div><div class="ent-val">${esc(entrev[key])}</div></div>`; });
+    html+=`</div></details>`;
+  }
+  cont.innerHTML = html || '<p style="font-size:0.75rem;color:#555;">Dados da entrevista não disponíveis.</p>';
+}
+
+async function fecharPerfilArea(){
+  if(_perfilAtual){
+    const email = (document.getElementById('paEmail')?.value||'').trim();
+    const tel   = (document.getElementById('paTel')?.value||'').trim();
+    const linkE = (document.getElementById('paLinkExt')?.value||'').trim();
+    const curriculo = (document.getElementById('paCurriculo')?.value||'').trim();
+    const cidade = (document.getElementById('paCidade')?.value||'').trim();
+    const payload = {};
+    if(email!==(_perfilAtual.email_externo||'')) payload.email_externo=email||null;
+    if(tel!==(_perfilAtual.tel_externo||''))   payload.tel_externo=tel||null;
+    if(linkE!==(_perfilAtual.link_externo||'')) payload.link_externo=linkE||null;
+    if(curriculo!==(_perfilAtual.curriculo_url||'')) payload.curriculo_url=curriculo||null;
+    if(cidade!==(_perfilAtual.cidade||'')) payload.cidade=cidade||null;
+    Object.keys(payload).forEach(k=>{ if(payload[k]===null) delete payload[k]; });
+    if(Object.keys(payload).length){
+      try{
+        await sbPatch('disc_historico',`id=eq.${encodeURIComponent(_perfilAtual.id)}`,payload);
+        Object.assign(_perfilAtual, payload);
+        const idx=_allCands.findIndex(x=>x.id===_perfilAtual.id);
+        if(idx>=0) Object.assign(_allCands[idx], payload);
+        mostrarToast('✅ Contatos salvos automaticamente');
+        renderAreas();
+      }catch(e){}
+    }
+  }
+  ['paEmail','paTel','paLinkExt','paCurriculo','paCidade','paNomeEdit','paVagaEdit','paLinkDisc','paLinkFit','paFitManual','paAderencia','paScoreRec','paUrlImport'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('modalPerfilArea').style.display='none';
+  _perfilAtual=null;
+}
+
+/* ═══ BOTÕES DO PERFIL ═══ */
+function devolverAoBancoFromPerfil(){
+  if(!_perfilAtual) return;
+  const id=String(_perfilAtual.id), nome=_perfilAtual.nome||'Candidato';
+  delete _assign[id]; salvarAssign(_assign); salvarAssignDB(id,[]);
+  fecharPerfilArea();
+  renderTudo();
+  mostrarToast(`↩️ ${nome} devolvido ao Banco de Talentos.`);
+}
+
+function abrirCopiarAreaFromPerfil(){
+  if(!_perfilAtual) return;
+  fecharPerfilArea();
+  setTimeout(()=>abrirCopiarArea(_perfilAtual?.id||'', _perfilAtual?.nome||''), 200);
+  // guarda referência antes de fechar
+  const _tmp = _perfilAtual;
+  setTimeout(()=>abrirCopiarArea(_tmp.id, _tmp.nome||''), 200);
+}
+
+function abrirGerenciarAreasFromPerfil(){
+  if(!_perfilAtual) return;
+  const id=_perfilAtual.id, nome=_perfilAtual.nome||'';
+  fecharPerfilArea();
+  setTimeout(()=>abrirModalMover(id, nome), 200);
+}
+
+/* ═══ SALVAR DADOS DO CANDIDATO (PERFIL) ═══ */
+async function salvarDadosCandArea(){
+  if(!_perfilAtual) return;
+  const nomeP  = (document.getElementById('paNomeEdit')?.value||'').trim();
+  const vagaP  = (document.getElementById('paVagaEdit')?.value||'').trim();
+  const email  = (document.getElementById('paEmail')?.value||'').trim();
+  const tel    = (document.getElementById('paTel')?.value||'').trim();
+  const linkE  = (document.getElementById('paLinkExt')?.value||'').trim();
+  const curriculo = (document.getElementById('paCurriculo')?.value||'').trim();
+  const cidade = (document.getElementById('paCidade')?.value||'').trim();
+  const payload = {};
+  if(nomeP&&nomeP!==_perfilAtual.nome) payload.nome=nomeP;
+  if(vagaP&&vagaP!==_perfilAtual.vaga) payload.vaga=vagaP;
+  if(email!==(_perfilAtual.email_externo||'')) payload.email_externo=email||null;
+  if(tel!==(_perfilAtual.tel_externo||''))   payload.tel_externo=tel||null;
+  if(linkE!==(_perfilAtual.link_externo||'')) payload.link_externo=linkE||null;
+  if(curriculo!==(_perfilAtual.curriculo_url||'')) payload.curriculo_url=curriculo||null;
+  if(cidade!==(_perfilAtual.cidade||'')) payload.cidade=cidade||null;
+  Object.keys(payload).forEach(k=>{ if(payload[k]===null) delete payload[k]; });
+  if(!Object.keys(payload).length){ mostrarToast('Sem alterações para salvar',true); return; }
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(_perfilAtual.id)}`,payload);
+    Object.assign(_perfilAtual, payload);
+    const idx=_allCands.findIndex(x=>x.id===_perfilAtual.id);
+    if(idx>=0) Object.assign(_allCands[idx], payload);
+    document.getElementById('paNome').textContent=_perfilAtual.nome||'—';
+    document.getElementById('paMeta').textContent=`${_perfilAtual.dom||'?'}+${_perfilAtual.sec||'?'} · ${_perfilAtual.combo_nome||''} · ${_perfilAtual.vaga||'—'} · ${_perfilAtual.data||'—'}`;
+    const msg=document.getElementById('paSaveDadosMsg'); if(msg){msg.style.display='block';setTimeout(()=>msg.style.display='none',2500);}
+    mostrarToast('✅ Dados salvos!');
+    renderAreas();
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+/* ═══ SALVAR SCORES (PERFIL) ═══ */
+async function salvarManualArea(){
+  if(!_perfilAtual) return;
+  const payload = {};
+  const fitM   = document.getElementById('paFitManual').value.trim();
+  const aderM  = document.getElementById('paAderencia').value.trim();
+  const scoreRec=document.getElementById('paScoreRec').value.trim();
+  const docOk  = document.getElementById('paDocCompleta').checked;
+  const linkD  = document.getElementById('paLinkDisc').value.trim();
+  const linkF  = document.getElementById('paLinkFit').value.trim();
+  if(fitM!==''){const v=parseInt(fitM);if(!isNaN(v)&&v>=0&&v<=100)payload.fit_manual=v;else{mostrarToast('Fit Manual: 0–100',true);return;}}
+  if(aderM!==''){const v=parseInt(aderM);if(!isNaN(v)&&v>=0&&v<=100)payload.aderencia_manual=v;else{mostrarToast('Aderência: 0–100',true);return;}}
+  if(scoreRec!==''){const v=parseInt(scoreRec);if(!isNaN(v)&&v>=0&&v<=100)payload.score_recrutador=v;else{mostrarToast('Score Recrutador: 0–100',true);return;}}
+  payload.doc_completa=docOk;
+  if(linkD) payload.url=linkD;
+  if(linkF) payload.url_resultado_fit=linkF;
+  if(!Object.keys(payload).length){mostrarToast('Nenhuma alteração',true);return;}
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(_perfilAtual.id)}`,payload);
+    Object.assign(_perfilAtual, payload);
+    const idx=_allCands.findIndex(x=>x.id===_perfilAtual.id);
+    if(idx>=0) Object.assign(_allCands[idx],payload);
+    abrirPerfilArea(_perfilAtual.id);
+    const msg=document.getElementById('paSaveMsg');if(msg){msg.style.display='block';setTimeout(()=>msg.style.display='none',2500);}
+    mostrarToast('✅ Scores salvos!');
+    renderAreas();
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+async function salvarStatusContatoPerfilArea(){
+  if(!_perfilAtual) return;
+  const sel=document.getElementById('paStatusContato'); if(!sel) return;
+  const valor=sel.value||null;
+  const idx=_allCands.findIndex(x=>String(x.id)===String(_perfilAtual.id));
+  if(idx>=0) _allCands[idx].status_contato=valor;
+  _perfilAtual.status_contato=valor;
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(_perfilAtual.id)}`,{status_contato:valor});
+    mostrarToast(valor?'💬 Status: '+(_SC_LABELS[valor]||valor):'💬 Status removido');
+    renderAreas();
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+function paAtualizarPreviewScoreRec(input){
+  const v=parseInt(input.value); const el=document.getElementById('paScoreRecPreview'); if(!el) return;
+  if(isNaN(v)||input.value===''){el.textContent='—';el.style.color='#777';return;}
+  const c=v>=80?'#2ecc71':v>=65?'#3b82f6':v>=45?'#f39c12':'#e74c3c';
+  el.textContent=v+'%';el.style.color=c;
+}
+
+/* ═══ IMPORTAR URL (PERFIL ÁREA) ═══ */
+async function importarUrlArea(){
+  if(!_perfilAtual){mostrarToast('Nenhum candidato selecionado',true);return;}
+  const raw=(document.getElementById('paUrlImport').value||'').trim();
+  if(!raw){mostrarToast('Cole uma URL primeiro',true);return;}
+  let parsed=null;
+  try{
+    const url=new URL(raw.includes('://')?raw:'https://x.com/?'+raw.split('?')[1]);
+    const p=url.searchParams;
+    const tipo=raw.includes('entrevista-resultado')?'fit':raw.includes('disc-resultado')?'disc':'outro';
+    parsed={tipo,url:raw,nome:p.get('nome')||'',vaga:p.get('vaga')||'',perfil:p.get('perfil')||p.get('dom')||'',sec:p.get('sec')||'',d:p.get('d')||'0',i:p.get('i')||'0',s:p.get('s')||'0',c:p.get('c')||'0',fit:p.get('fit')||'',nivel:p.get('nivel')||'',tel:p.get('tel')||'',email:p.get('email')||''};
+  }catch(e){mostrarToast('URL inválida',true);return;}
+  const payload={};
+  if(parsed.tipo==='fit'){
+    payload.url_resultado_fit=raw;
+    if(parsed.fit) payload.fit_score=parsed.fit;
+    if(parsed.nivel) payload.fit_nivel=parsed.nivel;
+    if(parsed.perfil){payload.dom=parsed.perfil;payload.sec=parsed.sec||'I';}
+    if(parsed.d!='0'||parsed.i!='0'){payload.pct_d=parsed.d;payload.pct_i=parsed.i;payload.pct_s=parsed.s;payload.pct_c=parsed.c;}
+    if(parsed.email&&!_perfilAtual.email_externo) payload.email_externo=parsed.email;
+  } else if(parsed.tipo==='disc'){
+    payload.url=raw;
+    if(parsed.perfil){payload.dom=parsed.perfil;payload.sec=parsed.sec||'I';}
+    if(parsed.d!='0'||parsed.i!='0'){payload.pct_d=parsed.d;payload.pct_i=parsed.i;payload.pct_s=parsed.s;payload.pct_c=parsed.c;}
+    if(parsed.email&&!_perfilAtual.email_externo) payload.email_externo=parsed.email;
+  }
+  if(!Object.keys(payload).length){mostrarToast('Nenhum dado útil encontrado',true);return;}
+  try{
+    await sbPatch('disc_historico',`id=eq.${encodeURIComponent(_perfilAtual.id)}`,payload);
+    Object.assign(_perfilAtual, payload);
+    const idx=_allCands.findIndex(x=>x.id===_perfilAtual.id);
+    if(idx>=0) Object.assign(_allCands[idx],payload);
+    mostrarToast('✅ Importado com sucesso!');
+    abrirPerfilArea(_perfilAtual.id);
+    renderAreas();
+  }catch(e){mostrarToast('Erro: '+e.message,true);}
+}
+
+/* ═══ COPIAR ÁREA A PARTIR DO PERFIL ═══ */
+function abrirCopiarAreaFromPerfil2(id, nome){
+  document.getElementById('modalPerfilArea').style.display='none';
+  setTimeout(()=>{ abrirCopiarArea(id, nome); }, 180);
+}
+
+// Override de abrirCopiarAreaFromPerfil para usar id correto
+(function(){
+  window.abrirCopiarAreaFromPerfil = function(){
+    if(!_perfilAtual) return;
+    const id=_perfilAtual.id, nome=_perfilAtual.nome||'';
+    document.getElementById('modalPerfilArea').style.display='none';
+    _perfilAtual=null;
+    setTimeout(()=>abrirCopiarArea(id, nome), 180);
+  };
+  window.abrirGerenciarAreasFromPerfil = function(){
+    if(!_perfilAtual) return;
+    const id=_perfilAtual.id, nome=_perfilAtual.nome||'';
+    document.getElementById('modalPerfilArea').style.display='none';
+    _perfilAtual=null;
+    setTimeout(()=>abrirModalMover(id, nome), 180);
+  };
+})();
+
+/* ═══ EXPORTAR CSV ═══ */
+function exportarCSV(){
+  const assignedIds = Object.keys(_assign).filter(cid=>getAreasDoCandiato(cid).length>0);
+  const cands = _allCands.filter(c=>assignedIds.includes(String(c.id)));
+  if(!cands.length){ mostrarToast('Nenhum candidato para exportar', true); return; }
+  const header = ['Nome','Vaga','Áreas','E-mail','Telefone','Cidade','DISC Dom.','DISC Sec.','Fit Score','Score Recrutador','Aderência','Status Contato','Docs OK','Data'];
+  const rows = cands.map(c=>{
+    const areas = getAreasDoCandiato(c.id).map(aid=>_areas.find(a=>a.id===aid)?.nome||'?').join(' | ');
+    return [c.nome||'',c.vaga||'',areas,c.email_externo||'',c.tel_externo||'',c.cidade||'',c.dom||'',c.sec||'',c.fit_score||c.fit_manual||'',c.score_recrutador||'',c.aderencia_manual||'',c.status_contato||'',c.doc_completa?'SIM':'NÃO',c.data||'']
+      .map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',');
+  });
+  const csv = '\uFEFF'+header.join(',')+'\n'+rows.join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const blobUrl = URL.createObjectURL(blob);
+  const fileName = `banco_areas_nexus_${new Date().toISOString().slice(0,10)}.csv`;
+  try{
+    const topDoc = (window.top||window).document;
+    const a = topDoc.createElement('a');
+    a.href = blobUrl; a.download = fileName; a.style.display = 'none';
+    topDoc.body.appendChild(a); a.click(); topDoc.body.removeChild(a);
+  } catch(e){
+    const a = document.createElement('a');
+    a.href = blobUrl; a.download = fileName; a.style.display = 'none';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+  setTimeout(()=>URL.revokeObjectURL(blobUrl), 5000);
+  mostrarToast('📊 CSV exportado!');
+}
+
+/* ═══ INIT ═══ */
+// Anti-autofill nuclear: recria o campo no DOM após o browser tentar preencher
+(function bloquearAutofillAreas(){
+  function limpar(){
+    const el = document.getElementById('fBusca');
+    if(!el || !el.value) return;
+    const clone = el.cloneNode(true);
+    clone.value = '';
+    clone.removeAttribute('readonly');
+    clone.addEventListener('input', renderAreas);
+    el.parentNode.replaceChild(clone, el);
+  }
+  setTimeout(limpar, 0);
+  setTimeout(limpar, 100);
+  setTimeout(limpar, 300);
+  setTimeout(limpar, 800);
+})();
+
+window.addEventListener('DOMContentLoaded', init);
+
+// ═══ MINI MODAL PIPELINE ═══
+let _miniPipeCandId = null;
+let _miniPipeCandNome = null;
+
+function abrirMiniPipeArea(id, nome){
+  _miniPipeCandId = id;
+  _miniPipeCandNome = nome;
+  const modal = document.getElementById('miniPipeModalArea');
+  const nomeEl = document.getElementById('miniPipeNomeArea');
+  const vagaSel = document.getElementById('miniPipeVagaArea');
+  const msg = document.getElementById('miniPipeMsgArea');
+  if(nomeEl) nomeEl.textContent = nome || 'Candidato';
+  if(msg) msg.textContent = '';
+  if(vagaSel){
+    if(_vagasList && _vagasList.length){
+      vagaSel.innerHTML = '<option value="">Selecione uma vaga ativa…</option>' +
+        _vagasList.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join('');
+    } else {
+      fetch(`${SUPABASE_URL}/rest/v1/vagas?select=slug,titulo&order=criado_em.desc`,
+        {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}})
+        .then(r=>r.json()).then(vagas=>{
+          if(Array.isArray(vagas)&&vagas.length){
+            _vagasList = vagas;
+            vagaSel.innerHTML = '<option value="">Selecione uma vaga ativa…</option>' +
+              vagas.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join('');
+          } else vagaSel.innerHTML='<option value="">Nenhuma vaga encontrada</option>';
+        }).catch(()=>{ vagaSel.innerHTML='<option value="">Erro ao carregar</option>'; });
+    }
+  }
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharMiniPipeArea(){
+  const modal = document.getElementById('miniPipeModalArea');
+  if(modal) modal.style.display = 'none';
+  document.body.style.overflow = '';
+  _miniPipeCandId = null;
+  _miniPipeCandNome = null;
+}
+
+async function confirmarMiniPipeArea(abrirPipeline=false){
+  if(!_miniPipeCandId) return;
+  const vagaSel  = document.getElementById('miniPipeVagaArea');
+  const etapaSel = document.getElementById('miniPipeEtapaArea');
+  const btn      = document.getElementById('miniPipeBtnArea');
+  const msg      = document.getElementById('miniPipeMsgArea');
+  const vagaSlug = vagaSel?.value;
+  const etapa    = etapaSel?.value || 'triagem';
+  if(!vagaSlug){
+    if(msg) { msg.style.color='#e74c3c'; msg.textContent='⚠️ Selecione uma vaga.'; }
+    return;
+  }
+  if(btn){ btn.textContent='⏳ Movendo…'; btn.disabled=true; }
+  if(msg) msg.textContent='';
+  try{
+    await savePipeEntry(vagaSlug, _miniPipeCandId, etapa);
+    const vagaTitulo = vagaSel.options[vagaSel.selectedIndex]?.text || vagaSlug;
+    const etapaLabel = etapaSel.options[etapaSel.selectedIndex]?.text || etapa;
+    mostrarToast(`✅ ${_miniPipeCandNome||'Candidato'} → ${vagaTitulo} (${etapaLabel})`);
+    // Notifica o pipeline.html (se estiver em iframe ou janela pai) para recarregar e selecionar a vaga
+    try{
+      const msg = {tipo:'nexus_pipeline_reload', vagaSlug};
+      if(window.parent && window.parent !== window) window.parent.postMessage(msg,'*');
+      // Também tenta notificar frames irmãos (caso esteja em layout de iframes)
+      if(window.top && window.top !== window && window.top !== window.parent) window.top.postMessage(msg,'*');
+    }catch(pe){}
+    fecharMiniPipeArea();
+    // Navega para o pipeline abrindo na mesma janela ou aba pai
+    if(abrirPipeline){
+      const pipeUrl = `pipeline.html?vaga=${encodeURIComponent(vagaSlug)}`;
+      try{
+        if(window.parent && window.parent !== window){
+          window.parent.postMessage({tipo:'nexus_navegar', url:pipeUrl, vagaSlug},'*');
+        } else {
+          window.top.location.href = pipeUrl;
+        }
+      }catch(ne){ window.open(pipeUrl,'_blank'); }
+    }
+  }catch(e){
+    if(msg){ msg.style.color='#e74c3c'; msg.textContent='❌ '+e.message; }
+  }finally{
+    if(btn){ btn.textContent='🚀 Mover'; btn.disabled=false; }
+  }
+}
+
+// Pipeline direto do perfil
+async function moverParaPipelinePerfil(){
+  const h = _perfilAtual;
+  if(!h){ mostrarToast('Nenhum candidato aberto',true); return; }
+  const vagaSel  = document.getElementById('paMoverVaga');
+  const etapaSel = document.getElementById('paMoverEtapa');
+  const btn      = document.querySelector('[onclick="moverParaPipelinePerfil()"]');
+  const vagaSlug = vagaSel?.value;
+  const etapa    = etapaSel?.value || 'triagem';
+  if(!vagaSlug){ mostrarToast('Selecione uma vaga',true); return; }
+  if(btn){ btn.textContent='⏳'; btn.disabled=true; }
+  try{
+    await savePipeEntry(vagaSlug, h.id, etapa);
+    const vagaTitulo = vagaSel.options[vagaSel.selectedIndex]?.text || vagaSlug;
+    const etapaLabel = etapaSel.options[etapaSel.selectedIndex]?.text || etapa;
+    mostrarToast(`✅ ${h.nome||'Candidato'} → ${vagaTitulo} (${etapaLabel})`);
+    vagaSel.value = '';
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+  finally{ if(btn){ btn.textContent='➕'; btn.disabled=false; } }
+}
+
+function navegar(mod){ window.parent.postMessage({tipo:'nexus_navegar',mod},'*'); }
+
+</script>
+
+<!-- ═══ MINI MODAL PIPELINE ═══ -->
+<div id="miniPipeModalArea" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharMiniPipeArea()">
+  <div style="background:#111317;border:1px solid rgba(59,130,246,0.25);border-radius:16px;padding:1.5rem;width:100%;max-width:400px;box-shadow:0 24px 60px rgba(0,0,0,0.6);">
+    <div style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#3b82f6;margin-bottom:0.4rem;">🚀 Mover para Pipeline</div>
+    <div id="miniPipeNomeArea" style="font-size:1rem;font-weight:800;color:#eeeef0;margin-bottom:1rem;"></div>
+    <label style="font-size:0.65rem;color:#666;text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.35rem;">Vaga</label>
+    <select id="miniPipeVagaArea" style="width:100%;background:#1a1b1f;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#eeeef0;font-family:inherit;font-size:0.85rem;outline:none;margin-bottom:0.75rem;cursor:pointer;">
+      <option value="">Selecione uma vaga ativa…</option>
+    </select>
+    <label style="font-size:0.65rem;color:#666;text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.35rem;">Etapa</label>
+    <select id="miniPipeEtapaArea" style="width:100%;background:#1a1b1f;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#eeeef0;font-family:inherit;font-size:0.85rem;outline:none;margin-bottom:1.1rem;cursor:pointer;">
+      <option value="triagem">🔵 Triagem</option>
+      <option value="pre">🟣 Pré-seleção</option>
+      <option value="entrevista">🟡 Entrevista</option>
+      <option value="finalista">🟢 Finalista</option>
+      <option value="aprovado">✅ Aprovado</option>
+    </select>
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+      <button id="miniPipeBtnArea" onclick="confirmarMiniPipeArea(false)" style="flex:2;min-width:120px;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border:none;border-radius:10px;padding:0.75rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">🚀 Mover</button>
+      <button onclick="confirmarMiniPipeArea(true)" style="flex:3;min-width:160px;background:linear-gradient(135deg,#1a3a6b,#3498db);color:#fff;border:none;border-radius:10px;padding:0.75rem;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;">🚀 Mover e Abrir Pipeline</button>
+      <button onclick="fecharMiniPipeArea()" style="flex:1;min-width:80px;background:rgba(255,255,255,0.05);color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.75rem;font-family:inherit;font-size:0.85rem;cursor:pointer;">Cancelar</button>
+    </div>
+    <div id="miniPipeMsgArea" style="min-height:1rem;font-size:0.72rem;margin-top:0.6rem;text-align:center;"></div>
+  </div>
+</div>
+
+
+<!-- ══ MODAL SENHA PARECER FINAL (Banco de Áreas) ══ -->
+<div class="pf-pwd-overlay" id="modalSenhaParecerArea" style="display:none;" onclick="if(event.target===this)fecharSenhaParecerArea()">
+  <div class="pf-pwd-box">
+    <div style="font-size:2.2rem;margin-bottom:0.75rem;">🔐</div>
+    <div style="font-size:0.95rem;font-weight:900;color:#f0f0f0;margin-bottom:0.15rem;">Área Restrita</div>
+    <div style="font-size:0.72rem;color:#666;margin-bottom:1.3rem;line-height:1.5;">Digite a senha para acessar o Parecer Final.<br>Este conteúdo não é visível para o candidato.</div>
+    <input type="password" id="pfPwdInputArea" class="pf-pwd-inp" placeholder="••••••••" onkeydown="if(event.key==='Enter')verificarSenhaParecerArea()"/>
+    <div id="pfPwdErroArea" style="font-size:0.72rem;color:#e74c3c;min-height:1.1rem;margin:0.55rem 0 0.8rem;font-weight:700;"></div>
+    <div style="display:flex;gap:0.6rem;">
+      <button onclick="verificarSenhaParecerArea()" style="flex:2;background:linear-gradient(135deg,#5b21b6,#a78bfa);color:#fff;border:none;border-radius:11px;padding:0.7rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;">Entrar</button>
+      <button onclick="fecharSenhaParecerArea()" class="pf-btn-ghost" style="flex:1;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL PARECER FINAL (Banco de Áreas) ══ -->
+<div class="pf-overlay" id="modalParecerFinalArea" style="display:none;" onclick="if(event.target===this)fecharParecerFinalArea()">
+  <div class="pf-box">
+    <button onclick="fecharParecerFinalArea()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;z-index:1;">✕</button>
+
+    <div class="pf-title">Banco de Áreas · Candidato</div>
+    <div class="pf-heading">📑 Parecer Final</div>
+    <div class="pf-sub" id="pfSubCandArea">Documento de avaliação completa do candidato — uso interno restrito.</div>
+
+    <div class="pf-lock-indicator">
+      <div class="pf-lock-dot"></div>
+      <div>
+        <div style="font-size:0.72rem;font-weight:700;color:#c4b5fd;">Área protegida por senha</div>
+        <div style="font-size:0.6rem;color:#555;margin-top:0.05rem;">Este conteúdo não é visível para o candidato</div>
+      </div>
+    </div>
+
+    <!-- Link do Parecer -->
+    <div class="pf-sec">
+      <div class="pf-sec-title">🔗 Link do Parecer Final</div>
+      <div style="font-size:0.68rem;color:#666;margin-bottom:0.65rem;line-height:1.55;">Cole o link externo do parecer completo (Google Drive, Notion, Dropbox, PDF online etc.). Herdado automaticamente nos demais módulos.</div>
+      <div style="display:flex;gap:0.4rem;align-items:center;">
+        <input type="url" id="pfLinkInputArea" class="pf-inp" placeholder="https://drive.google.com/file/… ou https://notion.so/…" style="flex:1;min-width:0;"/>
+        <button onclick="var l=document.getElementById('pfLinkInputArea').value.trim();if(l)window.top.open(l,'_blank');else mostrarToast('Sem link cadastrado',true);" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.3);border-radius:8px;padding:0.6rem 0.7rem;font-size:1rem;cursor:pointer;flex-shrink:0;">🔗</button>
+      </div>
+      <div id="pfLinkPreviewWrapArea" style="display:none;" class="pf-link-preview">
+        <span style="font-size:0.85rem;">📎</span>
+        <a id="pfLinkPreviewAArea" href="#" target="_blank" onclick="window.top.open(this.href,'_blank');return false;">—</a>
+        <button onclick="document.getElementById('pfLinkInputArea').value='';document.getElementById('pfLinkPreviewWrapArea').style.display='none';" style="background:none;border:none;color:#e74c3c;cursor:pointer;font-size:0.75rem;flex-shrink:0;">✕</button>
+      </div>
+    </div>
+
+    <!-- Anexar -->
+    <div class="pf-sec">
+      <div class="pf-sec-title">📎 Anexar Parecer Final</div>
+      <div style="background:rgba(167,139,250,0.05);border:1.5px dashed rgba(167,139,250,0.3);border-radius:12px;padding:1.2rem;text-align:center;">
+        <div style="font-size:1.8rem;margin-bottom:0.5rem;">📄</div>
+        <div style="font-size:0.78rem;font-weight:700;color:#c4b5fd;margin-bottom:0.3rem;">Anexar via link externo</div>
+        <div style="font-size:0.65rem;color:#555;line-height:1.6;margin-bottom:0.8rem;">Faça upload no Google Drive, Dropbox ou Notion e cole o link compartilhável no campo acima.</div>
+        <div style="display:flex;gap:0.4rem;justify-content:center;flex-wrap:wrap;">
+          <a href="https://drive.google.com" target="_blank" style="background:rgba(52,152,219,0.12);color:#3498db;border:1px solid rgba(52,152,219,0.3);border-radius:8px;padding:0.35rem 0.75rem;font-family:inherit;font-size:0.7rem;font-weight:700;text-decoration:none;">📂 Google Drive</a>
+          <a href="https://www.dropbox.com" target="_blank" style="background:rgba(59,130,246,0.1);color:#2ecc71;border:1px solid rgba(59,130,246,0.28);border-radius:8px;padding:0.35rem 0.75rem;font-family:inherit;font-size:0.7rem;font-weight:700;text-decoration:none;">📦 Dropbox</a>
+          <a href="https://www.notion.so" target="_blank" style="background:rgba(255,255,255,0.06);color:#ccc;border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:0.35rem 0.75rem;font-family:inherit;font-size:0.7rem;font-weight:700;text-decoration:none;">📝 Notion</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Observações -->
+    <div class="pf-sec">
+      <div class="pf-sec-title">📝 Observações Internas</div>
+      <div style="font-size:0.68rem;color:#666;margin-bottom:0.55rem;">Anotações internas vinculadas ao parecer. Não visíveis publicamente.</div>
+      <textarea id="pfObsInputArea" class="pf-inp" rows="4" placeholder="Ex: Candidato aprovado na entrevista técnica. Aguardando retorno do gestor. Perfil sênior, expectativa R$ 8.000." style="resize:vertical;min-height:80px;font-size:0.78rem;line-height:1.6;"></textarea>
+    </div>
+
+    <!-- Status -->
+    <div class="pf-sec">
+      <div class="pf-sec-title">📊 Status do Parecer</div>
+      <select id="pfStatusInputArea" class="pf-inp">
+        <option value="">— Sem status definido —</option>
+        <option value="em_andamento">⏳ Em andamento</option>
+        <option value="concluido">✅ Concluído</option>
+        <option value="aprovado">🟢 Candidato aprovado</option>
+        <option value="em_espera">🟡 Em espera</option>
+        <option value="reprovado">🔴 Candidato reprovado</option>
+        <option value="banco">🗃️ Direcionado ao banco</option>
+      </select>
+    </div>
+
+    <div style="display:flex;gap:0.6rem;margin-top:0.5rem;">
+      <button onclick="salvarParecerFinalArea()" class="pf-btn-primary" id="pfSaveBtnArea" style="flex:2;">💾 Salvar Parecer Final</button>
+      <button onclick="fecharParecerFinalArea()" class="pf-btn-ghost" style="flex:1;">Cancelar</button>
+    </div>
+    <div id="pfSaveMsgArea" style="display:none;text-align:center;font-size:0.72rem;color:#a78bfa;margin-top:0.5rem;font-weight:700;">✓ Parecer salvo e herdado para os demais módulos!</div>
+  </div>
+</div>
+
+<script>
+// ═══ SISTEMA DE PARECER FINAL — Banco de Áreas ═══
+const PF_SESSION_KEY_AREA = 'nexus_pf_auth';
+let _pfAutenticadoArea = false;
+let _pfCallbackArea = null;
+
+async function _sha256Area(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function _buscarHashEsperadoArea(){
+  try{
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/configuracoes_aderencia?vaga_key=eq._sistema&select=pesos`,
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}
+    );
+    if(!res.ok) return null;
+    const rows = await res.json();
+    if(Array.isArray(rows) && rows[0]?.pesos?.parecer_hash) return rows[0].pesos.parecer_hash;
+    return null;
+  }catch(e){ return null; }
+}
+
+async function verificarSenhaParecerArea(){
+  const inp = document.getElementById('pfPwdInputArea');
+  const senha = inp.value;
+  if(!senha){ document.getElementById('pfPwdErroArea').textContent='Digite a senha para continuar.'; return; }
+  const hashDigitado = await _sha256Area(senha);
+  const hashEsperado = await _buscarHashEsperadoArea();
+  if(!hashEsperado){
+    document.getElementById('pfPwdErroArea').textContent='⚠️ Senha não configurada. Peça ao administrador.';
+    inp.classList.add('shake'); setTimeout(()=>inp.classList.remove('shake'),450); return;
+  }
+  if(hashDigitado !== hashEsperado){
+    document.getElementById('pfPwdErroArea').textContent='❌ Senha incorreta. Tente novamente.';
+    inp.value=''; inp.classList.add('shake'); setTimeout(()=>inp.classList.remove('shake'),450); return;
+  }
+  _pfAutenticadoArea = true;
+  try{ sessionStorage.setItem(PF_SESSION_KEY_AREA, hashDigitado); }catch(e){}
+  fecharSenhaParecerArea();
+  if(_pfCallbackArea){ _pfCallbackArea(); _pfCallbackArea=null; }
+}
+
+function _estaAutenticadoArea(){
+  if(_pfAutenticadoArea) return true;
+  try{ const s=sessionStorage.getItem(PF_SESSION_KEY_AREA); if(s){_pfAutenticadoArea=true;return true;} }catch(e){}
+  return false;
+}
+
+function abrirSenhaParecerArea(){
+  if(_estaAutenticadoArea()){ abrirParecerFinalArea(); return; }
+  _pfCallbackArea = abrirParecerFinalArea;
+  const inp = document.getElementById('pfPwdInputArea');
+  inp.value=''; document.getElementById('pfPwdErroArea').textContent='';
+  document.getElementById('modalSenhaParecerArea').style.display='flex';
+  setTimeout(()=>inp.focus(),100);
+}
+
+function fecharSenhaParecerArea(){
+  document.getElementById('modalSenhaParecerArea').style.display='none';
+}
+
+function abrirParecerFinalArea(){
+  if(!_perfilAtual) return;
+  const h = _perfilAtual;
+  document.getElementById('pfSubCandArea').textContent = `${h.nome||'—'} · ${h.vaga||'—'}`;
+  const linkEl = document.getElementById('pfLinkInputArea');
+  linkEl.value = h.parecer_final_link || '';
+  _atualizarPreviewLinkPFArea(linkEl.value);
+  document.getElementById('pfObsInputArea').value = h.parecer_final_obs || '';
+  document.getElementById('pfStatusInputArea').value = h.parecer_final_status || '';
+  document.getElementById('pfSaveMsgArea').style.display='none';
+  linkEl.oninput = ()=>_atualizarPreviewLinkPFArea(linkEl.value.trim());
+  document.getElementById('modalParecerFinalArea').style.display='flex';
+}
+
+function _atualizarPreviewLinkPFArea(link){
+  const wrap  = document.getElementById('pfLinkPreviewWrapArea');
+  const a     = document.getElementById('pfLinkPreviewAArea');
+  const badge = document.getElementById('pfBadgeStatusArea');
+  if(link && link.startsWith('http')){
+    wrap.style.display='flex'; a.href=link;
+    try{ const u=new URL(link); a.textContent=u.hostname.replace('www.','')+u.pathname.substring(0,30); }catch(e){ a.textContent=link.substring(0,60); }
+  } else { wrap.style.display='none'; }
+  if(badge){
+    const tem = !!(link || (_perfilAtual && _perfilAtual.parecer_final_link));
+    badge.textContent  = tem?'link salvo':'sem link';
+    badge.style.background   = tem?'rgba(59,130,246,0.25)':'rgba(167,139,250,0.3)';
+    badge.style.borderColor  = tem?'rgba(59,130,246,0.4)':'rgba(167,139,250,0.4)';
+    badge.style.color        = tem?'#2ecc71':'#c4b5fd';
+  }
+}
+
+async function salvarParecerFinalArea(){
+  if(!_perfilAtual) return;
+  const link   = document.getElementById('pfLinkInputArea').value.trim();
+  const obs    = document.getElementById('pfObsInputArea').value.trim();
+  const status = document.getElementById('pfStatusInputArea').value;
+  const payload = { parecer_final_link: link||null, parecer_final_obs: obs||null, parecer_final_status: status||null };
+  const btn = document.getElementById('pfSaveBtnArea');
+  btn.disabled=true; btn.textContent='⏳ Salvando…';
+  try{
+    const heads = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'};
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/disc_historico?id=eq.${encodeURIComponent(_perfilAtual.id)}`,
+      {method:'PATCH', headers:heads, body:JSON.stringify(payload)});
+    if(!res.ok){ const b=await res.text(); throw new Error('Supabase '+res.status+': '+b); }
+    Object.assign(_perfilAtual, payload);
+    const idx=_allCands.findIndex(x=>x.id===_perfilAtual.id);
+    if(idx>=0) Object.assign(_allCands[idx], payload);
+    _atualizarPreviewLinkPFArea(link);
+    const msg=document.getElementById('pfSaveMsgArea');
+    msg.style.display='block'; setTimeout(()=>msg.style.display='none',3000);
+    mostrarToast('✅ Parecer Final salvo!');
+  }catch(e){ mostrarToast('Erro ao salvar: '+e.message, true); }
+  finally{ btn.disabled=false; btn.textContent='💾 Salvar Parecer Final'; }
+}
+
+function fecharParecerFinalArea(){
+  document.getElementById('modalParecerFinalArea').style.display='none';
+}
+
+function _atualizarBadgeParecerArea(h){
+  const badge = document.getElementById('pfBadgeStatusArea');
+  if(!badge) return;
+  const tem = !!(h && h.parecer_final_link);
+  badge.textContent        = tem?'link salvo':'sem link';
+  badge.style.background   = tem?'rgba(59,130,246,0.25)':'rgba(167,139,250,0.3)';
+  badge.style.borderColor  = tem?'rgba(59,130,246,0.4)':'rgba(167,139,250,0.4)';
+  badge.style.color        = tem?'#2ecc71':'#c4b5fd';
+}
+
+function toggleFitBars(btn){
+  const body = btn.nextElementSibling;
+  const open = body.classList.toggle('collapsed');
+  if(!body.classList.contains('collapsed')) body.style.maxHeight = body.scrollHeight+'px';
+  else body.style.maxHeight = '0';
+  btn.classList.toggle('open', !body.classList.contains('collapsed'));
+}
+function toggleFootBtns(btn){
+  const body = btn.nextElementSibling;
+  const isCollapsed = body.classList.contains('collapsed');
+  if(isCollapsed){ body.classList.remove('collapsed'); body.style.maxHeight = body.scrollHeight+'px'; btn.classList.add('open'); }
+  else { body.classList.add('collapsed'); body.style.maxHeight = '0'; btn.classList.remove('open'); }
+}
+</script>
+
+</body>
+</html>
+
+<!-- ══════════════════════════════════════════
+     MODAL IMPORTAR CSV — banco-areas
+══════════════════════════════════════════ -->
+<div id="modalImportCSVAreas" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:#131313;border:1px solid rgba(59,130,246,0.25);border-radius:18px;width:100%;max-width:620px;max-height:90vh;overflow-y:auto;padding:1.8rem;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;">
+      <div>
+        <div style="font-size:0.58rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2ecc71;margin-bottom:0.3rem;">Pipeline · ATS</div>
+        <div style="font-size:1.2rem;font-weight:900;">📥 Importar <span style="color:#2ecc71;">CSV / Excel</span></div>
+      </div>
+      <button onclick="fecharImportCSVAreas()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#777;font-size:1.1rem;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+
+    <!-- Drop zone -->
+    <div id="iaDropZone" onclick="document.getElementById('iaFileInput').click()"
+      style="border:2px dashed rgba(59,130,246,0.3);border-radius:14px;padding:2rem;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:1.2rem;background:rgba(59,130,246,0.03);">
+      <div style="font-size:2rem;margin-bottom:0.6rem;">📂</div>
+      <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.3rem;">Clique ou arraste o arquivo aqui</div>
+      <div style="font-size:0.75rem;color:#555;">Aceita <strong style="color:#2ecc71;">.csv</strong> e <strong style="color:#2ecc71;">.xlsx / .xls</strong></div>
+      <input type="file" id="iaFileInput" accept=".csv,.xlsx,.xls" style="display:none;" onchange="iaCarregarArquivo(this.files[0])">
+    </div>
+
+    <!-- Info colunas -->
+    <div style="background:rgba(59,130,246,0.04);border:1px solid rgba(59,130,246,0.15);border-radius:10px;padding:0.9rem 1rem;margin-bottom:1.2rem;font-size:0.72rem;color:#888;">
+      <div style="font-weight:800;color:#2ecc71;margin-bottom:0.5rem;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;">Colunas reconhecidas automaticamente</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+        <span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:5px;padding:0.12rem 0.45rem;color:#2ecc71;font-weight:700;">Nome *</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">Vaga</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">Áreas</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">E-mail</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">Telefone</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">Cidade</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">DISC Dom.</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">DISC Sec.</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">Fit Score</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">Score Recrutador</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">Aderência</span>
+        <span style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:0.12rem 0.45rem;">Status Contato</span>
+      </div>
+      <div style="margin-top:0.5rem;color:#555;">* Obrigatório. Duplicatas por Nome + Vaga. Coluna <strong style="color:#aaa;">Áreas</strong> aceita múltiplas separadas por <code style="color:#2ecc71;">|</code></div>
+    </div>
+
+    <!-- Preview -->
+    <div id="iaPreviewWrap" style="display:none;margin-bottom:1.2rem;">
+      <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:0.5rem;">Prévia — <span id="iaPreviewCount"></span></div>
+      <div style="overflow-x:auto;border-radius:10px;border:1px solid rgba(255,255,255,0.07);">
+        <table style="width:100%;border-collapse:collapse;font-size:0.7rem;">
+          <thead id="iaPreviewHead" style="background:rgba(255,255,255,0.04);"></thead>
+          <tbody id="iaPreviewBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Resultado -->
+    <div id="iaResultado" style="display:none;padding:0.9rem 1rem;border-radius:10px;margin-bottom:1.2rem;font-size:0.8rem;font-weight:700;"></div>
+
+    <!-- Ações -->
+    <div id="iaAcoes" style="display:none;gap:0.6rem;justify-content:flex-end;">
+      <button onclick="fecharImportCSVAreas()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;color:#777;font-family:inherit;font-size:0.8rem;font-weight:700;padding:0.55rem 1.1rem;cursor:pointer;">Cancelar</button>
+      <button id="iaBtnConfirmar" onclick="iaConfirmar()" style="background:linear-gradient(135deg,#1e40af,#3b82f6);border:none;border-radius:9px;color:#fff;font-family:inherit;font-size:0.8rem;font-weight:700;padding:0.55rem 1.4rem;cursor:pointer;">✅ Importar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════
+// IMPORTAR CSV — banco-areas
+// ════════════════════════════════════════════
+let _iaRows = [];
+
+const _iaColMap = {
+  'nome':'nome','name':'nome',
+  'vaga':'vaga','cargo':'vaga',
+  'áreas':'_areas_str','areas':'_areas_str','área':'_areas_str','area':'_areas_str',
+  'e-mail':'email_externo','email':'email_externo','e-mail externo':'email_externo','email externo':'email_externo',
+  'telefone':'tel_externo','tel':'tel_externo','fone':'tel_externo',
+  'cidade':'cidade',
+  'disc dom.':'dom','disc dom':'dom','dom':'dom','dominante':'dom',
+  'disc sec.':'sec','disc sec':'sec','sec':'sec',
+  'fit score':'fit_score','fit':'fit_score','fit_score':'fit_score','score':'fit_score',
+  'score recrutador':'score_recrutador','recrutador':'score_recrutador',
+  'aderência':'aderencia_manual','aderencia':'aderencia_manual','aderência manual':'aderencia_manual','aderencia manual':'aderencia_manual',
+  'status contato':'status_contato','status':'status_contato',
+  'docs ok':'doc_completa','docs':'doc_completa',
+  'data':'data',
+};
+
+function abrirImportCSVAreas(){
+  _iaRows=[];
+  document.getElementById('iaFileInput').value='';
+  document.getElementById('iaPreviewWrap').style.display='none';
+  document.getElementById('iaResultado').style.display='none';
+  document.getElementById('iaAcoes').style.display='none';
+  document.getElementById('iaDropZone').style.display='block';
+  const m=document.getElementById('modalImportCSVAreas');
+  m.style.display='flex';
+  const z=document.getElementById('iaDropZone');
+  z.ondragover=e=>{e.preventDefault();z.style.borderColor='rgba(59,130,246,0.7)';z.style.background='rgba(59,130,246,0.07)';};
+  z.ondragleave=()=>{z.style.borderColor='rgba(59,130,246,0.3)';z.style.background='rgba(59,130,246,0.03)';};
+  z.ondrop=e=>{e.preventDefault();z.style.borderColor='rgba(59,130,246,0.3)';z.style.background='rgba(59,130,246,0.03)';if(e.dataTransfer.files[0])iaCarregarArquivo(e.dataTransfer.files[0]);};
+}
+
+function fecharImportCSVAreas(){ document.getElementById('modalImportCSVAreas').style.display='none'; }
+
+function iaCarregarArquivo(file){
+  if(!file)return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  if(ext==='csv'){
+    const r=new FileReader(); r.onload=e=>iaParsearCSV(e.target.result); r.readAsText(file,'UTF-8');
+  } else if(ext==='xlsx'||ext==='xls'){
+    if(typeof XLSX==='undefined'){
+      const s=document.createElement('script');
+      s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+      s.onload=()=>iaLerXLSX(file); document.head.appendChild(s);
+    } else { iaLerXLSX(file); }
+  } else { mostrarToast('Formato não suportado. Use .csv, .xlsx ou .xls',true); }
+}
+
+function iaLerXLSX(file){
+  const r=new FileReader();
+  r.onload=e=>{
+    const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    iaParsearCSV(XLSX.utils.sheet_to_csv(ws,{FS:';'}));
+  };
+  r.readAsArrayBuffer(file);
+}
+
+function iaParsearCSV(texto){
+  texto=texto.replace(/^\uFEFF/,'');
+  const sep=texto.split('\n')[0].includes(';')?';':',';
+  const linhas=texto.split('\n').map(l=>l.trim()).filter(Boolean);
+  if(linhas.length<2){mostrarToast('Arquivo vazio ou sem dados',true);return;}
+  const cabRaw=linhas[0].split(sep).map(c=>c.replace(/^"|"$/g,'').trim());
+  const campos=cabRaw.map(c=>_iaColMap[c.toLowerCase()]||null);
+  if(!campos.includes('nome')){mostrarToast('❌ Coluna "Nome" não encontrada',true);return;}
+  const rows=[];
+  for(let i=1;i<linhas.length;i++){
+    const vals=iaSplit(linhas[i],sep);
+    const obj={};
+    campos.forEach((campo,idx)=>{
+      if(!campo)return;
+      let val=(vals[idx]||'').replace(/^"|"$/g,'').replace(/""/g,'"').trim();
+      if(!val)return;
+      if(['fit_score','aderencia_manual','score_recrutador'].includes(campo)){
+        const n=parseFloat(val.replace(',','.'));
+        if(!isNaN(n))obj[campo]=n;
+      } else if(campo==='doc_completa'){
+        obj[campo]=val.toUpperCase()==='SIM'||val.toLowerCase()==='sim'||val==='true';
+      } else { obj[campo]=val; }
+    });
+    if(obj.nome)rows.push(obj);
+  }
+  if(!rows.length){mostrarToast('Nenhuma linha válida encontrada',true);return;}
+  _iaRows=rows;
+  iaMostrarPreview(rows,campos.filter(Boolean));
+}
+
+function iaSplit(line,sep){
+  const res=[];let cur='';let inQ=false;
+  for(let i=0;i<line.length;i++){
+    if(line[i]==='"'){inQ=!inQ;}
+    else if(line[i]===sep&&!inQ){res.push(cur);cur='';}
+    else{cur+=line[i];}
+  }
+  res.push(cur);return res;
+}
+
+function iaMostrarPreview(rows,campos){
+  const preview=rows.slice(0,5);
+  const colsShow=['nome','vaga','_areas_str','dom','fit_score','email_externo'].filter(c=>campos.includes(c));
+  document.getElementById('iaPreviewHead').innerHTML='<tr>'+colsShow.map(c=>`<th style="padding:0.4rem 0.6rem;text-align:left;font-size:0.63rem;font-weight:800;color:#555;text-transform:uppercase;white-space:nowrap;">${c==='_areas_str'?'áreas':c}</th>`).join('')+'</tr>';
+  document.getElementById('iaPreviewBody').innerHTML=preview.map((r,i)=>
+    '<tr style="border-top:1px solid rgba(255,255,255,0.04);">'+
+    colsShow.map(c=>`<td style="padding:0.38rem 0.6rem;font-size:0.72rem;color:${i===0?'#f0f0f0':'#aaa'}">${r[c]||'—'}</td>`).join('')+
+    '</tr>'
+  ).join('');
+  const existMap=new Set(_allCands.map(x=>(x.nome||'').toLowerCase().trim()+'||'+(x.vaga||'').toLowerCase().trim()));
+  const novos=rows.filter(r=>!existMap.has((r.nome||'').toLowerCase().trim()+'||'+(r.vaga||'').toLowerCase().trim()));
+  const atualizar=rows.filter(r=>existMap.has((r.nome||'').toLowerCase().trim()+'||'+(r.vaga||'').toLowerCase().trim()));
+  document.getElementById('iaPreviewCount').innerHTML=
+    `<strong style="color:#f0f0f0;">${rows.length}</strong> linhas — `+
+    `<span style="color:#2ecc71;">${novos.length} novos</span> · `+
+    `<span style="color:#3498db;">${atualizar.length} atualizações</span>`+
+    (rows.length>5?` <span style="color:#555;">(mostrando 5)</span>`:'');
+  document.getElementById('iaPreviewWrap').style.display='block';
+  document.getElementById('iaDropZone').style.display='none';
+  document.getElementById('iaAcoes').style.display='flex';
+  document.getElementById('iaResultado').style.display='none';
+}
+
+async function iaConfirmar(){
+  if(!_iaRows.length)return;
+  const btn=document.getElementById('iaBtnConfirmar');
+  btn.disabled=true; btn.textContent='⏳ Importando...';
+
+  const hdrs={'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
+  const existMap={};
+  _allCands.forEach(x=>{existMap[(x.nome||'').toLowerCase().trim()+'||'+(x.vaga||'').toLowerCase().trim()]=x;});
+
+  let cNovos=0,cAtuais=0,cErros=0;
+
+  for(const row of _iaRows){
+    const chave=(row.nome||'').toLowerCase().trim()+'||'+(row.vaga||'').toLowerCase().trim();
+    const existe=existMap[chave];
+
+    // Separa _areas_str do payload principal
+    const areasStr=row._areas_str||'';
+    const patch={...row};
+    delete patch._areas_str;
+
+    try{
+      let candId;
+      if(existe){
+        // PATCH candidato existente
+        const p={...patch}; delete p.nome; delete p.vaga;
+        if(Object.keys(p).length){
+          const r=await fetch(`${SUPABASE_URL}/rest/v1/disc_historico?id=eq.${encodeURIComponent(existe.id)}`,
+            {method:'PATCH',headers:{...hdrs,'Prefer':'return=minimal'},body:JSON.stringify(p)});
+          if(!r.ok)throw new Error('PATCH '+r.status);
+          Object.assign(existe,p);
+        }
+        candId=existe.id;
+        cAtuais++;
+      } else {
+        // POST novo candidato
+        const r=await fetch(`${SUPABASE_URL}/rest/v1/disc_historico`,
+          {method:'POST',headers:{...hdrs,'Prefer':'return=representation'},body:JSON.stringify(patch)});
+        if(!r.ok)throw new Error('POST '+r.status);
+        const created=await r.json();
+        const novo=Array.isArray(created)?created[0]:created;
+        _allCands.push(novo);
+        existMap[chave]=novo;
+        candId=novo.id;
+        cNovos++;
+      }
+
+      // Atribui áreas se informadas na coluna Áreas
+      if(areasStr && candId){
+        const nomes=areasStr.split('|').map(s=>s.trim()).filter(Boolean);
+        for(const nomeArea of nomes){
+          // Busca área existente por nome (case-insensitive)
+          let area=_areas.find(a=>(a.nome||'').toLowerCase()===nomeArea.toLowerCase());
+          // Se não existe, cria
+          if(!area){
+            const ra=await fetch(`${SUPABASE_URL}/rest/v1/areas_assign`,
+              {method:'POST',headers:{...hdrs,'Prefer':'return=representation'},
+               body:JSON.stringify({nome:nomeArea,cor:'#2ecc71'})});
+            // Se tabela areas existe separada, tenta; senão ignora silenciosamente
+            if(ra.ok){const cr=await ra.json();area=Array.isArray(cr)?cr[0]:cr;_areas.push(area);}
+          }
+          if(area){
+            // Insere assign (merge-duplicates evita duplicata)
+            await fetch(`${SUPABASE_URL}/rest/v1/areas_assign`,
+              {method:'POST',
+               headers:{...hdrs,'Prefer':'resolution=merge-duplicates,return=minimal'},
+               body:JSON.stringify({cand_id:String(candId),area_id:String(area.id)})});
+          }
+        }
+      }
+    } catch(e){ console.error('[import-areas]',row.nome,e); cErros++; }
+  }
+
+  renderTudo();
+  const res=document.getElementById('iaResultado');
+  res.style.display='block';
+  res.style.background=cErros?'rgba(243,156,18,0.1)':'rgba(59,130,246,0.1)';
+  res.style.border=`1px solid ${cErros?'rgba(243,156,18,0.3)':'rgba(59,130,246,0.3)'}`;
+  res.style.color=cErros?'#f39c12':'#2ecc71';
+  res.innerHTML=`${cErros?'⚠️':'✅'} Importação concluída! <span style="font-weight:400;font-size:0.75rem;color:#aaa;margin-left:0.5rem;">${cNovos} adicionados · ${cAtuais} atualizados${cErros?` · ${cErros} erros (ver console)`:''}</span>`;
+  document.getElementById('iaAcoes').style.display='none';
+  btn.disabled=false; btn.textContent='✅ Importar';
+  mostrarToast(`✅ Importação: ${cNovos} novos, ${cAtuais} atualizados`);
+  setTimeout(()=>fecharImportCSVAreas(),3000);
+}
+</script>

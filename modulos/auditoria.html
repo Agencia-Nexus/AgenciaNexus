@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Auditoria | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:0.35rem;}
+.hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.hero-title span{color:var(--accent);}
+.hero-sub{font-size:0.8rem;color:var(--muted);}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;}
+.kpi-val{font-size:1.6rem;font-weight:900;line-height:1;}
+.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+.toolbar{display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;}
+.search-inp{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:10px;padding:0.5rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.78rem;outline:none;flex:1;min-width:160px;}
+.search-inp:focus{border-color:rgba(59,130,246,0.4);}
+.search-inp::placeholder{color:var(--muted);}
+.btn{font-family:inherit;font-size:0.75rem;font-weight:700;border-radius:10px;padding:0.48rem 1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.35rem;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}
+.btn-red:hover{background:rgba(231,76,60,0.18);}
+.log-table{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.log-table table{width:100%;border-collapse:collapse;}
+.log-table th{padding:0.65rem 1rem;text-align:left;font-size:0.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);}
+.log-table td{padding:0.6rem 1rem;font-size:0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);}
+.log-table tr:last-child td{border-bottom:none;}
+.log-table tr:hover td{background:rgba(255,255,255,0.02);}
+.ts{color:var(--muted);font-size:0.68rem;white-space:nowrap;}
+.usr{font-size:0.7rem;font-weight:700;color:var(--blue);}
+.log-msg{color:var(--text);}
+.cat-badge{font-size:0.58rem;font-weight:700;padding:0.12rem 0.5rem;border-radius:99px;white-space:nowrap;}
+.cat-nav{background:rgba(59,130,246,0.1);color:var(--accent);}
+.cat-data{background:rgba(52,152,219,0.1);color:var(--blue);}
+.cat-export{background:rgba(243,156,18,0.1);color:var(--orange);}
+.cat-auth{background:rgba(167,139,250,0.1);color:#a78bfa;}
+.cat-other{background:rgba(255,255,255,0.06);color:var(--muted);}
+.empty-state{text-align:center;padding:3rem;color:var(--muted);}
+.pg{display:flex;gap:0.4rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;}
+.pg-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:7px;padding:0.3rem 0.65rem;font-family:inherit;font-size:0.72rem;font-weight:700;color:var(--muted);cursor:pointer;}
+.pg-btn.active{background:rgba(59,130,246,0.15);border-color:var(--border2);color:var(--accent);}
+.pg-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page { padding: 1rem 0.9rem 4rem !important; }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-right, .hero > div[style*="display:flex"], .hero > div:last-child {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  .hero-right .btn, .hero .btn, .hero button { justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-grid, .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.35rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3, .charts-grid,
+  .grid-2-col, .grid-3-col { grid-template-columns: 1fr !important; }
+
+  /* Cards */
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Botões */
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Toolbar / busca */
+  .toolbar { flex-wrap: wrap !important; }
+  .search-inp { width: 100% !important; min-width: unset !important; }
+
+  /* Seções */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Tabelas — scroll horizontal */
+  .log-table, .conv-table, .vaga-table {
+    overflow-x: auto !important;
+    display: block !important;
+  }
+  .log-table table { min-width: 520px !important; }
+  .conv-table, .vaga-table { min-width: 480px !important; }
+  .log-table th, .log-table td { padding: 0.45rem 0.6rem !important; font-size: 0.68rem !important; }
+
+  /* Rows de export/backup */
+  .export-row, .row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .export-ico { display: none !important; }
+  .export-row .btn { width: 100% !important; justify-content: center !important; }
+
+  /* Config rows */
+  .row { padding: 0.6rem 0 !important; }
+  .row-info strong { font-size: 0.76rem !important; }
+
+  /* Cards de clientes/roles */
+  .clients-grid, .role-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .client-card { padding: 1rem !important; }
+  .cc-btns { flex-wrap: wrap !important; }
+
+  /* Agendamento: layout de coluna única */
+  .layout { grid-template-columns: 1fr !important; }
+  .cal-card { padding: 0.8rem !important; border-radius: 14px !important; }
+
+  /* Period buttons (analytics) */
+  .period-btns { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .pbtn { font-size: 0.65rem !important; padding: 0.3rem 0.6rem !important; }
+
+  /* Funil de conversão */
+  .funil-step { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .funil-label { width: auto !important; text-align: left !important; flex: 0 0 100% !important; font-size: 0.65rem !important; }
+  .funil-bar-wrap { flex: 1 1 100% !important; height: 32px !important; }
+  .funil-num { width: auto !important; }
+  .funil-pct { width: auto !important; }
+
+  /* DISC quick links */
+  .quick-links { gap: 0.35rem !important; }
+  .qlink { font-size: 0.68rem !important; padding: 0.38rem 0.7rem !important; }
+
+  /* Dashboard específico */
+  .disc-dist-row { flex-direction: column !important; }
+  .top-vagas-list .tv-row { flex-wrap: wrap !important; gap: 0.4rem !important; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Info box */
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Paginação */
+  .pg { gap: 0.25rem !important; }
+  .pg-btn { padding: 0.28rem 0.5rem !important; font-size: 0.65rem !important; }
+}
+
+@media (max-width: 640px) {
+  .toolbar { flex-direction: column !important; }
+  .toolbar .search-inp,
+  .toolbar select { width: 100% !important; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr) !important; }
+  .hero > div[style*="display:flex"] { width: 100% !important; }
+  .hero .btn { flex: 1 !important; justify-content: center !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Sistema · Compliance</div>
+      <div class="hero-title">Auditoria & <span>Logs</span></div>
+      <div class="hero-sub">Registro imutável de todas as ações do sistema</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;">
+      <button class="btn btn-ghost" onclick="exportarCSV()">⬇ Exportar CSV</button>
+      <button class="btn btn-red" onclick="limparLog()">🗑 Limpar</button>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kTotal" style="color:var(--accent);">0</div><div class="kpi-label">Total de ações</div></div>
+    <div class="kpi"><div class="kpi-val" id="kHoje" style="color:var(--blue);">0</div><div class="kpi-label">Hoje</div></div>
+    <div class="kpi"><div class="kpi-val" id="kUsuarios" style="color:var(--purple);">0</div><div class="kpi-label">Usuários ativos</div></div>
+    <div class="kpi"><div class="kpi-val" id="kUltima" style="color:var(--muted);font-size:1rem;">—</div><div class="kpi-label">Última ação</div></div>
+  </div>
+
+  <div class="toolbar">
+    <input class="search-inp" id="busca" placeholder="🔍 Buscar na auditoria..." oninput="filtrar()"/>
+    <select id="filtroUsuario" onchange="filtrar()" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:10px;padding:0.48rem 1.5rem 0.48rem 0.7rem;color:var(--text);font-family:inherit;font-size:0.75rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 0.5rem center;">
+      <option value="">Todos os usuários</option>
+    </select>
+    <span style="font-size:0.7rem;color:var(--muted);" id="resultCnt"></span>
+  </div>
+
+  <div class="log-table" id="logWrap">
+    <div class="empty-state">Carregando registros de auditoria...</div>
+  </div>
+  <div class="pg" id="pg"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let _todos=[],_filtrado=[],_pg=1; const PER=30;
+
+function getLogs(){try{return JSON.parse(localStorage.getItem('nexus_audit_log')||'[]');}catch(e){return[];}}
+
+function categorizar(msg){
+  msg=(msg||'').toLowerCase();
+  if(msg.includes('abriu módulo')||msg.includes('naveg')) return {cat:'nav',label:'Navegação',cls:'cat-nav'};
+  if(msg.includes('export')||msg.includes('csv')||msg.includes('download')) return {cat:'exp',label:'Exportação',cls:'cat-export'};
+  if(msg.includes('login')||msg.includes('saiu')||msg.includes('auth')||msg.includes('sessão')) return {cat:'auth',label:'Auth',cls:'cat-auth'};
+  if(msg.includes('cand')||msg.includes('vaga')||msg.includes('disc')||msg.includes('busca')||msg.includes('compar')) return {cat:'data',label:'Dados',cls:'cat-data'};
+  return {cat:'other',label:'Sistema',cls:'cat-other'};
+}
+
+function init(){
+  _todos=getLogs();
+  // KPIs
+  document.getElementById('kTotal').textContent=_todos.length;
+  const hoje=new Date().toISOString().split('T')[0];
+  document.getElementById('kHoje').textContent=_todos.filter(l=>l.ts?.startsWith(hoje)).length;
+  const users=new Set(_todos.map(l=>l.usuario).filter(Boolean));
+  document.getElementById('kUsuarios').textContent=users.size;
+  if(_todos.length){
+    const l=_todos[0]; const d=new Date(l.ts);
+    document.getElementById('kUltima').textContent=d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  }
+  // Filtro usuários
+  const sel=document.getElementById('filtroUsuario');
+  sel.innerHTML='<option value="">Todos os usuários</option>'+[...users].map(u=>`<option value="${esc(u)}">${esc(u)}</option>`).join('');
+  filtrar();
+}
+
+function filtrar(){
+  const q=(document.getElementById('busca').value||'').toLowerCase();
+  const usr=document.getElementById('filtroUsuario').value;
+  _filtrado=_todos.filter(l=>{
+    if(usr&&l.usuario!==usr) return false;
+    if(q&&!(l.msg||'').toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.getElementById('resultCnt').textContent=`${_filtrado.length} registro${_filtrado.length!==1?'s':''}`;
+  _pg=1; renderTabela(); renderPg();
+}
+
+function renderTabela(){
+  const el=document.getElementById('logWrap');
+  if(!_filtrado.length){el.innerHTML='<div class="empty-state">Nenhum registro encontrado.</div>';return;}
+  const inicio=(_pg-1)*PER;
+  const pagina=_filtrado.slice(inicio,inicio+PER);
+  el.innerHTML=`<table>
+    <thead><tr><th>Timestamp</th><th>Usuário</th><th>Categoria</th><th>Ação</th></tr></thead>
+    <tbody>${pagina.map(l=>{
+      const d=new Date(l.ts||Date.now());
+      const data=d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      const {label,cls}=categorizar(l.msg);
+      return `<tr>
+        <td class="ts">${data}</td>
+        <td class="usr">${esc(l.usuario||'sistema')}</td>
+        <td><span class="cat-badge ${cls}">${label}</span></td>
+        <td class="log-msg">${esc(l.msg||'—')}</td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>`;
+}
+
+function renderPg(){
+  const total=Math.ceil(_filtrado.length/PER);
+  const el=document.getElementById('pg');
+  if(total<=1){el.innerHTML='';return;}
+  let html=`<button class="pg-btn" onclick="irPg(${_pg-1})" ${_pg===1?'disabled':''}>←</button>`;
+  for(let i=1;i<=Math.min(total,8);i++) html+=`<button class="pg-btn ${i===_pg?'active':''}" onclick="irPg(${i})">${i}</button>`;
+  if(total>8) html+=`<span style="color:var(--muted);padding:0 0.2rem;">…</span><button class="pg-btn ${total===_pg?'active':''}" onclick="irPg(${total})">${total}</button>`;
+  html+=`<button class="pg-btn" onclick="irPg(${_pg+1})" ${_pg===total?'disabled':''}>→</button>`;
+  el.innerHTML=html;
+}
+function irPg(p){const t=Math.ceil(_filtrado.length/PER);if(p<1||p>t)return;_pg=p;renderTabela();renderPg();}
+
+function exportarCSV(){
+  if(!_todos.length){toast('Sem registros');return;}
+  const csv='Timestamp,Usuário,Categoria,Ação\n'+_todos.map(l=>{const {label}=categorizar(l.msg);return`"${l.ts||''}","${l.usuario||'sistema'}","${label}","${(l.msg||'').replace(/"/g,'""')}"`}).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`auditoria-${new Date().toISOString().slice(0,10)}.csv`;a.click();toast('✅ Exportado');
+}
+
+function limparLog(){
+  if(!confirm('Limpar TODOS os registros de auditoria? Ação irreversível.')) return;
+  try{localStorage.removeItem('nexus_audit_log');}catch(e){}
+  _todos=[];_filtrado=[];renderTabela();renderPg();
+  document.getElementById('kTotal').textContent=0;
+  toast('✅ Log de auditoria limpo');
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+let _tt;function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show';clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3000);}
+init();
+</script>
+</body>
+</html>

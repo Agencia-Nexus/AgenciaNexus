@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script><script src="../supabase-config.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dashboard | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --primary:#1e40af;--accent:#3b82f6;--accent2:#a8d85f;
+  --bg:#060606;--bg2:#0a0a0a;--card:#0f0f0f;--card2:#141414;--card3:#191919;
+  --border:rgba(59,130,246,0.1);--border2:rgba(59,130,246,0.25);--border3:rgba(59,130,246,0.4);
+  --text:#f0f0f0;--text2:#b0b0b0;--muted:#555;--muted2:#2a2a2a;
+  --red:#e74c3c;--orange:#f39c12;--blue:#3498db;--purple:#a78bfa;--green:#2ecc71;--teal:#2563eb;
+  --D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* ── BACKGROUND ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(59,130,246,0.022) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;
+}
+body::after{
+  content:'';position:fixed;top:-20%;right:-10%;z-index:0;
+  width:800px;height:800px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(59,130,246,0.04) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+.page{position:relative;z-index:1;padding:1.6rem 1.8rem 4rem;max-width:1500px;margin:0 auto;}
+
+/* ── HERO ── */
+.hero{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  margin-bottom:1.8rem;flex-wrap:wrap;
+  background:linear-gradient(135deg,rgba(59,130,246,0.05) 0%,transparent 60%);
+  border:1px solid var(--border);border-radius:20px;
+  padding:1.4rem 1.8rem;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;right:-60px;top:-60px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(59,130,246,0.08),transparent 70%);
+  pointer-events:none;
+}
+.hero-left{}
+.hero-eyebrow{
+  font-size:0.55rem;font-weight:800;letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:0.35rem;display:flex;align-items:center;gap:0.5rem;
+}
+.hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite;}
+.hero-title{font-size:1.65rem;font-weight:900;line-height:1.1;margin-bottom:0.2rem;letter-spacing:-0.5px;}
+.hero-title span{color:var(--accent);}
+.hero-sub{font-size:0.78rem;color:var(--muted);line-height:1.6;}
+.hero-right{display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;}
+.btn{font-family:inherit;font-size:0.76rem;font-weight:700;border-radius:10px;
+  padding:0.5rem 1rem;border:1px solid;cursor:pointer;transition:all 0.18s;
+  display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;
+  box-shadow:0 4px 15px rgba(59,130,246,0.2);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(59,130,246,0.3);}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.08);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);border-color:rgba(255,255,255,0.15);}
+.last-update{font-size:0.62rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;font-family:var(--mono);}
+.upd-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.85)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes countUp{from{opacity:0}to{opacity:1}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* ── KPI GRID ── */
+.kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0.75rem;margin-bottom:1.4rem;
+}
+@media(min-width:1200px){.kpi-grid{grid-template-columns:repeat(6,1fr);}}
+.kpi{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:1.1rem 1.3rem;position:relative;overflow:hidden;
+  transition:border-color 0.2s,transform 0.18s,box-shadow 0.18s;
+  animation:fadeUp 0.5s ease both;
+}
+.kpi:nth-child(1){animation-delay:0.05s}
+.kpi:nth-child(2){animation-delay:0.10s}
+.kpi:nth-child(3){animation-delay:0.15s}
+.kpi:nth-child(4){animation-delay:0.20s}
+.kpi:nth-child(5){animation-delay:0.25s}
+.kpi:nth-child(6){animation-delay:0.30s}
+.kpi:nth-child(7){animation-delay:0.35s}
+.kpi:nth-child(8){animation-delay:0.40s}
+.kpi:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,0.4);}
+.kpi::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--kpi-color,var(--accent)),transparent);
+}
+.kpi::after{
+  content:'';position:absolute;top:0;right:0;width:60px;height:60px;border-radius:50%;
+  background:radial-gradient(ellipse,var(--kpi-color,var(--accent)) 0%,transparent 70%);
+  opacity:0.07;transform:translate(20px,-20px);
+}
+.kpi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.65rem;}
+.kpi-icon{font-size:1.3rem;line-height:1;}
+.kpi-trend{font-size:0.55rem;font-weight:800;padding:0.15rem 0.45rem;border-radius:99px;display:flex;align-items:center;gap:0.2rem;}
+.kpi-trend.up{background:rgba(59,130,246,0.12);color:var(--green);}
+.kpi-trend.down{background:rgba(231,76,60,0.12);color:var(--red);}
+.kpi-trend.neu{background:rgba(255,255,255,0.06);color:var(--muted);}
+.kpi-val{font-size:1.9rem;font-weight:900;line-height:1;color:var(--kpi-color,var(--accent));margin-bottom:0.18rem;font-family:var(--mono);}
+.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;}
+.kpi-sub{font-size:0.6rem;color:var(--muted);margin-top:0.3rem;opacity:0.7;}
+
+/* ── SECTION LABEL ── */
+.sec{margin-bottom:0.85rem;margin-top:0.2rem;}
+.sec-label{
+  font-size:0.58rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(59,130,246,0.5);display:flex;align-items:center;gap:0.65rem;
+}
+.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;}
+.g-main{display:grid;grid-template-columns:2fr 1fr;gap:0.85rem;margin-bottom:0.85rem;}
+.g-main2{display:grid;grid-template-columns:1.6fr 1fr;gap:0.85rem;margin-bottom:0.85rem;}
+.g-main3{display:grid;grid-template-columns:1fr 1.4fr;gap:0.85rem;margin-bottom:0.85rem;}
+@media(max-width:1100px){.g3{grid-template-columns:1fr 1fr;}.kpi-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:900px){.g2,.g3,.g4,.g-main,.g-main2,.g-main3{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ── CARD ── */
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:1.3rem 1.5rem;overflow:hidden;min-width:0;
+  animation:fadeUp 0.5s ease both;
+}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:1.1rem;}
+.card-title{font-size:0.76rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:0.4rem;}
+.card-title-ico{font-size:1rem;}
+.card-badge{
+  font-size:0.56rem;font-weight:800;padding:0.16rem 0.55rem;border-radius:99px;
+  background:rgba(59,130,246,0.1);color:var(--accent);border:1px solid rgba(59,130,246,0.2);
+  white-space:nowrap;
+}
+.card-badge.red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}
+.card-badge.blue{background:rgba(52,152,219,0.1);color:var(--blue);border-color:rgba(52,152,219,0.25);}
+.card-badge.orange{background:rgba(243,156,18,0.1);color:var(--orange);border-color:rgba(243,156,18,0.25);}
+.card-badge.purple{background:rgba(167,139,250,0.1);color:var(--purple);border-color:rgba(167,139,250,0.25);}
+
+/* ── CHART ── */
+.chart-wrap{position:relative;width:100%;}
+
+/* ── PERIODO TABS ── */
+.period-tabs{display:flex;gap:0.3rem;background:rgba(255,255,255,0.03);border-radius:8px;padding:0.22rem;}
+.ptab{font-size:0.62rem;font-weight:700;padding:0.28rem 0.6rem;border-radius:6px;cursor:pointer;
+  border:none;background:none;color:var(--muted);font-family:inherit;transition:all 0.15s;}
+.ptab.on{background:rgba(59,130,246,0.15);color:var(--accent);}
+.ptab:hover:not(.on){color:var(--text);}
+
+/* ── FUNIL PREMIUM ── */
+.funil-premium{display:flex;flex-direction:column;gap:0.35rem;}
+.fp-row{display:flex;align-items:center;gap:0.7rem;position:relative;}
+.fp-label{font-size:0.65rem;font-weight:700;width:90px;flex-shrink:0;color:var(--text2);}
+.fp-track{flex:1;height:28px;background:rgba(255,255,255,0.03);border-radius:7px;overflow:hidden;position:relative;cursor:default;}
+.fp-fill{
+  height:100%;border-radius:7px;display:flex;align-items:center;padding:0 0.7rem;
+  font-size:0.6rem;font-weight:800;color:rgba(255,255,255,0.85);
+  transition:width 0.9s cubic-bezier(0.4,0,0.2,1);
+  justify-content:space-between;white-space:nowrap;
+}
+.fp-fill span:last-child{opacity:0.7;}
+.fp-count{font-size:0.68rem;font-weight:900;width:24px;text-align:right;flex-shrink:0;font-family:var(--mono);}
+.fp-pct{font-size:0.56rem;color:var(--muted);width:34px;text-align:right;flex-shrink:0;font-family:var(--mono);}
+
+/* ── DISC BARS ── */
+.disc-rows{display:flex;flex-direction:column;gap:0.6rem;}
+.disc-row{display:flex;align-items:center;gap:0.7rem;}
+.disc-letra{font-size:0.9rem;font-weight:900;width:18px;flex-shrink:0;}
+.disc-nome{font-size:0.62rem;color:var(--muted);width:60px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.disc-track{flex:1;height:9px;background:rgba(255,255,255,0.05);border-radius:99px;overflow:hidden;}
+.disc-fill{height:100%;border-radius:99px;transition:width 0.9s cubic-bezier(0.4,0,0.2,1);}
+.disc-pct{font-size:0.65rem;font-weight:800;width:56px;text-align:right;flex-shrink:0;font-family:var(--mono);}
+
+/* ── ATIVIDADE ── */
+.act-list{display:flex;flex-direction:column;gap:0.4rem;max-height:310px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.act-list::-webkit-scrollbar{width:3px;}
+.act-list::-webkit-scrollbar-thumb{background:var(--muted2);border-radius:99px;}
+.act-item{
+  display:flex;align-items:center;gap:0.65rem;padding:0.55rem 0.7rem;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.045);
+  border-radius:10px;transition:all 0.15s;cursor:default;
+}
+.act-item:hover{border-color:rgba(59,130,246,0.18);background:rgba(59,130,246,0.025);}
+.act-ava{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+.act-body{flex:1;min-width:0;}
+.act-name{font-size:0.75rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.act-sub{font-size:0.6rem;color:var(--muted);margin-top:0.05rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.act-time{font-size:0.58rem;color:var(--muted);white-space:nowrap;font-family:var(--mono);}
+.act-fit{font-size:0.68rem;font-weight:900;white-space:nowrap;flex-shrink:0;font-family:var(--mono);}
+
+/* ── VAGAS ── */
+.vagas-list{display:flex;flex-direction:column;gap:0.4rem;max-height:260px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.vaga-row{
+  display:flex;align-items:center;gap:0.65rem;padding:0.6rem 0.7rem;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.045);
+  border-radius:10px;transition:all 0.15s;cursor:pointer;
+}
+.vaga-row:hover{border-color:var(--border2);background:rgba(59,130,246,0.03);}
+.vaga-ico{font-size:1rem;flex-shrink:0;}
+.vaga-info{flex:1;min-width:0;}
+.vaga-titulo{font-size:0.75rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.vaga-meta{font-size:0.6rem;color:var(--muted);}
+.vaga-bar{height:3px;background:rgba(255,255,255,0.05);border-radius:99px;margin-top:0.3rem;overflow:hidden;}
+.vaga-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 0.8s ease;}
+.vaga-cnt{font-size:0.65rem;font-weight:900;color:var(--orange);white-space:nowrap;font-family:var(--mono);}
+
+/* ── SLA ── */
+.sla-list{display:flex;flex-direction:column;gap:0.4rem;}
+.sla-item{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.75rem;border-radius:10px;border:1px solid;}
+.sla-item.danger{background:rgba(231,76,60,0.06);border-color:rgba(231,76,60,0.2);}
+.sla-item.warn{background:rgba(243,156,18,0.05);border-color:rgba(243,156,18,0.18);}
+.sla-item.ok{background:rgba(59,130,246,0.04);border-color:rgba(59,130,246,0.14);}
+.sla-nome{flex:1;font-size:0.72rem;font-weight:700;}
+.sla-dias{font-size:0.65rem;font-weight:800;font-family:var(--mono);}
+
+/* ── METAS ── */
+.meta-rows{display:flex;flex-direction:column;gap:0.75rem;}
+.meta-row{}
+.meta-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.28rem;}
+.meta-name{font-size:0.7rem;font-weight:700;}
+.meta-nums{font-size:0.65rem;font-weight:800;font-family:var(--mono);}
+.meta-nums span{color:var(--accent);}
+.meta-track{height:6px;background:rgba(255,255,255,0.05);border-radius:99px;overflow:hidden;}
+.meta-fill{height:100%;border-radius:99px;transition:width 0.9s cubic-bezier(0.4,0,0.2,1);}
+.meta-pct{font-size:0.56rem;color:var(--muted);margin-top:0.15rem;font-family:var(--mono);}
+
+/* ── SCORE GAUGE ── */
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;padding:0.5rem 0;}
+.gauge-val{font-size:2.8rem;font-weight:900;color:var(--accent);line-height:1;font-family:var(--mono);}
+.gauge-unit{font-size:1rem;font-weight:400;color:var(--muted);}
+.gauge-label{font-size:0.62rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:0.3rem;}
+.gauge-sublabel{font-size:0.6rem;color:var(--muted);margin-top:0.2rem;opacity:0.7;}
+
+/* ── MINI STAT ROW ── */
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.8rem;}
+.mini-stat{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.055);border-radius:10px;padding:0.65rem 0.8rem;}
+.ms-val{font-size:1.15rem;font-weight:900;font-family:var(--mono);}
+.ms-label{font-size:0.58rem;color:var(--muted);margin-top:0.1rem;}
+
+/* ── HEAT MAP DISC ── */
+.disc-heatmap{display:grid;grid-template-columns:repeat(4,1fr);gap:0.35rem;}
+.dhm-cell{border-radius:10px;padding:0.7rem 0.4rem;text-align:center;transition:transform 0.2s;min-width:0;overflow:hidden;}
+.dhm-cell:hover{transform:scale(1.04);}
+.dhm-letter{font-size:1.25rem;font-weight:900;line-height:1;margin-bottom:0.25rem;}
+.dhm-name{font-size:0.48rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;opacity:0.7;margin-bottom:0.4rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.dhm-num{font-size:1rem;font-weight:900;font-family:var(--mono);}
+.dhm-pct{font-size:0.55rem;opacity:0.65;font-family:var(--mono);}
+
+/* ── RADAR WRAP ── */
+.radar-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;}
+
+/* ── TOP PERFORMERS ── */
+.performers{display:flex;flex-direction:column;gap:0.4rem;}
+.perf-row{display:flex;align-items:center;gap:0.65rem;padding:0.5rem 0.6rem;border-radius:9px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);}
+.perf-rank{font-size:0.72rem;font-weight:900;width:18px;text-align:center;color:var(--muted);flex-shrink:0;font-family:var(--mono);}
+.perf-rank.gold{color:#f59e0b;}
+.perf-rank.silver{color:#94a3b8;}
+.perf-rank.bronze{color:#cd7c3c;}
+.perf-ava{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;}
+.perf-info{flex:1;min-width:0;}
+.perf-name{font-size:0.73rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.perf-vaga{font-size:0.6rem;color:var(--muted);}
+.perf-fit{font-size:0.75rem;font-weight:900;color:var(--accent);font-family:var(--mono);}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:0.75rem;padding-bottom:0.75rem;position:relative;}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:11px;top:22px;bottom:0;width:1px;background:rgba(255,255,255,0.06);}
+.tl-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;margin-top:0.05rem;}
+.tl-body{flex:1;}
+.tl-text{font-size:0.72rem;font-weight:600;color:var(--text2);}
+.tl-time{font-size:0.58rem;color:var(--muted);margin-top:0.05rem;font-family:var(--mono);}
+
+/* ── LOADING ── */
+.loading-block{display:flex;align-items:center;justify-content:center;min-height:80px;color:var(--muted);font-size:0.76rem;gap:0.5rem;}
+.spinner{width:16px;height:16px;border:2px solid var(--muted2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.6s linear infinite;flex-shrink:0;}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .page{padding:0.9rem 0.85rem 4rem;}
+  .hero{padding:1rem 1.1rem;}
+  .hero-title{font-size:1.25rem;}
+  .hero-right .last-update{display:none;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:0.5rem;}
+  .kpi-val{font-size:1.4rem;}
+  .card{padding:1rem;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> Painel Executivo · Agência Nexus ATS</div>
+      <div class="hero-title">Dashboard <span>em Tempo Real</span></div>
+      <div class="hero-sub">Métricas completas de recrutamento · Atualização automática · Dados ao vivo do Supabase</div>
+    </div>
+    <div class="hero-right">
+      <div class="last-update"><div class="upd-dot"></div><span id="lastUpd">Carregando...</span></div>
+      <button class="btn btn-ghost" onclick="init()">↺ Atualizar</button>
+      <button class="btn btn-primary" onclick="navegar('pipeline')">⊞ Pipeline →</button>
+    </div>
+  </div>
+
+  <!-- KPI GRID (8 cards) -->
+  <div class="kpi-grid" id="kpiGrid">
+    <div class="kpi" style="--kpi-color:var(--accent)">
+      <div class="kpi-top"><span class="kpi-icon">👥</span><span class="kpi-trend neu" id="kTotalTrend">—</span></div>
+      <div class="kpi-val" id="kTotal">—</div>
+      <div class="kpi-label">Total candidatos</div>
+      <div class="kpi-sub" id="kTotalSub">—</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--blue)">
+      <div class="kpi-top"><span class="kpi-icon">📅</span><span class="kpi-trend up" id="kHojeTrend">Hoje</span></div>
+      <div class="kpi-val" id="kHoje">—</div>
+      <div class="kpi-label">Entradas hoje</div>
+      <div class="kpi-sub" id="kHojeSub">novos candidatos</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--orange)">
+      <div class="kpi-top"><span class="kpi-icon">💼</span><span class="kpi-trend neu">Ativo</span></div>
+      <div class="kpi-val" id="kVagas">—</div>
+      <div class="kpi-label">Vagas abertas</div>
+      <div class="kpi-sub">processos em andamento</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--green)">
+      <div class="kpi-top"><span class="kpi-icon">🎯</span><span class="kpi-trend neu" id="kPipeTrend">Pipeline</span></div>
+      <div class="kpi-val" id="kPipeline">—</div>
+      <div class="kpi-label">No pipeline</div>
+      <div class="kpi-sub">em seleção ativa</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--purple)">
+      <div class="kpi-top"><span class="kpi-icon">✅</span><span class="kpi-trend up" id="kAprovTrend">—</span></div>
+      <div class="kpi-val" id="kAprovados">—</div>
+      <div class="kpi-label">Aprovados</div>
+      <div class="kpi-sub" id="kAprovSub">taxa de aprovação</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--red)">
+      <div class="kpi-top"><span class="kpi-icon">⏳</span><span class="kpi-trend down">Aguardando</span></div>
+      <div class="kpi-val" id="kSemEntrev">—</div>
+      <div class="kpi-label">entrevista</div>
+      <div class="kpi-sub">aguardando ação</div>
+    </div>
+    <div class="kpi" style="--kpi-color:#f59e0b">
+      <div class="kpi-top"><span class="kpi-icon">⭐</span><span class="kpi-trend up" id="kFitTrend">Médio</span></div>
+      <div class="kpi-val" id="kFitMedio">—</div>
+      <div class="kpi-label">Fit score médio</div>
+      <div class="kpi-sub" id="kFitSub">score de qualidade</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--D)">
+      <div class="kpi-top"><span class="kpi-icon">🏆</span><span class="kpi-trend neu">DISC</span></div>
+      <div class="kpi-val" id="kPerfDom">—</div>
+      <div class="kpi-label">Perfil dominante</div>
+      <div class="kpi-sub" id="kPerfDomSub">—</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--teal)">
+      <div class="kpi-top"><span class="kpi-icon">🔁</span><span class="kpi-trend neu" id="kRecTrend">—</span></div>
+      <div class="kpi-val" id="kRecoloc">—</div>
+      <div class="kpi-label">Recolocações</div>
+      <div class="kpi-sub" id="kRecolocSub">banco de talentos</div>
+    </div>
+    <div class="kpi" style="--kpi-color:#f59e0b">
+      <div class="kpi-top"><span class="kpi-icon">⭐</span><span class="kpi-trend neu" id="kNpsCandTrend">NPS</span></div>
+      <div class="kpi-val" id="kNpsCand">—</div>
+      <div class="kpi-label">NPS Candidatos</div>
+      <div class="kpi-sub" id="kNpsCandSub">satisfação</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--blue)">
+      <div class="kpi-top"><span class="kpi-icon">🤝</span><span class="kpi-trend neu" id="kNpsCliTrend">NPS</span></div>
+      <div class="kpi-val" id="kNpsCli">—</div>
+      <div class="kpi-label">NPS Clientes</div>
+      <div class="kpi-sub" id="kNpsCliSub">satisfação</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--purple)">
+      <div class="kpi-top"><span class="kpi-icon">🏢</span><span class="kpi-trend neu">Clientes</span></div>
+      <div class="kpi-val" id="kClientes">—</div>
+      <div class="kpi-label">Clientes ativos</div>
+      <div class="kpi-sub" id="kClientesSub">base de clientes</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--green)">
+      <div class="kpi-top"><span class="kpi-icon">🎓</span><span class="kpi-trend neu">Escolas</span></div>
+      <div class="kpi-val" id="kEscolas">—</div>
+      <div class="kpi-label">Escolas parceiras</div>
+      <div class="kpi-sub" id="kEscolasSub">parcerias ativas</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--orange)">
+      <div class="kpi-top"><span class="kpi-icon">👥</span><span class="kpi-trend neu">Equipe</span></div>
+      <div class="kpi-val" id="kEquipe">—</div>
+      <div class="kpi-label">Membros equipe</div>
+      <div class="kpi-sub" id="kEquipeSub">recrutadores</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--red)">
+      <div class="kpi-top"><span class="kpi-icon">🚫</span><span class="kpi-trend down">Bloqueados</span></div>
+      <div class="kpi-val" id="kListaNegra">—</div>
+      <div class="kpi-label">Lista Negra</div>
+      <div class="kpi-sub" id="kListaNegraSub">pessoas bloqueadas</div>
+    </div>
+  </div>
+
+  <!-- LINHA 1: Evolução linha + Funil -->
+  <div class="sec"><div class="sec-label">Evolução & Pipeline de Conversão</div></div>
+  <div class="g-main" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">📈</span> Avaliações ao longo do tempo</span>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <div class="period-tabs" id="periodTabs">
+            <button class="ptab on" onclick="setPeriod(7,this)">7d</button>
+            <button class="ptab" onclick="setPeriod(30,this)">30d</button>
+            <button class="ptab" onclick="setPeriod(90,this)">90d</button>
+          </div>
+          <span class="card-badge" id="tendBadge">—</span>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:210px;"><canvas id="chartLinha"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🔽</span> Funil do Pipeline</span>
+        <span class="card-badge orange" id="funilTotal">0 cands</span>
+      </div>
+      <div class="funil-premium" id="funilWrap">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA 2: Distribuição DISC (heatmap) + Donut + Fit Distribuição -->
+  <div class="sec"><div class="sec-label">Distribuição de Perfis DISC & Fit Score</div></div>
+  <div class="g3" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🧠</span> Perfis DISC</span>
+        <span class="card-badge" id="discTotal">0 perfis</span>
+      </div>
+      <div class="disc-heatmap" id="discHeatmap">
+        <div class="loading-block" style="grid-column:span 4"><div class="spinner"></div></div>
+      </div>
+      <div class="disc-rows" id="discBarsWrap" style="margin-top:0.9rem;">
+      </div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🍩</span> Proporção DISC</span>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+        <div class="chart-wrap" style="height:180px;max-width:200px;"><canvas id="chartDonut"></canvas></div>
+      </div>
+      <div class="mini-stats" id="discMiniStats">
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">📊</span> Distribuição Fit Score</span>
+      </div>
+      <div class="chart-wrap" style="height:165px;"><canvas id="chartFit"></canvas></div>
+      <div class="gauge-wrap" style="margin-top:0.8rem;">
+        <div style="display:flex;align-items:baseline;gap:0.2rem;">
+          <div class="gauge-val" id="gaugeVal">—</div><div class="gauge-unit">%</div>
+        </div>
+        <div class="gauge-label">Fit Médio Geral</div>
+        <div class="gauge-sublabel" id="gaugeSub">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA 3: Linha por perfil DISC ao longo do tempo + Top Performers -->
+  <div class="sec"><div class="sec-label">Tendências de Perfis & Top Candidatos</div></div>
+  <div class="g-main" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">📉</span> Evolução por perfil DISC — últimos 30 dias</span>
+      </div>
+      <div class="chart-wrap" style="height:210px;"><canvas id="chartDiscTrend"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🥇</span> Top Fit Scores</span>
+        <button class="btn btn-ghost" style="font-size:0.65rem;padding:0.25rem 0.65rem;" onclick="navegar('banco-talentos')">Ver todos →</button>
+      </div>
+      <div class="performers" id="topPerformers">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA 4: Atividade recente + Vagas Ranking -->
+  <div class="sec"><div class="sec-label">Operações & Atividade</div></div>
+  <div class="g-main3" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">⚡</span> Atividade Recente</span>
+        <button class="btn btn-ghost" style="font-size:0.65rem;padding:0.25rem 0.65rem;" onclick="navegar('banco-talentos')">Ver todos →</button>
+      </div>
+      <div class="act-list" id="activityList">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.85rem;">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title"><span class="card-title-ico">💼</span> Vagas — ranking</span>
+          <button class="btn btn-ghost" style="font-size:0.65rem;padding:0.25rem 0.65rem;" onclick="navegar('vagas-ats')">Ver →</button>
+        </div>
+        <div class="vagas-list" id="vagasList">
+          <div class="loading-block"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA 5: Fit Score por Vaga (barras horizontais) + Radar Semanal -->
+  <div class="sec"><div class="sec-label">Análise por Vaga & Semana</div></div>
+  <div class="g2" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🎯</span> Fit Score médio por vaga</span>
+      </div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="chartFitVaga"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">📡</span> Atividade por dia da semana</span>
+      </div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="chartSemanal"></canvas></div>
+    </div>
+  </div>
+
+  <!-- LINHA 6: Alertas SLA + Metas -->
+  <div class="sec"><div class="sec-label">Alertas & Metas do Mês</div></div>
+  <div class="g2" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">⏱️</span> Alertas SLA</span>
+        <span class="card-badge red" id="slaAlertCount">0 alertas</span>
+      </div>
+      <div class="sla-list" id="slaItems">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🎯</span> Metas do mês</span>
+        <span class="card-badge" id="metaMes">—</span>
+      </div>
+      <div class="meta-rows" id="metaRows">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA 7: Gráfico de pizza por período de entrada + Candidatos sem fit -->
+  <div class="sec"><div class="sec-label">Análise Temporal & Qualidade</div></div>
+  <div class="g3" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">📅</span> Entradas por mês</span>
+      </div>
+      <div class="chart-wrap" style="height:200px;"><canvas id="chartMensal"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🔥</span> Fit score — acumulado</span>
+      </div>
+      <div class="chart-wrap" style="height:200px;"><canvas id="chartFitAcum"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">📋</span> Resumo de qualidade</span>
+      </div>
+      <div id="qualidadeWrap" style="display:flex;flex-direction:column;gap:0.55rem;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA 8: NPS Candidatos + NPS Clientes + Recolocações -->
+  <div class="sec"><div class="sec-label">Satisfação & Banco de Talentos</div></div>
+  <div class="g3" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">⭐</span> NPS Candidatos</span>
+        <span class="card-badge" id="npsCandBadge">—</span>
+      </div>
+      <div id="npsCandWrap" style="display:flex;flex-direction:column;gap:0.55rem;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🤝</span> NPS Clientes</span>
+        <span class="card-badge blue" id="npsCliBadge">—</span>
+      </div>
+      <div id="npsCliWrap" style="display:flex;flex-direction:column;gap:0.55rem;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🔁</span> Banco de Recolocações</span>
+        <span class="card-badge" style="background:rgba(26,188,156,0.1);color:var(--teal);border-color:rgba(26,188,156,0.25);" id="recolocBadge">—</span>
+      </div>
+      <div id="recolocWrap" style="display:flex;flex-direction:column;gap:0.45rem;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HALL DOS CRAQUES + LISTA NEGRA com pessoas -->
+  <div class="sec"><div class="sec-label">Destaques & Alertas</div></div>
+  <div class="g-main" style="margin-bottom:0.85rem;">
+    <div class="card" style="border-color:rgba(212,175,55,0.25);background:linear-gradient(135deg,rgba(212,175,55,0.04),transparent 60%);">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🏆</span> Hall dos Craques</span>
+        <button class="btn btn-ghost" style="font-size:0.65rem;padding:0.25rem 0.65rem;color:#D4AF37;border-color:rgba(212,175,55,0.25);" onclick="navegar('hall-craques')">Ver todos →</button>
+      </div>
+      <div id="hallCraquesWrap" style="display:flex;flex-direction:column;gap:0.45rem;max-height:260px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(212,175,55,0.2) transparent;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+    <div class="card" style="border-color:rgba(231,76,60,0.2);background:linear-gradient(135deg,rgba(231,76,60,0.03),transparent 60%);">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🚫</span> Lista Negra</span>
+        <div style="display:flex;gap:0.4rem;align-items:center;">
+          <span class="card-badge red" id="listaNegraBadge">—</span>
+          <button class="btn btn-ghost" style="font-size:0.65rem;padding:0.25rem 0.65rem;" onclick="navegar('lista-negra')">Ver →</button>
+        </div>
+      </div>
+      <div id="listaNegraPessoasWrap" style="display:flex;flex-direction:column;gap:0.4rem;max-height:260px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(231,76,60,0.2) transparent;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA 9: Clientes + Escolas + Equipe -->
+  <div class="sec"><div class="sec-label">Base de Relacionamento</div></div>
+  <div class="g3" style="margin-bottom:0.85rem;">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🏢</span> Clientes recentes</span>
+        <button class="btn btn-ghost" style="font-size:0.65rem;padding:0.25rem 0.65rem;" onclick="navegar('clientes')">Ver todos →</button>
+      </div>
+      <div id="clientesWrap" style="display:flex;flex-direction:column;gap:0.4rem;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">🎓</span> Escolas parceiras</span>
+        <button class="btn btn-ghost" style="font-size:0.65rem;padding:0.25rem 0.65rem;" onclick="navegar('escolas')">Ver todas →</button>
+      </div>
+      <div id="escolasWrap" style="display:flex;flex-direction:column;gap:0.4rem;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title"><span class="card-title-ico">👥</span> Equipe interna</span>
+        <button class="btn btn-ghost" style="font-size:0.65rem;padding:0.25rem 0.65rem;" onclick="navegar('equipe')">Ver →</button>
+      </div>
+      <div id="equipeWrap" style="display:flex;flex-direction:column;gap:0.4rem;">
+        <div class="loading-block"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── CONFIG ──
+let SB_URL = '', SB_KEY = '', PIPE_KEY = 'nexus_pipeline_v1';
+let _hist = [], _vagas = [], _carregou = false, _periodo = 30;
+let _clientes = [], _escolas = [], _lista_negra = [];
+let _nps_cands = [], _nps_clis = [], _recolocacoes = [], _membros_sb = [];
+let _charts = {};
+
+const COR  = {D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+const EMO  = {D:'🔴',I:'🟠',S:'🟢',C:'🔵'};
+const NOME = {D:'Dominante',I:'Influente',S:'Estável',C:'Criterioso'};
+const ETAPAS = [
+  {id:'triagem',   label:'Triagem',     cor:'#3498db'},
+  {id:'pre',       label:'Pré-seleção', cor:'#9b59b6'},
+  {id:'entrevista',label:'Entrevista',  cor:'#f39c12'},
+  {id:'finalista', label:'Finalista',   cor:'#3b82f6'},
+  {id:'aprovado',  label:'Aprovado',    cor:'#2ecc71'},
+  {id:'recusado',  label:'Recusado',    cor:'#e74c3c'},
+];
+
+function lerContexto(){
+  // 1. supabase-config.js (mais confiável — hardcoded)
+  if(window.NEXUS_SB_URL && !window.NEXUS_SB_URL.includes('SEU_PROJETO')){
+    SB_URL = window.NEXUS_SB_URL;
+    SB_KEY = window.NEXUS_SB_KEY;
+    return;
+  }
+  // 2. localStorage ctx_v3 (gravado pelo supabase-config.js ou pelo app pai)
+  try{
+    const ctx = JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');
+    if(ctx.sb_url) SB_URL = ctx.sb_url;
+    if(ctx.sb_key) SB_KEY = ctx.sb_key;
+    if(ctx.pipe_key) PIPE_KEY = ctx.pipe_key;
+  }catch(e){}
+}
+function navegar(mod){ window.parent.postMessage({tipo:'nexus_navegar', mod}, '*'); }
+
+function destroyChart(id){ if(_charts[id]){ _charts[id].destroy(); delete _charts[id]; } }
+
+function chartDefaults(){
+  return {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'#141414',borderColor:'rgba(59,130,246,0.25)',borderWidth:1,
+        titleColor:'#f0f0f0',bodyColor:'#aaa',cornerRadius:10,padding:10,
+        displayColors:false,
+      }
+    }
+  };
+}
+
+// ── KEYS localStorage (espelhos dos módulos) ──
+const LS_CLIENTES = 'nexus_clientes_v1';
+const LS_ESCOLAS  = 'nexus_escolas_v1';
+const LS_MEMBROS  = 'nexus_membros';
+function lsLer(key){ try{ return JSON.parse(localStorage.getItem(key)||'[]'); }catch(e){ return []; } }
+
+// ── INIT ──
+async function init(){
+  lerContexto();
+  if(!SB_URL){ setTimeout(()=>{ lerContexto(); if(SB_URL) init(); },500); return; }
+  _carregou = true;
+  document.getElementById('lastUpd').textContent = 'Atualizando...';
+  try{
+    const r = await fetch(`${SB_URL}/rest/v1/disc_historico?order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _hist = await r.json();
+    if(!Array.isArray(_hist)) _hist = [];
+  }catch(e){ _hist = []; }
+  try{
+    const r2 = await fetch(`${SB_URL}/rest/v1/vagas?select=id,titulo,icone,status,empresa`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _vagas = await r2.json();
+    if(!Array.isArray(_vagas)) _vagas = [];
+  }catch(e){ _vagas=[]; }
+
+  // ── Clientes — Plano A/B ──
+  try{
+    const rc = await fetch(`${SB_URL}/rest/v1/clientes?select=id,nome,segmento,status,cidade,criado_em&order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _clientes = await rc.json();
+    if(!Array.isArray(_clientes)) throw new Error();
+    // atualiza cache local
+    try{ localStorage.setItem(LS_CLIENTES, JSON.stringify(_clientes)); }catch(e){}
+  }catch(e){
+    // Plano B — usa cache localStorage
+    _clientes = lsLer(LS_CLIENTES);
+  }
+
+  // ── Escolas — Plano A/B ──
+  try{
+    const re = await fetch(`${SB_URL}/rest/v1/escolas?select=id,nome,tipo,cidade,status,criado_em&order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _escolas = await re.json();
+    if(!Array.isArray(_escolas)) throw new Error();
+    try{ localStorage.setItem(LS_ESCOLAS, JSON.stringify(_escolas)); }catch(e){}
+  }catch(e){
+    _escolas = lsLer(LS_ESCOLAS);
+  }
+
+  // ── NPS Candidatos ──
+  try{
+    const rn = await fetch(`${SB_URL}/rest/v1/nps_candidatos?order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _nps_cands = await rn.json();
+    if(!Array.isArray(_nps_cands)) _nps_cands = [];
+  }catch(e){ _nps_cands=[]; }
+
+  // ── NPS Clientes ──
+  try{
+    const rnc = await fetch(`${SB_URL}/rest/v1/nps_clientes?order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _nps_clis = await rnc.json();
+    if(!Array.isArray(_nps_clis)) _nps_clis = [];
+  }catch(e){ _nps_clis=[]; }
+
+  // ── Recolocações ──
+  try{
+    const rr = await fetch(`${SB_URL}/rest/v1/recolocacoes?order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _recolocacoes = await rr.json();
+    if(!Array.isArray(_recolocacoes)) _recolocacoes = [];
+  }catch(e){ _recolocacoes=[]; }
+
+  // ── Equipe — Plano A/B ──
+  try{
+    const req = await fetch(`${SB_URL}/rest/v1/equipe_membros?fixo=eq.false&order=criado_em.asc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _membros_sb = await req.json();
+    if(!Array.isArray(_membros_sb)) throw new Error();
+    try{ localStorage.setItem(LS_MEMBROS, JSON.stringify(_membros_sb)); }catch(e){}
+  }catch(e){
+    _membros_sb = lsLer(LS_MEMBROS);
+  }
+
+  // lista negra
+  try{
+    const rLN = await fetch(`${SB_URL}/rest/v1/lista_negra?select=id,nome,cpf,cargo,empresa,observacoes,status,criado_em&order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const ln = await rLN.json();
+    console.log('[Lista Negra] fetch result:', ln);
+    if(Array.isArray(ln)) _lista_negra = ln;
+    else console.warn('[Lista Negra] resposta não é array:', ln);
+  }catch(e){ console.error('[Lista Negra] erro no fetch:', e); _lista_negra = []; }
+
+  renderAll();
+  const now = new Date();
+  document.getElementById('lastUpd').textContent =
+    `Atualizado às ${now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
+}
+
+function renderAll(){
+  renderKPIs();
+  renderLinha(_periodo);
+  renderFunil();
+  renderDiscHeatmap();
+  renderDiscBars();
+  renderDonut();
+  renderFitChart();
+  renderDiscTrend();
+  renderTopPerformers();
+  renderActivity();
+  renderVagas();
+  renderFitPorVaga();
+  renderSemanal();
+  renderSLA();
+  renderMetas();
+  renderMensal();
+  renderFitAcum();
+  renderQualidade();
+  renderNPSCandidatos();
+  renderNPSClientes();
+  renderRecolocacoes();
+  renderClientesCard();
+  renderEscolasCard();
+  renderEquipeCard();
+  renderListaNegraCard();
+  renderHallCraques();
+}
+
+function setPeriod(p, btn){
+  _periodo = p;
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderLinha(p);
+}
+
+// ── KPIs ──
+function renderKPIs(){
+  const hist = _hist, vagas = _vagas;
+  const total = hist.length;
+  const hoje = new Date().toLocaleDateString('pt-BR');
+  const hojeArr = hist.filter(h=>h.data===hoje);
+  const vagasAtivas = vagas.filter(v=>v.status!=='encerrada').length;
+
+  let pipeTotal=0, pipeAprov=0;
+  try{
+    const pipe = JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');
+    Object.values(pipe).forEach(vm=>Object.values(vm||{}).forEach(et=>{
+      pipeTotal++; if(et==='aprovado') pipeAprov++;
+    }));
+  }catch(e){}
+
+  const semEnt = hist.filter(h=>{
+    if(!h.entrevista_json && !h.resumo_ia) return true;
+    try{ const ej=typeof h.entrevista_json==='string'?JSON.parse(h.entrevista_json):(h.entrevista_json||{}); return !ej.historia||ej.historia.length<10; }catch(e2){ return !h.resumo_ia; }
+  }).length;
+
+  const comFit = hist.filter(h=>h.fit_score);
+  const fitMedio = comFit.length ? Math.round(comFit.reduce((s,h)=>s+parseInt(h.fit_score),0)/comFit.length) : null;
+
+  const cnt = hist.reduce((a,h)=>{ a[h.dom]=(a[h.dom]||0)+1; return a; },{});
+  const domLetra = Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0]?.[0] || '—';
+
+  const semAnt = new Date(); semAnt.setDate(semAnt.getDate()-7);
+  const em7dias = hist.filter(h=>{
+    if(!h.data) return false;
+    const p=h.data.split('/'); if(p.length<3) return false;
+    return new Date(p[2],p[1]-1,p[0]) >= semAnt;
+  }).length;
+
+  const taxaAprov = pipeTotal ? Math.round(pipeAprov/pipeTotal*100) : 0;
+  const fitClass = fitMedio>=75?'up':fitMedio>=50?'neu':'down';
+
+  document.getElementById('kTotal').textContent    = total;
+  document.getElementById('kTotalSub').textContent = `${em7dias} nos últimos 7 dias`;
+  document.getElementById('kTotalTrend').textContent = em7dias > 0 ? `+${em7dias}` : '0';
+  document.getElementById('kTotalTrend').className = `kpi-trend ${em7dias>0?'up':'neu'}`;
+
+  document.getElementById('kHoje').textContent  = hojeArr.length;
+  document.getElementById('kHojeSub').textContent = hojeArr.length===1?'1 candidato hoje':`${hojeArr.length} candidatos hoje`;
+
+  document.getElementById('kVagas').textContent    = vagasAtivas || '—';
+  document.getElementById('kPipeline').textContent = pipeTotal;
+  document.getElementById('kAprovados').textContent= pipeAprov;
+  document.getElementById('kAprovTrend').textContent = taxaAprov+'%';
+  document.getElementById('kAprovSub').textContent = `${taxaAprov}% de aprovação`;
+
+  document.getElementById('kSemEntrev').textContent= semEnt;
+  document.getElementById('kFitMedio').textContent = fitMedio ? fitMedio+'%' : '—';
+  document.getElementById('kFitTrend').textContent = fitMedio ? (fitMedio>=70?'Ótimo':fitMedio>=50?'Médio':'Baixo') : '—';
+  document.getElementById('kFitTrend').className = `kpi-trend ${fitClass}`;
+  document.getElementById('kFitSub').textContent = comFit.length+' com score';
+  document.getElementById('kPerfDom').textContent  = domLetra;
+  document.getElementById('kPerfDomSub').textContent = domLetra !== '—' ? (NOME[domLetra]||domLetra)+` · ${cnt[domLetra]||0} cands` : 'sem dados';
+
+  // gauge fit
+  document.getElementById('gaugeVal').textContent = fitMedio || '—';
+  document.getElementById('gaugeSub').textContent = comFit.length ? `baseado em ${comFit.length} avaliações` : 'sem dados de fit';
+
+  // KPIs de Supabase (já carregados no init — as funções render* preenchem em detalhe depois)
+  // Recolocações
+  const rec = _recolocacoes;
+  document.getElementById('kRecoloc').textContent = rec.length;
+  const recolocados = rec.filter(r=>r.status==='recolocado').length;
+  const taxaRec = rec.length ? Math.round(recolocados/rec.length*100) : 0;
+  document.getElementById('kRecolocSub').textContent = recolocados+' recolocados · '+taxaRec+'% taxa';
+
+  // NPS Candidatos
+  const npsC = _nps_cands;
+  const npsPc = npsC.filter(r=>r.nota>=9).length, npsDc = npsC.filter(r=>r.nota<=6).length;
+  const npsScC = npsC.length ? Math.round(((npsPc-npsDc)/npsC.length)*100) : null;
+  document.getElementById('kNpsCand').textContent = npsScC!==null ? npsScC : '—';
+  document.getElementById('kNpsCandSub').textContent = npsC.length+' respostas';
+
+  // NPS Clientes
+  const npsL = _nps_clis;
+  const npsPlc = npsL.filter(r=>r.nota>=9).length, npsDlc = npsL.filter(r=>r.nota<=6).length;
+  const npsScL = npsL.length ? Math.round(((npsPlc-npsDlc)/npsL.length)*100) : null;
+  document.getElementById('kNpsCli').textContent = npsScL!==null ? npsScL : '—';
+  document.getElementById('kNpsCliSub').textContent = npsL.length+' respostas';
+
+  // Equipe
+  const membros = _membros_sb;
+  document.getElementById('kEquipe').textContent = membros.length+2; // +2 fixos
+  document.getElementById('kEquipeSub').textContent = (membros.length+2)+' membros totais';
+}
+
+// ── LINHA ──
+function renderLinha(dias=30){
+  const labels=[], counts=[];
+  for(let i=dias-1;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const str=d.toLocaleDateString('pt-BR');
+    const lbl=dias<=30?d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}):d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+    labels.push(lbl);
+    counts.push(_hist.filter(h=>h.data===str).length);
+  }
+  const t7=counts.slice(-7).reduce((s,v)=>s+v,0);
+  const t7ant=counts.slice(-14,-7).reduce((s,v)=>s+v,0);
+  const badge=document.getElementById('tendBadge');
+  if(t7>t7ant){badge.textContent='↑ Em alta';badge.className='card-badge';}
+  else if(t7<t7ant){badge.textContent='↓ Em queda';badge.className='card-badge red';}
+  else{badge.textContent='→ Estável';badge.className='card-badge blue';}
+
+  destroyChart('linha');
+  const ctx=document.getElementById('chartLinha').getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,0,210);
+  grad.addColorStop(0,'rgba(59,130,246,0.18)');
+  grad.addColorStop(1,'rgba(59,130,246,0)');
+  _charts.linha=new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:[{
+      label:'Candidatos',data:counts,
+      borderColor:'#3b82f6',backgroundColor:grad,
+      borderWidth:2.5,pointRadius:dias<=30?3:1,pointBackgroundColor:'#3b82f6',
+      pointHoverRadius:6,fill:true,tension:0.4,
+    }]},
+    options:{...chartDefaults(),
+      plugins:{...chartDefaults().plugins,tooltip:{...chartDefaults().plugins.tooltip,displayColors:false,
+        callbacks:{title:i=>`${i[0].label}`,body:i=>`${i[0].parsed.y} candidato${i[0].parsed.y!==1?'s':''}`}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9},maxTicksLimit:dias<=30?10:12}},
+        y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9},precision:0},beginAtZero:true},
+      }
+    }
+  });
+}
+
+// ── FUNIL ──
+function renderFunil(){
+  const pipe=(()=>{try{return JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');}catch(e){return{};}})();
+  const counts={triagem:0,pre:0,entrevista:0,finalista:0,aprovado:0,recusado:0};
+  Object.values(pipe).forEach(vm=>Object.values(vm||{}).forEach(et=>{if(counts[et]!==undefined)counts[et]++;}));
+  const total=Object.values(counts).reduce((s,v)=>s+v,0);
+  document.getElementById('funilTotal').textContent=total+' cands';
+  const max=Math.max(...Object.values(counts),1);
+  const el=document.getElementById('funilWrap');
+  if(!total){el.innerHTML='<div class="loading-block" style="height:60px;">Sem candidatos no pipeline</div>';return;}
+  el.innerHTML=ETAPAS.map(et=>{
+    const c=counts[et.id]; const pct=Math.round((c/max)*100); const pp=total?Math.round(c/total*100):0;
+    return `<div class="fp-row">
+      <span class="fp-label" style="color:${et.cor};">${et.label}</span>
+      <div class="fp-track">
+        <div class="fp-fill" style="width:0%;background:${et.cor}22;border-left:3px solid ${et.cor};" data-w="${pct}">
+          ${c>0?`<span>${c}</span><span>${pp}%</span>`:''}
+        </div>
+      </div>
+      <span class="fp-count" style="color:${et.cor};">${c}</span>
+    </div>`;
+  }).join('');
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.fp-fill[data-w]').forEach(el=>{setTimeout(()=>{el.style.width=el.dataset.w+'%';},80);});
+  });
+}
+
+// ── DISC HEATMAP ──
+function renderDiscHeatmap(){
+  const cnt=_hist.reduce((a,h)=>{a[h.dom]=(a[h.dom]||0)+1;return a;},{D:0,I:0,S:0,C:0});
+  const total=_hist.length||1;
+  const max=Math.max(...Object.values(cnt),1);
+  document.getElementById('discTotal').textContent=_hist.length+' perfis';
+  document.getElementById('discHeatmap').innerHTML=['D','I','S','C'].map(l=>{
+    const pct=Math.round(cnt[l]/total*100);
+    const intensity=Math.round(cnt[l]/max*100);
+    return `<div class="dhm-cell" style="background:${COR[l]}${Math.round(intensity*0.18).toString(16).padStart(2,'0')};border:1px solid ${COR[l]}33;">
+      <div class="dhm-letter" style="color:${COR[l]};">${l}</div>
+      <div class="dhm-name" style="color:${COR[l]};">${NOME[l]}</div>
+      <div class="dhm-num" style="color:${COR[l]};">${cnt[l]}</div>
+      <div class="dhm-pct" style="color:${COR[l]};">${pct}%</div>
+    </div>`;
+  }).join('');
+}
+
+// ── DISC BARS ──
+function renderDiscBars(){
+  const cnt=_hist.reduce((a,h)=>{a[h.dom]=(a[h.dom]||0)+1;return a;},{D:0,I:0,S:0,C:0});
+  const total=_hist.length||1;
+  const max=Math.max(...Object.values(cnt),1);
+  document.getElementById('discBarsWrap').innerHTML=['D','I','S','C'].map(l=>{
+    const pct=Math.round(cnt[l]/total*100);
+    const w=Math.round(cnt[l]/max*100);
+    return `<div class="disc-row">
+      <span class="disc-letra" style="color:${COR[l]};">${l}</span>
+      <span class="disc-nome">${NOME[l]}</span>
+      <div class="disc-track"><div class="disc-fill" style="width:0%;background:${COR[l]};" data-w="${w}"></div></div>
+      <span class="disc-pct" style="color:${COR[l]};">${cnt[l]} <span style="color:var(--muted);font-weight:400;">(${pct}%)</span></span>
+    </div>`;
+  }).join('');
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.disc-fill[data-w]').forEach(el=>{setTimeout(()=>{el.style.width=el.dataset.w+'%';},100);});
+  });
+}
+
+// ── DONUT ──
+function renderDonut(){
+  const cnt=_hist.reduce((a,h)=>{a[h.dom]=(a[h.dom]||0)+1;return a;},{D:0,I:0,S:0,C:0});
+  const total=_hist.length||1;
+  destroyChart('donut');
+  const ctx=document.getElementById('chartDonut').getContext('2d');
+  _charts.donut=new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      labels:['Dominante','Influente','Estável','Criterioso'],
+      datasets:[{data:[cnt.D,cnt.I,cnt.S,cnt.C],
+        backgroundColor:['rgba(231,76,60,0.85)','rgba(243,156,18,0.85)','rgba(59,130,246,0.85)','rgba(52,152,219,0.85)'],
+        borderColor:['#e74c3c','#f39c12','#2ecc71','#3498db'],
+        borderWidth:2,hoverOffset:6,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,cutout:'68%',
+      plugins:{
+        legend:{display:true,position:'bottom',labels:{color:'#555',font:{size:9},padding:6,boxWidth:8,boxHeight:8}},
+        tooltip:{backgroundColor:'#141414',borderColor:'rgba(59,130,246,0.25)',borderWidth:1,titleColor:'#f0f0f0',bodyColor:'#aaa',cornerRadius:10,padding:10,}
+      }
+    }
+  });
+  // mini stats
+  document.getElementById('discMiniStats').innerHTML=['D','I','S','C'].map(l=>{
+    const pct=Math.round(cnt[l]/total*100);
+    return `<div class="mini-stat">
+      <div class="ms-val" style="color:${COR[l]};">${cnt[l]} <span style="font-size:0.7rem;font-weight:400;color:var(--muted);">(${pct}%)</span></div>
+      <div class="ms-label">${EMO[l]} ${NOME[l]}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── FIT CHART ──
+function renderFitChart(){
+  const comFit=_hist.filter(h=>h.fit_score&&parseInt(h.fit_score)>0);
+  const buckets={'0–20':0,'21–40':0,'41–60':0,'61–80':0,'81–100':0};
+  comFit.forEach(h=>{
+    const v=parseInt(h.fit_score);
+    if(v<=20)buckets['0–20']++;else if(v<=40)buckets['21–40']++;else if(v<=60)buckets['41–60']++;
+    else if(v<=80)buckets['61–80']++;else buckets['81–100']++;
+  });
+  const cores=['rgba(231,76,60,0.8)','rgba(230,126,34,0.8)','rgba(243,156,18,0.8)','rgba(59,130,246,0.8)','rgba(59,130,246,0.8)'];
+  destroyChart('fit');
+  const ctx=document.getElementById('chartFit').getContext('2d');
+  _charts.fit=new Chart(ctx,{
+    type:'bar',
+    data:{labels:Object.keys(buckets),datasets:[{label:'Candidatos',data:Object.values(buckets),
+      backgroundColor:cores,borderColor:cores.map(c=>c.replace('0.8','1')),borderWidth:0,borderRadius:5,borderSkipped:false,}]},
+    options:{...chartDefaults(),
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#555',font:{size:9}}},
+        y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9},precision:0},beginAtZero:true},
+      }
+    }
+  });
+}
+
+// ── DISC TREND ──
+function renderDiscTrend(){
+  const dias=30;
+  const labels=[];
+  const datasets={D:[],I:[],S:[],C:[]};
+  for(let i=dias-1;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const str=d.toLocaleDateString('pt-BR');
+    labels.push(d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}));
+    const dayHist=_hist.filter(h=>h.data===str);
+    Object.keys(datasets).forEach(l=>{ datasets[l].push(dayHist.filter(h=>h.dom===l).length); });
+  }
+  destroyChart('discTrend');
+  const ctx=document.getElementById('chartDiscTrend').getContext('2d');
+  _charts.discTrend=new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:['D','I','S','C'].map(l=>({
+      label:NOME[l],data:datasets[l],
+      borderColor:COR[l],backgroundColor:COR[l]+'18',
+      borderWidth:2,pointRadius:0,pointHoverRadius:4,fill:false,tension:0.4,
+    }))},
+    options:{...chartDefaults(),
+      plugins:{...chartDefaults().plugins,legend:{display:true,position:'top',align:'end',
+        labels:{color:'#666',font:{size:9},padding:10,boxWidth:12,boxHeight:3,usePointStyle:true}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9},maxTicksLimit:10}},
+        y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9},precision:0},beginAtZero:true},
+      }
+    }
+  });
+}
+
+// ── TOP PERFORMERS ──
+function renderTopPerformers(){
+  const comFit=_hist.filter(h=>h.fit_score&&parseInt(h.fit_score)>0)
+    .sort((a,b)=>parseInt(b.fit_score)-parseInt(a.fit_score)).slice(0,8);
+  const el=document.getElementById('topPerformers');
+  if(!comFit.length){el.innerHTML='<div class="loading-block" style="height:60px;">Sem dados de fit.</div>';return;}
+  el.innerHTML=comFit.map((h,i)=>{
+    const cor=COR[h.dom]||'#888'; const emo=EMO[h.dom]||'⬜';
+    const fit=parseInt(h.fit_score);
+    const fitCor=fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c';
+    const rankCls=i===0?'gold':i===1?'silver':i===2?'bronze':'';
+    const medals=['🥇','🥈','🥉'];
+    return `<div class="perf-row">
+      <span class="perf-rank ${rankCls}">${i<3?medals[i]:i+1}</span>
+      <div class="perf-ava" style="background:${cor}18;border:1px solid ${cor}30;">${emo}</div>
+      <div class="perf-info">
+        <div class="perf-name">${h.nome||'—'}</div>
+        <div class="perf-vaga">${h.vaga||'—'}</div>
+      </div>
+      <span class="perf-fit" style="color:${fitCor};">${fit}%</span>
+    </div>`;
+  }).join('');
+}
+
+// ── ATIVIDADE ──
+function renderActivity(){
+  const el=document.getElementById('activityList');
+  if(!_hist.length){el.innerHTML='<div class="loading-block" style="height:60px;">Nenhuma avaliação.</div>';return;}
+  el.innerHTML=_hist.slice(0,12).map(h=>{
+    const cor=COR[h.dom]||'#888'; const emo=EMO[h.dom]||'⬜';
+    const fit=h.fit_score?parseInt(h.fit_score):null;
+    const fitCor=fit?fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c':'#666';
+    return `<div class="act-item">
+      <div class="act-ava" style="background:${cor}18;border:1px solid ${cor}30;">${emo}</div>
+      <div class="act-body">
+        <div class="act-name">${h.nome||'—'}</div>
+        <div class="act-sub">📋 ${h.vaga||'—'} · ${h.dom||'?'}+${h.sec||'?'}</div>
+      </div>
+      <div class="act-time">${h.data||'—'}</div>
+      ${fit!==null?`<div class="act-fit" style="color:${fitCor};">${fit}%</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ── VAGAS ──
+function renderVagas(){
+  const el=document.getElementById('vagasList');
+  if(!_hist.length){el.innerHTML='<div class="loading-block" style="height:40px;">Sem dados.</div>';return;}
+  const vagaCnt=_hist.reduce((a,h)=>{if(h.vaga){a[h.vaga]=(a[h.vaga]||0)+1;}return a;},{});
+  const max=Math.max(...Object.values(vagaCnt),1);
+  const sorted=Object.entries(vagaCnt).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  el.innerHTML=sorted.map(([nome,cnt])=>{
+    const vObj=_vagas.find(v=>v.titulo===nome)||{};
+    const pct=Math.round(cnt/max*100);
+    return `<div class="vaga-row" onclick="navegar('pipeline')">
+      <span class="vaga-ico">${vObj.icone||'💼'}</span>
+      <div class="vaga-info">
+        <div class="vaga-titulo">${nome}</div>
+        <div class="vaga-meta">${vObj.empresa||'Agência Nexus'}</div>
+        <div class="vaga-bar"><div class="vaga-bar-fill" style="width:${pct}%;"></div></div>
+      </div>
+      <span class="vaga-cnt">${cnt}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── FIT POR VAGA ──
+function renderFitPorVaga(){
+  const vagaCnt={};
+  _hist.filter(h=>h.vaga&&h.fit_score).forEach(h=>{
+    if(!vagaCnt[h.vaga]) vagaCnt[h.vaga]={sum:0,cnt:0};
+    vagaCnt[h.vaga].sum+=parseInt(h.fit_score);
+    vagaCnt[h.vaga].cnt++;
+  });
+  const sorted=Object.entries(vagaCnt).map(([v,d])=>([v,Math.round(d.sum/d.cnt)])).sort((a,b)=>b[1]-a[1]).slice(0,7);
+  if(!sorted.length){document.getElementById('chartFitVaga').parentElement.innerHTML='<div class="loading-block">Sem dados de fit por vaga.</div>';return;}
+  destroyChart('fitVaga');
+  const ctx=document.getElementById('chartFitVaga').getContext('2d');
+  _charts.fitVaga=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:sorted.map(([v])=>v.length>20?v.slice(0,20)+'…':v),
+      datasets:[{
+        label:'Fit médio',data:sorted.map(([,v])=>v),
+        backgroundColor:sorted.map(([,v])=>v>=75?'rgba(59,130,246,0.75)':v>=55?'rgba(59,130,246,0.75)':v>=40?'rgba(243,156,18,0.75)':'rgba(231,76,60,0.75)'),
+        borderRadius:6,borderSkipped:false,barThickness:20,
+      }]
+    },
+    options:{...chartDefaults(),
+      indexAxis:'y',
+      plugins:{...chartDefaults().plugins,tooltip:{...chartDefaults().plugins.tooltip,callbacks:{label:i=>`${i.parsed.x}% fit médio`}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9}},min:0,max:100},
+        y:{grid:{display:false},ticks:{color:'#aaa',font:{size:9}}},
+      }
+    }
+  });
+}
+
+// ── SEMANAL ──
+function renderSemanal(){
+  const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const counts=Array(7).fill(0);
+  _hist.forEach(h=>{
+    if(!h.data) return;
+    try{ const p=h.data.split('/'); const d=new Date(p[2],p[1]-1,p[0]); counts[d.getDay()]++; }catch(e){}
+  });
+  const max=Math.max(...counts,1);
+  const colors=counts.map(v=>{const i=Math.round(v/max*5); return ['rgba(59,130,246,0.2)','rgba(59,130,246,0.35)','rgba(59,130,246,0.5)','rgba(59,130,246,0.65)','rgba(59,130,246,0.8)','rgba(59,130,246,0.95)'][i]||'rgba(59,130,246,0.95)';});
+  destroyChart('semanal');
+  const ctx=document.getElementById('chartSemanal').getContext('2d');
+  _charts.semanal=new Chart(ctx,{
+    type:'bar',
+    data:{labels:dias,datasets:[{label:'Candidatos',data:counts,backgroundColor:colors,borderRadius:7,borderSkipped:false,}]},
+    options:{...chartDefaults(),
+      plugins:{...chartDefaults().plugins,tooltip:{...chartDefaults().plugins.tooltip,callbacks:{label:i=>`${i.parsed.y} candidato${i.parsed.y!==1?'s':''}`}}},
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#666',font:{size:10}}},
+        y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9},precision:0},beginAtZero:true},
+      }
+    }
+  });
+}
+
+// ── SLA ──
+function renderSLA(){
+  const el=document.getElementById('slaItems');
+  const hoje=new Date();
+  const semEnt=_hist.filter(h=>{
+    if(!h.entrevista_json&&!h.resumo_ia) return true;
+    try{ const ej=typeof h.entrevista_json==='string'?JSON.parse(h.entrevista_json):(h.entrevista_json||{}); return !ej.historia||ej.historia.length<10; }catch(e){return true;}
+  });
+  const comDias=semEnt.map(h=>{
+    let dias=null;
+    if(h.data){ try{ const p=h.data.split('/'); const d=new Date(p[2],p[1]-1,p[0]); dias=Math.floor((hoje-d)/86400000); }catch(e){} }
+    return {...h,dias};
+  }).filter(h=>h.dias!==null&&h.dias>=2).sort((a,b)=>b.dias-a.dias).slice(0,5);
+  document.getElementById('slaAlertCount').textContent=comDias.length+' alertas';
+  if(!comDias.length){el.innerHTML='<div class="sla-item ok"><span class="sla-nome">✅ Nenhum alerta — tudo em dia!</span></div>';return;}
+  el.innerHTML=comDias.map(h=>{
+    const cls=h.dias>=7?'danger':h.dias>=3?'warn':'ok';
+    const cor=h.dias>=7?'var(--red)':h.dias>=3?'var(--orange)':'var(--green)';
+    return `<div class="sla-item ${cls}">
+      <span>${h.dias>=7?'🚨':h.dias>=3?'⚠️':'🔵'}</span>
+      <span class="sla-nome">${h.nome||'—'} <span style="font-size:0.6rem;color:var(--muted);">· ${h.vaga||'—'}</span></span>
+      <span class="sla-dias" style="color:${cor};">há ${h.dias}d</span>
+    </div>`;
+  }).join('');
+}
+
+// ── METAS ──
+function renderMetas(){
+  const now=new Date();
+  document.getElementById('metaMes').textContent=now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  const inicioMes=new Date(now.getFullYear(),now.getMonth(),1);
+  const doMes=_hist.filter(h=>{
+    if(!h.data) return false;
+    try{ const p=h.data.split('/'); return new Date(p[2],p[1]-1,p[0])>=inicioMes; }catch(e){return false;}
+  });
+  const comFitMes=doMes.filter(h=>h.fit_score);
+  const fitMedioMes=comFitMes.length?Math.round(comFitMes.reduce((s,h)=>s+parseInt(h.fit_score),0)/comFitMes.length):0;
+  let pipeAprov=0,pipeTotal=0;
+  try{const pipe=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');Object.values(pipe).forEach(vm=>Object.values(vm||{}).forEach(et=>{pipeTotal++;if(et==='aprovado')pipeAprov++;}));}catch(e){}
+  const METAS=[
+    {nome:'Avaliações no mês',atual:doMes.length,meta:20,cor:'#3b82f6'},
+    {nome:'Fit score médio',  atual:fitMedioMes,  meta:70,cor:'#3498db',suf:'%'},
+    {nome:'Aprovações',       atual:pipeAprov,     meta:5, cor:'#2ecc71'},
+    {nome:'Vagas ativas',     atual:_vagas.filter(v=>v.status!=='encerrada').length,meta:8,cor:'#f39c12'},
+  ];
+  document.getElementById('metaRows').innerHTML=METAS.map(m=>{
+    const pct=Math.min(Math.round((m.atual/m.meta)*100),100);
+    const suf=m.suf||'';
+    const statusCor=pct>=100?'#2ecc71':pct>=70?'#3b82f6':pct>=40?'#f39c12':'#e74c3c';
+    return `<div class="meta-row">
+      <div class="meta-hd">
+        <span class="meta-name">${m.nome}</span>
+        <span class="meta-nums"><span>${m.atual}${suf}</span> / ${m.meta}${suf}</span>
+      </div>
+      <div class="meta-track"><div class="meta-fill" style="width:0%;background:${m.cor};" data-w="${pct}"></div></div>
+      <div class="meta-pct" style="color:${statusCor};">${pct}% da meta</div>
+    </div>`;
+  }).join('');
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.meta-fill[data-w]').forEach(el=>{setTimeout(()=>{el.style.width=el.dataset.w+'%';},150);});
+  });
+}
+
+// ── MENSAL ──
+function renderMensal(){
+  const meses={};
+  _hist.forEach(h=>{
+    if(!h.data) return;
+    try{
+      const p=h.data.split('/');
+      const key=`${p[1]}/${p[2]}`;
+      const label=new Date(p[2],p[1]-1,1).toLocaleDateString('pt-BR',{month:'short',year:'2-digit'});
+      if(!meses[key]) meses[key]={label,cnt:0};
+      meses[key].cnt++;
+    }catch(e){}
+  });
+  const sorted=Object.entries(meses).sort((a,b)=>a[0].localeCompare(b[0])).slice(-8);
+  if(!sorted.length) return;
+  destroyChart('mensal');
+  const ctx=document.getElementById('chartMensal').getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,0,200);
+  grad.addColorStop(0,'rgba(52,152,219,0.4)');
+  grad.addColorStop(1,'rgba(52,152,219,0.02)');
+  _charts.mensal=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:sorted.map(([,v])=>v.label),
+      datasets:[{
+        label:'Candidatos',data:sorted.map(([,v])=>v.cnt),
+        backgroundColor:grad,borderColor:'rgba(52,152,219,0.8)',borderWidth:1.5,borderRadius:5,borderSkipped:false,
+      }]
+    },
+    options:{...chartDefaults(),
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#555',font:{size:9}}},
+        y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9},precision:0},beginAtZero:true},
+      }
+    }
+  });
+}
+
+// ── FIT ACUMULADO ──
+function renderFitAcum(){
+  const comFit=_hist.filter(h=>h.fit_score&&h.data).sort((a,b)=>{
+    const pa=a.data.split('/'),pb=b.data.split('/');
+    return new Date(pa[2],pa[1]-1,pa[0])-new Date(pb[2],pb[1]-1,pb[0]);
+  }).slice(-40);
+  if(comFit.length<3){document.getElementById('chartFitAcum').parentElement.innerHTML='<div class="loading-block">Dados insuficientes para gráfico de evolução.</div>';return;}
+  const labels=comFit.map(h=>h.data);
+  let acum=0; const values=comFit.map((h,i)=>{ acum+=parseInt(h.fit_score); return Math.round(acum/(i+1)); });
+  destroyChart('fitAcum');
+  const ctx=document.getElementById('chartFitAcum').getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,0,200);
+  grad.addColorStop(0,'rgba(167,139,250,0.3)');
+  grad.addColorStop(1,'rgba(167,139,250,0.02)');
+  _charts.fitAcum=new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:[{
+      label:'Fit médio acum.',data:values,
+      borderColor:'#a78bfa',backgroundColor:grad,
+      borderWidth:2,pointRadius:0,fill:true,tension:0.4,
+    }]},
+    options:{...chartDefaults(),
+      plugins:{...chartDefaults().plugins,tooltip:{...chartDefaults().plugins.tooltip,callbacks:{label:i=>`Fit médio: ${i.parsed.y}%`}}},
+      scales:{
+        x:{display:false},
+        y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#555',font:{size:9}},min:0,max:100},
+      }
+    }
+  });
+}
+
+// ── QUALIDADE ──
+function renderQualidade(){
+  const total=_hist.length||1;
+  const comFit=_hist.filter(h=>h.fit_score);
+  const fitMedio=comFit.length?Math.round(comFit.reduce((s,h)=>s+parseInt(h.fit_score),0)/comFit.length):0;
+  const acima70=comFit.filter(h=>parseInt(h.fit_score)>=70).length;
+  const acima80=comFit.filter(h=>parseInt(h.fit_score)>=80).length;
+  const semDisc=_hist.filter(h=>!h.dom||h.dom==='?').length;
+  const comIntrev=_hist.filter(h=>h.resumo_ia&&h.resumo_ia.length>10).length;
+  const items=[
+    {label:'Candidatos com fit ≥ 70%',val:`${acima70} (${Math.round(acima70/total*100)}%)`,cor:'#2ecc71'},
+    {label:'Candidatos com fit ≥ 80%',val:`${acima80} (${Math.round(acima80/total*100)}%)`,cor:'#3b82f6'},
+    {label:'Com entrevista IA',        val:`${comIntrev} (${Math.round(comIntrev/total*100)}%)`,cor:'#3498db'},
+    {label:'Sem perfil DISC',          val:`${semDisc} (${Math.round(semDisc/total*100)}%)`,cor:'#e74c3c'},
+    {label:'Cobertura de fit score',   val:`${comFit.length} (${Math.round(comFit.length/total*100)}%)`,cor:'#f39c12'},
+    {label:'Fit score médio geral',    val:`${fitMedio}%`,cor:'#a78bfa'},
+  ];
+  document.getElementById('qualidadeWrap').innerHTML=items.map(item=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0.65rem;border-radius:9px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.045);">
+      <span style="font-size:0.7rem;color:var(--text2);">${item.label}</span>
+      <span style="font-size:0.72rem;font-weight:900;color:${item.cor};font-family:var(--mono);">${item.val}</span>
+    </div>
+  `).join('');
+}
+
+// ── NPS CANDIDATOS ──
+function renderNPSCandidatos(){
+  const _resp = _nps_cands;
+  const total=_resp.length;
+  const promo=_resp.filter(r=>r.nota>=9).length;
+  const detrat=_resp.filter(r=>r.nota<=6).length;
+  const nps=total?Math.round(((promo-detrat)/total)*100):null;
+  const npsStr=nps!==null?nps+'':'-';
+  const npsCor=nps>=50?'var(--green)':nps>=0?'var(--orange)':'var(--red)';
+  document.getElementById('kNpsCand').textContent=npsStr;
+  document.getElementById('kNpsCand').style.color=npsCor;
+  document.getElementById('kNpsCandSub').textContent=total+' respostas';
+  document.getElementById('kNpsCandTrend').textContent=nps!==null?(nps>=50?'Ótimo':nps>=0?'Médio':'Baixo'):'sem dados';
+  document.getElementById('kNpsCandTrend').className='kpi-trend '+(nps>=50?'up':nps>=0?'neu':'down');
+  document.getElementById('npsCandBadge').textContent=total+' respostas';
+  const el=document.getElementById('npsCandWrap');
+  if(!total){el.innerHTML='<div class="loading-block" style="min-height:60px;color:var(--muted2);">Nenhuma resposta ainda.</div>';return;}
+  const neutro=total-promo-detrat;
+  const items=[
+    {label:'Promotores (9–10)',val:promo,pct:Math.round(promo/total*100),cor:'#2ecc71'},
+    {label:'Neutros (7–8)',    val:neutro,pct:Math.round(neutro/total*100),cor:'#f39c12'},
+    {label:'Detratores (0–6)', val:detrat,pct:Math.round(detrat/total*100),cor:'#e74c3c'},
+  ];
+  el.innerHTML=`<div style="text-align:center;padding:0.5rem 0;"><span style="font-size:2.2rem;font-weight:900;color:${npsCor};font-family:var(--mono);">${npsStr}</span><div style="font-size:0.6rem;color:var(--muted);margin-top:0.15rem;text-transform:uppercase;letter-spacing:1px;">Score NPS</div></div>`+
+  items.map(it=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0.6rem;border-radius:8px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);">
+    <span style="font-size:0.68rem;color:var(--text2);">${it.label}</span>
+    <span style="font-size:0.72rem;font-weight:900;color:${it.cor};font-family:var(--mono);">${it.val} <span style="font-size:0.58rem;color:var(--muted);font-weight:400;">(${it.pct}%)</span></span>
+  </div>`).join('');
+}
+
+// ── NPS CLIENTES ──
+function renderNPSClientes(){
+  const _resp = _nps_clis;
+  const total=_resp.length;
+  const promo=_resp.filter(r=>r.nota>=9).length;
+  const detrat=_resp.filter(r=>r.nota<=6).length;
+  const nps=total?Math.round(((promo-detrat)/total)*100):null;
+  const npsStr=nps!==null?nps+'':'-';
+  const npsCor=nps>=50?'var(--green)':nps>=0?'var(--orange)':'var(--red)';
+  document.getElementById('kNpsCli').textContent=npsStr;
+  document.getElementById('kNpsCli').style.color=npsCor;
+  document.getElementById('kNpsCliSub').textContent=total+' respostas';
+  document.getElementById('kNpsCliTrend').textContent=nps!==null?(nps>=50?'Ótimo':nps>=0?'Médio':'Baixo'):'sem dados';
+  document.getElementById('kNpsCliTrend').className='kpi-trend '+(nps>=50?'up':nps>=0?'neu':'down');
+  document.getElementById('npsCliBadge').textContent=total+' respostas';
+  const el=document.getElementById('npsCliWrap');
+  if(!total){el.innerHTML='<div class="loading-block" style="min-height:60px;color:var(--muted2);">Nenhuma resposta ainda.</div>';return;}
+  const neutro=total-promo-detrat;
+  const items=[
+    {label:'Promotores (9–10)',val:promo,pct:Math.round(promo/total*100),cor:'#2ecc71'},
+    {label:'Neutros (7–8)',    val:neutro,pct:Math.round(neutro/total*100),cor:'#f39c12'},
+    {label:'Detratores (0–6)', val:detrat,pct:Math.round(detrat/total*100),cor:'#e74c3c'},
+  ];
+  el.innerHTML=`<div style="text-align:center;padding:0.5rem 0;"><span style="font-size:2.2rem;font-weight:900;color:${npsCor};font-family:var(--mono);">${npsStr}</span><div style="font-size:0.6rem;color:var(--muted);margin-top:0.15rem;text-transform:uppercase;letter-spacing:1px;">Score NPS</div></div>`+
+  items.map(it=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0.6rem;border-radius:8px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);">
+    <span style="font-size:0.68rem;color:var(--text2);">${it.label}</span>
+    <span style="font-size:0.72rem;font-weight:900;color:${it.cor};font-family:var(--mono);">${it.val} <span style="font-size:0.58rem;color:var(--muted);font-weight:400;">(${it.pct}%)</span></span>
+  </div>`).join('');
+}
+
+// ── RECOLOCAÇÕES ──
+function renderRecolocacoes(){
+  const _lista = _recolocacoes;
+  const buscando=_lista.filter(r=>r.status==='buscando'||r.status==='ativo').length;
+  const recoloc=_lista.filter(r=>r.status==='recolocado').length;
+  const taxa=_lista.length?Math.round(recoloc/_lista.length*100):0;
+  document.getElementById('kRecoloc').textContent=_lista.length;
+  document.getElementById('kRecolocSub').textContent=recoloc+' recolocados · '+taxa+'% taxa';
+  document.getElementById('kRecTrend').textContent=taxa+'% sucesso';
+  document.getElementById('kRecTrend').className='kpi-trend '+(taxa>=60?'up':taxa>=30?'neu':'down');
+  document.getElementById('recolocBadge').textContent=_lista.length+' candidatos';
+  const el=document.getElementById('recolocWrap');
+  if(!_lista.length){el.innerHTML='<div class="loading-block" style="min-height:60px;color:var(--muted2);">Nenhum candidato cadastrado.</div>';return;}
+  const lbl={buscando:'🟠 Buscando',ativo:'🟢 Disponível',recolocado:'🔵 Recolocado'};
+  const cor={buscando:'#f39c12',ativo:'#2ecc71',recolocado:'#3498db'};
+  const fmtData = iso => iso ? new Date(iso).toLocaleDateString('pt-BR') : '';
+  el.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.4rem;margin-bottom:0.5rem;">
+    <div style="text-align:center;padding:0.5rem;border-radius:8px;background:rgba(243,156,18,0.07);border:1px solid rgba(243,156,18,0.18);">
+      <div style="font-size:1.2rem;font-weight:900;color:#f39c12;font-family:var(--mono);">${buscando}</div>
+      <div style="font-size:0.58rem;color:var(--muted);">Buscando</div>
+    </div>
+    <div style="text-align:center;padding:0.5rem;border-radius:8px;background:rgba(52,152,219,0.07);border:1px solid rgba(52,152,219,0.18);">
+      <div style="font-size:1.2rem;font-weight:900;color:#3498db;font-family:var(--mono);">${recoloc}</div>
+      <div style="font-size:0.58rem;color:var(--muted);">Recolocados</div>
+    </div>
+    <div style="text-align:center;padding:0.5rem;border-radius:8px;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.18);">
+      <div style="font-size:1.2rem;font-weight:900;color:#2ecc71;font-family:var(--mono);">${taxa}%</div>
+      <div style="font-size:0.58rem;color:var(--muted);">Taxa</div>
+    </div>
+  </div>`+
+  _lista.slice(0,5).map(r=>`<div style="display:flex;align-items:center;gap:0.6rem;padding:0.45rem 0.6rem;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.045);">
+    <span style="font-size:0.88rem;">🔁</span>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:0.72rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(r.nome)}</div>
+      <div style="font-size:0.6rem;color:var(--muted);">${r.cargo?esc(r.cargo)+' · ':''} ${fmtData(r.criado_em)}</div>
+    </div>
+    <span style="font-size:0.58rem;font-weight:800;padding:0.12rem 0.4rem;border-radius:99px;background:${cor[r.status]||'#666'}18;color:${cor[r.status]||'#888'};border:1px solid ${cor[r.status]||'#666'}30;">${lbl[r.status]||r.status}</span>
+  </div>`).join('');
+}
+
+// ── HELPERS ──
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+// ── CLIENTES CARD ──
+function renderClientesCard(){
+  const ativos=_clientes.filter(c=>c.status==='ativo'||!c.status);
+  const inativos=_clientes.filter(c=>c.status&&c.status!=='ativo');
+  document.getElementById('kClientes').textContent=ativos.length||_clientes.length;
+  document.getElementById('kClientesSub').textContent=inativos.length+' inativos · '+_clientes.length+' total';
+  const el=document.getElementById('clientesWrap');
+  if(!_clientes.length){el.innerHTML='<div class="loading-block" style="min-height:60px;color:var(--muted2);">Nenhum cliente cadastrado.</div>';return;}
+  el.innerHTML=_clientes.slice(0,8).map(c=>`<div style="display:flex;align-items:center;gap:0.6rem;padding:0.45rem 0.6rem;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.045);">
+    <div style="width:28px;height:28px;border-radius:7px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;">🏢</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:0.73rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(c.nome)}</div>
+      <div style="font-size:0.6rem;color:var(--muted);">${c.segmento?esc(c.segmento):''} ${c.cidade?'· '+esc(c.cidade):''}</div>
+    </div>
+    <span style="font-size:0.57rem;font-weight:800;padding:0.1rem 0.38rem;border-radius:99px;background:${c.status==='ativo'||!c.status?'rgba(59,130,246,0.1)':'rgba(255,255,255,0.06)'};color:${c.status==='ativo'||!c.status?'#2ecc71':'var(--muted)'};border:1px solid ${c.status==='ativo'||!c.status?'rgba(59,130,246,0.2)':'rgba(255,255,255,0.08)'};">${c.status||'ativo'}</span>
+  </div>`).join('');
+}
+
+// ── ESCOLAS CARD ──
+function renderEscolasCard(){
+  const ativas=_escolas.filter(e=>e.status==='ativo'||!e.status);
+  document.getElementById('kEscolas').textContent=ativas.length||_escolas.length;
+  document.getElementById('kEscolasSub').textContent=_escolas.length+' cadastradas';
+  const el=document.getElementById('escolasWrap');
+  if(!_escolas.length){el.innerHTML='<div class="loading-block" style="min-height:60px;color:var(--muted2);">Nenhuma escola cadastrada.</div>';return;}
+  el.innerHTML=_escolas.slice(0,8).map(e=>`<div style="display:flex;align-items:center;gap:0.6rem;padding:0.45rem 0.6rem;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.045);">
+    <div style="width:28px;height:28px;border-radius:7px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.18);display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;">🎓</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:0.73rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(e.nome)}</div>
+      <div style="font-size:0.6rem;color:var(--muted);">${e.tipo?esc(e.tipo):''} ${e.cidade?'· '+esc(e.cidade):''}</div>
+    </div>
+    <span style="font-size:0.57rem;font-weight:800;padding:0.1rem 0.38rem;border-radius:99px;background:${e.status==='ativo'||!e.status?'rgba(59,130,246,0.1)':'rgba(255,255,255,0.06)'};color:${e.status==='ativo'||!e.status?'#2ecc71':'var(--muted)'};border:1px solid ${e.status==='ativo'||!e.status?'rgba(59,130,246,0.2)':'rgba(255,255,255,0.08)'};">${e.status||'ativo'}</span>
+  </div>`).join('');
+}
+
+// ── EQUIPE CARD ──
+function renderEquipeCard(){
+  const FIXOS=[{nome:'Administrador',cargo:'Admin do sistema',perfil:'admin',emoji:'🛡️',cor:'#1e40af'},{nome:'Recrutador',cargo:'Recrutador',perfil:'recrutador',emoji:'👤',cor:'#3498db'}];
+  const _membros = _membros_sb;
+  const todos=[...FIXOS,..._membros];
+  document.getElementById('kEquipe').textContent=todos.length;
+  document.getElementById('kEquipeSub').textContent=_membros.filter(m=>m.perfil==='admin').length+' admins · '+todos.filter(m=>m.perfil==='recrutador').length+' recrutadores';
+  const el=document.getElementById('equipeWrap');
+  el.innerHTML=todos.map(m=>`<div style="display:flex;align-items:center;gap:0.7rem;padding:0.45rem 0.6rem;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.045);">
+    <div style="width:30px;height:30px;border-radius:8px;background:${m.cor||'#1e40af'}22;border:1px solid ${m.cor||'#1e40af'}33;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;">${m.emoji||m.nome[0]}</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:0.73rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(m.nome)}</div>
+      <div style="font-size:0.6rem;color:var(--muted);">${esc(m.cargo||'—')}</div>
+    </div>
+    <span style="font-size:0.57rem;font-weight:800;padding:0.1rem 0.38rem;border-radius:99px;background:${m.perfil==='admin'?'rgba(59,130,246,0.1)':'rgba(52,152,219,0.1)'};color:${m.perfil==='admin'?'var(--accent)':'var(--blue)'};border:1px solid ${m.perfil==='admin'?'rgba(59,130,246,0.2)':'rgba(52,152,219,0.2)'};">${m.perfil==='admin'?'👑 Admin':'👤 Rec'}</span>
+  </div>`).join('');
+}
+
+function renderListaNegraCard(){
+  const ln = _lista_negra;
+  const bloqueados = ln.filter(r=>(r.status||'').toLowerCase().includes('bloqueado')).length;
+  const atencao    = ln.filter(r=>(r.status||'').toLowerCase().includes('aten')).length;
+  document.getElementById('kListaNegra').textContent = ln.length || '0';
+  document.getElementById('kListaNegraSub').textContent = bloqueados+' bloqueados · '+atencao+' atenção';
+
+  // Badge no card novo
+  const badge = document.getElementById('listaNegraBadge');
+  if(badge) badge.textContent = ln.length+' pessoa'+(ln.length!==1?'s':'');
+
+  // Lista de pessoas no card
+  const wrap = document.getElementById('listaNegraPessoasWrap');
+  if(!wrap) return;
+  if(!ln.length){
+    wrap.innerHTML='<div style="color:var(--muted);font-size:0.75rem;padding:0.5rem 0;">Nenhuma pessoa na lista.</div>';
+    return;
+  }
+  wrap.innerHTML = ln.map(p=>{
+    const status = (p.status||'').toLowerCase();
+    const isBloq  = status.includes('bloqueado');
+    const isAtenc = status.includes('aten');
+    const cor     = isBloq ? 'var(--red)' : isAtenc ? 'var(--orange)' : 'var(--muted)';
+    const tag     = isBloq ? 'Bloqueado' : isAtenc ? 'Atenção' : (p.status||'—');
+    const initials= (p.nome||'?').split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    const faltas  = p.obs || p.observacoes || '';
+    return `<div style="display:flex;align-items:center;gap:0.65rem;padding:0.55rem 0.65rem;background:rgba(231,76,60,0.04);border:1px solid rgba(231,76,60,0.1);border-radius:10px;">
+      <div style="width:32px;height:32px;border-radius:50%;background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.25);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:${cor};flex-shrink:0;">${initials}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.78rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.nome||'Sem nome'}</div>
+        <div style="font-size:0.65rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.cargo||'Cargo não informado'}${p.empresa?' · '+p.empresa:''}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.2rem;flex-shrink:0;">
+        <span style="font-size:0.6rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:6px;background:${cor}22;color:${cor};border:1px solid ${cor}44;">${tag}</span>
+        ${faltas?`<span style="font-size:0.58rem;color:var(--muted);max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${faltas}">${faltas}</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderHallCraques(){
+  const wrap = document.getElementById('hallCraquesWrap');
+  if(!wrap) return;
+  // Pega os top fit scores do histórico
+  const comFit = _hist.filter(h=>h.fit_score&&parseInt(h.fit_score)>0)
+    .sort((a,b)=>parseInt(b.fit_score)-parseInt(a.fit_score))
+    .slice(0,8);
+  if(!comFit.length){
+    wrap.innerHTML='<div style="color:var(--muted);font-size:0.75rem;padding:0.5rem 0;">Nenhum craque encontrado ainda.</div>';
+    return;
+  }
+  const medalhas = ['🥇','🥈','🥉'];
+  wrap.innerHTML = comFit.map((h,i)=>{
+    const fit   = parseInt(h.fit_score);
+    const cor   = fit>=85?'#D4AF37':fit>=70?'#3b82f6':'#3498db';
+    const initials = (h.nome||'?').split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    return `<div style="display:flex;align-items:center;gap:0.65rem;padding:0.5rem 0.65rem;background:rgba(212,175,55,0.04);border:1px solid rgba(212,175,55,0.1);border-radius:10px;">
+      <div style="font-size:1rem;width:22px;text-align:center;flex-shrink:0;">${medalhas[i]||'⭐'}</div>
+      <div style="width:30px;height:30px;border-radius:50%;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.3);display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:#D4AF37;flex-shrink:0;">${initials}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.78rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.nome||'—'}</div>
+        <div style="font-size:0.65rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.cargo||h.vaga||'—'}${h.dom?' · '+h.dom:''}</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:0.85rem;font-weight:700;color:${cor};flex-shrink:0;">${fit}%</div>
+    </div>`;
+  }).join('');
+}
+
+// ── BOOT ──
+// Tenta pegar do supabase-config.js primeiro (disponível via window.*),
+// depois do localStorage (ctx_v3), depois aguarda postMessage do iframe pai.
+// Se não tiver SB_URL configurado, carrega dados do localStorage diretamente.
+if(window.NEXUS_SB_URL && !window.NEXUS_SB_URL.includes('SEU_PROJETO')){
+  SB_URL = window.NEXUS_SB_URL;
+  SB_KEY = window.NEXUS_SB_KEY;
+}
+lerContexto();
+if(SB_URL){
+  init();
+} else {
+  // Aguarda até 500ms pelo postMessage; se não vier, carrega do localStorage
+  let _bootTimer = setTimeout(()=>{
+    lerContexto();
+    if(SB_URL){ init(); return; }
+    // Sem Supabase — modo local direto
+    _carregou = true;
+    _clientes = lsLer(LS_CLIENTES);
+    _escolas  = lsLer(LS_ESCOLAS);
+    _membros_sb = lsLer(LS_MEMBROS);
+    renderAll();
+    document.getElementById('lastUpd').textContent = '💾 Dados locais';
+  }, 500);
+  window.addEventListener('message', e=>{
+    if(e.data?.tipo==='nexus_ctx'){
+      clearTimeout(_bootTimer);
+      SB_URL = e.data.sb_url; SB_KEY = e.data.sb_key;
+      if(!_carregou) init();
+    }
+  });
+}
+</script>
+</body>
+</html>

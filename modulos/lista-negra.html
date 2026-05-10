@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Lista Negra | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;
+  --border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);
+  --text:#f0f0f0;--muted:#666;--muted2:#333;
+  --red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;
+  --black-red:#c0392b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(231,76,60,0.018)1px,transparent 1px),linear-gradient(90deg,rgba(231,76,60,0.018)1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+
+/* HERO */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--red);}
+.sub{font-size:0.8rem;color:var(--muted);}
+
+/* BOTÕES */
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-danger{background:linear-gradient(135deg,#7b1a1a,var(--red));color:#fff;border-color:transparent;}.btn-danger:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}.btn-red:hover{background:rgba(231,76,60,0.18);}
+.btn-edit{background:rgba(243,156,18,0.1);color:var(--orange);border-color:rgba(243,156,18,0.25);}.btn-edit:hover{background:rgba(243,156,18,0.2);}
+.btn-wpp{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.3);}.btn-wpp:hover{background:rgba(37,211,102,0.22);}
+.btn-mail{background:rgba(52,152,219,0.1);color:var(--blue);border:1px solid rgba(52,152,219,0.25);}.btn-mail:hover{background:rgba(52,152,219,0.2);}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0.7rem;margin-bottom:1.3rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1rem;}
+.kpi-val{font-size:1.6rem;font-weight:900;line-height:1;}
+.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.25rem;}
+.kpi-acc{color:var(--accent);}.kpi-blue{color:var(--blue);}.kpi-org{color:var(--orange);}.kpi-red{color:var(--red);}
+
+/* TOOLBAR */
+.toolbar{display:flex;gap:0.7rem;margin-bottom:1.1rem;flex-wrap:wrap;align-items:center;}
+.search-wrap{position:relative;flex:1;min-width:200px;}
+.search-ico{position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);font-size:0.85rem;pointer-events:none;opacity:0.5;}
+.search-inp{width:100%;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:0.55rem 0.8rem 0.55rem 2.2rem;color:var(--text);font-family:inherit;font-size:0.82rem;outline:none;transition:border-color 0.2s;}
+.search-inp:focus{border-color:var(--red);}.search-inp::placeholder{color:var(--muted2);}
+.filter-sel{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:0.55rem 2rem 0.55rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.8rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.7rem center;}.filter-sel option{background:#161616;}
+.results-count{font-size:0.7rem;color:var(--muted);white-space:nowrap;align-self:center;}
+
+/* FORM */
+.form-card{background:var(--card);border:1px solid rgba(231,76,60,0.3);border-radius:20px;padding:1.5rem;margin-bottom:1.2rem;display:none;}
+.form-card.show{display:block;}
+.form-section{font-size:0.62rem;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:2px;margin:1.2rem 0 0.7rem;padding-bottom:0.4rem;border-bottom:1px solid rgba(231,76,60,0.15);}
+.form-section:first-of-type{margin-top:0;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+@media(max-width:700px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+.fl{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.fi{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.fi:focus{border-color:var(--red);}.fi::placeholder{color:var(--muted2);}
+.fsel{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2rem;}.fsel option{background:#161616;}
+.badge-edit{font-size:0.55rem;font-weight:800;background:rgba(243,156,18,0.15);color:var(--orange);border:1px solid rgba(243,156,18,0.3);padding:0.1rem 0.45rem;border-radius:99px;text-transform:uppercase;letter-spacing:1px;}
+
+/* AVISO TOPO */
+.aviso-banner{background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.22);border-radius:14px;padding:0.9rem 1.2rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;font-size:0.78rem;color:#f0a0a0;line-height:1.55;}
+.aviso-icon{font-size:1.4rem;flex-shrink:0;}
+
+/* CARDS */
+.clients-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem;}
+.client-card{background:var(--card);border:1px solid rgba(231,76,60,0.14);border-radius:18px;overflow:hidden;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;display:flex;flex-direction:column;}
+.cc-collapse{max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.3s;opacity:0;}
+.client-card.aberto .cc-collapse{max-height:2000px;opacity:1;}
+.cc-top{cursor:pointer;user-select:none;}
+.cc-chevron{font-size:0.8rem;color:var(--muted);transition:transform 0.35s;margin-left:auto;padding-left:0.6rem;align-self:center;}
+.client-card.aberto .cc-chevron{transform:rotate(180deg);}
+.client-card:hover{border-color:rgba(231,76,60,0.38);transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.45);}
+
+/* Card topo */
+.cc-top{padding:1.1rem 1.3rem 0.9rem;border-bottom:1px solid rgba(231,76,60,0.1);position:relative;}
+.cc-top-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(231,76,60,0.06),transparent);pointer-events:none;}
+.cc-head{display:flex;align-items:flex-start;gap:0.85rem;position:relative;}
+.cc-ico{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,rgba(231,76,60,0.22),rgba(231,76,60,0.08));border:1px solid rgba(231,76,60,0.3);display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0;margin-top:0.1rem;}
+.cc-info{flex:1;min-width:0;}
+.cc-nome{font-size:1rem;font-weight:900;margin-bottom:0.08rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cc-segm{font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;}
+.cc-tags{display:flex;gap:0.35rem;flex-wrap:wrap;}
+.status-pill{font-size:0.58rem;font-weight:800;padding:0.18rem 0.6rem;border-radius:99px;}
+.s-bloqueado{background:rgba(231,76,60,0.14);color:var(--red);border:1px solid rgba(231,76,60,0.3);}
+.s-atencao{background:rgba(243,156,18,0.12);color:var(--orange);border:1px solid rgba(243,156,18,0.28);}
+.s-reabilitado{background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.28);}
+.motivo-pill{font-size:0.57rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:99px;background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1);}
+.cc-date{font-size:0.6rem;color:var(--muted2);margin-top:0.5rem;}
+
+/* Card meio */
+.cc-body{padding:0.9rem 1.3rem;flex:1;display:flex;flex-direction:column;gap:0;}
+.cc-section-label{font-size:0.55rem;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.5rem;margin-top:0.75rem;}
+.cc-section-label:first-child{margin-top:0;}
+.cc-row{font-size:0.73rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.45rem;padding:0.18rem 0;}
+.cc-row .cc-val{color:var(--text);font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cc-obs{font-size:0.69rem;color:var(--muted);line-height:1.5;padding:0.55rem 0.75rem;background:rgba(255,255,255,0.03);border-radius:8px;border-left:2px solid rgba(231,76,60,0.3);margin-top:0.5rem;}
+.cc-obs-red{border-left-color:var(--red)!important;color:#f0a0a0!important;}
+.cc-empty{font-size:0.68rem;color:var(--muted2);font-style:italic;}
+.historico-item{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:0.55rem 0.75rem;margin-bottom:0.4rem;}
+.historico-data{font-size:0.6rem;color:var(--muted2);margin-bottom:0.15rem;}
+.historico-txt{font-size:0.72rem;color:var(--muted);line-height:1.45;}
+.historico-tipo{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;padding:0.1rem 0.45rem;border-radius:99px;display:inline-block;margin-bottom:0.25rem;}
+.ht-presencial{background:rgba(52,152,219,0.1);color:var(--blue);border:1px solid rgba(52,152,219,0.22);}
+.ht-online{background:rgba(59,130,246,0.1);color:var(--accent);border:1px solid rgba(59,130,246,0.22);}
+.ht-cliente{background:rgba(231,76,60,0.1);color:var(--red);border:1px solid rgba(231,76,60,0.22);}
+.ht-outro{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid rgba(255,255,255,0.1);}
+
+/* Card rodapé */
+.cc-footer{padding:0.8rem 1.3rem;border-top:1px solid rgba(231,76,60,0.1);display:flex;gap:0.4rem;flex-wrap:wrap;background:rgba(255,255,255,0.012);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+.modal-overlay.show{opacity:1;pointer-events:all;}
+.modal{background:var(--card);border:1px solid rgba(231,76,60,0.35);border-radius:20px;padding:1.8rem;max-width:440px;width:100%;transform:scale(0.95);transition:transform 0.2s;}
+.modal-overlay.show .modal{transform:scale(1);}
+.modal-title{font-size:1rem;font-weight:900;margin-bottom:0.4rem;color:var(--red);}
+.modal-sub{font-size:0.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.55;}
+.modal-btns{display:flex;gap:0.6rem;margin-top:1rem;}
+
+.empty{text-align:center;padding:3rem;color:var(--muted2);font-size:0.8rem;line-height:1.7;}
+.spinner{width:18px;height:18px;border:2px solid var(--muted2);border-top-color:var(--red);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;max-width:300px;}
+.toast.show{transform:translateY(0);opacity:1;}.toast.err{border-color:rgba(231,76,60,0.4);color:var(--red);}
+
+/* Add historico inline */
+.add-hist-form{background:rgba(255,255,255,0.03);border:1px dashed rgba(231,76,60,0.2);border-radius:12px;padding:0.85rem;margin-top:0.5rem;display:none;}
+.add-hist-form.show{display:block;}
+
+@media(max-width:640px){
+  .page{padding:1rem 0.9rem 4rem;}
+  .hero{flex-direction:column;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;}
+  .title{font-size:1.25rem;}
+  .kpi-row{grid-template-columns:repeat(2,1fr);}
+  .clients-grid{grid-template-columns:1fr;}
+  .toolbar{flex-direction:column;align-items:stretch;}
+  .search-wrap{min-width:unset;}
+  .modal{padding:1.2rem;}
+  .toast{right:0.6rem;bottom:0.6rem;left:0.6rem;max-width:none;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Controle de Qualidade</div>
+      <div class="title">Lista <span>Negra</span></div>
+      <div class="sub">Candidatos que faltaram a entrevistas — presencial, online ou com cliente empresa</div>
+    </div>
+    <button class="btn btn-danger" onclick="abrirFormNovo()">⛔ Adicionar à Lista</button>
+  </div>
+
+  <!-- AVISO -->
+  <div class="aviso-banner">
+    <span class="aviso-icon">⚠️</span>
+    <div>
+      Candidatos desta lista <strong>não devem ser encaminhados</strong> a novas vagas sem aprovação de gestor. Cada registro documenta o histórico completo de faltas e o motivo. Reabilitações exigem justificativa registrada.
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row" id="kpiRow">
+    <div class="kpi"><div class="kpi-val kpi-red"  id="kTotal">–</div><div class="kpi-label">Total na lista</div></div>
+    <div class="kpi"><div class="kpi-val kpi-org"  id="kAtencao">–</div><div class="kpi-label">Atenção (1 falta)</div></div>
+    <div class="kpi"><div class="kpi-val kpi-red"  id="kBloqueado">–</div><div class="kpi-label">Bloqueados (2+ faltas)</div></div>
+    <div class="kpi"><div class="kpi-val kpi-acc"  id="kReabilitado">–</div><div class="kpi-label">Reabilitados</div></div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <span class="search-ico">🔍</span>
+      <input class="search-inp" id="searchInp" placeholder="Buscar nome, CPF, cargo, empresa, observação..." oninput="filtrar()"/>
+    </div>
+    <select class="filter-sel" id="filtroStatus" onchange="filtrar()">
+      <option value="">Todos os status</option>
+      <option value="bloqueado">Bloqueados</option>
+      <option value="atencao">Atenção</option>
+      <option value="reabilitado">Reabilitados</option>
+    </select>
+    <select class="filter-sel" id="filtroMotivo" onchange="filtrar()">
+      <option value="">Todos os motivos</option>
+      <option value="presencial">Faltou presencial</option>
+      <option value="online">Faltou online/remoto</option>
+      <option value="cliente">Faltou c/ cliente empresa</option>
+      <option value="outro">Outro</option>
+    </select>
+    <select class="filter-sel" id="filtroOrdem" onchange="filtrar()">
+      <option value="recente">Mais recentes</option>
+      <option value="nome">Nome A–Z</option>
+      <option value="faltas">Mais faltas</option>
+    </select>
+    <span class="results-count" id="resultsCount"></span>
+  </div>
+
+  <!-- FORMULÁRIO -->
+  <div class="form-card" id="formCard">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <div style="font-size:0.72rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:1.5px;" id="formTitle">⛔ Novo registro</div>
+      <span class="badge-edit" id="formBadge" style="display:none;">Editando</span>
+    </div>
+
+    <div class="form-section">👤 Dados do Candidato</div>
+    <div class="grid-2">
+      <div><label class="fl">Nome completo *</label><input class="fi" id="cNome" placeholder="Ex: João da Silva"/></div>
+      <div><label class="fl">CPF</label><input class="fi" id="cCpf" placeholder="000.000.000-00"/></div>
+    </div>
+    <div class="grid-3">
+      <div><label class="fl">Telefone / WhatsApp</label><input class="fi" id="cTel" placeholder="(51) 9 9999-9999"/></div>
+      <div><label class="fl">E-mail</label><input class="fi" id="cEmail" placeholder="candidato@email.com"/></div>
+      <div><label class="fl">Cargo pretendido</label><input class="fi" id="cCargo" placeholder="Ex: Auxiliar Administrativo"/></div>
+    </div>
+
+    <div class="form-section">🗓 Dados da Falta</div>
+    <div class="grid-3">
+      <div>
+        <label class="fl">Tipo de entrevista *</label>
+        <select class="fsel" id="cTipo">
+          <option value="presencial">Presencial (na agência)</option>
+          <option value="online">Online / Remoto</option>
+          <option value="cliente">Com cliente empresa</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+      <div><label class="fl">Data da falta *</label><input class="fi" id="cData" type="date"/></div>
+      <div><label class="fl">Empresa envolvida</label><input class="fi" id="cEmpresa" placeholder="Ex: Indústria XYZ Ltda"/></div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <label class="fl">Situação / Status *</label>
+        <select class="fsel" id="cStatus">
+          <option value="atencao">⚠️ Atenção (1ª falta)</option>
+          <option value="bloqueado">🚫 Bloqueado (2+ faltas)</option>
+          <option value="reabilitado">✅ Reabilitado</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl">Avisou antecipadamente?</label>
+        <select class="fsel" id="cAvisou">
+          <option value="nao">Não avisou</option>
+          <option value="sim">Sim, avisou antes</option>
+          <option value="depois">Avisou depois (justificativa)</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:0.8rem;">
+      <label class="fl">Motivo / Observações internas *</label>
+      <textarea class="fi" id="cObs" rows="3" style="resize:vertical;line-height:1.6;" placeholder="Descreva o ocorrido: não atendeu ligações, justificativa apresentada, comportamento, contexto da vaga..."></textarea>
+    </div>
+
+    <div style="display:flex;gap:0.6rem;margin-top:1.4rem;">
+      <button class="btn btn-danger" id="btnSalvar" onclick="salvar()" style="flex:2;justify-content:center;">💾 Salvar registro</button>
+      <button class="btn btn-ghost" onclick="fecharForm()" style="flex:1;justify-content:center;">✕ Cancelar</button>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="clients-grid" id="mainGrid">
+    <div class="empty" style="grid-column:1/-1;"><span class="spinner"></span></div>
+  </div>
+</div>
+
+<!-- MODAL EXCLUSÃO -->
+<div class="modal-overlay" id="modalExcluir">
+  <div class="modal">
+    <div class="modal-title">⚠️ Remover registro</div>
+    <div class="modal-sub" id="modalSub"></div>
+    <label class="fl" style="margin-bottom:0.3rem;">Para confirmar, digite: <strong style="color:var(--red);">EXCLUIR</strong></label>
+    <input class="fi" id="confirmInput" placeholder="EXCLUIR" oninput="checkConfirm()" autocomplete="off"/>
+    <div class="modal-btns">
+      <button class="btn btn-red" id="btnConfirmExcluir" onclick="confirmarExclusao()" disabled style="flex:1;justify-content:center;opacity:0.4;">🗑 Confirmar remoção</button>
+      <button class="btn btn-ghost" onclick="fecharModal()" style="flex:1;justify-content:center;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADD HISTÓRICO -->
+<div class="modal-overlay" id="modalHist">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-title" id="histTitle">📋 Registrar nova ocorrência</div>
+    <div class="modal-sub" id="histSub"></div>
+    <div class="grid-2" style="margin-bottom:0.7rem;">
+      <div>
+        <label class="fl">Tipo de entrevista</label>
+        <select class="fsel" id="hTipo">
+          <option value="presencial">Presencial</option>
+          <option value="online">Online / Remoto</option>
+          <option value="cliente">Com cliente empresa</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+      <div><label class="fl">Data da ocorrência</label><input class="fi" id="hData" type="date"/></div>
+    </div>
+    <div style="margin-bottom:0.7rem;">
+      <label class="fl">Empresa envolvida</label>
+      <input class="fi" id="hEmpresa" placeholder="Ex: Metalúrgica ABC"/>
+    </div>
+    <div style="margin-bottom:0.7rem;">
+      <label class="fl">Descrição</label>
+      <textarea class="fi" id="hDesc" rows="3" style="resize:vertical;line-height:1.6;" placeholder="O que aconteceu nesta ocorrência?"></textarea>
+    </div>
+    <div style="margin-bottom:0.4rem;">
+      <label class="fl">Atualizar status</label>
+      <select class="fsel" id="hStatus">
+        <option value="">— manter atual —</option>
+        <option value="atencao">⚠️ Atenção</option>
+        <option value="bloqueado">🚫 Bloqueado</option>
+        <option value="reabilitado">✅ Reabilitado</option>
+      </select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-danger" onclick="salvarHistorico()" style="flex:1;justify-content:center;">💾 Salvar ocorrência</button>
+      <button class="btn btn-ghost" onclick="fecharModalHist()" style="flex:1;justify-content:center;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+const HEADERS = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
+const LS_KEY = 'nexus_listanegra_v1';
+
+let _lista = [], _editandoId = null, _excluindoId = null, _histId = null;
+let _modoLocal = false;
+
+// ── STORAGE A/B ────────────────────────────────────
+function lsLer(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'[]'); }catch(e){ return []; } }
+function lsSalvar(d){ try{ localStorage.setItem(LS_KEY, JSON.stringify(d)); }catch(e){} }
+
+function mostrarModo(local){
+  _modoLocal = local;
+  let badge = document.getElementById('modoBadge');
+  if(!badge){
+    badge = document.createElement('span'); badge.id = 'modoBadge';
+    badge.style.cssText = 'font-size:0.6rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:99px;margin-left:0.6rem;vertical-align:middle;';
+    const sub = document.querySelector('.sub'); if(sub) sub.appendChild(badge);
+  }
+  if(local){
+    badge.textContent='💾 Modo local'; badge.style.background='rgba(243,156,18,0.12)';
+    badge.style.color='var(--orange)'; badge.style.border='1px solid rgba(243,156,18,0.3)';
+  } else {
+    badge.textContent='☁️ Nuvem ativa'; badge.style.background='rgba(46,204,113,0.1)';
+    badge.style.color='var(--green)'; badge.style.border='1px solid rgba(46,204,113,0.2)';
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────
+async function init(){
+  await carregar();
+  // Se ficou em modo local, tenta reconectar a cada 5s (tabela pode ter sido criada agora)
+  if(_modoLocal){
+    let tentativas=0;
+    const retry=setInterval(async()=>{
+      tentativas++;
+      try{
+        const res=await fetch(SUPABASE_URL+'/rest/v1/lista_negra?limit=1',{headers:HEADERS});
+        if(res.ok){
+          clearInterval(retry);
+          await carregar();
+          toast('☁️ Supabase conectado! Dados sincronizados.');
+          const b=document.getElementById('bannerMigracao'); if(b) b.remove();
+          setTimeout(verificarMigracaoPendente,300);
+        }
+      }catch(e){}
+      if(tentativas>=12) clearInterval(retry); // para após 1 minuto
+    },5000);
+  }
+  // Verifica se há dados locais para migrar após carregar
+  setTimeout(verificarMigracaoPendente, 500);
+}
+
+// ── VERIFICAÇÃO DE MIGRAÇÃO ──────────────────────────
+function verificarMigracaoPendente(){
+  const locais = lsLer();
+  if(!locais.length) return; // nada no localStorage
+  // Só mostra banner se NÃO estiver em modo local (Supabase funcionando)
+  // OU se estiver local E tiver dados
+  if(_modoLocal){
+    // Supabase não funciona ainda — mostra banner de configuração
+    mostrarBannerSQL(locais.length);
+  } else {
+    // Supabase funcionando — verifica se tem dados locais antigos para migrar
+    const temLocaisAntigos = locais.some(r => String(r.id||'').startsWith('ls_'));
+    if(temLocaisAntigos) mostrarBannerMigracao(locais.length);
+  }
+}
+
+function mostrarBannerSQL(n){
+  if(document.getElementById('bannerMigracao')) return;
+  const div=document.createElement('div');
+  div.id='bannerMigracao';
+  div.style.cssText='background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.35);border-radius:16px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;';
+  div.innerHTML=`
+    <div style="font-size:0.78rem;font-weight:800;color:#e74c3c;margin-bottom:0.55rem;">⚠️ Lista Negra salva localmente (${n} pessoa${n!==1?'s':''}) — Supabase sem acesso</div>
+    <div style="font-size:0.72rem;color:#bbb;line-height:1.65;margin-bottom:0.8rem;">
+      Execute o SQL abaixo no <strong>Supabase → SQL Editor</strong> para habilitar o acesso e depois recarregue a página. Após configurar, clique em <strong>Migrar dados</strong> para enviar os registros locais para a nuvem.
+    </div>
+    <textarea onclick="this.select()" readonly style="width:100%;background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.7rem 0.9rem;color:#3b82f6;font-family:monospace;font-size:0.72rem;line-height:1.6;resize:none;height:130px;outline:none;">CREATE POLICY "allow_anon_select" ON lista_negra FOR SELECT TO anon USING (true);
+CREATE POLICY "allow_anon_insert" ON lista_negra FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY "allow_anon_update" ON lista_negra FOR UPDATE TO anon USING (true);
+CREATE POLICY "allow_anon_delete" ON lista_negra FOR DELETE TO anon USING (true);</textarea>
+    <div style="display:flex;gap:0.6rem;margin-top:0.75rem;flex-wrap:wrap;">
+      <button onclick="migrarParaSupabase()" class="btn btn-accent" style="font-size:0.75rem;padding:0.45rem 1rem;">☁️ Migrar ${n} registro${n!==1?'s':''} para Supabase</button>
+      <button onclick="document.getElementById('bannerMigracao').style.display='none'" class="btn btn-ghost" style="font-size:0.75rem;padding:0.45rem 1rem;">Fechar</button>
+    </div>`;
+  const ref=document.querySelector('.aviso-banner')||document.querySelector('.kpi-row');
+  if(ref) ref.parentNode.insertBefore(div,ref); else document.querySelector('.page').prepend(div);
+}
+
+function mostrarBannerMigracao(n){
+  if(document.getElementById('bannerMigracao')) return;
+  const div=document.createElement('div');
+  div.id='bannerMigracao';
+  div.style.cssText='background:rgba(243,156,18,0.08);border:1px solid rgba(243,156,18,0.35);border-radius:16px;padding:1rem 1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;';
+  div.innerHTML=`
+    <div style="flex:1;min-width:200px;">
+      <div style="font-size:0.78rem;font-weight:800;color:#f39c12;margin-bottom:0.2rem;">📦 ${n} registro${n!==1?'s':''} salvos localmente</div>
+      <div style="font-size:0.7rem;color:#bbb;">Dados antigos no localStorage podem ser enviados para o Supabase.</div>
+    </div>
+    <button onclick="migrarParaSupabase()" class="btn btn-accent" style="font-size:0.75rem;padding:0.45rem 1rem;">☁️ Migrar para Supabase</button>
+    <button onclick="document.getElementById('bannerMigracao').style.display='none'" class="btn btn-ghost" style="font-size:0.72rem;padding:0.4rem 0.8rem;">✕</button>`;
+  const ref=document.querySelector('.aviso-banner')||document.querySelector('.kpi-row');
+  if(ref) ref.parentNode.insertBefore(div,ref); else document.querySelector('.page').prepend(div);
+}
+
+async function migrarParaSupabase(){
+  const locais = lsLer().filter(r=>String(r.id||'').startsWith('ls_'));
+  if(!locais.length){ toast('Nenhum dado local para migrar'); return; }
+  toast('⏳ Migrando '+locais.length+' registro(s)...');
+  let ok=0, erros=0;
+  for(const r of locais){
+    const payload={
+      nome:r.nome, cpf:r.cpf||null, tel:r.tel||null, email:r.email||null,
+      cargo:r.cargo||null, tipo:r.tipo||'presencial',
+      data_falta:r.data_falta||null, empresa:r.empresa||null,
+      status:r.status||'atencao', avisou:r.avisou||'nao',
+      obs:r.obs||null, historico:r.historico||null,
+    };
+    try{
+      const res=await fetch(SUPABASE_URL+'/rest/v1/lista_negra',
+        {method:'POST',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(payload)});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      ok++;
+    } catch(e){ erros++; console.warn('Migração erro:', e); }
+  }
+  if(ok>0){
+    // Remove locais migrados e recarrega do Supabase
+    const restantes = lsLer().filter(r=>!String(r.id||'').startsWith('ls_'));
+    lsSalvar(restantes);
+    toast('✅ '+ok+' registro(s) migrado(s)'+(erros?' | '+erros+' erro(s)':'')+'! Recarregando...');
+    const b=document.getElementById('bannerMigracao'); if(b) b.remove();
+    setTimeout(()=>carregar(), 1000);
+  } else {
+    toast('❌ Migração falhou — verifique o SQL no Supabase', true);
+  }
+}
+
+async function carregar(){
+  const el = document.getElementById('mainGrid');
+  el.innerHTML='<div class="empty" style="grid-column:1/-1;"><span class="spinner"></span></div>';
+  try {
+    const res = await fetch(SUPABASE_URL+'/rest/v1/lista_negra?order=criado_em.desc',{headers:HEADERS});
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    const data = await res.json();
+    if(!Array.isArray(data)) throw new Error('Inválido');
+    _lista = data; lsSalvar(_lista); mostrarModo(false);
+    atualizarKPIs(); filtrar(); return;
+  } catch(e){ console.warn('[ListaNegra] Supabase indisponível:', e.message); }
+  _lista = lsLer(); mostrarModo(true); atualizarKPIs(); filtrar();
+}
+
+// ── KPIs ──────────────────────────────────────────────
+function atualizarKPIs(){
+  document.getElementById('kTotal').textContent     = _lista.length;
+  document.getElementById('kAtencao').textContent   = _lista.filter(c=>c.status==='atencao').length;
+  document.getElementById('kBloqueado').textContent = _lista.filter(c=>c.status==='bloqueado').length;
+  document.getElementById('kReabilitado').textContent = _lista.filter(c=>c.status==='reabilitado').length;
+}
+
+// ── FILTRO ────────────────────────────────────────────
+function filtrar(){
+  const q   = (document.getElementById('searchInp').value||'').toLowerCase().trim();
+  const st  = document.getElementById('filtroStatus').value;
+  const mot = document.getElementById('filtroMotivo').value;
+  const ord = document.getElementById('filtroOrdem').value;
+
+  let lista = _lista.filter(c=>{
+    if(st  && c.status !== st) return false;
+    if(mot && c.tipo   !== mot) return false;
+    if(!q) return true;
+    const hay = [c.nome,c.cpf,c.cargo,c.empresa,c.obs,c.email,c.tel].join(' ').toLowerCase();
+    return hay.includes(q);
+  });
+
+  if(ord==='nome')   lista.sort((a,b)=>(a.nome||'').localeCompare(b.nome||''));
+  if(ord==='faltas') lista.sort((a,b)=>(qtdFaltas(b))-(qtdFaltas(a)));
+
+  document.getElementById('resultsCount').textContent = lista.length + ' candidato'+(lista.length!==1?'s':'');
+  renderGrid(lista);
+}
+
+function qtdFaltas(c){
+  const h = parseHistorico(c.historico);
+  return h.length + 1; // 1 = registro inicial
+}
+
+// ── FORM ──────────────────────────────────────────────
+function abrirFormNovo(){
+  _editandoId=null;
+  document.getElementById('formTitle').textContent='⛔ Novo registro';
+  document.getElementById('formBadge').style.display='none';
+  document.getElementById('btnSalvar').textContent='💾 Salvar registro';
+  limparForm();
+  document.getElementById('cData').value = new Date().toISOString().split('T')[0];
+  document.getElementById('formCard').classList.add('show');
+  document.getElementById('formCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function abrirFormEdicao(id){
+  const c = _lista.find(x=>String(x.id)===String(id));
+  if(!c) return;
+  _editandoId = id;
+  document.getElementById('formTitle').textContent = '✏️ Editando: '+c.nome;
+  document.getElementById('formBadge').style.display = 'inline-flex';
+  document.getElementById('btnSalvar').textContent = '💾 Salvar alterações';
+  document.getElementById('cNome').value    = c.nome    ||'';
+  document.getElementById('cCpf').value     = c.cpf     ||'';
+  document.getElementById('cTel').value     = c.tel     ||'';
+  document.getElementById('cEmail').value   = c.email   ||'';
+  document.getElementById('cCargo').value   = c.cargo   ||'';
+  document.getElementById('cTipo').value    = c.tipo    ||'presencial';
+  document.getElementById('cData').value    = c.data_falta||'';
+  document.getElementById('cEmpresa').value = c.empresa ||'';
+  document.getElementById('cStatus').value  = c.status  ||'atencao';
+  document.getElementById('cAvisou').value  = c.avisou  ||'nao';
+  document.getElementById('cObs').value     = c.obs     ||'';
+  document.getElementById('formCard').classList.add('show');
+  document.getElementById('formCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function fecharForm(){
+  document.getElementById('formCard').classList.remove('show');
+  _editandoId=null; limparForm();
+}
+
+function limparForm(){
+  ['cNome','cCpf','cTel','cEmail','cCargo','cData','cEmpresa','cObs'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  const tp=document.getElementById('cTipo'); if(tp) tp.value='presencial';
+  const st=document.getElementById('cStatus'); if(st) st.value='atencao';
+  const av=document.getElementById('cAvisou'); if(av) av.value='nao';
+}
+
+async function salvar(){
+  const nome=(document.getElementById('cNome').value||'').trim();
+  if(!nome){toast('Nome do candidato é obrigatório',true);return;}
+  const data_falta=document.getElementById('cData').value;
+  if(!data_falta){toast('Informe a data da falta',true);return;}
+  const obs=(document.getElementById('cObs').value||'').trim();
+  if(!obs){toast('Informe o motivo / observação',true);return;}
+
+  const reg={
+    nome,
+    cpf:       document.getElementById('cCpf').value.trim()||null,
+    tel:       document.getElementById('cTel').value.trim()||null,
+    email:     document.getElementById('cEmail').value.trim()||null,
+    cargo:     document.getElementById('cCargo').value.trim()||null,
+    tipo:      document.getElementById('cTipo').value,
+    data_falta,
+    empresa:   document.getElementById('cEmpresa').value.trim()||null,
+    status:    document.getElementById('cStatus').value,
+    avisou:    document.getElementById('cAvisou').value,
+    obs,
+    historico: _editandoId ? (_lista.find(x=>String(x.id)===String(_editandoId))||{}).historico : null
+  };
+
+  const btn=document.getElementById('btnSalvar');
+  btn.disabled=true; btn.textContent='⏳ Salvando…';
+  let salvouNuvem=false;
+
+  // Sempre tenta Supabase (ignora _modoLocal para salvar)
+  if(true){
+    try{
+      if(_editandoId){
+        const res=await fetch(SUPABASE_URL+'/rest/v1/lista_negra?id=eq.'+encodeURIComponent(_editandoId),
+          {method:'PATCH',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(reg)});
+        if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||e.details||e.hint||'HTTP '+res.status);}
+        const u=await res.json(); const novo=Array.isArray(u)?u[0]:u;
+        const idx=_lista.findIndex(x=>String(x.id)===String(_editandoId));
+        if(idx>=0) _lista[idx]={..._lista[idx],...novo};
+      } else {
+        const res=await fetch(SUPABASE_URL+'/rest/v1/lista_negra',
+          {method:'POST',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(reg)});
+        if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||e.details||e.hint||'HTTP '+res.status);}
+        const criado=await res.json();
+        _lista.unshift(Array.isArray(criado)?criado[0]:criado);
+      }
+      lsSalvar(_lista); salvouNuvem=true;
+      toast(_editandoId?'✅ Registro atualizado! ☁️':'⛔ Candidato adicionado à lista! ☁️');
+    } catch(e){
+      console.warn('[ListaNegra] Supabase falhou:', e.message);
+      mostrarModo(true);
+      // Mostra erro detalhado para diagnóstico
+      toast('❌ Supabase: '+e.message, true);
+      btn.disabled=false; btn.textContent='💾 Salvar registro';
+      return; // NÃO salva local — força usuário a ver o erro
+    }
+  }
+
+  if(!salvouNuvem){
+    if(_editandoId){
+      const idx=_lista.findIndex(x=>String(x.id)===String(_editandoId));
+      if(idx>=0) _lista[idx]={..._lista[idx],...reg};
+    } else {
+      reg.id='ls_'+Date.now(); reg.criado_em=new Date().toISOString();
+      _lista.unshift(reg);
+    }
+    lsSalvar(_lista);
+    toast(_editandoId?'✅ Atualizado! 💾 (local)':'⛔ Adicionado! 💾 (local)');
+  }
+
+  atualizarKPIs(); filtrar(); fecharForm();
+  btn.disabled=false; btn.textContent='💾 Salvar registro';
+}
+
+// ── HISTÓRICO ─────────────────────────────────────────
+function parseHistorico(v){
+  if(!v) return [];
+  try{ const p=JSON.parse(v); return Array.isArray(p)?p:[]; }catch{ return []; }
+}
+
+function abrirModalHist(id){
+  const c=_lista.find(x=>String(x.id)===String(id));
+  if(!c) return;
+  _histId=id;
+  document.getElementById('histTitle').textContent='📋 Nova ocorrência — '+c.nome;
+  document.getElementById('histSub').textContent='Registre uma nova falta ou atualização deste candidato.';
+  document.getElementById('hData').value = new Date().toISOString().split('T')[0];
+  document.getElementById('hTipo').value = 'presencial';
+  document.getElementById('hEmpresa').value = '';
+  document.getElementById('hDesc').value = '';
+  document.getElementById('hStatus').value = '';
+  document.getElementById('modalHist').classList.add('show');
+  setTimeout(()=>document.getElementById('hDesc').focus(),200);
+}
+
+function fecharModalHist(){ document.getElementById('modalHist').classList.remove('show'); _histId=null; }
+
+async function salvarHistorico(){
+  if(!_histId) return;
+  const desc=(document.getElementById('hDesc').value||'').trim();
+  if(!desc){toast('Informe a descrição da ocorrência',true);return;}
+  const c=_lista.find(x=>String(x.id)===String(_histId));
+  if(!c) return;
+
+  const hist=parseHistorico(c.historico);
+  hist.push({
+    data: document.getElementById('hData').value,
+    tipo: document.getElementById('hTipo').value,
+    empresa: document.getElementById('hEmpresa').value.trim()||null,
+    desc
+  });
+
+  const novoStatus=document.getElementById('hStatus').value||c.status;
+  const patch={historico:JSON.stringify(hist), status:novoStatus};
+
+  let salvouNuvem=false;
+  if(true){ // sempre tenta Supabase
+    try{
+      const res=await fetch(SUPABASE_URL+'/rest/v1/lista_negra?id=eq.'+encodeURIComponent(_histId),
+        {method:'PATCH',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(patch)});
+      if(!res.ok) throw new Error('Supabase '+res.status);
+      const u=await res.json(); const novo=Array.isArray(u)?u[0]:u;
+      const idx=_lista.findIndex(x=>String(x.id)===String(_histId));
+      if(idx>=0) _lista[idx]={..._lista[idx],...novo};
+      lsSalvar(_lista); salvouNuvem=true;
+    } catch(e){ mostrarModo(true); }
+  }
+  if(!salvouNuvem){
+    const idx=_lista.findIndex(x=>String(x.id)===String(_histId));
+    if(idx>=0) _lista[idx]={..._lista[idx],...patch};
+    lsSalvar(_lista);
+  }
+  atualizarKPIs(); filtrar(); fecharModalHist();
+  toast('📋 Ocorrência registrada'+(salvouNuvem?' ☁️':' 💾 (local)'));
+}
+
+// ── EXCLUSÃO ──────────────────────────────────────────
+function pedirExclusao(id){
+  const c=_lista.find(x=>String(x.id)===String(id));
+  _excluindoId=id;
+  document.getElementById('modalSub').innerHTML='Você está prestes a remover <strong>'+esc(c?c.nome:'')+'</strong> da lista negra. Esta ação é <strong>irreversível</strong>.';
+  document.getElementById('confirmInput').value='';
+  document.getElementById('btnConfirmExcluir').disabled=true;
+  document.getElementById('btnConfirmExcluir').style.opacity='0.4';
+  document.getElementById('modalExcluir').classList.add('show');
+  setTimeout(()=>document.getElementById('confirmInput').focus(),200);
+}
+function checkConfirm(){
+  const ok=document.getElementById('confirmInput').value==='EXCLUIR';
+  document.getElementById('btnConfirmExcluir').disabled=!ok;
+  document.getElementById('btnConfirmExcluir').style.opacity=ok?'1':'0.4';
+}
+function fecharModal(){ document.getElementById('modalExcluir').classList.remove('show'); _excluindoId=null; }
+
+async function confirmarExclusao(){
+  if(!_excluindoId) return;
+  const btn=document.getElementById('btnConfirmExcluir');
+  btn.disabled=true; btn.textContent='⏳ Removendo…';
+  const excId=_excluindoId; let excluiuNuvem=false;
+  if(true){ // sempre tenta Supabase
+    try{
+      const res=await fetch(SUPABASE_URL+'/rest/v1/lista_negra?id=eq.'+encodeURIComponent(excId),
+        {method:'DELETE',headers:{...HEADERS,'Prefer':'return=minimal'}});
+      if(!res.ok) throw new Error('Supabase '+res.status);
+      excluiuNuvem=true;
+    } catch(e){ mostrarModo(true); }
+  }
+  _lista=_lista.filter(c=>String(c.id)!==String(excId));
+  lsSalvar(_lista); atualizarKPIs(); filtrar(); fecharModal();
+  toast(excluiuNuvem?'Registro removido ☁️':'Registro removido 💾 (local)');
+  btn.disabled=false; btn.textContent='🗑 Confirmar remoção';
+}
+
+// ── RENDER ────────────────────────────────────────────
+const tipoLabel = {presencial:'Presencial',online:'Online / Remoto',cliente:'Com Cliente Empresa',outro:'Outro'};
+const tipoClass = {presencial:'ht-presencial',online:'ht-online',cliente:'ht-cliente',outro:'ht-outro'};
+const statusLabel= {bloqueado:'🚫 Bloqueado',atencao:'⚠️ Atenção',reabilitado:'✅ Reabilitado'};
+const statusClass= {bloqueado:'s-bloqueado',atencao:'s-atencao',reabilitado:'s-reabilitado'};
+const avisouLabel= {nao:'Não avisou',sim:'Avisou antes',depois:'Avisou depois'};
+
+function fmtData(d){
+  if(!d) return '–';
+  try{ return new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); }catch{return d;}
+}
+
+function renderGrid(lista){
+  const el=document.getElementById('mainGrid');
+  if(!lista||!lista.length){
+    const q=document.getElementById('searchInp').value;
+    el.innerHTML='<div class="empty" style="grid-column:1/-1;">'+(q
+      ?'🔍 Nenhum resultado para <strong>'+esc(q)+'</strong><br><br><button class="btn btn-ghost" onclick="document.getElementById(\'searchInp\').value=\'\';filtrar()">Limpar busca</button>'
+      :'Nenhum candidato na lista negra.<br><br><button class="btn btn-danger" onclick="abrirFormNovo()">⛔ Adicionar primeiro registro</button>'
+    )+'</div>';
+    return;
+  }
+  el.innerHTML=lista.map((c,_idx)=>{
+    const hist=parseHistorico(c.historico);
+    const totalFaltas=hist.length+1;
+    const histHtml=hist.length
+      ? hist.map(h=>`
+          <div class="historico-item">
+            <div class="historico-data">📅 ${fmtData(h.data)}${h.empresa?' &nbsp;·&nbsp; '+esc(h.empresa):''}</div>
+            <span class="historico-tipo ${tipoClass[h.tipo]||'ht-outro'}">${tipoLabel[h.tipo]||h.tipo}</span>
+            <div class="historico-txt">${esc(h.desc||'')}</div>
+          </div>`).join('')
+      : '<div class="cc-empty">Sem ocorrências adicionais registradas.</div>';
+
+    const infoRows=[
+      c.cpf    ?`<div class="cc-row"><span>🪪</span><span class="cc-val">${esc(c.cpf)}</span></div>`:'',
+      c.cargo  ?`<div class="cc-row"><span>💼</span><span class="cc-val">${esc(c.cargo)}</span></div>`:'',
+      c.empresa?`<div class="cc-row"><span>🏢</span><span class="cc-val">${esc(c.empresa)}</span></div>`:'',
+      c.avisou ?`<div class="cc-row"><span>📢</span><span class="cc-val">${avisouLabel[c.avisou]||c.avisou}</span></div>`:'',
+    ].filter(Boolean).join('');
+
+    const contatos=[
+      c.tel  ?`<a href="javascript:void(0)" onclick="abrirWpp('${esc(c.tel)}')" class="cc-contact-link cc-contact-wpp" style="border:none;cursor:pointer;">💬 ${esc(c.tel)}</a>`:'',
+      c.email?`<a href="javascript:void(0)" onclick="abrirEmail('${esc(c.email)}')" class="cc-contact-link cc-contact-mail" style="border:none;cursor:pointer;">✉️ ${esc(c.email)}</a>`:'',
+    ].filter(Boolean).join('');
+
+    return `<div class="client-card">
+      <div class="cc-top" onclick="toggleCard(${_idx})">
+        <div class="cc-top-bg"></div>
+        <div class="cc-head">
+          <div class="cc-ico">🚫</div>
+          <div class="cc-info">
+            <div class="cc-nome">${esc(c.nome)}</div>
+            <div class="cc-segm">${esc(c.cargo||'Cargo não informado')}</div>
+            <div class="cc-tags">
+              <span class="status-pill ${statusClass[c.status]||'s-atencao'}">${statusLabel[c.status]||c.status}</span>
+              <span class="motivo-pill">${tipoLabel[c.tipo]||c.tipo}</span>
+              <span class="motivo-pill">⚠️ ${totalFaltas} falta${totalFaltas!==1?'s':''}</span>
+            </div>
+          </div>
+          <span class="cc-chevron">▼</span>
+        </div>
+        <div class="cc-date">📅 Falta: ${fmtData(c.data_falta)}${c.empresa?' &nbsp;·&nbsp; 🏢 '+esc(c.empresa):(c.criado_em?' &nbsp;·&nbsp; Registrado: '+fmtData(c.criado_em.split('T')[0]):'')}</div>
+      </div>
+
+      <div class="cc-collapse"><div class="cc-body">
+        <div class="cc-section-label">Dados do Candidato</div>
+        ${infoRows}
+        ${contatos?`<div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.35rem;">${contatos}</div>`:''}
+
+        <div class="cc-section-label">Motivo do Registro</div>
+        <div class="cc-obs cc-obs-red">${esc(c.obs||'–')}</div>
+
+        <div class="cc-section-label">Histórico de Ocorrências (${totalFaltas} total)</div>
+        <div class="historico-item" style="border-color:rgba(231,76,60,0.25);">
+          <div class="historico-data">📅 ${fmtData(c.data_falta)} &nbsp;·&nbsp; <em>Registro inicial</em>${c.empresa?' &nbsp;·&nbsp; '+esc(c.empresa):''}</div>
+          <span class="historico-tipo ${tipoClass[c.tipo]||'ht-outro'}">${tipoLabel[c.tipo]||c.tipo}</span>
+          <div class="historico-txt">${esc(c.obs||'')}</div>
+        </div>
+        ${histHtml}
+      </div>
+
+      <div class="cc-footer">
+        ${c.tel?`<button onclick="abrirWpp('${esc(c.tel)}')" class="btn btn-wpp" style="font-size:0.68rem;padding:0.38rem 0.75rem;cursor:pointer;">💬 WhatsApp</button>`:''}
+        ${c.email?`<button onclick="abrirEmail('${esc(c.email)}')" class="btn btn-mail" style="font-size:0.68rem;padding:0.38rem 0.75rem;cursor:pointer;">✉️ E-mail</button>`:''}
+        <button class="btn btn-ghost" style="font-size:0.68rem;padding:0.38rem 0.75rem;" onclick="abrirModalHist('${esc(String(c.id))}')">📋 + Ocorrência</button>
+        <button class="btn btn-edit"  style="font-size:0.68rem;padding:0.38rem 0.75rem;" onclick="abrirFormEdicao('${esc(String(c.id))}')">✏️ Editar</button>
+        <button class="btn btn-red"   style="font-size:0.68rem;padding:0.38rem 0.75rem;" onclick="pedirExclusao('${esc(String(c.id))}')">🗑 Remover</button>
+      </div></div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(idx){
+  document.querySelectorAll('.client-card').forEach(function(el,i){
+    if(i===idx) el.classList.toggle('aberto');
+    else el.classList.remove('aberto');
+  });
+}
+
+// ── HELPERS ───────────────────────────────────────────
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+function navegar(mod){ window.parent.postMessage({tipo:'nexus_navegar',mod},'*'); }
+
+let _tt;
+function toast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast show'+(err?' err':'');
+  clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+window.abrirWpp = function(tel){
+  if(!tel) return;
+  let n=String(tel).replace(/\D/g,'');
+  if(!n.startsWith('55')) n='55'+n;
+  try{ window.top.open('https://wa.me/'+n,'_blank'); }catch(e){ window.open('https://wa.me/'+n,'_blank'); }
+};
+window.abrirEmail = function(em){
+  if(!em) return;
+  const url='https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(em);
+  try{ window.top.open(url,'_blank'); }catch(e){ window.open(url,'_blank'); }
+};
+
+document.getElementById('modalExcluir').addEventListener('click',function(e){ if(e.target===this) fecharModal(); });
+document.getElementById('modalHist').addEventListener('click',function(e){ if(e.target===this) fecharModalHist(); });
+
+// ── SQL HELPER ────────────────────────────────────────
+// Execute no Supabase -> SQL Editor:
+// CREATE TABLE IF NOT EXISTS lista_negra (
+//   id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+//   nome       TEXT NOT NULL,
+//   cpf        TEXT,
+//   tel        TEXT,
+//   email      TEXT,
+//   cargo      TEXT,
+//   tipo       TEXT DEFAULT 'presencial',
+//   data_falta DATE,
+//   empresa    TEXT,
+//   status     TEXT DEFAULT 'atencao',
+//   avisou     TEXT DEFAULT 'nao',
+//   obs        TEXT,
+//   historico  TEXT,
+//   criado_em  TIMESTAMPTZ DEFAULT now()
+// );
+// ALTER TABLE lista_negra ENABLE ROW LEVEL SECURITY;
+// CREATE POLICY "allow_anon_select" ON lista_negra FOR SELECT TO anon USING (true);
+// CREATE POLICY "allow_anon_insert" ON lista_negra FOR INSERT TO anon WITH CHECK (true);
+// CREATE POLICY "allow_anon_update" ON lista_negra FOR UPDATE TO anon USING (true);
+// CREATE POLICY "allow_anon_delete" ON lista_negra FOR DELETE TO anon USING (true);
+
+init();
+</script>
+</body>
+</html>

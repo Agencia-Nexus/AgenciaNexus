@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mapa de Talentos | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#a78bfa;--D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--blue);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-blue{background:rgba(52,152,219,0.1);color:var(--blue);border-color:rgba(52,152,219,0.25);}.btn-blue:hover{background:rgba(52,152,219,0.18);}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;}
+.kpi-val{font-size:1.8rem;font-weight:900;line-height:1;}.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:700px){.charts-grid{grid-template-columns:1fr;}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.5rem;margin-bottom:1rem;}
+.card-title{font-size:0.78rem;font-weight:800;margin-bottom:1rem;}
+/* MAPA QUADRANTES */
+.quadrante-wrap{position:relative;width:100%;aspect-ratio:1;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;}
+.q-label{position:absolute;font-size:0.58rem;font-weight:700;color:rgba(255,255,255,0.2);padding:0.5rem;}
+.q-tl{top:0;left:0;}
+.q-tr{top:0;right:0;}
+.q-bl{bottom:0;left:0;}
+.q-br{bottom:0;right:0;}
+.q-axis-h{position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(255,255,255,0.08);}
+.q-axis-v{position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(255,255,255,0.08);}
+.q-dot{position:absolute;transform:translate(-50%,-50%);border-radius:50%;cursor:pointer;transition:all 0.2s;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:800;}
+.q-dot:hover{transform:translate(-50%,-50%) scale(1.4);z-index:10;}
+.q-axis-lbl{position:absolute;font-size:0.55rem;color:var(--muted2);}
+/* TABELA */
+.talent-table{width:100%;border-collapse:collapse;}
+.talent-table th{padding:0.5rem 0.7rem;text-align:left;font-size:0.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+.talent-table td{padding:0.55rem 0.7rem;font-size:0.73rem;border-bottom:1px solid rgba(255,255,255,0.04);}
+.talent-table tr:last-child td{border-bottom:none;}
+.talent-table tr:hover td{background:rgba(255,255,255,0.02);}
+.disc-pill{font-size:0.6rem;font-weight:800;padding:0.12rem 0.45rem;border-radius:99px;}
+.fit-bar{height:4px;border-radius:99px;background:rgba(255,255,255,0.08);overflow:hidden;margin-top:0.2rem;}
+.fit-fill{height:100%;border-radius:99px;}
+.spinner{width:18px;height:18px;border:2px solid var(--muted2);border-top-color:var(--blue);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}@keyframes spin{to{transform:rotate(360deg)}}
+.filters{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}.filters::-webkit-scrollbar{display:none;}
+.fc{font-size:0.7rem;font-weight:700;padding:0.28rem 0.7rem;border-radius:99px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;background:rgba(255,255,255,0.04);color:var(--muted);transition:all 0.15s;}
+.fc.active{background:rgba(52,152,219,0.15);border-color:rgba(52,152,219,0.35);color:var(--blue);}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page, .wrap, .wrapper {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child { width: 100% !important; }
+  .hero .btn, .hero button { width: 100% !important; justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3,
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Formulários */
+  .form-card { padding: 1rem !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Filtros */
+  .filters, .discFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .filters::-webkit-scrollbar, .discFilters::-webkit-scrollbar { display: none !important; }
+  .fc, .filter-chip { flex-shrink: 0 !important; }
+
+  /* Listas de itens */
+  .notif-item, .resp-item, .hist-item, .user-row, .polling-row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .notif-msg { white-space: normal !important; font-size: 0.72rem !important; }
+
+  /* Mapa de talentos */
+  .quadrante-wrap { aspect-ratio: 1 !important; max-height: 280px !important; }
+  .talent-table { font-size: 0.68rem !important; }
+  .talent-table th, .talent-table td { padding: 0.38rem 0.4rem !important; }
+
+  /* NPS scale */
+  .scale-row { gap: 0.2rem !important; margin: 0.6rem 0 !important; }
+  .scale-btn { width: 36px !important; height: 36px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+  .nps-val { font-size: 3.5rem !important; }
+  .nps-score { padding: 1.2rem !important; }
+  .kpi-row.nps { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Permissões */
+  .role-grid { grid-template-columns: 1fr !important; }
+  .role-card { padding: 1rem !important; }
+  .perm-item { font-size: 0.68rem !important; }
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Equipe */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.6rem !important; }
+  .member-ava { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; }
+  .member-card { padding: 1rem !important; }
+  .member-btns { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* Fit Predictor */
+  .result-box { padding: 1rem !important; }
+  .score-num { font-size: 3.5rem !important; }
+  .bar-label { width: 70px !important; font-size: 0.6rem !important; }
+  .insights { font-size: 0.7rem !important; }
+  .hist-list { max-height: 200px !important; }
+
+  /* Inteligência / busca IA */
+  .search-inner { flex-direction: column !important; }
+  .s-input { width: 100% !important; }
+  .search-box { padding: 0.9rem !important; }
+
+  /* Notificações */
+  .notif-list { max-height: 300px !important; }
+  .kpi-row .kpi { text-align: center; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Seção labels */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Topbar (emails / entrevista) */
+  .topbar, .tbar {
+    padding: 0.7rem 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+  .topbar-actions { gap: 0.4rem !important; }
+  .topbar-actions .btn, .topbar-actions button { font-size: 0.68rem !important; padding: 0.38rem 0.65rem !important; }
+}
+
+</style></head><body>
+<div class="page">
+  <div class="hero">
+    <div><div class="eyebrow">Inteligência · Visualização</div><div class="title">Mapa de <span>Talentos</span></div><div class="sub">Visualização estratégica do banco de candidatos por fit e perfil DISC</div></div>
+    <div style="display:flex;gap:0.5rem;"><button class="btn btn-ghost" onclick="init()">↺ Atualizar</button><button class="btn btn-blue" onclick="navegar('banco-talentos')">👥 Ver banco completo</button></div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kTotal" style="color:var(--accent);">—</div><div class="kpi-label">Total</div></div>
+    <div class="kpi"><div class="kpi-val" id="kAltoFit" style="color:var(--green);">—</div><div class="kpi-label">Alto fit (≥80%)</div></div>
+    <div class="kpi"><div class="kpi-val" id="kMedFit" style="color:var(--orange);">—</div><div class="kpi-label">Médio fit</div></div>
+    <div class="kpi"><div class="kpi-val" id="kSemFit" style="color:var(--muted);">—</div><div class="kpi-label">Sem fit score</div></div>
+    <div class="kpi"><div class="kpi-val" id="kFitMed" style="color:var(--blue);">—</div><div class="kpi-label">Fit médio</div></div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="card">
+      <div class="card-title">🗺️ Mapa fit × perfil DISC</div>
+      <div class="quadrante-wrap" id="quadranteWrap">
+        <div class="q-axis-h"></div><div class="q-axis-v"></div>
+        <div class="q-label q-tl" style="color:rgba(52,152,219,0.4);">C/S<br>Alto fit</div>
+        <div class="q-label q-tr" style="color:rgba(46,204,113,0.4);">D/I<br>Alto fit</div>
+        <div class="q-label q-bl" style="color:rgba(52,152,219,0.3);">C/S<br>Baixo fit</div>
+        <div class="q-label q-br" style="color:rgba(231,76,60,0.3);">D/I<br>Baixo fit</div>
+        <div class="q-axis-lbl" style="bottom:0.3rem;left:50%;transform:translateX(-50%);">← C/S · D/I →</div>
+        <div class="q-axis-lbl" style="left:0.3rem;top:50%;transform:translateY(-50%) rotate(-90deg);">fit ↑</div>
+        <div id="qdots"></div>
+        <div style="display:flex;align-items:center;justify-content:center;padding:2rem;" id="qLoading"><div class="spinner"></div></div>
+      </div>
+      <div style="font-size:0.62rem;color:var(--muted);margin-top:0.6rem;text-align:center;">Passe o mouse nos pontos para ver o candidato</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🍩 Distribuição DISC</div>
+      <canvas id="discChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Ranking de talentos</div>
+    <div class="filters" id="discFilters">
+      <div class="fc active" onclick="setFiltro('',this)">Todos</div>
+      <div class="fc" style="color:var(--D);" onclick="setFiltro('D',this)">🔴 D</div>
+      <div class="fc" style="color:var(--I);" onclick="setFiltro('I',this)">🟡 I</div>
+      <div class="fc" style="color:var(--S);" onclick="setFiltro('S',this)">🟢 S</div>
+      <div class="fc" style="color:var(--C);" onclick="setFiltro('C',this)">🔵 C</div>
+      <div class="fc" onclick="setFiltro('semfit',this)">Sem fit</div>
+    </div>
+    <div style="overflow-x:auto;"><table class="talent-table"><thead><tr><th>#</th><th>Nome</th><th>Vaga</th><th>DISC</th><th>Fit Score</th><th>Data</th><th>Ação</th></tr></thead><tbody id="rankBody"><tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted);font-size:0.78rem;"><div class="spinner" style="border-top-color:var(--blue);"></div></td></tr></tbody></table></div>
+  </div>
+</div>
+<script>
+let SB_URL='',SB_KEY='',_all=[],_filtro='',_chart=null,_loaded=false;
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;if(!_loaded)init();}});
+const COR={D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+const EMO={D:'🔴',I:'🟡',S:'🟢',C:'🔵'};
+
+async function init(){
+  lerCtx();if(!SB_URL){setTimeout(()=>{lerCtx();if(SB_URL)init();},500);return;}
+  _loaded=true;
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?order=fit_score.desc.nullslast`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _all=await r.json();if(!Array.isArray(_all))_all=[];
+    renderKPIs();renderQuadrante();renderDisc();renderRanking();
+  }catch(e){document.getElementById('qLoading').innerHTML=`<span style="color:var(--red);font-size:0.75rem;">Erro: ${esc(e.message)}</span>`;}
+}
+
+function renderKPIs(){
+  const total=_all.length;
+  const comFit=_all.filter(h=>h.fit_score);
+  const altoFit=comFit.filter(h=>parseInt(h.fit_score)>=80).length;
+  const medFit=comFit.filter(h=>parseInt(h.fit_score)>=50&&parseInt(h.fit_score)<80).length;
+  const semFit=total-comFit.length;
+  const media=comFit.length?Math.round(comFit.reduce((s,h)=>s+parseInt(h.fit_score),0)/comFit.length):0;
+  document.getElementById('kTotal').textContent=total;
+  document.getElementById('kAltoFit').textContent=altoFit;
+  document.getElementById('kMedFit').textContent=medFit;
+  document.getElementById('kSemFit').textContent=semFit;
+  document.getElementById('kFitMed').textContent=media+'%';
+}
+
+function renderQuadrante(){
+  const el=document.getElementById('qdots');
+  document.getElementById('qLoading').style.display='none';
+  el.innerHTML='';
+  const com=_all.filter(h=>h.fit_score&&h.dom);
+  const wrap=document.getElementById('quadranteWrap');
+  const w=wrap.offsetWidth||300;const h=wrap.offsetHeight||300;
+  // X: D/I = direita, C/S = esquerda; Y: fit alto = cima
+  const discX={D:0.75,I:0.85,S:0.25,C:0.15};
+  const jitter=()=>(Math.random()-0.5)*0.08;
+  com.forEach(c=>{
+    const fit=parseInt(c.fit_score)/100;
+    const xBase=(discX[c.dom]||0.5)+jitter();
+    const y=(1-fit)+jitter();
+    const xPct=Math.max(0.05,Math.min(0.95,xBase))*100;
+    const yPct=Math.max(0.05,Math.min(0.95,y))*100;
+    const cor=COR[c.dom]||'#888';
+    const sz=fit>=0.8?14:fit>=0.6?10:7;
+    const dot=document.createElement('div');
+    dot.className='q-dot';
+    dot.title=`${c.nome||'?'} (${c.dom||'?'}) — ${c.fit_score}%`;
+    dot.style.cssText=`left:${xPct}%;top:${yPct}%;width:${sz}px;height:${sz}px;background:${cor}30;border-color:${cor};color:${cor};`;
+    el.appendChild(dot);
+  });
+}
+
+function renderDisc(){
+  const cnt={D:0,I:0,S:0,C:0};
+  _all.forEach(h=>{if(cnt[h.dom]!==undefined)cnt[h.dom]++;});
+  const ctx=document.getElementById('discChart').getContext('2d');
+  if(_chart){_chart.destroy();_chart=null;}
+  _chart=new Chart(ctx,{type:'doughnut',data:{labels:['Dominante','Influente','Estável','Criterioso'],datasets:[{data:[cnt.D,cnt.I,cnt.S,cnt.C],backgroundColor:['rgba(231,76,60,0.7)','rgba(243,156,18,0.7)','rgba(46,204,113,0.7)','rgba(52,152,219,0.7)'],borderColor:['#e74c3c','#f39c12','#2ecc71','#3498db'],borderWidth:2}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{family:'Sora',size:11},padding:12}},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw}`}}},cutout:'65%'}});
+}
+
+function setFiltro(f,el){_filtro=f;document.querySelectorAll('.fc').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderRanking();}
+
+function renderRanking(){
+  let lista=[..._all];
+  if(_filtro==='semfit') lista=lista.filter(h=>!h.fit_score);
+  else if(_filtro) lista=lista.filter(h=>h.dom===_filtro);
+  lista.sort((a,b)=>(parseInt(b.fit_score)||0)-(parseInt(a.fit_score)||0));
+  const tbody=document.getElementById('rankBody');
+  if(!lista.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted2);font-size:0.75rem;">Nenhum candidato neste filtro.</td></tr>';return;}
+  tbody.innerHTML=lista.slice(0,40).map((h,i)=>{
+    const fit=h.fit_score?parseInt(h.fit_score):null;
+    const fitCor=fit?fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c':'#444';
+    const cor=COR[h.dom]||'#888';const emo=EMO[h.dom]||'⬜';
+    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1;
+    return `<tr>
+      <td style="font-weight:800;color:var(--muted);">${medal}</td>
+      <td style="font-weight:700;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(h.nome||'—')}</td>
+      <td style="font-size:0.68rem;color:var(--muted);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(h.vaga||'—')}</td>
+      <td><span class="disc-pill" style="background:${cor}15;border:1px solid ${cor}35;color:${cor};">${emo} ${h.dom||'?'}${h.sec?'+'+h.sec:''}</span></td>
+      <td>${fit!==null?`<div style="font-size:0.72rem;font-weight:800;color:${fitCor};">${fit}%</div><div class="fit-bar"><div class="fit-fill" style="width:${fit}%;background:${fitCor};"></div></div>`:'<span style="color:var(--muted2);font-size:0.68rem;">—</span>'}</td>
+      <td style="font-size:0.68rem;color:var(--muted);">${h.data||'—'}</td>
+      <td>${h.url?`<a href="${esc(h.url)}" target="_blank" style="font-size:0.65rem;color:var(--blue);text-decoration:none;border:1px solid rgba(52,152,219,0.25);border-radius:6px;padding:0.15rem 0.45rem;background:rgba(52,152,219,0.08);">🔗</a>`:''} <button onclick="navegar('banco-cargos')" style="font-size:0.65rem;font-family:inherit;font-weight:700;color:#3b82f6;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.28);border-radius:6px;padding:0.15rem 0.45rem;cursor:pointer;">💼 Cargo</button></td>
+    </tr>`;
+  }).join('');
+}
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function navegar(mod){window.parent.postMessage({tipo:'nexus_navegar',mod},'*');}
+lerCtx();if(SB_URL)init();else setTimeout(()=>{lerCtx();if(SB_URL)init();else init();},400);
+</script></body></html>

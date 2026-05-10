@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Triagem & Scoring | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;
+  --border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);
+  --text:#f0f0f0;--muted:#666;--muted2:#333;
+  --red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#a78bfa;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(59,130,246,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025) 1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.8rem;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.8;margin-bottom:0.35rem;}
+.hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.hero-title span{color:var(--accent);}
+.hero-sub{font-size:0.8rem;color:var(--muted);line-height:1.6;}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* PESOS */
+.pesos-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+.pesos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;}
+.peso-item{display:flex;flex-direction:column;gap:0.4rem;}
+.peso-label{font-size:0.72rem;font-weight:700;color:var(--text);}
+.peso-label span{color:var(--muted);font-weight:400;margin-left:0.3rem;}
+.peso-slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:99px;
+  background:var(--muted2);outline:none;cursor:pointer;}
+.peso-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;
+  background:var(--accent);cursor:pointer;border:2px solid var(--bg);}
+.peso-val{font-size:1.2rem;font-weight:900;color:var(--accent);}
+.pesos-total{display:flex;align-items:center;gap:0.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+.pesos-total span{font-size:0.78rem;color:var(--muted);}
+.pesos-total strong{font-size:1rem;font-weight:900;}
+.pesos-total strong.ok{color:var(--green);}
+.pesos-total strong.err{color:var(--red);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.55rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+
+/* FILTRO VAGA */
+.filtro-row{display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;margin-bottom:1.2rem;}
+.filtro-label{font-size:0.72rem;font-weight:700;color:var(--muted);}
+.filter-select{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:11px;
+  padding:0.52rem 2rem 0.52rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.78rem;outline:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 0.7rem center;-webkit-appearance:none;}
+.filter-select option{background:#161616;color:#f0f0f0;}
+
+/* RANKING */
+.rank-grid{display:flex;flex-direction:column;gap:0.55rem;}
+.rank-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;
+  display:flex;align-items:center;gap:1rem;transition:all 0.18s;cursor:pointer;}
+.rank-card:hover{border-color:var(--border2);transform:translateX(3px);}
+.rank-pos{font-size:1.2rem;font-weight:900;width:32px;flex-shrink:0;text-align:center;}
+.rank-pos.p1{color:#fbbf24;}
+.rank-pos.p2{color:#9ca3af;}
+.rank-pos.p3{color:#d97706;}
+.rank-ava{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.rank-info{flex:1;min-width:0;}
+.rank-nome{font-size:0.85rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rank-vaga{font-size:0.65rem;color:var(--muted);margin-top:0.1rem;}
+.rank-scores{display:flex;gap:0.5rem;margin-top:0.35rem;flex-wrap:wrap;}
+.rank-tag{font-size:0.6rem;font-weight:700;padding:0.12rem 0.5rem;border-radius:99px;border:1px solid;}
+.score-final{display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0;}
+.score-final-val{font-size:1.6rem;font-weight:900;}
+.score-final-label{font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;}
+.score-bar{width:60px;height:5px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;margin-top:0.3rem;}
+.score-bar-fill{height:100%;border-radius:99px;}
+.rec-badge{font-size:0.6rem;font-weight:700;padding:0.18rem 0.55rem;border-radius:6px;margin-top:0.25rem;}
+.rec-contratar{background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.25);color:var(--green);}
+.rec-entrevistar{background:rgba(141,198,63,0.1);border:1px solid rgba(141,198,63,0.22);color:var(--accent);}
+.rec-avaliar{background:rgba(243,156,18,0.1);border:1px solid rgba(243,156,18,0.22);color:var(--orange);}
+.rec-descartar{background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.18);color:var(--red);}
+
+/* LOADING / EMPTY */
+.loading-block{display:flex;align-items:center;justify-content:center;min-height:120px;color:var(--muted);font-size:0.78rem;gap:0.5rem;}
+.spinner{width:18px;height:18px;border:2px solid var(--muted2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.6s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--muted);}
+.empty-ico{font-size:2.5rem;opacity:0.35;margin-bottom:0.6rem;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  .page {
+    padding: 1rem 0.9rem 4rem !important;
+  }
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child,
+  .hero > button,
+  .hero > div[style*="display:flex"] {
+    width: 100%;
+  }
+  .hero .btn,
+  .hero button.btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .title { font-size: 1.25rem !important; }
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+  .form-card { padding: 1rem !important; }
+  .filters {
+    gap: 0.35rem !important;
+  }
+  .filter-chip { font-size: 0.65rem !important; padding: 0.22rem 0.6rem !important; }
+  .rec-item, .sla-item, .task-item, .rank-card, .vi, .sync-row {
+    flex-wrap: wrap !important;
+    gap: 0.6rem !important;
+  }
+  .sla-bar-wrap { flex: 1 1 100% !important; justify-content: space-between; }
+  .sla-bar { width: auto !important; flex: 1 !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+  .sec-label { font-size: 0.58rem !important; }
+  .add-form { flex-direction: column !important; }
+  .add-form .fi,
+  .add-form .fsel,
+  .add-form input[type=date] { width: 100% !important; }
+  .add-form .btn { width: 100% !important; justify-content: center !important; }
+  .tpl-grid { grid-template-columns: 1fr !important; }
+  .cand-list { max-height: 200px !important; }
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .sync-row { padding: 0.7rem 0 !important; }
+  .sync-ico { display: none !important; }
+  .schema-box { font-size: 0.62rem !important; }
+  .info-box { font-size: 0.7rem !important; }
+  .log-box { font-size: 0.65rem !important; }
+  .pesos-card { padding: 1rem !important; }
+  .pesos-grid { grid-template-columns: 1fr !important; }
+  .pesos-total { flex-wrap: wrap !important; gap: 0.5rem !important; }
+  .pesos-total .btn { flex: 1 1 auto !important; }
+  .filtro-row { gap: 0.4rem !important; }
+  .filter-select { font-size: 0.72rem !important; flex: 1 !important; }
+  .rank-scores { gap: 0.3rem !important; }
+  .score-final-val { font-size: 1.2rem !important; }
+  .score-bar { width: 44px !important; }
+  .vi-btns { width: 100% !important; justify-content: flex-end; }
+  .vi-tit { font-size: 0.82rem !important; }
+  .vagas-grid { grid-template-columns: 1fr !important; }
+  .modal { padding: 1.2rem !important; border-radius: 16px !important; }
+  .toast { right: 0.6rem !important; bottom: 0.6rem !important; left: 0.6rem !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Candidatos · IA</div>
+    <div class="hero-title">Triagem & <span>Scoring</span></div>
+    <div class="hero-sub">Ranqueamento automático por pesos configuráveis · DISC + Fit Cultural + Entrevista IA</div>
+  </div>
+
+  <div class="sec-label">Configurar pesos de pontuação</div>
+  <div class="pesos-card">
+    <div class="pesos-grid">
+      <div class="peso-item">
+        <div class="peso-label">Fit Cultural <span id="vFit">40%</span></div>
+        <input class="peso-slider" type="range" id="sFit" min="0" max="100" step="5" value="40" oninput="atualizarPesos()"/>
+        <div class="peso-val" id="nFit">40</div>
+      </div>
+      <div class="peso-item">
+        <div class="peso-label">Perfil DISC <span id="vDisc">35%</span></div>
+        <input class="peso-slider" type="range" id="sDisc" min="0" max="100" step="5" value="35" oninput="atualizarPesos()"/>
+        <div class="peso-val" id="nDisc">35</div>
+      </div>
+      <div class="peso-item">
+        <div class="peso-label">Entrevista IA <span id="vEnt">25%</span></div>
+        <input class="peso-slider" type="range" id="sEnt" min="0" max="100" step="5" value="25" oninput="atualizarPesos()"/>
+        <div class="peso-val" id="nEnt">25</div>
+      </div>
+    </div>
+    <div class="pesos-total">
+      <span>Total dos pesos:</span>
+      <strong id="totalPesos" class="ok">100%</strong>
+      <div style="flex:1;"></div>
+      <button class="btn btn-ghost" onclick="resetPesos()">↺ Resetar</button>
+      <button class="btn btn-accent" onclick="calcularRanking()">⚡ Calcular ranking</button>
+    </div>
+  </div>
+
+  <div class="sec-label">Filtrar por vaga</div>
+  <div class="filtro-row">
+    <span class="filtro-label">Vaga:</span>
+    <select class="filter-select" id="filtroVaga" onchange="calcularRanking()">
+      <option value="">Todos os candidatos</option>
+    </select>
+    <select class="filter-select" id="filtroMin" onchange="calcularRanking()">
+      <option value="0">Qualquer score</option>
+      <option value="70">Score ≥ 70</option>
+      <option value="80">Score ≥ 80</option>
+      <option value="50">Score ≥ 50</option>
+    </select>
+    <span style="font-size:0.72rem;color:var(--muted);" id="rankInfo"></span>
+  </div>
+
+  <div class="sec-label">Ranking calculado</div>
+  <div class="rank-grid" id="rankGrid">
+    <div class="loading-block"><div class="spinner"></div>Calculando...</div>
+  </div>
+</div>
+<script>
+let SB_URL='',SB_KEY='';
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;if(!_loaded)init();}});
+const COR={D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+const EMO={D:'🔴',I:'🟠',S:'🟢',C:'🔵'};
+let _todos=[],_loaded=false;
+
+async function init(){
+  lerCtx(); if(!SB_URL){setTimeout(()=>{lerCtx();if(SB_URL)init();},500);return;}
+  _loaded=true;
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?order=criado_em.desc`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _todos=await r.json(); if(!Array.isArray(_todos)) _todos=[];
+  }catch(e){_todos=[];}
+  const vagas=[...new Set(_todos.map(h=>h.vaga).filter(Boolean))].sort();
+  const sel=document.getElementById('filtroVaga');
+  sel.innerHTML='<option value="">Todos os candidatos</option>'+vagas.map(v=>`<option>${esc(v)}</option>`).join('');
+  calcularRanking();
+}
+
+function atualizarPesos(){
+  const f=parseInt(document.getElementById('sFit').value);
+  const d=parseInt(document.getElementById('sDisc').value);
+  const e=parseInt(document.getElementById('sEnt').value);
+  document.getElementById('nFit').textContent=f;
+  document.getElementById('nDisc').textContent=d;
+  document.getElementById('nEnt').textContent=e;
+  document.getElementById('vFit').textContent=f+'%';
+  document.getElementById('vDisc').textContent=d+'%';
+  document.getElementById('vEnt').textContent=e+'%';
+  const total=f+d+e;
+  const el=document.getElementById('totalPesos');
+  el.textContent=total+'%';
+  el.className=total===100?'ok':'err';
+}
+
+function resetPesos(){
+  document.getElementById('sFit').value=40;
+  document.getElementById('sDisc').value=35;
+  document.getElementById('sEnt').value=25;
+  atualizarPesos(); calcularRanking();
+}
+
+function calcularScore(h, wFit, wDisc, wEnt){
+  // Fit cultural (0-100)
+  const fitScore = h.fit_score ? parseInt(h.fit_score) : (h.fit_manual ? parseInt(h.fit_manual) : 0);
+  // Score DISC estimado baseado nos percentuais
+  const discScore = h.pct_d ? Math.max(parseInt(h.pct_d||0), parseInt(h.pct_i||0), parseInt(h.pct_s||0), parseInt(h.pct_c||0)) : (fitScore ? fitScore * 0.85 : 0);
+  // Entrevista IA: tem = 75, não tem = 0
+  const entScore = (h.entrevista_json || h.resumo_ia) ? 75 : 0;
+  // Score composto
+  return Math.round((fitScore*(wFit/100)) + (discScore*(wDisc/100)) + (entScore*(wEnt/100)));
+}
+
+function calcularRanking(){
+  if(!_todos.length){ document.getElementById('rankGrid').innerHTML='<div class="loading-block"><div class="spinner"></div>Aguardando dados...</div>'; return; }
+  const wFit=parseInt(document.getElementById('sFit').value);
+  const wDisc=parseInt(document.getElementById('sDisc').value);
+  const wEnt=parseInt(document.getElementById('sEnt').value);
+  if(wFit+wDisc+wEnt!==100){ document.getElementById('rankGrid').innerHTML='<div class="loading-block" style="color:var(--red);">⚠️ A soma dos pesos deve ser 100%</div>'; return; }
+  const vaga=document.getElementById('filtroVaga').value;
+  const minScore=parseInt(document.getElementById('filtroMin').value)||0;
+  let lista=[..._todos];
+  if(vaga) lista=lista.filter(h=>h.vaga===vaga);
+  lista=lista.map(h=>({...h, _score:calcularScore(h,wFit,wDisc,wEnt)}));
+  lista.sort((a,b)=>b._score-a._score);
+  if(minScore) lista=lista.filter(h=>h._score>=minScore);
+  document.getElementById('rankInfo').textContent=`${lista.length} candidatos ranqueados`;
+  if(!lista.length){
+    document.getElementById('rankGrid').innerHTML='<div class="empty-state"><div class="empty-ico">🔍</div><div>Nenhum candidato neste filtro</div></div>';
+    return;
+  }
+  document.getElementById('rankGrid').innerHTML=lista.slice(0,40).map((h,i)=>{
+    const pos=i+1;
+    const cor=COR[h.dom]||'#888'; const emo=EMO[h.dom]||'⬜';
+    const sc=h._score;
+    const scCor=sc>=80?'#2ecc71':sc>=65?'#3b82f6':sc>=50?'#f39c12':'#e74c3c';
+    const posClass=pos===1?'p1':pos===2?'p2':pos===3?'p3':'';
+    const posLabel=pos===1?'🥇':pos===2?'🥈':pos===3?'🥉':pos;
+    let rec=''; let recClass='';
+    if(sc>=80){rec='Contratar';recClass='rec-contratar';}
+    else if(sc>=65){rec='Entrevistar';recClass='rec-entrevistar';}
+    else if(sc>=45){rec='Avaliar';recClass='rec-avaliar';}
+    else{rec='Descartar';recClass='rec-descartar';}
+    return `<div class="rank-card" onclick="navegar('banco-talentos')">
+      <span class="rank-pos ${posClass}">${posLabel}</span>
+      <div class="rank-ava" style="background:${cor}15;border:1px solid ${cor}30;">${emo}</div>
+      <div class="rank-info">
+        <div class="rank-nome">${esc(h.nome||'—')}</div>
+        <div class="rank-vaga">📋 ${esc(h.vaga||'—')} · ${h.dom||'?'}+${h.sec||'?'}</div>
+        <div class="rank-scores">
+          ${h.fit_score?`<span class="rank-tag" style="background:rgba(141,198,63,0.1);border-color:rgba(141,198,63,0.25);color:var(--accent);">Fit ${h.fit_score}%</span>`:''}
+          ${h.entrevista_json||h.resumo_ia?`<span class="rank-tag" style="background:rgba(52,152,219,0.1);border-color:rgba(52,152,219,0.2);color:var(--blue);">✓ Entrevista</span>`:`<span class="rank-tag" style="background:rgba(243,156,18,0.06);border-color:rgba(243,156,18,0.15);color:var(--orange);">Sem entrev.</span>`}
+        </div>
+      </div>
+      <div class="score-final">
+        <div class="score-final-val" style="color:${scCor};">${sc}</div>
+        <div class="score-final-label">score</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${sc}%;background:${scCor};"></div></div>
+        <div class="rec-badge ${recClass}">${rec}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function navegar(mod){window.parent.postMessage({tipo:'nexus_navegar',mod},'*');}
+lerCtx(); if(SB_URL) init(); else setTimeout(()=>{lerCtx();if(SB_URL)init();else init();},400);
+</script>
+</body>
+</html>

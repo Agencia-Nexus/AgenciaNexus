@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Equipe | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--orange);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}
+.form-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:1.5rem;margin-bottom:1.2rem;display:none;}.form-card.show{display:block;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+@media(max-width:600px){.grid-2{grid-template-columns:1fr;}}
+.fl{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.fi{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}.fi:focus{border-color:var(--accent);}.fi::placeholder{color:var(--muted2);}
+.fsel{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2rem;}.fsel option{background:#161616;}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.8rem;}
+.member-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.3rem;text-align:center;transition:all 0.18s;}
+.member-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.member-ava{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:#fff;margin:0 auto 0.8rem;}
+.member-nome{font-size:0.9rem;font-weight:800;margin-bottom:0.15rem;}
+.member-cargo{font-size:0.68rem;color:var(--muted);margin-bottom:0.85rem;}
+.role-badge{font-size:0.6rem;font-weight:800;padding:0.15rem 0.55rem;border-radius:99px;display:inline-block;margin-bottom:0.85rem;}
+.rb-admin{background:rgba(59,130,246,0.12);color:var(--accent);border:1px solid rgba(59,130,246,0.25);}
+.rb-rec{background:rgba(52,152,219,0.12);color:var(--blue);border:1px solid rgba(52,152,219,0.25);}
+.member-btns{display:flex;gap:0.4rem;justify-content:center;}
+.empty{text-align:center;padding:2.5rem;color:var(--muted2);font-size:0.78rem;}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}.toast.show{transform:translateY(0);opacity:1;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page, .wrap, .wrapper {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child { width: 100% !important; }
+  .hero .btn, .hero button { width: 100% !important; justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3,
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Formulários */
+  .form-card { padding: 1rem !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Filtros */
+  .filters, .discFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .filters::-webkit-scrollbar, .discFilters::-webkit-scrollbar { display: none !important; }
+  .fc, .filter-chip { flex-shrink: 0 !important; }
+
+  /* Listas de itens */
+  .notif-item, .resp-item, .hist-item, .user-row, .polling-row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .notif-msg { white-space: normal !important; font-size: 0.72rem !important; }
+
+  /* Mapa de talentos */
+  .quadrante-wrap { aspect-ratio: 1 !important; max-height: 280px !important; }
+  .talent-table { font-size: 0.68rem !important; }
+  .talent-table th, .talent-table td { padding: 0.38rem 0.4rem !important; }
+
+  /* NPS scale */
+  .scale-row { gap: 0.2rem !important; margin: 0.6rem 0 !important; }
+  .scale-btn { width: 36px !important; height: 36px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+  .nps-val { font-size: 3.5rem !important; }
+  .nps-score { padding: 1.2rem !important; }
+  .kpi-row.nps { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Permissões */
+  .role-grid { grid-template-columns: 1fr !important; }
+  .role-card { padding: 1rem !important; }
+  .perm-item { font-size: 0.68rem !important; }
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Equipe */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.6rem !important; }
+  .member-ava { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; }
+  .member-card { padding: 1rem !important; }
+  .member-btns { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* Fit Predictor */
+  .result-box { padding: 1rem !important; }
+  .score-num { font-size: 3.5rem !important; }
+  .bar-label { width: 70px !important; font-size: 0.6rem !important; }
+  .insights { font-size: 0.7rem !important; }
+  .hist-list { max-height: 200px !important; }
+
+  /* Inteligência / busca IA */
+  .search-inner { flex-direction: column !important; }
+  .s-input { width: 100% !important; }
+  .search-box { padding: 0.9rem !important; }
+
+  /* Notificações */
+  .notif-list { max-height: 300px !important; }
+  .kpi-row .kpi { text-align: center; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Seção labels */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Topbar (emails / entrevista) */
+  .topbar, .tbar {
+    padding: 0.7rem 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+  .topbar-actions { gap: 0.4rem !important; }
+  .topbar-actions .btn, .topbar-actions button { font-size: 0.68rem !important; padding: 0.38rem 0.65rem !important; }
+}
+
+</style></head><body>
+<div class="page">
+  <div class="hero">
+    <div><div class="eyebrow">Operações</div><div class="title">Equipe <span>Interna</span></div><div class="sub">Membros da equipe Agência Nexus</div></div>
+    <button class="btn btn-accent" onclick="toggleForm()">➕ Novo membro</button>
+  </div>
+  <div class="form-card" id="formCard">
+    <div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1rem;">👥 Novo membro da equipe</div>
+    <div class="grid-2">
+      <div><label class="fl">Nome *</label><input class="fi" id="mNome" placeholder="Nome completo"/></div>
+      <div><label class="fl">Cargo</label><input class="fi" id="mCargo" placeholder="Ex: Recrutadora Sênior"/></div>
+    </div>
+    <div class="grid-2">
+      <div><label class="fl">E-mail</label><input class="fi" id="mEmail" type="email" placeholder="email@nexus.com.br"/></div>
+      <div><label class="fl">WhatsApp</label><input class="fi" id="mTel" placeholder="(51) 9 9999-9999"/></div>
+    </div>
+    <div class="grid-2">
+      <div><label class="fl">Perfil de acesso</label><select class="fsel" id="mPerfil"><option value="recrutador">Recrutador</option><option value="admin">Administrador</option><option value="visualizador">Visualizador</option></select></div>
+      <div><label class="fl">Emoji / Inicial</label><input class="fi" id="mEmoji" placeholder="Ex: 🎯 ou A"/></div>
+    </div>
+    <div style="display:flex;gap:0.6rem;">
+      <button class="btn btn-accent" onclick="salvar()" style="flex:2;justify-content:center;">💾 Adicionar membro</button>
+      <button class="btn btn-ghost" onclick="toggleForm()" style="flex:1;justify-content:center;">✕ Cancelar</button>
+    </div>
+  </div>
+  <div class="team-grid" id="teamGrid"><div class="empty" style="grid-column:1/-1;">Carregando...</div></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+const HEADERS = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
+const LS_KEY = 'nexus_membros';
+
+const CORES=['#1e40af','#3498db','#9b59b6','#e74c3c','#f39c12','#2563eb','#e67e22','#2980b9'];
+const FIXOS=[
+  {id:'admin',nome:'Administrador',cargo:'Administrador do sistema',email:'admin@nexus.com.br',perfil:'admin',cor:'#1e40af',emoji:'🛡️',fixo:true},
+  {id:'rh',nome:'Recrutador',cargo:'Recrutador',email:'rh@nexus.com.br',perfil:'recrutador',cor:'#3498db',emoji:'👤',fixo:true}
+];
+let _membros = [];
+let _modoLocal = false;
+
+// ── STORAGE A/B ───────────────────────────────────────
+function lsLer(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'[]'); }catch(e){ return []; } }
+function lsSalvar(dados){ try{ localStorage.setItem(LS_KEY, JSON.stringify(dados)); }catch(e){} }
+function mostrarModo(local){
+  _modoLocal = local;
+  let badge = document.getElementById('modoBadge');
+  if(!badge){
+    badge = document.createElement('span');
+    badge.id = 'modoBadge';
+    badge.style.cssText = 'font-size:0.6rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:99px;margin-left:0.6rem;vertical-align:middle;';
+    const sub = document.querySelector('.sub');
+    if(sub) sub.appendChild(badge);
+  }
+  if(local){
+    badge.textContent = '💾 Modo local';
+    badge.style.background = 'rgba(243,156,18,0.12)';
+    badge.style.color = 'var(--orange)';
+    badge.style.border = '1px solid rgba(243,156,18,0.3)';
+  } else {
+    badge.textContent = '☁️ Nuvem ativa';
+    badge.style.background = 'rgba(59,130,246,0.1)';
+    badge.style.color = 'var(--green)';
+    badge.style.border = '1px solid rgba(59,130,246,0.2)';
+  }
+}
+
+async function init(){
+  // Plano A — Supabase
+  try {
+    const res = await fetch(SUPABASE_URL+'/rest/v1/equipe_membros?fixo=eq.false&order=criado_em.asc',{headers:HEADERS});
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    const dados = await res.json();
+    if(!Array.isArray(dados)) throw new Error('Resposta inválida');
+    _membros = dados;
+    lsSalvar(_membros);
+    mostrarModo(false);
+    render(); return;
+  } catch(e){
+    console.warn('[Equipe] Supabase indisponível, usando localStorage:', e.message);
+  }
+  // Plano B — localStorage
+  _membros = lsLer();
+  mostrarModo(true);
+  render();
+}
+
+function toggleForm(){ document.getElementById('formCard').classList.toggle('show'); }
+
+async function salvar(){
+  const nome=(document.getElementById('mNome').value||'').trim();
+  if(!nome){toast('Nome obrigatório',true);return;}
+  const m={
+    nome,
+    cargo:document.getElementById('mCargo').value.trim(),
+    email:document.getElementById('mEmail').value.trim(),
+    tel:document.getElementById('mTel').value.trim(),
+    perfil:document.getElementById('mPerfil').value,
+    emoji:document.getElementById('mEmoji').value.trim()||nome[0].toUpperCase(),
+    cor:CORES[_membros.length%CORES.length],
+    fixo:false
+  };
+  let salvouNuvem = false;
+  // Plano A
+  if(!_modoLocal){
+    try {
+      const res = await fetch(SUPABASE_URL+'/rest/v1/equipe_membros',{method:'POST',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(m)});
+      if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||e.hint||'Supabase '+res.status);}
+      const criado = await res.json();
+      _membros.push(Array.isArray(criado)?criado[0]:criado);
+      lsSalvar(_membros);
+      salvouNuvem = true;
+      toast('✅ Membro adicionado! ☁️');
+    } catch(e){
+      console.warn('[Equipe] Supabase falhou ao salvar:', e.message);
+      mostrarModo(true);
+    }
+  }
+  // Plano B
+  if(!salvouNuvem){
+    m.id = 'ls_'+Date.now();
+    m.criado_em = new Date().toISOString();
+    _membros.push(m);
+    lsSalvar(_membros);
+    toast('✅ Membro adicionado! 💾 (local)');
+  }
+  render();
+  document.getElementById('formCard').classList.remove('show');
+}
+
+async function excluir(id){
+  if(!confirm('Remover este membro?')) return;
+  // Plano A
+  if(!_modoLocal){
+    try {
+      const res = await fetch(SUPABASE_URL+'/rest/v1/equipe_membros?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{...HEADERS,'Prefer':'return=minimal'}});
+      if(!res.ok) throw new Error('Supabase '+res.status);
+    } catch(e){
+      console.warn('[Equipe] Supabase falhou ao excluir:', e.message);
+      mostrarModo(true);
+    }
+  }
+  // Plano B (sempre atualiza local)
+  _membros = _membros.filter(m=>String(m.id)!==String(id));
+  lsSalvar(_membros);
+  render();
+  toast('Membro removido');
+}
+
+function render(){
+  const todos=[...FIXOS,..._membros];
+  const el=document.getElementById('teamGrid');
+  el.innerHTML=todos.map(m=>`<div class="member-card">
+    <div class="member-ava" style="background:${m.cor||'#1e40af'};">${m.emoji||m.nome[0]}</div>
+    <div class="member-nome">${esc(m.nome)}</div>
+    <div class="member-cargo">${esc(m.cargo||'—')}</div>
+    <div class="role-badge ${m.perfil==='admin'?'rb-admin':'rb-rec'}">${m.perfil==='admin'?'👑 Admin':'👤 Recrutador'}</div>
+    <div class="member-btns">
+      ${m.email?`<a href="https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(m.email)}" target="_blank" class="btn btn-ghost" style="font-size:0.68rem;text-decoration:none;">✉️</a>`:''}
+      ${m.tel?`<a href="https://wa.me/55${m.tel.replace(/\D/g,'')}" target="_blank" class="btn btn-ghost" style="font-size:0.68rem;text-decoration:none;">💬</a>`:''}
+      ${!m.fixo?`<button class="btn btn-red" style="font-size:0.68rem;" onclick="excluir('${m.id}')">🗑</button>`:''}
+    </div>
+  </div>`).join('');
+}
+
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+let _tt;
+function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(err?' err':'');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3000);}
+
+init();
+</script></body></html>

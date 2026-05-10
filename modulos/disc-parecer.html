@@ -1,0 +1,2374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Parecer | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+
+<style>
+
+@font-face {
+  font-family: 'Sora';
+  src: url('Sora-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('Sora-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('Sora-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('Sora-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('Sora-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('Sora-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('Sora-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('Sora-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Sora', sans-serif;
+}
+    :root{
+      --primary:#1e40af;--accent:#3b82f6;
+      --bg:#0a0a0a;--card:#131313;--card2:#1a1a1a;
+      --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.3);
+      --text:#f0f0f0;--muted:#777;--muted2:#444;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+
+    .wrapper{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:2rem 1.2rem 5rem;}
+
+    /* ── HEADER ── */
+    .top-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;}
+    .logo-area{display:flex;align-items:center;gap:0.8rem;}
+    .logo-area img{width:40px;height:40px;object-fit:contain;}
+    .logo-area span{font-size:0.82rem;color:var(--muted);}
+    .btn-back{background:rgba(255,255,255,0.07);color:var(--muted);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.5rem 1rem;font-family:inherit;font-size:0.82rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;transition:all 0.2s;}
+    .btn-back:hover{background:rgba(255,255,255,0.12);color:var(--text);}
+
+    /* ── CANDIDATO HEADER ── */
+    .cand-header{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:1.4rem 1.8rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;}
+    .cand-badge{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+    .cand-info{flex:1;min-width:180px;}
+    .cand-nome{font-size:1.3rem;font-weight:900;margin-bottom:0.2rem;background:transparent;border:none;border-bottom:1px dashed rgba(59,130,246,0.3);color:var(--text);font-family:inherit;outline:none;width:100%;padding:0 2px;transition:border-color 0.2s;}
+    .cand-nome:focus{border-bottom-color:var(--accent);}
+    .cand-nome::placeholder{color:var(--muted2);}
+    .cand-meta{font-size:0.8rem;color:var(--muted);display:flex;gap:1rem;flex-wrap:wrap;}
+    .cand-disc{display:flex;gap:0.6rem;align-items:center;margin-left:auto;}
+    .disc-pill{display:flex;align-items:center;gap:0.4rem;border-radius:99px;padding:0.3rem 0.9rem;font-size:0.75rem;font-weight:800;}
+
+    /* ── SECTION ── */
+    .section{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+    .section-title{font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);opacity:0.8;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem;}
+    .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+    /* ── GRID ── */
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+    .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+    @media(max-width:600px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+    /* ── CAMPOS ── */
+    .field-label{font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.6px;display:block;margin-bottom:0.35rem;}
+    .field-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+    .field-input:focus{border-color:var(--accent);}
+    .field-input::placeholder{color:var(--muted2);}
+    .field-textarea{resize:vertical;line-height:1.65;min-height:100px;}
+    .field-textarea.tall{min-height:140px;}
+    .field-textarea.parecer{min-height:180px;}
+
+    /* ── OBSERVAÇÕES RÁPIDAS ── */
+    .obs-list{display:flex;flex-direction:column;gap:0.5rem;}
+    .obs-item{display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.5rem 0.8rem;}
+    .obs-item input[type="checkbox"]{accent-color:var(--accent);width:15px;height:15px;cursor:pointer;flex-shrink:0;}
+    .obs-item span{font-size:0.82rem;color:var(--muted);flex:1;}
+    .obs-item input[type="text"]{flex:1;background:transparent;border:none;color:var(--text);font-family:inherit;font-size:0.82rem;outline:none;}
+    .obs-item input[type="text"]::placeholder{color:var(--muted2);}
+
+    /* ── RATING ── */
+    .rating-row{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;}
+    .rating-label{font-size:0.8rem;color:var(--text);flex:1;}
+    .stars{display:flex;gap:0.25rem;}
+    .star{width:22px;height:22px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:var(--muted);transition:all 0.15s;}
+    .star:hover,.star.on{background:rgba(59,130,246,0.2);border-color:var(--accent);color:var(--accent);}
+
+    /* ── RESULTADO / DECISÃO ── */
+    .decisao-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+    .decisao-btn{border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.8rem 0.5rem;background:rgba(255,255,255,0.04);cursor:pointer;text-align:center;transition:all 0.2s;font-family:inherit;}
+    .decisao-btn:hover{background:rgba(255,255,255,0.08);}
+    .decisao-btn.selected-aprovado{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.4);color:#2ecc71;}
+    .decisao-btn.selected-reserva{background:rgba(243,156,18,0.15);border-color:rgba(243,156,18,0.4);color:#f39c12;}
+    .decisao-btn.selected-reprovado{background:rgba(231,76,60,0.15);border-color:rgba(231,76,60,0.4);color:#e74c3c;}
+    .decisao-btn.selected-contratar{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.5);color:#2ecc71;}
+    .decisao-btn.selected-entrevista{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.5);color:#3b82f6;}
+    .decisao-btn.selected-ressalvas{background:rgba(243,156,18,0.15);border-color:rgba(243,156,18,0.5);color:#f39c12;}
+    .decisao-btn.selected-banco{background:rgba(52,152,219,0.15);border-color:rgba(52,152,219,0.5);color:#3498db;}
+    .decisao-btn.selected-nao{background:rgba(231,76,60,0.15);border-color:rgba(231,76,60,0.4);color:#e74c3c;}
+    .decisao-btn.selected-comprovada{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.5);color:#2ecc71;}
+    .decisao-btn.selected-parcial{background:rgba(243,156,18,0.15);border-color:rgba(243,156,18,0.5);color:#f39c12;}
+    .decisao-btn.selected-correlata{background:rgba(52,152,219,0.15);border-color:rgba(52,152,219,0.5);color:#3498db;}
+    .decisao-btn.selected-estagio{background:rgba(155,89,182,0.15);border-color:rgba(155,89,182,0.5);color:#9b59b6;}
+    .decisao-btn.selected-pj{background:rgba(26,188,156,0.15);border-color:rgba(26,188,156,0.5);color:#2563eb;}
+    .decisao-btn.selected-autonomo{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.5);color:#3b82f6;}
+    .decisao-btn.selected-indireto{background:rgba(149,165,166,0.15);border-color:rgba(149,165,166,0.5);color:#95a5a6;}
+    .decisao-btn.selected-sem{background:rgba(231,76,60,0.15);border-color:rgba(231,76,60,0.4);color:#e74c3c;}
+    .decisao-icon{font-size:1.4rem;display:block;margin-bottom:0.3rem;}
+    .decisao-label{font-size:0.78rem;font-weight:700;}
+
+    .field-select{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.85rem center;}
+    .field-select:focus{border-color:var(--accent);}
+    .field-select option{background:#1a1a1a;color:var(--text);}
+    .formacao-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1rem 1rem 0.8rem;}
+    .status-btns{display:flex;gap:0.4rem;}
+    .status-btn{flex:1;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.4rem 0.3rem;background:rgba(255,255,255,0.04);cursor:pointer;text-align:center;font-family:inherit;font-size:0.72rem;font-weight:700;color:var(--muted);transition:all 0.15s;}
+    .status-btn:hover{background:rgba(255,255,255,0.08);}
+    .status-btn.on-concluido{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.4);color:#2ecc71;}
+    .status-btn.on-andamento{background:rgba(243,156,18,0.15);border-color:rgba(243,156,18,0.4);color:#f39c12;}
+    .status-btn.on-incompleto{background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.3);color:#e74c3c;}
+    .action-bar{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1.5rem;}
+    .btn-pdf{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:14px;padding:1rem 1.8rem;font-family:inherit;font-size:0.95rem;font-weight:800;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:0.5rem;}
+    .btn-pdf:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,0.25);}
+    .btn-unif{background:linear-gradient(135deg,#6c3483,#a78bfa);color:#fff;border:none;border-radius:14px;padding:1rem 1.8rem;font-family:inherit;font-size:0.95rem;font-weight:800;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:0.5rem;}
+    .btn-unif:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(167,139,250,0.3);}
+    .btn-save{background:rgba(59,130,246,0.1);color:var(--accent);border:1px solid var(--border2);border-radius:14px;padding:1rem 1.4rem;font-family:inherit;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .btn-save:hover{background:rgba(59,130,246,0.18);}
+    .save-status{font-size:0.72rem;color:var(--muted);align-self:center;}
+
+    /* ── CONFIDENCIAL ── */
+    .field-wrap{position:relative;}
+    .conf-toggle{display:inline-flex;align-items:center;gap:0.35rem;margin-bottom:0.35rem;cursor:pointer;user-select:none;}
+    .conf-toggle input[type="checkbox"]{display:none;}
+    .conf-box{width:14px;height:14px;border-radius:4px;border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;transition:all 0.18s;flex-shrink:0;}
+    .conf-toggle input:checked ~ .conf-box{background:rgba(231,76,60,0.25);border-color:rgba(231,76,60,0.6);}
+    .conf-toggle input:checked ~ .conf-box::after{content:'🔒';font-size:8px;line-height:1;}
+    .conf-label-text{font-size:0.6rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted);transition:color 0.18s;}
+    .conf-toggle:has(input:checked) .conf-label-text{color:#e74c3c;}
+    .field-input.is-confidential{color:transparent!important;text-shadow:0 0 8px rgba(231,76,60,0.6);background:rgba(231,76,60,0.07)!important;border-color:rgba(231,76,60,0.4)!important;caret-color:var(--text);letter-spacing:2px;}
+    .field-input.is-confidential::placeholder{color:transparent;}
+    .conf-badge{display:none;position:absolute;right:0.7rem;top:50%;transform:translateY(-50%);font-size:0.62rem;font-weight:800;color:#e74c3c;background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.3);border-radius:6px;padding:1px 7px;pointer-events:none;letter-spacing:0.5px;}
+    .field-wrap.has-pretensao .conf-badge{right:0.7rem;}
+    .is-confidential ~ .conf-badge,.field-input.is-confidential + .conf-badge{display:block;}
+
+    /* ── TOAST ── */
+    .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:#2ecc71;color:#fff;font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:700;padding:0.7rem 1.6rem;border-radius:99px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:999;}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+    .toast.erro{background:#e74c3c;}
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="logo-area">
+      <img src="fundo.png" alt="Agência Nexus"/>
+      <span>Uso interno — Agência Nexus</span>
+    </div>
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+      <button class="btn-back" onclick="window.history.back()">← Histórico</button>
+    </div>
+  </div>
+
+  <!-- CANDIDATO HEADER -->
+  <div class="cand-header" id="candHeader">
+    <div class="cand-badge" id="candBadge">⬜</div>
+    <div class="cand-info">
+      <input type="text" class="cand-nome" id="candNome" placeholder="Nome do candidato" title="Clique para editar o nome" autocomplete="off"/>
+      <div class="cand-meta">
+        <span style="display:flex;align-items:center;gap:0.35rem;color:var(--muted);font-size:0.75rem;font-weight:600;">📋 <input type="text" id="candVaga" placeholder="Nome da vaga" title="Clique para editar a vaga" autocomplete="off" style="background:transparent;border:none;border-bottom:1px dashed rgba(59,130,246,0.3);color:var(--muted);font-family:inherit;font-size:0.8rem;font-weight:600;outline:none;width:200px;padding:0 2px;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--accent)';this.style.color='var(--text)'" onblur="this.style.borderColor='rgba(59,130,246,0.3)';this.style.color='var(--muted)'"/></span>
+        <span id="candData">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 1: DADOS PESSOAIS ── -->
+  <div class="section">
+    <p class="section-title">👤 Dados do Candidato</p>
+    <div class="grid-2">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Nome completo</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fNome')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fNome" placeholder="Nome completo"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Nome da mãe</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fMae')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fMae" placeholder="Nome da mãe"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Nome do pai</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fPai')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fPai" placeholder="Nome do pai"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Idade</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fIdade')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fIdade" placeholder="Ex: 28 anos"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">CPF</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fCPF')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fCPF" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">RG</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fRG')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fRG" placeholder="00.000.000-0" maxlength="12" oninput="maskRG(this)"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Nacionalidade</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fNacionalidade')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fNacionalidade" placeholder="Brasileiro(a)"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Cidade</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fCidade')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fCidade" placeholder="Cidade"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Bairro</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fBairro')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fBairro" placeholder="Bairro"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Disponibilidade</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fDisponibilidade')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fDisponibilidade" placeholder="Ex: Imediata"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">CNH / Veículo</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fCNH')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap">
+          <input type="text" class="field-input" id="fCNH" placeholder="Ex: Cat. B / Carro próprio"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+          <label class="field-label" style="margin-bottom:0;">Pretensão salarial</label>
+          <label class="conf-toggle" title="Marcar como confidencial">
+            <input type="checkbox" onchange="toggleConf(this,'fPretensao')"/>
+            <span class="conf-box"></span>
+            <span class="conf-label-text">Confidencial</span>
+          </label>
+        </div>
+        <div class="field-wrap has-pretensao" style="position:relative;">
+          <span style="position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:0.85rem;pointer-events:none;z-index:1;">R$</span>
+          <input type="text" class="field-input" id="fPretensao" placeholder="0,00" maxlength="13" oninput="maskSalario(this)" style="padding-left:2.2rem;"/>
+          <span class="conf-badge">🔒 CONFIDENCIAL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 2: EDUCAÇÃO ── -->
+  <div class="section">
+    <p class="section-title">🎓 Formação Acadêmica</p>
+    <div id="formacoesWrap" style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:0.6rem;"></div>
+    <button type="button" onclick="addFormacao()" style="background:rgba(59,130,246,0.08);border:1px dashed rgba(59,130,246,0.35);border-radius:10px;color:var(--accent);font-family:inherit;font-size:0.78rem;font-weight:700;padding:0.45rem 1rem;cursor:pointer;width:100%;transition:all 0.2s;" onmouseover="this.style.background='rgba(59,130,246,0.14)'" onmouseout="this.style.background='rgba(59,130,246,0.08)'">+ Adicionar formação</button>
+  </div>
+
+  <!-- ── SEÇÃO 3: CURSOS ── -->
+  <div class="section">
+    <p class="section-title">📚 Cursos Complementares</p>
+    <div id="cursosWrap" style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.5rem;"></div>
+    <button type="button" onclick="addCurso()" style="background:rgba(59,130,246,0.08);border:1px dashed rgba(59,130,246,0.35);border-radius:10px;color:var(--accent);font-family:inherit;font-size:0.78rem;font-weight:700;padding:0.45rem 1rem;cursor:pointer;width:100%;transition:all 0.2s;" onmouseover="this.style.background='rgba(59,130,246,0.14)'" onmouseout="this.style.background='rgba(59,130,246,0.08)'">+ Adicionar curso</button>
+  </div>
+
+  <!-- ── SEÇÃO 4: HABILIDADES ── -->
+  <div class="section">
+    <p class="section-title">💻 Habilidades & Idiomas</p>
+
+    <!-- Softwares (dinâmico) -->
+    <label class="field-label" style="margin-bottom:0.5rem;">Softwares / ferramentas</label>
+    <div id="softwaresWrap" style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.5rem;"></div>
+    <button type="button" onclick="addSoftware()" style="background:rgba(59,130,246,0.08);border:1px dashed rgba(59,130,246,0.35);border-radius:10px;color:var(--accent);font-family:inherit;font-size:0.78rem;font-weight:700;padding:0.45rem 1rem;cursor:pointer;width:100%;transition:all 0.2s;margin-bottom:1rem;" onmouseover="this.style.background='rgba(59,130,246,0.14)'" onmouseout="this.style.background='rgba(59,130,246,0.08)'">+ Adicionar software</button>
+
+    <!-- Idiomas (dinâmico) -->
+    <label class="field-label" style="margin-bottom:0.5rem;">Idiomas</label>
+    <div id="idiomasWrap" style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.5rem;"></div>
+    <button type="button" onclick="addIdioma()" style="background:rgba(59,130,246,0.08);border:1px dashed rgba(59,130,246,0.35);border-radius:10px;color:var(--accent);font-family:inherit;font-size:0.78rem;font-weight:700;padding:0.45rem 1rem;cursor:pointer;width:100%;transition:all 0.2s;margin-bottom:1rem;" onmouseover="this.style.background='rgba(59,130,246,0.14)'" onmouseout="this.style.background='rgba(59,130,246,0.08)'">+ Adicionar idioma</button>
+
+    <!-- Experiência na área -->
+    <div style="margin-bottom:1rem;">
+      <label class="field-label" style="margin-bottom:0.5rem;">Experiência na área</label>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;" id="expAreaWrap">
+        <button type="button" class="decisao-btn" id="exp-comprovada" onclick="setExpArea('comprovada')">
+          <span class="decisao-icon">✅</span>
+          <span class="decisao-label">Sim, experiência comprovada</span>
+        </button>
+        <button type="button" class="decisao-btn" id="exp-parcial" onclick="setExpArea('parcial')">
+          <span class="decisao-icon">🟡</span>
+          <span class="decisao-label">Sim, experiência parcial</span>
+        </button>
+        <button type="button" class="decisao-btn" id="exp-correlata" onclick="setExpArea('correlata')">
+          <span class="decisao-icon">🔵</span>
+          <span class="decisao-label">Experiência em área correlata</span>
+        </button>
+        <button type="button" class="decisao-btn" id="exp-estagio" onclick="setExpArea('estagio')">
+          <span class="decisao-icon">🎓</span>
+          <span class="decisao-label">Experiência por estágio</span>
+        </button>
+        <button type="button" class="decisao-btn" id="exp-pj" onclick="setExpArea('pj')">
+          <span class="decisao-icon">🏢</span>
+          <span class="decisao-label">Experiência por PJ</span>
+        </button>
+        <button type="button" class="decisao-btn" id="exp-autonomo" onclick="setExpArea('autonomo')">
+          <span class="decisao-icon">🧑‍💼</span>
+          <span class="decisao-label">Autônomo</span>
+        </button>
+        <button type="button" class="decisao-btn" id="exp-indireto" onclick="setExpArea('indireto')">
+          <span class="decisao-icon">🔗</span>
+          <span class="decisao-label">Indireto</span>
+        </button>
+        <button type="button" class="decisao-btn" id="exp-sem" onclick="setExpArea('sem')">
+          <span class="decisao-icon">❌</span>
+          <span class="decisao-label">Sem experiência na área</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Área de atuação -->
+    <div class="grid-2" style="margin-bottom:0;">
+      <div><label class="field-label">Área de atuação principal</label><input type="text" class="field-input" id="fAreaAtuacao" placeholder="Ex: Logística, TI, Vendas..."/></div>
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 4: PARECER PROFISSIONAL ── -->
+  <div class="section">
+    <p class="section-title">💼 Parecer Profissional</p>
+    <div style="margin-bottom:1rem;">
+      <label class="field-label">Resumo profissional (experiências, trajetória)</label>
+      <textarea class="field-input field-textarea parecer" id="fParecerProfissional" placeholder="Descreva a trajetória profissional do candidato, experiências relevantes, pontos técnicos observados na entrevista..."></textarea>
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 5: PARECER COMPORTAMENTAL ── -->
+  <div class="section">
+    <p class="section-title">🧠 Parecer Comportamental</p>
+    <div style="margin-bottom:1rem;">
+      <label class="field-label">Análise comportamental da entrevista</label>
+      <textarea class="field-input field-textarea parecer" id="fParecerComportamental" placeholder="Descreva as impressões comportamentais: postura, comunicação, engajamento, alinhamento com o perfil DISC, pontos fortes e pontos de atenção observados na entrevista..."></textarea>
+    </div>
+
+    <!-- Avaliação por critérios -->
+    <label class="field-label" style="margin-bottom:0.8rem;">Avaliação por critério (1 a 10)</label>
+    <div id="ratingsWrap"></div>
+  </div>
+
+  <!-- ── SEÇÃO 6: OBSERVAÇÕES RÁPIDAS ── -->
+  <div class="section">
+    <p class="section-title">📋 Observações Rápidas</p>
+    <div class="obs-list" id="obsList"></div>
+    <div style="margin-top:0.8rem;">
+      <label class="field-label">Observação adicional livre</label>
+      <textarea class="field-input field-textarea" id="fObsLivre" placeholder="Outras anotações relevantes..."></textarea>
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 7: DECISÃO ── -->
+  <div class="section">
+    <p class="section-title">🎯 Decisão do Recrutador</p>
+    <div class="decisao-grid">
+      <button class="decisao-btn" id="dec-aprovado" onclick="setDecisao('aprovado')">
+        <span class="decisao-icon">✅</span>
+        <span class="decisao-label">Aprovado</span>
+      </button>
+      <button class="decisao-btn" id="dec-reserva" onclick="setDecisao('reserva')">
+        <span class="decisao-icon">🟡</span>
+        <span class="decisao-label">Reserva</span>
+      </button>
+      <button class="decisao-btn" id="dec-reprovado" onclick="setDecisao('reprovado')">
+        <span class="decisao-icon">❌</span>
+        <span class="decisao-label">Não aprovado</span>
+      </button>
+    </div>
+
+    <!-- Divisor -->
+    <div style="height:1px;background:var(--border);margin:1.2rem 0;"></div>
+
+    <!-- Recomendação para empresa -->
+    <p class="section-title" style="margin-bottom:1rem;">🏢 Recomendação para a Empresa</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.6rem;margin-bottom:0.8rem;">
+      <button class="decisao-btn" id="rec-contratar" onclick="setRecomendacao('contratar')">
+        <span class="decisao-icon">🌟</span>
+        <span class="decisao-label">Recomendado para contratação</span>
+      </button>
+      <button class="decisao-btn" id="rec-entrevista" onclick="setRecomendacao('entrevista')">
+        <span class="decisao-icon">🤝</span>
+        <span class="decisao-label">Recomendado para entrevista presencial</span>
+      </button>
+      <button class="decisao-btn" id="rec-ressalvas" onclick="setRecomendacao('ressalvas')">
+        <span class="decisao-icon">⚠️</span>
+        <span class="decisao-label">Recomendado com ressalvas</span>
+      </button>
+      <button class="decisao-btn" id="rec-banco" onclick="setRecomendacao('banco')">
+        <span class="decisao-icon">📁</span>
+        <span class="decisao-label">Banco de talentos</span>
+      </button>
+      <button class="decisao-btn" id="rec-nao" onclick="setRecomendacao('nao')" style="grid-column:span 2;">
+        <span class="decisao-icon">🚫</span>
+        <span class="decisao-label">Não recomendado</span>
+      </button>
+    </div>
+    <!-- Campo de motivo (sempre visível após seleção) -->
+    <div id="ressalvasWrap" style="display:none;">
+      <label class="field-label">Motivo / justificativa da recomendação</label>
+      <textarea class="field-input field-textarea" id="fRessalvas" placeholder="Descreva o motivo ou contexto desta recomendação para a empresa..."></textarea>
+    </div>
+  </div>
+
+  <!-- ── AÇÕES ── -->
+  <div class="action-bar" style="align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:0.2rem;">
+      <label for="dataEmissao" style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;">Data de emissão</label>
+      <input type="date" id="dataEmissao" style="background:rgba(255,255,255,0.06);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:0.55rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;color-scheme:dark;"/>
+    </div>
+    <button class="btn-pdf" onclick="gerarPDFCompleto()">🖨️ Gerar PDF (4 páginas)</button>
+    <button class="btn-save" onclick="diagnosticoConf()" style="background:rgba(255,200,0,0.12);color:#f1c40f;border-color:rgba(241,196,15,0.4);">🔍 Testar Confidencial</button>
+    <button class="btn-unif" onclick="abrirPDFUnificado()">📄 PDF Unificado (Parecer + DISC)</button>
+    <button class="btn-save" onclick="salvarParecer()">💾 Salvar Parecer</button>
+    <button class="btn-save" onclick="carregarDados()" style="background:rgba(52,152,219,0.12);color:#3498db;border-color:rgba(52,152,219,0.4);" title="Busca novamente no Supabase e preenche o formulário">🔄 Recarregar do Banco</button>
+    <button class="btn-save" onclick="novoParecerVersao()" style="background:rgba(59,130,246,0.08);color:#2ecc71;border-color:rgba(59,130,246,0.25);" title="Cria um novo registro no banco para outra empresa/vaga">➕ Nova Versão</button>
+    <button class="btn-save" onclick="abrirHistorico()" style="background:rgba(167,139,250,0.1);color:#a78bfa;border-color:rgba(167,139,250,0.3);">📂 Histórico</button>
+    <button class="btn-save" onclick="abrirParecerFinal()" style="background:rgba(255,215,0,0.1);color:#f1c40f;border-color:rgba(241,196,15,0.4);font-weight:800;">⭐ Parecer Final</button>
+    <button class="btn-save" onclick="abrirConfigSupabase()" style="background:rgba(255,100,0,0.1);color:#ff6b35;border-color:rgba(255,107,53,0.35);font-size:0.75rem;" title="Configurar chave do Supabase">⚙️ Config Supabase</button>
+    <span class="save-status" id="saveStatus"></span>
+  </div>
+  <script>
+    // Inicializa campo de data com hoje
+    (function(){
+      const el = document.getElementById('dataEmissao');
+      if(el){ const t = new Date(); el.value = t.toISOString().slice(0,10); }
+    })();
+  </script>
+
+<!-- MODAL PARECER FINAL -->
+<div id="modalParecerFinal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:#161616;border:1px solid rgba(241,196,15,0.35);border-radius:22px;padding:2rem;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;position:relative;">
+    <button onclick="fecharParecerFinal()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;color:#777;font-size:1rem;">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#f1c40f;margin-bottom:0.3rem;">Resultado</div>
+    <div style="font-size:1.1rem;font-weight:900;color:#f0f0f0;margin-bottom:1.4rem;">⭐ Parecer Final do Candidato</div>
+
+    <!-- Nome e Vaga -->
+    <div id="pfNomeVaga" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.9rem 1.1rem;margin-bottom:1rem;"></div>
+
+    <!-- Decisão -->
+    <div id="pfDecisao" style="border-radius:12px;padding:1rem 1.2rem;margin-bottom:0.8rem;border:2px solid;"></div>
+
+    <!-- Recomendação -->
+    <div id="pfRecomendacao" style="border-radius:12px;padding:1rem 1.2rem;margin-bottom:0.8rem;border:2px solid;"></div>
+
+    <!-- Média dos ratings -->
+    <div id="pfMedia" style="border-radius:12px;padding:1rem 1.2rem;margin-bottom:0.8rem;background:rgba(108,52,131,0.12);border:1.5px solid rgba(108,52,131,0.35);"></div>
+
+    <!-- Justificativa -->
+    <div id="pfJustificativa" style="display:none;background:rgba(255,251,235,0.05);border-left:4px solid #e0a000;border-radius:0 10px 10px 0;padding:0.9rem 1rem;margin-bottom:0.8rem;"></div>
+
+    <!-- Observações marcadas -->
+    <div id="pfObs" style="display:none;margin-bottom:0.8rem;"></div>
+
+    <button onclick="fecharParecerFinal()" style="width:100%;background:rgba(241,196,15,0.12);color:#f1c40f;border:1px solid rgba(241,196,15,0.35);border-radius:12px;padding:0.8rem;font-family:inherit;font-size:0.88rem;font-weight:700;cursor:pointer;margin-top:0.4rem;transition:all 0.2s;" onmouseover="this.style.background='rgba(241,196,15,0.22)'" onmouseout="this.style.background='rgba(241,196,15,0.12)'">Fechar</button>
+  </div>
+</div>
+
+<!-- MODAL HISTÓRICO -->
+<div id="modalHistorico" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:#161616;border:1px solid rgba(167,139,250,0.3);border-radius:20px;padding:1.6rem;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;position:relative;">
+    <button onclick="fecharHistorico()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:28px;height:28px;cursor:pointer;color:#777;font-size:0.9rem;">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:0.3rem;">Pareceres Salvos</div>
+    <div style="font-size:1rem;font-weight:900;color:#f0f0f0;margin-bottom:0.3rem;">📂 Histórico de versões</div>
+    <div style="font-size:0.75rem;color:#666;margin-bottom:1.2rem;">Clique em uma versão para carregar os dados. Você pode gerar um novo PDF com outra data.</div>
+    <div id="historicoLista" style="display:flex;flex-direction:column;gap:0.5rem;">
+      <p style="text-align:center;padding:2rem;color:#555;font-size:0.78rem;">⏳ Carregando…</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<div class="toast" id="toast"></div>
+
+<!-- MODAL CONFIG SUPABASE -->
+<div id="modalConfigSb" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:#161616;border:1px solid rgba(255,107,53,0.4);border-radius:22px;padding:2rem;width:100%;max-width:560px;position:relative;">
+    <button onclick="fecharConfigSupabase()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;color:#777;font-size:1rem;">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ff6b35;margin-bottom:0.3rem;">Configuração</div>
+    <div style="font-size:1.1rem;font-weight:900;color:#f0f0f0;margin-bottom:1.2rem;">⚙️ Conexão Supabase</div>
+
+    <div id="sbDiagResult" style="margin-bottom:1.2rem;"></div>
+
+    <div style="margin-bottom:1rem;">
+      <label style="font-size:0.68rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:0.4rem;">Anon Key atual (primeiros 30 chars)</label>
+      <div id="sbKeyPreview" style="font-size:0.75rem;color:#555;font-family:monospace;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.5rem 0.8rem;"></div>
+    </div>
+
+    <div style="margin-bottom:1.2rem;">
+      <label style="font-size:0.68rem;font-weight:700;color:#ff6b35;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:0.4rem;">Nova Anon Key (cole aqui)</label>
+      <textarea id="sbNewKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,53,0.4);border-radius:10px;padding:0.6rem 0.85rem;color:#f0f0f0;font-family:monospace;font-size:0.78rem;outline:none;resize:vertical;min-height:80px;"></textarea>
+      <div style="font-size:0.7rem;color:#555;margin-top:0.3rem;">A anon key fica em Supabase → Settings → API → "anon public". Começa sempre com <code style="color:#3b82f6;">eyJ</code></div>
+    </div>
+
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+      <button onclick="salvarNovaKey()" style="flex:1;background:rgba(255,107,53,0.15);color:#ff6b35;border:1px solid rgba(255,107,53,0.4);border-radius:12px;padding:0.75rem;font-family:inherit;font-size:0.85rem;font-weight:700;cursor:pointer;">💾 Salvar Chave</button>
+      <button onclick="testarConexao()" style="flex:1;background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);border-radius:12px;padding:0.75rem;font-family:inherit;font-size:0.85rem;font-weight:700;cursor:pointer;">🔍 Testar Conexão</button>
+    </div>
+
+    <div style="margin-top:1.2rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1rem;">
+      <div style="font-size:0.65rem;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.6rem;">📋 SQL — Criar tabela pareceres_historico</div>
+      <pre id="sqlCreate" style="font-size:0.68rem;color:#aaa;line-height:1.7;white-space:pre-wrap;margin:0;font-family:monospace;">create table if not exists pareceres_historico (
+  id bigint generated always as identity primary key,
+  cand_id text,
+  nome text,
+  vaga text,
+  dom text,
+  sec text,
+  decisao text,
+  parecer_json text,
+  criado_em timestamptz default now(),
+  atualizado_em timestamptz default now()
+);
+-- Habilitar RLS e permitir acesso anon:
+alter table pareceres_historico enable row level security;
+create policy "anon_all" on pareceres_historico for all to anon using (true) with check (true);</pre>
+      <button onclick="copiarSQL()" style="margin-top:0.6rem;background:rgba(59,130,246,0.08);color:#3b82f6;border:1px solid rgba(59,130,246,0.25);border-radius:8px;padding:0.35rem 0.9rem;font-family:inherit;font-size:0.72rem;font-weight:700;cursor:pointer;">📋 Copiar SQL</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══ MÁSCARAS ═══
+function maskCPF(el){
+  let v = el.value.replace(/\D/g,'').slice(0,11);
+  if(v.length > 9) v = v.replace(/^(\d{3})(\d{3})(\d{3})(\d{0,2})/,'$1.$2.$3-$4');
+  else if(v.length > 6) v = v.replace(/^(\d{3})(\d{3})(\d{0,3})/,'$1.$2.$3');
+  else if(v.length > 3) v = v.replace(/^(\d{3})(\d{0,3})/,'$1.$2');
+  el.value = v;
+}
+
+function maskRG(el){
+  let v = el.value.replace(/\D/g,'').slice(0,9);
+  if(v.length > 8) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})/,'$1.$2.$3-$4');
+  else if(v.length > 5) v = v.replace(/^(\d{2})(\d{3})(\d{0,3})/,'$1.$2.$3');
+  else if(v.length > 2) v = v.replace(/^(\d{2})(\d{0,3})/,'$1.$2');
+  el.value = v;
+}
+
+function maskSalario(el){
+  let v = el.value.replace(/\D/g,'');
+  if(!v){ el.value = ''; return; }
+  v = (parseInt(v,10)/100).toFixed(2);
+  v = v.replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+  el.value = v;
+}
+
+// ═══ LISTAS DINÂMICAS ═══
+function makeRemoveBtn(fn){ 
+  const b = document.createElement('button');
+  b.type='button'; b.textContent='×';
+  b.style.cssText='background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.3);border-radius:8px;color:#e74c3c;font-size:1rem;font-weight:700;width:32px;height:32px;cursor:pointer;flex-shrink:0;';
+  b.onclick=fn; return b;
+}
+function addRow(wrapId, placeholder, extraPlaceholder){
+  const wrap = document.getElementById(wrapId);
+  const row = document.createElement('div');
+  row.style.cssText='display:flex;gap:0.4rem;align-items:center;';
+  const inp = document.createElement('input');
+  inp.type='text'; inp.className='field-input'; inp.placeholder=placeholder;
+  inp.style.flex='1';
+  row.appendChild(inp);
+  if(extraPlaceholder){
+    const inp2 = document.createElement('input');
+    inp2.type='text'; inp2.className='field-input'; inp2.placeholder=extraPlaceholder;
+    inp2.style.cssText='flex:1;';
+    row.appendChild(inp2);
+  }
+  row.appendChild(makeRemoveBtn(()=>wrap.removeChild(row)));
+  wrap.appendChild(row);
+}
+const NIVEIS_ESC = [
+  '— Selecione o nível —',
+  'Ensino Fundamental Incompleto',
+  'Ensino Fundamental Completo',
+  'Ensino Médio Incompleto',
+  'Ensino Médio Completo',
+  'Curso Profissionalizante',
+  'Ensino Técnico',
+  'Tecnólogo',
+  'Superior Incompleto (Bacharelado)',
+  'Bacharelado',
+  'Licenciatura',
+  'Pós-graduação / Especialização',
+  'MBA',
+  'Mestrado',
+  'Doutorado',
+];
+
+let formacaoCount = 0;
+function addFormacao(data){
+  const id = ++formacaoCount;
+  const wrap = document.getElementById('formacoesWrap');
+  const card = document.createElement('div');
+  card.className = 'formacao-card';
+  card.id = 'formacao-card-'+id;
+  card.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.7rem;">
+      <span style="font-size:0.68rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;">Formação ${id}</span>
+      <button type="button" onclick="document.getElementById('formacao-card-${id}').remove()" style="background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.3);border-radius:7px;color:#e74c3c;font-size:0.8rem;font-weight:700;padding:0.2rem 0.6rem;cursor:pointer;">× Remover</button>
+    </div>
+    <div style="margin-bottom:0.5rem;">
+      <label class="field-label">Nível de escolaridade</label>
+      <select class="field-select" id="fNivel-${id}">
+        ${NIVEIS_ESC.map(n=>`<option value="${n==='— Selecione o nível —'?'':n}">${n}</option>`).join('')}
+      </select>
+    </div>
+    <div class="grid-2" style="margin-bottom:0.5rem;">
+      <div><label class="field-label">Curso / Área</label><input type="text" class="field-input" id="fCurso-${id}" placeholder="Ex: Administração, Mecânica..."/></div>
+      <div><label class="field-label">Instituição</label><input type="text" class="field-input" id="fInst-${id}" placeholder="Ex: Unopar, SENAI..."/></div>
+    </div>
+    <div>
+      <label class="field-label" style="margin-bottom:0.4rem;">Status</label>
+      <div class="status-btns" id="fStatus-wrap-${id}">
+        <button type="button" class="status-btn" onclick="setStatus(${id},'concluido')">✅ Concluído</button>
+        <button type="button" class="status-btn" onclick="setStatus(${id},'andamento')">⏳ Em andamento</button>
+        <button type="button" class="status-btn" onclick="setStatus(${id},'incompleto')">❌ Incompleto</button>
+      </div>
+    </div>`;
+  wrap.appendChild(card);
+  if(data){
+    if(data.nivel) document.getElementById('fNivel-'+id).value = data.nivel;
+    if(data.curso) document.getElementById('fCurso-'+id).value = data.curso;
+    if(data.inst)  document.getElementById('fInst-'+id).value  = data.inst;
+    if(data.status) setStatus(id, data.status);
+  }
+}
+
+function setStatus(id, val){
+  const btns = document.getElementById('fStatus-wrap-'+id).querySelectorAll('.status-btn');
+  const map = {concluido:0, andamento:1, incompleto:2};
+  btns.forEach((b,i)=>{ b.className='status-btn'+(i===map[val]?' on-'+val:''); });
+  document.getElementById('fStatus-wrap-'+id).dataset.status = val;
+}
+function addCurso(){ addRow('cursosWrap','Ex: NR-10, Excel Avançado...','Carga horária / Ano (opcional)'); }
+function addSoftware(){ addRow('softwaresWrap','Ex: SAP, AutoCAD, Excel...','Nível: básico/intermediário/avançado'); }
+function addIdioma(){ addRow('idiomasWrap','Ex: Inglês','Nível: básico/intermediário/avançado/fluente'); }
+
+function getListValues(wrapId, dual){
+  const rows = document.getElementById(wrapId).querySelectorAll('div');
+  return Array.from(rows).map(row=>{
+    const inputs = row.querySelectorAll('input');
+    if(!inputs[0].value.trim()) return null;
+    return dual ? {v: inputs[0].value.trim(), extra: inputs[1]?.value.trim()||''} : inputs[0].value.trim();
+  }).filter(Boolean);
+}
+
+function setListValues(wrapId, vals, dual, addFn){
+  document.getElementById(wrapId).innerHTML='';
+  if(!vals||!vals.length){ addFn(); return; }
+  vals.forEach(v=>{
+    addFn();
+    const wrap = document.getElementById(wrapId);
+    const rows = wrap.querySelectorAll('div');
+    const last = rows[rows.length-1];
+    const inputs = last.querySelectorAll('input');
+    if(dual){ inputs[0].value=v.v||''; if(inputs[1]) inputs[1].value=v.extra||''; }
+    else inputs[0].value=v;
+  });
+}
+
+function getFormacoes(){
+  const cards = document.getElementById('formacoesWrap').querySelectorAll('.formacao-card');
+  return Array.from(cards).map(card=>{
+    const id = card.id.replace('formacao-card-','');
+    const nivel  = document.getElementById('fNivel-'+id)?.value||'';
+    const curso  = document.getElementById('fCurso-'+id)?.value.trim()||'';
+    const inst   = document.getElementById('fInst-'+id)?.value.trim()||'';
+    const status = document.getElementById('fStatus-wrap-'+id)?.dataset.status||'';
+    if(!nivel && !curso) return null;
+    return {nivel, curso, inst, status};
+  }).filter(Boolean);
+}
+
+// inicializa com 1 linha cada
+addFormacao(); addCurso(); addSoftware(); addIdioma();
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+// A chave deve ser a "anon key" do Supabase (começa com eyJ...).
+// Pode ser sobrescrita via localStorage: localStorage.setItem('sb_anon_key', 'eyJ...')
+const SUPABASE_KEY = (function(){
+  const saved = localStorage.getItem('sb_anon_key');
+  if(saved && saved.startsWith('eyJ')) return saved;
+  // Anon key do projeto Supabase
+  return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4';
+})();
+
+// ═══ PARAMS DA URL ═══
+const p = new URLSearchParams(window.location.search);
+const candidatoId  = p.get('t') || p.get('id') || '';
+const candidatoUrl = p.get('url')  || '';
+let nomeCand     = p.get('nome') || '';
+let vagaCand     = p.get('vaga') || '';
+const domCand      = (p.get('dom') || 'D').toUpperCase();
+// Dados extras da candidatura via URL (pré-preenchimento)
+const cidadeCand       = p.get('cidade')        || '';
+const bairroCand       = p.get('bairro')        || '';
+const idadeCand        = p.get('idade')         || '';
+const disponibCand     = p.get('disponibilidade') || '';
+const maeUrlCand       = p.get('mae')           || '';
+const secCand      = (p.get('sec') || 'I').toUpperCase();
+const pctD = p.get('d') || '0';
+const pctI = p.get('i') || '0';
+const pctS = p.get('s') || '0';
+const pctC = p.get('c') || '0';
+const dataCand = p.get('data') || '';
+
+// Getters ao vivo (leem do banner editável)
+function getNome(){ return document.getElementById('candNome').value.trim() || 'Candidato'; }
+function getVaga(){ return document.getElementById('candVaga').value.trim() || 'Não informada'; }
+
+const COMBOS = {'DI':'Realizador Influente','DS':'Executor Consistente','DC':'Estrategista Analítico','ID':'Influenciador Decisivo','IS':'Comunicador Acolhedor','IC':'Comunicador Criterioso','SD':'Apoiador Assertivo','SI':'Facilitador Inspirador','SC':'Colaborador Meticuloso','CD':'Analítico Decisivo','CI':'Analítico Relacional','CS':'Especialista Confiável'};
+const CORES = {D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+const EMOJIS = {D:'🔴',I:'🟡',S:'🟢',C:'🔵'};
+const comboNome = COMBOS[domCand+secCand] || (domCand+'+'+secCand);
+const corPerfil = CORES[domCand] || '#3b82f6';
+
+// ═══ RENDERIZA HEADER ═══
+document.getElementById('candBadge').textContent  = EMOJIS[domCand] || '⬜';
+document.getElementById('candBadge').style.background = corPerfil+'18';
+document.getElementById('candBadge').style.border = '2px solid '+corPerfil+'44';
+document.getElementById('candNome').value   = nomeCand ? nomeCand.toUpperCase() : '';
+document.getElementById('candNome').addEventListener('input', function(){ document.title = 'Parecer — ' + (this.value || 'Candidato'); });
+document.getElementById('candVaga').value   = vagaCand !== 'Não informada' ? vagaCand : '';
+document.getElementById('candData').textContent   = dataCand ? '📅 ' + dataCand : '';
+document.title = 'Parecer — ' + (nomeCand || 'Candidato');
+
+
+
+// ═══ RATINGS ═══
+const CRITERIOS = [
+  'Postura e apresentação pessoal',
+  'Comunicação e clareza',
+  'Experiência técnica relevante',
+  'Alinhamento com a vaga',
+  'Motivação e interesse',
+  'Estabilidade e confiabilidade',
+  'Inteligência emocional',
+  'Capacidade de aprendizado',
+  'Trabalho em equipe',
+  'Liderança e iniciativa',
+  'Organização e planejamento',
+  'Adaptabilidade e flexibilidade',
+];
+
+const ratingsVal = {};
+CRITERIOS.forEach(c => ratingsVal[c] = 0);
+
+function renderRatings(){
+  const wrap = document.getElementById('ratingsWrap');
+  wrap.innerHTML = CRITERIOS.map(c => `
+    <div class="rating-row">
+      <span class="rating-label">${c}</span>
+      <div class="stars" id="stars-${btoa(encodeURIComponent(c)).replace(/[^a-zA-Z0-9]/g,'')}">
+        ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="star ${ratingsVal[c]>=n?'on':''}" onclick="setRating('${c}',${n})">${n}</div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function setRating(criterio, val){
+  ratingsVal[criterio] = val;
+  renderRatings();
+}
+
+renderRatings();
+
+// ═══ OBSERVAÇÕES RÁPIDAS ═══
+const OBS_OPCOES = [
+  'Chegou no horário',
+  'Apresentação adequada',
+  'Demonstrou entusiasmo',
+  'Respondeu com segurança',
+  'Conhece a área',
+  'Boa comunicação verbal',
+  'Experiência comprovada',
+  'Atitude proativa',
+  'Referências positivas',
+  'Disponibilidade confirmada',
+];
+
+const obsChecks = {};
+OBS_OPCOES.forEach(o => obsChecks[o] = false);
+
+function renderObs(){
+  const list = document.getElementById('obsList');
+  list.innerHTML = OBS_OPCOES.map(o => `
+    <div class="obs-item">
+      <input type="checkbox" id="obs-${btoa(encodeURIComponent(o)).replace(/[^a-zA-Z0-9]/g,'')}"
+        ${obsChecks[o]?'checked':''} onchange="obsChecks['${o}']=this.checked"/>
+      <span>${o}</span>
+    </div>`).join('');
+}
+
+renderObs();
+
+// ═══ DECISÃO ═══
+let decisaoAtual = '';
+function setDecisao(d){
+  decisaoAtual = d;
+  ['aprovado','reserva','reprovado'].forEach(x=>{
+    document.getElementById('dec-'+x).className = 'decisao-btn' + (x===d?' selected-'+x:'');
+  });
+}
+
+// ═══ RECOMENDAÇÃO EMPRESA ═══
+let recAtual = '';
+function setRecomendacao(r){
+  recAtual = r;
+  ['contratar','entrevista','ressalvas','banco','nao'].forEach(x=>{
+    document.getElementById('rec-'+x).className = 'decisao-btn' + (x===r?' selected-'+x:'');
+  });
+  document.getElementById('ressalvasWrap').style.display = r ? 'block' : 'none';
+}
+
+// ═══ EXPERIÊNCIA NA ÁREA ═══
+let expAreaAtual = '';
+function setExpArea(v){
+  expAreaAtual = v;
+  ['comprovada','parcial','correlata','estagio','pj','autonomo','indireto','sem'].forEach(x=>{
+    document.getElementById('exp-'+x).className = 'decisao-btn' + (x===v?' selected-'+x:'');
+  });
+}
+// Chave única estável — NUNCA usa timestamp aleatório
+function gerarStorageKey(nome, vaga){
+  if(candidatoId) return 'parecer_id_' + candidatoId;
+  const n = (nome || nomeCand || '').trim();
+  const v = (vaga || vagaCand || '').trim();
+  if(n || v){
+    try {
+      return 'parecer_' + btoa(encodeURIComponent(n + '|' + v + '|' + domCand + secCand)).replace(/[^a-zA-Z0-9]/g,'').slice(0,40);
+    } catch(e) {
+      return 'parecer_' + (n + v).replace(/\s+/g,'_').toLowerCase().slice(0,40);
+    }
+  }
+  return 'parecer_sem_id';
+}
+const STORAGE_KEY = gerarStorageKey();
+
+var _confState = {}; // rastreia campos confidenciais
+function coletarDados(){
+  function val(id){
+    var el = document.getElementById(id);
+    if(!el) return '';
+    return el.value || '';
+  }
+  function valPretensao(){
+    var el = document.getElementById('fPretensao');
+    if(!el) return '';
+    if(el.value && el.value.includes('🔒')) return el.value;
+    return el.value ? 'R$ ' + el.value : '';
+  }
+  return {
+    nome:           val('fNome'),
+    mae:            val('fMae'),
+    pai:            val('fPai'),
+    idade:          val('fIdade'),
+    cpf:            val('fCPF'),
+    rg:             val('fRG'),
+    nacionalidade:  val('fNacionalidade'),
+    cidade:         val('fCidade'),
+    bairro:         val('fBairro'),
+    disponibilidade:val('fDisponibilidade'),
+    cnh:            val('fCNH'),
+    pretensao:      valPretensao(),
+    escolaridade:   '',
+    formacoes:      getFormacoes(),
+    cursos:         getListValues('cursosWrap', true),
+    softwares:      getListValues('softwaresWrap', true),
+    idiomas:        getListValues('idiomasWrap', true),
+    tempoExp:       '',
+    areaAtuacao:    document.getElementById('fAreaAtuacao').value,
+    expArea:        expAreaAtual,
+    parecerProf:    document.getElementById('fParecerProfissional').value,
+    parecerComp:    document.getElementById('fParecerComportamental').value,
+    obsLivre:       document.getElementById('fObsLivre').value,
+    ratings:        {...ratingsVal},
+    obsChecks:      {...obsChecks},
+    decisao:        decisaoAtual,
+    recomendacao:   recAtual,
+    ressalvas:      document.getElementById('fRessalvas').value,
+  };
+}
+
+function aplicarDados(d){
+  if(!d) return;
+  const campos = ['fNome','fMae','fPai','fIdade','fCPF','fRG','fNacionalidade','fCidade','fBairro','fDisponibilidade','fCNH','fPretensao','fAreaAtuacao','fParecerProfissional','fParecerComportamental','fObsLivre'];
+  const chaves = ['nome','mae','pai','idade','cpf','rg','nacionalidade','cidade','bairro','disponibilidade','cnh','pretensao','areaAtuacao','parecerProf','parecerComp','obsLivre'];
+  campos.forEach((id,i)=>{
+    if(d[chaves[i]]!==undefined){
+      let val = d[chaves[i]];
+      const el = document.getElementById(id);
+      if(!el) return;
+      // Restaura estado confidencial se o valor salvo era confidencial
+      if(typeof val === 'string' && val.includes('CONFIDENCIAL')){
+        el.value = '';
+        el.setAttribute('data-conf','1');
+        el.classList.add('is-confidential');
+        // Encontra e marca o checkbox da label de confidencial
+        const fieldWrap = el.closest('.field-wrap');
+        if(fieldWrap){
+          const parentDiv = fieldWrap.parentElement;
+          if(parentDiv){
+            const cb = parentDiv.querySelector('input[type="checkbox"]');
+            if(cb) cb.checked = true;
+          }
+        }
+        return;
+      }
+      if(id === 'fPretensao') val = val.replace(/^R\$\s*/,'');
+      el.value = val;
+    }
+  });
+  if(d.formacoes?.length){ document.getElementById('formacoesWrap').innerHTML=''; formacaoCount=0; d.formacoes.forEach(f=>addFormacao(f)); }
+  if(d.cursos?.length)    setListValues('cursosWrap',    d.cursos,    true, addCurso);
+  if(d.softwares?.length) setListValues('softwaresWrap', d.softwares, true, addSoftware);
+  if(d.idiomas?.length)   setListValues('idiomasWrap',   d.idiomas,   true, addIdioma);
+  if(d.expArea) setExpArea(d.expArea);
+  if(d.obsChecks) Object.assign(obsChecks, d.obsChecks);
+  if(d.decisao) setDecisao(d.decisao);
+  if(d.recomendacao) setRecomendacao(d.recomendacao);
+  if(d.ressalvas) document.getElementById('fRessalvas').value = d.ressalvas;
+  renderRatings();
+  renderObs();
+}
+
+// ID único desta sessão de parecer (garante registro próprio no Supabase)
+// Recupera do localStorage para sobreviver a reloads de página
+let _parecerSbId = (function(){
+  if(!candidatoId) return null;
+  const saved = localStorage.getItem('parecer_sbid_' + candidatoId);
+  return saved ? parseInt(saved, 10) : null;
+})();
+
+function _setStatus(msg, cor){
+  const el = document.getElementById('saveStatus');
+  if(!el) return;
+  el.textContent = msg;
+  el.style.color = cor || '';
+}
+
+// ════════════════════════════════════════════════════════════════
+// SALVAR — v4 (Supabase com timeout de 8s, nunca trava a tela)
+// Estratégia:
+//   1. Sempre salva em localStorage PRIMEIRO (instantâneo)
+//   2. Tenta Supabase com timeout de 8s em background
+//   3. Se falhar, avisa mas o dado já está seguro localmente
+// ════════════════════════════════════════════════════════════════
+
+// Helper: fetch com timeout
+function fetchComTimeout(url, opts, ms=8000){
+  const ctrl = new AbortController();
+  const timer = setTimeout(()=>ctrl.abort(), ms);
+  return fetch(url, {...opts, signal: ctrl.signal}).finally(()=>clearTimeout(timer));
+}
+async function salvarParecer(forcaNovo = false){
+  const dados     = coletarDados();
+  const nomeAtual = getNome();
+  const vagaAtual = getVaga();
+  const agora     = new Date().toISOString();
+
+  // ── 1. Salva LOCAL PRIMEIRO — sempre, instantâneo ─────────────
+  try{
+    const lsKey = candidatoId ? 'parecer_id_' + candidatoId : STORAGE_KEY;
+    localStorage.setItem(lsKey, JSON.stringify(dados));
+  }catch(e){}
+
+  _setStatus('⏳ Enviando ao banco…', '#f39c12');
+
+  const sbHeaders = {
+    'apikey':        SUPABASE_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_KEY,
+    'Content-Type':  'application/json',
+  };
+
+  const payloadHistorico = {
+    cand_id:       candidatoId || null,
+    nome:          nomeAtual,
+    vaga:          vagaAtual,
+    dom:           domCand,
+    sec:           secCand,
+    decisao:       dados.decisao || null,
+    parecer_json:  JSON.stringify(dados),
+    atualizado_em: agora,
+  };
+
+  let sbOk = false;
+
+  async function logErro(label, res){
+    let txt = '';
+    try{ txt = await res.text(); }catch(e){}
+    console.error(`[salvarParecer] ${label} → HTTP ${res.status}:`, txt);
+    return txt;
+  }
+
+  try{
+    // ══ A: pareceres_historico ════════════════════════════════
+    let histOk = false;
+    if(_parecerSbId && !forcaNovo){
+      const res = await fetchComTimeout(
+        `${SUPABASE_URL}/rest/v1/pareceres_historico?id=eq.${_parecerSbId}`,
+        { method:'PATCH', headers:{...sbHeaders,'Prefer':'return=minimal'},
+          body: JSON.stringify(payloadHistorico) }
+      );
+      histOk = res.ok;
+      if(!res.ok) await logErro('PATCH pareceres_historico', res);
+    } else {
+      if(forcaNovo) _parecerSbId = null;
+      const res = await fetchComTimeout(
+        `${SUPABASE_URL}/rest/v1/pareceres_historico`,
+        { method:'POST', headers:{...sbHeaders,'Prefer':'return=representation'},
+          body: JSON.stringify({...payloadHistorico, criado_em: agora}) }
+      );
+      histOk = res.ok;
+      if(res.ok){
+        try{
+          const rows = await res.json();
+          if(Array.isArray(rows) && rows[0]?.id){
+            _parecerSbId = rows[0].id;
+            if(candidatoId) localStorage.setItem('parecer_sbid_'+candidatoId, String(_parecerSbId));
+          }
+        }catch(e){}
+      } else {
+        const txt = await logErro('POST pareceres_historico', res);
+        if(res.status === 404 || txt.includes('does not exist') || txt.includes('relation')){
+          histOk = false;
+        }
+      }
+    }
+
+    // ══ B: disc_historico ══════════════════════════════════════
+    if(candidatoId){
+      try{
+        const resPatch = await fetchComTimeout(
+          `${SUPABASE_URL}/rest/v1/disc_historico?id=eq.${encodeURIComponent(candidatoId)}`,
+          { method:'PATCH', headers:{...sbHeaders,'Prefer':'return=representation'},
+            body: JSON.stringify({ parecer_json: JSON.stringify(dados), atualizado_em: agora }) }
+        );
+        let patchRows = [];
+        if(resPatch.ok){
+          try{ patchRows = await resPatch.json(); }catch(e){}
+          if(Array.isArray(patchRows) && patchRows.length > 0){ sbOk = true; }
+        }
+
+        if(!sbOk){
+          const resPatch2 = await fetchComTimeout(
+            `${SUPABASE_URL}/rest/v1/disc_historico?cand_id=eq.${encodeURIComponent(candidatoId)}`,
+            { method:'PATCH', headers:{...sbHeaders,'Prefer':'return=representation'},
+              body: JSON.stringify({ parecer_json: JSON.stringify(dados), atualizado_em: agora }) }
+          );
+          let patchRows2 = [];
+          if(resPatch2.ok){
+            try{ patchRows2 = await resPatch2.json(); }catch(e){}
+            if(Array.isArray(patchRows2) && patchRows2.length > 0){ sbOk = true; }
+          }
+        }
+
+        if(!sbOk){
+          const resUpsert = await fetchComTimeout(
+            `${SUPABASE_URL}/rest/v1/disc_historico`,
+            { method:'POST', headers:{...sbHeaders,'Prefer':'resolution=merge-duplicates,return=minimal'},
+              body: JSON.stringify({
+                id: candidatoId, cand_id: candidatoId,
+                nome: nomeAtual, vaga: vagaAtual,
+                dom: domCand, sec: secCand,
+                parecer_json: JSON.stringify(dados),
+                atualizado_em: agora,
+              }) }
+          );
+          if(resUpsert.ok){ sbOk = true; }
+          else { await logErro('UPSERT disc_historico', resUpsert); sbOk = histOk; }
+        }
+      }catch(e){
+        console.warn('[salvarParecer] disc_historico falhou:', e.message);
+        sbOk = histOk;
+      }
+    } else {
+      sbOk = histOk;
+    }
+
+    if(sbOk){
+      const sufixo = forcaNovo ? ' (nova versão criada)' : '';
+      _setStatus('✅ Salvo no banco' + sufixo, '#2ecc71');
+      mostrarToast('💾 Parecer salvo no banco!');
+    } else {
+      _setStatus('⚠️ Banco indisponível — salvo localmente ✔', '#f39c12');
+      mostrarToast('⚠️ Banco indisponível — dado salvo localmente!', true);
+    }
+
+  }catch(e){
+    // AbortError = timeout; outros = sem rede
+    const msg = e.name === 'AbortError' ? 'Timeout (sem resposta do banco)' : 'Sem conexão';
+    console.error('[salvarParecer] Erro:', e);
+    _setStatus('⚠️ ' + msg + ' — salvo localmente ✔', '#e74c3c');
+    mostrarToast('⚠️ ' + msg + ' — dado salvo localmente!', true);
+  }
+
+  setTimeout(()=>_setStatus('',''), 7000);
+}
+
+// Novo parecer para outra empresa/vaga — força POST novo
+function novoParecerVersao(){
+  if(!confirm('Criar uma nova versão independente deste parecer?\nO histórico atual fica preservado no banco.')) return;
+  salvarParecer(true);
+}
+
+// ════════════════════════════════════════════════════════════════
+// HISTÓRICO DE PARECERES
+// ════════════════════════════════════════════════════════════════
+async function abrirHistorico(){
+  const modal = document.getElementById('modalHistorico');
+  modal.style.display = 'flex';
+  const lista = document.getElementById('historicoLista');
+  lista.innerHTML = '<p style="text-align:center;padding:2rem;color:#555;font-size:0.78rem;">⏳ Carregando…</p>';
+
+  try{
+    // Busca todos os pareceres do candidato (por cand_id ou nome)
+    let filtro = '';
+    if(candidatoId)      filtro = `&cand_id=eq.${encodeURIComponent(candidatoId)}`;
+    else if(nomeCand)    filtro = `&nome=ilike.*${encodeURIComponent(nomeCand)}*`;
+    // Se não tem nenhum filtro, traz os 50 mais recentes globais
+    const url = `${SUPABASE_URL}/rest/v1/pareceres_historico?select=id,nome,vaga,decisao,atualizado_em,criado_em&order=atualizado_em.desc&limit=50${filtro}`;
+
+    const res  = await fetchComTimeout(url, { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY } }, 8000);
+
+    if(!res.ok){
+      const txt = await res.text();
+      if(res.status === 404 || txt.includes('does not exist')){
+        lista.innerHTML = `
+          <div style="text-align:center;padding:1.5rem;font-size:0.78rem;color:#f39c12;line-height:1.8;">
+            ⚠️ A tabela <code>pareceres_historico</code> ainda não existe no Supabase.<br/>
+            <span style="color:#666;">Execute o SQL de criação no painel do Supabase e salve um parecer.</span>
+          </div>`;
+      } else {
+        lista.innerHTML = `<p style="text-align:center;padding:2rem;color:#e74c3c;font-size:0.78rem;">❌ Erro ${res.status}: ${txt}</p>`;
+      }
+      return;
+    }
+
+    const rows = await res.json();
+
+    if(!Array.isArray(rows) || !rows.length){
+      lista.innerHTML = `
+        <p style="text-align:center;padding:2rem;color:#555;font-size:0.78rem;line-height:1.8;">
+          Nenhuma versão salva ainda.<br/>
+          Clique em 💾 Salvar Parecer para criar a primeira.
+        </p>`;
+      return;
+    }
+
+    lista.innerHTML = rows.map(r => {
+      const dt      = new Date(r.atualizado_em || r.criado_em).toLocaleString('pt-BR');
+      const decisao = r.decisao || '—';
+      const dCor    = decisao==='aprovado'?'#2ecc71': decisao==='reprovado'?'#e74c3c': decisao==='reserva'?'#f39c12':'#555';
+      const ativo   = r.id === _parecerSbId;
+      return `
+      <div style="background:${ativo?'rgba(59,130,246,0.07)':'rgba(255,255,255,0.03)'};
+                  border:1px solid ${ativo?'rgba(59,130,246,0.4)':'rgba(255,255,255,0.08)'};
+                  border-radius:12px;padding:0.85rem 1rem;cursor:pointer;transition:all 0.15s;margin-bottom:0.1rem;"
+           onmouseover="this.style.borderColor='rgba(167,139,250,0.4)'"
+           onmouseout="this.style.borderColor='${ativo?'rgba(59,130,246,0.4)':'rgba(255,255,255,0.08)'}'"
+           onclick="carregarVersao(${r.id})">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;">
+          <div style="min-width:0;">
+            <div style="font-size:0.85rem;font-weight:800;color:#f0f0f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              ${ativo?'▶ ':''}${r.nome||'—'}
+            </div>
+            <div style="font-size:0.68rem;color:#666;margin-top:0.15rem;">
+              💼 ${r.vaga||'—'} · 📅 ${dt}
+            </div>
+          </div>
+          <span style="font-size:0.62rem;font-weight:700;padding:0.12rem 0.55rem;border-radius:99px;
+                       border:1px solid ${dCor}50;background:${dCor}18;color:${dCor};white-space:nowrap;flex-shrink:0;">
+            ${decisao}
+          </span>
+        </div>
+      </div>`;
+    }).join('');
+
+  } catch(e){
+    lista.innerHTML = `<p style="text-align:center;padding:2rem;color:#e74c3c;font-size:0.78rem;">❌ Erro: ${e.message}</p>`;
+    console.error('abrirHistorico erro:', e);
+  }
+}
+
+async function carregarVersao(id){
+  try{
+    const res  = await fetchComTimeout(
+      `${SUPABASE_URL}/rest/v1/pareceres_historico?id=eq.${encodeURIComponent(id)}&select=parecer_json,atualizado_em,vaga,nome`,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY } },
+      8000
+    );
+    const rows = await res.json();
+    if(Array.isArray(rows) && rows[0]?.parecer_json){
+      aplicarDados(JSON.parse(rows[0].parecer_json));
+      _parecerSbId = id;
+      fecharHistorico();
+      mostrarToast('📂 Versão carregada — edite e salve normalmente.');
+      const dt = new Date(rows[0].atualizado_em).toLocaleDateString('pt-BR');
+      _setStatus(`📂 Versão de ${dt}`, '#a78bfa');
+      setTimeout(()=>_setStatus('',''), 5000);
+    } else {
+      mostrarToast('Versão sem dados válidos.', true);
+    }
+  } catch(e){
+    mostrarToast('Erro ao carregar versão!', true);
+    console.error('carregarVersao erro:', e);
+  }
+}
+
+function fecharHistorico(){
+  document.getElementById('modalHistorico').style.display = 'none';
+}
+
+function mostrarToast(msg, erro=false){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (erro?' erro':'');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// Auto-save LOCAL a cada mudança (sem chamar Supabase — só localStorage)
+let _saveTimer = null;
+document.addEventListener('input', ()=>{
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(()=>{
+    try{
+      const dados = coletarDados();
+      const lsKey = candidatoId ? 'parecer_id_' + candidatoId : STORAGE_KEY;
+      localStorage.setItem(lsKey, JSON.stringify(dados));
+      _setStatus('💾 Salvo localmente', '#3b82f6');
+      setTimeout(()=>_setStatus('',''), 2000);
+    }catch(e){}
+  }, 1000);
+});
+
+// ═══ LIMPA FORMULÁRIO (garante que não herda dados de outro candidato) ═══
+function resetFormulario(){
+  ['fNome','fMae','fPai','fIdade','fCPF','fRG','fNacionalidade','fCidade','fBairro',
+   'fDisponibilidade','fCNH','fPretensao','fAreaAtuacao','fParecerProfissional',
+   'fParecerComportamental','fObsLivre','fRessalvas'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.value = '';
+  });
+  ['cursosWrap','softwaresWrap','idiomasWrap'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.innerHTML = '';
+  });
+  var fw = document.getElementById('formacoesWrap');
+  if(fw){ fw.innerHTML = ''; formacaoCount = 0; }
+  addFormacao(); addCurso(); addSoftware(); addIdioma();
+  CRITERIOS.forEach(function(c){ ratingsVal[c] = 0; });
+  renderRatings();
+  OBS_OPCOES.forEach(function(o){ obsChecks[o] = false; });
+  renderObs();
+  decisaoAtual = ''; recAtual = ''; expAreaAtual = '';
+  ['aprovado','reserva','reprovado'].forEach(function(x){
+    var el = document.getElementById('dec-'+x);
+    if(el) el.className = 'decisao-btn';
+  });
+  ['contratar','entrevista','ressalvas','banco','nao'].forEach(function(x){
+    var el = document.getElementById('rec-'+x);
+    if(el) el.className = 'decisao-btn';
+  });
+  ['comprovada','parcial','correlata','estagio','pj','autonomo','indireto','sem'].forEach(function(x){
+    var el = document.getElementById('exp-'+x);
+    if(el) el.className = 'decisao-btn';
+  });
+  var rw = document.getElementById('ressalvasWrap');
+  if(rw) rw.style.display = 'none';
+}
+
+// ═══ CARREGA DADOS SALVOS — versão robusta ═══
+// Tenta todas as estratégias em ordem:
+// 1) pareceres_historico por cand_id
+// 2) pareceres_historico por nome
+// 3) disc_historico por id
+// 4) disc_historico por cand_id
+// 5) disc_historico por nome
+// 6) localStorage por candidatoId
+// 7) Qualquer chave de localStorage que contenha o nome
+// 8) Último parecer salvo no localStorage (STORAGE_KEY)
+async function carregarDados(){
+  resetFormulario();
+  _setStatus('⏳ Buscando dados…', '#f39c12');
+
+  const sbH = {'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY};
+
+  // ── Helper: tenta uma URL com timeout e retorna parecer_json se encontrar ──
+  async function tentarFetch(url){
+    try{
+      const res = await fetchComTimeout(url, {headers: sbH}, 8000);
+      if(!res.ok) return null;
+      const rows = await res.json();
+      if(Array.isArray(rows) && rows.length > 0){
+        const row = rows[0];
+        const json = row.parecer_json || row.disc_json || null;
+        if(json){
+          const dados = typeof json === 'string' ? JSON.parse(json) : json;
+          return { dados, id: row.id };
+        }
+      }
+    } catch(e){ console.warn('[carregarDados] falhou em:', url, e.message); }
+    return null;
+  }
+
+  // ── 1–5: Supabase ───────────────────────────────────────────────
+  const tentativas = [];
+
+  if(candidatoId){
+    tentativas.push(
+      `${SUPABASE_URL}/rest/v1/pareceres_historico?cand_id=eq.${encodeURIComponent(candidatoId)}&order=atualizado_em.desc&limit=1&select=parecer_json,id`,
+      `${SUPABASE_URL}/rest/v1/disc_historico?id=eq.${encodeURIComponent(candidatoId)}&limit=1&select=parecer_json,id`,
+      `${SUPABASE_URL}/rest/v1/disc_historico?cand_id=eq.${encodeURIComponent(candidatoId)}&order=atualizado_em.desc&limit=1&select=parecer_json,id`,
+    );
+  }
+  if(nomeCand){
+    const nomeEnc = encodeURIComponent(nomeCand);
+    tentativas.push(
+      `${SUPABASE_URL}/rest/v1/pareceres_historico?nome=ilike.*${nomeEnc}*&order=atualizado_em.desc&limit=1&select=parecer_json,id`,
+      `${SUPABASE_URL}/rest/v1/disc_historico?nome=ilike.*${nomeEnc}*&order=atualizado_em.desc&limit=1&select=parecer_json,id`,
+    );
+  }
+
+  for(const url of tentativas){
+    const r = await tentarFetch(url);
+    if(r){
+      aplicarDados(r.dados);
+      _parecerSbId = r.id;
+      if(candidatoId) localStorage.setItem('parecer_sbid_' + candidatoId, String(r.id));
+      // Salva também no localStorage como cache
+      try{ localStorage.setItem(candidatoId ? 'parecer_id_' + candidatoId : STORAGE_KEY, JSON.stringify(r.dados)); }catch(e){}
+      _setStatus('✅ Parecer carregado do banco', '#2ecc71');
+      setTimeout(()=>_setStatus('',''), 4000);
+      preencherDadosCandidatura(); // complementa com entrevista_json se houver
+      return;
+    }
+  }
+
+  // ── 6: localStorage por candidatoId ────────────────────────────
+  if(candidatoId){
+    const localJson = localStorage.getItem('parecer_id_' + candidatoId);
+    if(localJson){
+      try{
+        aplicarDados(JSON.parse(localJson));
+        _setStatus('📦 Carregado do cache local', '#f39c12');
+        setTimeout(()=>_setStatus('',''), 4000);
+        preencherDadosCandidatura();
+        return;
+      } catch(e){}
+    }
+  }
+
+  // ── 7: Varrer todo o localStorage buscando pelo nome ───────────
+  if(nomeCand){
+    const nomeLower = nomeCand.trim().toLowerCase();
+    for(let i = 0; i < localStorage.length; i++){
+      const key = localStorage.key(i);
+      if(!key || !key.startsWith('parecer')) continue;
+      try{
+        const obj = JSON.parse(localStorage.getItem(key));
+        if(obj && obj.nome && obj.nome.toLowerCase().includes(nomeLower)){
+          aplicarDados(obj);
+          _setStatus('📦 Carregado do cache local (por nome)', '#f39c12');
+          setTimeout(()=>_setStatus('',''), 4000);
+          preencherDadosCandidatura();
+          return;
+        }
+      } catch(e){}
+    }
+  }
+
+  // ── 8: Último salvo (STORAGE_KEY genérico) ─────────────────────
+  const genericJson = localStorage.getItem(STORAGE_KEY);
+  if(genericJson && STORAGE_KEY !== 'parecer_sem_id'){
+    try{
+      aplicarDados(JSON.parse(genericJson));
+      _setStatus('📦 Último parecer local restaurado', '#f39c12');
+      setTimeout(()=>_setStatus('',''), 4000);
+      preencherDadosCandidatura();
+      return;
+    } catch(e){}
+  }
+
+  // ── Nenhum parecer salvo — busca dados brutos da candidatura ──
+  _setStatus('', '');
+  await preencherDadosCandidatura();
+}
+
+// ═══ PRÉ-PREENCHIMENTO COM DADOS DA CANDIDATURA ═══
+async function preencherDadosCandidatura(){
+  function setIfEmpty(id, val){
+    if(!val) return;
+    const el = document.getElementById(id);
+    if(el && !el.value.trim()) el.value = val;
+  }
+
+  function formatarCidade(c){
+    if(!c) return '';
+    if(c.includes(',')){
+      const pts = c.split(',');
+      return pts[0].trim().replace(/\w/g, x=>x.toUpperCase()) + ', ' + pts[1].trim().toUpperCase();
+    }
+    return c.trim().replace(/\w/g, x=>x.toUpperCase());
+  }
+
+  function formatarBairro(b){
+    if(!b) return '';
+    return b.trim().replace(/\w/g, x=>x.toUpperCase());
+  }
+
+  // 1) Dados vindos da URL (passados pelo banco-talentos)
+  setIfEmpty('fNome',            nomeCand);
+  setIfEmpty('fCidade',          formatarCidade(cidadeCand));
+  setIfEmpty('fBairro',          formatarBairro(bairroCand));
+  setIfEmpty('fIdade',           idadeCand ? (String(idadeCand).includes('ano') ? idadeCand : idadeCand + ' anos') : '');
+  setIfEmpty('fDisponibilidade', disponibCand);
+  setIfEmpty('fMae',             maeUrlCand ? maeUrlCand.replace(/\b\w/g, c=>c.toUpperCase()) : '');
+
+  // Se URL já trouxe cidade+bairro+idade+disponibilidade, não busca no Supabase
+  if(cidadeCand && bairroCand && idadeCand && disponibCand) return;
+
+  // 2) Busca no Supabase
+  if(!candidatoId && !nomeCand) return;
+  const sbH = {'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY};
+  const CAMPOS = 'nome,cidade,bairro,idade,disponibilidade,vaga,nome_mae,entrevista_json';
+
+  const urls = [];
+  if(candidatoId){
+    urls.push(`${SUPABASE_URL}/rest/v1/disc_historico?id=eq.${encodeURIComponent(candidatoId)}&select=${CAMPOS}&limit=1`);
+    urls.push(`${SUPABASE_URL}/rest/v1/disc_historico?cand_id=eq.${encodeURIComponent(candidatoId)}&select=${CAMPOS}&order=atualizado_em.desc&limit=1`);
+  }
+  if(nomeCand){
+    urls.push(`${SUPABASE_URL}/rest/v1/disc_historico?nome=ilike.*${encodeURIComponent(nomeCand)}*&select=${CAMPOS}&order=atualizado_em.desc&limit=1`);
+  }
+
+  for(const url of urls){
+    try{
+      const res = await fetchComTimeout(url, {headers: sbH}, 6000);
+      if(!res.ok) continue;
+      const rows = await res.json();
+      if(!Array.isArray(rows) || rows.length === 0) continue;
+      const d = rows[0];
+
+      // Preenche candidato no banner e nos campos de identificação
+      if(d.nome){
+        nomeCand = d.nome;
+        const elNome = document.getElementById('candNome');
+        if(elNome && !elNome.value.trim()) elNome.value = d.nome.toUpperCase();
+        document.title = 'Parecer — ' + d.nome;
+      }
+      if(d.vaga){
+        const elVaga = document.getElementById('candVaga');
+        if(elVaga && !elVaga.value.trim()) elVaga.value = d.vaga;
+      }
+      setIfEmpty('fNome',            d.nome);
+      setIfEmpty('fMae',             d.nome_mae);
+      setIfEmpty('fCidade',          formatarCidade(d.cidade));
+      setIfEmpty('fBairro',          formatarBairro(d.bairro));
+      setIfEmpty('fIdade',           d.idade != null ? String(d.idade) + ' anos' : '');
+      setIfEmpty('fDisponibilidade', d.disponibilidade);
+
+      // ── Preenche escolaridade a partir da mini-entrevista ──────────────────
+      // entrevista.html salva escolaridade e curso/instituição dentro de entrevista_json
+      if(d.entrevista_json){
+        try{
+          const ent = typeof d.entrevista_json === 'string'
+            ? JSON.parse(d.entrevista_json)
+            : d.entrevista_json;
+
+          if(ent.escolaridade){
+            // Mapeia o valor do select da entrevista para o select do parecer (NIVEIS_ESC)
+            const mapaEscolaridade = {
+              'Ensino Fundamental incompleto':  'Ensino Fundamental Incompleto',
+              'Ensino Fundamental completo':    'Ensino Fundamental Completo',
+              'Ensino Médio incompleto':        'Ensino Médio Incompleto',
+              'Ensino Médio completo':          'Ensino Médio Completo',
+              'Ensino Técnico incompleto':      'Ensino Técnico',
+              'Ensino Técnico completo':        'Ensino Técnico',
+              'Ensino Superior incompleto':     'Superior Incompleto (Bacharelado)',
+              'Ensino Superior completo':       'Bacharelado',
+            };
+            const nivelMapeado = mapaEscolaridade[ent.escolaridade] || ent.escolaridade;
+
+            // Preenche a primeira formação (já existe 1 card criado no addFormacao() inicial)
+            const fw = document.getElementById('formacoesWrap');
+            if(fw){
+              const primeiroCard = fw.querySelector('.formacao-card');
+              if(primeiroCard){
+                const idCard = primeiroCard.id.replace('formacao-card-','');
+                const selNivel = document.getElementById('fNivel-'+idCard);
+                if(selNivel && !selNivel.value) selNivel.value = nivelMapeado;
+
+                // Preenche curso/instituição se tiver
+                if(ent.curso_inst){
+                  // curso_inst vem como "Administração — UNISINOS", separa em curso e instituição
+                  const partes = ent.curso_inst.split(/\s*[—–-]\s*/);
+                  const elCurso = document.getElementById('fCurso-'+idCard);
+                  const elInst  = document.getElementById('fInst-'+idCard);
+                  if(elCurso && !elCurso.value.trim()) elCurso.value = partes[0]?.trim() || ent.curso_inst;
+                  if(elInst  && !elInst.value.trim())  elInst.value  = partes[1]?.trim() || '';
+                }
+
+                // Marca como "Concluído" por padrão se nível for completo
+                const ehConcluido = !ent.escolaridade.toLowerCase().includes('inco');
+                setStatus(idCard, ehConcluido ? 'concluido' : 'andamento');
+              }
+            }
+          }
+        } catch(e){ console.warn('[preencherDadosCandidatura] erro ao ler entrevista_json:', e.message); }
+      }
+
+      _setStatus('📋 Dados da candidatura e entrevista carregados', '#3b82f6');
+      setTimeout(()=>_setStatus('',''), 4000);
+      return;
+    } catch(e){ console.warn('[preencherDadosCandidatura] falhou:', url, e.message); }
+  }
+}
+
+carregarDados();
+
+// ═══ ABRE PDF UNIFICADO ═══
+function abrirPDFUnificado(){
+  const base = window.location.href.replace(/disc-parecer\.html.*$/, '');
+  const params = new URLSearchParams({
+    t:    candidatoId  || '',
+    nome: getNome()    || '',
+    vaga: getVaga()    || '',
+    dom:  domCand      || 'D',
+    sec:  secCand      || 'I',
+    d:    pctD         || '0',
+    i:    pctI         || '0',
+    s:    pctS         || '0',
+    c:    pctC         || '0',
+    data: (()=>{ const el=document.getElementById('dataEmissao'); return el&&el.value ? new Date(el.value+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}) : dataCand||''; })(),
+    url:  candidatoUrl || '',
+  });
+  window.open(base + 'pdf-unificado.html?' + params.toString(), '_blank');
+}
+
+// ═══ PDF COMPLETO 6 PÁGINAS ═══
+async function gerarPDFCompleto(){
+  const btn = document.querySelector('.btn-pdf');
+  btn.textContent = '⏳ Gerando...';
+  btn.disabled = true;
+  await new Promise(r => setTimeout(r, 30));
+
+  try {
+    const d = coletarDados();
+    console.log('[PDF] _confState:', JSON.stringify(_confState));
+    console.log('[PDF] cpf='+d.cpf+' rg='+d.rg+' nome='+d.nome);
+    console.log('[PDF] data-conf fCPF:', document.getElementById('fCPF')?.getAttribute('data-conf'));
+    console.log('[PDF] is-confidential fCPF:', document.getElementById('fCPF')?.classList.contains('is-confidential'));
+    console.log('[PDF] checkbox CPF checked:', document.querySelector('input[onchange*=fCPF]')?.checked);
+    const nomeCandAtual = getNome();
+    const vagaCandAtual = getVaga();
+    // Usa data de emissão do campo, ou hoje como fallback
+    const dataEmissaoInput = document.getElementById('dataEmissao');
+    const dataHoje = dataEmissaoInput && dataEmissaoInput.value
+      ? new Date(dataEmissaoInput.value + 'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})
+      : new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+    const baseUrl = window.location.href.replace(/[^/]*(\?.*)?$/, '');
+    const corH = '#1e40af';
+    const vals = Object.values(d.ratings);
+    const mediaRating = vals.length ? (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : '—';
+    const decLabel = {aprovado:'✅ APROVADO', reserva:'🟡 RESERVA', reprovado:'❌ NÃO APROVADO'}[d.decisao] || '— Não definida';
+    const decCor   = {aprovado:'#1e8449', reserva:'#b36200', reprovado:'#c0392b'}[d.decisao] || '#888';
+    const decBg    = {aprovado:'#f0fbf4', reserva:'#fffdf0', reprovado:'#fdf5f5'}[d.decisao] || '#f9f9f9';
+    const recLabel = {contratar:'🌟 RECOMENDADO PARA CONTRATAÇÃO', entrevista:'🤝 RECOMENDADO PARA ENTREVISTA PRESENCIAL', ressalvas:'⚠️ RECOMENDADO COM RESSALVAS', banco:'📁 BANCO DE TALENTOS', nao:'🚫 NÃO RECOMENDADO'}[d.recomendacao] || '— Não definida';
+    const recCor   = {contratar:'#1e8449', entrevista:'#1e40af', ressalvas:'#b36200', banco:'#2471a3', nao:'#c0392b'}[d.recomendacao] || '#888';
+    const recBg    = {contratar:'#f0fbf4', entrevista:'#f4fbe8', ressalvas:'#fffdf0', banco:'#eaf4fb', nao:'#fdf5f5'}[d.recomendacao] || '#f9f9f9';
+    const checksMarcados = Object.entries(d.obsChecks).filter(([,v])=>v).map(([k])=>k);
+
+    // helpers
+    const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const escP = s => esc((s||'').replace(/\r/g,'').replace(/\n+/g,' ').trim());
+    const hdr = titulo => `
+<div style="background:#3a5710;padding:10px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
+  <div><div style="font-size:16px;font-weight:900;letter-spacing:1.2px;">${titulo}</div></div>
+  <div style="text-align:right;font-size:9px;opacity:.7;line-height:1.7;"><div>${dataHoje}</div><div>Recrutamento e Seleção</div></div>
+</div>
+<div style="background:${corH};padding:5px 22px;color:#fff;font-size:9px;">${esc(vagaCandAtual).toUpperCase()} · ${esc(nomeCandAtual).toUpperCase()}</div>`;
+
+    const fl = (label, val) => {
+      const isConf = typeof val === 'string' && (val.toLowerCase().includes('confidencial') || val.includes('🔒'));
+      const displayVal = isConf
+        ? '<span style="color:#c0392b;font-weight:800;font-size:10px;background:#fdf0f0;border:1px solid #e74c3c;border-radius:4px;padding:1px 6px;letter-spacing:0.5px;">🔒 CONFIDENCIAL</span>'
+        : (esc(val)||'<span style="color:#888;font-weight:500;">—</span>');
+      return `
+<div style="flex:1;min-width:0;">
+  <span style="font-size:10px;color:#444;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:2px;font-weight:700;">${label}</span>
+  <div style="font-size:13px;color:#111;font-weight:600;border-bottom:1px solid #ddd;padding-bottom:3px;min-height:17px;word-break:break-word;">${displayVal}</div>
+</div>`;
+    };
+
+    const fr = cols => `<div style="display:flex;gap:14px;margin-bottom:8px;width:100%;">${cols}</div>`;
+
+    const st = (t, cor) => `<div style="font-size:9px;font-weight:700;color:${cor};text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid ${cor};padding-bottom:2px;margin-bottom:9px;">${t}</div>`;
+
+    // Parecer box: sem min-height, ocupa 100% da largura, texto justificado sem overflow
+    const pb = (txt, cor, bg) => `
+<div style="background:${bg};border-left:4px solid ${cor};border-radius:0 5px 5px 0;padding:12px 16px;margin-bottom:12px;">
+  <p style="font-size:12px;color:#222;line-height:1.8;margin:0;">${escP(txt)||'Não preenchido.'}</p>
+</div>`;
+
+    const css = `
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:#ccc;}
+body{font-family:Arial,Helvetica,sans-serif;line-height:1.4;background:#fff;
+  width:210mm;margin:0 auto;color:#111;}
+.pg{width:210mm;}
+.pgb .hdr{page-break-before:always;}
+.pad{padding:14px 24px 20px;}
+p{text-align:justify;word-wrap:break-word;overflow-wrap:break-word;}
+.nopr{display:none;}
+
+/* ── CAPA / BANNER TOPO PG1 ── */
+.capa{
+  position:relative;overflow:hidden;
+  background:#0b1904;
+  width:100%;
+  padding:28px 28px 22px;
+}
+.capa-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);
+  background-size:26px 26px;
+}
+.capa-glow{
+  position:absolute;top:-80px;right:-60px;width:320px;height:320px;
+  background:radial-gradient(circle,rgba(59,130,246,0.16) 0%,transparent 65%);
+  pointer-events:none;
+}
+.capa-glow2{
+  position:absolute;bottom:-60px;left:-40px;width:220px;height:220px;
+  background:radial-gradient(circle,rgba(30,64,175,0.18) 0%,transparent 65%);
+  pointer-events:none;
+}
+.capa-topline{
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#3a5710,#3b82f6,#3a5710);
+}
+.capa-botline{
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(59,130,246,0.5),transparent);
+}
+.capa-inner{
+  position:relative;z-index:2;
+  display:flex;align-items:stretch;gap:0;
+}
+/* esquerda: marca */
+.capa-marca{
+  flex-shrink:0;min-width:170px;
+  display:flex;flex-direction:column;justify-content:center;
+  padding-right:24px;
+  border-right:1px solid rgba(59,130,246,0.2);
+}
+.capa-tag{
+  font-size:6px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(59,130,246,0.65);margin-bottom:8px;
+}
+.capa-nome-ag{
+  font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.55);margin-bottom:2px;
+}
+.capa-titulo{
+  font-size:26px;font-weight:900;color:#fff;
+  letter-spacing:-0.5px;line-height:1;margin-bottom:2px;
+}
+.capa-titulo span{color:#3b82f6;}
+.capa-sub{
+  font-size:7px;color:rgba(255,255,255,0.28);
+  letter-spacing:2px;text-transform:uppercase;margin-top:8px;
+}
+.capa-div{
+  width:36px;height:2px;
+  background:linear-gradient(90deg,#3b82f6,transparent);
+  margin-top:10px;
+}
+/* centro: candidato */
+.capa-cand{
+  flex:1;padding-left:22px;padding-right:18px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.capa-cand-label{
+  font-size:6.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:#3b82f6;margin-bottom:6px;
+}
+.capa-cand-name{
+  font-size:18px;font-weight:900;color:#fff;
+  line-height:1.1;margin-bottom:10px;word-break:break-word;
+}
+.capa-meta{
+  display:flex;gap:18px;flex-wrap:wrap;margin-bottom:11px;
+}
+.capa-meta-item{display:flex;flex-direction:column;gap:2px;}
+.capa-meta-k{
+  font-size:6px;color:rgba(255,255,255,0.28);
+  text-transform:uppercase;letter-spacing:1px;font-weight:700;
+}
+.capa-meta-v{
+  font-size:10.5px;color:rgba(255,255,255,0.8);font-weight:700;
+}
+.capa-chips{display:flex;gap:5px;flex-wrap:wrap;}
+.capa-chip{
+  background:rgba(59,130,246,0.07);
+  border:1px solid rgba(59,130,246,0.2);
+  border-radius:3px;padding:3px 9px;
+  font-size:7px;color:rgba(255,255,255,0.4);
+  font-weight:700;letter-spacing:.7px;text-transform:uppercase;
+}
+.capa-chip b{color:#3b82f6;margin-right:3px;}
+/* direita: data/conf */
+.capa-stamp{
+  flex-shrink:0;
+  display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;
+  padding-left:16px;
+  border-left:1px solid rgba(59,130,246,0.1);
+}
+.capa-stamp-date{
+  font-size:7px;color:rgba(255,255,255,0.22);
+  letter-spacing:.8px;text-transform:uppercase;
+  text-align:right;line-height:1.9;
+}
+.capa-stamp-conf{
+  margin-top:10px;
+  font-size:6px;color:rgba(255,255,255,0.12);
+  letter-spacing:1.5px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,0.07);
+  padding:2px 7px;border-radius:2px;text-align:center;
+}
+
+/* pg1 full-height flex to push footer to bottom */
+.pg1-wrap{height:297mm;display:flex;flex-direction:column;overflow:hidden;}
+.pg1-spacer{flex:1;min-height:0;}
+.pg1-footer{
+  background:#0b1904;
+  position:relative;
+  overflow:hidden;
+  margin:0;
+  padding:12px 24px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+
+@media print{
+  @page{margin:0;size:A4 portrait;}
+  html{background:#fff;}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;width:100%;margin:0;}
+  .pg{width:100%;}
+  .pg1-wrap{height:297mm;overflow:hidden;}
+  .nopr{display:none!important;}
+  .pgb .hdr{page-break-before:always;}
+}`;
+
+    const toolbar = `
+<div class="nopr" style="background:#3a5710;padding:8px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:99;width:100%;">
+  <span style="color:#fff;font-size:13px;font-weight:700;">Parecer — ${esc(nomeCandAtual)}</span>
+  <button onclick="window.print()" style="margin-left:auto;background:#3b82f6;color:#fff;border:none;border-radius:7px;padding:6px 18px;font-size:13px;font-weight:700;cursor:pointer;">💾 Salvar como PDF</button>
+  <button onclick="window.close()" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:7px;padding:6px 12px;font-size:13px;cursor:pointer;">✕</button>
+</div>`;
+
+    const statusLabel = {concluido:'✅ Concluído', andamento:'⏳ Em andamento', incompleto:'❌ Incompleto'};
+    const fmtList = (arr, dual) => arr && arr.length
+      ? arr.map(item => dual
+          ? `<div style="display:flex;gap:8px;align-items:baseline;padding:3px 0;border-bottom:1px solid #f0f0f0;"><span style="font-size:12.5px;color:#111;font-weight:600;flex:1;">${esc(item.v)}</span>${item.extra?`<span style="font-size:11px;color:#888;">${esc(item.extra)}</span>`:''}</div>`
+          : `<div style="padding:3px 0;border-bottom:1px solid #f0f0f0;font-size:12.5px;color:#111;font-weight:600;">${esc(item)}</div>`
+        ).join('')
+      : '<span style="font-size:12px;color:#aaa;">—</span>';
+    const pg1 = `
+<div class="pg pg1-wrap">
+<div class="capa">
+  <div class="capa-grid"></div>
+  <div class="capa-glow"></div>
+  <div class="capa-glow2"></div>
+  <div class="capa-topline"></div>
+  <div class="capa-botline"></div>
+  <div class="capa-inner">
+    <div class="capa-marca">
+      <div class="capa-tag">Parecer · Relatório de Avaliação</div>
+      <div class="capa-nome-ag">Agência</div>
+      <div class="capa-titulo">EXIT<span>TUS</span></div>
+      <div class="capa-sub">Recrutamento &amp; Seleção</div>
+      <div class="capa-div"></div>
+    </div>
+    <div class="capa-cand">
+      <div class="capa-cand-label">Candidato(a) avaliado(a)</div>
+      <div class="capa-cand-name">${esc(nomeCandAtual)||'—'}</div>
+      <div class="capa-meta">
+        <div class="capa-meta-item">
+          <span class="capa-meta-k">Vaga</span>
+          <span class="capa-meta-v">${esc(vagaCandAtual)||'—'}</span>
+        </div>
+        <div class="capa-meta-item">
+          <span class="capa-meta-k">Data</span>
+          <span class="capa-meta-v">${dataHoje}</span>
+        </div>
+      </div>
+      <div class="capa-chips">
+        <div class="capa-chip"><b>01</b> Dados do Candidato</div>
+        <div class="capa-chip"><b>02</b> Qualificações</div>
+        <div class="capa-chip"><b>03</b> Parecer do Recrutador</div>
+        <div class="capa-chip"><b>04</b> Avaliação &amp; Decisão</div>
+      </div>
+    </div>
+    <div class="capa-stamp">
+      <div class="capa-stamp-date">
+        <div>${dataHoje}</div>
+        <div>Recrutamento e Seleção</div>
+      </div>
+      <div class="capa-stamp-conf">Confidencial</div>
+    </div>
+  </div>
+</div>
+<div class="hdr">${hdr('DADOS DO CANDIDATO')}</div>
+<div class="pad">
+
+<div style="margin-bottom:14px;">
+${st('👤 Dados Pessoais','#3a5710')}
+${fr(fl('Nome completo', d.nome) + fl('Idade', d.idade) + fl('Nacionalidade', d.nacionalidade))}
+${fr(fl('Nome da mãe', d.mae) + fl('Nome do pai', d.pai))}
+${fr(fl('CPF', d.cpf) + fl('RG', d.rg) + fl('Cidade', d.cidade) + fl('Bairro', d.bairro))}
+${fr(fl('Disponibilidade', d.disponibilidade) + fl('CNH / Veículo', d.cnh) + fl('Pretensão salarial', d.pretensao))}
+${(d.expArea||d.areaAtuacao) ? fr(fl('Experiência na área', {comprovada:'✅ Sim, experiência comprovada', parcial:'🟡 Sim, experiência parcial', correlata:'🔵 Experiência em área correlata', estagio:'🎓 Experiência por estágio', pj:'🏢 Experiência por PJ', autonomo:'🧑‍💼 Autônomo', indireto:'🔗 Indireto', sem:'❌ Sem experiência na área'}[d.expArea]||'—') + fl('Área de atuação', d.areaAtuacao)) : ''}
+</div>
+
+</div>
+
+<div class="pg1-spacer"></div>
+
+<!-- RODAPÉ PG1 -->
+<div class="pg1-footer">
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3a5710,#3b82f6,#3a5710);"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:20px 20px;"></div>
+  <div style="position:absolute;top:-40px;left:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(30,64,175,0.18) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;width:100%;">
+    <img src="${baseUrl}fundo.png" alt="Agência Nexus" style="height:75px;width:auto;filter:brightness(10);opacity:.9;"/>
+    <div style="text-align:center;">
+      <div style="font-size:7.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(59,130,246,0.75);">Documento Confidencial</div>
+      <div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,0.4),transparent);margin:4px auto 0;"></div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:7.5px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:.5px;">Página 1 de 4</div>
+      <div style="font-size:7px;color:rgba(255,255,255,0.28);margin-top:2px;">${dataHoje}</div>
+    </div>
+  </div>
+</div>
+
+</div>`;
+
+    // ── PG 2: Qualificações (Formação, Cursos, Softwares, Idiomas) ──
+    const cardQual = (nome, extra, corLabel, label) => `
+<div style="padding:7px 10px;border:1px solid #e0e8f0;border-radius:6px;margin-bottom:6px;background:#f8fbff;">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+    <div>
+      ${label?`<div style="font-size:9px;font-weight:700;color:${corLabel};text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">${esc(label)}</div>`:''}
+      <div style="font-size:13px;font-weight:700;color:#111;">${esc(nome)}</div>
+    </div>
+    ${extra?`<div style="font-size:10px;font-weight:600;color:#666;white-space:nowrap;">${esc(extra)}</div>`:''}
+  </div>
+</div>`;
+
+    const pg2 = `
+<div class="pg pgb">
+<div class="hdr">${hdr('QUALIFICAÇÕES DO CANDIDATO')}</div>
+<div class="pad">
+
+${d.formacoes&&d.formacoes.length ? `
+<div style="margin-bottom:14px;">
+${st('🎓 Formação Acadêmica','#1a5276')}
+${d.formacoes.map(f=>`
+<div style="padding:7px 10px;border:1px solid #e0e8f0;border-radius:6px;margin-bottom:6px;background:#f8fbff;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:9px;font-weight:700;color:#1a5276;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">${esc(f.nivel)||'—'}</div>
+      <div style="font-size:13px;font-weight:700;color:#111;">${esc(f.curso)||'—'}</div>
+      ${f.inst?`<div style="font-size:11px;color:#666;margin-top:1px;">${esc(f.inst)}</div>`:''}
+    </div>
+    ${f.status?`<div style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${f.status==='concluido'?'#e8f8ef':f.status==='andamento'?'#fff8e7':'#fdf5f5'};color:${f.status==='concluido'?'#1e8449':f.status==='andamento'?'#b36200':'#c0392b'};border:1px solid ${f.status==='concluido'?'#aee6c4':f.status==='andamento'?'#f5d88a':'#f1b6b0'};white-space:nowrap;">${statusLabel[f.status]||''}</div>`:''}
+  </div>
+</div>`).join('')}
+</div>` : ''}
+
+${d.cursos&&d.cursos.length ? `<div style="margin-bottom:14px;">
+${st('📚 Cursos Complementares','#555')}
+${d.cursos.map(i=>cardQual(i.v, i.extra, '#555', '')).join('')}
+</div>` : ''}
+
+${d.softwares&&d.softwares.length ? `<div style="margin-bottom:14px;">
+${st('💻 Softwares / Ferramentas','#1a5276')}
+${d.softwares.map(i=>cardQual(i.v, i.extra, '#1a5276', '')).join('')}
+</div>` : ''}
+
+${d.idiomas&&d.idiomas.length ? `<div style="margin-bottom:14px;">
+${st('🌐 Idiomas','#1a5276')}
+${d.idiomas.map(i=>cardQual(i.v, i.extra, '#1a5276', '')).join('')}
+</div>` : ''}
+
+</div>
+</div>`;
+
+    // ── PG 3: Parecer Profissional + Comportamental ──
+    const pg3rec = `
+<div class="pg pgb">
+<div class="hdr">${hdr('PARECER DO RECRUTADOR')}</div>
+<div class="pad">
+${st('💼 Parecer Profissional','#1a5276')}
+${pb(d.parecerProf, '#1a5276', '#f0f4ff')}
+<div style="margin-top:14px;">
+${st('🧠 Parecer Comportamental', corH)}
+${pb(d.parecerComp, corH, corH + '18')}
+</div>
+</div>
+</div>`;
+
+    // ── PG 3: Avaliação + Decisão ──
+    const algumRating = Object.values(d.ratings).some(v => v > 0);
+    const ratingsHTML = algumRating ? Object.entries(d.ratings).filter(([,v]) => v > 0).map(([crit, v]) => `
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;padding:4px 0;border-bottom:1px solid #f0f0f0;">
+  <span style="flex:1;font-size:11.5px;color:#333;">${esc(crit)}</span>
+  <div style="display:flex;gap:3px;">
+    ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<div style="width:18px;height:18px;border-radius:3px;border:1px solid ${v>=n?'#1e40af':'#ddd'};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:${v>=n?'#3b82f6':'#f5f5f5'};color:${v>=n?'#fff':'#bbb'};">${n}</div>`).join('')}
+  </div>
+  <span style="font-size:11px;font-weight:700;color:${v>=7?'#1e8449':v>=5?'#d68910':'#c0392b'};width:40px;text-align:right;">${v}/10</span>
+</div>`).join('') : '';
+
+    const checksHTML = checksMarcados.length ? `
+<div style="margin-bottom:14px;">
+${st('📋 Observações Positivas','#555')}
+<div style="display:flex;flex-wrap:wrap;gap:5px;">
+  ${checksMarcados.map(ch=>`<div style="background:#f0fbf4;border:1px solid #3b82f644;border-radius:4px;padding:3px 8px;font-size:11px;color:#1e8449;font-weight:600;">✓ ${esc(ch)}</div>`).join('')}
+</div></div>` : '';
+
+    const obsLivreHTML = d.obsLivre ? `
+<div style="margin-bottom:14px;">
+${st('📝 Observações Adicionais','#555')}
+<div style="font-size:12px;color:#333;line-height:1.75;background:#f9f9f9;border-radius:5px;padding:10px 14px;text-align:justify;word-wrap:break-word;">${escP(d.obsLivre)}</div>
+</div>` : '';
+
+    const pg3 = `
+<div class="pg pgb">
+<div class="hdr">${hdr('AVALIAÇÃO E DECISÃO')}</div>
+<div class="pad">
+
+${algumRating ? `<div style="margin-bottom:14px;">
+${st('⭐ Avaliação por Critério (média: ' + mediaRating + '/10)', '#6c3483')}
+${ratingsHTML}
+</div>` : ''}
+
+${checksHTML}
+${obsLivreHTML}
+
+<div style="margin-bottom:14px;">
+${st('🎯 Decisão & Recomendação','#333')}
+<div style="margin-bottom:8px;border-radius:6px;padding:12px 16px;background:${decBg};border:2px solid ${decCor}44;">
+  <div style="font-size:9px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Decisão do Recrutador</div>
+  <div style="font-size:15px;font-weight:900;letter-spacing:.8px;color:${decCor};">${decLabel}</div>
+</div>
+<div style="border-radius:6px;padding:12px 16px;background:${recBg};border:2px solid ${recCor}44;margin-bottom:${d.ressalvas?'8px':'0'};">
+  <div style="font-size:9px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Recomendação para a Empresa</div>
+  <div style="font-size:15px;font-weight:900;letter-spacing:.8px;color:${recCor};">${recLabel}</div>
+</div>
+${d.ressalvas ? `<div style="background:#fffbf0;border-left:4px solid #e0a000;border-radius:0 5px 5px 0;padding:10px 14px;"><div style="font-size:9px;font-weight:700;color:#b36200;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;">📝 Motivo / Justificativa</div><p style="font-size:12px;color:#5a3800;line-height:1.65;margin:0;">${escP(d.ressalvas)}</p></div>` : ''}
+</div>
+
+<div style="background:#fff8e7;border:1.5px solid #e0a000;border-radius:6px;padding:9px 13px;">
+  <div style="font-size:9px;font-weight:900;color:#b36200;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">⚠️ Aviso importante</div>
+  <p style="font-size:11px;color:#5a3800;line-height:1.55;text-align:justify;">
+Este parecer constitui um material de apoio ao processo seletivo. Sua análise é baseada em um conjunto integrado de informações, incluindo entrevista, experiências profissionais em diferentes formatos (CLT, PJ, estágio, aprendiz, atuação autônoma e projetos acadêmicos), avaliação técnica e comportamental, além de ferramentas complementares de avaliação comportamental.
+  </p>
+</div>
+
+</div>
+</div>`;
+
+    // ── PG 4: Avaliação + Decisão (renomeada de pg3) ──
+    const pg4 = pg3;
+
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"/>
+<base href="${baseUrl}"/>
+<title>Parecer — ${esc(nomeCandAtual)}</title>
+<style>${css}</style>
+</head><body>
+${toolbar}
+${pg1}
+${pg2}
+${pg3rec}
+${pg4}
+</body></html>`;
+
+    const W = window.open('', '_blank');
+    if(!W){ mostrarToast('Permita popups neste site e tente novamente.', true); return; }
+    W.document.open();
+    W.document.write(html);
+    W.document.close();
+
+    mostrarToast('Parecer pronto para salvar como PDF!');
+
+  } catch(e){
+    mostrarToast('Erro ao gerar: ' + e.message, true);
+    console.error(e);
+  } finally {
+    btn.textContent = '🖨️ Gerar PDF (4 páginas)';
+    btn.disabled = false;
+  }
+}
+
+// ═══ PARECER FINAL ═══
+function abrirParecerFinal(){
+  const modal = document.getElementById('modalParecerFinal');
+  modal.style.display = 'flex';
+
+  const nome = getNome();
+  const vaga = getVaga();
+
+  // Nome / Vaga
+  document.getElementById('pfNomeVaga').innerHTML = `
+    <div style="font-size:0.65rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Candidato</div>
+    <div style="font-size:1.05rem;font-weight:900;color:#f0f0f0;">${nome}</div>
+    <div style="font-size:0.8rem;color:#3b82f6;font-weight:600;margin-top:2px;">📋 ${vaga}</div>`;
+
+  // Decisão
+  const decMap = {
+    aprovado:  { label:'✅ Aprovado',     bg:'rgba(59,130,246,0.12)', cor:'#2ecc71' },
+    reserva:   { label:'🟡 Reserva',      bg:'rgba(243,156,18,0.12)', cor:'#f39c12' },
+    reprovado: { label:'❌ Não Aprovado', bg:'rgba(231,76,60,0.12)',  cor:'#e74c3c' },
+  };
+  const dec = decMap[decisaoAtual] || { label:'— Não definida —', bg:'rgba(255,255,255,0.04)', cor:'#555' };
+  document.getElementById('pfDecisao').style.background = dec.bg;
+  document.getElementById('pfDecisao').style.borderColor = dec.cor + '55';
+  document.getElementById('pfDecisao').innerHTML = `
+    <div style="font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;">Decisão do Recrutador</div>
+    <div style="font-size:1.3rem;font-weight:900;color:${dec.cor};">${dec.label}</div>`;
+
+  // Recomendação
+  const recMap = {
+    contratar:  { label:'🌟 Recomendado para Contratação',          bg:'rgba(59,130,246,0.12)', cor:'#2ecc71' },
+    entrevista: { label:'🤝 Recomendado para Entrevista Presencial', bg:'rgba(59,130,246,0.12)', cor:'#3b82f6' },
+    ressalvas:  { label:'⚠️ Recomendado com Ressalvas',             bg:'rgba(243,156,18,0.12)', cor:'#f39c12' },
+    banco:      { label:'📁 Banco de Talentos',                      bg:'rgba(52,152,219,0.12)', cor:'#3498db' },
+    nao:        { label:'🚫 Não Recomendado',                        bg:'rgba(231,76,60,0.12)',  cor:'#e74c3c' },
+  };
+  const rec = recMap[recAtual] || { label:'— Não definida —', bg:'rgba(255,255,255,0.04)', cor:'#555' };
+  document.getElementById('pfRecomendacao').style.background = rec.bg;
+  document.getElementById('pfRecomendacao').style.borderColor = rec.cor + '55';
+  document.getElementById('pfRecomendacao').innerHTML = `
+    <div style="font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;">Recomendação para a Empresa</div>
+    <div style="font-size:1.15rem;font-weight:900;color:${rec.cor};">${rec.label}</div>`;
+
+  // Média dos ratings
+  const vals = Object.values(ratingsVal).filter(v => v > 0);
+  const media = vals.length ? (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : null;
+  const mediaNum = parseFloat(media);
+  const mediaCor = !media ? '#777' : mediaNum >= 7 ? '#2ecc71' : mediaNum >= 5 ? '#f39c12' : '#e74c3c';
+  document.getElementById('pfMedia').innerHTML = media
+    ? `<div style="font-size:0.62rem;font-weight:700;color:#9b59b6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;">Média de Avaliação (${vals.length} critérios)</div>
+       <div style="display:flex;align-items:baseline;gap:0.5rem;">
+         <span style="font-size:2rem;font-weight:900;color:${mediaCor};">${media}</span>
+         <span style="font-size:1rem;color:#555;font-weight:700;">/10</span>
+         <span style="font-size:0.78rem;color:${mediaCor};font-weight:700;margin-left:4px;">${mediaNum>=7?'🟢 Bom desempenho':mediaNum>=5?'🟡 Desempenho regular':'🔴 Abaixo do esperado'}</span>
+       </div>`
+    : `<div style="font-size:0.78rem;color:#555;">Nenhum critério avaliado.</div>`;
+
+  // Justificativa
+  const ressalvas = document.getElementById('fRessalvas').value.trim();
+  const pfJ = document.getElementById('pfJustificativa');
+  if(ressalvas){
+    pfJ.style.display = 'block';
+    pfJ.innerHTML = `<div style="font-size:0.62rem;font-weight:700;color:#b36200;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;">📝 Motivo / Justificativa</div>
+      <p style="font-size:0.83rem;color:#ddd;line-height:1.65;margin:0;">${ressalvas.replace(/\n/g,'<br>')}</p>`;
+  } else { pfJ.style.display = 'none'; }
+
+  // Observações marcadas
+  const checksMarcados = Object.entries(obsChecks).filter(([,v])=>v).map(([k])=>k);
+  const pfO = document.getElementById('pfObs');
+  if(checksMarcados.length){
+    pfO.style.display = 'block';
+    pfO.innerHTML = `<div style="font-size:0.62rem;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✅ Observações Positivas</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;">
+        ${checksMarcados.map(ch=>`<div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:6px;padding:3px 10px;font-size:0.75rem;color:#3b82f6;font-weight:600;">✓ ${ch}</div>`).join('')}
+      </div>`;
+  } else { pfO.style.display = 'none'; }
+}
+
+function fecharParecerFinal(){
+  document.getElementById('modalParecerFinal').style.display = 'none';
+}
+
+// ═══ CONFIG SUPABASE ═══
+function abrirConfigSupabase(){
+  document.getElementById('modalConfigSb').style.display = 'flex';
+  document.getElementById('sbKeyPreview').textContent = SUPABASE_KEY.slice(0,40) + '…';
+  document.getElementById('sbDiagResult').innerHTML = '';
+  testarConexao();
+}
+function fecharConfigSupabase(){
+  document.getElementById('modalConfigSb').style.display = 'none';
+}
+function salvarNovaKey(){
+  const k = document.getElementById('sbNewKey').value.trim();
+  if(!k){ mostrarToast('Cole a chave antes de salvar.', true); return; }
+  if(!k.startsWith('eyJ')){ mostrarToast('Chave inválida — deve começar com eyJ (anon key JWT).', true); return; }
+  localStorage.setItem('sb_anon_key', k);
+  mostrarToast('✅ Chave salva! Recarregue a página para aplicar.', false);
+  document.getElementById('sbKeyPreview').textContent = k.slice(0,40) + '…';
+  document.getElementById('sbNewKey').value = '';
+}
+function copiarSQL(){
+  const sql = document.getElementById('sqlCreate').textContent;
+  navigator.clipboard.writeText(sql).then(()=>mostrarToast('SQL copiado!')).catch(()=>mostrarToast('Erro ao copiar', true));
+}
+async function testarConexao(){
+  const el = document.getElementById('sbDiagResult');
+  el.innerHTML = '<div style="font-size:0.78rem;color:#f39c12;">⏳ Testando conexão…</div>';
+  try{
+    const res = await fetchComTimeout(
+      SUPABASE_URL + '/rest/v1/pareceres_historico?limit=1',
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } },
+      8000
+    );
+    let body = '';
+    try{ body = await res.text(); }catch(e){}
+    if(res.ok){
+      el.innerHTML = `<div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:0.7rem 1rem;font-size:0.78rem;color:#2ecc71;">
+        ✅ <strong>Conexão OK!</strong> Tabela <code>pareceres_historico</code> encontrada e acessível.
+      </div>`;
+    } else if(res.status === 401 || res.status === 403){
+      el.innerHTML = `<div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:0.7rem 1rem;font-size:0.78rem;color:#e74c3c;line-height:1.7;">
+        ❌ <strong>Erro de autenticação (${res.status})</strong><br/>
+        A <em>anon key</em> está incorreta ou expirada.<br/>
+        <span style="color:#aaa;">Acesse Supabase → Settings → API → copie a <strong>anon public key</strong> (começa com <code style="color:#3b82f6;">eyJ</code>) e cole abaixo.</span>
+      </div>`;
+    } else if(res.status === 404 || body.includes('does not exist') || body.includes('relation')){
+      el.innerHTML = `<div style="background:rgba(243,156,18,0.1);border:1px solid rgba(243,156,18,0.3);border-radius:10px;padding:0.7rem 1rem;font-size:0.78rem;color:#f39c12;line-height:1.7;">
+        ⚠️ <strong>Chave OK, mas tabela não existe.</strong><br/>
+        Execute o SQL abaixo no painel do Supabase (SQL Editor) para criar a tabela.
+      </div>`;
+    } else {
+      el.innerHTML = `<div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:0.7rem 1rem;font-size:0.78rem;color:#e74c3c;line-height:1.7;">
+        ❌ <strong>Erro HTTP ${res.status}</strong><br/>
+        <code style="font-size:0.68rem;color:#aaa;">${body.slice(0,200)}</code>
+      </div>`;
+    }
+  } catch(e){
+    el.innerHTML = `<div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:0.7rem 1rem;font-size:0.78rem;color:#e74c3c;line-height:1.7;">
+      ❌ <strong>Sem conexão de rede</strong><br/>
+      <span style="color:#aaa;">${e.message}</span>
+    </div>`;
+  }
+}
+
+// ═══ DIAGNÓSTICO CONFIDENCIAL ═══
+function diagnosticoConf() {
+  const campos = ['fNome','fMae','fPai','fIdade','fCPF','fRG','fNacionalidade','fCidade','fBairro','fDisponibilidade','fCNH','fPretensao'];
+  let msg = '=== DIAGNÓSTICO CONFIDENCIAL ===\n';
+  msg += '_confState: ' + JSON.stringify(_confState) + '\n\n';
+  campos.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const c1 = !!_confState[id];
+    const c2 = el.getAttribute('data-conf') === '1';
+    const c3 = el.classList.contains('is-confidential');
+    const fw = el.closest('.field-wrap');
+    const par = fw ? fw.parentElement : null;
+    const cb = par ? par.querySelector('input[type="checkbox"]') : null;
+    const c4 = !!(cb && cb.checked);
+    const isConf = c1 || c2 || c3 || c4;
+    if (isConf || c4) {
+      msg += id + ': conf=' + isConf + ' | c1(state)=' + c1 + ' c2(attr)=' + c2 + ' c3(class)=' + c3 + ' c4(cb)=' + c4 + '\n';
+    }
+  });
+  alert(msg);
+}
+
+// ═══ CONFIDENCIAL ═══
+function toggleConf(checkbox, fieldId) {
+  const input = document.getElementById(fieldId);
+  if (!input) return;
+  if (checkbox.checked) {
+    // Guarda o valor original e substitui por marcador
+    input.setAttribute('data-valor-original', input.value);
+    input.setAttribute('data-conf', '1');
+    input.value = '🔒 Confidencial';
+    input.classList.add('is-confidential');
+    _confState[fieldId] = true;
+  } else {
+    // Restaura o valor original
+    const original = input.getAttribute('data-valor-original') || '';
+    input.removeAttribute('data-conf');
+    input.removeAttribute('data-valor-original');
+    input.value = original;
+    input.classList.remove('is-confidential');
+    _confState[fieldId] = false;
+  }
+}
+
+// Diagnóstico automático silencioso na carga
+(async function diagnosticoSilencioso(){
+  if(!SUPABASE_KEY.startsWith('eyJ')){
+    _setStatus('⚠️ Chave Supabase inválida — clique em ⚙️ Config Supabase', '#e74c3c');
+    return;
+  }
+  try{
+    const res = await fetchComTimeout(SUPABASE_URL+'/rest/v1/pareceres_historico?limit=1',
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}, 5000);
+    if(res.status===401||res.status===403){
+      _setStatus('⚠️ Anon key inválida — clique em ⚙️ Config Supabase', '#e74c3c');
+    } else if(!res.ok){
+      const t = await res.text().catch(()=>'');
+      if(t.includes('does not exist')||t.includes('relation')){
+        _setStatus('⚠️ Tabela pareceres_historico não existe — clique em ⚙️ Config Supabase', '#f39c12');
+      }
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

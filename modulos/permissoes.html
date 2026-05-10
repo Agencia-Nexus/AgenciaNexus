@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Permissões | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#a78bfa;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.6rem;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--purple);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--purple);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+/* PERFIS DE ACESSO */
+.role-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.8rem;margin-bottom:1rem;}
+.role-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:14px;padding:1.2rem;}
+.role-hdr{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.85rem;}
+.role-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.role-nome{font-size:0.85rem;font-weight:800;}
+.role-desc{font-size:0.65rem;color:var(--muted);margin-top:0.05rem;}
+.perm-list{display:flex;flex-direction:column;gap:0.35rem;}
+.perm-item{display:flex;align-items:center;justify-content:space-between;font-size:0.72rem;padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.perm-item:last-child{border-bottom:none;}
+.perm-nome{color:var(--muted);}
+.perm-check{font-size:0.75rem;font-weight:800;}
+.p-sim{color:var(--green);}
+.p-nao{color:var(--red);}
+.p-lim{color:var(--orange);}
+/* USUÁRIOS */
+.user-row{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 0.9rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;margin-bottom:0.5rem;}
+.user-ava{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:900;color:#fff;flex-shrink:0;}
+.user-info{flex:1;min-width:0;}
+.user-nome{font-size:0.8rem;font-weight:700;}
+.user-email{font-size:0.62rem;color:var(--muted);}
+.role-badge{font-size:0.58rem;font-weight:800;padding:0.15rem 0.55rem;border-radius:99px;}
+.rb-admin{background:rgba(59,130,246,0.12);color:var(--accent);}
+.rb-rec{background:rgba(52,152,219,0.12);color:var(--blue);}
+.rb-view{background:rgba(255,255,255,0.08);color:var(--muted);}
+.btn{font-family:inherit;font-size:0.75rem;font-weight:700;border-radius:10px;padding:0.48rem 1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.35rem;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.info-box{background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.18);border-radius:12px;padding:1rem 1.2rem;font-size:0.75rem;color:#bbb;line-height:1.65;margin-bottom:1rem;}
+.info-box strong{color:var(--purple);}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}.toast.show{transform:translateY(0);opacity:1;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page, .wrap, .wrapper {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child { width: 100% !important; }
+  .hero .btn, .hero button { width: 100% !important; justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3,
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Formulários */
+  .form-card { padding: 1rem !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Filtros */
+  .filters, .discFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .filters::-webkit-scrollbar, .discFilters::-webkit-scrollbar { display: none !important; }
+  .fc, .filter-chip { flex-shrink: 0 !important; }
+
+  /* Listas de itens */
+  .notif-item, .resp-item, .hist-item, .user-row, .polling-row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .notif-msg { white-space: normal !important; font-size: 0.72rem !important; }
+
+  /* Mapa de talentos */
+  .quadrante-wrap { aspect-ratio: 1 !important; max-height: 280px !important; }
+  .talent-table { font-size: 0.68rem !important; }
+  .talent-table th, .talent-table td { padding: 0.38rem 0.4rem !important; }
+
+  /* NPS scale */
+  .scale-row { gap: 0.2rem !important; margin: 0.6rem 0 !important; }
+  .scale-btn { width: 36px !important; height: 36px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+  .nps-val { font-size: 3.5rem !important; }
+  .nps-score { padding: 1.2rem !important; }
+  .kpi-row.nps { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Permissões */
+  .role-grid { grid-template-columns: 1fr !important; }
+  .role-card { padding: 1rem !important; }
+  .perm-item { font-size: 0.68rem !important; }
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Equipe */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.6rem !important; }
+  .member-ava { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; }
+  .member-card { padding: 1rem !important; }
+  .member-btns { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* Fit Predictor */
+  .result-box { padding: 1rem !important; }
+  .score-num { font-size: 3.5rem !important; }
+  .bar-label { width: 70px !important; font-size: 0.6rem !important; }
+  .insights { font-size: 0.7rem !important; }
+  .hist-list { max-height: 200px !important; }
+
+  /* Inteligência / busca IA */
+  .search-inner { flex-direction: column !important; }
+  .s-input { width: 100% !important; }
+  .search-box { padding: 0.9rem !important; }
+
+  /* Notificações */
+  .notif-list { max-height: 300px !important; }
+  .kpi-row .kpi { text-align: center; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Seção labels */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Topbar (emails / entrevista) */
+  .topbar, .tbar {
+    padding: 0.7rem 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+  .topbar-actions { gap: 0.4rem !important; }
+  .topbar-actions .btn, .topbar-actions button { font-size: 0.68rem !important; padding: 0.38rem 0.65rem !important; }
+}
+
+</style></head><body>
+<div class="page">
+  <div class="hero"><div class="eyebrow">Configurações · Segurança</div><div class="title"><span>Permissões</span> de Acesso</div><div class="sub">Controle o que cada perfil pode ver e fazer no sistema</div></div>
+  
+  <div class="info-box"><strong>ℹ️ Como funciona</strong><br/>As senhas e usuários são configurados diretamente no arquivo <code>disc-admin.html</code> na constante <code>USUARIOS</code>. Este módulo mostra os perfis disponíveis e o que cada um pode acessar. Para adicionar usuários vá em <strong>Sistema → Config. Geral → Equipe</strong>.</div>
+
+  <div class="sec-label">Perfis de acesso</div>
+  <div class="role-grid">
+    <div class="role-card" style="border-color:rgba(141,198,63,0.25);">
+      <div class="role-hdr">
+        <div class="role-ico" style="background:rgba(59,130,246,0.12);">🛡️</div>
+        <div><div class="role-nome" style="color:var(--accent);">Administrador</div><div class="role-desc">Acesso total ao sistema</div></div>
+      </div>
+      <div class="perm-list">
+        <div class="perm-item"><span class="perm-nome">Dashboard</span><span class="perm-check p-sim">✓ Completo</span></div>
+        <div class="perm-item"><span class="perm-nome">Candidatos</span><span class="perm-check p-sim">✓ Total</span></div>
+        <div class="perm-item"><span class="perm-nome">Vagas + GitHub</span><span class="perm-check p-sim">✓ Total</span></div>
+        <div class="perm-item"><span class="perm-nome">Pipeline</span><span class="perm-check p-sim">✓ Total</span></div>
+        <div class="perm-item"><span class="perm-nome">Configurações</span><span class="perm-check p-sim">✓ Total</span></div>
+        <div class="perm-item"><span class="perm-nome">Auditoria/Logs</span><span class="perm-check p-sim">✓ Total</span></div>
+        <div class="perm-item"><span class="perm-nome">Exportação CSV</span><span class="perm-check p-sim">✓ Total</span></div>
+      </div>
+    </div>
+    <div class="role-card" style="border-color:rgba(52,152,219,0.25);">
+      <div class="role-hdr">
+        <div class="role-ico" style="background:rgba(52,152,219,0.12);">👤</div>
+        <div><div class="role-nome" style="color:var(--blue);">Recrutador</div><div class="role-desc">Operações de recrutamento</div></div>
+      </div>
+      <div class="perm-list">
+        <div class="perm-item"><span class="perm-nome">Dashboard</span><span class="perm-check p-sim">✓ Visualizar</span></div>
+        <div class="perm-item"><span class="perm-nome">Candidatos</span><span class="perm-check p-sim">✓ Editar</span></div>
+        <div class="perm-item"><span class="perm-nome">Vagas + GitHub</span><span class="perm-check p-lim">⚡ Com token</span></div>
+        <div class="perm-item"><span class="perm-nome">Pipeline</span><span class="perm-check p-sim">✓ Mover cards</span></div>
+        <div class="perm-item"><span class="perm-nome">Configurações</span><span class="perm-check p-nao">✗ Sem acesso</span></div>
+        <div class="perm-item"><span class="perm-nome">Auditoria/Logs</span><span class="perm-check p-nao">✗ Sem acesso</span></div>
+        <div class="perm-item"><span class="perm-nome">Exportação CSV</span><span class="perm-check p-sim">✓ Permitido</span></div>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-hdr">
+        <div class="role-ico" style="background:rgba(255,255,255,0.06);">👁️</div>
+        <div><div class="role-nome">Visualizador</div><div class="role-desc">Somente leitura</div></div>
+      </div>
+      <div class="perm-list">
+        <div class="perm-item"><span class="perm-nome">Dashboard</span><span class="perm-check p-sim">✓ Visualizar</span></div>
+        <div class="perm-item"><span class="perm-nome">Candidatos</span><span class="perm-check p-lim">⚡ Somente ver</span></div>
+        <div class="perm-item"><span class="perm-nome">Vagas + GitHub</span><span class="perm-check p-nao">✗ Sem acesso</span></div>
+        <div class="perm-item"><span class="perm-nome">Pipeline</span><span class="perm-check p-lim">⚡ Somente ver</span></div>
+        <div class="perm-item"><span class="perm-nome">Configurações</span><span class="perm-check p-nao">✗ Sem acesso</span></div>
+        <div class="perm-item"><span class="perm-nome">Auditoria/Logs</span><span class="perm-check p-nao">✗ Sem acesso</span></div>
+        <div class="perm-item"><span class="perm-nome">Exportação CSV</span><span class="perm-check p-nao">✗ Sem acesso</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">Usuários cadastrados</div>
+  <div id="usersList"></div>
+  <div style="margin-top:1rem;">
+    <button class="btn btn-accent" onclick="navegar('config')">⚙️ Gerenciar usuários em Config. Geral</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+function init(){
+  const membros=(() => {try{return JSON.parse(localStorage.getItem('nexus_membros')||'[]');}catch(e){return[];}})();
+  const usuarios=[{nome:'Administrador',email:'admin@nexus.com.br',perfil:'admin'},{nome:'Recrutador',email:'rh@nexus.com.br',perfil:'recrutador'},...membros];
+  const cls={admin:'rb-admin',recrutador:'rb-rec',visualizador:'rb-view'};
+  const lbl={admin:'Administrador',recrutador:'Recrutador',visualizador:'Visualizador'};
+  const cores=['#1e40af','#3498db','#9b59b6','#e74c3c','#f39c12'];
+  document.getElementById('usersList').innerHTML=usuarios.map((u,i)=>`
+    <div class="user-row">
+      <div class="user-ava" style="background:${cores[i%cores.length]};">${(u.nome||'?')[0].toUpperCase()}</div>
+      <div class="user-info"><div class="user-nome">${esc(u.nome)}</div><div class="user-email">${esc(u.email||'—')}</div></div>
+      <span class="role-badge ${cls[u.perfil]||'rb-view'}">${lbl[u.perfil]||u.perfil||'Recrutador'}</span>
+    </div>`).join('');
+}
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function navegar(mod){window.parent.postMessage({tipo:'nexus_navegar',mod},'*');}
+init();
+</script></body></html>

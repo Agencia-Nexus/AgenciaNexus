@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<script src="../nexus-security.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0a;color:#f0f0f0;font-family:'Sora',sans-serif;padding:2rem;}
+h1{color:#3b82f6;font-size:1.2rem;margin-bottom:1.5rem;}
+input{width:100%;padding:0.7rem 1rem;background:#1a1a1a;border:1px solid #333;border-radius:10px;color:#f0f0f0;font-family:inherit;font-size:0.9rem;margin-bottom:0.8rem;outline:none;}
+input:focus{border-color:#3b82f6;}
+button{background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border:none;border-radius:10px;padding:0.75rem 2rem;font-family:inherit;font-size:0.9rem;font-weight:700;cursor:pointer;margin-bottom:1.5rem;}
+.card{background:#161616;border:1px solid #2a2a2a;border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:0.8rem;}
+.card-title{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#3b82f6;margin-bottom:0.8rem;}
+.row{display:flex;gap:1rem;margin-bottom:0.4rem;}
+.label{font-size:0.72rem;color:#777;min-width:160px;flex-shrink:0;}
+.value{font-size:0.82rem;font-weight:600;word-break:break-all;}
+.ok{color:#2ecc71;} .vazio{color:#e74c3c;}
+.status{display:inline-block;padding:0.25rem 0.8rem;border-radius:99px;font-size:0.72rem;font-weight:700;margin-bottom:1rem;}
+.s-ok{background:rgba(59,130,246,0.15);color:#2ecc71;border:1px solid rgba(59,130,246,0.3);}
+.s-err{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);}
+.sep{height:1px;background:#222;margin:1rem 0;}
+.btn-fix{background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.35);border-radius:8px;padding:0.5rem 1.1rem;font-family:inherit;font-size:0.78rem;font-weight:700;cursor:pointer;margin-top:0.5rem;}
+.banner{background:rgba(243,156,18,0.08);border:1px solid rgba(243,156,18,0.3);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:0.82rem;color:#f39c12;line-height:1.6;}
+</style>
+</head>
+<body>
+<h1>🔍 Diagnóstico e Correção DISC</h1>
+<input type="text" id="inNome" placeholder="Nome do candidato (ex: Felipe Figueira)"/>
+<input type="text" id="inEmail" placeholder="E-mail (recomendado)"/>
+<button onclick="diagnosticar()">🔍 Buscar</button>
+<div id="resultado"></div>
+<script>
+let _todos = [];
+
+async function diagnosticar() {
+  const SB=NexusSec._url, KEY=NexusSec._key;
+  const nome=document.getElementById('inNome').value.trim();
+  const email=document.getElementById('inEmail').value.trim().toLowerCase();
+  const out=document.getElementById('resultado');
+  out.innerHTML='<p style="color:#777">⏳ Buscando...</p>';
+  const hdrs={'apikey':KEY,'Authorization':'Bearer '+KEY,'Accept':'application/json'};
+  let cands=[];
+  if(email){const r=await fetch(`${SB}/rest/v1/disc_historico?email_externo=eq.${encodeURIComponent(email)}&select=*&order=criado_em.desc&limit=20`,{headers:hdrs});if(r.ok)cands=await r.json();}
+  if(!cands.length&&nome){const r=await fetch(`${SB}/rest/v1/disc_historico?nome=ilike.*${encodeURIComponent(nome.split(' ')[0])}*&select=*&order=criado_em.desc&limit=20`,{headers:hdrs});if(r.ok)cands=await r.json();}
+  if(!cands.length){out.innerHTML='<div class="card"><p class="vazio">❌ Nenhum registro encontrado.</p></div>';return;}
+  _todos=cands;
+  const TTL=21*24*60*60*1000;
+  const comDisc=cands.filter(h=>h.disc_perfil&&parseFloat(h.pct_d||0)>0);
+  const semDisc=cands.filter(h=>!h.disc_perfil);
+  const fonte=comDisc[0]||null;
+  let html=`<p style="font-size:0.8rem;color:#777;margin-bottom:1rem">Total: <b style="color:#f0f0f0">${cands.length}</b> — <span class="ok">${comDisc.length} com DISC</span> — <span class="vazio">${semDisc.length} sem DISC</span></p>`;
+  if(fonte&&semDisc.length){
+    html+=`<div class="banner">🔧 Fonte encontrada: <b>${fonte.disc_perfil}+${fonte.sec||'?'}</b> (${fonte.vaga||'—'})<br>${semDisc.length} registro(s) podem ser corrigidos.<br><br>
+    <button class="btn-fix" onclick="corrigirTodos('${fonte.id}')">⚡ Corrigir todos os registros vazios agora</button>
+    <div id="fixTodos" style="font-size:0.75rem;margin-top:0.5rem"></div></div>`;
+  }
+  cands.forEach((h,i)=>{
+    const ok=!!(h.disc_perfil&&parseFloat(h.pct_d||0)>0);
+    const discAt=h.disc_atualizado_em?new Date(h.disc_atualizado_em).getTime():0;
+    const valido=ok&&(Date.now()-discAt)<TTL;
+    html+=`<div class="card">
+      <div class="card-title">Registro ${i+1} — ${h.vaga||'sem vaga'}</div>
+      <span class="status ${ok?'s-ok':'s-err'}">${ok?'✅ DISC completo':'❌ Sem DISC'}</span>
+      <div class="row"><span class="label">Nome</span><span class="value">${h.nome||'—'}</span></div>
+      <div class="row"><span class="label">Vaga</span><span class="value">${h.vaga||'—'}</span></div>
+      <div class="sep"></div>
+      <div class="row"><span class="label">dom</span><span class="value ${h.dom?'ok':'vazio'}">${h.dom||'❌ VAZIO'}</span></div>
+      <div class="row"><span class="label">disc_perfil</span><span class="value ${h.disc_perfil?'ok':'vazio'}">${h.disc_perfil||'❌ VAZIO'}</span></div>
+      <div class="row"><span class="label">pct D/I/S/C</span><span class="value ${parseFloat(h.pct_d||0)>0?'ok':'vazio'}">${h.pct_d||0}% / ${h.pct_i||0}% / ${h.pct_s||0}% / ${h.pct_c||0}%</span></div>
+      <div class="row"><span class="label">disc_atualizado_em</span><span class="value ${valido?'ok':'vazio'}">${h.disc_atualizado_em?h.disc_atualizado_em.slice(0,19).replace('T',' '):'❌ VAZIO'}</span></div>
+      ${!ok&&fonte?`<div class="sep"></div><button class="btn-fix" onclick="corrigirUm('${h.id}','${fonte.id}')">🔧 Copiar DISC para este registro</button><div id="fix_${h.id}" style="font-size:0.75rem;color:#777;margin-top:0.4rem"></div>`:''}
+    </div>`;
+  });
+  out.innerHTML=html;
+}
+
+async function corrigirTodos(fonteId){
+  const el=document.getElementById('fixTodos');
+  el.textContent='⏳ Corrigindo...';
+  const fonte=_todos.find(h=>h.id===fonteId);
+  const semDisc=_todos.filter(h=>!h.disc_perfil&&h.id!==fonteId);
+  let ok=0;
+  for(const h of semDisc){if(await _patch(h.id,fonte))ok++;}
+  el.innerHTML=`<span class="ok">✅ ${ok} registro(s) corrigidos! Recarregue o banco de talentos.</span>`;
+  setTimeout(diagnosticar,1200);
+}
+
+async function corrigirUm(id,fonteId){
+  const el=document.getElementById('fix_'+id);
+  el.textContent='⏳ Corrigindo...';
+  const fonte=_todos.find(h=>h.id===fonteId);
+  const ok=await _patch(id,fonte);
+  el.innerHTML=ok?'<span class="ok">✅ Corrigido! Recarregue o banco de talentos.</span>':'<span class="vazio">❌ Erro.</span>';
+}
+
+async function _patch(id,fonte){
+  const SB=NexusSec._url,KEY=NexusSec._key;
+  try{
+    const r=await fetch(`${SB}/rest/v1/disc_historico?id=eq.${encodeURIComponent(id)}`,{
+      method:'PATCH',
+      headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({dom:fonte.disc_perfil,disc_perfil:fonte.disc_perfil,sec:fonte.sec||null,pct_d:fonte.pct_d||null,pct_i:fonte.pct_i||null,pct_s:fonte.pct_s||null,pct_c:fonte.pct_c||null,url:fonte.url||null,disc_atualizado_em:new Date().toISOString()})
+    });
+    return r.ok||r.status===204;
+  }catch(e){return false;}
+}
+</script>
+</body>
+</html>

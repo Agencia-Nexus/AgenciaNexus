@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Notificações | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;
+  --border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);
+  --text:#f0f0f0;--muted:#666;--muted2:#333;
+  --red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+
+/* HERO */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--red);}
+.sub{font-size:0.8rem;color:var(--muted);}
+
+/* KPIs */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;transition:border-color 0.2s;}
+.kpi:hover{border-color:var(--border2);}
+.kpi-val{font-size:1.6rem;font-weight:900;line-height:1;}
+.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+
+/* SECTION LABEL */
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.5rem;margin-bottom:1rem;}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:1rem;}
+.card-title{font-size:0.78rem;font-weight:800;}
+
+/* BUTTONS */
+.btn{font-family:inherit;font-size:0.72rem;font-weight:700;border-radius:9px;padding:0.42rem 0.9rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.35rem;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}
+.btn-red:hover{background:rgba(231,76,60,0.18);}
+.btn-green{background:rgba(46,204,113,0.1);color:var(--green);border-color:rgba(46,204,113,0.25);}
+.btn-green:hover{background:rgba(46,204,113,0.18);}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.btn-accent:hover{opacity:0.88;}
+
+/* MONITOR STATUS ROW */
+.monitor-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.1rem 1.5rem;margin-bottom:1rem;}
+.monitor-row{display:flex;align-items:center;gap:0.8rem;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.monitor-row:last-child{border-bottom:none;padding-bottom:0;}
+.monitor-row:first-child{padding-top:0;}
+.pulse-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;transition:background 0.3s;}
+.pulse-dot.active{animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 currentColor}50%{box-shadow:0 0 0 5px transparent}}
+.monitor-info{flex:1;}
+.monitor-title{font-size:0.78rem;font-weight:700;}
+.monitor-sub{font-size:0.62rem;color:var(--muted);margin-top:0.1rem;}
+.monitor-status{font-size:0.62rem;font-weight:700;padding:0.2rem 0.55rem;border-radius:20px;white-space:nowrap;}
+.status-on{background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.2);}
+.status-off{background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid rgba(255,255,255,0.08);}
+.status-ok{background:rgba(59,130,246,0.1);color:var(--accent);border:1px solid rgba(59,130,246,0.2);}
+
+/* NOTIF LIST */
+.notif-list{display:flex;flex-direction:column;gap:0.4rem;max-height:460px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.notif-item{display:flex;align-items:flex-start;gap:0.7rem;padding:0.7rem 0.85rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;transition:all 0.15s;cursor:pointer;position:relative;overflow:hidden;}
+.notif-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background 0.2s;}
+.notif-item.unread{background:rgba(59,130,246,0.03);border-color:rgba(59,130,246,0.1);}
+.notif-item.unread::before{background:var(--accent);}
+.notif-item.tipo-novo::before{background:var(--green);}
+.notif-item.tipo-entrevista::before{background:var(--blue);}
+.notif-item.tipo-alerta::before{background:var(--orange);}
+.notif-item:hover{border-color:var(--border2);background:rgba(59,130,246,0.05);}
+.notif-icon{font-size:1.1rem;flex-shrink:0;margin-top:0.05rem;}
+.notif-body{flex:1;min-width:0;}
+.notif-msg{font-size:0.78rem;font-weight:700;line-height:1.3;}
+.notif-sub{font-size:0.62rem;color:var(--muted);margin-top:0.15rem;line-height:1.4;}
+.notif-actions{display:flex;gap:0.35rem;margin-top:0.4rem;flex-wrap:wrap;}
+.notif-btn{font-family:inherit;font-size:0.6rem;font-weight:700;padding:0.18rem 0.5rem;border-radius:5px;border:1px solid;cursor:pointer;transition:all 0.15s;}
+.notif-btn-email{background:rgba(52,152,219,0.1);color:var(--blue);border-color:rgba(52,152,219,0.25);}
+.notif-btn-email:hover{background:rgba(52,152,219,0.2);}
+.notif-btn-ver{background:rgba(59,130,246,0.1);color:var(--accent);border-color:rgba(59,130,246,0.25);}
+.notif-btn-ver:hover{background:rgba(59,130,246,0.2);}
+.notif-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem;flex-shrink:0;}
+.notif-time{font-size:0.6rem;color:var(--muted2);}
+.notif-unread-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+/* CONFIGURAÇÕES GRID */
+.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1rem;}
+.config-row{display:flex;align-items:center;gap:0.7rem;padding:0.65rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.config-row:last-child{border-bottom:none;}
+.config-info{flex:1;}
+.config-title{font-size:0.78rem;font-weight:700;}
+.config-sub{font-size:0.62rem;color:var(--muted);margin-top:0.05rem;}
+
+/* TOGGLE */
+.toggle{position:relative;width:38px;height:21px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,0.1);border-radius:21px;transition:0.3s;}
+.toggle-slider::before{content:'';position:absolute;height:15px;width:15px;left:3px;bottom:3px;background:var(--muted);border-radius:50%;transition:0.3s;}
+.toggle input:checked + .toggle-slider{background:rgba(59,130,246,0.3);}
+.toggle input:checked + .toggle-slider::before{transform:translateX(17px);background:var(--accent);}
+
+/* INPUT */
+.f-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.5rem 0.75rem;color:var(--text);font-family:inherit;font-size:0.82rem;outline:none;transition:border-color 0.2s;}
+.f-input:focus{border-color:var(--accent);}
+.f-label{font-size:0.62rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.5px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;max-width:320px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.err{border-color:rgba(231,76,60,0.4);color:var(--red);}
+
+/* EMPTY / SPINNER */
+.empty{text-align:center;padding:2.5rem;color:var(--muted2);font-size:0.75rem;}
+.spinner{width:16px;height:16px;border:2px solid var(--muted2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* BADGE NOVO */
+.badge-new{display:inline-flex;align-items:center;gap:0.25rem;background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.2);border-radius:20px;font-size:0.58rem;font-weight:800;padding:0.15rem 0.45rem;text-transform:uppercase;letter-spacing:0.5px;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+
+/* FILTROS */
+.filter-row{display:flex;gap:0.4rem;margin-bottom:0.8rem;flex-wrap:wrap;}
+.fchip{font-family:inherit;font-size:0.65rem;font-weight:700;padding:0.28rem 0.7rem;border-radius:20px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.fchip:hover{border-color:var(--border2);color:var(--text);}
+.fchip.active{background:rgba(59,130,246,0.12);border-color:var(--border2);color:var(--accent);}
+
+/* MOBILE */
+@media(max-width:640px){
+  .page{padding:1rem 0.9rem 4rem!important;}
+  .hero{flex-direction:column!important;align-items:flex-start!important;gap:0.8rem!important;}
+  .hero>div:last-child{width:100%!important;}
+  .hero .btn{flex:1!important;justify-content:center!important;}
+  .title{font-size:1.25rem!important;}
+  .kpi-row{grid-template-columns:repeat(2,1fr)!important;gap:0.5rem!important;}
+  .config-grid{grid-template-columns:1fr!important;}
+  .notif-list{max-height:320px!important;}
+  .card{padding:1rem!important;border-radius:14px!important;}
+  .toast{right:0.6rem!important;bottom:0.6rem!important;left:0.6rem!important;max-width:none!important;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Comunicação · Tempo Real</div>
+      <div class="title">Notificações <span>& Alertas</span></div>
+      <div class="sub">Monitoramento em tempo real · Candidatos · Entrevistas · E-mail</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <button class="btn btn-ghost" onclick="marcarTodasLidas()">✓ Marcar todas lidas</button>
+      <button class="btn btn-red" onclick="limparNotifs()">🗑 Limpar tudo</button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kNaoLidas" style="color:var(--red);">0</div><div class="kpi-label">Não lidas</div></div>
+    <div class="kpi"><div class="kpi-val" id="kTotal" style="color:var(--accent);">0</div><div class="kpi-label">Total</div></div>
+    <div class="kpi"><div class="kpi-val" id="kHoje" style="color:var(--blue);">0</div><div class="kpi-label">Hoje</div></div>
+    <div class="kpi"><div class="kpi-val" id="kCandidatos" style="color:var(--green);">0</div><div class="kpi-label">Candidatos novos</div></div>
+  </div>
+
+  <!-- STATUS DO MONITORAMENTO -->
+  <div class="sec-label">Status do monitoramento</div>
+  <div class="monitor-card">
+    <div class="monitor-row">
+      <div class="pulse-dot" id="dotCandidatos" style="background:var(--muted);color:var(--muted);"></div>
+      <div class="monitor-info">
+        <div class="monitor-title">👤 Novos candidatos (DISC)</div>
+        <div class="monitor-sub">Verifica Supabase a cada 60s · tabela disc_historico</div>
+      </div>
+      <span class="monitor-status status-off" id="statusCandidatos">Inativo</span>
+      <button class="btn btn-ghost" id="btnPoll" onclick="togglePolling()" style="white-space:nowrap;">▶ Ativar</button>
+    </div>
+    <div class="monitor-row">
+      <div class="pulse-dot" id="dotBrowser" style="background:var(--muted);color:var(--muted);"></div>
+      <div class="monitor-info">
+        <div class="monitor-title">🔔 Alertas no navegador</div>
+        <div class="monitor-sub">Notificação nativa mesmo com o sistema minimizado</div>
+      </div>
+      <span class="monitor-status" id="statusBrowser" style="background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid rgba(255,255,255,0.08);">—</span>
+      <button class="btn btn-ghost" id="btnBrowser" onclick="ativarBrowser()" style="white-space:nowrap;">Ativar</button>
+    </div>
+    <div class="monitor-row">
+      <div class="pulse-dot" id="dotCelular" style="background:var(--muted);color:var(--muted);"></div>
+      <div class="monitor-info">
+        <div class="monitor-title">📱 Notificação no celular (ntfy)</div>
+        <div class="monitor-sub">Receba no Android mesmo fora do sistema</div>
+      </div>
+      <span class="monitor-status" id="statusCelular" style="background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid rgba(255,255,255,0.08);">—</span>
+      <button class="btn btn-ghost" id="btnCelular" onclick="mostrarConfigNtfy()" style="white-space:nowrap;">Configurar</button>
+    </div>
+    <div class="monitor-row">
+      <div class="pulse-dot" id="dotEmail" style="background:var(--muted);color:var(--muted);"></div>
+      <div class="monitor-info">
+        <div class="monitor-title">✉️ E-mail de novas candidaturas</div>
+        <div class="monitor-sub">Receba um e-mail cada vez que chegar candidato novo</div>
+      </div>
+      <span class="monitor-status" id="statusEmail" style="background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid rgba(255,255,255,0.08);">—</span>
+      <button class="btn btn-ghost" id="btnEmail" onclick="mostrarConfigEmail()" style="white-space:nowrap;">Configurar</button>
+    </div>
+  </div>
+
+  <!-- CONFIG NTFY (oculto por padrão) -->
+  <div class="card" id="cardNtfy" style="display:none;border-color:rgba(243,156,18,0.25);">
+    <div class="card-head">
+      <span class="card-title">📱 Configurar notificação no celular</span>
+      <button class="btn btn-ghost" onclick="document.getElementById('cardNtfy').style.display='none'">✕ Fechar</button>
+    </div>
+    <div style="font-size:0.75rem;color:var(--muted);line-height:1.9;margin-bottom:1rem;">
+      <strong style="color:var(--text);">1.</strong> Instale o app <strong style="color:var(--orange);">ntfy</strong> no seu Android (gratuito, Google Play)<br>
+      <strong style="color:var(--text);">2.</strong> Dentro do app, toque em <strong style="color:var(--orange);">+ Subscribe to topic</strong><br>
+      <strong style="color:var(--text);">3.</strong> Digite o nome do tópico abaixo e salve:<br>
+    </div>
+    <label class="f-label">Tópico ntfy (nome único seu)</label>
+    <div style="display:flex;gap:0.5rem;margin-bottom:0.8rem;">
+      <input class="f-input" id="ntfyTopico" placeholder="ex: nexus-notif-suaempresa" style="flex:1;"/>
+      <button class="btn btn-accent" onclick="salvarNtfy()">💾 Salvar</button>
+    </div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="testarNtfy()">📤 Enviar notificação de teste</button>
+    <div id="ntfyFeedback" style="font-size:0.7rem;color:var(--muted);margin-top:0.6rem;"></div>
+  </div>
+
+  <!-- CONFIG EMAIL (oculto por padrão) -->
+  <div class="card" id="cardEmail" style="display:none;border-color:rgba(52,152,219,0.25);">
+    <div class="card-head">
+      <span class="card-title">✉️ Configurar e-mail de candidaturas</span>
+      <button class="btn btn-ghost" onclick="document.getElementById('cardEmail').style.display='none'">✕ Fechar</button>
+    </div>
+    <div style="font-size:0.75rem;color:var(--muted);line-height:1.8;margin-bottom:1rem;">
+      Quando chegar um candidato novo, o sistema abrirá o Gmail com o e-mail já preenchido para você. Informe o e-mail que deve receber os alertas:
+    </div>
+    <label class="f-label">Seu e-mail para receber alertas</label>
+    <div style="display:flex;gap:0.5rem;margin-bottom:0.8rem;">
+      <input class="f-input" id="emailDestino" type="email" placeholder="seu@email.com" style="flex:1;"/>
+      <button class="btn btn-accent" onclick="salvarEmail()">💾 Salvar</button>
+    </div>
+    <div style="background:rgba(52,152,219,0.06);border:1px solid rgba(52,152,219,0.15);border-radius:10px;padding:0.7rem 0.9rem;font-size:0.7rem;color:var(--muted);line-height:1.7;">
+      💡 <strong style="color:var(--text);">Como funciona:</strong> Quando um novo candidato for detectado, o sistema abrirá automaticamente o Gmail com o e-mail já preenchido com os dados do candidato. Você só precisa clicar em <strong style="color:var(--blue);">Enviar</strong>.
+    </div>
+  </div>
+
+  <!-- CONFIGURAÇÕES GERAIS -->
+  <div class="sec-label">Preferências</div>
+  <div class="card">
+    <div class="config-row">
+      <div class="config-info">
+        <div class="config-title">🔊 Som de alerta</div>
+        <div class="config-sub">Tocar um bip quando chegar notificação nova</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="toggleSom" onchange="salvarPrefs()"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="config-row">
+      <div class="config-info">
+        <div class="config-title">📅 Monitorar novas entrevistas</div>
+        <div class="config-sub">Notificar quando uma entrevista for agendada no sistema</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="toggleEntrevistas" onchange="salvarPrefs()" checked><span class="toggle-slider"></span></label>
+    </div>
+    <div class="config-row">
+      <div class="config-info">
+        <div class="config-title">👤 Monitorar novos candidatos</div>
+        <div class="config-sub">Notificar quando chegar resposta de formulário DISC</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="toggleCandidatos" onchange="salvarPrefs()" checked><span class="toggle-slider"></span></label>
+    </div>
+    <div class="config-row">
+      <div class="config-info">
+        <div class="config-title">⏰ Lembrete de entrevista (15 min)</div>
+        <div class="config-sub">Alerta no navegador 15 minutos antes de cada entrevista</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="toggleLembrete" onchange="salvarPrefs()" checked><span class="toggle-slider"></span></label>
+    </div>
+  </div>
+
+  <!-- CENTRAL DE NOTIFICAÇÕES -->
+  <div class="sec-label">Central de notificações</div>
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">🔔 Todas as notificações</span>
+      <div class="filter-row" style="margin-bottom:0;">
+        <button class="fchip active" onclick="filtrar('todos',this)">Todos</button>
+        <button class="fchip" onclick="filtrar('novo',this)">👤 Candidatos</button>
+        <button class="fchip" onclick="filtrar('entrevista',this)">📅 Entrevistas</button>
+        <button class="fchip" onclick="filtrar('alerta',this)">⚠️ Alertas</button>
+      </div>
+    </div>
+    <div class="notif-list" id="notifList">
+      <div class="empty"><span class="spinner"></span> Carregando...</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════
+   CONFIG
+═══════════════════════════════════ */
+let SB_URL = '', SB_KEY = '', _ultimoIdDisc = null, _ultimoIdAgenda = null, _polling = null;
+let _filtroAtivo = 'todos';
+
+const NTFY_KEY = 'nexus_ntfy_topico';
+const EMAIL_KEY = 'nexus_email_destino';
+const PREFS_KEY = 'nexus_notif_prefs';
+const NOTIFS_KEY = 'nexus_notifs_v2';
+
+/* ═══════════════════════════════════
+   CONTEXTO SUPABASE
+═══════════════════════════════════ */
+function lerCtx() {
+  try {
+    const c = JSON.parse(localStorage.getItem('nexus_ctx_v3') || '{}');
+    if (c.sb_url) { SB_URL = c.sb_url; SB_KEY = c.sb_key; }
+  } catch(e) {}
+}
+window.addEventListener('message', e => {
+  if (e.data?.tipo === 'nexus_ctx') { SB_URL = e.data.sb_url; SB_KEY = e.data.sb_key; init(); }
+});
+
+/* ═══════════════════════════════════
+   NOTIFICAÇÕES — storage
+═══════════════════════════════════ */
+let _notifs = [];
+
+function getNotifs() { try { return JSON.parse(localStorage.getItem(NOTIFS_KEY) || '[]'); } catch(e) { return []; } }
+function saveNotifs() { try { localStorage.setItem(NOTIFS_KEY, JSON.stringify(_notifs.slice(-300))); } catch(e) {} }
+
+function getPrefs() {
+  try { return JSON.parse(localStorage.getItem(PREFS_KEY) || '{}'); } catch(e) { return {}; }
+}
+function salvarPrefs() {
+  const prefs = {
+    som: document.getElementById('toggleSom').checked,
+    entrevistas: document.getElementById('toggleEntrevistas').checked,
+    candidatos: document.getElementById('toggleCandidatos').checked,
+    lembrete: document.getElementById('toggleLembrete').checked
+  };
+  localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
+}
+function carregarPrefs() {
+  const p = getPrefs();
+  if (p.som !== undefined) document.getElementById('toggleSom').checked = p.som;
+  if (p.entrevistas !== undefined) document.getElementById('toggleEntrevistas').checked = p.entrevistas;
+  if (p.candidatos !== undefined) document.getElementById('toggleCandidatos').checked = p.candidatos;
+  if (p.lembrete !== undefined) document.getElementById('toggleLembrete').checked = p.lembrete;
+}
+
+/* ═══════════════════════════════════
+   INIT
+═══════════════════════════════════ */
+async function init() {
+  lerCtx();
+  _notifs = getNotifs();
+  carregarPrefs();
+  carregarStatusBrowser();
+  carregarStatusNtfy();
+  carregarStatusEmail();
+
+  if (SB_URL) {
+    try {
+      // Pega último ID de candidatos
+      const r1 = await fetch(`${SB_URL}/rest/v1/disc_historico?select=id&order=id.desc&limit=1`, {
+        headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+      });
+      const arr1 = await r1.json();
+      if (arr1.length) _ultimoIdDisc = arr1[0].id;
+
+      // Pega último ID de agendamentos
+      const r2 = await fetch(`${SB_URL}/rest/v1/agendamentos?select=id&order=criado_em.desc&limit=1`, {
+        headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+      });
+      const arr2 = await r2.json();
+      if (Array.isArray(arr2) && arr2.length) _ultimoIdAgenda = arr2[0].id;
+    } catch(e) {}
+  }
+
+  renderNotifs();
+  iniciarLembretes();
+}
+
+/* ═══════════════════════════════════
+   RENDER
+═══════════════════════════════════ */
+function renderNotifs() {
+  const hoje = new Date().toLocaleDateString('pt-BR');
+  const naoLidas = _notifs.filter(n => !n.lida).length;
+  const candidatosNovos = _notifs.filter(n => n.tipo === 'novo').length;
+
+  document.getElementById('kNaoLidas').textContent = naoLidas;
+  document.getElementById('kTotal').textContent = _notifs.length;
+  document.getElementById('kHoje').textContent = _notifs.filter(n => n.data === hoje).length;
+  document.getElementById('kCandidatos').textContent = candidatosNovos;
+
+  window.parent.postMessage({ tipo: 'nexus_badge', mod: 'notif', valor: naoLidas }, '*');
+
+  const el = document.getElementById('notifList');
+  let lista = [..._notifs].reverse();
+
+  if (_filtroAtivo !== 'todos') lista = lista.filter(n => n.tipo === _filtroAtivo);
+
+  if (!lista.length) {
+    el.innerHTML = '<div class="empty">Nenhuma notificação' + (_filtroAtivo !== 'todos' ? ' nesta categoria' : '') + '.</div>';
+    return;
+  }
+
+  el.innerHTML = lista.map(n => {
+    const icons = { novo: '👤', entrevista: '📅', alerta: '⚠️', info: 'ℹ️' };
+    const icon = icons[n.tipo] || '🔔';
+    const isNew = !n.lida;
+
+    let acoes = '';
+    if (n.tipo === 'novo' && n.extra?.nome) {
+      const email = getEmailDestino();
+      if (email) {
+        const assunto = encodeURIComponent(`Nova candidatura — ${n.extra.nome}`);
+        const corpo = encodeURIComponent(`Novo candidato chegou!\n\nNome: ${n.extra.nome}\nVaga: ${n.extra.vaga || '—'}\nData: ${n.extra.data || '—'}\n\nAcesse o sistema Nexus para ver os detalhes.`);
+        acoes += `<button class="notif-btn notif-btn-email" onclick="event.stopPropagation();abrirEmail('${email}','${assunto}','${corpo}')">✉️ Enviar e-mail</button>`;
+      }
+      acoes += `<button class="notif-btn notif-btn-ver" onclick="event.stopPropagation();navegar('banco-talentos')">👁 Ver candidato</button>`;
+    }
+    if (n.tipo === 'entrevista') {
+      acoes += `<button class="notif-btn notif-btn-ver" onclick="event.stopPropagation();navegar('agendamento')">📅 Ver agenda</button>`;
+    }
+
+    return `<div class="notif-item ${isNew ? 'unread' : ''} tipo-${n.tipo}" onclick="marcarLida('${n.id}')">
+      <div class="notif-icon">${icon}</div>
+      <div class="notif-body">
+        <div class="notif-msg">${esc(n.msg)}</div>
+        <div class="notif-sub">${esc(n.sub || '')}</div>
+        ${acoes ? `<div class="notif-actions">${acoes}</div>` : ''}
+      </div>
+      <div class="notif-right">
+        <div class="notif-time">${n.hora || '—'}<br><span style="font-size:0.55rem;">${n.data || ''}</span></div>
+        ${isNew ? '<div class="notif-unread-dot"></div>' : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filtrar(tipo, el) {
+  _filtroAtivo = tipo;
+  document.querySelectorAll('.fchip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderNotifs();
+}
+
+/* ═══════════════════════════════════
+   ADICIONAR NOTIFICAÇÃO
+═══════════════════════════════════ */
+function adicionarNotif(msg, sub = '', tipo = 'novo', extra = null) {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  _notifs.push({
+    id: 'n' + Date.now() + Math.random(),
+    msg, sub, tipo, extra,
+    lida: false,
+    hora: hh + ':' + mm,
+    data: now.toLocaleDateString('pt-BR')
+  });
+  if (_notifs.length > 300) _notifs.shift();
+  saveNotifs();
+  renderNotifs();
+
+  // Som
+  if (getPrefs().som) tocarSom();
+
+  // Notificação nativa do navegador
+  if (Notification.permission === 'granted') {
+    new Notification('🔔 ' + msg, { body: sub, icon: 'icone.png', tag: 'nexus-notif' });
+  }
+}
+
+function marcarLida(id) {
+  const n = _notifs.find(x => x.id === id);
+  if (n) { n.lida = true; saveNotifs(); renderNotifs(); }
+}
+function marcarTodasLidas() { _notifs.forEach(n => n.lida = true); saveNotifs(); renderNotifs(); }
+function limparNotifs() {
+  if (!confirm('Limpar todas as notificações?')) return;
+  _notifs = []; saveNotifs(); renderNotifs();
+}
+
+/* ═══════════════════════════════════
+   POLLING — CANDIDATOS
+═══════════════════════════════════ */
+async function verificarNovos() {
+  if (!SB_URL) return;
+  const prefs = getPrefs();
+
+  // === Candidatos DISC ===
+  if (prefs.candidatos !== false) {
+    try {
+      const r = await fetch(`${SB_URL}/rest/v1/disc_historico?select=id,nome,vaga,data&order=id.desc&limit=10`, {
+        headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+      });
+      const arr = await r.json();
+      if (Array.isArray(arr) && arr.length) {
+        const maxId = Math.max(...arr.map(x => x.id || 0));
+        if (_ultimoIdDisc === null) { _ultimoIdDisc = maxId; }
+        else if (maxId > _ultimoIdDisc) {
+          const novos = arr.filter(x => x.id > _ultimoIdDisc);
+          _ultimoIdDisc = maxId;
+          novos.forEach(x => {
+            adicionarNotif(
+              `Novo candidato: ${x.nome || '?'}`,
+              `📋 ${x.vaga || '—'} · ${x.data || '—'}`,
+              'novo',
+              { nome: x.nome, vaga: x.vaga, data: x.data }
+            );
+            // Celular via ntfy
+            notificarCelular(`👤 Novo candidato: ${x.nome || '?'}`, `Vaga: ${x.vaga || '—'}\nData: ${x.data || '—'}`);
+            // Email automático se configurado
+            enviarEmailAuto(x);
+          });
+          window.parent.postMessage({ tipo: 'nexus_toast', msg: `🔔 ${novos.length} novo(s) candidato(s)!` }, '*');
+        }
+      }
+    } catch(e) {}
+  }
+
+  // === Novas entrevistas ===
+  if (prefs.entrevistas !== false) {
+    try {
+      const r2 = await fetch(`${SB_URL}/rest/v1/agendamentos?select=id,candidato,vaga,datetime,tipo&order=criado_em.desc&limit=5`, {
+        headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+      });
+      const arr2 = await r2.json();
+      if (Array.isArray(arr2) && arr2.length) {
+        const maxId2 = arr2[0].id;
+        if (_ultimoIdAgenda === null) { _ultimoIdAgenda = maxId2; }
+        else if (maxId2 !== _ultimoIdAgenda) {
+          const novos2 = arr2.filter(x => x.id !== _ultimoIdAgenda && new Date(x.datetime) > new Date());
+          _ultimoIdAgenda = maxId2;
+          novos2.forEach(x => {
+            const d = new Date(x.datetime);
+            const hora = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            const data = d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+            adicionarNotif(
+              `Entrevista agendada: ${x.candidato || '?'}`,
+              `📅 ${data} às ${hora} · ${x.tipo || '—'} · ${x.vaga || '—'}`,
+              'entrevista'
+            );
+            notificarCelular(`📅 Entrevista agendada: ${x.candidato}`, `${data} às ${hora} — ${x.vaga || ''}`);
+          });
+        }
+      }
+    } catch(e) {}
+  }
+}
+
+function togglePolling() {
+  if (_polling) {
+    clearInterval(_polling); _polling = null;
+    setMonitorStatus('Candidatos', false);
+    document.getElementById('btnPoll').textContent = '▶ Ativar';
+    toast('⏸ Monitoramento pausado');
+  } else {
+    if (!SB_URL) { toast('Supabase não configurado', true); return; }
+    _polling = setInterval(verificarNovos, 60000);
+    setMonitorStatus('Candidatos', true);
+    document.getElementById('btnPoll').textContent = '⏸ Pausar';
+    verificarNovos();
+    toast('✅ Monitoramento ativado — verificando a cada 60s');
+  }
+}
+
+function setMonitorStatus(nome, ativo) {
+  const dot = document.getElementById('dot' + nome);
+  const status = document.getElementById('status' + nome);
+  if (ativo) {
+    dot.style.background = 'var(--green)';
+    dot.style.color = 'var(--green)';
+    dot.classList.add('active');
+    status.textContent = '● Monitorando';
+    status.className = 'monitor-status status-on';
+  } else {
+    dot.style.background = 'var(--muted)';
+    dot.style.color = 'var(--muted)';
+    dot.classList.remove('active');
+    status.textContent = 'Inativo';
+    status.className = 'monitor-status status-off';
+  }
+}
+
+/* ═══════════════════════════════════
+   MANTER ATIVO AO TROCAR ABA
+═══════════════════════════════════ */
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && _polling) {
+    // Verifica imediatamente ao voltar para a aba
+    verificarNovos();
+  }
+});
+
+/* ═══════════════════════════════════
+   ALERTAS DO NAVEGADOR
+═══════════════════════════════════ */
+async function ativarBrowser() {
+  if (!('Notification' in window)) {
+    toast('Seu navegador não suporta notificações', true); return;
+  }
+  const perm = await Notification.requestPermission();
+  carregarStatusBrowser();
+  if (perm === 'granted') {
+    toast('✅ Alertas do navegador ativados!');
+    new Notification('✅ Nexus — Alertas ativos!', { body: 'Você receberá alertas de candidatos e entrevistas.', icon: 'icone.png' });
+  } else {
+    toast('❌ Permissão negada — ative nas configurações do navegador', true);
+  }
+}
+
+function carregarStatusBrowser() {
+  const dot = document.getElementById('dotBrowser');
+  const status = document.getElementById('statusBrowser');
+  const btn = document.getElementById('btnBrowser');
+  if (!('Notification' in window)) {
+    status.textContent = 'Não suportado'; return;
+  }
+  if (Notification.permission === 'granted') {
+    dot.style.background = 'var(--green)'; dot.style.color = 'var(--green)'; dot.classList.add('active');
+    status.textContent = '● Ativo'; status.className = 'monitor-status status-on';
+    btn.textContent = '✅ Ativo'; btn.disabled = true;
+  } else if (Notification.permission === 'denied') {
+    status.textContent = '🚫 Bloqueado'; status.className = 'monitor-status'; status.style.cssText = 'background:rgba(231,76,60,0.1);color:var(--red);border:1px solid rgba(231,76,60,0.25);border-radius:20px;font-size:0.62rem;font-weight:700;padding:0.2rem 0.55rem;';
+    btn.textContent = 'Ver config.';
+  } else {
+    status.textContent = 'Inativo'; status.className = 'monitor-status status-off';
+    btn.textContent = 'Ativar';
+  }
+}
+
+/* ═══════════════════════════════════
+   NTFY — CELULAR
+═══════════════════════════════════ */
+function getNtfyTopico() { return localStorage.getItem(NTFY_KEY) || ''; }
+
+function mostrarConfigNtfy() {
+  const card = document.getElementById('cardNtfy');
+  card.style.display = card.style.display === 'none' ? 'block' : 'none';
+  document.getElementById('ntfyTopico').value = getNtfyTopico();
+}
+
+function salvarNtfy() {
+  const t = document.getElementById('ntfyTopico').value.trim();
+  if (!t) { toast('Digite um nome de tópico', true); return; }
+  localStorage.setItem(NTFY_KEY, t);
+  carregarStatusNtfy();
+  document.getElementById('cardNtfy').style.display = 'none';
+  toast('✅ Tópico ntfy salvo! Agora assine no app ntfy no celular.');
+}
+
+function carregarStatusNtfy() {
+  const topico = getNtfyTopico();
+  const dot = document.getElementById('dotCelular');
+  const status = document.getElementById('statusCelular');
+  const btn = document.getElementById('btnCelular');
+  if (topico) {
+    dot.style.background = 'var(--green)'; dot.style.color = 'var(--green)'; dot.classList.add('active');
+    status.textContent = '● Configurado'; status.className = 'monitor-status status-on';
+    btn.textContent = '✏️ Editar';
+  } else {
+    dot.style.background = 'var(--muted)';
+    status.textContent = 'Não configurado'; status.className = 'monitor-status status-off';
+    btn.textContent = 'Configurar';
+  }
+}
+
+async function testarNtfy() {
+  const topico = document.getElementById('ntfyTopico').value.trim() || getNtfyTopico();
+  if (!topico) { toast('Salve o tópico primeiro', true); return; }
+  try {
+    await fetch('https://ntfy.sh/' + topico, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: '✅ Nexus funcionando!\nNotificações de candidatos e entrevistas ativas.'
+    });
+    document.getElementById('ntfyFeedback').innerHTML = '✅ Enviado! Verifique o app ntfy no celular.';
+    document.getElementById('ntfyFeedback').style.color = 'var(--green)';
+  } catch(e) {
+    document.getElementById('ntfyFeedback').innerHTML = '❌ Erro ao enviar. Verifique a conexão.';
+    document.getElementById('ntfyFeedback').style.color = 'var(--red)';
+  }
+}
+
+async function notificarCelular(titulo, corpo) {
+  const topico = getNtfyTopico();
+  if (!topico) return;
+  try {
+    await fetch('https://ntfy.sh/' + topico, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: titulo + '\n' + corpo
+    });
+  } catch(e) {}
+}
+
+/* ═══════════════════════════════════
+   E-MAIL
+═══════════════════════════════════ */
+function getEmailDestino() { return localStorage.getItem(EMAIL_KEY) || ''; }
+
+function mostrarConfigEmail() {
+  const card = document.getElementById('cardEmail');
+  card.style.display = card.style.display === 'none' ? 'block' : 'none';
+  document.getElementById('emailDestino').value = getEmailDestino();
+}
+
+function salvarEmail() {
+  const e = document.getElementById('emailDestino').value.trim();
+  if (!e || !e.includes('@')) { toast('Digite um e-mail válido', true); return; }
+  localStorage.setItem(EMAIL_KEY, e);
+  carregarStatusEmail();
+  document.getElementById('cardEmail').style.display = 'none';
+  toast('✅ E-mail salvo! Você receberá alertas de novos candidatos.');
+}
+
+function carregarStatusEmail() {
+  const email = getEmailDestino();
+  const dot = document.getElementById('dotEmail');
+  const status = document.getElementById('statusEmail');
+  const btn = document.getElementById('btnEmail');
+  if (email) {
+    dot.style.background = 'var(--blue)'; dot.style.color = 'var(--blue)'; dot.classList.add('active');
+    status.textContent = '● Configurado'; status.className = 'monitor-status status-ok';
+    btn.textContent = '✏️ Editar';
+  } else {
+    dot.style.background = 'var(--muted)';
+    status.textContent = 'Não configurado'; status.className = 'monitor-status status-off';
+    btn.textContent = 'Configurar';
+  }
+}
+
+function abrirEmail(para, assunto, corpo) {
+  window.open(`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(para)}&su=${assunto}&body=${corpo}`, '_blank');
+}
+
+function enviarEmailAuto(candidato) {
+  const email = getEmailDestino();
+  if (!email) return;
+  const assunto = encodeURIComponent(`🔔 Novo candidato: ${candidato.nome || '?'} — Nexus`);
+  const corpo = encodeURIComponent(
+    `Olá!\n\nUm novo candidato acabou de preencher o formulário.\n\n` +
+    `👤 Nome: ${candidato.nome || '?'}\n` +
+    `📋 Vaga: ${candidato.vaga || '—'}\n` +
+    `📅 Data: ${candidato.data || '—'}\n\n` +
+    `Acesse o sistema Nexus para ver o perfil completo e agendar entrevista.\n\n` +
+    `— Sistema Agência Nexus ATS`
+  );
+  window.open(`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}&su=${assunto}&body=${corpo}`, '_blank');
+}
+
+/* ═══════════════════════════════════
+   LEMBRETES DE ENTREVISTA (15 MIN)
+═══════════════════════════════════ */
+const _notificados15 = new Set(JSON.parse(localStorage.getItem('nexus_notif15') || '[]'));
+
+function iniciarLembretes() {
+  setInterval(verificarLembretes, 60000);
+  setTimeout(verificarLembretes, 3000);
+}
+
+async function verificarLembretes() {
+  if (!getPrefs().lembrete === false) return;
+  if (!SB_URL) return;
+  try {
+    const r = await fetch(`${SB_URL}/rest/v1/agendamentos?select=id,candidato,vaga,datetime,tipo,local&order=datetime.asc`, {
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+    });
+    const eventos = await r.json();
+    if (!Array.isArray(eventos)) return;
+    const agora = Date.now();
+    eventos.forEach(ev => {
+      const inicio = new Date(ev.datetime).getTime();
+      const diff = inicio - agora;
+      const chave = ev.id + '_15min';
+      if (diff >= 14 * 60 * 1000 && diff <= 16 * 60 * 1000 && !_notificados15.has(chave)) {
+        _notificados15.add(chave);
+        localStorage.setItem('nexus_notif15', JSON.stringify([..._notificados15]));
+        const hora = new Date(ev.datetime).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        adicionarNotif(`⏰ Entrevista em 15 minutos!`, `${ev.candidato} — ${hora} · ${ev.tipo}`, 'alerta');
+        notificarCelular(`⏰ Entrevista em 15 min!`, `${ev.candidato} — ${hora}\n${ev.tipo} · ${ev.local || ''}`);
+        if (Notification.permission === 'granted') {
+          new Notification('⏰ Entrevista em 15 minutos!', {
+            body: `${ev.candidato} — ${hora} · ${ev.tipo}`,
+            icon: 'icone.png', requireInteraction: true
+          });
+        }
+      }
+    });
+  } catch(e) {}
+}
+
+/* ═══════════════════════════════════
+   SOM
+═══════════════════════════════════ */
+function tocarSom() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.setValueAtTime(660, ctx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.4);
+  } catch(e) {}
+}
+
+/* ═══════════════════════════════════
+   UTILS
+═══════════════════════════════════ */
+function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function navegar(mod) { window.parent.postMessage({ tipo: 'nexus_navegar', mod }, '*'); }
+let _tt;
+function toast(msg, err = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(_tt); _tt = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ═══════════════════════════════════
+   START
+═══════════════════════════════════ */
+lerCtx();
+if (SB_URL) init();
+else setTimeout(() => { lerCtx(); init(); }, 400);
+</script>
+</body>
+</html>

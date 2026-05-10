@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Analytics | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#a78bfa;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);opacity:0.85;margin-bottom:0.35rem;}
+.hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.hero-title span{color:var(--blue);}
+.hero-sub{font-size:0.8rem;color:var(--muted);}
+.period-btns{display:flex;gap:0.4rem;}
+.pbtn{font-family:inherit;font-size:0.72rem;font-weight:700;border-radius:8px;padding:0.38rem 0.8rem;border:1px solid rgba(255,255,255,0.1);cursor:pointer;background:rgba(255,255,255,0.04);color:var(--muted);transition:all 0.15s;}
+.pbtn.active,.pbtn:hover{background:rgba(52,152,219,0.15);border-color:rgba(52,152,219,0.4);color:var(--blue);}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.7rem;margin-bottom:1.8rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem 1.2rem;transition:border-color 0.2s;}
+.kpi:hover{border-color:var(--border2);}
+.kpi-val{font-size:1.8rem;font-weight:900;line-height:1;}
+.kpi-label{font-size:0.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.25rem;}
+.kpi-delta{font-size:0.65rem;font-weight:700;margin-top:0.3rem;}
+.kpi-delta.up{color:var(--green);}
+.kpi-delta.down{color:var(--red);}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.5rem;}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:1rem;}
+.card-title{font-size:0.78rem;font-weight:800;}
+.chart-wrap{position:relative;}
+.chart-wrap canvas{max-width:100%;}
+
+/* TABELA VAGAS */
+.vaga-table{width:100%;border-collapse:collapse;}
+.vaga-table th{padding:0.55rem 0.8rem;text-align:left;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+.vaga-table td{padding:0.55rem 0.8rem;font-size:0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);}
+.vaga-table tr:last-child td{border-bottom:none;}
+.vaga-table tr:hover td{background:rgba(255,255,255,0.02);}
+.bar-inline{height:5px;border-radius:99px;background:rgba(255,255,255,0.06);margin-top:0.2rem;overflow:hidden;}
+.bar-inline-fill{height:100%;border-radius:99px;}
+
+/* TOP CANDS */
+.top-list{display:flex;flex-direction:column;gap:0.4rem;}
+.top-item{display:flex;align-items:center;gap:0.7rem;padding:0.55rem 0.7rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:9px;}
+.top-pos{font-size:1rem;font-weight:900;width:24px;text-align:center;flex-shrink:0;}
+.top-nome{flex:1;font-size:0.78rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.top-vaga{font-size:0.62rem;color:var(--muted);}
+.top-fit{font-size:0.78rem;font-weight:900;flex-shrink:0;}
+
+.spinner{width:18px;height:18px;border:2px solid var(--muted2);border-top-color:var(--blue);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-block{display:flex;align-items:center;justify-content:center;min-height:100px;color:var(--muted);font-size:0.78rem;gap:0.5rem;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page { padding: 1rem 0.9rem 4rem !important; }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-right, .hero > div[style*="display:flex"], .hero > div:last-child {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  .hero-right .btn, .hero .btn, .hero button { justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-grid, .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.35rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3, .charts-grid,
+  .grid-2-col, .grid-3-col { grid-template-columns: 1fr !important; }
+
+  /* Cards */
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Botões */
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Toolbar / busca */
+  .toolbar { flex-wrap: wrap !important; }
+  .search-inp { width: 100% !important; min-width: unset !important; }
+
+  /* Seções */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Tabelas — scroll horizontal */
+  .log-table, .conv-table, .vaga-table {
+    overflow-x: auto !important;
+    display: block !important;
+  }
+  .log-table table { min-width: 520px !important; }
+  .conv-table, .vaga-table { min-width: 480px !important; }
+  .log-table th, .log-table td { padding: 0.45rem 0.6rem !important; font-size: 0.68rem !important; }
+
+  /* Rows de export/backup */
+  .export-row, .row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .export-ico { display: none !important; }
+  .export-row .btn { width: 100% !important; justify-content: center !important; }
+
+  /* Config rows */
+  .row { padding: 0.6rem 0 !important; }
+  .row-info strong { font-size: 0.76rem !important; }
+
+  /* Cards de clientes/roles */
+  .clients-grid, .role-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .client-card { padding: 1rem !important; }
+  .cc-btns { flex-wrap: wrap !important; }
+
+  /* Agendamento: layout de coluna única */
+  .layout { grid-template-columns: 1fr !important; }
+  .cal-card { padding: 0.8rem !important; border-radius: 14px !important; }
+
+  /* Period buttons (analytics) */
+  .period-btns { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .pbtn { font-size: 0.65rem !important; padding: 0.3rem 0.6rem !important; }
+
+  /* Funil de conversão */
+  .funil-step { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .funil-label { width: auto !important; text-align: left !important; flex: 0 0 100% !important; font-size: 0.65rem !important; }
+  .funil-bar-wrap { flex: 1 1 100% !important; height: 32px !important; }
+  .funil-num { width: auto !important; }
+  .funil-pct { width: auto !important; }
+
+  /* DISC quick links */
+  .quick-links { gap: 0.35rem !important; }
+  .qlink { font-size: 0.68rem !important; padding: 0.38rem 0.7rem !important; }
+
+  /* Dashboard específico */
+  .disc-dist-row { flex-direction: column !important; }
+  .top-vagas-list .tv-row { flex-wrap: wrap !important; gap: 0.4rem !important; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Info box */
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Paginação */
+  .pg { gap: 0.25rem !important; }
+  .pg-btn { padding: 0.28rem 0.5rem !important; font-size: 0.65rem !important; }
+}
+
+@media (max-width: 640px) {
+  .period-btns { overflow-x: auto !important; flex-wrap: nowrap !important; scrollbar-width: none !important; }
+  .period-btns::-webkit-scrollbar { display: none !important; }
+  .pbtn { flex-shrink: 0 !important; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr) !important; }
+  .vaga-table th, .vaga-table td { padding: 0.38rem 0.5rem !important; font-size: 0.65rem !important; }
+  .hero { flex-direction: column !important; align-items: flex-start !important; gap: 0.8rem !important; }
+  .hero > div[style*="display:flex"] { width: 100% !important; flex-wrap: wrap !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Inteligência · Dados</div>
+      <div class="hero-title">Relatórios & <span>Analytics</span></div>
+      <div class="hero-sub">Análise profunda do funil de recrutamento</div>
+    </div>
+    <div class="period-btns">
+      <button class="pbtn active" onclick="setPeriodo(7,this)">7 dias</button>
+      <button class="pbtn" onclick="setPeriodo(30,this)">30 dias</button>
+      <button class="pbtn" onclick="setPeriodo(90,this)">90 dias</button>
+      <button class="pbtn" onclick="setPeriodo(365,this)">1 ano</button>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="aTotal" style="color:var(--accent);">—</div><div class="kpi-label">Avaliações no período</div><div class="kpi-delta up" id="aTotalDelta"></div></div>
+    <div class="kpi"><div class="kpi-val" id="aFitMedio" style="color:var(--blue);">—</div><div class="kpi-label">Fit score médio</div><div class="kpi-delta" id="aFitDelta"></div></div>
+    <div class="kpi"><div class="kpi-val" id="aAprov" style="color:var(--green);">—</div><div class="kpi-label">Aprovados</div><div class="kpi-delta" id="aAprovDelta"></div></div>
+    <div class="kpi"><div class="kpi-val" id="aTxConv" style="color:var(--orange);">—</div><div class="kpi-label">Taxa de conversão</div></div>
+    <div class="kpi"><div class="kpi-val" id="aTMedio" style="color:var(--purple);">—</div><div class="kpi-label">Vagas únicas</div></div>
+    <div class="kpi"><div class="kpi-val" id="aSemEnt" style="color:var(--red);">—</div><div class="kpi-label">Sem entrevista</div></div>
+  </div>
+
+  <div class="sec-label">Evolução temporal</div>
+  <div class="card" style="margin-bottom:1rem;">
+    <div class="card-head"><span class="card-title">📈 Avaliações por dia</span><span id="linhaBadge" style="font-size:0.62rem;color:var(--muted);"></span></div>
+    <div class="chart-wrap" style="height:220px;"><canvas id="chartLinha"></canvas></div>
+  </div>
+
+  <div class="sec-label">Distribuição de perfis</div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-head"><span class="card-title">🧠 DISC no período</span></div>
+      <div class="chart-wrap" style="height:200px;"><canvas id="chartDisc"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">🎯 Faixas de Fit Score</span></div>
+      <div class="chart-wrap" style="height:200px;"><canvas id="chartFaixas"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">📅 Distribuição semanal</span></div>
+      <div class="chart-wrap" style="height:200px;"><canvas id="chartSemana"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sec-label">Vagas & Candidatos</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head"><span class="card-title">💼 Candidatos por vaga</span></div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="chartVagas"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">🏆 Top candidatos por fit</span></div>
+      <div class="top-list" id="topList"><div class="loading-block"><div class="spinner"></div></div></div>
+    </div>
+  </div>
+
+  <div class="sec-label">Relatório por vaga</div>
+  <div class="card">
+    <div class="card-head"><span class="card-title">📋 Detalhamento por vaga</span></div>
+    <div style="overflow-x:auto;">
+      <table class="vaga-table" id="vagaTable">
+        <tbody><tr><td colspan="6"><div class="loading-block"><div class="spinner"></div></div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+let SB_URL='',SB_KEY='',PIPE_KEY='nexus_pipeline_v1';
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;PIPE_KEY=c.pipe_key||PIPE_KEY;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;if(!_loaded)init();}});
+
+let _hist=[],_periodo=7,_loaded=false;
+const CHARTS={};
+const COR={D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+
+function setPeriodo(d,btn){
+  _periodo=d;
+  document.querySelectorAll('.pbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTudo();
+}
+
+async function init(){
+  lerCtx(); if(!SB_URL){setTimeout(()=>{lerCtx();if(SB_URL)init();},500);return;}
+  _loaded=true;
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?order=criado_em.desc`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _hist=await r.json(); if(!Array.isArray(_hist)) _hist=[];
+  }catch(e){_hist=[];}
+  renderTudo();
+}
+
+function filtrarPeriodo(){
+  const corte=new Date(); corte.setDate(corte.getDate()-_periodo);
+  return _hist.filter(h=>{
+    if(!h.data) return false;
+    try{const p=h.data.split('/');const d=new Date(p[2],p[1]-1,p[0]);return d>=corte;}catch(e){return false;}
+  });
+}
+
+function renderTudo(){
+  const lista=filtrarPeriodo();
+  renderKPIs(lista);
+  renderLinha(lista);
+  renderDisc(lista);
+  renderFaixas(lista);
+  renderSemana(lista);
+  renderVagasChart(lista);
+  renderTop(lista);
+  renderTabelaVagas(lista);
+}
+
+function renderKPIs(lista){
+  const fits=lista.filter(h=>h.fit_score).map(h=>parseInt(h.fit_score));
+  const fitMedio=fits.length?Math.round(fits.reduce((s,v)=>s+v,0)/fits.length):null;
+  let aprov=0; try{const p=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');Object.values(p).forEach(vm=>Object.values(vm||{}).forEach(et=>{if(et==='aprovado')aprov++;}));}catch(e){}
+  const semEnt=lista.filter(h=>!h.entrevista_json&&!h.resumo_ia).length;
+  const vagas=new Set(lista.map(h=>h.vaga).filter(Boolean)).size;
+  const txConv=lista.length?Math.round(aprov/lista.length*100):0;
+
+  document.getElementById('aTotal').textContent=lista.length;
+  document.getElementById('aTotalDelta').textContent=`nos últimos ${_periodo} dias`;
+  document.getElementById('aFitMedio').textContent=fitMedio?fitMedio+'%':'—';
+  document.getElementById('aFitDelta').className='kpi-delta '+(fitMedio>=65?'up':'down');
+  document.getElementById('aFitDelta').textContent=fitMedio?(fitMedio>=65?'↑ Bom':'↓ Abaixo do ideal'):'sem dados';
+  document.getElementById('aAprov').textContent=aprov;
+  document.getElementById('aTxConv').textContent=txConv+'%';
+  document.getElementById('aTMedio').textContent=vagas;
+  document.getElementById('aSemEnt').textContent=semEnt;
+}
+
+function mkChart(id,cfg){if(CHARTS[id]){CHARTS[id].destroy();}const ctx=document.getElementById(id).getContext('2d');CHARTS[id]=new Chart(ctx,cfg);return CHARTS[id];}
+const chartDefaults={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#161616',borderColor:'rgba(59,130,246,0.3)',borderWidth:1,titleColor:'#f0f0f0',bodyColor:'#ccc',cornerRadius:8,padding:10}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#666',font:{size:10}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#666',font:{size:10}},beginAtZero:true}}};
+
+function renderLinha(lista){
+  const labels=[],counts=[];
+  for(let i=_periodo-1;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const str=d.toLocaleDateString('pt-BR');
+    labels.push(d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}));
+    counts.push(lista.filter(h=>h.data===str).length);
+  }
+  document.getElementById('linhaBadge').textContent=`total: ${lista.length}`;
+  mkChart('chartLinha',{type:'line',data:{labels,datasets:[{label:'Avaliações',data:counts,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,0.07)',borderWidth:2,pointRadius:3,pointBackgroundColor:'#3b82f6',fill:true,tension:0.4}]},options:{...chartDefaults,plugins:{...chartDefaults.plugins,legend:{display:false}}}});
+}
+
+function renderDisc(lista){
+  const cnt={D:0,I:0,S:0,C:0};lista.forEach(h=>{if(cnt[h.dom]!==undefined)cnt[h.dom]++;});
+  mkChart('chartDisc',{type:'doughnut',data:{labels:['D','I','S','C'],datasets:[{data:[cnt.D,cnt.I,cnt.S,cnt.C],backgroundColor:Object.values(COR).map(c=>c+'bb'),borderColor:Object.values(COR),borderWidth:2,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#666',font:{size:10},padding:8,boxWidth:10,boxHeight:10}},tooltip:{backgroundColor:'#161616',borderColor:'rgba(59,130,246,0.3)',borderWidth:1,titleColor:'#f0f0f0',bodyColor:'#ccc',cornerRadius:8,padding:8}}}});
+}
+
+function renderFaixas(lista){
+  const b={'0-20':0,'21-40':0,'41-60':0,'61-80':0,'81-100':0};
+  lista.filter(h=>h.fit_score).forEach(h=>{const v=parseInt(h.fit_score);if(v<=20)b['0-20']++;else if(v<=40)b['21-40']++;else if(v<=60)b['41-60']++;else if(v<=80)b['61-80']++;else b['81-100']++;});
+  const cores=['#e74c3c','#e67e22','#f39c12','#3b82f6','#2ecc71'];
+  mkChart('chartFaixas',{type:'bar',data:{labels:Object.keys(b),datasets:[{data:Object.values(b),backgroundColor:cores.map(c=>c+'bb'),borderColor:cores,borderWidth:1.5,borderRadius:6}]},options:{...chartDefaults,plugins:{...chartDefaults.plugins}}});
+}
+
+function renderSemana(lista){
+  const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];const cnt=new Array(7).fill(0);
+  lista.forEach(h=>{if(!h.data)return;try{const p=h.data.split('/');const d=new Date(p[2],p[1]-1,p[0]);cnt[d.getDay()]++;}catch(e){}});
+  mkChart('chartSemana',{type:'bar',data:{labels:dias,datasets:[{data:cnt,backgroundColor:cnt.map((_,i)=>i===0||i===6?'rgba(231,76,60,0.5)':'rgba(59,130,246,0.5)'),borderColor:cnt.map((_,i)=>i===0||i===6?'#e74c3c':'#3b82f6'),borderWidth:1.5,borderRadius:6}]},options:{...chartDefaults}});
+}
+
+function renderVagasChart(lista){
+  const cnt={};lista.forEach(h=>{if(h.vaga){cnt[h.vaga]=(cnt[h.vaga]||0)+1;}});
+  const sorted=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const labels=sorted.map(([v])=>v.length>18?v.substring(0,18)+'…':v);
+  const vals=sorted.map(([,c])=>c);
+  mkChart('chartVagas',{type:'bar',data:{labels,datasets:[{data:vals,backgroundColor:'rgba(59,130,246,0.5)',borderColor:'#3b82f6',borderWidth:1.5,borderRadius:6}]},options:{...chartDefaults,indexAxis:'y',scales:{x:{...chartDefaults.scales.x},y:{grid:{display:false},ticks:{color:'#888',font:{size:10}}}}}});
+}
+
+function renderTop(lista){
+  const comFit=lista.filter(h=>h.fit_score).sort((a,b)=>parseInt(b.fit_score)-parseInt(a.fit_score)).slice(0,8);
+  const emojis=['🥇','🥈','🥉','4','5','6','7','8'];
+  const el=document.getElementById('topList');
+  if(!comFit.length){el.innerHTML='<div style="text-align:center;color:var(--muted);padding:1rem;font-size:0.78rem;">Sem dados de fit score no período.</div>';return;}
+  el.innerHTML=comFit.map((h,i)=>{
+    const fit=parseInt(h.fit_score);const fitCor=fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c';
+    return `<div class="top-item">
+      <div class="top-pos">${emojis[i]}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="top-nome">${esc(h.nome||'—')}</div>
+        <div class="top-vaga">📋 ${esc(h.vaga||'—')}</div>
+      </div>
+      <div class="top-fit" style="color:${fitCor};">${fit}%</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTabelaVagas(lista){
+  const cnt={};lista.forEach(h=>{if(!h.vaga)return;if(!cnt[h.vaga])cnt[h.vaga]={total:0,comFit:0,fitSum:0,comEnt:0};cnt[h.vaga].total++;if(h.fit_score){cnt[h.vaga].comFit++;cnt[h.vaga].fitSum+=parseInt(h.fit_score);}if(h.entrevista_json||h.resumo_ia)cnt[h.vaga].comEnt++;});
+  const sorted=Object.entries(cnt).sort((a,b)=>b[1].total-a[1].total);
+  const max=sorted[0]?.[1]?.total||1;
+  const el=document.getElementById('vagaTable');
+  if(!sorted.length){el.innerHTML='<tbody><tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--muted);font-size:0.78rem;">Sem dados.</td></tr></tbody>';return;}
+  el.innerHTML=`<thead><tr>
+    <th>Vaga</th><th>Candidatos</th><th>Fit Médio</th><th>Com Entrevista</th><th>Cobertura</th>
+  </tr></thead><tbody>${sorted.map(([v,d])=>{
+    const fm=d.comFit?Math.round(d.fitSum/d.comFit):null;const fmCor=fm?fm>=80?'#2ecc71':fm>=65?'#3b82f6':fm>=45?'#f39c12':'#e74c3c':'#666';
+    const pct=Math.round((d.comEnt/d.total)*100);
+    const bw=Math.round((d.total/max)*100);
+    return `<tr>
+      <td style="font-weight:700;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(v)}</td>
+      <td><div style="font-weight:800;">${d.total}</div><div class="bar-inline"><div class="bar-inline-fill" style="width:${bw}%;background:var(--accent);"></div></div></td>
+      <td><span style="font-weight:800;color:${fmCor};">${fm?fm+'%':'—'}</span></td>
+      <td><span style="color:${pct>=50?'var(--green)':'var(--orange)'};">${d.comEnt}/${d.total} (${pct}%)</span></td>
+      <td><div class="bar-inline" style="width:80px;"><div class="bar-inline-fill" style="width:${pct}%;background:${pct>=50?'var(--green)':'var(--orange)'};"></div></div></td>
+    </tr>`;
+  }).join('')}</tbody>`;
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+lerCtx(); if(SB_URL) init(); else setTimeout(()=>{lerCtx();if(SB_URL)init();else init();},400);
+</script>
+</body>
+</html>

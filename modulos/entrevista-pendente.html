@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Entrevista ? | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#b45309;--accent:#f59e0b;
+  --bg:#0a0a0a;--card:#131313;--card2:#161616;
+  --border:rgba(245,158,11,0.15);--border2:rgba(245,158,11,0.3);
+  --text:#f0f0f0;--muted:#777;--muted2:#444;
+  --orange:#f59e0b;--red:#e74c3c;--green:#2ecc71;--blue:#3498db;--purple:#a78bfa;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(245,158,11,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+
+/* HEADER */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.title span{color:var(--accent);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-orange{background:rgba(245,158,11,0.1);color:var(--accent);border-color:rgba(245,158,11,0.25);}.btn-orange:hover{background:rgba(245,158,11,0.18);}
+
+/* STATS BAR */
+.stats-bar{background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.18);border-radius:14px;padding:0.9rem 1.2rem;margin-bottom:1.2rem;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center;}
+.stat-item{display:flex;flex-direction:column;gap:0.1rem;}
+.stat-val{font-size:1.3rem;font-weight:900;color:var(--accent);line-height:1;}
+.stat-lbl{font-size:0.58rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.stat-div{width:1px;height:32px;background:rgba(255,255,255,0.07);}
+
+/* FILTROS */
+.filtros-wrap{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.filtros-wrap input,.filtros-wrap select{background:#131313;border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.52rem 0.85rem;color:#f0f0f0;font-family:inherit;font-size:0.8rem;outline:none;transition:border-color 0.2s;}
+.filtros-wrap input:focus,.filtros-wrap select:focus{border-color:var(--accent);}
+.filtros-wrap input{flex:1;min-width:200px;max-width:320px;}
+.filtros-wrap select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.7rem center;padding-right:2rem;}
+.filtros-wrap select option{background:#161616;color:#f0f0f0;}
+.count-txt{font-size:0.72rem;color:var(--muted);align-self:center;margin-left:auto;}
+
+/* TABS DE PRIORIDADE */
+.priority-tabs{display:flex;gap:0.4rem;margin-bottom:1.2rem;flex-wrap:wrap;}
+.ptab{font-family:inherit;font-size:0.72rem;font-weight:700;border-radius:9px;padding:0.38rem 0.85rem;border:1px solid;cursor:pointer;transition:all 0.15s;}
+.ptab.all{background:rgba(255,255,255,0.05);color:var(--muted);border-color:rgba(255,255,255,0.1);}
+.ptab.all.on{background:rgba(245,158,11,0.12);color:var(--accent);border-color:rgba(245,158,11,0.3);}
+.ptab.urgente{background:rgba(231,76,60,0.06);color:#e74c3c;border-color:rgba(231,76,60,0.18);}
+.ptab.urgente.on{background:rgba(231,76,60,0.14);border-color:rgba(231,76,60,0.4);}
+.ptab.normal{background:rgba(245,158,11,0.06);color:#f59e0b;border-color:rgba(245,158,11,0.18);}
+.ptab.normal.on{background:rgba(245,158,11,0.14);border-color:rgba(245,158,11,0.4);}
+.ptab.agendada{background:rgba(59,130,246,0.06);color:#2ecc71;border-color:rgba(59,130,246,0.18);}
+.ptab.agendada.on{background:rgba(59,130,246,0.14);border-color:rgba(59,130,246,0.4);}
+
+/* === CANDIDATOS CARDS (herdado do banco-talentos) === */
+.cand-card{background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:0.9rem 1rem 0.8rem;position:relative;transition:border-color 0.2s,box-shadow 0.2s;}
+.cand-card:hover{border-color:rgba(245,158,11,0.25);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+.cand-card-inner{display:flex;align-items:flex-start;gap:0.8rem;}
+.cand-avatar{width:38px;height:38px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;cursor:pointer;}
+.cand-info{flex:1;min-width:0;}
+.cand-nome{font-size:0.95rem;font-weight:800;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.2px;}
+.cand-meta{font-size:0.7rem;color:#555;margin-top:0.18rem;line-height:1.4;}
+.cand-chips{display:flex;flex-wrap:wrap;gap:0.25rem;margin-top:0.4rem;}
+.chip{font-size:0.65rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:99px;border:1px solid;}
+.chip-disc{background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#3b82f6;}
+.chip-pend{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08);color:#666;}
+.cand-del-btn{position:absolute;top:0.55rem;right:0.55rem;background:none;border:none;color:rgba(231,76,60,0.3);font-size:0.9rem;cursor:pointer;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:5px;transition:all 0.15s;}
+.cand-del-btn:hover{background:rgba(231,76,60,0.1);color:#e74c3c;}
+.cand-foot{display:flex;flex-direction:column;gap:0.22rem;margin-top:0.5rem;}
+.cand-foot-toggle{display:flex;align-items:center;gap:0.28rem;background:none;border:none;cursor:pointer;padding:0.18rem 0.3rem;border-radius:6px;color:#444;font-family:inherit;font-size:0.52rem;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.18s;margin-top:0.45rem;border-top:1px solid rgba(255,255,255,0.05);padding-top:0.45rem;width:100%;}
+.cand-foot-toggle:hover{color:#f59e0b;}
+.cand-foot-toggle .ft-chev{font-size:0.55rem;transition:transform 0.22s;display:inline-block;}
+.cand-foot-toggle.open .ft-chev{transform:rotate(180deg);}
+.cand-foot-body{overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;}
+.cand-foot-body.collapsed{max-height:0!important;opacity:0;}
+.cand-foot-group{display:flex;gap:0.22rem;width:100%;flex-wrap:wrap;}
+.cand-foot-group .btn-sm{flex:0 0 auto;justify-content:center;text-align:center;white-space:nowrap;height:26px;padding:0 0.55rem;display:inline-flex;align-items:center;gap:0.2rem;font-size:0.62rem;}
+.cand-foot-label{font-size:0.44rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#333;margin-bottom:0.12rem;margin-top:0.35rem;display:flex;align-items:center;gap:0.35rem;}
+.cand-foot-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.04);}
+.cand-foot-label:first-child{margin-top:0;}
+.btn-sm{font-family:inherit;font-size:0.64rem;font-weight:700;border-radius:6px;padding:0.22rem 0.5rem;border:1px solid;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-flex;align-items:center;gap:0.18rem;background:none;}
+.btn-sm:hover{opacity:0.8;transform:translateY(-1px);}
+.cands-grid{display:flex;flex-direction:column;gap:0.55rem;}
+
+/* STATUS DOTS */
+.card-top-right{position:absolute;top:0.4rem;right:2.8rem;display:flex;flex-direction:row;align-items:center;gap:0.4rem;z-index:2;}
+.status-dots-card{display:flex;flex-direction:row;align-items:center;gap:5px;}
+.status-dots-row{display:flex;gap:5px;align-items:center;}
+.status-dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);flex-shrink:0;cursor:default;transition:transform 0.15s;}
+.status-dot:hover{transform:scale(1.18);}
+.status-dot.disc{background:#3498db;box-shadow:0 0 7px rgba(52,152,219,0.6);}.status-dot.disc.off{background:rgba(52,152,219,0.1);border-color:rgba(52,152,219,0.25);}
+.status-dot.entrevista{background:#f39c12;box-shadow:0 0 7px rgba(243,156,18,0.6);}.status-dot.entrevista.off{background:rgba(243,156,18,0.1);border-color:rgba(243,156,18,0.25);}
+.status-dot.curriculo{background:#2ecc71;box-shadow:0 0 7px rgba(59,130,246,0.6);}.status-dot.curriculo.off{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.25);}
+.status-dot.parecer{background:#a78bfa;box-shadow:0 0 7px rgba(167,139,250,0.6);}.status-dot.parecer.off{background:rgba(167,139,250,0.1);border-color:rgba(167,139,250,0.25);}
+.status-dot-count{font-size:0.55rem;font-weight:800;color:#555;}
+.status-pend-lbl{font-size:0.5rem;font-weight:800;color:#e74c3c;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:99px;padding:0.05rem 0.38rem;animation:pendPls 2s ease infinite;}
+
+/* PRAZO BADGE no card */
+.pend-prazo-badge{font-size:0.62rem;font-weight:800;padding:0.18rem 0.55rem;border-radius:8px;border:1px solid;display:inline-flex;align-items:center;gap:0.2rem;white-space:nowrap;}
+
+/* FIT BARS */
+.fit-bar-row{display:flex;align-items:center;gap:0.45rem;margin-top:0.28rem;}
+.fit-bar-lbl{font-size:0.57rem;font-weight:700;width:52px;flex-shrink:0;}
+.fit-bar-track{flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.fit-bar-fill{height:100%;border-radius:99px;}
+.fit-bar-pct{font-size:0.63rem;font-weight:700;width:30px;text-align:right;}
+.fit-bar-src{font-size:0.53rem;color:#555;width:26px;}
+.ader-big-wrap{display:flex;align-items:center;justify-content:space-between;margin-top:0.45rem;padding:0.38rem 0.65rem;border-radius:9px;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);}
+.ader-big-lbl{font-size:0.54rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#666;}
+.ader-big-num{font-size:1.4rem;font-weight:900;line-height:1;letter-spacing:-1px;}
+.ader-big-src{font-size:0.5rem;font-weight:600;color:#555;margin-top:0.08rem;}
+.fit-toggle-btn{display:flex;align-items:center;gap:0.3rem;background:none;border:none;cursor:pointer;padding:0.15rem 0.3rem;border-radius:6px;color:#555;font-family:inherit;font-size:0.58rem;font-weight:700;letter-spacing:0.3px;transition:all 0.18s;margin-top:0.3rem;}
+.fit-toggle-btn:hover{color:#a78bfa;background:rgba(167,139,250,0.07);}
+.fit-toggle-btn .chev{display:inline-block;transition:transform 0.22s;font-size:0.6rem;}
+.fit-toggle-btn.open .chev{transform:rotate(180deg);}
+.fit-bars-wrap{overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;}
+.fit-bars-wrap.collapsed{max-height:0!important;opacity:0;}
+
+/* DESTAQUE */
+.badge-destaque{display:inline-flex;align-items:center;gap:0.25rem;background:linear-gradient(135deg,rgba(251,191,36,0.18),rgba(245,158,11,0.1));border:1px solid rgba(251,191,36,0.45);border-radius:99px;padding:0.18rem 0.6rem;font-size:0.63rem;font-weight:800;color:#fbbf24;letter-spacing:0.3px;white-space:nowrap;}
+.cand-card.is-destaque{border-color:rgba(251,191,36,0.35);}
+
+/* EMPTY / LOADING */
+.empty-state{text-align:center;padding:4rem 2rem;color:var(--muted);}
+.empty-state-ico{font-size:3rem;margin-bottom:1rem;opacity:0.5;}
+.empty-state h3{font-size:1.1rem;font-weight:800;margin-bottom:0.5rem;color:#555;}
+.empty-state p{font-size:0.8rem;line-height:1.6;max-width:380px;margin:0 auto 1.2rem;}
+.loading-wrap{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:0.82rem;display:flex;flex-direction:column;align-items:center;gap:0.8rem;}
+.spinner{width:28px;height:28px;border:2.5px solid rgba(245,158,11,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.75s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes pendPls{0%,100%{opacity:1;}50%{opacity:0.5;}}
+
+/* MODAL ADICIONAR PENDÊNCIA */
+.overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.modal-box{background:#111;border:1px solid var(--border2);border-radius:22px;width:100%;max-width:480px;padding:1.8rem;position:relative;max-height:90vh;overflow-y:auto;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:var(--muted);font-size:0.95rem;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:#fff;}
+.modal-title{font-size:1rem;font-weight:900;margin-bottom:0.2rem;}
+.modal-sub{font-size:0.75rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.55;}
+.field-lbl{font-size:0.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;}
+.field-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.83rem;outline:none;transition:border-color 0.2s;}
+.field-inp:focus{border-color:var(--accent);}
+.field-inp::placeholder{color:#555;}
+.field-inp.ta{resize:vertical;min-height:70px;font-size:0.76rem;line-height:1.5;}
+select.field-inp{background-color:#1a1a1a;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;padding-right:2.2rem;-webkit-appearance:none;cursor:pointer;}
+select.field-inp option{background:#1e1e1e;color:#f0f0f0;}
+.save-btn{width:100%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;padding:0.7rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;transition:opacity 0.2s;margin-top:0.5rem;}
+.save-btn:hover{opacity:0.88;}
+.save-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* BUSCA CANDIDATOS MODAL */
+.add-cand-list{max-height:300px;overflow-y:auto;margin:0.8rem 0;display:flex;flex-direction:column;gap:0.4rem;scrollbar-width:thin;scrollbar-color:rgba(245,158,11,0.3) transparent;}
+.add-cand-list::-webkit-scrollbar{width:3px;}
+.add-cand-list::-webkit-scrollbar-thumb{background:rgba(245,158,11,0.3);border-radius:99px;}
+.add-cand-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:0.6rem 0.8rem;cursor:pointer;display:flex;align-items:center;gap:0.7rem;transition:all 0.15s;}
+.add-cand-item:hover{background:rgba(245,158,11,0.07);border-color:rgba(245,158,11,0.25);}
+.add-cand-item.selected{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.4);}
+.add-cand-av{width:30px;height:30px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+.add-cand-nome{font-size:0.8rem;font-weight:700;}
+.add-cand-sub{font-size:0.62rem;color:var(--muted);}
+.add-cand-check{margin-left:auto;font-size:0.9rem;opacity:0;}
+.add-cand-item.selected .add-cand-check{opacity:1;}
+.add-busca{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.5rem 0.75rem;color:#f0f0f0;font-family:inherit;font-size:0.78rem;outline:none;margin-bottom:0.6rem;}
+.add-busca:focus{border-color:var(--accent);}
+.add-busca::placeholder{color:#555;}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:99999;display:flex;flex-direction:column;gap:0.5rem;}
+.toast{background:var(--card2);border:1px solid var(--border2);border-radius:12px;padding:0.65rem 1.1rem;font-size:0.8rem;font-weight:600;display:flex;align-items:center;gap:0.5rem;transform:translateY(20px);opacity:0;transition:all 0.25s;pointer-events:none;max-width:320px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.err{border-color:rgba(231,76,60,0.4);color:var(--red);}
+
+/* MODAL EXCLUIR */
+.overlay-modal{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.mbox{background:#161616;border:1px solid var(--border2);border-radius:24px;padding:2rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;position:relative;}
+.mbox h3{font-size:1.1rem;font-weight:800;margin-bottom:0.3rem;}
+.modal-sub-sm{font-size:0.8rem;color:var(--muted);margin-bottom:1.2rem;}
+.mbox-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;color:var(--muted);font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.mbox-close:hover{background:rgba(255,255,255,0.12);color:#fff;}
+.vaga-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.vaga-input:focus{border-color:var(--accent);}
+.vaga-field-label{font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.4rem;}
+
+@media(max-width:640px){
+  .page{padding:1rem 0.9rem 4rem;}
+  .title{font-size:1.2rem;}
+  .filtros-wrap{flex-direction:column;gap:0.4rem;}
+  .filtros-wrap input{min-width:unset;max-width:100%;}
+  .overlay{padding:0.5rem;align-items:flex-end;}
+  .modal-box{border-radius:20px 20px 0 0;max-height:92vh;}
+  .count-txt{margin-left:0;width:100%;}
+}
+
+/* ═══ VAGAS PANEL ═══ */
+.vagas-section{margin-bottom:1.4rem;}
+.vagas-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.7rem;gap:0.5rem;flex-wrap:wrap;}
+.vagas-header-left{display:flex;align-items:center;gap:0.6rem;}
+.vagas-toggle-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);display:flex;align-items:center;gap:0.35rem;padding:0.3rem 0.55rem;border-radius:8px;border:1px solid rgba(245,158,11,0.2);transition:all 0.18s;}
+.vagas-toggle-btn:hover{background:rgba(245,158,11,0.08);}
+.vagas-toggle-btn .chev{display:inline-block;transition:transform 0.22s;font-size:0.6rem;}
+.vagas-toggle-btn.open .chev{transform:rotate(180deg);}
+.vagas-count-badge{font-size:0.58rem;font-weight:800;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.28);color:var(--accent);border-radius:99px;padding:0.1rem 0.55rem;}
+.vagas-grid{display:flex;flex-direction:column;gap:1rem;overflow:hidden;transition:max-height 0.35s ease,opacity 0.28s ease;}
+.vagas-grid.collapsed{max-height:0!important;opacity:0;}
+.vaga-card{background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1rem 1.1rem;position:relative;transition:border-color 0.2s,box-shadow 0.2s;}
+.vaga-card:hover{border-color:rgba(245,158,11,0.18);box-shadow:0 4px 18px rgba(0,0,0,0.3);}
+.vaga-card-title{font-size:0.92rem;font-weight:800;margin-bottom:0.12rem;padding-right:3.5rem;}
+.vaga-card-empresa{font-size:0.68rem;color:var(--muted);margin-bottom:0.45rem;}
+.vaga-card-meta{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.35rem;}
+.vaga-chip{font-size:0.6rem;font-weight:700;padding:0.14rem 0.5rem;border-radius:99px;border:1px solid;white-space:nowrap;}
+.vaga-progress-wrap{margin-top:0.55rem;}
+.vaga-progress-label{display:flex;justify-content:space-between;font-size:0.58rem;color:var(--muted);margin-bottom:0.25rem;}
+.vaga-progress-track{height:4px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.vaga-progress-fill{height:100%;border-radius:99px;transition:width 0.4s ease;}
+.vaga-del-btn{position:absolute;top:0.7rem;right:0.7rem;background:none;border:none;color:rgba(231,76,60,0.25);font-size:0.85rem;cursor:pointer;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:5px;transition:all 0.15s;}
+.vaga-del-btn:hover{background:rgba(231,76,60,0.1);color:#e74c3c;}
+.vaga-edit-btn{position:absolute;top:0.7rem;right:2rem;background:none;border:none;color:rgba(245,158,11,0.25);font-size:0.8rem;cursor:pointer;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:5px;transition:all 0.15s;}
+.vaga-edit-btn:hover{background:rgba(245,158,11,0.1);color:#f59e0b;}
+.vaga-empty{font-size:0.78rem;color:var(--muted);padding:1.2rem;text-align:center;background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.07);border-radius:12px;}
+/* candidatos dentro da vaga */
+.vaga-cands-wrap{margin-top:0.85rem;border-top:1px solid rgba(255,255,255,0.05);padding-top:0.75rem;display:flex;flex-direction:column;gap:0.4rem;}
+.vaga-cand-row{display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.5rem 0.7rem;transition:background 0.15s,border-color 0.15s;}
+.vaga-cand-row:hover{background:rgba(245,158,11,0.05);border-color:rgba(245,158,11,0.18);}
+.vaga-cand-disc{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:900;flex-shrink:0;}
+.vaga-cand-info{flex:1;min-width:0;}
+.vaga-cand-nome{font-size:0.78rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vaga-cand-sub{font-size:0.61rem;color:var(--muted);display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.08rem;align-items:center;}
+.vaga-cand-actions{display:flex;gap:0.28rem;flex-shrink:0;}
+.vaga-cand-btn{background:none;border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:0.18rem 0.42rem;font-size:0.6rem;font-weight:700;cursor:pointer;color:var(--muted);transition:all 0.15s;white-space:nowrap;}
+.vaga-cand-btn:hover{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:var(--accent);}
+.vaga-cand-btn.danger:hover{background:rgba(231,76,60,0.1);border-color:rgba(231,76,60,0.3);color:#e74c3c;}
+.vaga-sem-cands{font-size:0.71rem;color:rgba(255,255,255,0.18);text-align:center;padding:0.55rem;font-style:italic;}
+/* sem-vaga section */
+.sem-vaga-section{margin-top:1.4rem;}
+.sem-vaga-header{font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:0.55rem;padding-left:0.1rem;}
+.cands-grid{display:flex;flex-direction:column;gap:0.45rem;}
+
+/* MODAL VAGAS */
+.modal-vaga-box{background:#111;border:1px solid var(--border2);border-radius:22px;width:100%;max-width:440px;padding:1.8rem;position:relative;max-height:90vh;overflow-y:auto;}
+.radio-group{display:flex;gap:0.45rem;flex-wrap:wrap;}
+.radio-opt{position:relative;}
+.radio-opt input{position:absolute;opacity:0;width:0;height:0;}
+.radio-opt label{display:flex;align-items:center;gap:0.35rem;padding:0.38rem 0.75rem;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);font-size:0.75rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.radio-opt input:checked + label{border-color:rgba(245,158,11,0.45);background:rgba(245,158,11,0.1);color:var(--accent);}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Pipeline · ATS</div>
+      <div class="title">Entrevista <span>?</span></div>
+      <div class="sub">Candidatos aguardando agendamento ou confirmação de entrevista. Acompanhe prazos e prioridades.</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+      <button class="btn btn-ghost" onclick="exportarCSV()">📊 Exportar CSV</button>
+      <button class="btn btn-ghost" onclick="abrirModalVaga()">🗂 Nova Vaga</button>
+      <button class="btn btn-orange" onclick="abrirModalAdicionar()">+ Adicionar Pendência</button>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar" id="statsBar" style="display:none;">
+    <div class="stat-item">
+      <div class="stat-val" id="statTotal">0</div>
+      <div class="stat-lbl">Pendências</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-val" id="statUrgente" style="color:#e74c3c;">0</div>
+      <div class="stat-lbl">Urgentes</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-val" id="statAgendada" style="color:#2ecc71;">0</div>
+      <div class="stat-lbl">Agendadas</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-val" id="statAtrasada" style="color:#e74c3c;">0</div>
+      <div class="stat-lbl">Atrasadas</div>
+    </div>
+  </div>
+
+  <!-- VAGAS PANEL -->
+  <div class="vagas-section" id="vagasSection">
+    <div class="vagas-header">
+      <div class="vagas-header-left">
+        <button class="vagas-toggle-btn open" id="vagasToggleBtn" onclick="toggleVagasPanel()">
+          🗂 Vagas cadastradas <span class="vagas-count-badge" id="vagasCountBadge">0</span> <span class="chev">▾</span>
+        </button>
+      </div>
+    </div>
+    <div class="vagas-grid" id="vagasGrid" style="max-height:1000px;">
+      <div class="vaga-empty" id="vagasEmpty">Nenhuma vaga cadastrada. Clique em "🗂 Nova Vaga" para começar.</div>
+    </div>
+  </div>
+
+  <!-- FILTROS + TABS -->
+  <div class="filtros-wrap">
+    <input type="text" style="display:none" aria-hidden="true"/>
+    <input type="text" id="fBusca" placeholder="🔍 Buscar candidato ou vaga…" oninput="renderLista()" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')"/>
+    <select id="fVaga" onchange="renderLista()">
+      <option value="">Todas as vagas</option>
+    </select>
+    <select id="fStatus" onchange="renderLista()">
+      <option value="">Todos os status</option>
+      <option value="pendente">⏳ Aguardando agendamento</option>
+      <option value="agendada">✅ Entrevista agendada</option>
+      <option value="reagendar">🔄 Reagendar</option>
+      <option value="sem_retorno">📵 Sem retorno</option>
+    </select>
+    <span class="count-txt" id="cCount"></span>
+  </div>
+
+  <div class="priority-tabs" id="priorityTabs">
+    <button class="ptab all on" data-prio="all" onclick="setPrioTab(this,'all')">Todos</button>
+    <button class="ptab urgente" data-prio="urgente" onclick="setPrioTab(this,'urgente')">🔴 Urgente</button>
+    <button class="ptab normal" data-prio="normal" onclick="setPrioTab(this,'normal')">🟡 Normal</button>
+    <button class="ptab agendada" data-prio="agendada" onclick="setPrioTab(this,'agendada')">✅ Agendada</button>
+  </div>
+
+  <!-- LISTA -->
+  <div id="listWrap">
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      <div>Carregando pendências…</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ MODAL: ADICIONAR / EDITAR PENDÊNCIA ══ -->
+<div class="overlay" id="modalAdd" style="display:none;" onclick="if(event.target===this)fecharModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="fecharModal()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;" id="mEyebrow">Nova Pendência</div>
+    <div class="modal-title" id="mTitle">Adicionar candidato pendente</div>
+    <p class="modal-sub">Selecione um candidato do banco e preencha os dados da pendência de entrevista.</p>
+
+    <div id="mCandWrap">
+      <label class="field-lbl">🔍 Candidato</label>
+      <input class="add-busca" id="mBuscaCand" placeholder="Buscar candidato pelo nome…" oninput="filtrarCandidatosModal()"/>
+      <div class="add-cand-list" id="mCandLista"></div>
+      <div id="mCandSel" style="display:none;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:0.55rem 0.8rem;font-size:0.82rem;font-weight:700;color:var(--accent);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.5rem;">
+        <span id="mCandSelNome"></span>
+        <button onclick="limparCandSel()" style="margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.8rem;">✕</button>
+      </div>
+    </div>
+
+    <div id="mNomeWrap" style="display:none;margin-bottom:0.85rem;">
+      <label class="field-lbl">Candidato</label>
+      <input class="field-inp" id="mNomeCand" placeholder="Nome do candidato" readonly style="opacity:0.7;"/>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.85rem;">
+      <div>
+        <label class="field-lbl">🗂 Vaga cadastrada</label>
+        <select class="field-inp" id="mVagaSel" onchange="preencherVagaDaSelect()">
+          <option value="">— Selecionar vaga —</option>
+        </select>
+      </div>
+      <div>
+        <label class="field-lbl">🗂 Vaga / Processo (ou digitar)</label>
+        <input class="field-inp" id="mVaga" placeholder="Ex: Analista de RH"/>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr;gap:0.6rem;margin-bottom:0.85rem;">
+      <div>
+        <label class="field-lbl">🏢 Empresa cliente</label>
+        <input class="field-inp" id="mEmpresa" placeholder="Ex: Grupo XYZ"/>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.85rem;">
+      <div>
+        <label class="field-lbl">⚡ Prioridade</label>
+        <select class="field-inp" id="mPrioridade">
+          <option value="normal">🟡 Normal</option>
+          <option value="urgente">🔴 Urgente</option>
+          <option value="baixa">🟢 Baixa</option>
+        </select>
+      </div>
+      <div>
+        <label class="field-lbl">📋 Status</label>
+        <select class="field-inp" id="mStatus">
+          <option value="pendente">⏳ Aguardando agendamento</option>
+          <option value="agendada">✅ Entrevista agendada</option>
+          <option value="reagendar">🔄 Reagendar</option>
+          <option value="sem_retorno">📵 Sem retorno</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.85rem;">
+      <div>
+        <label class="field-lbl">📅 Data limite / prazo</label>
+        <input class="field-inp" id="mPrazo" type="date"/>
+      </div>
+      <div>
+        <label class="field-lbl">🕐 Data entrevista (se agendada)</label>
+        <input class="field-inp" id="mDataEntrevista" type="datetime-local"/>
+      </div>
+    </div>
+
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">📝 Observação / próximos passos</label>
+      <textarea class="field-inp ta" id="mObs" placeholder="Ex: Aguardando retorno do candidato, ligar segunda-feira…" rows="3"></textarea>
+    </div>
+
+    <input type="hidden" id="mEditId"/>
+    <input type="hidden" id="mCandId"/>
+
+    <button class="save-btn" id="mSaveBtn" onclick="salvarPendencia()">💾 Salvar pendência</button>
+    <div id="mSaveMsg" style="display:none;text-align:center;font-size:0.7rem;color:#2ecc71;margin-top:0.45rem;font-weight:700;">✓ Salvo!</div>
+  </div>
+</div>
+
+<!-- MODAL EXCLUIR PENDÊNCIA -->
+<div class="overlay-modal" id="modalDelPend" style="display:none;" onclick="if(event.target===this)fecharDelPend()">
+  <div class="mbox" style="max-width:380px;text-align:center;">
+    <button class="mbox-close" onclick="fecharDelPend()">✕</button>
+    <div style="font-size:2rem;margin-bottom:0.5rem;">🗑️</div>
+    <h3 style="color:#e74c3c;margin-bottom:0.3rem;">Remover pendência?</h3>
+    <p class="modal-sub-sm"><strong id="delPendNome" style="color:#f0f0f0;">—</strong></p>
+    <div style="display:flex;gap:0.7rem;margin-top:1rem;">
+      <button onclick="executarDelPend()" style="flex:1;background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:0.8rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">🗑️ Remover</button>
+      <button onclick="fecharDelPend()" style="background:rgba(255,255,255,0.06);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.8rem 1.1rem;font-family:inherit;font-size:0.82rem;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: CRIAR / EDITAR VAGA ══ -->
+<div class="overlay" id="modalVaga" style="display:none;" onclick="if(event.target===this)fecharModalVaga()">
+  <div class="modal-vaga-box">
+    <button class="modal-close" onclick="fecharModalVaga()">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem;" id="mvEyebrow">Nova Vaga</div>
+    <div class="modal-title" id="mvTitle">Cadastrar vaga</div>
+    <p class="modal-sub">Crie uma vaga para organizar os candidatos pendentes de entrevista.</p>
+
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">🗂 Título da vaga *</label>
+      <input class="field-inp" id="mvTitulo" placeholder="Ex: Analista de RH Sênior"/>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.85rem;">
+      <div>
+        <label class="field-lbl">🏢 Empresa cliente</label>
+        <input class="field-inp" id="mvEmpresa" placeholder="Ex: Grupo XYZ"/>
+      </div>
+      <div>
+        <label class="field-lbl">📂 Área</label>
+        <input class="field-inp" id="mvArea" placeholder="Ex: Recursos Humanos"/>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.85rem;">
+      <div>
+        <label class="field-lbl">👥 Nº de vagas</label>
+        <input class="field-inp" id="mvQuantidade" type="number" min="1" value="1" placeholder="1"/>
+      </div>
+      <div>
+        <label class="field-lbl">📅 Prazo de fechamento</label>
+        <input class="field-inp" id="mvPrazo" type="date"/>
+      </div>
+    </div>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">⚡ Prioridade</label>
+      <div class="radio-group">
+        <div class="radio-opt"><input type="radio" name="mvPrio" id="mvPrioB" value="baixa"/><label for="mvPrioB">🟢 Baixa</label></div>
+        <div class="radio-opt"><input type="radio" name="mvPrio" id="mvPrioN" value="normal" checked/><label for="mvPrioN">🟡 Normal</label></div>
+        <div class="radio-opt"><input type="radio" name="mvPrio" id="mvPrioU" value="urgente"/><label for="mvPrioU">🔴 Urgente</label></div>
+      </div>
+    </div>
+    <div style="margin-bottom:0.85rem;">
+      <label class="field-lbl">📝 Observações</label>
+      <textarea class="field-inp ta" id="mvObs" placeholder="Requisitos, perfil desejado, detalhes…" rows="2"></textarea>
+    </div>
+    <input type="hidden" id="mvEditId"/>
+    <button class="save-btn" id="mvSaveBtn" onclick="salvarVaga()">💾 Salvar vaga</button>
+    <div id="mvSaveMsg" style="display:none;text-align:center;font-size:0.7rem;color:#2ecc71;margin-top:0.45rem;font-weight:700;">✓ Vaga salva!</div>
+  </div>
+</div>
+
+<!-- MODAL EXCLUIR VAGA -->
+<div class="overlay-modal" id="modalDelVaga" style="display:none;" onclick="if(event.target===this)fecharDelVaga()">
+  <div class="mbox" style="max-width:380px;text-align:center;">
+    <button class="mbox-close" onclick="fecharDelVaga()">✕</button>
+    <div style="font-size:2rem;margin-bottom:0.5rem;">🗑️</div>
+    <h3 style="color:#e74c3c;margin-bottom:0.3rem;">Remover vaga?</h3>
+    <p class="modal-sub-sm">Vaga: <strong id="delVagaNome" style="color:#f0f0f0;">—</strong></p>
+    <p class="modal-sub-sm" style="font-size:0.72rem;color:#e74c3c;">As pendências vinculadas a ela não serão removidas.</p>
+    <div style="display:flex;gap:0.7rem;margin-top:1rem;">
+      <button onclick="executarDelVaga()" style="flex:1;background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:0.8rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">🗑️ Remover</button>
+      <button onclick="fecharDelVaga()" style="background:rgba(255,255,255,0.06);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.8rem 1.1rem;font-family:inherit;font-size:0.82rem;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+
+const SB_PEND   = 'entrevista_pendente';
+const SB_CANDS  = 'disc_historico';
+const SB_VAGAS  = 'vagas_entrevista';
+
+const COR  = {D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+const EMO  = {D:'🔴',I:'🟡',S:'🟢',C:'🔵'};
+const COMBOS = {'DI':'Realizador Influente','DS':'Executor Consistente','DC':'Estrategista Analítico','ID':'Influenciador Decisivo','IS':'Comunicador Acolhedor','IC':'Comunicador Criterioso','SD':'Apoiador Assertivo','SI':'Facilitador Inspirador','SC':'Colaborador Meticuloso','CD':'Analítico Decisivo','CI':'Analítico Relacional','CS':'Especialista Confiável'};
+
+let _allPend  = [];
+let _allCands = [];  // dados completos dos candidatos do disc_historico
+let _allVagas = [];  // vagas cadastradas
+let _prioFiltro = 'all';
+let _editId = null;
+let _candSelId = null;
+let _delPendId = null, _delPendNome = null;
+let _delVagaId = null, _delVagaNome = null;
+let _vagasPanelOpen = true;
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+/* ═══════════════ API ═══════════════ */
+function sbHeaders(extra={}){
+  return {
+    'apikey': SUPABASE_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_KEY,
+    'Content-Type': 'application/json',
+    ...extra
+  };
+}
+
+async function sbGet(table, filter=''){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=*${filter}&order=created_at.desc`, {headers: sbHeaders()});
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbInsert(table, data){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method:'POST', headers: sbHeaders({'Prefer':'return=representation'}),
+    body: JSON.stringify(data)
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbUpdate(table, id, data){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${encodeURIComponent(id)}`, {
+    method:'PATCH', headers: sbHeaders({'Prefer':'return=representation'}),
+    body: JSON.stringify(data)
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbDelete(table, id){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${encodeURIComponent(id)}`, {
+    method:'DELETE', headers: sbHeaders()
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return true;
+}
+
+/* ═══════════════ INIT ═══════════════ */
+async function init(){
+  try{
+    // Carrega pendências, candidatos e vagas
+    const [pend, cands, vagas] = await Promise.all([
+      sbGet(SB_PEND),
+      fetch(`${SUPABASE_URL}/rest/v1/${SB_CANDS}?select=*&order=criado_em.desc`, {headers: sbHeaders()}).then(r=>r.json()).catch(()=>[]),
+      sbGet(SB_VAGAS).catch(()=>[])
+    ]);
+    _allPend  = pend  || [];
+    _allCands = cands || [];
+    _allVagas = vagas || [];
+    atualizarStats();
+    populateVagaSelect();
+    renderVagas();
+    renderLista();
+    document.getElementById('statsBar').style.display = '';
+  } catch(e){
+    console.error(e);
+    document.getElementById('listWrap').innerHTML = `<div class="empty-state"><div class="empty-state-ico">⚠️</div><h3>Erro ao carregar</h3><p>${esc(e.message)}</p></div>`;
+  }
+}
+
+/* ═══════════════ ESTATÍSTICAS ═══════════════ */
+function atualizarStats(){
+  const total    = _allPend.length;
+  const urgente  = _allPend.filter(p=>p.prioridade==='urgente').length;
+  const agendada = _allPend.filter(p=>p.status==='agendada').length;
+  const hoje     = new Date(); hoje.setHours(0,0,0,0);
+  const atrasada = _allPend.filter(p=>{
+    if(!p.prazo || p.status==='agendada') return false;
+    const d = new Date(p.prazo); d.setHours(0,0,0,0);
+    return d < hoje;
+  }).length;
+  document.getElementById('statTotal').textContent    = total;
+  document.getElementById('statUrgente').textContent  = urgente;
+  document.getElementById('statAgendada').textContent = agendada;
+  document.getElementById('statAtrasada').textContent = atrasada;
+}
+
+/* ═══════════════ FILTROS ═══════════════ */
+function setPrioTab(el, prio){
+  _prioFiltro = prio;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  renderLista();
+}
+
+function populateVagaSelect(){
+  const vagas = [...new Set(_allPend.map(p=>p.vaga).filter(Boolean))].sort();
+  const sel = document.getElementById('fVaga');
+  // Clear except first option
+  while(sel.options.length > 1) sel.remove(1);
+  vagas.forEach(v=>{
+    const o = document.createElement('option');
+    o.value = v; o.textContent = v;
+    sel.appendChild(o);
+  });
+  populateVagaSelectModal();
+}
+
+/* ═══════════════ RENDER LISTA ═══════════════ */
+function renderLista(){
+  const busca   = (document.getElementById('fBusca').value||'').toLowerCase();
+  const fVaga   = document.getElementById('fVaga').value;
+  const fStatus = document.getElementById('fStatus').value;
+
+  let lista = _allPend.filter(p=>{
+    if(busca && !((p.nome||'').toLowerCase().includes(busca) || (p.vaga||'').toLowerCase().includes(busca) || (p.empresa||'').toLowerCase().includes(busca))) return false;
+    if(fVaga   && p.vaga   !== fVaga)   return false;
+    if(fStatus && p.status !== fStatus) return false;
+    if(_prioFiltro === 'urgente'  && p.prioridade !== 'urgente')  return false;
+    if(_prioFiltro === 'normal'   && p.prioridade !== 'normal' && p.prioridade !== 'baixa') return false;
+    if(_prioFiltro === 'agendada' && p.status !== 'agendada') return false;
+    return true;
+  });
+
+  lista.sort((a,b)=>{
+    const pa = a.prioridade==='urgente'?0:a.prioridade==='normal'?1:2;
+    const pb = b.prioridade==='urgente'?0:b.prioridade==='normal'?1:2;
+    if(pa!==pb) return pa-pb;
+    if(a.prazo && b.prazo) return new Date(a.prazo) - new Date(b.prazo);
+    if(a.prazo) return -1;
+    if(b.prazo) return 1;
+    return 0;
+  });
+
+  document.getElementById('cCount').textContent = lista.length + ' resultado' + (lista.length!==1?'s':'');
+
+  const wrap = document.getElementById('listWrap');
+
+  // Candidatos SEM vaga atribuída ficam na seção inferior
+  const semVaga = lista.filter(p => !p.vaga || !_allVagas.find(v=>(v.titulo||'')===(p.vaga||'')));
+
+  if(!semVaga.length && !lista.length){
+    wrap.innerHTML = `<div class="empty-state">
+      <div class="empty-state-ico">📋</div>
+      <h3>Nenhuma pendência encontrada</h3>
+      <p>Tente ajustar os filtros ou adicione uma nova pendência de entrevista.</p>
+    </div>`;
+    return;
+  }
+
+  if(!semVaga.length){
+    wrap.innerHTML = '';
+    return;
+  }
+
+  wrap.innerHTML = `
+    <div class="sem-vaga-section">
+      <div class="sem-vaga-header">⚠️ Sem vaga atribuída · ${semVaga.length}</div>
+      <div class="cands-grid">${semVaga.map(pendCard).join('')}</div>
+    </div>`;
+}
+
+/* ═══════════════ CARD COM HERANÇA BANCO DE TALENTOS ═══════════════ */
+function pendCard(p){
+  // Busca dados completos do candidato no banco
+  const cand = _allCands.find(c=>String(c.id)===String(p.cand_id)) || {};
+  const temCandCompleto = !!cand.id;
+
+  const cor    = COR[cand.dom]||'#888';
+  const emoji  = EMO[cand.dom]||'⬜';
+  const temDisc = !!(cand.dom||cand.disc_perfil||cand.url||(cand.pct_d&&parseFloat(cand.pct_d)>0));
+  const combo  = cand.combo_nome||(COMBOS[(cand.dom||'')+(cand.sec||'')])||`${cand.dom||'?'}+${cand.sec||'?'}`;
+
+  // Urgency color
+  const urgCor = p.prioridade==='urgente'?'#e74c3c':p.prioridade==='baixa'?'#2ecc71':'#f59e0b';
+
+  // Status chip pendência
+  const statusMap = {
+    pendente:    {label:'⏳ Aguardando',    bg:'rgba(245,158,11,0.1)', color:'#f59e0b', border:'rgba(245,158,11,0.3)'},
+    agendada:    {label:'✅ Agendada',      bg:'rgba(59,130,246,0.1)', color:'#2ecc71', border:'rgba(59,130,246,0.3)'},
+    reagendar:   {label:'🔄 Reagendar',     bg:'rgba(52,152,219,0.1)', color:'#3498db', border:'rgba(52,152,219,0.3)'},
+    sem_retorno: {label:'📵 Sem retorno',   bg:'rgba(231,76,60,0.1)',  color:'#e74c3c', border:'rgba(231,76,60,0.3)'},
+  };
+  const st = statusMap[p.status] || statusMap.pendente;
+
+  // Prazo badge
+  let prazoBadge = '';
+  if(p.prazo && p.status !== 'agendada'){
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    const dp   = new Date(p.prazo); dp.setHours(0,0,0,0);
+    const diff = Math.round((dp - hoje) / 86400000);
+    let pbg, pcor, pborder, ptxt;
+    if(diff < 0){
+      pbg='rgba(231,76,60,0.12)'; pcor='#e74c3c'; pborder='rgba(231,76,60,0.35)';
+      ptxt = `⚠️ ${Math.abs(diff)}d atrasado`;
+    } else if(diff === 0){
+      pbg='rgba(231,76,60,0.1)'; pcor='#e74c3c'; pborder='rgba(231,76,60,0.3)';
+      ptxt = '🔥 Hoje!';
+    } else if(diff <= 2){
+      pbg='rgba(243,156,18,0.1)'; pcor='#f39c12'; pborder='rgba(243,156,18,0.3)';
+      ptxt = `⏰ ${diff}d restante${diff!==1?'s':''}`;
+    } else {
+      pbg='rgba(255,255,255,0.04)'; pcor='#888'; pborder='rgba(255,255,255,0.12)';
+      const dt = dp.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+      ptxt = `📅 ${dt}`;
+    }
+    prazoBadge = `<span class="pend-prazo-badge" style="background:${pbg};color:${pcor};border-color:${pborder};">${ptxt}</span>`;
+  }
+
+  // Data entrevista agendada
+  let dataEntHtml = '';
+  if(p.data_entrevista){
+    const de = new Date(p.data_entrevista);
+    const fmt = de.toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    dataEntHtml = `<span style="font-size:0.63rem;color:#2ecc71;font-weight:700;margin-left:0.5rem;">📅 ${fmt}</span>`;
+  }
+
+  // Obs preview
+  const obsHtml = p.obs ? `<div style="font-size:0.68rem;color:#aaa;margin-top:0.38rem;line-height:1.5;background:rgba(255,255,255,0.025);border-radius:7px;padding:0.38rem 0.55rem;border-left:2px solid rgba(245,158,11,0.25);">💬 ${esc(p.obs.substring(0,120))}${p.obs.length>120?'…':''}</div>` : '';
+
+  // === CHIPS HERDADOS DO BANCO ===
+  let chips = '';
+  // Chip status pendência
+  chips += `<span class="chip" style="background:${st.bg};border-color:${st.border};color:${st.color};">${st.label}</span>`;
+  // Prioridade urgente
+  if(p.prioridade==='urgente') chips += `<span class="chip" style="background:rgba(231,76,60,0.1);border-color:rgba(231,76,60,0.3);color:#e74c3c;">🔴 Urgente</span>`;
+  // DISC
+  if(temCandCompleto){
+    if(temDisc) chips += `<span class="chip chip-disc">${esc(cand.dom||'?')}+${esc(cand.sec||'?')} · ${esc(combo)}</span>`;
+    else chips += `<span class="chip" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.15);color:#666;">Sem DISC</span>`;
+    // Fit score
+    const fit = cand.fit_score ? parseInt(cand.fit_score) : (cand.fit_manual ? parseInt(cand.fit_manual) : null);
+    if(fit!=null){
+      const fitCor = fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c';
+      chips += `<span class="chip" style="background:${fitCor}15;border-color:${fitCor}33;color:${fitCor};">Fit ${fit}%</span>`;
+    }
+    // Score currículo
+    if(cand.score_curriculo!=null){ const sc=parseInt(cand.score_curriculo),cc=sc>=65?'#3b82f6':sc>=40?'#f39c12':'#e74c3c'; chips += `<span class="chip" style="background:${cc}15;border-color:${cc}33;color:${cc};">📄 CV ${sc}%</span>`; }
+    // Destaque
+    if(cand.candidato_destaque===true||cand.candidato_destaque==='true') chips += `<span class="badge-destaque">⭐ Destaque</span>`;
+  }
+
+  // === STATUS DOTS (herdado do banco) ===
+  let statusDots = '';
+  if(temCandCompleto){
+    const _temDisc2    = temDisc;
+    const _temEnt      = !!(cand.entrevista_json || cand.resumo_ia || cand.url_resultado_fit || cand.fit_score);
+    const _temCurric   = !!cand.curriculo_url;
+    const _temParecer  = !!cand.parecer_final_link;
+    const _pendDocs    = [_temDisc2,_temEnt,_temCurric].filter(b=>!b).length;
+    const _tresOk      = _temDisc2 && _temEnt && _temCurric;
+    const _completo    = _tresOk && _temParecer;
+    const _dot = (tipo, ativo, titulo) => `<span class="status-dot ${tipo}${ativo?'':' off'}" title="${titulo}"></span>`;
+    statusDots = `<div class="status-dots-card">
+      <div class="status-dots-row">
+        ${_dot('disc',       _temDisc2, _temDisc2 ? '✅ DISC realizado'        : '⬜ DISC pendente')}
+        ${_dot('entrevista', _temEnt,   _temEnt   ? '✅ Entrevista / Fit feito' : '⬜ Entrevista pendente')}
+        ${_dot('curriculo',  _temCurric,_temCurric ? '✅ Currículo anexado'      : '⬜ Currículo pendente')}
+        ${_dot('parecer',    _temParecer,_temParecer? '✅ Parecer emitido'        : '⬜ Parecer pendente')}
+      </div>
+      ${_completo
+        ? `<span class="status-dot-count" style="color:#3b82f6;font-size:0.5rem;font-weight:800;">Completo</span>`
+        : _tresOk
+          ? `<span class="status-dot-count" style="color:#2ecc71;font-size:0.5rem;font-weight:800;">Ótimo</span>`
+          : _pendDocs > 0
+            ? `<span class="status-pend-lbl">${_pendDocs} pendente${_pendDocs>1?'s':''}</span>`
+            : `<span class="status-dot-count">—</span>`}
+    </div>`;
+  }
+
+  // Mini radar DISC
+  let miniRadar = '';
+  if(temDisc && temCandCompleto){
+    const _d=parseFloat(cand.pct_d)||0,_i=parseFloat(cand.pct_i)||0,_s=parseFloat(cand.pct_s)||0,_c=parseFloat(cand.pct_c)||0;
+    const _cx=22,_cy=22,_r=16;
+    function _rp(ang,pct){const rad=(ang-90)*Math.PI/180,l=_r*(pct/100);return[_cx+l*Math.cos(rad),_cy+l*Math.sin(rad)];}
+    const _pts=[_rp(0,_d),_rp(90,_i),_rp(180,_s),_rp(270,_c)];
+    const _poly=_pts.map(pp=>pp.join(',')).join(' ');
+    const _domCor2=cand.dom==='D'?'#e74c3c':cand.dom==='I'?'#f39c12':cand.dom==='S'?'#2ecc71':'#3498db';
+    const _grids=[25,50,75,100].map(pp=>{const pts2=[0,90,180,270].map(a=>_rp(a,pp));return`<polygon points="${pts2.map(x=>x.join(',')).join(' ')}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>`;}).join('');
+    const _axes=[0,90,180,270].map(a=>{const[x,y]=_rp(a,100);return`<line x1="${_cx}" y1="${_cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>`;}).join('');
+    miniRadar=`<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="flex-shrink:0;">${_grids}${_axes}<polygon points="${_poly}" fill="${_domCor2}30" stroke="${_domCor2}" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
+  }
+
+  // === BOTÕES HERDADOS DO BANCO DE TALENTOS ===
+  const _IS = 'width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;';
+  const _base = 'https://agencianexus.github.io/agencianexus/';
+
+  // GRUPO 1 — Perfil & Avaliação (só exibe se tiver candidato completo)
+  const _g1 = [];
+  const _g2 = [];
+  const _g3 = [];
+
+  if(temCandCompleto){
+    const parecerUrl = `../disc-parecer.html?t=${encodeURIComponent(cand.id||'')}&nome=${encodeURIComponent(cand.nome||'')}&vaga=${encodeURIComponent(cand.vaga||p.vaga||'')}&dom=${encodeURIComponent(cand.dom||'D')}&sec=${encodeURIComponent(cand.sec||'I')}&d=${encodeURIComponent(cand.pct_d||'0')}&i=${encodeURIComponent(cand.pct_i||'0')}&s=${encodeURIComponent(cand.pct_s||'0')}&c=${encodeURIComponent(cand.pct_c||'0')}`;
+    const entFormUrl  = `../entrevista.html?nome=${encodeURIComponent(cand.nome||'')}&vaga=${encodeURIComponent(cand.vaga||p.vaga||'')}&dom=${cand.dom||'D'}&sec=${cand.sec||'I'}&d=${cand.pct_d||'0'}&i=${cand.pct_i||'0'}&s=${cand.pct_s||'0'}&c=${cand.pct_c||'0'}&candidato_id=${encodeURIComponent(cand.id||'')}&email=${encodeURIComponent(cand.email_externo||'')}&tel=${encodeURIComponent(cand.tel_externo||'')}`;
+    const entResultUrl = cand.url_resultado_fit || entFormUrl;
+    const _temDiscPerfil = temDisc;
+    const _discUrl = _temDiscPerfil
+      ? (cand.url || (_base+'disc-resultado.html?nome='+encodeURIComponent(cand.nome||'')+'&perfil='+(cand.dom||'D')+'&sec='+(cand.sec||'I')+'&d='+(cand.pct_d||0)+'&i='+(cand.pct_i||0)+'&s='+(cand.pct_s||0)+'&c='+(cand.pct_c||0)+'&vaga='+encodeURIComponent(cand.vaga||p.vaga||'')))
+      : (_base+'disc.html?nome='+encodeURIComponent(cand.nome||'')+'&email='+encodeURIComponent(cand.email_externo||'')+'&vaga='+encodeURIComponent(cand.vaga||p.vaga||''));
+    const _discStyle = _temDiscPerfil ? 'background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.2);' : 'background:rgba(52,152,219,0.05);color:#5dade2;border-color:rgba(52,152,219,0.15);';
+    const _discLabel  = `<img src="disc2.png" style="${_IS}" alt=""> ${_temDiscPerfil?'DISC':'Fazer DISC'}`;
+
+    // G1: Perfil & Avaliação
+    _g1.push(`<button class="btn-sm" onclick="abrirPerfilBanco('${esc(String(cand.id))}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+    _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
+    _g1.push(`<a class="btn-sm" href="${esc(_discUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="${_discStyle}">${_discLabel}</a>`);
+    if(cand.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(cand.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="fitcultural2.png" style="${_IS}" alt=""> Fit Cultural</a>`);
+    else _g1.push(`<button class="btn-sm" onclick="abrirPerfilBanco('${esc(String(cand.id))}')" style="background:rgba(243,156,18,0.08);color:#f39c12;border-color:rgba(243,156,18,0.2);">➕ Fit</button>`);
+    if(cand.entrevista_json||cand.resumo_ia||cand.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
+    else _g1.push(`<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);"><img src="entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
+
+    // G2: Ações da pendência
+    _g2.push(`<button class="btn-sm" onclick="editarPendencia('${esc(String(p.id))}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.3);">✏️ Editar</button>`);
+    _g2.push(`<button class="btn-sm" onclick="marcarStatus('${esc(String(p.id))}','agendada')" style="background:rgba(59,130,246,0.08);color:#2ecc71;border-color:rgba(59,130,246,0.2);">✅ Agendada</button>`);
+    _g2.push(`<button class="btn-sm" onclick="marcarStatus('${esc(String(p.id))}','sem_retorno')" style="background:rgba(231,76,60,0.06);color:#e74c3c;border-color:rgba(231,76,60,0.18);">📵 Sem retorno</button>`);
+    _g2.push(`<button class="btn-sm" onclick="moverParaEntrevistados('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);"><img src="entrevistados2.png" style="${_IS}" alt=""> → Entrevistados</button>`);
+    _g2.push(`<button class="btn-sm" onclick="moverParaBancoDeAreas('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#2ecc71;border-color:rgba(59,130,246,0.3);"><img src="area2.png" style="${_IS}" alt=""> → Área</button>`);
+    _g2.push(`<button class="btn-sm" onclick="moverParaPendenciasCand('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.28);"><img src="pendencis2.png" style="${_IS}" alt=""> → Pendências</button>`);
+    _g2.push(`<button class="btn-sm" onclick="confirmarDelPend('${esc(String(p.id))}','${esc(p.nome||'')}' )" style="background:rgba(231,76,60,0.06);color:#e74c3c;border-color:rgba(231,76,60,0.18);">🗑️ Remover</button>`);
+
+    // G3: Comunicação
+    if(cand.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(cand.email_externo)}','${esc(cand.nome||'')}' )" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
+    if(cand.tel_externo){ const n=cand.tel_externo.replace(/\D/g,''); _g3.push(`<a class="btn-sm" href="https://wa.me/55${n}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.22);"><img src="whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</a>`); }
+    if(cand.link_externo) _g3.push(`<a class="btn-sm" href="${esc(cand.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
+    if(cand.curriculo_url) _g3.push(`<a class="btn-sm" href="${esc(cand.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
+
+  } else {
+    // Sem candidato completo: só ações básicas de pendência
+    _g2.push(`<button class="btn-sm" onclick="editarPendencia('${esc(String(p.id))}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.3);">✏️ Editar</button>`);
+    _g2.push(`<button class="btn-sm" onclick="marcarStatus('${esc(String(p.id))}','agendada')" style="background:rgba(59,130,246,0.08);color:#2ecc71;border-color:rgba(59,130,246,0.2);">✅ Agendada</button>`);
+    _g2.push(`<button class="btn-sm" onclick="marcarStatus('${esc(String(p.id))}','sem_retorno')" style="background:rgba(231,76,60,0.06);color:#e74c3c;border-color:rgba(231,76,60,0.18);">📵 Sem retorno</button>`);
+    if(cand.tel_externo||p.tel_externo){ const n=(cand.tel_externo||p.tel_externo||'').replace(/\D/g,''); _g3.push(`<a class="btn-sm" href="https://wa.me/55${n}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.22);">💬 WhatsApp</a>`); }
+    if(cand.email_externo||p.email_externo) _g3.push(`<a class="btn-sm" href="mailto:${esc(cand.email_externo||p.email_externo)}" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);">✉️ E-mail</a>`);
+    _g2.push(`<button class="btn-sm" onclick="confirmarDelPend('${esc(String(p.id))}','${esc(p.nome||'')}' )" style="background:rgba(231,76,60,0.06);color:#e74c3c;border-color:rgba(231,76,60,0.18);">🗑️ Remover</button>`);
+  }
+
+  const footHtml = `
+    ${_g1.length ? `<div class="cand-foot-label">👤 Perfil & Avaliação</div><div class="cand-foot-group">${_g1.join('')}</div>` : ''}
+    <div class="cand-foot-label">📋 Ações da Pendência</div>
+    <div class="cand-foot-group">${_g2.join('')}</div>
+    ${_g3.length ? `<div class="cand-foot-label">💬 Comunicação</div><div class="cand-foot-group">${_g3.join('')}</div>` : ''}
+  `;
+
+  // Barra lateral urgência
+  const urgBar = `<div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:${urgCor};opacity:0.7;border-radius:14px 0 0 14px;"></div>`;
+
+  return `<div class="cand-card${(cand.candidato_destaque===true||cand.candidato_destaque==='true')?' is-destaque':''}">
+    ${urgBar}
+    <div class="card-top-right">
+      ${miniRadar}
+      ${statusDots}
+    </div>
+    <button class="cand-del-btn" onclick="confirmarDelPend('${esc(String(p.id))}','${esc(p.nome||'')}')" title="Remover pendência">✕</button>
+    <div class="cand-card-inner" style="padding-left:0.6rem;">
+      <div class="cand-avatar" style="background:${temDisc?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDisc?cor+'40':'rgba(255,255,255,0.12)'};color:${temDisc?cor:'#555'};" ${temCandCompleto?`onclick="abrirPerfilBanco('${esc(String(cand.id))}')"`:''}>
+        ${temDisc?emoji:'?'}
+      </div>
+      <div class="cand-info">
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+          <div class="cand-nome" ${temCandCompleto?`onclick="abrirPerfilBanco('${esc(String(cand.id))}')"`:''} style="cursor:${temCandCompleto?'pointer':'default'};">${esc(p.nome||'—')}</div>
+          ${prazoBadge}
+          ${dataEntHtml}
+        </div>
+        <div class="cand-meta">📋 ${esc(p.vaga||'—')}${p.empresa?' · 🏢 '+esc(p.empresa):''}</div>
+        <div class="cand-chips">${chips}</div>
+        ${obsHtml}
+      </div>
+    </div>
+    <div class="cand-foot">
+      <button class="cand-foot-toggle" onclick="toggleFootBtns(this)"><span class="ft-chev">▼</span> Ações</button>
+      <div class="cand-foot-body collapsed" style="max-height:0;">
+        ${footHtml}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* Abre perfil no banco de talentos via postMessage ou link */
+function abrirPerfilBanco(candId){
+  try{
+    // Tenta comunicar com o frame pai (banco-talentos)
+    window.top.postMessage({tipo:'nexus_abrir_perfil', candId: candId},'*');
+  }catch(e){}
+  // Abre banco-talentos na nova aba apontando para o candidato
+  const url = `../banco-talentos.html?perfil=${encodeURIComponent(candId)}`;
+  window.top.open(url,'_blank');
+}
+
+function toggleFootBtns(btn){
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  if(isOpen){
+    body.style.maxHeight = body.scrollHeight + 'px';
+    requestAnimationFrame(()=>{ body.classList.add('collapsed'); });
+    btn.classList.remove('open');
+  } else {
+    body.classList.remove('collapsed');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    btn.classList.add('open');
+  }
+}
+
+/* ═══════════════ AÇÕES DE MOVIMENTAÇÃO ═══════════════ */
+async function moverParaEntrevistados(candId, nome){
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/entrevistados_assign`, {
+      method:'POST',
+      headers: sbHeaders({'Prefer':'resolution=ignore-duplicates,return=minimal'}),
+      body: JSON.stringify({ cand_id: candId, criado_em: new Date().toISOString() })
+    });
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    mostrarToast(`✅ ${nome} movido para Entrevistados!`);
+  }catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+
+async function moverParaBancoDeAreas(candId, nome){
+  mostrarToast(`ℹ️ Use o banco de talentos para mover ${nome} para uma Área específica.`);
+}
+
+async function moverParaPendenciasCand(candId, nome){
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/pendencias_assign`, {
+      method:'POST',
+      headers: sbHeaders({'Prefer':'resolution=ignore-duplicates,return=minimal'}),
+      body: JSON.stringify({ cand_id: candId, criado_em: new Date().toISOString() })
+    });
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    mostrarToast(`✅ ${nome} movido para Pendências!`);
+  }catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+
+/* ═══════════════ CONTATOS ═══════════════ */
+function abrirEmail(email, nome){
+  window.top.open(`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}&su=${encodeURIComponent('Agência Nexus — Oportunidade')}&body=${encodeURIComponent('Prezado(a) '+nome+',\n\n')}`,'_blank');
+}
+
+/* ═══════════════ MODAL ADD/EDIT ═══════════════ */
+function abrirModalAdicionar(){
+  _editId     = null;
+  _candSelId  = null;
+  document.getElementById('mEyebrow').textContent  = 'Nova Pendência';
+  document.getElementById('mTitle').textContent    = 'Adicionar candidato pendente';
+  document.getElementById('mCandWrap').style.display = '';
+  document.getElementById('mNomeWrap').style.display = 'none';
+  document.getElementById('mVaga').value          = '';
+  document.getElementById('mEmpresa').value       = '';
+  document.getElementById('mPrioridade').value    = 'normal';
+  document.getElementById('mStatus').value        = 'pendente';
+  document.getElementById('mPrazo').value         = '';
+  document.getElementById('mDataEntrevista').value= '';
+  document.getElementById('mObs').value           = '';
+  document.getElementById('mEditId').value        = '';
+  document.getElementById('mCandId').value        = '';
+  document.getElementById('mSaveMsg').style.display = 'none';
+  document.getElementById('mSaveBtn').disabled    = false;
+  ocultarCandSel();
+  document.getElementById('mBuscaCand').value     = '';
+  document.getElementById('mCandLista').innerHTML = '';
+  populateVagaSelectModal();
+  document.getElementById('mVagaSel').value       = '';
+  document.getElementById('modalAdd').style.display = 'flex';
+  setTimeout(()=>document.getElementById('mBuscaCand').focus(), 150);
+}
+
+function editarPendencia(id){
+  const p = _allPend.find(x=>String(x.id)===String(id));
+  if(!p) return;
+  _editId    = String(id);
+  _candSelId = p.cand_id ? String(p.cand_id) : null;
+  document.getElementById('mEyebrow').textContent  = 'Editar Pendência';
+  document.getElementById('mTitle').textContent    = 'Atualizar pendência';
+  document.getElementById('mCandWrap').style.display = 'none';
+  document.getElementById('mNomeWrap').style.display = '';
+  document.getElementById('mNomeCand').value       = p.nome || '';
+  document.getElementById('mVaga').value           = p.vaga || '';
+  document.getElementById('mEmpresa').value        = p.empresa || '';
+  document.getElementById('mPrioridade').value     = p.prioridade || 'normal';
+  document.getElementById('mStatus').value         = p.status || 'pendente';
+  document.getElementById('mPrazo').value          = p.prazo ? p.prazo.substring(0,10) : '';
+  document.getElementById('mDataEntrevista').value = p.data_entrevista ? p.data_entrevista.substring(0,16) : '';
+  document.getElementById('mObs').value            = p.obs || '';
+  document.getElementById('mEditId').value         = String(id);
+  document.getElementById('mCandId').value         = _candSelId || '';
+  document.getElementById('mSaveMsg').style.display = 'none';
+  document.getElementById('mSaveBtn').disabled     = false;
+  document.getElementById('modalAdd').style.display = 'flex';
+}
+
+function fecharModal(){
+  document.getElementById('modalAdd').style.display = 'none';
+}
+
+function filtrarCandidatosModal(){
+  const q = document.getElementById('mBuscaCand').value.toLowerCase();
+  if(!q){ document.getElementById('mCandLista').innerHTML=''; return; }
+  const res = _allCands.filter(c=>(c.nome||'').toLowerCase().includes(q)).slice(0,12);
+  document.getElementById('mCandLista').innerHTML = res.map(c=>{
+    const cor = COR[c.dom]||'#888'; const emoji = EMO[c.dom]||'⬜';
+    const sel = _candSelId===String(c.id);
+    return `<div class="add-cand-item${sel?' selected':''}" onclick="selecionarCand('${esc(String(c.id))}','${esc(c.nome||'')}','${esc(c.vaga||'')}')">
+      <div class="add-cand-av" style="background:${cor}18;border-color:${cor}40;color:${cor};">${emoji}</div>
+      <div><div class="add-cand-nome">${esc(c.nome||'—')}</div><div class="add-cand-sub">${esc(c.vaga||'—')}</div></div>
+      <span class="add-cand-check">✓</span>
+    </div>`;
+  }).join('') || '<div style="font-size:0.75rem;color:var(--muted);padding:0.5rem;">Nenhum resultado</div>';
+}
+
+function selecionarCand(id, nome, vaga){
+  _candSelId = id;
+  document.getElementById('mCandId').value = id;
+  if(!document.getElementById('mVaga').value) document.getElementById('mVaga').value = vaga;
+  mostrarCandSel(nome);
+  filtrarCandidatosModal();
+}
+
+function mostrarCandSel(nome){
+  const box = document.getElementById('mCandSel');
+  box.style.display = 'flex';
+  document.getElementById('mCandSelNome').textContent = '👤 ' + nome;
+  document.getElementById('mBuscaCand').style.display = 'none';
+  document.getElementById('mCandLista').style.display = 'none';
+}
+
+function ocultarCandSel(){
+  document.getElementById('mCandSel').style.display    = 'none';
+  document.getElementById('mBuscaCand').style.display   = '';
+  document.getElementById('mCandLista').style.display   = '';
+}
+
+function limparCandSel(){
+  _candSelId = null;
+  document.getElementById('mCandId').value = '';
+  ocultarCandSel();
+  document.getElementById('mBuscaCand').value = '';
+  document.getElementById('mCandLista').innerHTML = '';
+}
+
+/* ══ salvar ══ */
+async function salvarPendencia(){
+  const btn     = document.getElementById('mSaveBtn');
+  const msg     = document.getElementById('mSaveMsg');
+  const vaga    = document.getElementById('mVaga').value.trim();
+  const prazo   = document.getElementById('mPrazo').value;
+  const dataEnt = document.getElementById('mDataEntrevista').value;
+  const obs     = document.getElementById('mObs').value.trim();
+  const prio    = document.getElementById('mPrioridade').value;
+  const status  = document.getElementById('mStatus').value;
+  const empresa = document.getElementById('mEmpresa').value.trim();
+  const candId  = document.getElementById('mCandId').value || _candSelId;
+  const editId  = document.getElementById('mEditId').value;
+
+  let nome = '';
+  if(editId){
+    nome = document.getElementById('mNomeCand').value.trim();
+  } else {
+    const c = _allCands.find(x=>String(x.id)===String(candId));
+    nome = c ? (c.nome||'') : '';
+  }
+
+  if(!nome && !candId){ mostrarToast('Selecione um candidato', true); return; }
+  if(!vaga){ mostrarToast('Preencha a vaga/processo', true); return; }
+
+  btn.disabled = true;
+  const data = {
+    cand_id: candId || null,
+    nome: nome || 'Sem nome',
+    vaga, empresa, prioridade: prio, status, obs,
+    prazo: prazo || null,
+    data_entrevista: dataEnt || null,
+    updated_at: new Date().toISOString()
+  };
+
+  try{
+    if(editId){
+      await sbUpdate(SB_PEND, editId, data);
+      const idx = _allPend.findIndex(p=>String(p.id)===editId);
+      if(idx>=0) _allPend[idx] = {..._allPend[idx], ...data, id: _allPend[idx].id};
+      mostrarToast('Pendência atualizada ✓');
+    } else {
+      data.created_at = new Date().toISOString();
+      const rows = await sbInsert(SB_PEND, data);
+      if(rows && rows[0]) _allPend.unshift(rows[0]);
+      mostrarToast('Pendência adicionada ✓');
+    }
+    atualizarStats();
+    renderVagas();
+    renderLista();
+    msg.style.display='block';
+    setTimeout(()=>{ msg.style.display='none'; fecharModal(); }, 900);
+  } catch(e){
+    console.error(e);
+    mostrarToast('Erro ao salvar: ' + e.message, true);
+    btn.disabled = false;
+  }
+}
+
+/* ═══ AÇÕES RÁPIDAS ═══ */
+async function marcarStatus(id, status){
+  try{
+    await sbUpdate(SB_PEND, id, {status, updated_at: new Date().toISOString()});
+    const idx = _allPend.findIndex(p=>String(p.id)===id);
+    if(idx>=0) _allPend[idx].status = status;
+    const label = {agendada:'✅ Marcada como agendada', sem_retorno:'📵 Sem retorno marcado'}[status] || 'Status atualizado';
+    mostrarToast(label);
+    atualizarStats();
+    renderVagas();
+    renderLista();
+  } catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+
+/* ═══ EXCLUIR PENDÊNCIA ═══ */
+function confirmarDelPend(id, nome){
+  _delPendId = id; _delPendNome = nome;
+  document.getElementById('delPendNome').textContent = nome;
+  document.getElementById('modalDelPend').style.display = 'flex';
+}
+function fecharDelPend(){
+  document.getElementById('modalDelPend').style.display = 'none';
+  _delPendId = null; _delPendNome = null;
+}
+async function executarDelPend(){
+  if(!_delPendId) return;
+  const id = _delPendId, nome = _delPendNome;
+  fecharDelPend();
+  try{
+    await sbDelete(SB_PEND, id);
+    _allPend = _allPend.filter(p=>String(p.id)!==String(id));
+    atualizarStats();
+    renderVagas();
+    renderLista();
+    mostrarToast('Pendência removida');
+  } catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+
+/* ═══ EXPORTAR CSV ═══ */
+function exportarCSV(){
+  if(!_allPend.length){ mostrarToast('Nenhum dado para exportar', true); return; }
+  const header = ['Nome','Vaga','Empresa','Prioridade','Status','Prazo','Data Entrevista','Obs'];
+  const rows = _allPend.map(p=>[
+    p.nome||'', p.vaga||'', p.empresa||'', p.prioridade||'', p.status||'',
+    p.prazo||'', p.data_entrevista||'', (p.obs||'').replace(/"/g,"''")
+  ].map(v=>`"${v}"`).join(','));
+  const csv = [header.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = `entrevista-pendente-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+/* ═══ TOAST ═══ */
+function mostrarToast(msg, err=false){
+  const wrap = document.getElementById('toastWrap');
+  const el   = document.createElement('div');
+  el.className = 'toast' + (err?' err':'');
+  el.textContent = msg;
+  wrap.appendChild(el);
+  requestAnimationFrame(()=>{ el.offsetHeight; el.classList.add('show'); });
+  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(), 300); }, 3200);
+}
+
+/* ═══════════════ VAGAS — RENDER ═══════════════ */
+function renderVagas(){
+  const grid  = document.getElementById('vagasGrid');
+  const badge = document.getElementById('vagasCountBadge');
+  badge.textContent = _allVagas.length;
+
+  if(!_allVagas.length){
+    grid.innerHTML = `<div class="vaga-empty" id="vagasEmpty">Nenhuma vaga cadastrada. Clique em "🗂 Nova Vaga" para começar.</div>`;
+    return;
+  }
+
+  grid.innerHTML = _allVagas.map(v=>{
+    const candsVaga = _allPend.filter(p => (p.vaga||'') === (v.titulo||''));
+    const alocados  = candsVaga.length;
+    const total     = parseInt(v.quantidade) || 1;
+    const pct       = Math.min(100, Math.round((alocados/total)*100));
+    const prCor     = v.prioridade==='urgente'?'#e74c3c':v.prioridade==='baixa'?'#2ecc71':'#f59e0b';
+    const prLabel   = v.prioridade==='urgente'?'🔴 Urgente':v.prioridade==='baixa'?'🟢 Baixa':'🟡 Normal';
+    const barCor    = pct>=100?'#2ecc71':pct>=60?'#f59e0b':'#3498db';
+
+    // Prazo da vaga
+    let prazoBadge = '';
+    if(v.prazo){
+      const hoje = new Date(); hoje.setHours(0,0,0,0);
+      const dp   = new Date(v.prazo); dp.setHours(0,0,0,0);
+      const diff = Math.round((dp-hoje)/86400000);
+      if(diff < 0) prazoBadge = `<span class="vaga-chip" style="background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.3);color:#e74c3c;">⚠️ ${Math.abs(diff)}d atrasada</span>`;
+      else if(diff===0) prazoBadge = `<span class="vaga-chip" style="background:rgba(231,76,60,0.1);border-color:rgba(231,76,60,0.3);color:#e74c3c;">🔥 Hoje</span>`;
+      else if(diff<=3) prazoBadge = `<span class="vaga-chip" style="background:rgba(243,156,18,0.1);border-color:rgba(243,156,18,0.3);color:#f39c12;">⏰ ${diff}d</span>`;
+      else prazoBadge = `<span class="vaga-chip" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);color:#666;">📅 ${dp.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span>`;
+    }
+
+    // Candidatos dentro da vaga
+    const candsHtml = candsVaga.length === 0
+      ? `<div class="vaga-sem-cands">Nenhum candidato nesta vaga ainda</div>`
+      : candsVaga.map(p => {
+          const cand  = _allCands.find(c=>String(c.id)===String(p.cand_id)) || {};
+          const cor   = COR[cand.dom] || '#555';
+          const emoji = EMO[cand.dom] || '⬜';
+          const stMap = {pendente:'⏳',agendada:'✅',reagendar:'🔄',sem_retorno:'📵'};
+          const stCor = {pendente:'#f59e0b',agendada:'#2ecc71',reagendar:'#3498db',sem_retorno:'#e74c3c'};
+          const stLbl = {pendente:'Aguardando',agendada:'Agendada',reagendar:'Reagendar',sem_retorno:'Sem retorno'};
+          const st    = p.status||'pendente';
+          const urgCor = p.prioridade==='urgente'?'#e74c3c':p.prioridade==='baixa'?'#2ecc71':'#f59e0b';
+
+          // Prazo candidato
+          let prazoMini = '';
+          if(p.prazo && p.status !== 'agendada'){
+            const hoje2 = new Date(); hoje2.setHours(0,0,0,0);
+            const dp2   = new Date(p.prazo); dp2.setHours(0,0,0,0);
+            const diff2 = Math.round((dp2-hoje2)/86400000);
+            if(diff2 < 0) prazoMini = `<span style="color:#e74c3c;font-weight:800;">⚠️ ${Math.abs(diff2)}d atrasado</span>`;
+            else if(diff2===0) prazoMini = `<span style="color:#e74c3c;font-weight:800;">🔥 Hoje</span>`;
+            else if(diff2<=2) prazoMini = `<span style="color:#f39c12;font-weight:800;">⏰ ${diff2}d</span>`;
+          }
+
+          const entFormUrl = `../entrevista.html?nome=${encodeURIComponent(cand.nome||p.nome||'')}&vaga=${encodeURIComponent(p.vaga||'')}&candidato_id=${encodeURIComponent(cand.id||'')}&email=${encodeURIComponent(cand.email_externo||'')}&tel=${encodeURIComponent(cand.tel_externo||'')}`;
+          const temEnt = !!(cand.entrevista_json||cand.resumo_ia||cand.url_resultado_fit);
+
+          return `<div class="vaga-cand-row" id="vcr_${esc(String(p.id))}">
+            <div class="vaga-cand-disc" style="background:${cor}22;color:${cor};border:1.5px solid ${cor}44;">${emoji}</div>
+            <div class="vaga-cand-info">
+              <div class="vaga-cand-nome">${esc(cand.nome||p.nome||'—')}</div>
+              <div class="vaga-cand-sub">
+                <span style="color:${stCor[st]||'#f59e0b'};font-weight:700;">${stMap[st]||'⏳'} ${stLbl[st]||'Aguardando'}</span>
+                <span style="color:${urgCor};font-weight:700;">● ${p.prioridade||'normal'}</span>
+                ${prazoMini}
+                ${p.data_entrevista ? `<span style="color:#2ecc71;">📅 ${new Date(p.data_entrevista).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</span>` : ''}
+              </div>
+            </div>
+            <div class="vaga-cand-actions">
+              <button class="vaga-cand-btn" onclick="editarPendencia('${esc(String(p.id))}')" title="Editar">✏️</button>
+              <button class="vaga-cand-btn" onclick="window.top.open('${entFormUrl}','_blank')" title="${temEnt?'Ver entrevista':'Fazer entrevista'}" style="${temEnt?'color:#f39c12;border-color:rgba(243,156,18,0.3);':''}">🎤</button>
+              <button class="vaga-cand-btn danger" onclick="confirmarDelPend('${esc(String(p.id))}','${esc(cand.nome||p.nome||'')}')" title="Remover">🗑</button>
+            </div>
+          </div>`;
+        }).join('');
+
+    return `<div class="vaga-card" id="vagaCard_${esc(String(v.id))}">
+      <button class="vaga-edit-btn" onclick="editarVaga('${esc(String(v.id))}')" title="Editar vaga">✏️</button>
+      <button class="vaga-del-btn" onclick="confirmarDelVaga('${esc(String(v.id))}','${esc(v.titulo||'')}')" title="Remover vaga">🗑</button>
+      <div class="vaga-card-title">${esc(v.titulo||'—')}</div>
+      <div class="vaga-card-empresa">${esc(v.empresa||'')}${v.area ? ` · ${esc(v.area)}` : ''}</div>
+      <div class="vaga-card-meta">
+        <span class="vaga-chip" style="background:${prCor}18;border-color:${prCor}33;color:${prCor};">${prLabel}</span>
+        <span class="vaga-chip" style="background:rgba(52,152,219,0.1);border-color:rgba(52,152,219,0.25);color:#3498db;">👥 ${alocados}/${total}</span>
+        ${prazoBadge}
+      </div>
+      <div class="vaga-progress-wrap">
+        <div class="vaga-progress-label"><span>Preenchimento</span><span>${pct}%</span></div>
+        <div class="vaga-progress-track"><div class="vaga-progress-fill" style="width:${pct}%;background:${barCor};"></div></div>
+      </div>
+      <div class="vaga-cands-wrap">${candsHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+/* Clique no card de vaga filtra a lista */
+let _vagaFiltroAtivo = '';
+function filtrarPorVaga(titulo, id){
+  if(_vagaFiltroAtivo === titulo){
+    // desseleciona
+    _vagaFiltroAtivo = '';
+    document.getElementById('fVaga').value = '';
+    document.querySelectorAll('.vaga-card').forEach(c=>c.classList.remove('selected-vaga'));
+  } else {
+    _vagaFiltroAtivo = titulo;
+    document.getElementById('fVaga').value = titulo;
+    document.querySelectorAll('.vaga-card').forEach(c=>c.classList.remove('selected-vaga'));
+    const card = document.getElementById('vagaCard_'+id);
+    if(card) card.classList.add('selected-vaga');
+  }
+  renderLista();
+}
+
+function toggleVagasPanel(){
+  _vagasPanelOpen = !_vagasPanelOpen;
+  const grid = document.getElementById('vagasGrid');
+  const btn  = document.getElementById('vagasToggleBtn');
+  if(_vagasPanelOpen){
+    grid.style.maxHeight = '1000px'; grid.classList.remove('collapsed');
+    btn.classList.add('open');
+  } else {
+    grid.style.maxHeight = '0'; grid.classList.add('collapsed');
+    btn.classList.remove('open');
+  }
+}
+
+/* ═══════════════ VAGAS — MODAL ═══════════════ */
+function abrirModalVaga(v=null){
+  document.getElementById('mvEditId').value  = v ? String(v.id) : '';
+  document.getElementById('mvEyebrow').textContent = v ? 'Editar Vaga' : 'Nova Vaga';
+  document.getElementById('mvTitle').textContent   = v ? 'Atualizar vaga' : 'Cadastrar vaga';
+  document.getElementById('mvTitulo').value    = v ? (v.titulo||'') : '';
+  document.getElementById('mvEmpresa').value   = v ? (v.empresa||'') : '';
+  document.getElementById('mvArea').value      = v ? (v.area||'') : '';
+  document.getElementById('mvQuantidade').value= v ? (v.quantidade||1) : 1;
+  document.getElementById('mvPrazo').value     = v && v.prazo ? v.prazo.substring(0,10) : '';
+  document.getElementById('mvObs').value       = v ? (v.obs||'') : '';
+  const prio = v ? (v.prioridade||'normal') : 'normal';
+  document.querySelectorAll('[name="mvPrio"]').forEach(r=>{ r.checked = r.value===prio; });
+  document.getElementById('mvSaveMsg').style.display = 'none';
+  document.getElementById('mvSaveBtn').disabled = false;
+  document.getElementById('modalVaga').style.display = 'flex';
+  setTimeout(()=>document.getElementById('mvTitulo').focus(), 150);
+}
+
+function fecharModalVaga(){
+  document.getElementById('modalVaga').style.display = 'none';
+}
+
+function editarVaga(id){
+  const v = _allVagas.find(x=>String(x.id)===String(id));
+  if(v) abrirModalVaga(v);
+}
+
+async function salvarVaga(){
+  const btn    = document.getElementById('mvSaveBtn');
+  const msg    = document.getElementById('mvSaveMsg');
+  const titulo = document.getElementById('mvTitulo').value.trim();
+  if(!titulo){ mostrarToast('Preencha o título da vaga', true); return; }
+
+  btn.disabled = true;
+  const prio   = document.querySelector('[name="mvPrio"]:checked')?.value || 'normal';
+  const data   = {
+    titulo,
+    empresa:    document.getElementById('mvEmpresa').value.trim(),
+    area:       document.getElementById('mvArea').value.trim(),
+    quantidade: parseInt(document.getElementById('mvQuantidade').value)||1,
+    prazo:      document.getElementById('mvPrazo').value || null,
+    obs:        document.getElementById('mvObs').value.trim(),
+    prioridade: prio,
+    updated_at: new Date().toISOString()
+  };
+
+  const editId = document.getElementById('mvEditId').value;
+  try{
+    if(editId){
+      await sbUpdate(SB_VAGAS, editId, data);
+      const idx = _allVagas.findIndex(v=>String(v.id)===editId);
+      if(idx>=0) _allVagas[idx] = {..._allVagas[idx], ...data};
+      mostrarToast('Vaga atualizada ✓');
+    } else {
+      data.created_at = new Date().toISOString();
+      const rows = await sbInsert(SB_VAGAS, data);
+      if(rows && rows[0]) _allVagas.unshift(rows[0]);
+      mostrarToast('Vaga criada ✓');
+    }
+    renderVagas();
+    populateVagaSelectModal();
+    msg.style.display = 'block';
+    setTimeout(()=>{ msg.style.display='none'; fecharModalVaga(); }, 900);
+  } catch(e){
+    console.error(e);
+    mostrarToast('Erro ao salvar: '+e.message, true);
+    btn.disabled = false;
+  }
+}
+
+/* ═══════════════ VAGAS — EXCLUIR ═══════════════ */
+function confirmarDelVaga(id, nome){
+  _delVagaId = id; _delVagaNome = nome;
+  document.getElementById('delVagaNome').textContent = nome;
+  document.getElementById('modalDelVaga').style.display = 'flex';
+}
+function fecharDelVaga(){
+  document.getElementById('modalDelVaga').style.display = 'none';
+  _delVagaId = null; _delVagaNome = null;
+}
+async function executarDelVaga(){
+  if(!_delVagaId) return;
+  const id = _delVagaId;
+  fecharDelVaga();
+  try{
+    await sbDelete(SB_VAGAS, id);
+    _allVagas = _allVagas.filter(v=>String(v.id)!==String(id));
+    renderVagas();
+    populateVagaSelectModal();
+    mostrarToast('Vaga removida');
+  } catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+
+/* ═══════════════ SELECT DE VAGAS NO MODAL PENDÊNCIA ═══════════════ */
+function populateVagaSelectModal(){
+  const sel = document.getElementById('mVagaSel');
+  if(!sel) return;
+  sel.innerHTML = '<option value="">— Selecionar vaga —</option>';
+  _allVagas.forEach(v=>{
+    const o = document.createElement('option');
+    o.value = v.titulo||'';
+    o.textContent = (v.titulo||'') + (v.empresa ? ` · ${v.empresa}` : '');
+    sel.appendChild(o);
+  });
+}
+
+function preencherVagaDaSelect(){
+  const sel  = document.getElementById('mVagaSel');
+  const nome = sel.value;
+  if(!nome) return;
+  const v = _allVagas.find(x=>(x.titulo||'')=== nome);
+  document.getElementById('mVaga').value    = nome;
+  document.getElementById('mEmpresa').value = v ? (v.empresa||'') : '';
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

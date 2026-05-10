@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Pré-Entrevista | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --primary:#1e40af;--accent:#3b82f6;
+      --bg:#0a0a0a;--card:#131313;--card2:#181818;
+      --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.32);
+      --text:#f0f0f0;--muted:#727272;--muted2:#3a3a3a;
+      --D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+    body::after{content:'';position:fixed;top:-15%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(59,130,246,0.05) 0%,transparent 68%);pointer-events:none;z-index:0;}
+    .wrap{position:relative;z-index:1;width:100%;padding:2rem 2rem 6rem;}
+
+    /* TOP */
+    .tbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;}
+    .logo{display:flex;align-items:center;gap:0.8rem;}
+    .logo img{width:40px;height:40px;object-fit:contain;}
+    .logo span{font-size:0.8rem;color:var(--muted);}
+    .step-row{display:flex;align-items:center;gap:0.4rem;font-size:0.7rem;font-weight:700;}
+    .sdot{width:8px;height:8px;border-radius:50%;}
+    .sdot.done{background:var(--accent);}
+    .sdot.now{background:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,0.22);}
+    .sdot.next{background:var(--muted2);}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,rgba(30,64,175,0.18),rgba(59,130,246,0.05));border:1px solid var(--border2);border-radius:26px;padding:2rem 2rem 1.8rem;margin-bottom:1.3rem;position:relative;overflow:hidden;}
+    .hero::after{content:'✍️';position:absolute;right:1.8rem;top:1.2rem;font-size:3.5rem;opacity:0.1;pointer-events:none;}
+    .hero-ey{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.5rem;}
+    .hero-title{font-size:1.75rem;font-weight:900;line-height:1.18;margin-bottom:0.5rem;}
+    .hero-title span{color:var(--accent);}
+    .hero-sub{font-size:0.86rem;color:var(--muted);line-height:1.7;max-width:580px;}
+    .cand-pill{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.09);border:1px solid var(--border2);border-radius:99px;padding:0.3rem 1rem;font-size:0.77rem;font-weight:700;color:var(--accent);margin-top:1rem;}
+
+    /* VAGA INFO CARD */
+    .vaga-info-card{background:var(--card);border:1px solid rgba(52,152,219,0.2);border-radius:16px;padding:1rem 1.3rem;margin-bottom:1.3rem;display:flex;align-items:flex-start;gap:1rem;}
+    .vaga-info-ico{font-size:1.4rem;flex-shrink:0;margin-top:0.1rem;}
+    .vaga-info-body{flex:1;min-width:0;}
+    .vaga-info-titulo{font-size:0.88rem;font-weight:800;margin-bottom:0.2rem;}
+    .vaga-info-meta{font-size:0.73rem;color:var(--muted);margin-bottom:0.5rem;}
+    .vaga-info-req{font-size:0.75rem;color:#bbb;line-height:1.65;background:rgba(255,255,255,0.025);border-radius:8px;padding:0.7rem 0.85rem;border:1px solid rgba(255,255,255,0.06);}
+    .vaga-toggle{display:none !important;}
+    .vaga-desc-bloco{text-align:left;margin-bottom:0.65rem;color:#bbb;}
+    .vaga-req-titulo{font-size:0.62rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.35rem;margin-top:0.55rem;}
+    .vaga-req-lista{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.22rem;}
+    .vaga-req-lista li{display:flex;align-items:flex-start;gap:0.4rem;color:#bbb;}
+    .vaga-req-lista li::before{content:'›';color:var(--accent);font-weight:900;flex-shrink:0;margin-top:0px;}
+    .vaga-toggle{font-size:0.68rem;color:var(--accent);font-weight:700;cursor:pointer;margin-top:0.35rem;display:inline-block;}
+    .vaga-badge{display:inline-flex;align-items:center;gap:0.3rem;background:rgba(52,152,219,0.1);border:1px solid rgba(52,152,219,0.2);border-radius:99px;padding:0.2rem 0.6rem;font-size:0.67rem;font-weight:700;color:#3498db;}
+    .vaga-badge.ok{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.2);color:#2ecc71;}
+    .vaga-badge.loading{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);color:var(--muted);}
+
+    /* TIPS */
+    .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:0.65rem;margin-bottom:1.3rem;}
+    .tip{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;}
+    .tip-ico{font-size:1.25rem;flex-shrink:0;}
+    .tip-t{font-size:0.76rem;font-weight:800;color:var(--accent);margin-bottom:0.2rem;}
+    .tip-d{font-size:0.71rem;color:#aaa;line-height:1.5;}
+    .tip-tags{margin-top:0.4rem;display:flex;flex-wrap:wrap;gap:0.22rem;}
+    .ttag{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.18);border-radius:5px;padding:0.1rem 0.42rem;font-size:0.63rem;font-weight:700;color:var(--accent);}
+
+    /* ETAPAS BAR */
+    .etapas{display:flex;gap:0;border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:1.3rem;}
+    .etapa{flex:1;padding:0.62rem 0.4rem;text-align:center;font-size:0.68rem;font-weight:700;color:var(--muted);background:var(--card);border-right:1px solid var(--border);transition:all 0.2s;cursor:default;}
+    .etapa:last-child{border-right:none;}
+    .etapa.ativa{background:rgba(59,130,246,0.1);color:var(--accent);}
+    .etapa.done{background:rgba(59,130,246,0.05);color:rgba(59,130,246,0.55);}
+    .etapa-n{display:block;font-size:0.56rem;opacity:0.52;margin-bottom:0.06rem;letter-spacing:1px;text-transform:uppercase;}
+
+    /* SEÇÕES */
+    .sec{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.7rem 1.9rem;margin-bottom:1rem;animation:fu 0.35s ease both;}
+    .sec.hidden{display:none;}
+    @keyframes fu{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    .sec-title{font-size:0.98rem;font-weight:900;margin-bottom:0.25rem;}
+    .sec-sub{font-size:0.81rem;color:var(--muted);line-height:1.68;margin-bottom:1.4rem;}
+
+    /* CAMPOS */
+    .fl{font-size:0.67rem;font-weight:700;color:#ffffff;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.35rem;}
+    .fh{font-size:0.72rem;color:#b0b0b0;line-height:1.6;margin-bottom:0.5rem;background:rgba(255,255,255,0.04);border-radius:8px;padding:0.4rem 0.7rem;border:1px solid rgba(255,255,255,0.07);}
+    .fi{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:0.75rem 1rem;color:var(--text);font-family:inherit;font-size:0.87rem;outline:none;transition:border-color 0.2s,background 0.2s;}
+    .fi:focus{border-color:var(--accent);background:rgba(59,130,246,0.03);}
+    .fi::placeholder{color:#888;font-size:0.81rem;}
+    select.fi{background-color:#131313;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.9rem center;padding-right:2.2rem;-webkit-appearance:none;appearance:none;cursor:pointer;}
+    select.fi option{background:#131313;color:#f0f0f0;}
+    .ft{resize:vertical;line-height:1.72;font-size:0.87rem;}
+    .ft::placeholder{color:#888;}
+    .ft.xl{min-height:220px;}
+    .ft.lg{min-height:150px;}
+    .ft.md{min-height:105px;}
+    .frow{margin-bottom:1.1rem;}
+    .g2{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
+
+    /* STAR FORMAT */
+    .star-legend{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.1rem;padding:0.7rem 0.9rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:11px;}
+    .sl-item{font-size:0.68rem;font-weight:800;padding:0.18rem 0.6rem;border-radius:99px;}
+    .star-wrap{display:flex;flex-direction:column;gap:0.45rem;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:0.8rem;margin-bottom:0.25rem;}
+    .star-item{display:flex;gap:0.6rem;align-items:flex-start;}
+    .star-label{display:flex;align-items:center;gap:0.3rem;font-size:0.6rem;font-weight:800;letter-spacing:0.4px;text-transform:uppercase;min-width:80px;padding-top:0.52rem;flex-shrink:0;line-height:1.2;}
+    .star-s{color:#3498db;} .star-t{color:#9b59b6;} .star-a{color:#e67e22;} .star-r{color:#2ecc71;}
+    .sl-s{background:rgba(52,152,219,0.12);color:#3498db;border:1px solid rgba(52,152,219,0.25);}
+    .sl-t{background:rgba(155,89,182,0.12);color:#9b59b6;border:1px solid rgba(155,89,182,0.25);}
+    .sl-a{background:rgba(230,126,34,0.12);color:#e67e22;border:1px solid rgba(230,126,34,0.25);}
+    .sl-r{background:rgba(59,130,246,0.12);color:#2ecc71;border:1px solid rgba(59,130,246,0.25);}
+    .star-inp{flex:1;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:0.5rem 0.72rem;color:var(--text);font-family:inherit;font-size:0.82rem;outline:none;transition:border-color 0.2s;resize:vertical;line-height:1.65;min-height:52px;}
+    .star-inp:focus{border-color:var(--accent);background:rgba(59,130,246,0.02);}
+    .star-inp::placeholder{color:#666;font-size:0.76rem;}
+    @media(max-width:560px){.g2{grid-template-columns:1fr;}}
+    .wc{font-size:0.65rem;color:var(--muted2);text-align:right;margin-top:0.25rem;transition:color 0.2s;}
+    .wc.ok{color:var(--accent);}
+
+    /* CONQUISTAS TAGS */
+    .tadd{display:flex;gap:0.5rem;margin-bottom:0.5rem;}
+    .tinp{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:10px;padding:0.58rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.81rem;outline:none;transition:border-color 0.2s;}
+    .tinp:focus{border-color:var(--accent);}
+    .tinp::placeholder{color:#888;}
+    .tbtn{background:rgba(59,130,246,0.13);color:var(--accent);border:1px solid var(--border2);border-radius:10px;padding:0.58rem 0.95rem;font-family:inherit;font-size:0.77rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+    .tbtn:hover{background:rgba(59,130,246,0.23);}
+    .tlist{display:flex;flex-wrap:wrap;gap:0.38rem;min-height:26px;}
+    .titem{display:flex;align-items:center;gap:0.32rem;background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.22);border-radius:99px;padding:0.26rem 0.72rem;font-size:0.74rem;font-weight:600;color:var(--accent);}
+    .tdel{background:none;border:none;color:rgba(231,76,60,0.45);cursor:pointer;font-size:0.85rem;line-height:1;padding:0;transition:color 0.15s;}
+    .tdel:hover{color:#e74c3c;}
+
+    /* BOTÕES NAV */
+    .navb{display:flex;gap:0.6rem;margin-top:1.8rem;justify-content:space-between;align-items:center;flex-wrap:nowrap;}
+    .bprev{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:12px;padding:0.82rem 1.2rem;font-family:inherit;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;flex-shrink:0;}
+    .bprev:hover{border-color:var(--accent);color:var(--accent);}
+    .bnext{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:12px;padding:0.82rem 1.2rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.4rem;white-space:nowrap;flex-shrink:0;}
+    .btn-candidatura{background:rgba(59,130,246,0.08);color:var(--accent);border:1.5px solid rgba(59,130,246,0.35);border-radius:12px;padding:0.82rem 1.2rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.4rem;white-space:nowrap;flex-shrink:0;}
+    .btn-candidatura:hover{background:rgba(59,130,246,0.16);border-color:rgba(59,130,246,0.6);}
+    .btn-tudo{background:linear-gradient(135deg,#1a3a6b,#2e6bc4);color:#fff;border:none;border-radius:12px;padding:0.82rem 2rem;font-family:inherit;font-size:0.9rem;font-weight:800;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.5rem;white-space:nowrap;flex-shrink:0;}
+    .btn-tudo:hover{opacity:0.87;transform:translateY(-2px);box-shadow:0 8px 24px rgba(46,107,196,0.35);}
+    .bnext:hover{opacity:0.87;transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,0.18);}
+    @media(max-width:600px){.navb{flex-wrap:wrap;}.navb button{flex:1 1 calc(50% - 0.3rem);justify-content:center;}}
+
+    /* REVISÃO */
+    .rev-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:1.1rem 1.3rem;margin-bottom:1.1rem;}
+    .rev-titulo{font-size:0.63rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;}
+    .rev-lin{font-size:0.79rem;color:var(--muted);line-height:1.72;margin-bottom:0.22rem;}
+    .rev-lin strong{color:var(--text);}
+
+    /* TELA IA */
+    #telaIA{display:none;text-align:center;padding:4rem 1rem 3rem;}
+    .ia-ring{width:68px;height:68px;border-radius:50%;border:3px solid rgba(59,130,246,0.13);border-top-color:var(--accent);animation:sp 0.82s linear infinite;margin:0 auto 1.5rem;}
+    @keyframes sp{to{transform:rotate(360deg);}}
+    .ia-t{font-size:1.1rem;font-weight:900;margin-bottom:0.35rem;}
+    .ia-s{font-size:0.82rem;color:var(--muted);}
+    .ia-steps{margin-top:1.3rem;display:flex;flex-direction:column;gap:0.42rem;max-width:320px;margin-left:auto;margin-right:auto;}
+    .ia-step{display:flex;align-items:center;gap:0.62rem;font-size:0.77rem;color:var(--muted2);padding:0.42rem 0.75rem;border-radius:8px;transition:all 0.3s;text-align:left;}
+    .ia-step.ativo{color:var(--text);background:rgba(59,130,246,0.07);}
+    .ia-step.feito{color:var(--accent);}
+    .ia-sico{width:17px;text-align:center;flex-shrink:0;}
+
+    /* RESULTADO */
+    #telaRes{display:none;animation:fu 0.5s ease both;}
+    .res-hero{background:linear-gradient(135deg,rgba(30,64,175,0.22),rgba(59,130,246,0.07));border:1px solid var(--border2);border-radius:26px;padding:2rem 2rem;margin-bottom:1.1rem;text-align:center;}
+    .res-ck{font-size:3rem;display:block;margin-bottom:0.7rem;}
+    .res-t{font-size:1.45rem;font-weight:900;margin-bottom:0.38rem;}
+    .res-s{font-size:0.85rem;color:var(--muted);line-height:1.65;max-width:500px;margin:0 auto;}
+
+    /* SCORE */
+    .score-wrap{display:flex;align-items:center;justify-content:center;gap:1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:1.5rem 1.3rem;margin:1.5rem 0 0.8rem;}
+    .score-num{font-size:3.8rem;font-weight:900;line-height:1;letter-spacing:-2px;}
+    .score-r strong{font-size:0.95rem;display:block;margin-bottom:0.22rem;}
+    .score-r span{font-size:0.74rem;color:var(--muted);}
+    .score-bar{height:9px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin:0.45rem 0 0.22rem;}
+    .score-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width 1.6s cubic-bezier(0.22,1,0.36,1);}
+    .score-labs{display:flex;justify-content:space-between;font-size:0.65rem;color:var(--muted);}
+    .nivel-b{display:inline-flex;align-items:center;gap:0.45rem;border-radius:99px;padding:0.38rem 1rem;font-size:0.8rem;font-weight:800;margin-top:0.55rem;}
+    .nl-baixo{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);}
+    .nl-medio{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+    .nl-alto{background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);}
+    .nl-excelente{background:rgba(59,130,246,0.15);color:#2ecc71;border:1px solid rgba(59,130,246,0.3);}
+
+    /* DISC DIMS */
+    .dims{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-top:1rem;}
+    @media(max-width:460px){.dims{grid-template-columns:1fr 1fr;}}
+    .dim{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:0.7rem;text-align:center;}
+    .dim-l{font-size:1.4rem;font-weight:900;line-height:1;margin-bottom:0.15rem;}
+    .dim-n{font-size:0.62rem;color:var(--muted);margin-bottom:0.35rem;}
+    .dim-bar{height:4px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin-bottom:0.25rem;}
+    .dim-fill{height:100%;border-radius:99px;}
+    .dim-pct{font-size:0.72rem;font-weight:800;}
+
+    /* ANÁLISE */
+    .analise-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem 1.7rem;margin-bottom:1rem;}
+    .a-titulo{font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);opacity:0.85;display:flex;align-items:center;gap:0.45rem;margin-bottom:0.9rem;}
+    .a-texto{font-size:0.86rem;color:var(--muted);line-height:1.76;}
+    .a-tags{display:flex;flex-wrap:wrap;gap:0.42rem;margin-top:0.9rem;}
+    .a-tag{display:flex;align-items:center;gap:0.32rem;background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.2);border-radius:99px;padding:0.28rem 0.75rem;font-size:0.73rem;font-weight:700;color:var(--accent);}
+    .a-atencao{margin-top:0.8rem;display:flex;flex-direction:column;gap:0.38rem;}
+    .a-at-item{display:flex;gap:0.45rem;font-size:0.79rem;color:var(--muted);line-height:1.5;}
+    .a-at-ico{color:#f39c12;flex-shrink:0;}
+
+    /* PASSOS */
+    .passos-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.7rem;margin-bottom:1rem;}
+    .passos-l{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.55rem;margin-top:0.75rem;}
+    .passos-l li{display:flex;gap:0.62rem;align-items:flex-start;font-size:0.83rem;color:var(--muted);line-height:1.5;}
+    .passos-l li .arr{color:var(--accent);font-weight:900;flex-shrink:0;margin-top:1px;}
+
+    /* AÇÕES */
+    .acoes{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.3rem;}
+    .btn-wa{background:linear-gradient(135deg,#1a7a1a,#25d366);color:#fff;border:none;border-radius:13px;padding:0.9rem 1.5rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:0.45rem;text-decoration:none;}
+    .btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,0.2);}
+    .btn-fechar{background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1);border-radius:13px;padding:0.9rem 1.3rem;font-family:inherit;font-size:0.86rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .btn-fechar:hover{background:rgba(255,255,255,0.09);color:var(--text);}
+
+    .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:#2ecc71;color:#fff;font-family:'Sora',sans-serif;font-size:0.82rem;font-weight:700;padding:0.62rem 1.4rem;border-radius:99px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:999;}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+    .toast.erro{background:#e74c3c;}
+
+    /* SCORE BREAKDOWN */
+    .breakdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.6rem;margin:1rem 0;}
+    @media(max-width:460px){.breakdown-grid{grid-template-columns:1fr;}}
+    .bk-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.8rem 1rem;display:flex;align-items:center;gap:0.75rem;}
+    .bk-ico{font-size:1.3rem;flex-shrink:0;}
+    .bk-info{flex:1;min-width:0;}
+    .bk-label{font-size:0.67rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.25rem;}
+    .bk-nota{font-size:1.1rem;font-weight:900;line-height:1;}
+    .bk-bar{height:4px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin-top:0.3rem;}
+    .bk-fill{height:100%;border-radius:99px;transition:width 1.4s cubic-bezier(0.22,1,0.36,1);}
+    .bk-peso{font-size:0.6rem;color:var(--muted2);margin-top:0.15rem;}
+    /* COMPETENCIAS GRID */
+    .comp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.45rem;margin-top:0.85rem;}
+    @media(max-width:460px){.comp-grid{grid-template-columns:1fr;}}
+    .comp-item{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.6rem 0.85rem;display:flex;align-items:center;gap:0.6rem;}
+    .comp-ico{font-size:1rem;flex-shrink:0;}
+    .comp-info{flex:1;min-width:0;}
+    .comp-nome{font-size:0.68rem;font-weight:700;color:var(--muted);margin-bottom:0.2rem;}
+    .comp-nota-row{display:flex;align-items:center;gap:0.5rem;}
+    .comp-nota{font-size:0.9rem;font-weight:900;}
+    .comp-bar{flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;}
+    .comp-fill{height:100%;border-radius:99px;transition:width 1.4s cubic-bezier(0.22,1,0.36,1);}
+
+    @media(max-width:560px){
+      .hero-title{font-size:1.4rem;}
+      .etapas{flex-wrap:wrap;}
+      .etapa{min-width:50%;}
+      .sec{padding:1.3rem 1.1rem;}
+    }
+
+    /* ETAPA 0 — Experiências e Cursos */
+    .exp-block{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1rem 1.2rem;margin-bottom:0.8rem;position:relative;}
+    .exp-block .exp-remove{position:absolute;top:0.7rem;right:0.8rem;background:none;border:none;color:rgba(231,76,60,0.4);font-size:1rem;cursor:pointer;transition:color 0.15s;line-height:1;}
+    .exp-block .exp-remove:hover{color:#e74c3c;}
+    .exp-head{font-size:0.62rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem;}
+    .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.7rem;}
+    @media(max-width:600px){.g3{grid-template-columns:1fr 1fr;}}
+    @media(max-width:400px){.g3{grid-template-columns:1fr;}}
+    .add-btn{display:flex;align-items:center;gap:0.45rem;background:rgba(59,130,246,0.07);border:1px dashed rgba(59,130,246,0.3);border-radius:12px;padding:0.65rem 1rem;font-family:inherit;font-size:0.78rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all 0.2s;width:100%;justify-content:center;margin-top:0.3rem;}
+    .add-btn:hover{background:rgba(59,130,246,0.14);border-color:rgba(59,130,246,0.55);}
+    .cert-block{display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem;}
+    .cert-block input{flex:1;}
+    .cert-del{background:none;border:none;color:rgba(231,76,60,0.4);font-size:1rem;cursor:pointer;transition:color 0.15s;flex-shrink:0;line-height:1;}
+    .cert-del:hover{color:#e74c3c;}
+    .curso-block{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:0.9rem 1.1rem;margin-bottom:0.65rem;position:relative;}
+    .curso-block .exp-remove{position:absolute;top:0.65rem;right:0.75rem;background:none;border:none;color:rgba(231,76,60,0.4);font-size:1rem;cursor:pointer;transition:color 0.15s;line-height:1;}
+    .curso-block .exp-remove:hover{color:#e74c3c;}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER — padrão Agência Nexus ATS -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem;">
+    <div>
+      <div style="font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;">Pré-Entrevista · ATS</div>
+      <div style="font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;line-height:1.2;">Conta a sua <span style="color:var(--accent);">História</span></div>
+      <div style="font-size:0.8rem;color:var(--muted);">Quanto mais detalhes, maior a sua chance de avançar. O ATS avalia tudo aqui.</div>
+      <div class="cand-pill" id="candPill" style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.32);border-radius:99px;padding:0.3rem 1rem;font-size:0.75rem;font-weight:700;color:var(--accent);margin-top:0.55rem;">👤 Candidato</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+      <div class="step-row" style="display:flex;align-items:center;gap:0.4rem;font-size:0.7rem;font-weight:700;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:99px;padding:0.38rem 0.9rem;">
+        <div class="sdot done" style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></div>
+        <span style="color:rgba(59,130,246,0.7);">DISC</span>
+        <span style="color:var(--muted2);margin:0 0.1rem;">›</span>
+        <div class="sdot now" style="width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,0.22);"></div>
+        <span style="color:var(--text);">Entrevista</span>
+        <span style="color:var(--muted2);margin:0 0.1rem;">›</span>
+        <div class="sdot next" style="width:8px;height:8px;border-radius:50%;background:var(--muted2);"></div>
+        <span style="color:var(--muted);">Envio</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD DA VAGA (preenchido dinamicamente) -->
+  <div class="vaga-info-card" id="vagaInfoCard" style="display:none;">
+    <div class="vaga-info-ico" id="vagaInfoIco">💼</div>
+    <div class="vaga-info-body">
+      <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.3rem;">
+        <div class="vaga-info-titulo" id="vagaInfoTitulo">—</div>
+        <div class="vaga-badge loading" id="vagaFetchBadge">⏳ Buscando requisitos...</div>
+      </div>
+      <div class="vaga-info-meta" id="vagaInfoMeta"></div>
+      <div class="vaga-info-req" id="vagaInfoReq"></div>
+      <span class="vaga-toggle" id="vagaToggle" onclick="toggleReq()" style="display:none;">Ver mais ▼</span>
+    </div>
+  </div>
+
+
+
+  <!-- ETAPAS -->
+  <div class="etapas">
+    <div class="etapa ativa" id="etapa0"><span class="etapa-n">ETAPA 0</span>Currículo</div>
+    <div class="etapa" id="etapa1"><span class="etapa-n">ETAPA 1</span>Trajetória</div>
+    <div class="etapa" id="etapa2"><span class="etapa-n">ETAPA 2</span>Conquistas</div>
+    <div class="etapa" id="etapa3"><span class="etapa-n">ETAPA 3</span>Competências</div>
+    <div class="etapa" id="etapa4"><span class="etapa-n">ETAPA 4</span>Motivação</div>
+    <div class="etapa" id="etapa5"><span class="etapa-n">ETAPA 5</span>Enviar</div>
+  </div>
+
+  <!-- ETAPA 0 — Currículo -->
+  <div class="sec" id="sec0">
+    <div class="sec-title">📄 Suas Experiências e Formação</div>
+    <div class="sec-sub">Preencha suas experiências profissionais e cursos realizados. Quanto mais completo, melhor a análise do seu perfil.</div>
+
+    <!-- EXPERIÊNCIAS PROFISSIONAIS -->
+    <div class="frow">
+      <label class="fl">💼 Experiências Profissionais</label>
+      <div class="fh">Informe seus empregos anteriores e atual. Adicione quantos quiser.</div>
+      <div id="expList"></div>
+      <button class="add-btn" onclick="addExp()">＋ Adicionar experiência profissional</button>
+    </div>
+
+    <!-- CURSOS -->
+    <div class="frow" style="margin-top:1.3rem;">
+      <label class="fl">🎓 Cursos Realizados</label>
+      <div class="fh">Inclua cursos técnicos, livres, online, presenciais, graduação, pós-graduação, etc.</div>
+      <div id="cursoList"></div>
+      <button class="add-btn" onclick="addCurso()">＋ Adicionar curso</button>
+    </div>
+
+    <!-- CERTIFICADOS -->
+    <div class="frow" style="margin-top:1.3rem;">
+      <label class="fl">📜 Certificados</label>
+      <div class="fh">Nome do certificado, plataforma ou instituição emissora (ex: "Excel Avançado – Udemy").</div>
+      <div id="certList"></div>
+      <button class="add-btn" onclick="addCert()">＋ Adicionar certificado</button>
+    </div>
+
+    <div class="navb"><span></span><button class="bnext" onclick="irPara(1)">Continuar →</button></div>
+  </div>
+
+  <!-- ETAPA 1 -->
+  <div class="sec hidden" id="sec1">
+    <div class="sec-title">📋 Conta a sua trajetória profissional</div>
+    <div class="sec-sub">Escreva do jeito que você quiser — sem formato certo. Fale das empresas onde trabalhou, o que fazia, quantos clientes atendia, quantas vendas fazia, quantas máquinas manutencionava, escreva tudo que precisar, não economize nada, são informações valiosas, não poupe palavras <strong style="color:var(--text);">Qualquer número é muito bem-vindo.</strong></div>
+
+    <!-- CAMPO DE E-MAIL — exibido apenas se não veio pela URL -->
+    <div class="frow" id="emailRow" style="display:none;">
+      <label class="fl">📧 Seu e-mail <span style="color:#e74c3c;">*</span></label>
+      <div class="fh">Usado para identificar sua candidatura e entrar em contato sobre o processo seletivo.</div>
+      <input type="email" class="fi" id="emailInput" placeholder="" autocomplete="email"/>
+    </div>
+
+    <div class="frow">
+      <label class="fl">Sua história profissional — escreva livremente <span style="color:#e74c3c;">*</span></label>
+      <div class="fh">💡 O que incluir: nomes das empresas · o que fazia no dia a dia · quantos clientes atendia · metas que bateu · quanto tempo em cada empresa · ferramentas que usava</div>
+      <textarea class="fi ft xl" id="historia" placeholder="" rows="10" oninput="wc(this,'wc1',60)"></textarea>
+      <div class="wc" id="wc1">0 palavras — escreva pelo menos 60 para uma análise completa</div>
+    </div>
+    <div class="g2">
+      <div class="frow">
+        <label class="fl">Área de atuação principal <span style="color:#e74c3c;">*</span></label>
+        <input type="text" class="fi" id="area" placeholder=""/>
+      </div>
+      <div class="frow">
+        <label class="fl">Tempo total de experiência <span style="color:#e74c3c;">*</span></label>
+        <select class="fi" id="expTotal">
+          <option value="">Selecione...</option>
+          <option>Primeiro emprego / Sem experiência</option><option>Menos de 1 ano</option>
+          <option>1 a 2 anos</option><option>2 a 5 anos</option>
+          <option>5 a 10 anos</option><option>Mais de 10 anos</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow">
+      <label class="fl">Experiência específica com a vaga <span id="vagaLabel" style="color:var(--accent);"></span></label>
+      <div class="fh">Tem algo do seu histórico que se relaciona diretamente com essa posição? Detalhe aqui.</div>
+      <textarea class="fi ft md" id="expVaga" placeholder="" rows="4" oninput="wc(this,'wc2',0)"></textarea>
+      <div class="wc" id="wc2">0 palavras</div>
+    </div>
+    <div class="g2">
+      <div class="frow">
+        <label class="fl">Nível de escolaridade <span style="color:#e74c3c;">*</span></label>
+        <select class="fi" id="escolaridade">
+          <option value="">Selecione...</option>
+          <option>Ensino Fundamental incompleto</option>
+          <option>Ensino Fundamental completo</option>
+          <option>Ensino Médio incompleto</option>
+          <option>Ensino Médio completo</option>
+          <option>Ensino Técnico incompleto</option>
+          <option>Ensino Técnico completo</option>
+          <option>Ensino Superior incompleto</option>
+          <option>Ensino Superior completo</option>
+          <option>Pós-graduação / MBA</option>
+          <option>Mestrado ou Doutorado</option>
+        </select>
+      </div>
+      <div class="frow">
+        <label class="fl">Curso / Instituição <span style="color:#e74c3c;">*</span></label>
+        <input type="text" class="fi" id="cursoInstituicao" placeholder=""/>
+      </div>
+    </div>
+
+    <div class="frow">
+      <label class="fl">Trabalhos voluntários e projetos escolares</label>
+      <div class="fh">Inclua qualquer trabalho voluntário, projeto escolar, projeto pessoal ou comunitário que considera relevante — especialmente se tiver pouca experiência formal.</div>
+      <textarea class="fi ft md" id="voluntario" placeholder="" rows="4" oninput="wc(this,'wc_vol',0)"></textarea>
+      <div class="wc" id="wc_vol">0 palavras</div>
+    </div>
+
+    <div class="navb"><button class="bprev" onclick="irPara(0)">← Voltar</button><button class="bnext" onclick="irPara(2)">Continuar →</button></div>
+  </div>
+
+  <!-- ETAPA 2 -->
+  <div class="sec hidden" id="sec2">
+    <div class="sec-title" id="titulo-sec2">🏆 Conquistas e seu maior diferencial</div>
+    <div class="sec-sub">Adicione conquistas marcantes — promoções, metas batidas, prêmios, problemas resolvidos. Não existe pequeno demais!</div>
+    <div class="frow">
+      <label class="fl">Suas conquistas (adicione uma por vez)</label>
+      <div class="tadd">
+        <input type="text" class="tinp" id="conquInput" placeholder="" maxlength="130" onkeydown="if(event.key==='Enter'){event.preventDefault();addConq();}"/>
+        <button class="tbtn" onclick="addConq()">+ Adicionar</button>
+      </div>
+      <div class="tlist" id="conquTags"><span style="font-size:0.72rem;color:var(--muted2);">Suas conquistas aparecem aqui...</span></div>
+    </div>
+    <div class="frow" style="margin-top:1.1rem;">
+      <label class="fl">Qual é o seu maior diferencial profissional?</label>
+      <div class="fh">O que as pessoas sempre comentam sobre você no trabalho? O que você faz melhor que a maioria?</div>
+      <textarea class="fi ft lg" id="diferencial" placeholder="" rows="5" oninput="wc(this,'wc3',20)"></textarea>
+      <div class="wc" id="wc3">0 palavras</div>
+    </div>
+    <div class="navb"><button class="bprev" onclick="irPara(1)">← Voltar</button><button class="bnext" onclick="irPara(3)">Continuar →</button></div>
+  </div>
+
+  <!-- ETAPA 3 — COMPETÊNCIAS -->
+  <div class="sec hidden" id="sec3">
+    <div class="sec-title" id="titulo-sec3">🧠 Perguntas por Competência</div>
+    <div class="sec-sub">Para cada competência, descreva <strong style="color:var(--text);">o que você fez</strong> e <strong style="color:var(--text);">qual foi o resultado concreto</strong>. Use exemplos reais. Apenas o campo "Me fale sobre Você" é obrigatório — os demais são opcionais.</div>
+    <div class="star-legend">
+      <span class="sl-item sl-a">🟠 O que fez: descreva a situação e sua ação</span>
+      <span class="sl-item sl-r">🟢 Resultado: o que conquistou (com números!)</span>
+    </div>
+
+    <div class="frow">
+      <label class="fl">👤 Me fale sobre Você <span style="color:#e74c3c;">*</span></label>
+      <div class="fh">Apresente-se brevemente: quem você é, sua trajetória e o que te destaca profissionalmente.</div>
+      <textarea class="fi ft md" id="comp_me_fale" placeholder="" rows="4" oninput="wcMeFale()"></textarea>
+      <div class="wc" id="wc_me_fale">0 palavras — escreva pelo menos 20</div>
+    </div>
+
+    <div class="frow">
+      <label class="fl">🗣️ Comunicação</label>
+      <div class="fh">Dê um exemplo real de como você se comunicou bem em uma situação difícil no trabalho.</div>
+      <textarea id="comp_comunicacao" style="display:none;"></textarea>
+      <div class="star-wrap">
+        <div class="star-item"><span class="star-label star-a">🟠 O que fez</span><textarea class="star-inp" id="star_com_a" placeholder="" rows="3" oninput="wcStar('comp_comunicacao','wc_com')"></textarea></div>
+        <div class="star-item"><span class="star-label star-r">🟢 Resultado</span><textarea class="star-inp" id="star_com_r" placeholder="" rows="2" oninput="wcStar('comp_comunicacao','wc_com')"></textarea></div>
+      </div>
+      <div class="wc" id="wc_com">Preencha os 2 campos acima</div>
+    </div>
+
+    <div class="frow">
+      <label class="fl">💪 Resiliência</label>
+      <div class="fh">Como você agiu quando tudo deu errado? Conte um momento difícil e como superou.</div>
+      <textarea id="comp_resiliencia" style="display:none;"></textarea>
+      <div class="star-wrap">
+        <div class="star-item"><span class="star-label star-a">🟠 O que fez</span><textarea class="star-inp" id="star_res_a" placeholder="" rows="3" oninput="wcStar('comp_resiliencia','wc_res')"></textarea></div>
+        <div class="star-item"><span class="star-label star-r">🟢 Resultado</span><textarea class="star-inp" id="star_res_r" placeholder="" rows="2" oninput="wcStar('comp_resiliencia','wc_res')"></textarea></div>
+      </div>
+      <div class="wc" id="wc_res">Preencha os 2 campos acima</div>
+    </div>
+
+    <div class="frow">
+      <label class="fl">🤝 Trabalho em Equipe</label>
+      <div class="fh">Já enfrentou um conflito ou situação difícil com colegas? Como resolveu?</div>
+      <textarea id="comp_equipe" style="display:none;"></textarea>
+      <div class="star-wrap">
+        <div class="star-item"><span class="star-label star-a">🟠 O que fez</span><textarea class="star-inp" id="star_eq_a" placeholder="" rows="3" oninput="wcStar('comp_equipe','wc_eq')"></textarea></div>
+        <div class="star-item"><span class="star-label star-r">🟢 Resultado</span><textarea class="star-inp" id="star_eq_r" placeholder="" rows="2" oninput="wcStar('comp_equipe','wc_eq')"></textarea></div>
+      </div>
+      <div class="wc" id="wc_eq">Preencha os 2 campos acima</div>
+    </div>
+
+    <div class="frow">
+      <label class="fl">🎯 Foco em Resultados</label>
+      <div class="fh">Qual foi o resultado mais expressivo que você já entregou? Use números se possível.</div>
+      <textarea id="comp_resultados" style="display:none;"></textarea>
+      <div class="star-wrap">
+        <div class="star-item"><span class="star-label star-a">🟠 O que fez</span><textarea class="star-inp" id="star_res2_a" placeholder="" rows="3" oninput="wcStar('comp_resultados','wc_res2')"></textarea></div>
+        <div class="star-item"><span class="star-label star-r">🟢 Resultado</span><textarea class="star-inp" id="star_res2_r" placeholder="" rows="2" oninput="wcStar('comp_resultados','wc_res2')"></textarea></div>
+      </div>
+      <div class="wc" id="wc_res2">Preencha os 2 campos acima</div>
+    </div>
+
+    <div class="frow">
+      <label class="fl">💡 Proatividade</label>
+      <div class="fh">Conte uma situação em que você identificou um problema ou oportunidade antes de ser solicitado e tomou a iniciativa de agir.</div>
+      <textarea id="comp_proatividade" style="display:none;"></textarea>
+      <div class="star-wrap">
+        <div class="star-item"><span class="star-label star-a">🟠 O que fez</span><textarea class="star-inp" id="star_pro_a" placeholder="" rows="3" oninput="wcStar('comp_proatividade','wc_pro')"></textarea></div>
+        <div class="star-item"><span class="star-label star-r">🟢 Resultado</span><textarea class="star-inp" id="star_pro_r" placeholder="" rows="2" oninput="wcStar('comp_proatividade','wc_pro')"></textarea></div>
+      </div>
+      <div class="wc" id="wc_pro">Preencha os 2 campos acima</div>
+    </div>
+
+    <div class="frow">
+      <label class="fl">🔄 Adaptabilidade</label>
+      <div class="fh">Como você agiu quando sua rotina ou função mudou de forma inesperada? Dê um exemplo real.</div>
+      <textarea id="comp_adaptabilidade" style="display:none;"></textarea>
+      <div class="star-wrap">
+        <div class="star-item"><span class="star-label star-a">🟠 O que fez</span><textarea class="star-inp" id="star_adp_a" placeholder="" rows="3" oninput="wcStar('comp_adaptabilidade','wc_adp')"></textarea></div>
+        <div class="star-item"><span class="star-label star-r">🟢 Resultado</span><textarea class="star-inp" id="star_adp_r" placeholder="" rows="2" oninput="wcStar('comp_adaptabilidade','wc_adp')"></textarea></div>
+      </div>
+      <div class="wc" id="wc_adp">Preencha os 2 campos acima</div>
+    </div>
+
+    <div class="navb"><button class="bprev" onclick="irPara(2)">← Voltar</button><button class="bnext" onclick="irPara(4)">Continuar →</button></div>
+  </div>
+
+  <!-- ETAPA 4 — MOTIVAÇÃO -->
+  <div class="sec hidden" id="sec4">
+    <div class="sec-title" id="titulo-sec4">💭 Motivação e informações finais</div>
+    <div class="sec-sub">Essas respostas ajudam o recrutador a entender quem você é além das experiências técnicas.</div>
+    <div class="frow">
+      <label class="fl">Por que você quer essa vaga? O que te motivou a se candidatar? <span style="color:#e74c3c;">*</span></label>
+      <div class="fh">Seja sincero — autenticidade faz diferença.</div>
+      <textarea class="fi ft lg" id="motivacao" placeholder="" rows="5" oninput="wc(this,'wc4',15)"></textarea>
+      <div class="wc" id="wc4">0 palavras</div>
+    </div>
+    <div class="frow">
+      <label class="fl">Tem algo mais que o recrutador deve saber?</label>
+      <div class="fh">Cursos, idiomas, disponibilidade, expectativa salarial, CNH, veículo próprio...</div>
+      <textarea class="fi ft md" id="extra" placeholder="" rows="4" oninput="wc(this,'wc5',0)"></textarea>
+      <div class="wc" id="wc5">0 palavras</div>
+    </div>
+    <div class="navb"><button class="bprev" onclick="irPara(3)">← Voltar</button><button class="bnext" onclick="irPara(5)">Continuar →</button></div>
+  </div>
+
+  <!-- ETAPA 5 — ENVIAR -->
+  <div class="sec hidden" id="sec5">
+    <div class="sec-title" id="titulo-sec5">✅ Revise e envie sua candidatura</div>
+    <div class="sec-sub">Após o envio, nossa IA vai analisar seu relato comparando com os requisitos reais da vaga e gerar seu Fit Score.</div>
+    <div class="rev-box"><div class="rev-titulo">📋 Resumo do que você preencheu</div><div id="revConteudo"></div></div>
+    <div style="background:rgba(59,130,246,0.05);border:1px solid var(--border);border-radius:13px;padding:0.9rem 1.1rem;margin-bottom:0.8rem;">
+      <div style="font-size:0.77rem;color:var(--muted);line-height:1.62;">🔒 <strong style="color:var(--text);">Suas informações são privadas.</strong> Apenas os recrutadores da Agência Nexus terão acesso ao seu relato.</div>
+    </div>
+    <div style="background:rgba(46,107,196,0.1);border:1.5px solid rgba(46,107,196,0.35);border-radius:13px;padding:1rem 1.2rem;margin-bottom:1rem;display:flex;align-items:flex-start;gap:0.75rem;">
+      <span style="font-size:1.4rem;flex-shrink:0;">📬</span>
+      <div style="font-size:0.82rem;color:#cdd8f0;line-height:1.65;">
+        <strong style="color:#5b9bef;display:block;margin-bottom:0.25rem;">Atenção antes de enviar!</strong>
+        Clique no botão azul para enviar sua candidatura para nossa plataforma e aguarde abrir o canal para você enviar seu currículo.
+      </div>
+    </div>
+    <div class="navb"><button class="bprev" onclick="irPara(4)">← Voltar</button><button class="btn-tudo" id="btnTudo" onclick="enviarAnalisseECandidatura()">⚡ Enviar Análise + Candidatura</button></div>
+    <div id="avisoAguardar" style="display:none;text-align:center;margin-top:0.7rem;font-size:0.78rem;color:#f39c12;animation:pulseAviso 1.2s ease-in-out infinite;">⏳ Aguarde… a página está carregando. O link para enviar seu currículo aparecerá em instantes.</div>
+    <style>@keyframes pulseAviso{0%,100%{opacity:1}50%{opacity:0.45}}</style>
+  </div>
+
+  <!-- TELA IA -->
+  <div id="telaIA">
+    <div class="ia-ring"></div>
+    <div class="ia-t">Analisando sua candidatura...</div>
+    <div class="ia-s" id="iaS">Iniciando</div>
+    <div class="ia-steps">
+      <div class="ia-step" id="is1"><span class="ia-sico">📝</span> Lendo seu relato profissional</div>
+      <div class="ia-step" id="is2"><span class="ia-sico">📋</span> Carregando requisitos da vaga</div>
+      <div class="ia-step" id="is3"><span class="ia-sico">🧠</span> Integrando perfil DISC</div>
+      <div class="ia-step" id="is4"><span class="ia-sico">🎯</span> Calculando compatibilidade real</div>
+      <div class="ia-step" id="is5"><span class="ia-sico">📊</span> Gerando Fit Score final</div>
+      <div class="ia-step" id="is6"><span class="ia-sico">✅</span> Finalizando análise</div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="telaRes">
+    <div class="res-hero">
+      <span class="res-ck">🎉</span>
+      <div class="res-t">Pré-entrevista enviada com sucesso!</div>
+      <div class="res-s">Nossa IA analisou seu perfil comparando com os requisitos reais da vaga. Confira sua compatibilidade abaixo.</div>
+      <div class="score-wrap">
+        <div class="score-num" id="scoreNum" style="color:var(--accent);">0%</div>
+        <div class="score-r">
+          <strong id="scoreLabel">Calculando...</strong>
+          <span id="scoreDesc">Compatibilidade com a vaga</span>
+          <div id="nivelB" class="nivel-b nl-alto" style="margin-top:0.5rem;display:none;"></div>
+        </div>
+      </div>
+      <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+      <div class="score-labs"><span>0%</span><span>50%</span><span>100%</span></div>
+    </div>
+
+    <!-- BREAKDOWN DO SCORE -->
+    <div class="analise-card" id="breakdownCard" style="display:none;">
+      <div class="a-titulo"><span>📊</span> Como foi calculado seu Fit Score</div>
+      <div class="breakdown-grid" id="breakdownGrid"></div>
+      <div class="a-titulo" style="margin-top:1.2rem;"><span>🧠</span> Avaliação por Competência</div>
+      <div class="comp-grid" id="compGrid"></div>
+    </div>
+    <div class="analise-card">
+      <div class="a-titulo"><span>✨</span> O que a IA identificou na sua candidatura</div>
+      <div class="a-texto" id="iaTexto">Carregando...</div>
+      <div class="a-tags" id="fortesWrap"></div>
+      <div class="a-atencao" id="atencaoLista"></div>
+      <div id="fitBtnWrap" style="display:none;margin-top:1.2rem;justify-content:center;">
+        <a id="btnFitCultural" href="#" target="_blank"
+           style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.35);color:#3b82f6;border-radius:11px;padding:0.7rem 1.5rem;font-family:inherit;font-size:0.85rem;font-weight:800;text-decoration:none;transition:all 0.2s;"
+           onmouseover="this.style.background='rgba(59,130,246,0.22)'" onmouseout="this.style.background='rgba(59,130,246,0.12)'">
+          🎯 Fit Cultural — Ver resultado completo
+        </a>
+      </div>
+    </div>
+    <div class="passos-card">
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);opacity:0.85;">📌 Próximos passos</div>
+      <ul class="passos-l">
+        <li><span class="arr">→</span> Nossa equipe vai revisar sua candidatura completa (DISC + relato + análise IA)</li>
+        <li><span class="arr">→</span> Se houver compatibilidade, você será contactado por WhatsApp, e-mail ou telefone</li>
+        <li><span class="arr">→</span> Fique atento às mensagens — o contato pode vir nos próximos dias</li>
+        <li><span class="arr">→</span> Certifique-se de que seu telefone e e-mail estão corretos</li>
+      </ul>
+    </div>
+    <div class="acoes">
+      <button class="bnext" onclick="enviarDadosEFechar()" style="width:100%;justify-content:center;font-size:0.95rem;padding:1rem 2rem;">
+        Prosseguir com a candidatura →
+      </button>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ── HELPER: base URL ──
+function getBaseUrl(regex) {
+  return window.location.href.replace(regex, '');
+}
+// ── PARAMS ──
+const up   = new URLSearchParams(window.location.search);
+const NOME = up.get('nome')   || 'Candidato';
+const VAGA = up.get('vaga')   || 'Não informada';
+const DOM  = (up.get('perfil') || up.get('dom') || 'D').toUpperCase();
+const SEC  = (up.get('sec')   || 'I').toUpperCase();
+const PCT  = { D:+up.get('d')||0, I:+up.get('i')||0, S:+up.get('s')||0, C:+up.get('c')||0 };
+const TEL  = up.get('tel') || '';
+let EMAIL = up.get('email') || '';
+let CANDIDATO_ID = up.get('candidato_id') || up.get('id') || '';
+
+// ── AUTO-FETCH DISC — executado no momento do envio, quando nome/email já estão disponíveis ──
+let _discAutoData = null;
+async function buscarDiscCandidato(nome, email, vaga) {
+  // Já tem dados DISC na URL — não precisa buscar
+  if (parseInt(up.get('d')||'0') > 0) return;
+  try {
+    let found = null;
+
+    // 1. Por email — mais preciso, independe de nome/vaga
+    // Filtra por dom != null para garantir que o DISC foi realmente feito
+    if (email) {
+      const r1 = await fetch(
+        `${SB}/rest/v1/disc_historico?email_externo=eq.${encodeURIComponent(email)}&dom=not.is.null&select=dom,sec,pct_d,pct_i,pct_s,pct_c,rd,ri,rs,rc,tempo&order=criado_em.desc&limit=1`,
+        { headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY } }
+      );
+      const d1 = await r1.json();
+      if (Array.isArray(d1) && d1.length > 0) found = d1[0];
+    }
+
+    // 2. Por nome (sem filtrar vaga — cobre acesso direto sem params na URL)
+    if (!found && nome) {
+      const r2 = await fetch(
+        `${SB}/rest/v1/disc_historico?nome=eq.${encodeURIComponent(nome)}&dom=not.is.null&select=dom,sec,pct_d,pct_i,pct_s,pct_c,rd,ri,rs,rc,tempo&order=criado_em.desc&limit=1`,
+        { headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY } }
+      );
+      const d2 = await r2.json();
+      if (Array.isArray(d2) && d2.length > 0) found = d2[0];
+    }
+
+    if (found) {
+      _discAutoData = found;
+      PCT.D = found.pct_d || 0;
+      PCT.I = found.pct_i || 0;
+      PCT.S = found.pct_s || 0;
+      PCT.C = found.pct_c || 0;
+    }
+  } catch(e) { /* silencioso */ }
+}
+
+// Supabase
+const SB  = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4';
+
+// Estado global
+let conquistas = [];
+let vagaData   = null; // dados reais da vaga do Supabase
+
+// ── INIT ──
+document.getElementById('candPill').textContent  = `👤 ${NOME}  ·  Vaga: ${VAGA}`;
+document.getElementById('vagaLabel').textContent = `"${VAGA}"`;
+carregarDadosVaga();
+
+// Exibe campo de e-mail se não veio preenchido pela URL
+if (!EMAIL) {
+  document.getElementById('emailRow').style.display = 'block';
+}
+
+// ── BUSCA DADOS REAIS DA VAGA ──
+// ── BANCO LOCAL DE VAGAS — emergência se Supabase falhar ──
+// Vagas antigas mantidas só como último recurso. Novas vagas
+// vêm obrigatoriamente do Supabase (criadas no disc-admin).
+// ── NORMALIZAÇÃO DE TEXTO (para busca fuzzy) ──
+function normTxt(s) {
+  return (s||'').toLowerCase()
+    .replace(/1[ºª°]/g,'1o').replace(/2[ºª°]/g,'2o').replace(/3[ºª°]/g,'3o')
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[()]/g,'').replace(/[^a-z0-9\s]/g,' ')
+    .replace(/\s+/g,' ').trim();
+}
+
+// ── PARSEIA UMA VAGA-CARD DO vagas.html ──
+function parsearCardVaga(card) {
+  const titulo    = card.querySelector('.vaga-title')?.textContent?.trim() || '';
+  const empresa   = card.querySelector('.vaga-company')?.textContent?.trim() || '';
+  const icone     = card.querySelector('.vaga-icon')?.textContent?.trim() || '💼';
+  const cidade    = card.getAttribute('data-city') || '';
+  const area      = card.getAttribute('data-area') || '';
+
+  // Salário — tag de meta com ícone de remuneração
+  const metaSpans = card.querySelectorAll('.vaga-meta span');
+  let salario = '';
+  metaSpans.forEach(sp => {
+    if (sp.textContent.includes('R$')) salario = sp.textContent.trim();
+  });
+
+  // Tags (regime, modalidade etc.)
+  const tags = [...card.querySelectorAll('.vaga-tags .tag')].map(t => t.textContent.trim());
+  const regime = tags[0] || '';
+
+  // Extrai texto do accordion por label
+  function getPanel(label) {
+    const btns = card.querySelectorAll('.accordion-trigger');
+    for (const btn of btns) {
+      if (btn.textContent.includes(label)) {
+        const panel = btn.nextElementSibling;
+        if (!panel) continue;
+        // Texto limpo dos <li> ou <p>
+        const items = [...panel.querySelectorAll('li')];
+        if (items.length) return items.map(li => li.textContent.replace(/^\s*/, '').trim()).join('\n');
+        return panel.textContent.trim();
+      }
+    }
+    return '';
+  }
+
+  const descricao  = getPanel('Descrição');
+  const requisitos = getPanel('Requisitos');
+  const horario    = getPanel('Horários');
+  const beneficios = getPanel('Benefícios');
+
+  return { titulo, empresa, icone, cidade, area, salario, regime, descricao, requisitos, horario, beneficios };
+}
+
+// ── BUSCA DADOS DA VAGA NO vagas.html (fonte única de verdade) ──
+async function carregarDadosVaga() {
+  const card  = document.getElementById('vagaInfoCard');
+  const badge = document.getElementById('vagaFetchBadge');
+  card.style.display = 'flex';
+  document.getElementById('vagaInfoTitulo').textContent = VAGA;
+
+  // 1. Supabase — busca exata pelo título
+  try {
+    const res = await fetch(
+      `${SB}/rest/v1/vagas?titulo=eq.${encodeURIComponent(VAGA)}&select=titulo,icone,empresa,cidade,area,salario,regime,descricao,requisitos,beneficios,horario,escolaridade&limit=1`,
+      { headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY } }
+    );
+    const arr = await res.json();
+    if (Array.isArray(arr) && arr.length > 0) {
+      vagaData = arr[0];
+      exibirVagaInfo(vagaData, badge);
+      return;
+    }
+  } catch(e) {}
+
+  // 2. Supabase — busca flexível ilike
+  try {
+    const palavras = VAGA.split(' ').filter(w=>w.length>2).slice(0,3).join('%');
+    const res2 = await fetch(
+      `${SB}/rest/v1/vagas?titulo=ilike.*${encodeURIComponent(palavras)}*&select=titulo,icone,empresa,cidade,area,salario,regime,descricao,requisitos,beneficios,horario,escolaridade&limit=1`,
+      { headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY } }
+    );
+    const arr2 = await res2.json();
+    if (Array.isArray(arr2) && arr2.length > 0) {
+      vagaData = arr2[0];
+      exibirVagaInfo(vagaData, badge);
+      return;
+    }
+  } catch(e) {}
+
+  // 3. vagas.html — fonte de verdade local (parse dinâmico do HTML)
+  try {
+    const vagasUrl = window.location.href.replace(/entrevista\.html.*$/, 'vagas.html');
+    const resp = await fetch(vagasUrl, { cache: 'no-store' });
+    const html  = await resp.text();
+    const parser = new DOMParser();
+    const doc    = parser.parseFromString(html, 'text/html');
+    const cards  = doc.querySelectorAll('.vaga-card');
+
+    const vagaNorm = normTxt(VAGA);
+
+    // Tenta match exato pelo título
+    let matchCard = null;
+    for (const c of cards) {
+      const titulo = c.querySelector('.vaga-title')?.textContent?.trim() || '';
+      if (normTxt(titulo) === vagaNorm) { matchCard = c; break; }
+    }
+
+    // Tenta match parcial (contém)
+    if (!matchCard) {
+      for (const c of cards) {
+        const titulo = c.querySelector('.vaga-title')?.textContent?.trim() || '';
+        const tn = normTxt(titulo);
+        if (tn.includes(vagaNorm) || vagaNorm.includes(tn)) { matchCard = c; break; }
+      }
+    }
+
+    // Tenta match por palavras-chave (maior número de acertos)
+    if (!matchCard) {
+      const words = vagaNorm.split(' ').filter(w => w.length > 2);
+      let best = { card: null, hits: 0 };
+      for (const c of cards) {
+        const tn = normTxt(c.querySelector('.vaga-title')?.textContent || '');
+        const hits = words.filter(w => tn.includes(w)).length;
+        if (hits > best.hits) best = { card: c, hits };
+      }
+      if (best.hits > 0) matchCard = best.card;
+    }
+
+    if (matchCard) {
+      vagaData = parsearCardVaga(matchCard);
+      exibirVagaInfo(vagaData, badge);
+      return;
+    }
+  } catch(e) {
+    console.warn('Erro ao parsear vagas.html:', e);
+  }
+
+  // 4. Não encontrou em lugar nenhum
+  badge.textContent = '⚠️ Vaga não localizada';
+  badge.className   = 'vaga-badge';
+}
+
+function exibirVagaInfo(v, badge) {
+  document.getElementById('vagaInfoIco').textContent    = v.icone || '\uD83D\uDCBC';
+  document.getElementById('vagaInfoTitulo').textContent = v.titulo || VAGA;
+  const meta = [v.empresa, v.cidade, v.area, v.salario, v.regime].filter(Boolean).join(' \u00b7 ');
+  document.getElementById('vagaInfoMeta').textContent   = meta;
+
+  // Monta HTML formatado: descrição justificada + requisitos em bullets
+  const reqEl = document.getElementById('vagaInfoReq');
+  let html = '';
+
+  if (v.descricao) {
+    html += `<div class="vaga-desc-bloco">${v.descricao.replace(/\n/g,'<br>')}</div>`;
+  }
+
+  if (v.requisitos) {
+    // Separa por • ou \n e transforma em lista
+    const itens = v.requisitos
+      .split(/[•\n]+/)
+      .map(s => s.trim())
+      .filter(Boolean);
+    if (itens.length > 1) {
+      html += `<div class="vaga-req-titulo">📌 Requisitos</div>`;
+      html += `<ul class="vaga-req-lista">${itens.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    } else {
+      html += `<div class="vaga-desc-bloco">${v.requisitos}</div>`;
+    }
+  }
+
+  if (html) {
+    reqEl.innerHTML = html;
+    document.getElementById('vagaToggle').style.display = 'inline-block';
+  }
+
+  badge.textContent = '\u2705 Requisitos carregados';
+  badge.className   = 'vaga-badge ok';
+}
+
+function toggleReq() {
+  const el  = document.getElementById('vagaInfoReq');
+  const btn = document.getElementById('vagaToggle');
+  const exp = el.classList.toggle('expanded');
+  btn.textContent = exp ? 'Ver menos' : 'Ver mais';
+}
+
+
+// ── STAR FORMAT ──
+const STAR_FIELDS = {
+  comp_comunicacao:  ['star_com_a','star_com_r'],
+  comp_resiliencia:  ['star_res_a','star_res_r'],
+  comp_equipe:       ['star_eq_a','star_eq_r'],
+  comp_resultados:   ['star_res2_a','star_res2_r'],
+  comp_proatividade:  ['star_pro_a','star_pro_r'],
+  comp_adaptabilidade:['star_adp_a','star_adp_r'],
+};
+const STAR_LABELS = ['O que fez','Resultado'];
+
+
+function wcMeFale() {
+  const val = (document.getElementById('comp_me_fale')?.value || '').trim();
+  const words = val.split(/\s+/).filter(w => w.length > 0).length;
+  const el = document.getElementById('wc_me_fale');
+  if (el) {
+    el.textContent = words + ' palavras' + (words < 20 ? ' — escreva pelo menos 20' : ' ✓');
+    el.className = 'wc' + (words >= 20 ? ' ok' : '');
+  }
+}
+function wcStar(compId, wcId) {
+  const ids = STAR_FIELDS[compId];
+  const parts = ids.map((id, i) => {
+    const v = (document.getElementById(id)?.value || '').trim();
+    return v ? STAR_LABELS[i] + ': ' + v : '';
+  }).filter(Boolean);
+  const combined = parts.join('\n');
+  document.getElementById(compId).value = combined;
+  const words = combined.split(/\s+/).filter(w => w.length > 0).length;
+  const dest = document.getElementById(wcId);
+  const allFilled = parts.length === 2;
+  dest.textContent = allFilled
+    ? words + ' palavras ✓ Ótimo!'
+    : 'Preencha os 2 campos (' + parts.length + '/2 preenchidos)';
+  dest.className = 'wc' + (allFilled ? ' ok' : '');
+}
+
+// ── NAVEGAÇÃO ──
+// ── ETAPA 0 — Experiências, Cursos, Certificados ──
+let _expCount = 0, _cursoCount = 0, _certCount = 0;
+
+const MESES = ['','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+function _mesOpts(sel) {
+  return MESES.map((m,i)=>i===0?`<option value="">Mês...</option>`:`<option value="${i}">${m}</option>`).join('');
+}
+function _anoOpts() {
+  const cur = new Date().getFullYear();
+  let opts = '<option value="">Ano...</option>';
+  for (let y = cur; y >= 1970; y--) opts += `<option value="${y}">${y}</option>`;
+  return opts;
+}
+
+function addExp() {
+  _expCount++;
+  const id = _expCount;
+  const html = `
+  <div class="exp-block" id="expBlock${id}">
+    <button class="exp-remove" onclick="rmExp(${id})" title="Remover">✕</button>
+    <div class="exp-head">🏢 Experiência ${id}</div>
+    <div class="frow">
+      <label class="fl" style="margin-bottom:0.3rem;">Empresa</label>
+      <input type="text" class="fi" id="expEmpresa${id}" placeholder="Nome da empresa"/>
+    </div>
+    <div class="frow">
+      <label class="fl" style="margin-bottom:0.3rem;">Cargo</label>
+      <input type="text" class="fi" id="expCargo${id}" placeholder="Cargo ou função"/>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:0.8rem;">
+      <div>
+        <label class="fl" style="margin-bottom:0.3rem;">Entrada</label>
+        <div style="display:flex;gap:0.4rem;">
+          <select class="fi" id="expEntMes${id}" style="flex:1;">${_mesOpts()}</select>
+          <select class="fi" id="expEntAno${id}" style="flex:1;">${_anoOpts()}</select>
+        </div>
+      </div>
+      <div>
+        <label class="fl" style="margin-bottom:0.3rem;">Saída</label>
+        <div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap;">
+          <select class="fi" id="expSaiMes${id}" style="flex:1;" >${_mesOpts()}</select>
+          <select class="fi" id="expSaiAno${id}" style="flex:1;">${_anoOpts()}</select>
+        </div>
+        <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.72rem;color:var(--muted);margin-top:0.35rem;cursor:pointer;">
+          <input type="checkbox" id="expAtual${id}" onchange="toggleAtual(${id})"/> Emprego atual
+        </label>
+      </div>
+    </div>
+    <div class="frow">
+      <label class="fl" style="margin-bottom:0.3rem;">Atividades desempenhadas</label>
+      <textarea class="fi ft md" id="expAtiv${id}" placeholder="Descreva as principais atividades, responsabilidades e resultados nessa função..." rows="4"></textarea>
+    </div>
+  </div>`;
+  document.getElementById('expList').insertAdjacentHTML('beforeend', html);
+}
+
+function rmExp(id) {
+  const el = document.getElementById(`expBlock${id}`);
+  if (el) el.remove();
+}
+
+function toggleAtual(id) {
+  const chk = document.getElementById(`expAtual${id}`);
+  const mes = document.getElementById(`expSaiMes${id}`);
+  const ano = document.getElementById(`expSaiAno${id}`);
+  if (chk.checked) { mes.disabled = true; ano.disabled = true; mes.value=''; ano.value=''; }
+  else { mes.disabled = false; ano.disabled = false; }
+}
+
+function addCurso() {
+  _cursoCount++;
+  const id = _cursoCount;
+  const html = `
+  <div class="curso-block" id="cursoBlock${id}">
+    <button class="exp-remove" onclick="rmCurso(${id})" title="Remover">✕</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:0.6rem;">
+      <div>
+        <label class="fl" style="margin-bottom:0.3rem;">Nome do Curso</label>
+        <input type="text" class="fi" id="cursoNome${id}" placeholder="Ex: Excel Avançado"/>
+      </div>
+      <div>
+        <label class="fl" style="margin-bottom:0.3rem;">Instituição</label>
+        <input type="text" class="fi" id="cursoInst${id}" placeholder="Ex: Senac, Udemy, IFRS..."/>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;">
+      <div>
+        <label class="fl" style="margin-bottom:0.3rem;">Modalidade</label>
+        <select class="fi" id="cursoMod${id}">
+          <option value="">Selecione...</option>
+          <option>Presencial</option><option>Online / EAD</option><option>Híbrido</option>
+          <option>Técnico</option><option>Graduação</option><option>Pós-graduação / MBA</option>
+          <option>Extensão</option><option>Workshop / Evento</option><option>Outro</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl" style="margin-bottom:0.3rem;">Carga Horária (opcional)</label>
+        <input type="text" class="fi" id="cursoCH${id}" placeholder="Ex: 40h, 6 meses..."/>
+      </div>
+    </div>
+  </div>`;
+  document.getElementById('cursoList').insertAdjacentHTML('beforeend', html);
+}
+
+function rmCurso(id) {
+  const el = document.getElementById(`cursoBlock${id}`);
+  if (el) el.remove();
+}
+
+function addCert() {
+  _certCount++;
+  const id = _certCount;
+  const html = `<div class="cert-block" id="certBlock${id}">
+    <input type="text" class="fi" id="certNome${id}" placeholder="Ex: NR10, CNPI, Power BI Microsoft Certified..."/>
+    <button class="cert-del" onclick="rmCert(${id})" title="Remover">✕</button>
+  </div>`;
+  document.getElementById('certList').insertAdjacentHTML('beforeend', html);
+}
+
+function rmCert(id) {
+  const el = document.getElementById(`certBlock${id}`);
+  if (el) el.remove();
+}
+
+function coletarEtapa0() {
+  const exps = [];
+  for (let i = 1; i <= _expCount; i++) {
+    if (!document.getElementById(`expBlock${i}`)) continue;
+    const atual = document.getElementById(`expAtual${i}`)?.checked;
+    exps.push({
+      empresa: document.getElementById(`expEmpresa${i}`)?.value.trim() || '',
+      cargo:   document.getElementById(`expCargo${i}`)?.value.trim() || '',
+      entrada: (document.getElementById(`expEntMes${i}`)?.value || '') + '/' + (document.getElementById(`expEntAno${i}`)?.value || ''),
+      saida:   atual ? 'atual' : (document.getElementById(`expSaiMes${i}`)?.value || '') + '/' + (document.getElementById(`expSaiAno${i}`)?.value || ''),
+      atividades: document.getElementById(`expAtiv${i}`)?.value.trim() || '',
+    });
+  }
+  const cursos = [];
+  for (let i = 1; i <= _cursoCount; i++) {
+    if (!document.getElementById(`cursoBlock${i}`)) continue;
+    cursos.push({
+      nome: document.getElementById(`cursoNome${i}`)?.value.trim() || '',
+      inst: document.getElementById(`cursoInst${i}`)?.value.trim() || '',
+      mod:  document.getElementById(`cursoMod${i}`)?.value || '',
+      ch:   document.getElementById(`cursoCH${i}`)?.value.trim() || '',
+    });
+  }
+  const certs = [];
+  for (let i = 1; i <= _certCount; i++) {
+    if (!document.getElementById(`certBlock${i}`)) continue;
+    const v = document.getElementById(`certNome${i}`)?.value.trim();
+    if (v) certs.push(v);
+  }
+  return { experiencias: exps, cursos, certificados: certs };
+}
+
+function irPara(n) {
+  // Valida história profissional ao sair da etapa 1
+  if (n > 1) {
+    const historiaVal = document.getElementById('historia').value.trim();
+    const historiaWords = historiaVal.split(/\s+/).filter(w => w.length > 0).length;
+    if (historiaWords < 60) {
+      const el = document.getElementById('historia');
+      el.style.borderColor = '#e74c3c';
+      el.focus();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Preencha sua história profissional com pelo menos 60 palavras antes de continuar.', 'erro');
+      return;
+    }
+    document.getElementById('historia').style.borderColor = '';
+
+    // Valida Área de atuação
+    const areaVal = document.getElementById('area').value.trim();
+    if (!areaVal) {
+      const el = document.getElementById('area');
+      el.style.borderColor = '#e74c3c';
+      el.focus();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Preencha sua área de atuação principal antes de continuar.', 'erro');
+      return;
+    }
+    document.getElementById('area').style.borderColor = '';
+
+    // Valida Tempo total de experiência
+    const expVal = document.getElementById('expTotal').value;
+    if (!expVal) {
+      const el = document.getElementById('expTotal');
+      el.style.borderColor = '#e74c3c';
+      el.focus();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Selecione seu tempo total de experiência antes de continuar.', 'erro');
+      return;
+    }
+    document.getElementById('expTotal').style.borderColor = '';
+
+    // Valida Nível de escolaridade
+    const escolVal = document.getElementById('escolaridade').value;
+    if (!escolVal) {
+      const el = document.getElementById('escolaridade');
+      el.style.borderColor = '#e74c3c';
+      el.focus();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Selecione seu nível de escolaridade antes de continuar.', 'erro');
+      return;
+    }
+    document.getElementById('escolaridade').style.borderColor = '';
+
+    // Valida Curso / Instituição
+    const cursoVal = (document.getElementById('cursoInstituicao')?.value || '').trim();
+    if (!cursoVal) {
+      const el = document.getElementById('cursoInstituicao');
+      if (el) { el.style.borderColor = '#e74c3c'; el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      toast('Preencha o campo Curso / Instituição antes de continuar.', 'erro');
+      return;
+    }
+    if (document.getElementById('cursoInstituicao')) document.getElementById('cursoInstituicao').style.borderColor = '';
+  }
+  // Valida "Me fale sobre Você" ao sair da etapa 3
+  if (n > 3) {
+    const meFaleVal = (document.getElementById('comp_me_fale')?.value || '').trim();
+    const meFaleWords = meFaleVal.split(/\s+/).filter(w => w.length > 0).length;
+    if (meFaleWords < 20) {
+      const el = document.getElementById('comp_me_fale');
+      if (el) { el.style.borderColor = '#e74c3c'; el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      toast('Preencha o campo "Me fale sobre Você" com pelo menos 20 palavras antes de continuar.', 'erro');
+      return;
+    }
+    if (document.getElementById('comp_me_fale')) document.getElementById('comp_me_fale').style.borderColor = '';
+  }
+  // Competências — opcionais, apenas limpa bordas de erro se houver
+  if (n > 3) {
+    ['comp_comunicacao','comp_resiliencia','comp_equipe','comp_resultados','comp_proatividade','comp_adaptabilidade'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.borderColor = '';
+      (STAR_FIELDS[id] || []).forEach(sid => {
+        const sf = document.getElementById(sid);
+        if (sf) sf.style.borderColor = '';
+      });
+    });
+  }
+  // Valida motivação ao sair da etapa 4
+  if (n > 4) {
+    const motVal = document.getElementById('motivacao').value.trim();
+    const motWords = motVal.split(/\s+/).filter(w => w.length > 0).length;
+    if (motWords < 15) {
+      const el = document.getElementById('motivacao');
+      el.style.borderColor = '#e74c3c';
+      el.focus();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Preencha sua motivação com pelo menos 15 palavras antes de continuar.', 'erro');
+      return;
+    }
+    document.getElementById('motivacao').style.borderColor = '';
+  }
+  // Valida e captura o email antes de avançar da etapa 1
+  if (n > 1 && !EMAIL) {
+    const emailInp = document.getElementById('emailInput');
+    const emailVal = emailInp ? emailInp.value.trim() : '';
+    if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      if (emailInp) {
+        emailInp.style.borderColor = '#e74c3c';
+        emailInp.focus();
+        emailInp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      toast('Por favor, informe um e-mail válido antes de continuar.', 'erro');
+      return;
+    }
+    if (emailInp) emailInp.style.borderColor = '';
+    EMAIL = emailVal;
+  }
+  for (let i = 0; i <= 5; i++) {
+    const secEl = document.getElementById(`sec${i}`);
+    if (secEl) secEl.classList.add('hidden');
+    const et = document.getElementById(`etapa${i}`);
+    if (et) { et.classList.remove('ativa','done'); if (i < n) et.classList.add('done'); }
+  }
+  const sec = document.getElementById(`sec${n}`);
+  if (sec) { sec.classList.remove('hidden'); sec.style.animationName = 'none'; requestAnimationFrame(() => { sec.style.animationName = ''; }); }
+  const etapaEl = document.getElementById(`etapa${n}`);
+  if (etapaEl) etapaEl.classList.add('ativa');
+  if (n === 5) gerarResumo();
+  if (n === 0 || n === 1) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    const etapasBar = document.querySelector('.etapas');
+    if (etapasBar) setTimeout(() => { etapasBar.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+  }
+}
+
+// ── CONTADOR DE PALAVRAS ──
+function wc(el, destId, minP) {
+  const words = el.value.trim().split(/\s+/).filter(w => w.length > 0);
+  const n = words.length;
+  const dest = document.getElementById(destId);
+  if (minP > 0) {
+    dest.textContent = n >= minP ? `${n} palavras ✓ Ótimo!` : `${n} palavras — escreva pelo menos ${minP} para uma análise completa`;
+    dest.className = 'wc' + (n >= minP ? ' ok' : '');
+  } else {
+    dest.textContent = `${n} palavras`;
+  }
+}
+
+// ── CONQUISTAS ──
+function addConq() {
+  const inp = document.getElementById('conquInput');
+  const v = inp.value.trim();
+  if (!v) return;
+  if (conquistas.length >= 10) { toast('Máximo de 10 conquistas!','erro'); return; }
+  conquistas.push(v);
+  renderConq();
+  inp.value = '';
+  inp.focus();
+}
+function rmConq(i) { conquistas.splice(i, 1); renderConq(); }
+function renderConq() {
+  const el = document.getElementById('conquTags');
+  if (!conquistas.length) { el.innerHTML = '<span style="font-size:0.72rem;color:var(--muted2);">Suas conquistas aparecem aqui...</span>'; return; }
+  el.innerHTML = conquistas.map((c,i) => `<div class="titem">🏆 ${c} <button class="tdel" onclick="rmConq(${i})">×</button></div>`).join('');
+}
+
+// ── RESUMO ──
+function gerarResumo() {
+  const hist  = document.getElementById('historia').value.trim();
+  const area  = document.getElementById('area').value;
+  const exp   = document.getElementById('expTotal').value;
+  const expV  = document.getElementById('expVaga').value.trim();
+  const dif   = document.getElementById('diferencial').value.trim();
+  const mot   = document.getElementById('motivacao').value.trim();
+  const dados_comp = {
+    'Comunicação':   document.getElementById('comp_comunicacao')?.value.trim(),
+    'Resiliência':   document.getElementById('comp_resiliencia')?.value.trim(),
+    'Equipe':        document.getElementById('comp_equipe')?.value.trim(),
+    'Resultados':    document.getElementById('comp_resultados')?.value.trim(),
+    'Proatividade':  document.getElementById('comp_proatividade')?.value.trim(),
+    'Adaptabilidade':document.getElementById('comp_adaptabilidade')?.value.trim(),
+  };
+  const extra = document.getElementById('extra').value.trim();
+  const t = (s, max) => s.length > max ? s.slice(0, max) + '...' : s;
+  const lin = (lbl, v) => v ? `<div class="rev-lin"><strong>${lbl}</strong> ${t(v, 200)}</div>` : '';
+  let html = '';
+  html += lin('Trajetória:', hist);
+  if (area) html += lin('Área:', area);
+  if (exp)  html += lin('Experiência total:', exp);
+  if (expV) html += lin('Exp. com a vaga:', expV);
+  if (conquistas.length) html += lin('Conquistas:', conquistas.join(' · '));
+  html += lin('Diferencial:', dif);
+  const comp = dados_comp ? Object.entries(dados_comp).map(([k,v]) => `${k}: ${v}`).join(' | ') : '';
+  if (comp) html += lin('Competências:', comp);
+  html += lin('Motivação:', mot);
+  html += lin('Extras:', extra);
+  const wN = hist.split(/\s+/).filter(w => w.length > 0).length;
+  if (!html) html = '<span style="font-size:0.79rem;color:var(--muted2);">Nenhuma informação preenchida ainda.</span>';
+  else html += `<div style="margin-top:0.75rem;font-size:0.72rem;color:var(--accent);font-weight:700;">📊 ${wN} palavras no relato · ${conquistas.length} conquista${conquistas.length !== 1 ? 's' : ''}</div>`;
+  document.getElementById('revConteudo').innerHTML = html;
+}
+
+// ── ANIMAR PASSOS ──
+function animarPassos() {
+  const ids = ['is1','is2','is3','is4','is5','is6'];
+  const labels = [
+    'Lendo seu relato profissional...',
+    'Carregando requisitos reais da vaga...',
+    'Integrando perfil comportamental DISC...',
+    'Calculando compatibilidade com a vaga...',
+    'Gerando Fit Score final...',
+    'Finalizando análise completa...',
+  ];
+  let i = 0;
+  function prox() {
+    if (i > 0) document.getElementById(ids[i-1]).className = 'ia-step feito';
+    if (i < ids.length) {
+      document.getElementById(ids[i]).className = 'ia-step ativo';
+      document.getElementById('iaS').textContent = labels[i];
+      i++;
+      setTimeout(prox, 1100 + Math.random() * 500);
+    }
+  }
+  prox();
+}
+
+// -- FIT LOCAL --
+// ── FALLBACK LOCAL (usado quando IA indisponível) ───────────────────────
+function calcularFitLocal(dados, vd) {
+  const hist=(dados.entrevista.historia||'').toLowerCase();
+  const expV=(dados.entrevista.exp_vaga||'').toLowerCase();
+  const conq=dados.entrevista.conquistas||[];
+  // Inclui atividades das experiências estruturadas no texto de análise
+  const expAtivs = (dados.curriculo?.experiencias||[]).map(e=>e.atividades||'').join(' ').toLowerCase();
+  const cursosTxt = (dados.curriculo?.cursos||[]).map(c=>(c.nome||'')+' '+(c.inst||'')).join(' ').toLowerCase();
+  const certsTxt  = (dados.curriculo?.certificados||[]).join(' ').toLowerCase();
+  const tudo=hist+' '+expV+(dados.entrevista.diferencial||'').toLowerCase()+(dados.entrevista.motivacao||'').toLowerCase()+' '+(dados.entrevista.voluntario||'').toLowerCase()+' '+expAtivs+' '+cursosTxt+' '+certsTxt;
+  const reqTxt=vd?(vd.requisitos||'')+(vd.descricao||''):'';
+  const stop=new Set(['de','em','e','o','a','os','as','um','uma','para','com','na','no','ou','que','da','do','das','dos','se','ao','por','mais','sua','seu','ser','ter']);
+  const rw=[...new Set(reqTxt.toLowerCase().split(/\W+/).filter(w=>w.length>3&&!stop.has(w)))].slice(0,35);
+  const matched=rw.filter(w=>tudo.includes(w));
+  const coverage=rw.length>0?Math.round((matched.length/rw.length)*100):30;
+  const wc=hist.split(/\s+/).filter(w=>w.length>0).length;
+  const temNum=/\d+/.test(hist);
+  const temVerbo=/(trabalhei|atuei|realizei|coordenei|gerenciei|desenvolvi|reduzi|aumentei|atingi|fiz|fazia|servia|atendia|operava|manutencionava|produzia|controlava|inspecionava)/i.test(hist);
+  let bonus=0;
+  if(wc>=120)bonus+=15;else if(wc>=80)bonus+=10;else if(wc>=50)bonus+=5;
+  if(temNum)bonus+=12;if(temVerbo)bonus+=10;if(conq.length)bonus+=10;if(expV.length>30)bonus+=8;
+  // Bônus pelos dados estruturados da etapa 0
+  const nExps = (dados.curriculo?.experiencias||[]).filter(e=>e.empresa||e.cargo).length;
+  const nCursos = (dados.curriculo?.cursos||[]).filter(c=>c.nome).length;
+  const nCerts = (dados.curriculo?.certificados||[]).length;
+  if(nExps>=1)bonus+=8; if(nExps>=3)bonus+=5;
+  if(nCursos>=1)bonus+=4; if(nCerts>=1)bonus+=3;
+  const penalty=wc<30?30:wc<50?15:0;
+  const score=Math.max(10,Math.min(88,coverage+bonus-penalty));
+  const nivel=score>=76?'Excelente':score>=61?'Alto':score>=40?'Médio':'Baixo';
+  const reqAtend=matched.slice(0,5).map(w=>w[0].toUpperCase()+w.slice(1));
+  const reqAus=rw.filter(w=>!matched.includes(w)).slice(0,4).map(w=>w[0].toUpperCase()+w.slice(1));
+  const fortes=[];
+  if(temVerbo&&wc>=50)fortes.push('Relato com descrição das responsabilidades');
+  if(temNum)fortes.push('Apresentou dados e resultados concretos');
+  if(conq.length)fortes.push(conq.length+' conquista(s) profissional(is)');
+  if(expV.length>30)fortes.push('Experiência específica relacionada à vaga');
+  if(!fortes.length)fortes.push('Candidato com interesse demonstrado');
+  const atencao=[];
+  if(wc<60)atencao.push('Detalhar melhor as experiências');
+  if(!temNum)atencao.push('Incluir números e metas concretos');
+  if(!atencao.length)atencao.push('Confirmar disponibilidade e expectativa salarial');
+  const vt=vd?.titulo||VAGA;
+  const resumo=score>=61?'Perfil com compatibilidade '+nivel.toLowerCase()+' para '+vt+'.':(wc<50?'Relato pode ser enriquecido com mais detalhes. ':'')+'Compatibilidade '+nivel.toLowerCase()+' com os requisitos da vaga.';
+  // Notas de competências no fallback — baseadas em keywords e tamanho da resposta
+  const comp = dados.entrevista.competencias || {};
+  function notaComp(txt) {
+    if (!txt || txt.length < 30) return 3;
+    const temNum = /\d+/.test(txt);
+    const temVerbo = /(fiz|fazia|resolvi|melhorei|reduzi|aumentei|organizei|treinei|coordenei|atingi|implementei|desenvolvi)/i.test(txt);
+    const temResultado = /(resultado|consegui|atingi|bateu|melhor|reduziu|aumentou|resolveu|funcionou)/i.test(txt);
+    let n = 4;
+    if (txt.length > 80) n += 1;
+    if (txt.length > 150) n += 1;
+    if (temNum) n += 2;
+    if (temVerbo) n += 1;
+    if (temResultado) n += 1;
+    return Math.min(10, n);
+  }
+  const nc = {
+    comunicacao:      notaComp(comp.comunicacao),
+    resiliencia:      notaComp(comp.resiliencia),
+    equipe:           notaComp(comp.equipe),
+    resultados:       notaComp(comp.resultados),
+    ...(comp.proatividade   ? { proatividade:   notaComp(comp.proatividade)   } : {}),
+    ...(comp.adaptabilidade ? { adaptabilidade: notaComp(comp.adaptabilidade) } : {}),
+  };
+  const mediaComp = Math.round(Object.values(nc).reduce((a,b)=>a+b,0) / Object.values(nc).length);
+  const expNota = Math.min(10, Math.round((coverage/10) + (wc >= 80 ? 2 : wc >= 50 ? 1 : 0) + (temNum ? 1 : 0) + (temVerbo ? 1 : 0)));
+  const motNota = dados.entrevista.motivacao && dados.entrevista.motivacao.length > 60 ? 8 : dados.entrevista.motivacao ? 5 : 2;
+  const discNota = 7;
+  const scorePonderado = Math.round(expNota*3.5 + mediaComp*3.5 + motNota*2.0 + discNota*1.0);
+  const scoreFinal = Math.max(10, Math.min(88, scorePonderado));
+  const nivelFinal = scoreFinal>=76?'Excelente':scoreFinal>=61?'Alto':scoreFinal>=40?'Médio':'Baixo';
+  return{fit_score:scoreFinal,nivel:nivelFinal,_fallback:true,
+    score_breakdown:{ experiencia:expNota, competencias:mediaComp, motivacao:motNota, disc:discNota },
+    notas_competencias: nc,
+    resumo_candidato:resumo,pontos_fortes:fortes.slice(0,3),pontos_atencao:atencao.slice(0,2),
+    recomendacao_admin:'Compatibilidade '+nivelFinal.toLowerCase()+' ('+scoreFinal+'%). '+(scoreFinal>=61?'Recomendar entrevista.':'Avaliar criteriosamente.'),
+    resumo_admin:'Fit:'+scoreFinal+'% DISC:'+DOM+'+'+SEC+'. '+(reqAtend.length?'Alinhado em: '+reqAtend.join(', ')+'. ':'')+(reqAus.length?'Lacunas: '+reqAus.join(', '):'.'),
+    requisitos_atendidos:reqAtend,requisitos_ausentes:reqAus,disc_insight:''};
+}
+
+
+// ── RETROALIMENTAÇÃO — padrões de contratados anteriores ──
+async function buscarPadroesContratados() {
+  try {
+    const res = await fetch(
+      `${SB}/rest/v1/disc_historico?contratado=eq.true&select=dom,sec,pct_d,pct_i,pct_s,pct_c,vaga,fit_score,fit_nivel&order=criado_em.desc&limit=15`,
+      { headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY } }
+    );
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) return '';
+    const linhas = data.map(c =>
+      `  • Perfil ${c.dom}+${c.sec} (D:${c.pct_d||0}% I:${c.pct_i||0}% S:${c.pct_s||0}% C:${c.pct_c||0}%) — Vaga: ${c.vaga} — Fit Score na época: ${c.fit_score||'N/A'}%`
+    ).join('\n');
+    return `\n\nPADRÕES REAIS DE CANDIDATOS CONTRATADOS NESTA AGÊNCIA:\n(Use como referência adicional — esses perfis tiveram sucesso real no mercado de trabalho):\n${linhas}`;
+  } catch(e) { return ''; }
+}
+
+// ── ANÁLISE VIA IA REAL (Groq Llama 3.3 70B — 2 etapas) ─────────────────
+async function analisarComIA(dados, contextoVaga) {
+  const EDGE_URL = `${SB}/functions/v1/analisar-candidato`;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 35000); // 35s — 2 etapas levam mais tempo
+  try {
+    const res = await fetch(EDGE_URL, {
+      method: 'POST',
+      signal: ctrl.signal,
+      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+KEY, 'apikey':KEY },
+      body: JSON.stringify({
+        candidato:    dados.candidato,
+        entrevista:   dados.entrevista,
+        curriculo:    dados.curriculo,
+        vaga_dados:   vagaData,
+        contextoVaga: contextoVaga,
+      }),
+    });
+    clearTimeout(timer);
+    const result = await res.json();
+    if (!res.ok || result.fallback || result.error) throw new Error(result.error || 'IA indisponível');
+    return result;
+  } catch(e) { clearTimeout(timer); throw e; }
+}
+
+
+// ── ENVIAR ──
+async function enviar() {
+  const dados = coletarDados();
+  if (dados.entrevista.historia.length < 50) {
+    toast('Preencha sua trajetória antes de enviar!','erro');
+    irPara(1);
+    return;
+  }
+  const motWords = dados.entrevista.motivacao.split(/\s+/).filter(w => w.length > 0).length;
+  if (motWords < 15) {
+    toast('Preencha sua motivação com pelo menos 15 palavras antes de enviar!','erro');
+    irPara(3);
+    return;
+  }
+
+  document.getElementById('sec4').classList.add('hidden');
+  document.getElementById('telaIA').style.display = 'block';
+  animarPassos();
+
+  // Busca dados DISC no Supabase se não vieram na URL (candidato acessou direto)
+  // Captura email do campo antes do fetch — pode ter sido digitado agora
+  const _emailParaDisc = document.getElementById('emailInput')?.value.trim() || EMAIL || '';
+  if (_emailParaDisc && !EMAIL) EMAIL = _emailParaDisc; // sincroniza global
+  // Nome: usa da URL se disponível; senão deixa vazio (fetch tentará por email)
+  const _nomeParaDisc = NOME !== 'Candidato' ? NOME : '';
+  await buscarDiscCandidato(_nomeParaDisc, _emailParaDisc, VAGA);
+  // Se achou DISC e ainda não temos email, tenta salvar o email no registro
+  // para futuras buscas funcionarem por email também
+  // scroll removido — não sobe ao topo
+
+  // Monta contexto real da vaga para o prompt
+  let contextoVaga = `TÍTULO DA VAGA: ${VAGA}`;
+  if (vagaData) {
+    if (vagaData.descricao) contextoVaga += `\n\nDESCRIÇÃO DA VAGA:\n${vagaData.descricao}`;
+    if (vagaData.requisitos) contextoVaga += `\n\nREQUISITOS DA VAGA:\n${vagaData.requisitos}`;
+    if (vagaData.beneficios) contextoVaga += `\n\nBENEFÍCIOS:\n${vagaData.beneficios}`;
+    if (vagaData.area)  contextoVaga += `\n\nÁREA: ${vagaData.area}`;
+    if (vagaData.regime) contextoVaga += ` | REGIME: ${vagaData.regime}`;
+    if (vagaData.nivel) contextoVaga += ` | NÍVEL: ${vagaData.nivel}`;
+  }
+
+  const prompt = `Você é um recrutador sênior especialista da Agência Nexus.
+Analise a candidatura abaixo comparando o relato do candidato com os requisitos REAIS da vaga.
+Retorne SOMENTE um objeto JSON válido, sem markdown, sem texto fora do JSON.
+
+${contextoVaga}
+
+PERFIL DISC DO CANDIDATO:
+Dominante: ${DOM} | Secundário: ${SEC}
+D:${PCT.D}% I:${PCT.I}% S:${PCT.S}% C:${PCT.C}%
+
+RELATO LIVRE DO CANDIDATO:
+${dados.entrevista.historia}
+
+EXPERIÊNCIA ESPECÍFICA COM A VAGA:
+${dados.entrevista.exp_vaga || 'Não informado'}
+
+ÁREA: ${dados.entrevista.area || 'Não informado'} | TEMPO TOTAL: ${dados.entrevista.exp_total || 'Não informado'} | ESCOLARIDADE: ${dados.entrevista.escolaridade || 'Não informado'} | CURSO/INST: ${dados.entrevista.curso_inst || 'Não informado'}
+
+EXPERIÊNCIAS PROFISSIONAIS (estruturadas):
+${(()=>{
+  const exps = dados.curriculo?.experiencias || [];
+  if (!exps.length) return 'Não informado';
+  return exps.map((e,i) => {
+    const periodo = e.saida === 'atual' ? `${e.entrada} até o momento (emprego atual)` : `${e.entrada} a ${e.saida}`;
+    return `  ${i+1}. ${e.cargo || '—'} na ${e.empresa || '—'} | Período: ${periodo}${e.atividades ? `\n     Atividades: ${e.atividades}` : ''}`;
+  }).join('\n');
+})()}
+
+CURSOS E FORMAÇÕES:
+${(()=>{
+  const cursos = dados.curriculo?.cursos || [];
+  if (!cursos.length) return 'Não informado';
+  return cursos.map(c => `  • ${c.nome || '—'} — ${c.inst || '—'}${c.mod ? ` (${c.mod})` : ''}${c.ch ? ` | ${c.ch}` : ''}`).join('\n');
+})()}
+
+CERTIFICADOS:
+${(dados.curriculo?.certificados || []).join(' | ') || 'Não informado'}
+
+CONQUISTAS:
+${dados.entrevista.conquistas.join(' | ') || 'Não informado'}
+
+DIFERENCIAL:
+${dados.entrevista.diferencial || 'Não informado'}
+
+MOTIVAÇÃO:
+${dados.entrevista.motivacao || 'Não informado'}
+
+INFORMAÇÕES EXTRAS:
+${dados.entrevista.extra || 'Não informado'}
+
+TRABALHOS VOLUNTÁRIOS / PROJETOS ESCOLARES:
+${dados.entrevista.voluntario || 'Não informado'}
+
+COMPETÊNCIAS COMPORTAMENTAIS (2 campos por pilar: O que fez + Resultado):
+- Comunicação: ${dados.entrevista.competencias?.comunicacao || 'Não informado'}
+- Resiliência: ${dados.entrevista.competencias?.resiliencia || 'Não informado'}
+- Trabalho em Equipe: ${dados.entrevista.competencias?.equipe || 'Não informado'}
+- Foco em Resultados: ${dados.entrevista.competencias?.resultados || 'Não informado'}
+- Proatividade: ${dados.entrevista.competencias?.proatividade || 'Não informado'}
+- Adaptabilidade: ${dados.entrevista.competencias?.adaptabilidade || 'Não informado'}
+
+INSTRUÇÕES PARA O FIT SCORE:
+- Compare DIRETAMENTE o relato do candidato com os requisitos da vaga acima
+- O fit_score é calculado com base em 4 blocos com os seguintes pesos:
+- Considere escolaridade e trabalhos voluntários como parte do bloco de experiência quando o candidato tiver pouca experiência formal
+  * Experiência profissional (história + exp_vaga): 35%
+  * Competências comportamentais (média das 6 notas abaixo): 35%
+  * Motivação e alinhamento com a vaga: 20%
+  * Perfil DISC compatível com a função: 10%
+- Para cada competência, avalie de 0 a 10 com base nestes critérios:
+  * +2 se a resposta tem um EXEMPLO REAL (situação concreta)
+  * +2 se tem NÚMERO ou DADO quantificável
+  * +2 se tem RESULTADO concreto demonstrado
+  * +2 se usa PALAVRAS-CHAVE alinhadas com a vaga
+  * +2 se a resposta tem PROFUNDIDADE (não é genérica)
+- Seja honesto: respostas vagas como "sou comunicativo" valem no máximo 3/10
+- Se os dados da vaga não foram fornecidos, baseie-se no título e no relato
+
+Retorne APENAS este JSON:
+{
+  "fit_score": <inteiro 0-100, média ponderada dos 4 blocos>,
+  "nivel": "<Baixo|Médio|Alto|Excelente>",
+  "score_breakdown": {
+    "experiencia": <0-10, peso 35%>,
+    "competencias": <0-10, média das 4 notas abaixo, peso 35%>,
+    "motivacao": <0-10, peso 20%>,
+    "disc": <0-10, peso 10%>
+  },
+  "notas_competencias": {
+    "comunicacao":      <0-10>,
+    "resiliencia":      <0-10>,
+    "equipe":           <0-10>,
+    "resultados":       <0-10>,
+    "proatividade":     <0-10>,
+    "adaptabilidade":   <0-10>
+  },
+  "resumo_candidato": "<3-5 frases sobre o perfil e adequação à vaga. Use linguagem positiva e direta.>",
+  "pontos_fortes": ["<ponto 1>","<ponto 2>","<ponto 3>"],
+  "pontos_atencao": ["<ponto 1 para focar na entrevista>","<ponto 2>"],
+  "recomendacao_admin": "<1-2 frases objetivas: avançar ou não e por quê. Cite requisitos atendidos e lacunas.>",
+  "resumo_admin": "<5-7 frases para o recrutador com análise detalhada: quais requisitos da vaga o candidato atende, quais não atende, fit cultural DISC, experiências quantificadas, recomendação final>",
+  "requisitos_atendidos": ["<req 1 da vaga que o candidato atende>","<req 2>"],
+  "requisitos_ausentes": ["<req da vaga que o candidato NÃO demonstrou ter>"]
+}`;
+
+  // ── Retroalimentação: injeta padrões de contratados no contexto ──
+  const padroesContratados = await buscarPadroesContratados();
+  if (padroesContratados) contextoVaga += padroesContratados;
+
+  // ── IA real (2 etapas: extração → scoring) com fallback automático ──
+  let ia;
+  try {
+    ia = await analisarComIA(dados, contextoVaga);
+    console.log('✅ IA Groq OK — score:', ia.fit_score, '— etapas:', ia._etapas);
+  } catch(e) {
+    console.warn('⚠️ IA indisponível, fallback local:', e.message);
+    ia = calcularFitLocal(dados, vagaData);
+  }
+
+  dados.analise = ia;
+  window._lastFitScore = ia.fit_score || 0;
+  window._lastFitNivel = ia.nivel || '';
+  mostrarResultado(dados, ia);
+  window._entrevistaSalvarPromise = salvar(dados, ia).catch(e => console.warn('salvar:', e));
+}
+
+// ── COLETAR ──
+function coletarDados() {
+  if (!EMAIL) {
+    const emailInp = document.getElementById('emailInput');
+    if (emailInp && emailInp.value.trim()) EMAIL = emailInp.value.trim();
+  }
+  return {
+    candidato: { nome: NOME, vaga: VAGA, perfil: DOM, sec: SEC, pct: PCT, tel: TEL, email: EMAIL },
+    curriculo: coletarEtapa0(),
+    entrevista: {
+      historia:    document.getElementById('historia').value.trim(),
+      area:        document.getElementById('area').value,
+      exp_total:   document.getElementById('expTotal').value,
+      exp_vaga:    document.getElementById('expVaga').value.trim(),
+      escolaridade: document.getElementById('escolaridade').value,
+      curso_inst:   document.getElementById('cursoInstituicao').value.trim(),
+      voluntario:  document.getElementById('voluntario').value.trim(),
+      conquistas:  [...conquistas],
+      diferencial: document.getElementById('diferencial').value.trim(),
+      competencias: {
+        me_fale:          document.getElementById('comp_me_fale')?.value.trim() || '',
+        comunicacao:      document.getElementById('comp_comunicacao').value.trim(),
+        comunicacao_acao: document.getElementById('star_com_a').value.trim(),
+        comunicacao_res:  document.getElementById('star_com_r').value.trim(),
+        resiliencia:      document.getElementById('comp_resiliencia').value.trim(),
+        resiliencia_acao: document.getElementById('star_res_a').value.trim(),
+        resiliencia_res:  document.getElementById('star_res_r').value.trim(),
+        equipe:           document.getElementById('comp_equipe').value.trim(),
+        equipe_acao:      document.getElementById('star_eq_a').value.trim(),
+        equipe_res:       document.getElementById('star_eq_r').value.trim(),
+        resultados:       document.getElementById('comp_resultados').value.trim(),
+        resultados_acao:  document.getElementById('star_res2_a').value.trim(),
+        resultados_res:   document.getElementById('star_res2_r').value.trim(),
+        proatividade:       document.getElementById('comp_proatividade').value.trim(),
+        proatividade_acao:  document.getElementById('star_pro_a').value.trim(),
+        proatividade_res:   document.getElementById('star_pro_r').value.trim(),
+        adaptabilidade:     document.getElementById('comp_adaptabilidade').value.trim(),
+        adaptabilidade_acao:document.getElementById('star_adp_a').value.trim(),
+        adaptabilidade_res: document.getElementById('star_adp_r').value.trim(),
+      },
+      motivacao:   document.getElementById('motivacao').value.trim(),
+      extra:       document.getElementById('extra').value.trim(),
+    },
+    vaga_dados: vagaData,
+    data: new Date().toLocaleDateString('pt-BR'),
+    hora: new Date().toLocaleTimeString('pt-BR'),
+  };
+}
+
+// ── SALVAR ──
+async function salvar(dados, ia) {
+  const _sv = new URLSearchParams(window.location.search);
+  const _agora = new Date().toISOString();
+
+  // URL curta do resultado Fit — salva no Supabase para o botão 🎯 aparecer no banco-talentos
+  const _base = getBaseUrl(/entrevista\.html.*$/);
+  const _d2 = _sv.get('d')||PCT.D; const _i2 = _sv.get('i')||PCT.I;
+  const _s2 = _sv.get('s')||PCT.S; const _c2 = _sv.get('c')||PCT.C;
+  const _fitUrlCurta = _base+'entrevista-resultado.html'
+    +'?nome='+encodeURIComponent(NOME)
+    +'&tel='+encodeURIComponent(_sv.get('tel')||TEL||'')
+    +'&email='+encodeURIComponent(_sv.get('email')||EMAIL||'')
+    +'&vaga='+encodeURIComponent(VAGA)
+    +'&canal='+encodeURIComponent(_sv.get('canal')||'')
+    +'&perfil='+DOM+'&sec='+SEC
+    +'&d='+_d2+'&i='+_i2+'&s='+_s2+'&c='+_c2
+    +'&fit='+(ia.fit_score||0)+'&nivel='+encodeURIComponent(ia.nivel||'Médio');
+
+  const payload = {
+    entrevista_json:      JSON.stringify(dados.entrevista),
+    fit_score:            String(ia.fit_score),
+    fit_nivel:            ia.nivel,
+    resumo_ia:            ia.resumo_candidato,
+    resumo_admin:         ia.resumo_admin,
+    pontos_fortes:        (ia.pontos_fortes||[]).join(' | '),
+    pontos_atencao:       (ia.pontos_atencao||[]).join(' | '),
+    recomendacao_admin:   ia.recomendacao_admin,
+    requisitos_atendidos: (ia.requisitos_atendidos||[]).join(' | '),
+    requisitos_ausentes:  (ia.requisitos_ausentes||[]).join(' | '),
+    url_resultado_fit:    _fitUrlCurta,
+    atualizado_em:        _agora,
+  };
+  // Inclui email no PATCH para atualizar registros vindos do DISC que ainda não tinham email
+  if (EMAIL) payload.email_externo = EMAIL;
+
+  const payloadInsert = Object.assign({}, payload, {
+    nome:     NOME,
+    vaga:     VAGA,
+    data:     dados.data || new Date().toLocaleDateString('pt-BR'),
+    criado_em: _agora,
+  });
+  const _tel   = _sv.get('tel');    if(_tel)   payloadInsert.tel_externo = _tel;
+  // Usa EMAIL (pode ter vindo da URL ou sido digitado pelo candidato) → coluna email_externo
+  if (EMAIL) payloadInsert.email_externo = EMAIL;
+  // dom e sec: usa da URL se disponível, senão usa DOM/SEC (lidos dos params no topo)
+  payloadInsert.dom = _sv.get('perfil') || _sv.get('dom') || DOM || 'N';
+  payloadInsert.sec = _sv.get('sec') || SEC || 'N';
+  const _pctD  = _sv.get('d');      if(_pctD)  payloadInsert.pct_d = _pctD;
+  const _pctI  = _sv.get('i');      if(_pctI)  payloadInsert.pct_i = _pctI;
+  const _pctS  = _sv.get('s');      if(_pctS)  payloadInsert.pct_s = _pctS;
+  const _pctC  = _sv.get('c');      if(_pctC)  payloadInsert.pct_c = _pctC;
+  const _canal = _sv.get('canal');  if(_canal) payloadInsert.canal = _canal;
+
+  try {
+    // ── Busca o registro existente do candidato ──────────────────────────
+    // Prioridade: candidato_id (URL) → email → nome+vaga
+    // Isso garante que uma segunda candidatura do mesmo candidato
+    // atualiza o registro correto, independente da vaga.
+    const _hdrs = { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY };
+    let _existingId = null;
+
+    const _candId = _sv.get('candidato_id') || CANDIDATO_ID || '';
+    if (_candId) {
+      const r = await fetch(
+        `${SB}/rest/v1/disc_historico?id=eq.${encodeURIComponent(_candId)}&select=id`,
+        { headers: _hdrs }
+      );
+      const arr = await r.json();
+      if (arr && arr.length > 0) _existingId = arr[0].id;
+    }
+
+    if (!_existingId && EMAIL) {
+      const r = await fetch(
+        `${SB}/rest/v1/disc_historico?email_externo=eq.${encodeURIComponent(EMAIL.toLowerCase().trim())}&select=id&order=criado_em.desc&limit=1`,
+        { headers: _hdrs }
+      );
+      const arr = await r.json();
+      if (arr && arr.length > 0) _existingId = arr[0].id;
+    }
+
+    if (!_existingId) {
+      const r = await fetch(
+        `${SB}/rest/v1/disc_historico?nome=eq.${encodeURIComponent(NOME)}&vaga=eq.${encodeURIComponent(VAGA)}&select=id`,
+        { headers: _hdrs }
+      );
+      const arr = await r.json();
+      if (arr && arr.length > 0) _existingId = arr[0].id;
+    }
+
+    if (_existingId) {
+      // Registro encontrado → atualiza com dados da entrevista (incluindo nova vaga)
+      await fetch(
+        `${SB}/rest/v1/disc_historico?id=eq.${_existingId}`,
+        { method: 'PATCH', headers: { ..._hdrs, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(payload) }
+      );
+    } else {
+      // Registro NÃO existe → cria candidato novo
+      await fetch(
+        `${SB}/rest/v1/disc_historico`,
+        { method: 'POST', headers: { ..._hdrs, 'Content-Type': 'application/json', 'Prefer': 'return=representation' }, body: JSON.stringify(payloadInsert) }
+      );
+    }
+  } catch(e) { console.warn('Supabase entrevista erro:', e); }
+  try { localStorage.setItem(`entrevista_${NOME}_${VAGA}`, JSON.stringify({ ...dados, analise: ia, ts: Date.now() })); } catch(e) {}
+
+  // ── Supabase é a fonte única de verdade — email removido ──
+  console.log('✅ Dados salvos no Supabase — email desativado');
+
+  try { localStorage.removeItem('entrevista_concluida'); } catch(e) {}
+  setTimeout(()=>{ try { localStorage.setItem('entrevista_concluida','1'); } catch(e) {} },300);
+}
+
+// ── RESULTADO ──
+function mostrarResultado(dados, ia) {
+  document.getElementById('telaIA').style.display = 'none';
+  document.getElementById('telaRes').style.display = 'block';
+  // scroll removido — não sobe ao topo
+
+  const score = ia.fit_score;
+  const cor = score >= 80 ? '#2ecc71' : score >= 60 ? '#f39c12' : '#e74c3c';
+  const nivelCls = { 'Baixo':'nl-baixo','Médio':'nl-medio','Alto':'nl-alto','Excelente':'nl-excelente' };
+  const nivelEmo = { 'Baixo':'🔴','Médio':'🟡','Alto':'🟢','Excelente':'⭐' };
+
+  const numEl = document.getElementById('scoreNum');
+  numEl.style.color = cor;
+  let cur = 0;
+  const iv = setInterval(() => { cur = Math.min(cur + 2, score); numEl.textContent = cur + '%'; if (cur >= score) clearInterval(iv); }, 28);
+
+  document.getElementById('scoreLabel').textContent = `Compatibilidade ${ia.nivel}`;
+  document.getElementById('scoreDesc').textContent  = `com a vaga de ${dados.candidato.vaga}`;
+
+  const badge = document.getElementById('nivelB');
+  badge.textContent = `${nivelEmo[ia.nivel]||'🎯'} Nível ${ia.nivel}`;
+  badge.className = `nivel-b ${nivelCls[ia.nivel]||'nl-alto'}`;
+  badge.style.display = 'inline-flex';
+
+  setTimeout(() => { document.getElementById('scoreFill').style.width = score + '%'; }, 150);
+
+  // sem DISC
+
+  document.getElementById('iaTexto').textContent = ia.resumo_candidato;
+  document.getElementById('fortesWrap').innerHTML = (ia.pontos_fortes||[]).map(pf => `<div class="a-tag">✓ ${pf}</div>`).join('');
+  document.getElementById('atencaoLista').innerHTML = '';
+
+  // ── BREAKDOWN DO SCORE ──
+  const bd = ia.score_breakdown || {};
+  const nc = ia.notas_competencias || {};
+  if (bd.experiencia !== undefined || nc.resiliencia !== undefined) {
+    document.getElementById('breakdownCard').style.display = 'block';
+
+    const blocos = [
+      { ico:'📋', label:'Experiência Profissional', key:'experiencia', peso:'35%', cor:'#3b82f6' },
+      { ico:'🧠', label:'Competências Comportamentais', key:'competencias', peso:'35%', cor:'#3498db' },
+      { ico:'💭', label:'Motivação e Alinhamento', key:'motivacao', peso:'20%', cor:'#f39c12' },
+      { ico:'🔵', label:'Perfil DISC', key:'disc', peso:'10%', cor:'#9b59b6' },
+    ];
+    document.getElementById('breakdownGrid').innerHTML = blocos.map(b => {
+      const nota = bd[b.key] ?? '—';
+      const pct = nota !== '—' ? (nota / 10 * 100) : 0;
+      return `<div class="bk-item">
+        <div class="bk-ico">${b.ico}</div>
+        <div class="bk-info">
+          <div class="bk-label">${b.label}</div>
+          <div class="bk-nota" style="color:${b.cor}">${nota}<span style="font-size:0.65rem;color:var(--muted);font-weight:400;">/10</span></div>
+          <div class="bk-bar"><div class="bk-fill" data-pct="${pct}" style="width:0%;background:${b.cor};"></div></div>
+          <div class="bk-peso">Peso: ${b.peso}</div>
+        </div>
+      </div>`;
+    }).join('');
+
+    const comps = [
+      { ico:'🗣️', nome:'Comunicação',        key:'comunicacao' },
+      { ico:'💪', nome:'Resiliência',         key:'resiliencia' },
+      { ico:'🤝', nome:'Trabalho em Equipe',  key:'equipe' },
+      { ico:'🎯', nome:'Foco em Resultados',  key:'resultados' },
+    ];
+    document.getElementById('compGrid').innerHTML = comps.map(c => {
+      const nota = nc[c.key] ?? '—';
+      const pct  = nota !== '—' ? (nota / 10 * 100) : 0;
+      const cor  = nota >= 8 ? '#2ecc71' : nota >= 6 ? '#f39c12' : '#e74c3c';
+      return `<div class="comp-item">
+        <div class="comp-ico">${c.ico}</div>
+        <div class="comp-info">
+          <div class="comp-nome">${c.nome}</div>
+          <div class="comp-nota-row">
+            <div class="comp-nota" style="color:${cor}">${nota}<span style="font-size:0.6rem;color:var(--muted);font-weight:400;">/10</span></div>
+            <div class="comp-bar"><div class="comp-fill" data-pct="${pct}" style="width:0%;background:${cor};"></div></div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    // Anima barras depois do render
+    setTimeout(() => {
+      document.querySelectorAll('.bk-fill, .comp-fill').forEach(el => {
+        el.style.width = el.dataset.pct + '%';
+      });
+    }, 200);
+  }
+
+  // critérios de avaliação são internos — candidato vê apenas resumo e pontos fortes
+
+  const tel = TEL.replace(/\D/g,'');
+  const msg = encodeURIComponent(`Olá! Sou ${NOME} e acabei de concluir a pré-entrevista para a vaga de ${dados.candidato.vaga} pela Agência Nexus. Aguardo o contato! 😊`);
+  const btnWa = document.getElementById('btnWa');
+  if (btnWa) {
+    if (tel) { btnWa.href = `https://wa.me/55${tel}?text=${msg}`; }
+    else { btnWa.style.display = 'none'; }
+  }
+
+  // ── BOTÃO FIT CULTURAL — montado aqui para aparecer imediatamente ──
+  try {
+    const up2  = new URLSearchParams(window.location.search);
+    const base = getBaseUrl(/entrevista\.html.*$/);
+    const nome   = encodeURIComponent(NOME);
+    const telEnc = encodeURIComponent(up2.get('tel') || TEL || '');
+    const emailEnc = encodeURIComponent(up2.get('email') || EMAIL || '');
+    const vaga   = encodeURIComponent(VAGA);
+    const canal  = encodeURIComponent(up2.get('canal') || '');
+    const d = up2.get('d') || (_discAutoData?.pct_d) || PCT.D;
+    const i = up2.get('i') || (_discAutoData?.pct_i) || PCT.I;
+    const s = up2.get('s') || (_discAutoData?.pct_s) || PCT.S;
+    const c = up2.get('c') || (_discAutoData?.pct_c) || PCT.C;
+    const fitScore = ia.fit_score || 0;
+    const fitNivel = ia.nivel || 'Médio';
+    // Salva dados pesados no sessionStorage — evita limite de URL
+    try {
+      sessionStorage.setItem('entrevista_dados', JSON.stringify(dados.entrevista));
+      sessionStorage.setItem('entrevista_ia', JSON.stringify({
+        resumo_candidato:    ia.resumo_candidato    || '',
+        resumo_admin:        ia.resumo_admin        || '',
+        recomendacao_admin:  ia.recomendacao_admin  || '',
+        pontos_fortes:       ia.pontos_fortes       || [],
+        pontos_atencao:      ia.pontos_atencao      || [],
+        requisitos_atendidos:ia.requisitos_atendidos|| [],
+        requisitos_ausentes: ia.requisitos_ausentes || [],
+      }));
+    } catch(e) { console.warn('sessionStorage write erro:', e); }
+    const fitResultUrl = base+'entrevista-resultado.html'
+      +'?nome='+nome+'&tel='+telEnc+'&email='+emailEnc+'&vaga='+vaga+'&canal='+canal
+      +'&perfil='+DOM+'&sec='+SEC+'&d='+d+'&i='+i+'&s='+s+'&c='+c
+      +'&fit='+fitScore+'&nivel='+encodeURIComponent(fitNivel);
+    window._fitResultUrl = fitResultUrl;
+    const btnFit  = document.getElementById('btnFitCultural');
+    const wrapFit = document.getElementById('fitBtnWrap');
+    if (btnFit && wrapFit) { btnFit.href = fitResultUrl; wrapFit.style.display = 'flex'; }
+  } catch(e) { console.warn('fitBtnWrap erro:', e); }
+}
+
+const WEB3FORMS_KEY='dafbb472-9f38-4d31-b464-42a6c14adec5';
+
+// ── E-MAIL UNIFICADO (DISC + Mini-Entrevista + Links) ──
+async function enviarEmailUnificado(dados, ia) {
+  try {
+    const up2  = new URLSearchParams(window.location.search);
+    const base = getBaseUrl(/entrevista\.html.*$/);
+
+    // Detecta se o candidato veio do DISC (tem perfil DOM/SEC real com valores > 0)
+    const temDISC = !!(up2.get('perfil') && parseInt(up2.get('d')||'0') > 0) || !!(_discAutoData && _discAutoData.pct_d > 0);
+
+    const nome   = encodeURIComponent(NOME);
+    const tel    = encodeURIComponent(up2.get('tel') || TEL || '');
+    const email  = encodeURIComponent(up2.get('email') || EMAIL || '');
+    const vaga   = encodeURIComponent(VAGA);
+    const canal  = encodeURIComponent(up2.get('canal') || '');
+    const d = up2.get('d') || (_discAutoData?.pct_d) || PCT.D;
+    const i = up2.get('i') || (_discAutoData?.pct_i) || PCT.I;
+    const s = up2.get('s') || (_discAutoData?.pct_s) || PCT.S;
+    const c = up2.get('c') || (_discAutoData?.pct_c) || PCT.C;
+    const rd = up2.get('rd') || (_discAutoData?.rd) || '';
+    const ri = up2.get('ri') || (_discAutoData?.ri) || '';
+    const rs = up2.get('rs') || (_discAutoData?.rs) || '';
+    const rc = up2.get('rc') || (_discAutoData?.rc) || '';
+    const tempo = up2.get('tempo') || (_discAutoData?.tempo) || '0';
+
+    const fitScore = ia.fit_score || 0;
+    const fitNivel = ia.nivel || 'Médio';
+    const conq = (dados.entrevista.conquistas||[]).join(' | ') || 'Não informado';
+    const tempoSeg = parseInt(tempo) || 0;
+    const tempoFmt = tempoSeg > 0 ? Math.floor(tempoSeg/60)+'min '+tempoSeg%60+'s' : 'Não registrado';
+
+    // URLs de resultado
+    const _dom = up2.get('perfil') || (_discAutoData?.dom) || DOM;
+    const _sec = up2.get('sec')    || (_discAutoData?.sec) || SEC;
+    const resultadoUrl = temDISC
+      ? base+'disc-resultado.html?nome='+nome+'&tel='+tel+'&email='+email+'&perfil='+_dom+'&sec='+_sec+'&d='+d+'&i='+i+'&s='+s+'&c='+c+'&rd='+rd+'&ri='+ri+'&rs='+rs+'&rc='+rc+'&vaga='+vaga+'&canal='+canal+'&tempo='+tempo
+      : '';
+    const relatorioUrl = temDISC
+      ? base+'disc-relatorio.html?nome='+nome+'&tel='+tel+'&email='+email+'&perfil='+_dom+'&sec='+_sec+'&d='+d+'&i='+i+'&s='+s+'&c='+c+'&rd='+rd+'&ri='+ri+'&rs='+rs+'&rc='+rc+'&vaga='+vaga+'&canal='+canal+'&tempo='+tempo
+      : '';
+
+    // Salva dados pesados no sessionStorage — evita limite de URL
+    try {
+      sessionStorage.setItem('entrevista_dados', JSON.stringify(dados.entrevista));
+      sessionStorage.setItem('entrevista_ia', JSON.stringify({
+        resumo_candidato:    ia.resumo_candidato    || '',
+        resumo_admin:        ia.resumo_admin        || '',
+        recomendacao_admin:  ia.recomendacao_admin  || '',
+        pontos_fortes:       ia.pontos_fortes       || [],
+        pontos_atencao:      ia.pontos_atencao      || [],
+        requisitos_atendidos:ia.requisitos_atendidos|| [],
+        requisitos_ausentes: ia.requisitos_ausentes || [],
+      }));
+    } catch(e) { console.warn('sessionStorage write erro:', e); }
+
+    // URL completa — sem dados inline (ficam no sessionStorage)
+    const fitResultUrl = base+'entrevista-resultado.html'
+      +'?nome='+nome+'&tel='+tel+'&email='+email+'&vaga='+vaga+'&canal='+canal
+      +'&perfil='+DOM+'&sec='+SEC+'&d='+d+'&i='+i+'&s='+s+'&c='+c
+      +'&fit='+fitScore+'&nivel='+encodeURIComponent(fitNivel)
+      +(resultadoUrl ? '&disc_url='+encodeURIComponent(resultadoUrl) : '');
+
+    // URL curta — vai no email (sem dados inline, abre e busca do Supabase)
+    const fitResultUrlEmail = base+'entrevista-resultado.html'
+      +'?nome='+nome+'&tel='+tel+'&email='+email+'&vaga='+vaga+'&canal='+canal
+      +'&perfil='+DOM+'&sec='+SEC+'&d='+d+'&i='+i+'&s='+s+'&c='+c
+      +'&fit='+fitScore+'&nivel='+encodeURIComponent(fitNivel);
+
+    // ── CORPO DO EMAIL ──
+    const linhas = [
+      '══════════════════════════════════════',
+      temDISC ? '  DISC + ENTREVISTA — CANDIDATURA COMPLETA' : '  ENTREVISTA — CANDIDATURA',
+      '══════════════════════════════════════',
+      'Candidato : '+NOME,
+      'Vaga      : '+VAGA,
+      'Telefone  : '+(up2.get('tel') || '--'),
+      'Data      : '+dados.data+' às '+dados.hora,
+      '',
+    ];
+
+    if (temDISC) {
+      linhas.push(
+        '──────── PERFIL DISC ────────',
+        'Dominante : '+DOM+' | Secundário: '+SEC,
+        'Escala    : D:'+d+'%  I:'+i+'%  S:'+s+'%  C:'+c+'%',
+        'Tempo de resposta: '+tempoFmt,
+        '',
+      );
+    }
+
+    linhas.push(
+      '──────── FIT CULTURAL ────────',
+      'Fit Score : '+fitScore+'% ('+fitNivel+')',
+      'Recomendação: '+(ia.recomendacao_admin || '--'),
+      'Pontos fortes: '+(ia.pontos_fortes||[]).join(' | '),
+      'Pontos de atenção: '+(ia.pontos_atencao||[]).join(' | '),
+      '',
+      '──────── ANÁLISE ADMIN ────────',
+      ia.resumo_admin || '--',
+      '',
+      '──────── ENTREVISTA ────────',
+      'Trajetória:',
+      dados.entrevista.historia || '--',
+      '',
+      'Exp. específica: '+(dados.entrevista.exp_vaga || '--'),
+      'Área: '+(dados.entrevista.area || '--')+' | Tempo: '+(dados.entrevista.exp_total || '--'),
+      'Conquistas: '+conq,
+      'Diferencial: '+(dados.entrevista.diferencial || '--'),
+      'Motivação: '+(dados.entrevista.motivacao || '--'),
+      '',
+      '──────── COMPETÊNCIAS COMPORTAMENTAIS ────────',
+      'Comunicação: '+(dados.entrevista.competencias?.comunicacao || '--'),
+      'Resiliência: '+(dados.entrevista.competencias?.resiliencia || '--'),
+      'Trabalho em Equipe: '+(dados.entrevista.competencias?.equipe || '--'),
+      'Foco em Resultados: '+(dados.entrevista.competencias?.resultados || '--'),
+      '',
+      '══════════════════════════════════════',
+      '🎯  FIT CULTURAL — RESULTADO:',
+      fitResultUrl,
+      '',
+    );
+
+    if (temDISC) {
+      linhas.push(
+        '🧠  RESULTADO DISC:',
+        resultadoUrl,
+        '',
+        '📄  RELATÓRIO DISC:',
+        relatorioUrl,
+        '',
+      );
+    }
+    linhas.push('══════════════════════════════════════');
+
+    const corpo = linhas.join('\n');
+
+    const assunto = temDISC
+      ? '🧠 DISC+ENTREVISTA — '+NOME+' — '+VAGA+' — Fit: '+fitScore+'% ('+fitNivel+')'
+      : '✍️ ENTREVISTA — '+NOME+' — '+VAGA+' — Fit: '+fitScore+'% ('+fitNivel+')';
+
+    const payload = {
+      access_key: WEB3FORMS_KEY,
+      to:         'bancodetalentosnexus@gmail.com',
+      from_name:  'Sistema Agência Nexus — Recrutamento',
+      subject:    assunto,
+      message:    'Candidato: '+NOME+'\nVaga: '+VAGA+'\nFit Score: '+fitScore+'% ('+fitNivel+')\nTelefone: '+(up2.get('tel')||TEL||'--')+'\nData: '+dados.data+' às '+dados.hora+'\n\n🎯 FIT CULTURAL — RESULTADO:\n'+fitResultUrlEmail+(resultadoUrl?'\n\n🧠 RESULTADO DISC:\n'+resultadoUrl+'\n\n📄 RELATÓRIO DISC:\n'+relatorioUrl:''),
+    };
+
+    // Adicionar campos DISC apenas se fez o teste
+    if (temDISC) {
+      payload.perfil_disc  = DOM+'+'+SEC+'  D:'+d+'% I:'+i+'% S:'+s+'% C:'+c+'%';
+      payload.tempo_disc   = tempoFmt;
+      payload.link_resultado_disc = resultadoUrl;
+      payload.link_relatorio_disc = relatorioUrl;
+    }
+
+// ── Canal 1: Web3Forms ──
+    let emailOk = false;
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      console.log("EMAIL Web3Forms STATUS:", data);
+      if (data.success) emailOk = true;
+    } catch(e) { console.warn('Web3Forms erro:', e); }
+
+    // ── Canal 2: FormSubmit (backup sem limite) ──
+    if (!emailOk) {
+      try {
+        const fd = new FormData();
+        fd.append('_subject', payload.subject);
+        fd.append('_captcha', 'false');
+        fd.append('_template', 'table');
+        fd.append('nome', NOME);
+        fd.append('vaga', VAGA);
+        fd.append('fit_score', String(payload.fit_score || ''));
+        fd.append('fit_nivel', String(payload.nivel || ''));
+        fd.append('telefone', String(payload.telefone || ''));
+        fd.append('link_fit_cultural', fitResultUrlEmail);
+        if (resultadoUrl) fd.append('link_resultado_disc', resultadoUrl);
+        if (relatorioUrl) fd.append('link_relatorio_disc', relatorioUrl);
+        fd.append('mensagem_completa', payload.message || '');
+        const res2 = await fetch('https://formsubmit.co/bancodetalentosnexus@gmail.com', {
+          method: 'POST',
+          body: fd,
+        });
+        console.log("EMAIL FormSubmit STATUS:", res2.status, res2.ok);
+        if (res2.ok) emailOk = true;
+      } catch(e) { console.warn('FormSubmit erro:', e); }
+    }
+
+    console.log('Email enviado:', emailOk ? '✅ Sucesso' : '❌ Falhou nos dois canais');
+
+  } catch(e) { console.warn('enviarEmailUnificado erro:', e); }
+}
+
+// ── CANDIDATURA: abre candidatura-canais.html com todos os dados ──
+function irParaCandidatura() {
+  const up2  = new URLSearchParams(window.location.search);
+  const base = getBaseUrl(/entrevista\.html.*$/);
+
+  const _n   = encodeURIComponent(NOME || up2.get('nome') || '');
+  const _v   = encodeURIComponent(VAGA || up2.get('vaga') || '');
+  const _t   = encodeURIComponent(TEL  || up2.get('tel')  || '');
+  const _e   = encodeURIComponent(EMAIL|| up2.get('email')|| '');
+  const _dom = up2.get('perfil') || up2.get('dom') || DOM || '';
+  const _sec = up2.get('sec') || SEC || '';
+  const _d   = up2.get('d')   || String(PCT.D||'0');
+  const _i   = up2.get('i')   || String(PCT.I||'0');
+  const _s   = up2.get('s')   || String(PCT.S||'0');
+  const _c   = up2.get('c')   || String(PCT.C||'0');
+  const _canal = encodeURIComponent(up2.get('canal') || '');
+  const _canais = encodeURIComponent(up2.get('canais') || '');
+
+  // Lê fit do window se já calculado
+  const fitScore = window._lastFitScore || up2.get('fit') || '';
+  const fitNivel = window._lastFitNivel || up2.get('nivel') || '';
+
+  const url = base + 'candidatura-canais.html'
+    + '?nome='           + _n
+    + '&vaga='           + _v
+    + '&tel='            + _t
+    + '&email='          + _e
+    + '&perfil='         + encodeURIComponent(_dom)
+    + '&sec='            + encodeURIComponent(_sec)
+    + '&d=' + _d + '&i=' + _i + '&s=' + _s + '&c=' + _c
+    + '&canal='          + _canal
+    + (_canais ? '&canais=' + _canais : '')
+    + (fitScore ? '&fit=' + fitScore : '')
+    + (fitNivel ? '&nivel=' + encodeURIComponent(fitNivel) : '')
+    + (CANDIDATO_ID ? '&candidato_id=' + encodeURIComponent(CANDIDATO_ID) : '')
+    + '&entrevista_ok=1';
+
+  window.location.href = url;
+}
+
+// ── LEGACY: mantida para compatibilidade ──
+async function enviarEmailEntrevista(dados, ia) {
+  return enviarEmailUnificado(dados, ia);
+}
+
+async function enviarDadosEFechar(){
+  // Email já enviado em salvar() — redireciona para canais de candidatura
+  irParaCandidatura();
+}
+
+// ── NOVO: Envia análise IA em background + redireciona para candidatura ──
+async function enviarAnalisseECandidatura() {
+  const dados = coletarDados();
+  if (dados.entrevista.historia.length < 50) {
+    toast('Preencha sua trajetória antes de enviar!','erro');
+    irPara(1); return;
+  }
+  const motWords = dados.entrevista.motivacao.split(/\s+/).filter(w => w.length > 0).length;
+  if (motWords < 15) {
+    toast('Preencha sua motivação com pelo menos 15 palavras antes de enviar!','erro');
+    irPara(3); return;
+  }
+
+  const btn = document.getElementById('btnTudo');
+  if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Enviando...'; }
+  const avisoEl = document.getElementById('avisoAguardar');
+  if (avisoEl) avisoEl.style.display = 'block';
+
+  toast('⏳ Enviando análise em segundo plano...', 'ok');
+
+  // Dispara análise + email + salvar em background (sem mostrar tela IA)
+  try {
+    const _emailParaDisc = document.getElementById('emailInput')?.value.trim() || EMAIL || '';
+    if (_emailParaDisc && !EMAIL) EMAIL = _emailParaDisc;
+    const _nomeParaDisc = NOME !== 'Candidato' ? NOME : '';
+    await buscarDiscCandidato(_nomeParaDisc, _emailParaDisc, VAGA);
+
+    let contextoVaga = `TÍTULO DA VAGA: ${VAGA}`;
+    if (vagaData) {
+      if (vagaData.descricao) contextoVaga += `\n\nDESCRIÇÃO DA VAGA:\n${vagaData.descricao}`;
+      if (vagaData.requisitos) contextoVaga += `\n\nREQUISITOS DA VAGA:\n${vagaData.requisitos}`;
+    }
+    const padroesContratados = await buscarPadroesContratados();
+    if (padroesContratados) contextoVaga += padroesContratados;
+
+    let ia;
+    try {
+      ia = await analisarComIA(dados, contextoVaga);
+    } catch(e) {
+      ia = calcularFitLocal(dados, vagaData);
+    }
+
+    dados.analise = ia;
+    window._lastFitScore = ia.fit_score || 0;
+    window._lastFitNivel = ia.nivel || '';
+
+    // Salva no Supabase + envia email em background
+    window._entrevistaSalvarPromise = salvar(dados, ia).catch(e => console.warn('salvar:', e));
+
+    toast('✅ Análise enviada! Redirecionando para candidatura...', 'ok');
+  } catch(e) {
+    console.warn('enviarAnalisseECandidatura erro análise:', e);
+    toast('⚠️ Análise falhou, seguindo para candidatura...', 'ok');
+  }
+
+  // Redireciona para candidatura após pequeno delay
+  setTimeout(() => irParaCandidatura(), 1500);
+}
+
+function fechar(){
+  _concluirERedirecionarParaVagas();
+}
+
+// Sinaliza conclusão total e volta para vagas.html para abrir modal de currículo
+async function _concluirERedirecionarParaVagas(){
+  try{ localStorage.removeItem('entrevista_concluida'); }catch(e){}
+  try{ localStorage.setItem('entrevista_concluida','1'); }catch(e){}
+
+  const up2   = new URLSearchParams(window.location.search);
+  const canal  = up2.get('canal')  || '';
+  const vaga   = up2.get('vaga')   || VAGA;
+
+  // Monta URL absoluta de retorno baseada na localização atual da entrevista
+  const base   = getBaseUrl(/entrevista\.html.*$/);
+  const retornoRaw = up2.get('retorno') || 'vagas.html';
+  // Se retorno já é absoluto usa direto, senão concatena com base
+  const retorno = retornoRaw.startsWith('http') ? retornoRaw : base + retornoRaw;
+
+  try{ await window._entrevistaSalvarPromise; }catch(e){}
+  window.location.href = retorno
+    + (retorno.includes('?') ? '&' : '?')
+    + `abrir_modal=1&canal=${encodeURIComponent(canal)}&vaga=${encodeURIComponent(vaga)}`;
+}
+function toast(msg, tipo='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (tipo === 'erro' ? ' erro' : '');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.classList.remove('show'); }, 3200);
+}
+</script>
+</body>
+</html>

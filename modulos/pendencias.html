@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<script src="../nexus-security.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#92400e;--accent:#f59e0b;
+  --bg:#0a0a0a;--card:#131313;
+  --border:rgba(245,158,11,0.15);--border2:rgba(245,158,11,0.3);
+  --text:#f0f0f0;--muted:#777;--muted2:#444;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(245,158,11,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+
+/* HEADER */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.title span{color:var(--accent);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-blue{background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);}.btn-blue:hover{background:rgba(52,152,219,0.18);}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+
+/* STATS BAR */
+#statsBar{background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:14px;padding:0.9rem 1.2rem;margin-bottom:1.2rem;display:none;gap:1.5rem;flex-wrap:wrap;align-items:center;}
+.stat-item{display:flex;flex-direction:column;gap:0.05rem;}
+.stat-val{font-size:1.1rem;font-weight:900;}
+.stat-lbl{font-size:0.58rem;color:#888;text-transform:uppercase;letter-spacing:1px;}
+.loading-txt{text-align:center;padding:1.5rem;color:var(--muted);font-size:0.82rem;}
+
+/* FILTROS */
+.filtros-wrap{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.filtros-wrap input,.filtros-wrap select{background:#131313;border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.52rem 0.85rem;color:#f0f0f0;font-family:inherit;font-size:0.8rem;outline:none;transition:border-color 0.2s;}
+.filtros-wrap input:focus,.filtros-wrap select:focus{border-color:var(--accent);}
+.filtros-wrap input{flex:1;min-width:200px;max-width:300px;}
+.filtros-wrap select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.7rem center;padding-right:2rem;}
+.filtros-wrap select option{background:#161616;color:#f0f0f0;}
+.count-txt{font-size:0.72rem;color:var(--muted);align-self:center;}
+
+/* CARDS */
+.cand-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem 1.1rem;position:relative;transition:border-color 0.2s;}
+.cand-card:hover{border-color:var(--border2);}
+.cand-card-inner{display:flex;align-items:flex-start;gap:0.85rem;}
+.cand-avatar{width:40px;height:40px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;cursor:pointer;}
+.cand-info{flex:1;min-width:0;}
+.cand-nome{font-size:0.92rem;font-weight:800;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cand-meta{font-size:0.72rem;color:var(--muted);margin-top:0.1rem;}
+.cand-chips{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.45rem;}
+.chip{font-size:0.67rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:99px;border:1px solid;}
+.fit-bar-row{display:flex;align-items:center;gap:0.45rem;margin-top:0.3rem;}
+.fit-bar-lbl{font-size:0.58rem;font-weight:700;width:52px;flex-shrink:0;}
+.fit-bar-track{flex:1;height:5px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;}
+.fit-bar-fill{height:100%;border-radius:99px;}
+.fit-bar-pct{font-size:0.65rem;font-weight:700;width:30px;text-align:right;}
+.cand-foot{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:0.65rem;padding-top:0.6rem;border-top:1px solid rgba(255,255,255,0.05);}
+.btn-sm{font-family:inherit;font-size:0.66rem;font-weight:700;border-radius:7px;padding:0.25rem 0.55rem;border:1px solid;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-flex;align-items:center;gap:0.2rem;}
+.btn-sm:hover{opacity:0.82;}
+.cands-grid{display:flex;flex-direction:column;gap:0.65rem;}
+.del-btn{position:absolute;top:0.6rem;right:0.6rem;background:none;border:none;color:rgba(231,76,60,0.3);font-size:1rem;cursor:pointer;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all 0.15s;}
+.del-btn:hover{background:rgba(231,76,60,0.12);color:#e74c3c;}
+
+/* STATUS CONTATO */
+.status-contato-sel{font-family:inherit;font-size:0.62rem;font-weight:700;border-radius:99px;padding:0.1rem 0.55rem;border:1px solid;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;transition:all 0.18s;background-image:none;}
+.status-contato-sel.sc-pendente{background:rgba(119,119,119,0.13);border-color:rgba(119,119,119,0.3);color:#888;}
+.status-contato-sel.sc-respondeu{background:rgba(46,204,113,0.13);border-color:rgba(46,204,113,0.35);color:#2ecc71;}
+.status-contato-sel.sc-nao_respondeu{background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.3);color:#e74c3c;}
+.status-contato-sel.sc-sem_retorno{background:rgba(243,156,18,0.12);border-color:rgba(243,156,18,0.3);color:#f39c12;}
+.status-contato-sel.sc-pendencia_docs{background:rgba(52,152,219,0.12);border-color:rgba(52,152,219,0.3);color:#3498db;}
+.status-contato-sel.sc-pendencia_info{background:rgba(167,139,250,0.13);border-color:rgba(167,139,250,0.35);color:#a78bfa;}
+.status-contato-sel option{background:#1a1a1a;color:#f0f0f0;}
+
+/* PENDENCIA TIPO TAG */
+.pend-tag{font-size:0.62rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:99px;border:1px solid;display:inline-flex;align-items:center;gap:0.22rem;}
+
+/* MODAL PERFIL */
+.perfil-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:1rem;overflow:hidden;}
+.perfil-box{background:#111;border:1px solid rgba(245,158,11,0.22);border-radius:20px;width:100%;max-width:700px;position:relative;display:flex;flex-direction:column;max-height:calc(100vh - 2rem);min-height:0;}
+.perfil-hdr{padding:1.2rem 1.6rem 0.9rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:flex-start;gap:0.9rem;flex-shrink:0;}
+.perfil-avatar-lg{width:48px;height:48px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.perfil-body{padding:1rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:0.85rem;overflow-y:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:rgba(245,158,11,0.3) transparent;}
+.perfil-body::-webkit-scrollbar{width:4px;}
+.perfil-body::-webkit-scrollbar-thumb{background:rgba(245,158,11,0.3);border-radius:99px;}
+.perfil-sec{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem 1.1rem;}
+.perfil-sec-title{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.4rem;}
+.perfil-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.perfil-inp:focus{border-color:var(--accent);}
+.perfil-inp::placeholder{color:#555;}
+.perfil-inp.ta{resize:vertical;min-height:64px;font-size:0.78rem;line-height:1.5;}
+select.perfil-inp{background-color:#1a1a1a;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;padding-right:2.2rem;-webkit-appearance:none;appearance:none;cursor:pointer;}
+select.perfil-inp option{background:#1e1e1e;color:#f0f0f0;}
+.perfil-lbl{font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;}
+.perfil-save-btn{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:9px;padding:0.6rem 1.2rem;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;width:100%;}
+.perfil-save-btn:hover{opacity:0.88;}
+.perfil-save-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.tag-ok{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.22);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#2ecc71;}
+.tag-warn{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(243,156,18,0.1);border:1px solid rgba(243,156,18,0.22);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#f39c12;}
+
+/* MODAIS GENÉRICOS */
+.overlay-modal{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.modal-box{background:#161616;border:1px solid var(--border2);border-radius:24px;padding:2rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;position:relative;}
+.modal-box h3{font-size:1.1rem;font-weight:800;margin-bottom:0.3rem;}
+.modal-sub{font-size:0.8rem;color:var(--muted);margin-bottom:1.2rem;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;color:var(--muted);font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:#fff;}
+.vaga-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.vaga-input:focus{border-color:var(--accent);}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:#2ecc71;color:#fff;font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:700;padding:0.7rem 1.6rem;border-radius:99px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:99999;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.erro{background:#e74c3c;}
+
+/* ANOTAÇÃO DE PENDÊNCIA */
+.pend-nota-area{width:100%;background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.18);border-radius:9px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.78rem;outline:none;resize:vertical;min-height:60px;line-height:1.5;transition:border-color 0.2s;}
+.pend-nota-area:focus{border-color:var(--accent);}
+.pend-nota-area::placeholder{color:#555;}
+
+/* PAINEL DE RETORNADOS */
+.retornados-painel{background:rgba(46,204,113,0.04);border:1px solid rgba(46,204,113,0.18);border-radius:16px;padding:1rem 1.2rem;margin-top:1.5rem;}
+.retornados-hdr{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.retornados-hdr-title{font-size:0.8rem;font-weight:800;color:#2ecc71;display:flex;align-items:center;gap:0.5rem;}
+.retornados-toggle{background:none;border:none;color:#2ecc71;font-size:0.75rem;cursor:pointer;transition:transform 0.22s;}
+.retornados-toggle.collapsed{transform:rotate(-90deg);}
+
+@media(max-width:640px){
+  .page{padding:1rem 0.85rem 5rem;}
+  .hero{flex-direction:column;align-items:flex-start;gap:0.8rem;}
+  .hero > div:last-child{width:100%;display:flex;gap:0.4rem;flex-wrap:wrap;}
+  .title{font-size:1.2rem;}
+  #statsBar{gap:0.8rem;padding:0.75rem 0.9rem;}
+  .filtros-wrap{flex-direction:column;gap:0.45rem;}
+  .filtros-wrap input{min-width:unset;max-width:100%;width:100%;}
+  .filtros-wrap select{width:100%;}
+  .cand-card{padding:0.85rem 0.9rem;}
+  .perfil-overlay{padding:0.5rem;}
+  .perfil-box{max-height:calc(100vh - 1rem);border-radius:16px;}
+  .overlay-modal{padding:0.5rem;align-items:flex-end;}
+  .modal-box{border-radius:20px 20px 0 0;padding:1.4rem 1.2rem 2rem;}
+  .toast{width:90%;text-align:center;}
+}
+@media(hover:none){
+  .btn-sm{padding:0.38rem 0.65rem;font-size:0.68rem;}
+  .filtros-wrap input,.filtros-wrap select{padding:0.65rem 0.9rem;font-size:0.85rem;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Candidatos · ATS</div>
+      <div class="title">⏳ <span>Pendências</span></div>
+      <div class="sub">Candidatos que não responderam mensagens ou possuem pendências de documentos / informações.</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+      <button class="btn btn-accent" onclick="abrirModalAdicionarBanco()">+ Adicionar do Banco</button>
+      <button class="btn btn-blue" id="btnAtualizar" onclick="atualizarPendencias()">↺ Atualizar</button>
+      <button class="btn btn-ghost" onclick="window.parent.postMessage({tipo:'nexus_navegar',mod:'banco-talentos'},'*')">← Banco de Talentos</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div id="statsBar">
+    <div class="stat-item"><strong class="stat-val" id="stTotal" style="color:var(--accent);">—</strong><span class="stat-lbl">Total</span></div>
+    <div class="stat-item"><strong class="stat-val" id="stNaoResp" style="color:#e74c3c;">—</strong><span class="stat-lbl">Não respondeu</span></div>
+    <div class="stat-item"><strong class="stat-val" id="stSemRet" style="color:#f39c12;">—</strong><span class="stat-lbl">Sem retorno</span></div>
+    <div class="stat-item"><strong class="stat-val" id="stPendDocs" style="color:#3498db;">—</strong><span class="stat-lbl">Pend. docs</span></div>
+    <div class="stat-item"><strong class="stat-val" id="stPendInfo" style="color:#a78bfa;">—</strong><span class="stat-lbl">Pend. info</span></div>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="filtros-wrap">
+    <input type="text" id="fNome" placeholder="🔍 Buscar por nome ou vaga…" oninput="filtrar()"/>
+    <select id="fTipo" onchange="filtrar()">
+      <option value="">Todos os tipos</option>
+      <option value="nao_respondeu">❌ Não respondeu</option>
+      <option value="sem_retorno">⏳ Sem retorno</option>
+      <option value="pendencia_docs">📁 Pendência docs</option>
+      <option value="pendencia_info">📋 Pendência info</option>
+    </select>
+    <select id="fPerfil" onchange="filtrar()">
+      <option value="">Todos os perfis</option>
+      <option value="D">D — Dominância</option>
+      <option value="I">I — Influência</option>
+      <option value="S">S — Estabilidade</option>
+      <option value="C">C — Conformidade</option>
+    </select>
+    <span class="count-txt" id="cCount"></span>
+  </div>
+
+  <!-- LISTA -->
+  <div id="listWrap"><p class="loading-txt">⏳ Carregando candidatos…</p></div>
+
+  <!-- PAINEL: RETORNARAM / RESOLVIDOS -->
+  <div id="retornadosPainel" style="display:none;" class="retornados-painel">
+    <div class="retornados-hdr" onclick="toggleRetornados()">
+      <div class="retornados-hdr-title">
+        <span>✅</span>
+        <span>Resolvidos / Retornaram ao Banco</span>
+        <span id="retornadosCount" style="font-size:0.68rem;color:#2ecc71;background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.25);border-radius:99px;padding:0.08rem 0.5rem;">0</span>
+      </div>
+      <button class="retornados-toggle" id="retornadosToggleIco">▼</button>
+    </div>
+    <div id="retornadosListWrap" style="margin-top:0.85rem;"></div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- ══ MODAL: PERFIL CANDIDATO ══ -->
+<div class="perfil-overlay" id="modalPerfil" style="display:none;" onclick="if(event.target===this)fecharPerfil()">
+  <div class="perfil-box">
+    <button onclick="fecharPerfil()" style="position:absolute;top:0.9rem;right:0.9rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.9rem;display:flex;align-items:center;justify-content:center;z-index:1;">✕</button>
+    <div class="perfil-hdr">
+      <div class="perfil-avatar-lg" id="pAv" style="border-color:#888;">⬜</div>
+      <div style="flex:1;min-width:0;padding-right:2rem;">
+        <div style="font-size:1rem;font-weight:900;" id="pNome">—</div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:0.08rem;" id="pMeta">—</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.5rem;" id="pChips"></div>
+      </div>
+    </div>
+    <div class="perfil-body">
+
+      <!-- BLOCO DE PENDÊNCIA -->
+      <div class="perfil-sec" style="border-color:rgba(245,158,11,0.3);">
+        <div class="perfil-sec-title" style="color:var(--accent);">⏳ Pendência</div>
+        <div style="margin-bottom:0.6rem;">
+          <label class="perfil-lbl">Tipo de pendência</label>
+          <select id="pTipoPend" class="perfil-inp" onchange="salvarStatusContato()" style="background-color:#1a1a1a;">
+            <option value="">— Sem status —</option>
+            <option value="nao_respondeu">❌ Não respondeu</option>
+            <option value="sem_retorno">⏳ Sem retorno</option>
+            <option value="pendencia_docs">📁 Pendência de documentos</option>
+            <option value="pendencia_info">📋 Pendência de informações</option>
+            <option value="respondeu">✅ Respondeu (resolver)</option>
+          </select>
+        </div>
+        <div style="margin-bottom:0.6rem;">
+          <label class="perfil-lbl">Anotação sobre a pendência</label>
+          <textarea id="pNotaPend" class="pend-nota-area" placeholder="Ex: Enviamos mensagem no WhatsApp em 12/04 — sem resposta. Tentar novamente em 20/04…"></textarea>
+        </div>
+        <button onclick="salvarNotaPendencia()" class="perfil-save-btn" style="background:linear-gradient(135deg,var(--primary),var(--accent));">💾 Salvar anotação</button>
+        <div id="pNotaSaveMsg" style="display:none;text-align:center;font-size:0.7rem;color:#2ecc71;margin-top:0.4rem;font-weight:700;">✓ Anotação salva!</div>
+        <!-- Ação rápida -->
+        <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#2ecc71;margin-bottom:0.45rem;">⚡ Ação rápida</div>
+          <button onclick="resolverPendencia()" style="width:100%;background:rgba(46,204,113,0.1);color:#2ecc71;border:1px solid rgba(46,204,113,0.3);border-radius:9px;padding:0.55rem;font-family:inherit;font-size:0.8rem;font-weight:700;cursor:pointer;">✅ Marcar como resolvido — Retornar ao Banco</button>
+        </div>
+      </div>
+
+      <!-- DADOS DE CONTATO -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">📞 Contato</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div>
+            <label class="perfil-lbl">E-mail</label>
+            <div style="display:flex;gap:0.28rem;">
+              <input type="email" id="pEmail" class="perfil-inp" placeholder="candidato@email.com" style="flex:1;min-width:0;" autocomplete="off"/>
+              <button onclick="var e=document.getElementById('pEmail').value.trim();if(e)window.open('mailto:'+e);else mostrarToast('Preencha o e-mail',true);" style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);border-radius:8px;padding:0 0.6rem;font-size:1rem;cursor:pointer;flex-shrink:0;">✉️</button>
+            </div>
+          </div>
+          <div>
+            <label class="perfil-lbl">WhatsApp</label>
+            <div style="display:flex;gap:0.28rem;">
+              <input id="pTel" class="perfil-inp" placeholder="(51) 9 9999-9999" maxlength="16" oninput="mascaraTel(this)" style="flex:1;min-width:0;" autocomplete="off"/>
+              <button onclick="var n=document.getElementById('pTel').value.replace(/\D/g,'');if(n)window.top.open('https://wa.me/55'+n+'?text='+encodeURIComponent('Olá, aqui é da Agência Nexus!'));else mostrarToast('Preencha o telefone',true);" style="background:rgba(37,211,102,0.15);color:#25D366;border:1px solid rgba(37,211,102,0.3);border-radius:8px;padding:0 0.6rem;font-size:1rem;cursor:pointer;flex-shrink:0;">💬</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+          <div>
+            <label class="perfil-lbl">LinkedIn</label>
+            <div style="display:flex;gap:0.28rem;">
+              <input id="pLinkExt" class="perfil-inp" placeholder="https://linkedin.com/in/…" style="flex:1;min-width:0;" autocomplete="off"/>
+              <button onclick="var l=document.getElementById('pLinkExt').value.trim();if(l)window.open(l);" style="background:rgba(10,102,194,0.15);color:#0A66C2;border:1px solid rgba(10,102,194,0.3);border-radius:8px;padding:0 0.6rem;font-size:1rem;cursor:pointer;flex-shrink:0;">🔗</button>
+            </div>
+          </div>
+          <div>
+            <label class="perfil-lbl">Currículo (link)</label>
+            <div style="display:flex;gap:0.28rem;">
+              <input id="pCurriculo" class="perfil-inp" placeholder="https://drive.google.com/…" style="flex:1;min-width:0;" autocomplete="off"/>
+              <button onclick="var c=document.getElementById('pCurriculo').value.trim();if(c)window.open(c);" style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);border-radius:8px;padding:0 0.6rem;font-size:1rem;cursor:pointer;flex-shrink:0;">📄</button>
+            </div>
+          </div>
+        </div>
+        <button onclick="salvarContato()" class="perfil-save-btn">💾 Salvar contato</button>
+        <div id="pContatoMsg" style="display:none;text-align:center;font-size:0.7rem;color:#2ecc71;margin-top:0.4rem;font-weight:700;">✓ Contato salvo!</div>
+      </div>
+
+      <!-- DISC / SCORES -->
+      <div class="perfil-sec" id="pDiscWrap">
+        <div class="perfil-sec-title">🧠 Perfil DISC & Scores</div>
+        <div id="pDiscConteudo" style="font-size:0.78rem;color:#777;">—</div>
+      </div>
+
+      <!-- OBSERVAÇÃO DO RECRUTADOR -->
+      <div class="perfil-sec">
+        <div class="perfil-sec-title">📝 Observação do Recrutador</div>
+        <textarea id="pObs" class="perfil-inp ta" placeholder="Notas sobre tentativas de contato, contexto da pendência…"></textarea>
+        <button onclick="salvarObsRecrutador()" style="margin-top:0.5rem;width:100%;background:rgba(245,158,11,0.1);color:var(--accent);border:1px solid rgba(245,158,11,0.25);border-radius:9px;padding:0.45rem;font-family:inherit;font-size:0.75rem;font-weight:700;cursor:pointer;">💾 Salvar observação</button>
+        <div id="pObsMsg" style="display:none;text-align:center;font-size:0.7rem;color:#2ecc71;margin-top:0.3rem;font-weight:700;">✓ Salvo!</div>
+      </div>
+
+      <!-- PARECER FINAL (herda do banco-talentos) -->
+      <div class="perfil-sec" id="pParecerWrap" style="display:none;border-color:rgba(167,139,250,0.25);">
+        <div class="perfil-sec-title" style="color:#a78bfa;">📋 Parecer Final</div>
+        <div id="pParecerConteudo"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: CONFIRMAR REMOVER DA LISTA ══ -->
+<div class="overlay-modal" id="modalRemover" style="display:none;" onclick="if(event.target===this)fecharModalRemover()">
+  <div class="modal-box" style="max-width:360px;text-align:center;">
+    <button class="modal-close" onclick="fecharModalRemover()">✕</button>
+    <div style="font-size:2rem;margin-bottom:0.5rem;">↩️</div>
+    <h3 style="margin-bottom:0.25rem;">Remover das Pendências?</h3>
+    <p class="modal-sub"><strong id="remNome" style="color:#f0f0f0;">—</strong> retornará ao Banco de Talentos.</p>
+    <div style="display:flex;gap:0.7rem;">
+      <button onclick="confirmarRemover()" style="flex:1;background:rgba(46,204,113,0.15);color:#2ecc71;border:1px solid rgba(46,204,113,0.3);border-radius:11px;padding:0.75rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;">✅ Confirmar</button>
+      <button onclick="fecharModalRemover()" style="background:rgba(255,255,255,0.06);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.75rem 1rem;font-family:inherit;font-size:0.82rem;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══ MODAL: ADICIONAR DO BANCO ══ -->
+<div class="overlay-modal" id="modalAdicionarBanco" style="display:none;" onclick="if(event.target===this)fecharModalAdicionarBanco()">
+  <div class="modal-box" style="max-width:540px;max-height:85vh;display:flex;flex-direction:column;padding:1.5rem;">
+    <button class="modal-close" onclick="fecharModalAdicionarBanco()">✕</button>
+    <h3 style="margin-bottom:0.2rem;">⏳ Adicionar do Banco</h3>
+    <p class="modal-sub" style="margin-bottom:0.8rem;">Selecione candidatos do Banco de Talentos para mover para Pendências.</p>
+    <input type="text" id="bancoBuscaInput" placeholder="🔍 Buscar por nome ou vaga…" oninput="filtrarBancoModal()"
+      style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:0.55rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.82rem;outline:none;margin-bottom:0.75rem;transition:border-color 0.2s;"
+      onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"/>
+    <div id="bancoCandsList" style="overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:0.4rem;min-height:120px;scrollbar-width:thin;scrollbar-color:rgba(245,158,11,0.3) transparent;">
+      <p style="text-align:center;color:#666;font-size:0.8rem;padding:1.5rem;">⏳ Carregando…</p>
+    </div>
+    <div id="bancoCandCount" style="font-size:0.68rem;color:#666;text-align:right;margin-top:0.5rem;"></div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   PENDÊNCIAS — Agência Nexus ATS
+   Candidatos que não responderam / têm docs ou
+   informações pendentes. Herda disc_historico.
+   Tabela de assign: pendencias_assign
+══════════════════════════════════════════ */
+
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+
+const SB_PEND = 'pendencias_assign'; // tabela de assign: { cand_id TEXT PRIMARY KEY, tipo TEXT, nota TEXT, atualizado_em TIMESTAMPTZ }
+
+/* ══ Estado global ══ */
+let _allCands  = [];       // todos os candidatos do disc_historico
+let _pendIds   = new Set();// IDs que estão em pendencias_assign
+let _pendMeta  = {};       // { candId: { tipo, nota } }
+let _perfilAtual = null;
+let _removerCandId = null;
+let _retornadosAberto = true;
+
+/* ══ DISC helpers ══ */
+const COR  = {D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+const EMO  = {D:'🔴',I:'🟡',S:'🟢',C:'🔵'};
+const COMBOS = {DI:'Executor',DD:'Realizador',IS:'Comunicador',II:'Promotor',SC:'Analista',SS:'Especialista',CD:'Perfeccionista',CC:'Pensador',DS:'Determinado',DC:'Estrategista',ID:'Persuasivo',IC:'Diplomatico',SD:'Conselheiro',SI:'Apoiador',CS:'Metódico',CI:'Meticuloso'};
+const _SC_LABELS = {nao_respondeu:'❌ Não respondeu',sem_retorno:'⏳ Sem retorno',pendencia_docs:'📁 Pend. docs',pendencia_info:'📋 Pend. info',respondeu:'✅ Respondeu'};
+const _SC_CORES  = {nao_respondeu:'#e74c3c',sem_retorno:'#f39c12',pendencia_docs:'#3498db',pendencia_info:'#a78bfa',respondeu:'#2ecc71'};
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function mostrarToast(msg, erro=false){
+  const t = document.getElementById('toast'); if(!t) return;
+  t.textContent=msg; t.className='toast'+(erro?' erro':'');
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function mascaraTel(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length<=10) v=v.replace(/(\d{2})(\d{4})(\d{0,4})/,'($1) $2-$3');
+  else v=v.replace(/(\d{2})(\d{5})(\d{0,4})/,'($1) $2-$3');
+  el.value=v.replace(/-$/,'');
+}
+
+/* ══ Supabase helpers ══ */
+async function sbFetch(path, opts={}){
+  const res = await fetch(SUPABASE_URL+path,{
+    ...opts,
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',...(opts.headers||{})}
+  });
+  return res;
+}
+
+/* ══ CARREGAR DADOS ══ */
+async function carregarDados(){
+  document.getElementById('listWrap').innerHTML='<p class="loading-txt">⏳ Carregando candidatos…</p>';
+  try{
+    // 1. Carrega assign de pendências
+    const resPend = await sbFetch(`/rest/v1/${SB_PEND}?select=*`);
+    if(resPend.ok){
+      const rows = await resPend.json();
+      _pendIds = new Set();
+      _pendMeta = {};
+      if(Array.isArray(rows)){
+        rows.forEach(r=>{
+          if(!r.cand_id) return;
+          _pendIds.add(String(r.cand_id));
+          _pendMeta[String(r.cand_id)] = { tipo:r.tipo||'', nota:r.nota||'' };
+        });
+      }
+    }
+
+    // 2. Carrega candidatos que estão na lista de pendências
+    if(!_pendIds.size){
+      _allCands = [];
+      renderStats();
+      filtrar();
+      return;
+    }
+
+    const ids = [..._pendIds].join(',');
+    const resCands = await sbFetch(`/rest/v1/disc_historico?id=in.(${encodeURIComponent(ids)})&select=*`);
+    if(!resCands.ok) throw new Error('Supabase '+resCands.status);
+    const cands = await resCands.json();
+    _allCands = Array.isArray(cands) ? cands : [];
+
+    renderStats();
+    filtrar();
+  }catch(e){
+    document.getElementById('listWrap').innerHTML=`<p class="loading-txt" style="color:#e74c3c;">❌ Erro ao carregar: ${esc(e.message)}</p>`;
+  }
+}
+
+/* ══ STATS ══ */
+function renderStats(){
+  const bar = document.getElementById('statsBar');
+  if(!_allCands.length){ if(bar) bar.style.display='none'; return; }
+  const s = id => document.getElementById(id);
+  const getNaoResp = () => _allCands.filter(h=>_pendMeta[String(h.id)]?.tipo==='nao_respondeu').length;
+  const getSemRet  = () => _allCands.filter(h=>_pendMeta[String(h.id)]?.tipo==='sem_retorno').length;
+  const getPendDoc = () => _allCands.filter(h=>_pendMeta[String(h.id)]?.tipo==='pendencia_docs').length;
+  const getPendInf = () => _allCands.filter(h=>_pendMeta[String(h.id)]?.tipo==='pendencia_info').length;
+  if(s('stTotal'))   s('stTotal').textContent = _allCands.length;
+  if(s('stNaoResp')) s('stNaoResp').textContent = getNaoResp();
+  if(s('stSemRet'))  s('stSemRet').textContent = getSemRet();
+  if(s('stPendDocs'))s('stPendDocs').textContent = getPendDoc();
+  if(s('stPendInfo'))s('stPendInfo').textContent = getPendInf();
+  if(bar) bar.style.display='flex';
+}
+
+/* ══ FILTRAR + RENDER ══ */
+function filtrar(){
+  const busca  = (document.getElementById('fNome')?.value||'').toLowerCase();
+  const tipo   = document.getElementById('fTipo')?.value||'';
+  const perfil = document.getElementById('fPerfil')?.value||'';
+
+  let lista = [..._allCands];
+  if(busca)  lista = lista.filter(h=>(h.nome||'').toLowerCase().includes(busca)||(h.vaga||'').toLowerCase().includes(busca));
+  if(tipo)   lista = lista.filter(h=>_pendMeta[String(h.id)]?.tipo===tipo);
+  if(perfil) lista = lista.filter(h=>h.dom===perfil);
+
+  const c = document.getElementById('cCount');
+  if(c) c.textContent = lista.length+' resultado'+(lista.length!==1?'s':'');
+
+  const wrap = document.getElementById('listWrap');
+  if(!wrap) return;
+  if(!lista.length){
+    wrap.innerHTML = _allCands.length
+      ? '<p class="loading-txt">Nenhum candidato com esse filtro.</p>'
+      : `<div style="text-align:center;padding:4rem 2rem;color:var(--muted);">
+          <div style="font-size:3rem;margin-bottom:1rem;opacity:0.4;">⏳</div>
+          <div style="font-size:1rem;font-weight:800;color:#555;margin-bottom:0.5rem;">Nenhuma pendência cadastrada</div>
+          <div style="font-size:0.8rem;line-height:1.6;max-width:340px;margin:0 auto;">
+            Mova candidatos do Banco de Talentos para cá quando precisar acompanhar retornos ou cobrar documentação.
+          </div>
+        </div>`;
+    return;
+  }
+
+  // Ordenação: nao_respondeu → sem_retorno → pendencia_docs → pendencia_info → resto
+  const ordem = {nao_respondeu:0,sem_retorno:1,pendencia_docs:2,pendencia_info:3,'':4};
+  lista.sort((a,b)=>{
+    const ta = ordem[_pendMeta[String(a.id)]?.tipo||'']??4;
+    const tb = ordem[_pendMeta[String(b.id)]?.tipo||'']??4;
+    return ta-tb || (a.nome||'').localeCompare(b.nome||'');
+  });
+
+  wrap.innerHTML = `<div class="cands-grid">${lista.map(h=>candCard(h)).join('')}</div>`;
+}
+
+/* ══ CARD ══ */
+function candCard(h){
+  if(!h||!h.id) return '';
+  const cor   = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const combo = h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`;
+  const temDisc = !!(h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  const fit   = h.fit_score?parseInt(h.fit_score):(h.fit_manual?parseInt(h.fit_manual):null);
+  const fitCor= fit!=null?(fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c'):'#777';
+
+  const meta  = _pendMeta[String(h.id)]||{};
+  const tipo  = meta.tipo||'';
+  const nota  = meta.nota||'';
+  const tipoCor  = _SC_CORES[tipo]||'#888';
+  const tipoLabel= _SC_LABELS[tipo]||'⏳ Pendência';
+
+  // Chips
+  let chips = '';
+  if(tipo) chips+=`<span class="chip" style="background:${tipoCor}15;border-color:${tipoCor}40;color:${tipoCor};">${tipoLabel}</span>`;
+  if(temDisc) chips+=`<span class="chip" style="background:${cor}12;border-color:${cor}30;color:${cor};">${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</span>`;
+  if(fit!=null) chips+=`<span class="chip" style="background:${fitCor}15;border-color:${fitCor}33;color:${fitCor};">Fit ${fit}%</span>`;
+
+  // Preview da anotação
+  const notaPreview = nota ? `<div style="font-size:0.65rem;color:#888;margin-top:0.35rem;padding:0.3rem 0.55rem;background:rgba(245,158,11,0.04);border-radius:6px;border-left:2px solid rgba(245,158,11,0.3);line-height:1.45;">${esc(nota.substring(0,100))}${nota.length>100?'…':''}</div>` : '';
+
+  // Barras fit
+  let bars = '';
+  const dEst = estimarFitDisc(h);
+  if(dEst!=null){ const c=dEst>=80?'#2ecc71':dEst>=65?'#3b82f6':dEst>=45?'#f39c12':'#e74c3c'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${c};">🧠 DISC</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${dEst}%;background:${c};"></div></div><span class="fit-bar-pct" style="color:${c};">${dEst}%</span></div>`; }
+  if(fit!=null){ bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${fitCor};">🎯 Fit</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${fit}%;background:${fitCor};"></div></div><span class="fit-bar-pct" style="color:${fitCor};">${fit}%</span></div>`; }
+
+  // Botões de rodapé
+  let foot = `<button class="btn-sm" onclick="abrirPerfil('${esc(String(h.id))}')" style="background:rgba(245,158,11,0.1);color:var(--accent);border-color:rgba(245,158,11,0.3);">👤 Perfil</button>`;
+  if(h.tel_externo){ const n=h.tel_externo.replace(/\D/g,''); foot+=`<a class="btn-sm" href="https://wa.me/55${n}?text=${encodeURIComponent('Olá, aqui é da Agência Nexus!')}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);">💬 WhatsApp</a>`; }
+  if(h.email_externo) foot+=`<a class="btn-sm" href="mailto:${esc(h.email_externo)}" style="background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.22);">✉️ E-mail</a>`;
+  if(h.url) foot+=`<a class="btn-sm" href="${esc(h.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);">🧠 DISC</a>`;
+  if(h.link_externo) foot+=`<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.22);">💼 LinkedIn</a>`;
+  foot+=`<button class="btn-sm" onclick="abrirModalRemover('${esc(String(h.id))}','${esc(h.nome||'')}')" style="background:rgba(46,204,113,0.08);color:#2ecc71;border-color:rgba(46,204,113,0.22);">✅ Resolver</button>`;
+
+  return `<div class="cand-card" style="${tipo==='nao_respondeu'?'border-color:rgba(231,76,60,0.3);':tipo==='sem_retorno'?'border-color:rgba(243,156,18,0.3);':tipo==='pendencia_docs'?'border-color:rgba(52,152,219,0.3);':tipo==='pendencia_info'?'border-color:rgba(167,139,250,0.3);':''}">
+    <button class="del-btn" onclick="abrirModalRemover('${esc(String(h.id))}','${esc(h.nome||'')}')" title="Resolver / retornar ao banco">✅</button>
+    <div class="cand-card-inner">
+      <div class="cand-avatar" style="background:${temDisc?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDisc?cor+'40':'rgba(255,255,255,0.12)'};color:${temDisc?cor:'#555'};cursor:pointer;" onclick="abrirPerfil('${esc(String(h.id))}')">${temDisc?emoji:'?'}</div>
+      <div class="cand-info">
+        <div class="cand-nome" onclick="abrirPerfil('${esc(String(h.id))}')">${esc(h.nome||'—')}</div>
+        <div class="cand-meta">📋 ${esc(h.vaga||'—')}${h.data?' · 📅 '+esc(h.data):''}${h.cidade?' · 📍 '+esc(h.cidade):''}</div>
+        <div class="cand-chips">${chips}</div>
+        ${bars?`<div style="margin-top:0.28rem;">${bars}</div>`:''}
+        ${notaPreview}
+      </div>
+    </div>
+    <div class="cand-foot">${foot}</div>
+  </div>`;
+}
+
+/* ══ Card compacto (painel retornados) ══ */
+function candCardResolvido(h){
+  if(!h||!h.id) return '';
+  const cor   = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const temDisc = !!(h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  return `<div class="cand-card" style="border-color:rgba(46,204,113,0.2);opacity:0.8;">
+    <div class="cand-card-inner">
+      <div class="cand-avatar" style="background:${temDisc?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDisc?cor+'40':'rgba(255,255,255,0.12)'};color:${temDisc?cor:'#555'};">${temDisc?emoji:'?'}</div>
+      <div class="cand-info">
+        <div class="cand-nome">${esc(h.nome||'—')}</div>
+        <div class="cand-meta">📋 ${esc(h.vaga||'—')}</div>
+        <div class="cand-chips"><span class="chip" style="background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.3);color:#2ecc71;">✅ Retornou ao banco</span></div>
+      </div>
+    </div>
+    <div class="cand-foot">
+      <button class="btn-sm" onclick="adicionarPendenciaDeNovo('${esc(String(h.id))}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.08);color:var(--accent);border-color:rgba(245,158,11,0.2);">↩️ Reabrir pendência</button>
+    </div>
+  </div>`;
+}
+
+/* ══ DISC FIT ESTIMADO ══ */
+function estimarFitDisc(h){
+  if(!h.pct_d&&!h.pct_i&&!h.pct_s&&!h.pct_c) return null;
+  const d=parseFloat(h.pct_d)||0,i=parseFloat(h.pct_i)||0,s=parseFloat(h.pct_s)||0,c=parseFloat(h.pct_c)||0;
+  const vals=[d,i,s,c].sort((a,b)=>b-a);
+  const media=(d+i+s+c)/4;
+  const score=vals[0]*0.50+vals[1]*0.30+vals[2]*0.15+vals[3]*0.05;
+  const desvio=Math.sqrt(vals.reduce((acc,v)=>acc+Math.pow(v-media,2),0)/4);
+  return Math.min(100,Math.round(score*(desvio<15?1.05:1.0)));
+}
+
+/* ══ MODAL PERFIL ══ */
+async function abrirPerfil(id){
+  const h = _allCands.find(c=>String(c.id)===String(id));
+  if(!h) return;
+  _perfilAtual = h;
+
+  // Busca dados frescos do Supabase
+  try{
+    const res = await sbFetch(`/rest/v1/disc_historico?id=eq.${encodeURIComponent(id)}&select=*`);
+    if(res.ok){ const rows=await res.json(); if(Array.isArray(rows)&&rows.length){ Object.assign(h,rows[0]); _perfilAtual=h; } }
+  }catch(e){}
+
+  const cor   = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const temDisc = !!(h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  const fit   = h.fit_score?parseInt(h.fit_score):(h.fit_manual?parseInt(h.fit_manual):null);
+  const fitCor= fit!=null?(fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c'):'#777';
+
+  // Cabeçalho
+  const av = document.getElementById('pAv');
+  av.textContent=temDisc?emoji:'?'; av.style.borderColor=temDisc?cor:'#555'; av.style.background=temDisc?cor+'20':'rgba(255,255,255,0.04)'; av.style.color=temDisc?cor:'#555';
+  document.getElementById('pNome').textContent=h.nome||'—';
+  document.getElementById('pMeta').textContent=(h.vaga||'—')+(h.data?' · 📅 '+h.data:'')+(h.cidade?' · 📍 '+h.cidade:'');
+  let chips='';
+  if(temDisc){ const combo=h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`; chips+=`<span class="chip" style="background:${cor}15;border-color:${cor}40;color:${cor};">${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</span>`; }
+  if(fit!=null) chips+=`<span class="chip" style="background:${fitCor}15;border-color:${fitCor}40;color:${fitCor};">Fit ${fit}%</span>`;
+  document.getElementById('pChips').innerHTML=chips;
+
+  // Pendência
+  const meta = _pendMeta[String(h.id)]||{};
+  const tipoPendEl = document.getElementById('pTipoPend');
+  if(tipoPendEl) tipoPendEl.value = meta.tipo||'';
+  const notaPendEl = document.getElementById('pNotaPend');
+  if(notaPendEl) notaPendEl.value = meta.nota||'';
+
+  // Contato
+  const setVal=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v||'';};
+  setVal('pEmail',  h.email_externo||'');
+  setVal('pTel',    h.tel_externo||'');
+  setVal('pLinkExt',h.link_externo||'');
+  setVal('pCurriculo',h.curriculo_url||'');
+  setVal('pObs',    h.resumo_admin||h.recomendacao_admin||'');
+
+  // DISC
+  const discWrap = document.getElementById('pDiscConteudo');
+  if(discWrap){
+    if(temDisc){
+      const d=parseFloat(h.pct_d)||0,i=parseFloat(h.pct_i)||0,s=parseFloat(h.pct_s)||0,c=parseFloat(h.pct_c)||0;
+      let dhtml='';
+      [['D',d,'#e74c3c'],['I',i,'#f39c12'],['S',s,'#2ecc71'],['C',c,'#3498db']].forEach(([l,v,corb])=>{
+        dhtml+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${corb};">${l}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${v}%;background:${corb};"></div></div><span class="fit-bar-pct" style="color:${corb};">${Math.round(v)}%</span></div>`;
+      });
+      if(h.url) dhtml+=`<div style="margin-top:0.5rem;"><a href="${esc(h.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="font-size:0.68rem;font-weight:700;color:#3498db;background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.2);border-radius:7px;padding:0.22rem 0.55rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.25rem;">🧠 Ver resultado DISC</a></div>`;
+      discWrap.innerHTML=dhtml;
+    } else {
+      discWrap.innerHTML='<p style="font-size:0.75rem;color:#555;">DISC não realizado.</p>';
+    }
+  }
+
+  // Parecer final (herda do banco-talentos)
+  const pfLink   = h.parecer_final_link||'';
+  const pfObs    = h.parecer_final_obs||'';
+  const pfStatus = h.parecer_final_status||'';
+  const pfWrap   = document.getElementById('pParecerWrap');
+  const pfCont   = document.getElementById('pParecerConteudo');
+  if(pfWrap && pfCont){
+    if(pfLink||pfObs||pfStatus){
+      const pfCores={aprovado:'#2ecc71',aprovado_reserva:'#f39c12',finalista:'#3498db',reprovado:'#e74c3c',desistiu:'#777',contratado:'#3b82f6'};
+      const pfLabel={aprovado:'✅ Aprovado',aprovado_reserva:'🟡 Reserva',finalista:'🟢 Finalista',reprovado:'❌ Reprovado',desistiu:'🚪 Desistiu',contratado:'🏆 Contratado'};
+      let pfHtml='';
+      if(pfStatus) pfHtml+=`<div style="font-size:0.88rem;font-weight:800;color:${pfCores[pfStatus]||'#f59e0b'};margin-bottom:0.4rem;">${pfLabel[pfStatus]||pfStatus}</div>`;
+      if(pfObs)    pfHtml+=`<div style="font-size:0.75rem;color:#bbb;line-height:1.6;margin-bottom:0.4rem;">${esc(pfObs)}</div>`;
+      if(pfLink)   pfHtml+=`<a href="${esc(pfLink)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.7rem;font-weight:700;color:#3498db;background:rgba(52,152,219,0.1);border:1px solid rgba(52,152,219,0.25);border-radius:7px;padding:0.22rem 0.6rem;text-decoration:none;">📄 Ver documento</a>`;
+      pfCont.innerHTML=pfHtml;
+      pfWrap.style.display='block';
+    } else { pfWrap.style.display='none'; }
+  }
+
+  document.getElementById('modalPerfil').style.display='flex';
+}
+
+function fecharPerfil(){
+  document.getElementById('modalPerfil').style.display='none';
+  _perfilAtual=null;
+}
+
+/* ══ SALVAR STATUS (tipo pendência) ══ */
+async function salvarStatusContato(){
+  if(!_perfilAtual) return;
+  const tipo = document.getElementById('pTipoPend')?.value||'';
+  const meta = _pendMeta[String(_perfilAtual.id)]||{};
+  meta.tipo = tipo;
+  _pendMeta[String(_perfilAtual.id)] = meta;
+  try{
+    const res = await sbFetch(`/rest/v1/${SB_PEND}?cand_id=eq.${encodeURIComponent(_perfilAtual.id)}`,{
+      method:'PATCH',
+      body:JSON.stringify({tipo:tipo||null}),
+      headers:{'Prefer':'return=minimal'}
+    });
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    // Também salva no status_contato do disc_historico para herdar no banco-talentos
+    await sbFetch(`/rest/v1/disc_historico?id=eq.${encodeURIComponent(_perfilAtual.id)}`,{
+      method:'PATCH',
+      body:JSON.stringify({status_contato:tipo||null}),
+      headers:{'Prefer':'return=minimal'}
+    });
+    mostrarToast(tipo ? '💬 Status atualizado: '+(_SC_LABELS[tipo]||tipo) : '💬 Status removido');
+    filtrar();
+  }catch(e){ mostrarToast('Erro ao salvar status: '+e.message,true); }
+}
+
+/* ══ SALVAR ANOTAÇÃO DE PENDÊNCIA ══ */
+async function salvarNotaPendencia(){
+  if(!_perfilAtual) return;
+  const nota = (document.getElementById('pNotaPend')?.value||'').trim();
+  const meta = _pendMeta[String(_perfilAtual.id)]||{};
+  meta.nota = nota;
+  _pendMeta[String(_perfilAtual.id)] = meta;
+  try{
+    const res = await sbFetch(`/rest/v1/${SB_PEND}?cand_id=eq.${encodeURIComponent(_perfilAtual.id)}`,{
+      method:'PATCH',
+      body:JSON.stringify({nota:nota||null}),
+      headers:{'Prefer':'return=minimal'}
+    });
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    const msg = document.getElementById('pNotaSaveMsg');
+    if(msg){ msg.style.display='block'; setTimeout(()=>msg.style.display='none',2000); }
+    mostrarToast('✅ Anotação salva!');
+    filtrar();
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+/* ══ SALVAR CONTATO ══ */
+async function salvarContato(){
+  if(!_perfilAtual) return;
+  const payload = {
+    email_externo: (document.getElementById('pEmail')?.value||'').trim()||null,
+    tel_externo:   (document.getElementById('pTel')?.value||'').trim()||null,
+    link_externo:  (document.getElementById('pLinkExt')?.value||'').trim()||null,
+    curriculo_url: (document.getElementById('pCurriculo')?.value||'').trim()||null,
+  };
+  Object.keys(payload).forEach(k=>{ if(payload[k]===null) delete payload[k]; });
+  try{
+    const res = await sbFetch(`/rest/v1/disc_historico?id=eq.${encodeURIComponent(_perfilAtual.id)}`,{
+      method:'PATCH',
+      body:JSON.stringify(payload),
+      headers:{'Prefer':'return=minimal'}
+    });
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    Object.assign(_perfilAtual, payload);
+    const idx=_allCands.findIndex(x=>String(x.id)===String(_perfilAtual.id));
+    if(idx>=0) Object.assign(_allCands[idx],payload);
+    const msg=document.getElementById('pContatoMsg');
+    if(msg){ msg.style.display='block'; setTimeout(()=>msg.style.display='none',2000); }
+    mostrarToast('✅ Contato salvo!');
+    filtrar();
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+/* ══ SALVAR OBSERVAÇÃO ══ */
+async function salvarObsRecrutador(){
+  if(!_perfilAtual) return;
+  const obs = (document.getElementById('pObs')?.value||'').trim();
+  try{
+    const res = await sbFetch(`/rest/v1/disc_historico?id=eq.${encodeURIComponent(_perfilAtual.id)}`,{
+      method:'PATCH',
+      body:JSON.stringify({resumo_admin:obs||null}),
+      headers:{'Prefer':'return=minimal'}
+    });
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    _perfilAtual.resumo_admin=obs;
+    const idx=_allCands.findIndex(x=>String(x.id)===String(_perfilAtual.id));
+    if(idx>=0) _allCands[idx].resumo_admin=obs;
+    const msg=document.getElementById('pObsMsg');
+    if(msg){ msg.style.display='block'; setTimeout(()=>msg.style.display='none',2000); }
+    mostrarToast('✅ Observação salva!');
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+/* ══ RESOLVER (retornar ao banco) ══ */
+function resolverPendencia(){
+  if(!_perfilAtual) return;
+  abrirModalRemover(String(_perfilAtual.id), _perfilAtual.nome||'Candidato');
+}
+
+function abrirModalRemover(id, nome){
+  _removerCandId = id;
+  document.getElementById('remNome').textContent = nome;
+  document.getElementById('modalRemover').style.display='flex';
+}
+function fecharModalRemover(){
+  document.getElementById('modalRemover').style.display='none';
+  _removerCandId = null;
+}
+
+async function confirmarRemover(){
+  if(!_removerCandId) return;
+  const id   = _removerCandId;
+  const cand = _allCands.find(x=>String(x.id)===String(id));
+  const nome = cand?.nome||'Candidato';
+  fecharModalRemover();
+  fecharPerfil();
+
+  try{
+    // Remove do assign de pendências
+    const res = await sbFetch(`/rest/v1/${SB_PEND}?cand_id=eq.${encodeURIComponent(id)}`,{
+      method:'DELETE',headers:{'Prefer':'return=minimal'}
+    });
+    if(!res.ok) throw new Error('Supabase '+res.status);
+    // Limpa status_contato no disc_historico
+    await sbFetch(`/rest/v1/disc_historico?id=eq.${encodeURIComponent(id)}`,{
+      method:'PATCH',
+      body:JSON.stringify({status_contato:null}),
+      headers:{'Prefer':'return=minimal'}
+    });
+    _pendIds.delete(String(id));
+    delete _pendMeta[String(id)];
+    _allCands = _allCands.filter(x=>String(x.id)!==String(id));
+    renderStats();
+    filtrar();
+    mostrarToast(`✅ ${nome} resolvido — retornou ao Banco de Talentos!`);
+    try{ window.parent.postMessage({tipo:'nexus_badge_update'},'*'); }catch(e){}
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+/* ══ REABRIR PENDÊNCIA ══ */
+async function adicionarPendenciaDeNovo(id, nome){
+  // Apenas navega ao banco de talentos — o usuário re-moverá lá
+  mostrarToast(`↩️ Vá ao Banco de Talentos para mover ${nome} novamente para Pendências.`);
+}
+
+/* ══ TOGGLE RETORNADOS ══ */
+function toggleRetornados(){
+  _retornadosAberto = !_retornadosAberto;
+  const el = document.getElementById('retornadosListWrap');
+  const ico = document.getElementById('retornadosToggleIco');
+  if(el) el.style.display = _retornadosAberto ? 'block' : 'none';
+  if(ico) ico.classList.toggle('collapsed', !_retornadosAberto);
+}
+
+/* ══ ATUALIZAR ══ */
+async function atualizarPendencias(){
+  const btn = document.getElementById('btnAtualizar');
+  if(btn){ btn.textContent='⏳ Atualizando…'; btn.disabled=true; }
+  await carregarDados();
+  if(btn){ btn.textContent='↺ Atualizar'; btn.disabled=false; }
+  mostrarToast('✅ Lista atualizada!');
+}
+
+/* ══ MODAL: ADICIONAR DO BANCO ══ */
+let _bancoCandsCache = [];
+
+async function abrirModalAdicionarBanco(){
+  document.getElementById('modalAdicionarBanco').style.display = 'flex';
+  document.getElementById('bancoBuscaInput').value = '';
+  document.getElementById('bancoCandsList').innerHTML = '<p style="text-align:center;color:#666;font-size:0.8rem;padding:1.5rem;">⏳ Carregando…</p>';
+  document.getElementById('bancoCandCount').textContent = '';
+  try{
+    const H = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY};
+    const resCands = await fetch(SUPABASE_URL+'/rest/v1/disc_historico?select=id,nome,vaga,dom,sec,data&order=criado_em.desc', {headers:H});
+    const allCands = resCands.ok ? await resCands.json() : [];
+    // Exclui quem já está em pendências
+    const pendSet = new Set([..._pendIds]);
+    _bancoCandsCache = Array.isArray(allCands) ? allCands.filter(c=>!pendSet.has(String(c.id))) : [];
+    renderBancoModal(_bancoCandsCache);
+  }catch(e){
+    document.getElementById('bancoCandsList').innerHTML = `<p style="text-align:center;color:#e74c3c;font-size:0.8rem;padding:1rem;">❌ Erro: ${esc(e.message)}</p>`;
+  }
+}
+
+function filtrarBancoModal(){
+  const busca = (document.getElementById('bancoBuscaInput')?.value||'').toLowerCase();
+  const lista = busca ? _bancoCandsCache.filter(c=>(c.nome||'').toLowerCase().includes(busca)||(c.vaga||'').toLowerCase().includes(busca)) : _bancoCandsCache;
+  renderBancoModal(lista);
+}
+
+function renderBancoModal(lista){
+  const wrap  = document.getElementById('bancoCandsList');
+  const count = document.getElementById('bancoCandCount');
+  if(!lista.length){
+    wrap.innerHTML = '<p style="text-align:center;color:#666;font-size:0.8rem;padding:1.5rem;">Nenhum candidato disponível no banco.</p>';
+    if(count) count.textContent = '';
+    return;
+  }
+  if(count) count.textContent = lista.length + ' candidato' + (lista.length!==1?'s':'') + ' disponíve' + (lista.length!==1?'is':'l');
+  wrap.innerHTML = lista.map(c=>{
+    const cor = COR[c.dom]||'#888';
+    const emo = EMO[c.dom]||'⬜';
+    return `<div style="display:flex;align-items:center;gap:0.65rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:0.65rem 0.8rem;">
+      <div style="width:34px;height:34px;border-radius:50%;background:${cor}15;border:2px solid ${cor}40;color:${cor};display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">${emo}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.85rem;font-weight:800;color:#f0f0f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(c.nome||'—')}</div>
+        <div style="font-size:0.67rem;color:#666;margin-top:0.05rem;">📋 ${esc(c.vaga||'—')} · 📅 ${esc(c.data||'—')}</div>
+      </div>
+      <button onclick="adicionarDoBanco('${esc(c.id)}','${esc(c.nome||'')}')"
+        style="background:rgba(245,158,11,0.15);color:#f59e0b;border:1px solid rgba(245,158,11,0.4);border-radius:8px;padding:0.32rem 0.75rem;font-family:inherit;font-size:0.73rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;">
+        ⏳ Mover
+      </button>
+    </div>`;
+  }).join('');
+}
+
+async function adicionarDoBanco(id, nome){
+  try{
+    const H = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
+    const res = await fetch(SUPABASE_URL+`/rest/v1/${SB_PEND}`,{
+      method:'POST',
+      headers:{...H,'Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({cand_id:String(id), tipo:'sem_retorno'})
+    });
+    if(!res.ok){ const t=await res.text(); throw new Error('Supabase '+res.status+': '+t); }
+    // Atualiza status_contato (silencioso)
+    fetch(SUPABASE_URL+`/rest/v1/disc_historico?id=eq.${encodeURIComponent(id)}`,{
+      method:'PATCH', headers:{...H,'Prefer':'return=minimal'},
+      body:JSON.stringify({status_contato:'sem_retorno'})
+    }).catch(()=>{});
+    // Remove do modal
+    _bancoCandsCache = _bancoCandsCache.filter(c=>String(c.id)!==String(id));
+    filtrarBancoModal();
+    mostrarToast(`✅ ${nome} adicionado às Pendências!`);
+    // Adiciona ao estado local e re-renderiza lista
+    _pendIds.add(String(id));
+    _pendMeta[String(id)] = {tipo:'sem_retorno', nota:''};
+    fetch(SUPABASE_URL+`/rest/v1/disc_historico?id=eq.${encodeURIComponent(id)}&select=*`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}})
+      .then(r=>r.json()).then(rows=>{
+        if(Array.isArray(rows)&&rows[0]&&!_allCands.find(c=>String(c.id)===String(id))){
+          _allCands.push(rows[0]); renderStats(); filtrar();
+        }
+      }).catch(()=>{});
+    try{ window.parent.postMessage({tipo:'nexus_badge_update'},'*'); }catch(e){}
+  }catch(e){ mostrarToast('Erro: '+e.message, true); }
+}
+
+function fecharModalAdicionarBanco(){
+  document.getElementById('modalAdicionarBanco').style.display = 'none';
+  _bancoCandsCache = [];
+}
+
+/* ══ INIT ══ */
+carregarDados();
+
+// Bloquear autofill no campo de busca
+(function(){
+  const limpar=()=>{ const el=document.getElementById('fNome'); if(!el)return; if(el.value&&(el.value.includes('@')||el.value.includes('.com'))){ el.value=''; filtrar(); } };
+  [0,50,150,300,600,1000,2000,3000].forEach(ms=>setTimeout(limpar,ms));
+})();
+</script>
+
+<!-- ══════════════════════════════════
+SQL NECESSÁRIO NO SUPABASE (SQL Editor)
+════════════════════════════════════
+
+-- Tabela de assign de pendências:
+CREATE TABLE IF NOT EXISTS pendencias_assign (
+  cand_id      TEXT PRIMARY KEY,
+  tipo         TEXT,           -- nao_respondeu | sem_retorno | pendencia_docs | pendencia_info
+  nota         TEXT,           -- anotação livre do recrutador
+  atualizado_em TIMESTAMPTZ DEFAULT NOW()
+);
+ALTER TABLE pendencias_assign ENABLE ROW LEVEL SECURITY;
+CREATE POLICY IF NOT EXISTS "allow_anon_all" ON pendencias_assign
+  FOR ALL TO anon USING (true) WITH CHECK (true);
+
+-- No banco-talentos, adicione este botão ao candCard para mover para pendências:
+-- Copie a função moverParaPendencias() e chame da mesma forma que moverParaEntrevistados().
+
+-- Função para mover do banco-talentos para pendencias:
+
+async function moverParaPendencias(id, nome, tipo){
+  tipo = tipo || 'sem_retorno';
+  try{
+    const res = await fetch(SUPABASE_URL+'/rest/v1/pendencias_assign',{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({cand_id:String(id), tipo:tipo})
+    });
+    if(!res.ok){ const t=await res.text(); throw new Error('Supabase '+res.status+': '+t); }
+    // Também salva status_contato no disc_historico
+    fetch(SUPABASE_URL+'/rest/v1/disc_historico?id=eq.'+encodeURIComponent(id),{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({status_contato:tipo})
+    }).catch(()=>{});
+    mostrarToastDesfazer('⏳ '+nome+' movido para Pendências!', ()=>desfazerMoverPendencias(id,nome));
+    filtrarCands();
+    window.parent.postMessage({tipo:'nexus_badge_update'},'*');
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+async function desfazerMoverPendencias(id, nome){
+  await fetch(SUPABASE_URL+'/rest/v1/pendencias_assign?cand_id=eq.'+encodeURIComponent(id),{
+    method:'DELETE',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'}
+  });
+  mostrarToast('↩️ '+nome+' retornou ao Banco!');
+  filtrarCands();
+}
+══════════════════════════════════ -->
+
+</body>
+</html>

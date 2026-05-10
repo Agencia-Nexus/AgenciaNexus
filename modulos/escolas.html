@@ -1,0 +1,680 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Escolas | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#a78bfa;--teal:#2563eb;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+
+/* HERO */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--teal);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--teal);}
+.sub{font-size:0.8rem;color:var(--muted);}
+
+/* BOTÕES */
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}.btn-red:hover{background:rgba(231,76,60,0.18);}
+.btn-edit{background:rgba(243,156,18,0.1);color:var(--orange);border-color:rgba(243,156,18,0.25);}.btn-edit:hover{background:rgba(243,156,18,0.2);}
+.btn-wpp{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.3);}.btn-wpp:hover{background:rgba(37,211,102,0.22);}
+.btn-mail{background:rgba(52,152,219,0.1);color:var(--blue);border:1px solid rgba(52,152,219,0.25);}.btn-mail:hover{background:rgba(52,152,219,0.2);}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0.7rem;margin-bottom:1.3rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1rem;}
+.kpi-val{font-size:1.6rem;font-weight:900;line-height:1;}
+.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.25rem;}
+.kpi-teal{color:var(--teal);}
+.kpi-acc{color:var(--accent);}
+.kpi-org{color:var(--orange);}
+.kpi-purple{color:var(--purple);}
+
+/* TOOLBAR */
+.toolbar{display:flex;gap:0.7rem;margin-bottom:1.1rem;flex-wrap:wrap;align-items:center;}
+.search-wrap{position:relative;flex:1;min-width:200px;}
+.search-ico{position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);font-size:0.85rem;pointer-events:none;opacity:0.5;}
+.search-inp{width:100%;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:0.55rem 0.8rem 0.55rem 2.2rem;color:var(--text);font-family:inherit;font-size:0.82rem;outline:none;transition:border-color 0.2s;}.search-inp:focus{border-color:var(--accent);}.search-inp::placeholder{color:var(--muted2);}
+.filter-sel{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:0.55rem 2rem 0.55rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.8rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.7rem center;}.filter-sel option{background:#161616;}
+.results-count{font-size:0.7rem;color:var(--muted);white-space:nowrap;align-self:center;}
+
+/* FORM */
+.form-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:1.5rem;margin-bottom:1.2rem;display:none;}.form-card.show{display:block;}
+.form-section{font-size:0.62rem;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:2px;margin:1.2rem 0 0.7rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border);}
+.form-section:first-of-type{margin-top:0;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+@media(max-width:700px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+.fl{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.fi{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}.fi:focus{border-color:var(--teal);}.fi::placeholder{color:var(--muted2);}
+.fsel{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2rem;}.fsel option{background:#161616;}
+.multi-group{display:flex;flex-direction:column;gap:0.7rem;margin-bottom:0.8rem;}
+.contato-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.09);border-radius:13px;padding:0.85rem 1rem;}
+.contato-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem;}
+.contato-card-num{font-size:0.6rem;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:1px;}
+.contato-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+@media(max-width:560px){.contato-card-grid{grid-template-columns:1fr;}}
+.btn-add-field{font-family:inherit;font-size:0.68rem;font-weight:700;background:rgba(26,188,156,0.08);color:var(--teal);border:1px dashed rgba(26,188,156,0.3);border-radius:9px;padding:0.4rem 0.9rem;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;gap:0.3rem;}.btn-add-field:hover{background:rgba(26,188,156,0.15);}
+.btn-rm{background:rgba(231,76,60,0.08);color:var(--red);border:1px solid rgba(231,76,60,0.2);border-radius:8px;padding:0.35rem 0.55rem;cursor:pointer;font-size:0.75rem;flex-shrink:0;transition:all 0.15s;}.btn-rm:hover{background:rgba(231,76,60,0.18);}
+.badge-edit{font-size:0.55rem;font-weight:800;background:rgba(243,156,18,0.15);color:var(--orange);border:1px solid rgba(243,156,18,0.3);padding:0.1rem 0.45rem;border-radius:99px;text-transform:uppercase;letter-spacing:1px;}
+
+/* CARDS */
+.schools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;}
+.school-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;display:flex;flex-direction:column;}
+.sc-collapse{max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.3s;opacity:0;}
+.school-card.aberto .sc-collapse{max-height:2000px;opacity:1;}
+.sc-top{cursor:pointer;user-select:none;}
+.sc-chevron{font-size:0.8rem;color:var(--muted);transition:transform 0.35s;margin-left:auto;padding-left:0.6rem;align-self:center;}
+.school-card.aberto .sc-chevron{transform:rotate(180deg);}
+.school-card:hover{border-color:rgba(26,188,156,0.35);transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+
+/* Card — topo */
+.sc-top{padding:1.1rem 1.3rem 0.9rem;border-bottom:1px solid var(--border);position:relative;}
+.sc-top-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,188,156,0.07),transparent);pointer-events:none;}
+.sc-head{display:flex;align-items:flex-start;gap:0.85rem;position:relative;}
+.sc-ico{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,rgba(26,188,156,0.2),rgba(26,188,156,0.08));border:1px solid rgba(26,188,156,0.3);display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0;margin-top:0.1rem;}
+.sc-info{flex:1;min-width:0;}
+.sc-nome{font-size:1rem;font-weight:900;margin-bottom:0.08rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-tipo{font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;}
+.sc-tags{display:flex;gap:0.35rem;flex-wrap:wrap;}
+.status-pill{font-size:0.58rem;font-weight:800;padding:0.18rem 0.6rem;border-radius:99px;}
+.sativo{background:rgba(59,130,246,0.12);color:var(--green);border:1px solid rgba(59,130,246,0.3);}
+.sinativo{background:rgba(231,76,60,0.08);color:var(--red);border:1px solid rgba(231,76,60,0.2);}
+.tipo-pill{font-size:0.58rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:99px;background:rgba(26,188,156,0.1);color:var(--teal);border:1px solid rgba(26,188,156,0.2);}
+.nivel-pill{font-size:0.58rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:99px;background:rgba(167,139,250,0.1);color:var(--purple);border:1px solid rgba(167,139,250,0.2);}
+.sc-date{font-size:0.6rem;color:var(--muted2);margin-top:0.5rem;}
+
+/* Card — corpo */
+.sc-body{padding:0.9rem 1.3rem;flex:1;display:flex;flex-direction:column;gap:0;}
+.sc-section-label{font-size:0.55rem;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.5rem;margin-top:0.75rem;}
+.sc-section-label:first-child{margin-top:0;}
+.sc-row{font-size:0.73rem;color:var(--muted);display:flex;align-items:center;gap:0.45rem;padding:0.18rem 0;}
+.sc-row .sc-val{color:var(--text);font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sc-row a{color:var(--text);font-weight:600;text-decoration:none;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.sc-row a:hover{color:var(--teal);}
+.sc-obs{font-size:0.69rem;color:var(--muted);line-height:1.5;padding:0.55rem 0.75rem;background:rgba(255,255,255,0.03);border-radius:8px;border-left:2px solid rgba(26,188,156,0.35);margin-top:0.5rem;}
+.sc-empty{font-size:0.68rem;color:var(--muted2);font-style:italic;}
+
+/* Contatos dentro do card */
+.sc-contact-list{display:flex;flex-direction:column;gap:0.45rem;margin-top:0.1rem;}
+.sc-contact-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:0.6rem 0.75rem;}
+.sc-contact-name{font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:0.15rem;}
+.sc-contact-cargo{font-size:0.62rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.35rem;}
+.sc-contact-actions{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.sc-contact-link{font-size:0.65rem;font-weight:700;border-radius:6px;padding:0.22rem 0.6rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.25rem;transition:all 0.15s;cursor:pointer;border:none;}
+.sc-contact-wpp{background:rgba(37,211,102,0.1);color:#25d366;border:1px solid rgba(37,211,102,0.22)!important;}.sc-contact-wpp:hover{background:rgba(37,211,102,0.2);}
+.sc-contact-mail{background:rgba(52,152,219,0.1);color:var(--blue);border:1px solid rgba(52,152,219,0.22)!important;}.sc-contact-mail:hover{background:rgba(52,152,219,0.2);}
+
+/* Rodapé do card */
+.sc-footer{padding:0.8rem 1.3rem;border-top:1px solid var(--border);display:flex;gap:0.4rem;flex-wrap:wrap;background:rgba(255,255,255,0.015);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+.modal-overlay.show{opacity:1;pointer-events:all;}
+.modal{background:var(--card);border:1px solid rgba(231,76,60,0.35);border-radius:20px;padding:1.8rem;max-width:420px;width:100%;transform:scale(0.95);transition:transform 0.2s;}
+.modal-overlay.show .modal{transform:scale(1);}
+.modal-title{font-size:1rem;font-weight:900;margin-bottom:0.4rem;color:var(--red);}
+.modal-sub{font-size:0.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.55;}
+.modal-btns{display:flex;gap:0.6rem;margin-top:1rem;}
+
+.empty{text-align:center;padding:3rem;color:var(--muted2);font-size:0.8rem;line-height:1.7;}
+.spinner{width:18px;height:18px;border:2px solid var(--muted2);border-top-color:var(--teal);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;max-width:300px;}.toast.show{transform:translateY(0);opacity:1;}.toast.err{border-color:rgba(231,76,60,0.4);color:var(--red);}
+
+@media(max-width:640px){
+  .page{padding:1rem 0.9rem 4rem;}
+  .hero{flex-direction:column;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;}
+  .title{font-size:1.25rem;}
+  .kpi-row{grid-template-columns:repeat(2,1fr);}
+  .schools-grid{grid-template-columns:1fr;}
+  .toolbar{flex-direction:column;align-items:stretch;}
+  .search-wrap{min-width:unset;}
+  .modal{padding:1.2rem;}
+  .toast{right:0.6rem;bottom:0.6rem;left:0.6rem;max-width:none;}
+}
+</style></head><body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Operações</div>
+      <div class="title">Escolas <span>&amp; Instituições</span></div>
+      <div class="sub">Gerencie as escolas e instituições de ensino parceiras — dados salvos na nuvem</div>
+    </div>
+    <button class="btn btn-accent" onclick="abrirFormNovo()">➕ Nova Escola</button>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val kpi-teal" id="kTotal">–</div><div class="kpi-label">Total de escolas</div></div>
+    <div class="kpi"><div class="kpi-val kpi-acc" id="kAtivas">–</div><div class="kpi-label">Ativas</div></div>
+    <div class="kpi"><div class="kpi-val kpi-org" id="kInativas">–</div><div class="kpi-label">Inativas</div></div>
+    <div class="kpi"><div class="kpi-val kpi-purple" id="kSemContato">–</div><div class="kpi-label">Sem contato</div></div>
+  </div>
+
+  <!-- TOOLBAR / BUSCA -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <span class="search-ico">🔍</span>
+      <input class="search-inp" id="searchInp" placeholder="Buscar escola, cidade, tipo, contato..." oninput="filtrar()"/>
+    </div>
+    <select class="filter-sel" id="filtroStatus" onchange="filtrar()">
+      <option value="">Todos os status</option>
+      <option value="ativo">Apenas ativas</option>
+      <option value="inativo">Apenas inativas</option>
+    </select>
+    <select class="filter-sel" id="filtroTipo" onchange="filtrar()">
+      <option value="">Todos os tipos</option>
+      <option value="Pública">Pública</option>
+      <option value="Particular">Particular</option>
+      <option value="Técnica">Técnica</option>
+      <option value="Universitária">Universitária</option>
+    </select>
+    <select class="filter-sel" id="filtroOrdem" onchange="filtrar()">
+      <option value="recente">Mais recentes</option>
+      <option value="nome">Nome A–Z</option>
+    </select>
+    <span class="results-count" id="resultsCount"></span>
+  </div>
+
+  <!-- FORMULÁRIO -->
+  <div class="form-card" id="formCard">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <div style="font-size:0.72rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1.5px;" id="formTitle">🏫 Nova escola</div>
+      <span class="badge-edit" id="formBadge" style="display:none;">Editando</span>
+    </div>
+
+    <div class="form-section">🏫 Dados da Escola</div>
+    <div class="grid-2">
+      <div><label class="fl">Nome da escola *</label><input class="fi" id="eNome" placeholder="Ex: Colégio Estadual Júlio de Castilhos"/></div>
+      <div><label class="fl">Tipo de instituição</label>
+        <select class="fsel" id="eTipo">
+          <option value="">Selecionar...</option>
+          <option value="Pública">Pública</option>
+          <option value="Particular">Particular</option>
+          <option value="Técnica">Técnica / SENAI / SENAC</option>
+          <option value="Universitária">Universitária / Faculdade</option>
+          <option value="EAD">EAD / Online</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div><label class="fl">Cidade</label><input class="fi" id="eCidade" placeholder="Porto Alegre, RS"/></div>
+      <div><label class="fl">Bairro</label><input class="fi" id="eBairro" placeholder="Centro"/></div>
+      <div><label class="fl">Site</label><input class="fi" id="eSite" placeholder="www.escola.edu.br"/></div>
+      <div><label class="fl">Nº de alunos</label><input class="fi" id="eAlunos" placeholder="Ex: 500–1000"/></div>
+    </div>
+    <div class="grid-3">
+      <div><label class="fl">Níveis de ensino</label>
+        <select class="fsel" id="eNivel">
+          <option value="">Selecionar...</option>
+          <option value="Fundamental">Fundamental</option>
+          <option value="Médio">Médio</option>
+          <option value="Fund. e Médio">Fund. e Médio</option>
+          <option value="Técnico">Técnico</option>
+          <option value="Superior">Superior</option>
+          <option value="Pós-graduação">Pós-graduação</option>
+          <option value="Todos">Todos os níveis</option>
+        </select>
+      </div>
+      <div><label class="fl">Parceria ativa desde</label><input class="fi" id="eParceria" type="date"/></div>
+      <div><label class="fl">Status</label><select class="fsel" id="eStatus"><option value="ativo">Ativa</option><option value="inativo">Inativa</option></select></div>
+    </div>
+    <div style="margin-bottom:0.8rem;"><label class="fl">Observações / Notas internas</label><textarea class="fi" id="eObs" rows="2" style="resize:vertical;line-height:1.6;" placeholder="Histórico da parceria, eventos anteriores, oportunidades de captação..."></textarea></div>
+
+    <div class="form-section">👥 Contatos da Escola</div>
+    <div class="multi-group" id="grpContatos"></div>
+    <button class="btn-add-field" onclick="addContato()">＋ Adicionar contato</button>
+
+    <div style="display:flex;gap:0.6rem;margin-top:1.4rem;">
+      <button class="btn btn-accent" id="btnSalvar" onclick="salvarEscola()" style="flex:2;justify-content:center;">💾 Salvar escola</button>
+      <button class="btn btn-ghost" onclick="fecharForm()" style="flex:1;justify-content:center;">✕ Cancelar</button>
+    </div>
+  </div>
+
+  <!-- GRID DE CARDS -->
+  <div class="schools-grid" id="schoolsGrid">
+    <div class="empty" style="grid-column:1/-1;"><span class="spinner"></span></div>
+  </div>
+</div>
+
+<!-- MODAL EXCLUSÃO -->
+<div class="modal-overlay" id="modalExcluir">
+  <div class="modal">
+    <div class="modal-title">⚠️ Excluir escola</div>
+    <div class="modal-sub" id="modalSub"></div>
+    <label class="fl" style="margin-bottom:0.3rem;">Para confirmar, digite: <strong style="color:var(--red);">EXCLUIR</strong></label>
+    <input class="fi" id="confirmInput" placeholder="EXCLUIR" oninput="checkConfirm()" autocomplete="off"/>
+    <div class="modal-btns">
+      <button class="btn btn-red" id="btnConfirmExcluir" onclick="confirmarExclusao()" disabled style="flex:1;justify-content:center;opacity:0.4;">🗑 Confirmar exclusão</button>
+      <button class="btn btn-ghost" onclick="fecharModal()" style="flex:1;justify-content:center;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+const HEADERS = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
+const LS_KEY = 'nexus_escolas_v1';
+
+let _escolas = [], _editandoId = null, _excluindoId = null;
+let _modoLocal = false;
+
+// ── STORAGE A/B ───────────────────────────────────────
+function lsLer(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'[]'); }catch(e){ return []; } }
+function lsSalvar(dados){ try{ localStorage.setItem(LS_KEY, JSON.stringify(dados)); }catch(e){} }
+function mostrarModo(local){
+  _modoLocal = local;
+  let badge = document.getElementById('modoBadge');
+  if(!badge){
+    badge = document.createElement('span');
+    badge.id = 'modoBadge';
+    badge.style.cssText = 'font-size:0.6rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:99px;margin-left:0.6rem;vertical-align:middle;';
+    const sub = document.querySelector('.sub');
+    if(sub) sub.appendChild(badge);
+  }
+  if(local){
+    badge.textContent = '💾 Modo local';
+    badge.style.background = 'rgba(243,156,18,0.12)';
+    badge.style.color = 'var(--orange)';
+    badge.style.border = '1px solid rgba(243,156,18,0.3)';
+  } else {
+    badge.textContent = '☁️ Nuvem ativa';
+    badge.style.background = 'rgba(59,130,246,0.1)';
+    badge.style.color = 'var(--green)';
+    badge.style.border = '1px solid rgba(59,130,246,0.2)';
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────
+async function init() { await carregarEscolas(); }
+
+async function carregarEscolas() {
+  const el = document.getElementById('schoolsGrid');
+  el.innerHTML = '<div class="empty" style="grid-column:1/-1;"><span class="spinner"></span></div>';
+  // Plano A — Supabase
+  try {
+    const res = await fetch(SUPABASE_URL+'/rest/v1/escolas?order=criado_em.desc',{headers:HEADERS});
+    if (!res.ok) throw new Error('Supabase '+res.status);
+    _escolas = await res.json();
+    if(!Array.isArray(_escolas)) throw new Error('Resposta inválida');
+    lsSalvar(_escolas);
+    mostrarModo(false);
+    atualizarKPIs(); filtrar();
+    return;
+  } catch(e) {
+    console.warn('[Escolas] Supabase indisponível, usando localStorage:', e.message);
+  }
+  // Plano B — localStorage
+  _escolas = lsLer();
+  mostrarModo(true);
+  atualizarKPIs(); filtrar();
+}
+
+// ── KPIs ─────────────────────────────────────────────
+function atualizarKPIs() {
+  document.getElementById('kTotal').textContent = _escolas.length;
+  document.getElementById('kAtivas').textContent = _escolas.filter(e=>e.status==='ativo').length;
+  document.getElementById('kInativas').textContent = _escolas.filter(e=>e.status!=='ativo').length;
+  document.getElementById('kSemContato').textContent = _escolas.filter(e=>!parseContatos(e.contato).length).length;
+}
+
+// ── BUSCA / FILTRO ────────────────────────────────────
+function filtrar() {
+  const q = (document.getElementById('searchInp').value||'').toLowerCase().trim();
+  const st = document.getElementById('filtroStatus').value;
+  const tp = document.getElementById('filtroTipo').value;
+  const ord = document.getElementById('filtroOrdem').value;
+
+  let lista = _escolas.filter(e => {
+    if (st && e.status !== st) return false;
+    if (tp && e.tipo !== tp) return false;
+    if (!q) return true;
+    const haystack = [e.nome,e.tipo,e.cidade,e.bairro,e.site,e.obs,e.contato,e.nivel].join(' ').toLowerCase();
+    return haystack.includes(q);
+  });
+
+  if (ord==='nome') lista.sort((a,b)=>(a.nome||'').localeCompare(b.nome||''));
+
+  document.getElementById('resultsCount').textContent = lista.length + ' escola' + (lista.length!==1?'s':'');
+  renderGrid(lista);
+}
+
+// ── CONTATOS ──────────────────────────────────────────
+let _contatoCount = 0;
+function addContato(dados) {
+  _contatoCount++;
+  const n = _contatoCount;
+  const d = dados || {};
+  const grp = document.getElementById('grpContatos');
+  const div = document.createElement('div');
+  div.className = 'contato-card';
+  div.id = 'cCard'+n;
+  div.innerHTML = `
+    <div class="contato-card-head">
+      <span class="contato-card-num">👤 Contato ${n}</span>
+      <button class="btn-rm" onclick="document.getElementById('cCard${n}').remove()">✕ Remover</button>
+    </div>
+    <div class="contato-card-grid">
+      <div><label class="fl">Nome</label><input class="fi" data-ct="nome" placeholder="Ex: Maria Souza" value="${esc(d.nome||'')}"/></div>
+      <div><label class="fl">Cargo / Função</label><input class="fi" data-ct="cargo" placeholder="Ex: Diretora / Coordenadora" value="${esc(d.cargo||'')}"/></div>
+      <div><label class="fl">WhatsApp / Telefone</label><input class="fi" data-ct="tel" placeholder="(51) 9 9999-9999" value="${esc(d.tel||'')}"/></div>
+      <div><label class="fl">E-mail</label><input class="fi" data-ct="email" placeholder="contato@escola.edu.br" value="${esc(d.email||'')}"/></div>
+    </div>`;
+  grp.appendChild(div);
+}
+
+function getContatos() {
+  return Array.from(document.querySelectorAll('#grpContatos .contato-card')).map(card => ({
+    nome:  card.querySelector('[data-ct="nome"]')?.value.trim()  || '',
+    cargo: card.querySelector('[data-ct="cargo"]')?.value.trim() || '',
+    tel:   card.querySelector('[data-ct="tel"]')?.value.trim()   || '',
+    email: card.querySelector('[data-ct="email"]')?.value.trim() || '',
+  })).filter(c => c.nome || c.tel || c.email);
+}
+
+function preencherContatos(contatos) {
+  _contatoCount = 0;
+  document.getElementById('grpContatos').innerHTML = '';
+  (contatos || []).forEach(c => addContato(c));
+}
+
+function parseContatos(v) {
+  if (!v) return [];
+  try {
+    const p = JSON.parse(v);
+    if (Array.isArray(p)) {
+      if (p.length && typeof p[0] === 'object') return p;
+      return p.map(s => ({ nome: s, cargo: '', tel: '', email: '' }));
+    }
+  } catch {}
+  return [{ nome: String(v), cargo: '', tel: '', email: '' }];
+}
+
+// ── FORM ──────────────────────────────────────────────
+function abrirFormNovo() {
+  _editandoId=null;
+  document.getElementById('formTitle').textContent='🏫 Nova escola';
+  document.getElementById('formBadge').style.display='none';
+  document.getElementById('btnSalvar').textContent='💾 Salvar escola';
+  limparForm();
+  addContato();
+  document.getElementById('formCard').classList.add('show');
+  document.getElementById('formCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function abrirFormEdicao(id) {
+  const e = _escolas.find(x=>String(x.id)===String(id));
+  if(!e) return;
+  _editandoId=id;
+  document.getElementById('formTitle').textContent='✏️ Editando: '+e.nome;
+  document.getElementById('formBadge').style.display='inline-flex';
+  document.getElementById('btnSalvar').textContent='💾 Salvar alterações';
+  document.getElementById('eNome').value=e.nome||'';
+  document.getElementById('eTipo').value=e.tipo||'';
+  document.getElementById('eCidade').value=e.cidade||'';
+  document.getElementById('eBairro').value=e.bairro||'';
+  document.getElementById('eSite').value=e.site||'';
+  document.getElementById('eAlunos').value=e.alunos||'';
+  document.getElementById('eNivel').value=e.nivel||'';
+  document.getElementById('eParceria').value=e.parceria_desde||'';
+  document.getElementById('eStatus').value=e.status||'ativo';
+  document.getElementById('eObs').value=e.obs||'';
+  let contatos = parseContatos(e.contato);
+  preencherContatos(contatos);
+  if (!document.getElementById('grpContatos').children.length) addContato();
+  document.getElementById('formCard').classList.add('show');
+  document.getElementById('formCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function fecharForm() {
+  document.getElementById('formCard').classList.remove('show');
+  _editandoId=null; limparForm();
+}
+
+function limparForm() {
+  ['eNome','eCidade','eBairro','eSite','eAlunos','eObs','eParceria'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  const tp=document.getElementById('eTipo'); if(tp) tp.value='';
+  const nv=document.getElementById('eNivel'); if(nv) nv.value='';
+  const st=document.getElementById('eStatus'); if(st) st.value='ativo';
+  _contatoCount=0;
+  const grp=document.getElementById('grpContatos'); if(grp) grp.innerHTML='';
+}
+
+async function salvarEscola() {
+  const nome=(document.getElementById('eNome').value||'').trim();
+  if(!nome){toast('Nome obrigatório',true);return;}
+  const contatos = getContatos();
+  const escola={
+    nome,
+    tipo:document.getElementById('eTipo').value||null,
+    cidade:document.getElementById('eCidade').value.trim()||null,
+    bairro:document.getElementById('eBairro').value.trim()||null,
+    site:document.getElementById('eSite').value.trim()||null,
+    alunos:document.getElementById('eAlunos').value.trim()||null,
+    nivel:document.getElementById('eNivel').value||null,
+    parceria_desde:document.getElementById('eParceria').value||null,
+    contato:contatos.length?JSON.stringify(contatos):null,
+    status:document.getElementById('eStatus').value,
+    obs:document.getElementById('eObs').value.trim()||null
+  };
+  const btn=document.getElementById('btnSalvar');
+  btn.disabled=true; btn.textContent='⏳ Salvando…';
+  let salvouNuvem = false;
+  // Plano A — Supabase
+  if(!_modoLocal){
+    try {
+      if(_editandoId){
+        const res=await fetch(SUPABASE_URL+'/rest/v1/escolas?id=eq.'+encodeURIComponent(_editandoId),{method:'PATCH',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(escola)});
+        if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||e.hint||'Supabase '+res.status);}
+        const u=await res.json(); const novo=Array.isArray(u)?u[0]:u;
+        const idx=_escolas.findIndex(x=>String(x.id)===String(_editandoId));
+        if(idx>=0) _escolas[idx]={..._escolas[idx],...novo};
+      } else {
+        const res=await fetch(SUPABASE_URL+'/rest/v1/escolas',{method:'POST',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(escola)});
+        if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||e.hint||'Supabase '+res.status);}
+        const criado=await res.json();
+        _escolas.unshift(Array.isArray(criado)?criado[0]:criado);
+      }
+      lsSalvar(_escolas);
+      salvouNuvem = true;
+      toast(_editandoId?'✅ Escola atualizada! ☁️':'✅ Escola adicionada! ☁️');
+    } catch(e){
+      console.warn('[Escolas] Supabase falhou ao salvar:', e.message);
+      mostrarModo(true);
+    }
+  }
+  // Plano B — localStorage
+  if(!salvouNuvem){
+    if(_editandoId){
+      const idx=_escolas.findIndex(x=>String(x.id)===String(_editandoId));
+      if(idx>=0) _escolas[idx]={..._escolas[idx],...escola};
+    } else {
+      escola.id = 'ls_'+Date.now();
+      escola.criado_em = new Date().toISOString();
+      _escolas.unshift(escola);
+    }
+    lsSalvar(_escolas);
+    toast(_editandoId?'✅ Atualizada! 💾 (local)':'✅ Adicionada! 💾 (local)');
+  }
+  atualizarKPIs(); filtrar(); fecharForm();
+  btn.disabled=false; btn.textContent=_editandoId?'💾 Salvar alterações':'💾 Salvar escola';
+}
+
+// ── EXCLUSÃO ──────────────────────────────────────────
+function pedirExclusao(id) {
+  const e=_escolas.find(x=>String(x.id)===String(id));
+  _excluindoId=id;
+  document.getElementById('modalSub').innerHTML='Você está prestes a excluir <strong>'+esc(e?e.nome:'')+'</strong>. Esta ação é <strong>irreversível</strong>.';
+  document.getElementById('confirmInput').value='';
+  document.getElementById('btnConfirmExcluir').disabled=true;
+  document.getElementById('btnConfirmExcluir').style.opacity='0.4';
+  document.getElementById('modalExcluir').classList.add('show');
+  setTimeout(()=>document.getElementById('confirmInput').focus(),200);
+}
+function checkConfirm(){
+  const ok=document.getElementById('confirmInput').value==='EXCLUIR';
+  document.getElementById('btnConfirmExcluir').disabled=!ok;
+  document.getElementById('btnConfirmExcluir').style.opacity=ok?'1':'0.4';
+}
+function fecharModal(){ document.getElementById('modalExcluir').classList.remove('show'); _excluindoId=null; }
+async function confirmarExclusao(){
+  if(!_excluindoId) return;
+  const btn=document.getElementById('btnConfirmExcluir');
+  btn.disabled=true; btn.textContent='⏳ Excluindo…';
+  const excId=_excluindoId;
+  let excluiuNuvem = false;
+  // Plano A
+  if(!_modoLocal){
+    try {
+      const res=await fetch(SUPABASE_URL+'/rest/v1/escolas?id=eq.'+encodeURIComponent(excId),{method:'DELETE',headers:{...HEADERS,'Prefer':'return=minimal'}});
+      if(!res.ok) throw new Error('Supabase '+res.status);
+      excluiuNuvem = true;
+    } catch(e){
+      console.warn('[Escolas] Supabase falhou ao excluir:', e.message);
+      mostrarModo(true);
+    }
+  }
+  // Plano B
+  _escolas=_escolas.filter(e=>String(e.id)!==String(excId));
+  lsSalvar(_escolas);
+  atualizarKPIs(); filtrar(); fecharModal();
+  toast(excluiuNuvem ? 'Escola removida ☁️' : 'Escola removida 💾 (local)');
+  btn.disabled=false; btn.textContent='🗑 Confirmar exclusão';
+}
+
+// ── RENDER CARDS ──────────────────────────────────────
+function fmtData(d){
+  if(!d) return '';
+  try{ return new Date(d).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); }catch{return '';}
+}
+
+function renderGrid(lista) {
+  const el=document.getElementById('schoolsGrid');
+  if(!lista||!lista.length){
+    const q=document.getElementById('searchInp').value;
+    el.innerHTML='<div class="empty" style="grid-column:1/-1;">'+(q?'🔍 Nenhum resultado para <strong>'+esc(q)+'</strong><br><br><button class="btn btn-ghost" onclick="document.getElementById(\'searchInp\').value=\'\';filtrar()">Limpar busca</button>':'Nenhuma escola cadastrada.<br><br><button class="btn btn-accent" onclick="abrirFormNovo()">➕ Adicionar primeira escola</button>')+'</div>';
+    return;
+  }
+  el.innerHTML=lista.map((e,_idx)=>{
+    const contatos = parseContatos(e.contato);
+
+    const todosWpp = contatos.filter(ct=>ct.tel).map((ct,i)=>
+      `<button onclick="abrirWpp('${ct.tel}')" class="btn btn-wpp" style="font-size:0.68rem;padding:0.38rem 0.75rem;cursor:pointer;">💬 ${ct.nome?esc(ct.nome.split(' ')[0]):(contatos.filter(x=>x.tel).length>1?'#'+(i+1):'WhatsApp')}</button>`
+    ).join('');
+
+    const todosMail = contatos.filter(ct=>ct.email).map((ct,i)=>
+      `<button onclick="abrirEmail('${ct.email}')" class="btn btn-mail" style="font-size:0.68rem;padding:0.38rem 0.75rem;cursor:pointer;">✉️ ${ct.nome?esc(ct.nome.split(' ')[0]):(contatos.filter(x=>x.email).length>1?'#'+(i+1):'E-mail')}</button>`
+    ).join('');
+
+    let contatosHtml = '';
+    if (contatos.length) {
+      contatosHtml = '<div class="sc-contact-list">' +
+        contatos.map(ct => {
+          const linhas = [];
+          if (ct.tel) linhas.push(`<button onclick="abrirWpp('${ct.tel}')" class="sc-contact-link sc-contact-wpp">💬 ${esc(ct.tel)}</button>`);
+          if (ct.email) linhas.push(`<button onclick="abrirEmail('${ct.email}')" class="sc-contact-link sc-contact-mail">✉️ ${esc(ct.email)}</button>`);
+          return `<div class="sc-contact-item">` +
+            (ct.cargo ? `<div class="sc-contact-cargo">${esc(ct.cargo)}</div>` : '') +
+            (ct.nome  ? `<div class="sc-contact-name">${esc(ct.nome)}</div>` : '') +
+            (linhas.length ? `<div class="sc-contact-actions">${linhas.join('')}</div>` : '') +
+          `</div>`;
+        }).join('') +
+      '</div>';
+    } else {
+      contatosHtml = '<div class="sc-empty">Nenhum contato cadastrado</div>';
+    }
+
+    const infoExtra = [
+      e.nivel?'<div class="sc-row"><span style="flex-shrink:0;">🎓</span><span class="sc-val">'+esc(e.nivel)+'</span></div>':'',
+      e.alunos?'<div class="sc-row"><span style="flex-shrink:0;">👥</span><span class="sc-val">'+esc(e.alunos)+' alunos</span></div>':'',
+      e.site?'<div class="sc-row"><span style="flex-shrink:0;">🌐</span><a href="'+(e.site.startsWith('http')?'':'https://')+esc(e.site)+'" target="_blank">'+esc(e.site)+'</a></div>':'',
+      e.parceria_desde?'<div class="sc-row"><span style="flex-shrink:0;">🤝</span><span class="sc-val">Parceria desde '+fmtData(e.parceria_desde)+'</span></div>':'',
+    ].filter(Boolean).join('');
+
+    return '<div class="school-card">'+
+      `<div class="sc-top" onclick="toggleCard(${_idx})"><div class="sc-top-bg"></div>`+
+        '<div class="sc-head">'+
+          '<div class="sc-ico">🏫</div>'+
+          '<div class="sc-info">'+
+            '<div class="sc-nome">'+esc(e.nome)+'</div>'+
+            '<div class="sc-tipo">'+(e.tipo||'Tipo não informado')+'</div>'+
+            '<div class="sc-tags">'+
+              '<span class="status-pill '+(e.status==='ativo'?'sativo':'sinativo')+'">'+(e.status==='ativo'?'● Ativa':'● Inativa')+'</span>'+
+              (e.tipo?'<span class="tipo-pill">'+esc(e.tipo)+'</span>':'')+
+              (e.nivel?'<span class="nivel-pill">'+esc(e.nivel)+'</span>':'')+
+            '</div>'+
+          '</div>'+
+        '<span class="sc-chevron">▼</span>'+
+        '</div>'+
+        (e.cidade||e.bairro?'<div class="sc-date">📍 '+esc([e.bairro,e.cidade].filter(Boolean).join(', '))+'</div>':'')+
+      '</div>'+
+
+      '<div class="sc-collapse"><div class="sc-body">'+
+        (infoExtra?'<div class="sc-section-label">Instituição</div>'+infoExtra:'')+
+        '<div class="sc-section-label">Contatos</div>'+contatosHtml+
+        (e.obs?'<div class="sc-obs">'+esc(e.obs.substring(0,160))+(e.obs.length>160?'…':'')+'</div>':'')+
+      '</div>'+
+
+      '<div class="sc-footer">'+
+        todosWpp + todosMail +
+        '<button class="btn btn-edit" style="font-size:0.68rem;padding:0.38rem 0.75rem;" onclick="abrirFormEdicao(\''+esc(String(e.id))+'\')">✏️ Editar</button>'+
+        '<button class="btn btn-red" style="font-size:0.68rem;padding:0.38rem 0.75rem;" onclick="pedirExclusao(\''+esc(String(e.id))+'\')">🗑 Excluir</button>'+
+      '</div>'+
+    '</div></div>';
+  }).join('');
+}
+
+// ── HELPERS ───────────────────────────────────────────
+function mostrarSQLHelper(){
+  let box = document.getElementById('sqlBox');
+  if(!box){
+    box = document.createElement('div'); box.id = 'sqlBox';
+    box.style.cssText = 'background:rgba(0,0,0,0.5);border:1px solid rgba(26,188,156,0.3);border-radius:12px;padding:1rem;margin-bottom:1rem;font-size:0.65rem;color:#2563eb;font-family:monospace;white-space:pre-wrap;line-height:1.7;';
+    box.textContent = '-- Execute no Supabase -> SQL Editor:\nCREATE TABLE IF NOT EXISTS escolas (\n  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),\n  nome            TEXT NOT NULL,\n  tipo            TEXT,\n  cidade          TEXT,\n  bairro          TEXT,\n  site            TEXT,\n  alunos          TEXT,\n  nivel           TEXT,\n  parceria_desde  DATE,\n  contato         TEXT,\n  status          TEXT DEFAULT \'ativo\',\n  obs             TEXT,\n  criado_em       TIMESTAMPTZ DEFAULT now()\n);\nALTER TABLE escolas ENABLE ROW LEVEL SECURITY;\nCREATE POLICY "allow_anon_select" ON escolas FOR SELECT TO anon USING (true);\nCREATE POLICY "allow_anon_insert" ON escolas FOR INSERT TO anon WITH CHECK (true);\nCREATE POLICY "allow_anon_update" ON escolas FOR UPDATE TO anon USING (true);\nCREATE POLICY "allow_anon_delete" ON escolas FOR DELETE TO anon USING (true);';
+    document.querySelector('.page').insertBefore(box, document.getElementById('schoolsGrid'));
+  }
+}
+
+const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+let _tt;
+function toast(msg, err = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(_tt); _tt = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+document.getElementById('modalExcluir').addEventListener('click', function(e){ if(e.target===this) fecharModal(); });
+
+function toggleCard(idx){
+  document.querySelectorAll('.school-card').forEach(function(el,i){
+    if(i===idx) el.classList.toggle('aberto');
+    else el.classList.remove('aberto');
+  });
+}
+
+window.abrirWpp = function(tel) {
+  if (!tel) return;
+  var n = String(tel).replace(/\D/g, '');
+  if (!n.startsWith('55')) n = '55' + n;
+  try { window.top.open('https://wa.me/'+n, '_blank'); } catch(e) { window.open('https://wa.me/'+n, '_blank'); }
+};
+
+window.abrirEmail = function(em) {
+  if (!em) return;
+  try { window.top.open('https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(em), '_blank'); } catch(e) { window.open('https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(em), '_blank'); }
+};
+
+init();
+</script></body></html>

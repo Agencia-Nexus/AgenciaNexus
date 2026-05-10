@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>E-mails em Massa | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --primary:#1e40af;--accent:#3b82f6;
+      --bg:#0a0a0a;--card:#131313;--card2:#1a1a1a;
+      --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.3);
+      --text:#f0f0f0;--muted:#777;--muted2:#444;
+      --green:#2ecc71;--blue:#3498db;--red:#e74c3c;--orange:#f39c12;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;
+      background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);
+      background-size:48px 48px;pointer-events:none;}
+
+    .wrapper{position:relative;z-index:1;width:100%;box-sizing:border-box;padding:1.8rem 2rem 5rem;}
+
+    /* TOPBAR */
+    .eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);opacity:0.85;margin-bottom:0.35rem;}
+    .title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+    .title span{color:var(--green);}
+    .sub{font-size:0.8rem;color:var(--muted);}
+    .ats-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+    .btn-ats{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;}
+    .btn-ghost-ats{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost-ats:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+    /* HERO */
+
+    /* CARDS */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;
+      padding:1.4rem 1.6rem;margin-bottom:1rem;}
+    .card-label{font-size:0.58rem;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+      color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+    .card-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);}
+
+    /* TIPOS */
+    .tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
+    @media(max-width:540px){.tipo-grid{grid-template-columns:1fr;}}
+    .tipo-item{display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1rem;
+      background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.07);
+      border-radius:13px;cursor:pointer;transition:all 0.18s;user-select:none;}
+    .tipo-item:hover{background:rgba(255,255,255,0.06);}
+    .tipo-item.ativo{border-color:var(--green);background:rgba(59,130,246,0.07);}
+    .tipo-ico{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;
+      justify-content:center;font-size:1.15rem;flex-shrink:0;}
+    .tipo-nome{font-size:0.85rem;font-weight:700;margin-bottom:0.12rem;}
+    .tipo-desc{font-size:0.65rem;color:var(--muted);}
+
+    /* EXTRAS ENTREVISTA */
+    #extras{display:none;background:rgba(52,152,219,0.05);border:1px solid rgba(52,152,219,0.2);
+      border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:1rem;}
+    .extras-label{font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      color:var(--blue);margin-bottom:0.8rem;}
+    .extras-grid{display:grid;grid-template-columns:1fr 1fr 2fr;gap:0.6rem;}
+    @media(max-width:580px){.extras-grid{grid-template-columns:1fr 1fr;}}
+
+    /* CAMPOS */
+    .field-label{font-size:0.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;
+      letter-spacing:0.6px;display:block;margin-bottom:0.3rem;}
+    .field-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+      border-radius:10px;padding:0.6rem 0.85rem;color:var(--text);font-family:inherit;
+      font-size:0.84rem;outline:none;transition:border-color 0.2s;}
+    .field-input:focus{border-color:var(--accent);}
+    .field-input::placeholder{color:var(--muted2);}
+    .field-textarea{resize:vertical;line-height:1.75;min-height:80px;}
+
+    /* DESTINATÁRIOS */
+    .dest-toolbar{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.7rem;}
+    .dest-select{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+      border-radius:9px;padding:0.42rem 0.7rem;color:var(--text);font-family:inherit;
+      font-size:0.78rem;outline:none;cursor:pointer;}
+    .dest-select option{background:#161616;}
+    .btn-sm{background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.09);
+      border-radius:8px;padding:0.38rem 0.75rem;font-family:inherit;font-size:0.73rem;
+      font-weight:700;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+    .btn-sm:hover{background:rgba(255,255,255,0.09);color:var(--text);}
+    .btn-sm.verde{background:rgba(59,130,246,0.1);color:var(--green);border-color:rgba(59,130,246,0.25);}
+    .btn-sm.verde:hover{background:rgba(59,130,246,0.18);}
+    .cand-lista{max-height:220px;overflow-y:auto;background:rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.06);border-radius:11px;padding:0.4rem;}
+    .cand-lista::-webkit-scrollbar{width:4px;}
+    .cand-lista::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.3);border-radius:2px;}
+    .cand-row{display:flex;align-items:center;gap:0.6rem;padding:0.42rem 0.55rem;
+      border-radius:8px;cursor:pointer;transition:background 0.12s;}
+    .cand-row:hover{background:rgba(255,255,255,0.04);}
+    .cand-row input[type=checkbox]{accent-color:var(--green);width:14px;height:14px;
+      flex-shrink:0;cursor:pointer;}
+    .cand-nome{font-size:0.81rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
+    .cand-meta{font-size:0.62rem;color:var(--muted);white-space:nowrap;flex-shrink:0;}
+    .contador{font-size:0.72rem;color:var(--muted);margin-top:0.5rem;}
+
+    /* ENVIO */
+    .envio-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;margin-bottom:0.6rem;}
+    @media(max-width:480px){.envio-grid{grid-template-columns:1fr;}}
+    .btn-envio{border:1px solid;border-radius:12px;padding:0.85rem 0.5rem;font-family:inherit;
+      font-size:0.84rem;font-weight:800;cursor:pointer;transition:all 0.2s;
+      display:flex;align-items:center;justify-content:center;gap:0.4rem;}
+    .btn-envio:hover{transform:translateY(-2px);filter:brightness(1.1);}
+    .btn-gmail{background:rgba(234,67,53,0.1);color:#ea4335;border-color:rgba(234,67,53,0.28);}
+    .btn-outlook{background:rgba(0,120,212,0.1);color:#0078d4;border-color:rgba(0,120,212,0.25);}
+    .btn-padrao{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.1);}
+    .btn-copiar{background:none;border:none;color:var(--muted);font-family:inherit;
+      font-size:0.75rem;font-weight:600;cursor:pointer;padding:0.3rem 0.5rem;}
+    .btn-copiar:hover{color:var(--text);}
+    #statusEnvio{font-size:0.78rem;text-align:center;min-height:1.1rem;margin-top:0.5rem;
+      transition:opacity 0.3s;}
+
+    /* PREVIEW */
+    .preview-box{background:rgba(0,0,0,0.3);border:1px dashed rgba(255,255,255,0.08);
+      border-radius:10px;padding:1rem 1.1rem;font-size:0.82rem;color:var(--muted);
+      line-height:1.75;white-space:pre-wrap;word-break:break-word;max-height:180px;
+      overflow-y:auto;display:none;}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);
+      background:var(--green);color:#fff;font-family:inherit;font-size:0.85rem;font-weight:700;
+      padding:0.65rem 1.6rem;border-radius:99px;opacity:0;pointer-events:none;
+      transition:all 0.3s;z-index:999;}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+    .toast.erro{background:var(--red);}
+
+    /* LOADING */
+    .loading{font-size:0.8rem;color:var(--muted2);text-align:center;padding:1.2rem;}
+    .empty{font-size:0.78rem;color:var(--muted2);text-align:center;padding:1.2rem;
+      border:1px dashed rgba(255,255,255,0.07);border-radius:9px;}
+  
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page, .wrap, .wrapper {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child { width: 100% !important; }
+  .hero .btn, .hero button { width: 100% !important; justify-content: center !important; }
+  .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3,
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Formulários */
+  .form-card { padding: 1rem !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Filtros */
+  .filters, .discFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .filters::-webkit-scrollbar, .discFilters::-webkit-scrollbar { display: none !important; }
+  .fc, .filter-chip { flex-shrink: 0 !important; }
+
+  /* Listas de itens */
+  .notif-item, .resp-item, .hist-item, .user-row, .polling-row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .notif-msg { white-space: normal !important; font-size: 0.72rem !important; }
+
+  /* Mapa de talentos */
+  .quadrante-wrap { aspect-ratio: 1 !important; max-height: 280px !important; }
+  .talent-table { font-size: 0.68rem !important; }
+  .talent-table th, .talent-table td { padding: 0.38rem 0.4rem !important; }
+
+  /* NPS scale */
+  .scale-row { gap: 0.2rem !important; margin: 0.6rem 0 !important; }
+  .scale-btn { width: 36px !important; height: 36px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+  .nps-val { font-size: 3.5rem !important; }
+  .nps-score { padding: 1.2rem !important; }
+  .kpi-row.nps { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Permissões */
+  .role-grid { grid-template-columns: 1fr !important; }
+  .role-card { padding: 1rem !important; }
+  .perm-item { font-size: 0.68rem !important; }
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Equipe */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.6rem !important; }
+  .member-ava { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; }
+  .member-card { padding: 1rem !important; }
+  .member-btns { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* Fit Predictor */
+  .result-box { padding: 1rem !important; }
+  .score-num { font-size: 3.5rem !important; }
+  .bar-label { width: 70px !important; font-size: 0.6rem !important; }
+  .insights { font-size: 0.7rem !important; }
+  .hist-list { max-height: 200px !important; }
+
+  /* Inteligência / busca IA */
+  .search-inner { flex-direction: column !important; }
+  .s-input { width: 100% !important; }
+  .search-box { padding: 0.9rem !important; }
+
+  /* Notificações */
+  .notif-list { max-height: 300px !important; }
+  .kpi-row .kpi { text-align: center; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Seção labels */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Topbar (emails / entrevista) */
+  .ats-hero { flex-direction: column !important; align-items: flex-start !important; gap: 0.8rem !important; }
+  .title { font-size: 1.25rem !important; }
+}
+
+@media (max-width: 640px) {
+  .tipo-grid { grid-template-columns: 1fr !important; }
+  .wrapper { padding-left: 0.9rem !important; padding-right: 0.9rem !important; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- HERO PADRÃO ATS -->
+  <div class="ats-hero">
+    <div>
+      <div class="eyebrow">Comunicação · ATS</div>
+      <div class="title">E-mails <span>em Massa</span></div>
+      <div class="sub">Negativa · Aprovação · Convite para entrevista · Mensagem livre</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <a href="calendario.html" class="btn-ats btn-ghost-ats">📅 Calendário</a>
+    </div>
+  </div>
+
+  <!-- TIPO -->
+  <div class="card">
+    <div class="card-label">Tipo de mensagem</div>
+    <div class="tipo-grid">
+      <div class="tipo-item ativo" id="tipo-negativa" onclick="selecionarTipo('negativa')">
+        <div class="tipo-ico" style="background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.22);">❌</div>
+        <div><div class="tipo-nome">Negativa</div><div class="tipo-desc">Candidatos não selecionados</div></div>
+      </div>
+      <div class="tipo-item" id="tipo-aprovacao" onclick="selecionarTipo('aprovacao')">
+        <div class="tipo-ico" style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.22);">✅</div>
+        <div><div class="tipo-nome">Aprovação</div><div class="tipo-desc">Avançou para próxima etapa</div></div>
+      </div>
+      <div class="tipo-item" id="tipo-entrevista" onclick="selecionarTipo('entrevista')">
+        <div class="tipo-ico" style="background:rgba(52,152,219,0.12);border:1px solid rgba(52,152,219,0.22);">📅</div>
+        <div><div class="tipo-nome">Convite p/ entrevista</div><div class="tipo-desc">Data, hora e local</div></div>
+      </div>
+      <div class="tipo-item" id="tipo-livre" onclick="selecionarTipo('livre')">
+        <div class="tipo-ico" style="background:rgba(168,139,250,0.12);border:1px solid rgba(168,139,250,0.22);">✏️</div>
+        <div><div class="tipo-nome">Mensagem livre</div><div class="tipo-desc">Texto personalizado</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DADOS DA ENTREVISTA -->
+  <div id="extras">
+    <div class="extras-label">📅 Dados da entrevista</div>
+    <div class="extras-grid">
+      <div>
+        <label class="field-label">Data</label>
+        <input type="date" id="extData" class="field-input" oninput="regenerar()"/>
+      </div>
+      <div>
+        <label class="field-label">Horário</label>
+        <input type="time" id="extHora" class="field-input" value="09:00" oninput="regenerar()"/>
+      </div>
+      <div>
+        <label class="field-label">Local / Link</label>
+        <input type="text" id="extLocal" class="field-input" placeholder="Rua X nº Y · meet.google.com/..." oninput="regenerar()"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESTINATÁRIOS -->
+  <div class="card">
+    <div class="card-label">Destinatários</div>
+    <div class="dest-toolbar">
+      <select id="filtroVaga" class="dest-select" onchange="filtrar()">
+        <option value="">Todas as vagas</option>
+      </select>
+      <button class="btn-sm verde" onclick="marcarTodos()">✓ Marcar todos</button>
+      <button class="btn-sm" onclick="desmarcarTodos()">✕ Limpar</button>
+      <button class="btn-sm" onclick="carregarCandidatos()" style="margin-left:auto;">🔄 Atualizar</button>
+    </div>
+    <div class="cand-lista" id="candLista">
+      <div class="loading">Clique em "Atualizar" para carregar os candidatos</div>
+    </div>
+    <div class="contador" id="contador">0 selecionados</div>
+  </div>
+
+  <!-- MENSAGEM -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+      <div class="card-label" style="margin:0;">Mensagem <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted2);font-size:0.65rem;">— use {nome} para personalizar</span></div>
+      <div style="display:flex;gap:0.5rem;">
+        <button class="btn-sm" onclick="regenerar()">↺ Regenerar modelo</button>
+        <button class="btn-sm" onclick="togglePreview()">👁 Preview</button>
+      </div>
+    </div>
+    <div style="margin-bottom:0.65rem;">
+      <label class="field-label">Assunto</label>
+      <input type="text" id="assunto" class="field-input"/>
+    </div>
+    <label class="field-label">Corpo do e-mail</label>
+    <textarea id="texto" class="field-input field-textarea" rows="11"></textarea>
+    <div class="preview-box" id="preview"></div>
+  </div>
+
+  <!-- ENVIO -->
+  <div class="card">
+    <div class="card-label">Enviar</div>
+
+    <!-- MODO CCO (principal - vindo do retorno-automatico) -->
+    <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.18);border-radius:12px;padding:1rem 1.1rem;margin-bottom:1rem;">
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;">✉️ Envio em Cópia Oculta (Recomendado)</div>
+      <p style="font-size:0.73rem;color:var(--muted);margin-bottom:0.85rem;line-height:1.6;">
+        Abre <strong style="color:var(--text);">um único e-mail</strong> no Gmail com todos os candidatos em CCO. Mais rápido, discreto e profissional.
+      </p>
+      <button class="btn-envio btn-gmail" onclick="enviarCCO()" style="width:100%;padding:0.9rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Abrir no Gmail (CCO)
+      </button>
+    </div>
+
+    <!-- MODAL CONTA GMAIL -->
+    <div id="modal-cco" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:9000;align-items:center;justify-content:center;">
+      <div style="background:#131313;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:24px;width:400px;max-width:92vw;">
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px;">✉️ Antes de enviar</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5;">Certifique-se de estar usando a conta correta no Gmail:</p>
+        <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 14px;font-weight:700;color:var(--accent);font-size:13px;text-align:center;margin-bottom:16px;">bancodetalentosnexus@gmail.com</div>
+        <p style="font-size:11.5px;color:var(--muted2);margin-bottom:20px;">Se abrir com outra conta, troque para a conta da Agência Nexus antes de enviar.</p>
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button class="btn-sm" onclick="fecharModalCCO()">Cancelar</button>
+          <button class="btn-sm verde" id="btn-cco-ok">✉️ Abrir Gmail</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODO INDIVIDUAL (secundário) -->
+    <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:0.9rem;">
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:0.6rem;">Envio individual (uma janela por candidato)</div>
+      <p style="font-size:0.73rem;color:var(--muted);margin-bottom:0.9rem;line-height:1.6;">
+        Cada candidato selecionado abrirá uma janela separada com o e-mail personalizado ({nome} = primeiro nome).
+      </p>
+      <div class="envio-grid">
+        <button class="btn-envio btn-gmail" onclick="enviar('gmail')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Gmail
+        </button>
+        <button class="btn-envio btn-outlook" onclick="enviar('outlook')">
+          📨 Outlook
+        </button>
+        <button class="btn-envio btn-padrao" onclick="enviar('mailto')">
+          📬 Padrão
+        </button>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:0.75rem;">
+      <button class="btn-copiar" onclick="copiarTexto()">📋 Copiar texto</button>
+    </div>
+    <div id="statusEnvio"></div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SB  = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const KEY = ['sb_publishable_pEbfDD','ewFmXfBWXg4HtGNw','_gb_nOMxb'].join('');
+
+let _tipo = 'negativa';
+let _todos = [];
+let _filtrados = [];
+let _selecionados = [];
+let _previewOn = false;
+
+const MODELOS = {
+  negativa:{
+    assunto:'Retorno sobre sua candidatura — Agência Nexus',
+    texto:`Prezado(a) {nome},
+
+Agradecemos muito o seu interesse e o tempo dedicado ao nosso processo seletivo.
+
+Após análise cuidadosa dos perfis, informamos que não daremos continuidade à sua candidatura neste momento. Esta decisão não reflete uma avaliação negativa do seu potencial — foi um processo criterioso com muitos candidatos qualificados.
+
+Mantenha seu cadastro atualizado conosco. Surgindo novas oportunidades compatíveis com seu perfil, entraremos em contato.
+
+Desejamos muito sucesso na sua jornada profissional!
+
+Atenciosamente,
+Equipe Agência Nexus
+Guaíba/RS`
+  },
+  aprovacao:{
+    assunto:'Parabéns! Você avançou no processo seletivo — Agência Nexus',
+    texto:`Prezado(a) {nome},
+
+É com grande satisfação que comunicamos: você foi selecionado(a) para avançar em nosso processo seletivo!
+
+Seu perfil se destacou e queremos continuar conhecendo você melhor. Em breve retornaremos com informações sobre os próximos passos.
+
+Parabéns pela conquista, e até logo!
+
+Atenciosamente,
+Equipe Agência Nexus
+Guaíba/RS`
+  },
+  entrevista:{
+    assunto:'Convite para entrevista — Agência Nexus',
+    texto:`Prezado(a) {nome},
+
+Ficamos felizes em convidá-lo(a) para uma entrevista em nossa agência!
+
+📅 Data: {data}
+🕐 Horário: {hora}
+📍 Local: {local}
+
+Por favor, confirme sua presença respondendo este e-mail.
+Caso precise remarcar, entre em contato com pelo menos 24 horas de antecedência.
+
+Aguardamos você!
+
+Atenciosamente,
+Equipe Agência Nexus
+Guaíba/RS`
+  },
+  livre:{
+    assunto:'Agência Nexus — Recrutamento',
+    texto:`Prezado(a) {nome},\n\n`
+  }
+};
+
+// ── Tipo ──────────────────────────────────────────────────────
+function selecionarTipo(tipo){
+  _tipo = tipo;
+  document.querySelectorAll('.tipo-item').forEach(el=>el.classList.remove('ativo'));
+  document.getElementById('tipo-'+tipo).classList.add('ativo');
+  document.getElementById('extras').style.display = tipo==='entrevista' ? 'block' : 'none';
+  regenerar();
+}
+
+function regenerar(){
+  const m = MODELOS[_tipo]||MODELOS.negativa;
+  const data  = document.getElementById('extData')?.value||'';
+  const hora  = document.getElementById('extHora')?.value||'{hora}';
+  const local = document.getElementById('extLocal')?.value||'{local}';
+  const dataFmt = data
+    ? new Date(data+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})
+    : '{data}';
+  const texto = m.texto
+    .replace(/{data}/g, dataFmt)
+    .replace(/{hora}/g, hora)
+    .replace(/{local}/g, local);
+  document.getElementById('assunto').value = m.assunto;
+  document.getElementById('texto').value = texto;
+  if(_previewOn) atualizarPreview();
+}
+
+function togglePreview(){
+  _previewOn = !_previewOn;
+  const box = document.getElementById('preview');
+  box.style.display = _previewOn ? 'block' : 'none';
+  if(_previewOn) atualizarPreview();
+}
+
+function atualizarPreview(){
+  const nome = _selecionados.length>0
+    ? (_todos.find(h=>h.id===_selecionados[0])?.nome||'Candidato').split(' ')[0]
+    : 'Candidato';
+  document.getElementById('preview').textContent =
+    document.getElementById('texto').value.replace(/{nome}/gi, nome);
+}
+
+// ── Candidatos ───────────────────────────────────────────────
+async function carregarCandidatos(){
+  const lista = document.getElementById('candLista');
+  lista.innerHTML = '<div class="loading">Carregando candidatos...</div>';
+  try{
+    const res = await fetch(
+      `${SB}/rest/v1/disc_historico?select=id,nome,vaga,data,email,email_externo&order=criado_em.desc`,
+      {headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}}
+    );
+    const arr = await res.json();
+    if(!Array.isArray(arr)) throw new Error('Resposta inválida');
+    _todos = arr;
+    _filtrados = arr;
+    _selecionados = [];
+
+    // Popula filtro de vagas
+    const vagas = [...new Set(arr.map(h=>h.vaga).filter(Boolean))].sort();
+    const sel = document.getElementById('filtroVaga');
+    sel.innerHTML = '<option value="">Todas as vagas</option>' +
+      vagas.map(v=>`<option value="${v}">${v}</option>`).join('');
+
+    renderCands(arr);
+    toast(`✓ ${arr.length} candidatos carregados`);
+  }catch(e){
+    lista.innerHTML = `<div class="empty">Erro: ${e.message}</div>`;
+  }
+}
+
+function filtrar(){
+  const vaga = document.getElementById('filtroVaga').value;
+  _filtrados = vaga ? _todos.filter(h=>h.vaga===vaga) : _todos;
+  _selecionados = [];
+  renderCands(_filtrados);
+}
+
+function renderCands(lista){
+  const el = document.getElementById('candLista');
+  if(!lista.length){
+    el.innerHTML = '<div class="empty">Nenhum candidato encontrado</div>';
+    atualizarContador(); return;
+  }
+  el.innerHTML = lista.map(h=>{
+    const sel = _selecionados.includes(h.id);
+    const em  = getEmail(h);
+    const metaEmail = em
+      ? `<span style="color:#2ecc71;font-size:0.58rem;">✓ e-mail</span>`
+      : `<span style="color:#e74c3c;font-size:0.58rem;">sem e-mail</span>`;
+    return `<div class="cand-row" onclick="toggleCand(${h.id})">
+      <input type="checkbox" ${sel?'checked':''} onclick="event.stopPropagation();toggleCand(${h.id})"/>
+      <span class="cand-nome">${h.nome||'—'}</span>
+      <span class="cand-meta">${h.vaga||'—'} &nbsp;${metaEmail}</span>
+    </div>`;
+  }).join('');
+  atualizarContador();
+}
+
+function toggleCand(id){
+  const i = _selecionados.indexOf(id);
+  if(i>-1) _selecionados.splice(i,1); else _selecionados.push(id);
+  renderCands(_filtrados);
+}
+
+function marcarTodos(){
+  _selecionados = _filtrados.map(h=>h.id);
+  renderCands(_filtrados);
+}
+
+function desmarcarTodos(){
+  _selecionados = [];
+  renderCands(_filtrados);
+}
+
+function atualizarContador(){
+  const el = document.getElementById('contador');
+  if(el) el.textContent = `${_selecionados.length} selecionado${_selecionados.length!==1?'s':''}`;
+}
+
+// ── Envio CCO (cópia oculta — lógica do retorno-automatico) ──────
+let _ccoUrl = '';
+
+function getEmail(h){
+  // Tenta email_externo (campo do retorno-automatico), depois email, depois vazio
+  return h.email_externo || h.email || '';
+}
+
+function enviarCCO(){
+  const sels = _todos.filter(h => _selecionados.includes(h.id));
+  if(!sels.length){
+    setStatus('⚠️ Selecione pelo menos um candidato', '#e74c3c'); return;
+  }
+  const assunto = document.getElementById('assunto').value.trim();
+  const base    = document.getElementById('texto').value.trim();
+  if(!assunto || !base){
+    setStatus('⚠️ Preencha assunto e corpo do e-mail', '#e74c3c'); return;
+  }
+
+  const comEmail  = sels.filter(h => getEmail(h));
+  const semEmail  = sels.filter(h => !getEmail(h));
+
+  if(!comEmail.length){
+    setStatus('⚠️ Nenhum candidato selecionado possui e-mail cadastrado', '#e74c3c'); return;
+  }
+
+  // Interpola com o primeiro candidato para preview/assunto
+  const primeiro = comEmail[0];
+  const nomeFirst = (primeiro.nome||'').split(' ')[0] || 'Candidato';
+  const subjInterp = assunto.replace(/{nome}/gi, nomeFirst);
+  const bodyInterp = base.replace(/{nome}/gi, nomeFirst);
+
+  const bccs = comEmail.map(h => getEmail(h)).join(',');
+  _ccoUrl = `https://mail.google.com/mail/u/bancodetalentosnexus@gmail.com/?view=cm&to=bancodetalentosnexus@gmail.com&bcc=${encodeURIComponent(bccs)}&su=${encodeURIComponent(subjInterp)}&body=${encodeURIComponent(bodyInterp)}`;
+
+  // Mostra modal de confirmação
+  const modal = document.getElementById('modal-cco');
+  modal.style.display = 'flex';
+  document.getElementById('btn-cco-ok').onclick = () => {
+    fecharModalCCO();
+    window.open(_ccoUrl, '_blank');
+    if(semEmail.length)
+      setStatus(`⚠️ ${semEmail.length} candidato(s) sem e-mail foram ignorados`, '#f39c12');
+    else
+      setStatus(`✓ Gmail aberto com ${comEmail.length} destinatário(s) em CCO`, '#2ecc71');
+  };
+}
+
+function fecharModalCCO(){
+  document.getElementById('modal-cco').style.display = 'none';
+}
+
+// Fecha modal ao clicar fora
+document.getElementById('modal-cco')?.addEventListener('click', function(e){
+  if(e.target === this) fecharModalCCO();
+});
+
+// ── Envio individual ──────────────────────────────────────────────
+function enviar(cliente){
+  const sels = _todos.filter(h=>_selecionados.includes(h.id));
+  if(!sels.length){
+    setStatus('⚠️ Selecione pelo menos um candidato', '#e74c3c'); return;
+  }
+  const assunto = encodeURIComponent(document.getElementById('assunto').value);
+  const base = document.getElementById('texto').value;
+
+  sels.forEach((h,i)=>{
+    const nome = (h.nome||'').split(' ')[0]||'Candidato';
+    const corpo = encodeURIComponent(base.replace(/{nome}/gi, nome));
+    let url='';
+    if(cliente==='gmail')
+      url=`https://mail.google.com/mail/?view=cm&su=${assunto}&body=${corpo}`;
+    else if(cliente==='outlook')
+      url=`https://outlook.live.com/mail/0/deeplink/compose?subject=${assunto}&body=${corpo}`;
+    else
+      url=`mailto:?subject=${assunto}&body=${corpo}`;
+    setTimeout(()=>window.open(url,'_blank'), i*700);
+  });
+
+  setStatus(`✓ ${sels.length} janela${sels.length>1?'s abertas':' aberta'} — revise e envie cada uma`, '#2ecc71');
+}
+
+function copiarTexto(){
+  navigator.clipboard.writeText(document.getElementById('texto').value)
+    .then(()=>toast('✓ Texto copiado!'))
+    .catch(()=>toast('Erro ao copiar','erro'));
+}
+
+function setStatus(msg, cor){
+  const el = document.getElementById('statusEnvio');
+  el.style.color = cor;
+  el.textContent = msg;
+  setTimeout(()=>{ el.textContent=''; }, 5000);
+}
+
+function toast(msg, tipo){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (tipo==='erro'?' erro':'') + ' show';
+  setTimeout(()=>{ t.classList.remove('show'); }, 3000);
+}
+
+// Init
+regenerar();
+
+// ── Integração com o shell ATS ──────────────────────────────────
+(function(){
+  function lerCtxEmails(){
+    try{
+      const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');
+      if(c.sb_url){ SB=c.sb_url; KEY=c.sb_key; carregarCandidatos(); }
+    }catch(e){}
+  }
+  window.addEventListener('message', e=>{
+    if(e.data?.tipo==='nexus_ctx'){ SB=e.data.sb_url; KEY=e.data.sb_key; carregarCandidatos(); }
+  });
+  lerCtxEmails();
+})();
+</script>
+</body>
+</html>

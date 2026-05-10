@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SLA & Prazos | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.6rem;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--red);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;}
+.kpi-val{font-size:1.8rem;font-weight:900;line-height:1;}.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.sla-list{display:flex;flex-direction:column;gap:0.5rem;}
+.sla-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;transition:all 0.18s;flex-wrap:wrap;}
+.sla-item:hover{border-color:var(--border2);}
+.sla-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.sla-info{flex:1;min-width:0;}
+.sla-nome{font-size:0.85rem;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sla-sub{font-size:0.65rem;color:var(--muted);margin-top:0.1rem;}
+.sla-bar-wrap{display:flex;align-items:center;gap:0.6rem;flex-shrink:0;}
+.sla-bar{width:100px;height:6px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.sla-bar-fill{height:100%;border-radius:99px;}
+.sla-dias{font-size:0.72rem;font-weight:800;white-space:nowrap;}
+.badge-urg{font-size:0.6rem;font-weight:800;padding:0.15rem 0.55rem;border-radius:99px;}
+.u-critico{background:rgba(231,76,60,0.15);color:var(--red);border:1px solid rgba(231,76,60,0.3);}
+.u-atencao{background:rgba(243,156,18,0.12);color:var(--orange);border:1px solid rgba(243,156,18,0.28);}
+.u-ok{background:rgba(46,204,113,0.1);color:var(--green);border:1px solid rgba(46,204,113,0.22);}
+.btn{font-family:inherit;font-size:0.72rem;font-weight:700;border-radius:9px;padding:0.38rem 0.8rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.35rem;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.empty{text-align:center;padding:2.5rem;color:var(--muted2);font-size:0.78rem;}
+.spinner{width:16px;height:16px;border:2px solid var(--muted2);border-top-color:var(--red);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}@keyframes spin{to{transform:rotate(360deg)}}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  .page {
+    padding: 1rem 0.9rem 4rem !important;
+  }
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child,
+  .hero > button,
+  .hero > div[style*="display:flex"] {
+    width: 100%;
+  }
+  .hero .btn,
+  .hero button.btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .title { font-size: 1.25rem !important; }
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+  .form-card { padding: 1rem !important; }
+  .filters {
+    gap: 0.35rem !important;
+  }
+  .filter-chip { font-size: 0.65rem !important; padding: 0.22rem 0.6rem !important; }
+  .rec-item, .sla-item, .task-item, .rank-card, .vi, .sync-row {
+    flex-wrap: wrap !important;
+    gap: 0.6rem !important;
+  }
+  .sla-bar-wrap { flex: 1 1 100% !important; justify-content: space-between; }
+  .sla-bar { width: auto !important; flex: 1 !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+  .sec-label { font-size: 0.58rem !important; }
+  .add-form { flex-direction: column !important; }
+  .add-form .fi,
+  .add-form .fsel,
+  .add-form input[type=date] { width: 100% !important; }
+  .add-form .btn { width: 100% !important; justify-content: center !important; }
+  .tpl-grid { grid-template-columns: 1fr !important; }
+  .cand-list { max-height: 200px !important; }
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .sync-row { padding: 0.7rem 0 !important; }
+  .sync-ico { display: none !important; }
+  .schema-box { font-size: 0.62rem !important; }
+  .info-box { font-size: 0.7rem !important; }
+  .log-box { font-size: 0.65rem !important; }
+  .pesos-card { padding: 1rem !important; }
+  .pesos-grid { grid-template-columns: 1fr !important; }
+  .pesos-total { flex-wrap: wrap !important; gap: 0.5rem !important; }
+  .pesos-total .btn { flex: 1 1 auto !important; }
+  .filtro-row { gap: 0.4rem !important; }
+  .filter-select { font-size: 0.72rem !important; flex: 1 !important; }
+  .rank-scores { gap: 0.3rem !important; }
+  .score-final-val { font-size: 1.2rem !important; }
+  .score-bar { width: 44px !important; }
+  .vi-btns { width: 100% !important; justify-content: flex-end; }
+  .vi-tit { font-size: 0.82rem !important; }
+  .vagas-grid { grid-template-columns: 1fr !important; }
+  .modal { padding: 1.2rem !important; border-radius: 16px !important; }
+  .toast { right: 0.6rem !important; bottom: 0.6rem !important; left: 0.6rem !important; }
+}
+
+</style></head><body>
+<div class="page">
+  <div class="hero">
+    <div class="eyebrow">Operações</div>
+    <div class="title">SLA <span>& Prazos</span></div>
+    <div class="sub">Candidatos sem movimento · Alertas por tempo parado no processo</div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kCritico" style="color:var(--red);">0</div><div class="kpi-label">Crítico (+7 dias)</div></div>
+    <div class="kpi"><div class="kpi-val" id="kAtencao" style="color:var(--orange);">0</div><div class="kpi-label">Atenção (3-7 dias)</div></div>
+    <div class="kpi"><div class="kpi-val" id="kOk" style="color:var(--green);">0</div><div class="kpi-label">Em dia</div></div>
+    <div class="kpi"><div class="kpi-val" id="kSemEnt" style="color:var(--orange);">0</div><div class="kpi-label">Sem entrevista</div></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+    <div class="sec-label" style="flex:1;margin-bottom:0;">Candidatos parados no processo</div>
+    <button class="btn btn-ghost" onclick="init()">↺ Atualizar</button>
+  </div>
+  <div class="sla-list" id="slaList"><div style="display:flex;align-items:center;justify-content:center;padding:2rem;gap:0.5rem;color:var(--muted);font-size:0.78rem;"><div class="spinner"></div>Analisando prazos...</div></div>
+</div>
+<script>
+let SB_URL='',SB_KEY='';
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;if(!_loaded)init();}});
+let _loaded=false;
+async function init(){
+  lerCtx();if(!SB_URL){setTimeout(()=>{lerCtx();if(SB_URL)init();},500);return;}
+  _loaded=true;
+  const el=document.getElementById('slaList');
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?select=id,nome,vaga,data,entrevista_json,resumo_ia,fit_score&order=criado_em.desc`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const arr=await r.json();if(!Array.isArray(arr)){el.innerHTML='<div class="empty">Erro ao carregar.</div>';return;}
+    const hoje=new Date();
+    const lista=arr.map(h=>{
+      let dias=null;
+      if(h.data){try{const p=h.data.split('/');const d=new Date(p[2],p[1]-1,p[0]);dias=Math.floor((hoje-d)/86400000);}catch(e){}}
+      const temEnt=!!(h.entrevista_json||h.resumo_ia);
+      return {...h,dias,temEnt};
+    }).filter(h=>h.dias!==null&&h.dias>=1).sort((a,b)=>b.dias-a.dias);
+    const critico=lista.filter(h=>h.dias>=7&&!h.temEnt);
+    const atencao=lista.filter(h=>h.dias>=3&&h.dias<7&&!h.temEnt);
+    const ok=lista.filter(h=>h.dias<3||h.temEnt);
+    const semEnt=lista.filter(h=>!h.temEnt);
+    document.getElementById('kCritico').textContent=critico.length;
+    document.getElementById('kAtencao').textContent=atencao.length;
+    document.getElementById('kOk').textContent=ok.length;
+    document.getElementById('kSemEnt').textContent=semEnt.length;
+    window.parent.postMessage({tipo:'nexus_badge',mod:'sla',valor:critico.length+atencao.length},'*');
+    if(!lista.length){el.innerHTML='<div class="empty">✅ Nenhum candidato com prazo pendente.</div>';return;}
+    el.innerHTML=lista.slice(0,30).map(h=>{
+      const cor=h.dias>=7?'var(--red)':h.dias>=3?'var(--orange)':'var(--green)';
+      const pct=Math.min(Math.round((h.dias/14)*100),100);
+      const cls=h.dias>=7?'u-critico':h.dias>=3?'u-atencao':'u-ok';
+      const lbl=h.dias>=7?'🚨 Crítico':h.dias>=3?'⚠️ Atenção':'✓ OK';
+      const diasTxt=h.dias===1?'1 dia':h.dias+'dias';
+      const icoBg=h.dias>=7?'rgba(231,76,60,0.12)':h.dias>=3?'rgba(243,156,18,0.1)':'rgba(46,204,113,0.08)';
+      return `<div class="sla-item">
+        <div class="sla-ico" style="background:${icoBg};">${h.dias>=7?'🚨':h.dias>=3?'⚠️':'✅'}</div>
+        <div class="sla-info">
+          <div class="sla-nome">${esc(h.nome||'—')}</div>
+          <div class="sla-sub">📋 ${esc(h.vaga||'—')} · ${h.data||'—'} · ${h.temEnt?'✓ Com entrevista':'⚠️ Sem entrevista'}</div>
+        </div>
+        <span class="badge-urg ${cls}">${lbl}</span>
+        <div class="sla-bar-wrap">
+          <div class="sla-bar"><div class="sla-bar-fill" style="width:${pct}%;background:${cor};"></div></div>
+          <span class="sla-dias" style="color:${cor};">há ${diasTxt}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }catch(e){el.innerHTML=`<div class="empty" style="color:var(--red);">Erro: ${esc(e.message)}</div>`;}
+}
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+lerCtx();if(SB_URL)init();else setTimeout(()=>{lerCtx();if(SB_URL)init();else init();},400);
+</script></body></html>

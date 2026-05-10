@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retorno Automático | Nexus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#3b82f6;--green-d:#1e40af;--green-glow:rgba(59,130,246,0.15);
+  --bg:#070709;--surface:#0e0f11;--surface2:#141518;--surface3:#1a1b1f;
+  --border:rgba(255,255,255,0.06);--border-a:rgba(141,198,63,0.2);
+  --text:#eeeef0;--text-2:#8a8b91;--text-3:#4a4b52;
+  --triagem:#4fa8e8;--pre:#a78bfa;--entrevista:#e8943a;
+  --finalista:#4fc87a;--aprovado:#3b82f6;--recusado:#e05252;--recusado-cli:#c0392b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;height:100vh;overflow:hidden;}
+#app{display:flex;flex-direction:column;height:100vh;}
+.toolbar{display:flex;align-items:center;gap:10px;padding:0 18px;height:52px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}
+.btn-back{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--text-2);cursor:pointer;font-size:12px;font-family:inherit;font-weight:600;transition:all 0.15s;}
+.btn-back:hover{background:var(--surface2);color:var(--text);}
+.tb-sep{width:1px;height:20px;background:var(--border);}
+.tb-title{font-size:13.5px;font-weight:700;}
+.tb-spacer{flex:1;}
+.main{display:flex;flex:1;overflow:hidden;}
+.panel-left{width:320px;flex-shrink:0;border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.panel-left .ph{padding:12px 14px;border-bottom:1px solid var(--border);}
+.panel-left .ph h3{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;}
+.filters{display:flex;gap:5px;flex-wrap:wrap;}
+.fb{padding:3px 9px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-3);cursor:pointer;font-size:11px;font-family:inherit;font-weight:600;}
+.fb.active{background:rgba(79,168,232,0.15);color:#4fa8e8;border-color:rgba(79,168,232,0.3);}
+.search-wrap{padding:8px 12px;border-bottom:1px solid var(--border);}
+.s-inp{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-family:inherit;font-size:12.5px;outline:none;}
+.s-inp:focus{border-color:var(--border-a);}
+.s-inp::placeholder{color:var(--text-3);}
+.cand-list{flex:1;overflow-y:auto;}
+.cand-list::-webkit-scrollbar{width:3px;}
+.cand-list::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:99px;}
+.cand-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s;}
+.cand-item:hover{background:var(--surface2);}
+.cand-item.sel{background:rgba(141,198,63,0.06);border-left:2px solid var(--green);}
+.ci-chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border-a);background:var(--surface3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all 0.15s;}
+.cand-item.sel .ci-chk{background:var(--green);border-color:var(--green);color:#fff;}
+.ci-info{flex:1;min-width:0;}
+.ci-name{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ci-sub{font-size:11px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.ci-tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:99px;flex-shrink:0;}
+.empty{padding:30px;text-align:center;color:var(--text-3);font-size:12px;}
+.panel-right{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.tabs{display:flex;border-bottom:1px solid var(--border);padding:0 16px;background:var(--surface);flex-shrink:0;}
+.tab{padding:12px 14px;font-size:12.5px;font-weight:600;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;margin-bottom:-1px;}
+.tab.active{color:var(--green);border-bottom-color:var(--green);}
+.tab-content{flex:1;overflow-y:auto;padding:18px;}
+.tab-content::-webkit-scrollbar{width:3px;}
+.tab-content::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:99px;}
+.pane{display:none;}
+.pane.active{display:block;}
+.sel-bar{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.sel-count{font-size:13px;font-weight:700;color:var(--green);}
+.sel-label{font-size:12px;color:var(--text-2);flex:1;}
+.sel-clear{background:none;border:1px solid var(--border);border-radius:5px;color:var(--text-3);cursor:pointer;font-size:11px;font-family:inherit;padding:2px 7px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.full{grid-column:1/-1;}
+.fl{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
+.fi{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 11px;color:var(--text);font-family:inherit;font-size:13px;outline:none;width:100%;}
+.fi:focus{border-color:var(--border-a);}
+.fi::placeholder{color:var(--text-3);}
+select.fi{cursor:pointer;}
+select.fi option{background:#1a1b1f;}
+textarea.fi{resize:vertical;min-height:150px;line-height:1.6;}
+.vars{font-size:11px;color:var(--text-3);margin-top:4px;}
+.vars code{color:var(--green);}
+.preview-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:14px;}
+.prev-head{padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface2);}
+.prev-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.prev-row:last-child{margin-bottom:0;}
+.prev-lbl{font-size:11px;font-weight:700;color:var(--text-3);width:50px;}
+.prev-val{font-size:12.5px;color:var(--text);}
+.prev-body{padding:14px;font-size:12.5px;color:var(--text-2);line-height:1.7;white-space:pre-wrap;min-height:80px;}
+.action-bar{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text-2);cursor:pointer;font-size:12.5px;font-family:inherit;font-weight:600;transition:all 0.15s;}
+.btn:hover{background:var(--surface3);color:var(--text);}
+.btn-primary{background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border-color:transparent;}
+.btn-primary:hover{filter:brightness(1.1);}
+.btn-sm{padding:4px 9px;font-size:11.5px;}
+.btn-danger{background:rgba(224,82,82,0.08);color:#e05252;border-color:rgba(224,82,82,0.2);}
+#toast{position:fixed;bottom:20px;right:20px;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;background:var(--surface2);color:var(--text);border:1px solid var(--border);transform:translateY(60px);opacity:0;transition:all 0.22s;z-index:9999;pointer-events:none;}
+#toast.show{transform:translateY(0);opacity:1;}
+#toast.ok{border-color:rgba(141,198,63,0.4);color:var(--green);}
+#toast.err{border-color:rgba(224,82,82,0.4);color:#e05252;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;display:none;align-items:center;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;width:420px;max-width:95vw;}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:8px;}
+.modal p{font-size:13px;color:var(--text-2);margin-bottom:16px;line-height:1.5;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;}
+.account-badge{background:rgba(141,198,63,0.1);border:1px solid rgba(141,198,63,0.3);border-radius:8px;padding:10px 14px;font-weight:700;color:var(--green);font-size:13px;text-align:center;margin-bottom:16px;}
+.template-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 13px;display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;}
+.ti-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.ti-info{flex:1;min-width:0;}
+.ti-etapa{font-size:10.5px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;}
+.ti-assunto{font-size:13px;font-weight:600;margin-bottom:3px;}
+.ti-prev{font-size:11.5px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="toolbar">
+  <button class="btn-back" onclick="history.back()">← Pipeline</button>
+  <div class="tb-sep"></div>
+  <span style="font-size:18px;">✉️</span>
+  <span class="tb-title">Retorno Semi-Automático</span>
+  <div class="tb-spacer"></div>
+  <span style="font-size:11.5px;color:var(--text-3);" id="status-txt">Carregando…</span>
+</div>
+<div class="main">
+  <div class="panel-left">
+    <div class="ph">
+      <h3>Candidatos</h3>
+      <div class="filters">
+        <button class="fb active" data-e="all" onclick="setFiltro(this,'all')">Todos</button>
+        <button class="fb" data-e="triagem" onclick="setFiltro(this,'triagem')">Triagem</button>
+        <button class="fb" data-e="pre" onclick="setFiltro(this,'pre')">Pré-sel.</button>
+        <button class="fb" data-e="entrevista" onclick="setFiltro(this,'entrevista')">Entrevista</button>
+        <button class="fb" data-e="finalista" onclick="setFiltro(this,'finalista')">Finalista</button>
+        <button class="fb" data-e="aprovado" onclick="setFiltro(this,'aprovado')">Aprovado</button>
+        <button class="fb" data-e="recusado" onclick="setFiltro(this,'recusado')">Recusado</button>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <input class="s-inp" id="s-cand" type="text" placeholder="🔍 Buscar candidato…" oninput="renderLista()">
+    </div>
+    <div class="cand-list" id="cand-list"><div class="empty">Carregando…</div></div>
+  </div>
+  <div class="panel-right">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('compose')">✉️ Compor & Enviar</div>
+      <div class="tab" onclick="switchTab('templates')">📄 Templates</div>
+    </div>
+    <div class="tab-content">
+      <div class="pane active" id="pane-compose">
+        <div class="sel-bar">
+          <span class="sel-count" id="sel-count">0</span>
+          <span class="sel-label">candidatos selecionados</span>
+          <button class="sel-clear" onclick="clearSel()">Limpar</button>
+        </div>
+        <div class="grid2">
+          <div>
+            <div class="fl">Tipo de Retorno</div>
+            <select class="fi" id="tipo" onchange="onTipo()">
+              <option value="">— Selecione —</option>
+              <option value="aprovado">✅ Aprovado</option>
+              <option value="entrevista">📅 Convite Entrevista</option>
+              <option value="finalista">🏆 Finalista</option>
+              <option value="reprovado_agencia">❌ Reprovado pela Agência</option>
+              <option value="reprovado_cliente">❌ Reprovado pelo Cliente</option>
+              <option value="custom">✏️ Personalizado</option>
+            </select>
+          </div>
+          <div>
+            <div class="fl">Vaga (opcional)</div>
+            <select class="fi" id="vaga-sel" onchange="updatePreview()"></select>
+          </div>
+          <div class="full">
+            <div class="fl">Assunto</div>
+            <input class="fi" id="assunto" type="text" placeholder="Assunto…" oninput="updatePreview()">
+          </div>
+          <div class="full">
+            <div class="fl">Mensagem</div>
+            <textarea class="fi" id="mensagem" oninput="updatePreview()"></textarea>
+            <div class="vars">Variáveis: <code>{{nome}}</code> <code>{{vaga}}</code> <code>{{empresa}}</code></div>
+          </div>
+        </div>
+        <div class="fl" style="margin-bottom:6px;">👁 Preview</div>
+        <div class="preview-box">
+          <div class="prev-head">
+            <div class="prev-row"><span class="prev-lbl">Para:</span><span class="prev-val" id="prev-para">—</span></div>
+            <div class="prev-row"><span class="prev-lbl">Assunto:</span><span class="prev-val" id="prev-assunto">—</span></div>
+          </div>
+          <div class="prev-body" id="prev-body">Selecione candidatos e preencha o template.</div>
+        </div>
+      </div>
+      <div class="pane" id="pane-templates">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <div style="font-size:13px;font-weight:700;">Templates</div>
+        </div>
+        <div id="template-list"></div>
+      </div>
+    </div>
+    <div class="action-bar">
+      <button class="btn btn-primary" onclick="abrirGmail()">✉️ Abrir no Gmail (CCO)</button>
+      <div class="tb-spacer"></div>
+      <span style="font-size:11px;color:var(--text-3);">Abre Gmail com todos em cópia oculta</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL AVISO GMAIL -->
+<div class="overlay" id="modal-gmail">
+  <div class="modal">
+    <h3>✉️ Antes de enviar</h3>
+    <p>Certifique-se de estar usando a conta correta no Gmail:</p>
+    <div class="account-badge">bancodetalentosnexus@gmail.com</div>
+    <p style="font-size:11.5px;color:var(--text-3);margin-bottom:20px;">Se abrir com outra conta, troque para a conta da Nexus no Gmail antes de enviar.</p>
+    <div class="modal-actions">
+      <button class="btn" onclick="fecharModal()">Cancelar</button>
+      <button class="btn btn-primary" id="btn-gmail-ok">✉️ Abrir Gmail</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const SB_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SB_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+const COR_ETAPA = {triagem:'#4fa8e8',pre:'#a78bfa',entrevista:'#e8943a',finalista:'#4fc87a',aprovado:'#3b82f6',recusado:'#e05252',recusado_cliente:'#c0392b'};
+
+let candidates=[], vagas=[], pipeline=[];
+let selected=new Set();
+let filtro='all';
+
+const TEMPLATES = {
+  aprovado:{
+    assunto:'🎉 Parabéns! Você foi aprovado(a) — {{vaga}}',
+    msg:`Olá, {{nome}}!\n\nTemos ótimas notícias! Após análise cuidadosa do seu perfil, temos o prazer de informar que você foi aprovado(a) no processo seletivo para a vaga de {{vaga}}.\n\nNossa equipe entrará em contato em breve com os próximos passos.\n\nParabéns e seja muito bem-vindo(a)!\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+  },
+  entrevista:{
+    assunto:'📅 Convite para Entrevista — {{vaga}}',
+    msg:`Olá, {{nome}}!\n\nGostaríamos de convidá-lo(a) para uma entrevista referente à vaga de {{vaga}}.\n\nAguarde nosso contato com data, horário e formato da entrevista.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+  },
+  finalista:{
+    assunto:'🏆 Você é finalista! — {{vaga}}',
+    msg:`Olá, {{nome}}!\n\nInformamos que você avançou para a etapa final do processo seletivo para a vaga de {{vaga}}.\n\nEm breve entraremos em contato com as próximas etapas.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+  },
+  reprovado_agencia:{
+    assunto:'Retorno — Processo Seletivo {{vaga}}',
+    msg:`Olá, {{nome}},\n\nAgradecemos imensamente o seu interesse e o tempo dedicado ao processo seletivo para a vaga de {{vaga}}.\n\nApós análise cuidadosa do seu perfil, informamos que neste momento optamos por seguir com outros candidatos cujas qualificações se mostraram mais alinhadas às necessidades específicas da posição.\n\nEsta decisão não reflete uma avaliação negativa do seu potencial. Manteremos seu currículo em nosso banco de talentos para futuras oportunidades.\n\nDesejamos muito sucesso na sua trajetória!\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+  },
+  reprovado_cliente:{
+    assunto:'Retorno — Processo Seletivo {{vaga}}',
+    msg:`Olá, {{nome}},\n\nAgradecemos sua participação no processo seletivo para a vaga de {{vaga}}.\n\nApós análise junto ao cliente, informamos que optaram por seguir com outro perfil neste momento.\n\nSeu currículo permanecerá em nosso banco de talentos para oportunidades futuras.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+  }
+};
+
+window.onload = async()=>{
+  await carregar();
+  renderTemplates();
+};
+
+async function carregar(){
+  const h={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY};
+  try{
+    const [r1,r2,r3]=await Promise.all([
+      fetch(`${SB_URL}/rest/v1/disc_historico?order=criado_em.desc`,{headers:h}),
+      fetch(`${SB_URL}/rest/v1/vagas?select=id,titulo,empresa,slug`,{headers:h}),
+      fetch(`${SB_URL}/rest/v1/pipeline?select=candidato_id,vaga_slug,etapa`,{headers:h})
+    ]);
+    candidates=r1.ok?await r1.json():[];
+    vagas=r2.ok?await r2.json():[];
+    pipeline=r3.ok?await r3.json():[];
+    if(!Array.isArray(candidates))candidates=[];
+    if(!Array.isArray(vagas))vagas=[];
+    if(!Array.isArray(pipeline))pipeline=[];
+  }catch(e){candidates=[];vagas=[];pipeline=[];}
+
+  document.getElementById('status-txt').textContent=`${candidates.length} candidatos · ${pipeline.length} no pipeline`;
+  const vsel=document.getElementById('vaga-sel');
+  vsel.innerHTML='<option value="">Todas as vagas / Livre</option>';
+  vagas.forEach(v=>{const o=document.createElement('option');o.value=v.slug||v.id;o.textContent=v.titulo+(v.empresa?` — ${v.empresa}`:'');vsel.appendChild(o);});
+  renderLista();
+}
+
+function getEtapa(id){const p=pipeline.find(x=>String(x.candidato_id)===String(id));return p?p.etapa:null;}
+function getVagaNome(id){const p=pipeline.find(x=>String(x.candidato_id)===String(id));if(!p)return null;const v=vagas.find(v=>v.slug===p.vaga_slug||String(v.id)===p.vaga_slug);return v?v.titulo:null;}
+function getEmail(c){return c.email_externo||c.email||'';}
+
+function renderLista(){
+  const q=(document.getElementById('s-cand').value||'').toLowerCase();
+  const list=document.getElementById('cand-list');
+  let items=candidates.filter(c=>{
+    const e=getEtapa(c.id);
+    if(filtro!=='all'&&e!==filtro)return false;
+    if(q&&!(c.nome||'').toLowerCase().includes(q))return false;
+    return true;
+  });
+  if(!items.length){list.innerHTML='<div class="empty">Nenhum candidato encontrado.</div>';return;}
+  list.innerHTML=items.map(c=>{
+    const e=getEtapa(c.id);const cor=COR_ETAPA[e]||'#8a8b91';const sel=selected.has(String(c.id));const em=getEmail(c);
+    return `<div class="cand-item${sel?' sel':''}" data-id="${c.id}">
+      <div class="ci-chk">${sel?'✓':''}</div>
+      <div class="ci-info">
+        <div class="ci-name">${c.nome||'—'}</div>
+        <div class="ci-sub">${em||'<span style="color:#e05252">Sem e-mail</span>'}${getVagaNome(c.id)?` · ${getVagaNome(c.id)}`:''}</div>
+      </div>
+      ${e?`<span class="ci-tag" style="background:${cor}22;color:${cor};">${e}</span>`:''}
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.cand-item').forEach(el=>{
+    el.addEventListener('click',function(){
+      const sid=String(this.dataset.id);
+      if(selected.has(sid))selected.delete(sid);else selected.add(sid);
+      const sel=selected.has(sid);
+      this.classList.toggle('sel',sel);
+      const chk=this.querySelector('.ci-chk');
+      chk.textContent=sel?'✓':'';
+      chk.style.background=sel?'var(--green)':'var(--surface3)';
+      chk.style.borderColor=sel?'var(--green)':'var(--border-a)';
+      chk.style.color=sel?'#fff':'transparent';
+      document.getElementById('sel-count').textContent=selected.size;
+      updatePreview();
+    });
+  });
+}
+
+function setFiltro(el,e){
+  filtro=e;
+  document.querySelectorAll('.fb').forEach(b=>{b.classList.remove('active');b.style.cssText='';});
+  el.classList.add('active');
+  renderLista();
+}
+
+function clearSel(){selected.clear();renderLista();updatePreview();}
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',['compose','templates'][i]===t));
+  document.querySelectorAll('.pane').forEach((el,i)=>el.classList.toggle('active',['compose','templates'][i]===t));
+}
+
+function onTipo(){
+  const t=document.getElementById('tipo').value;
+  if(!t||t==='custom')return;
+  const tp=TEMPLATES[t]||{assunto:'',msg:''};
+  document.getElementById('assunto').value=tp.assunto;
+  document.getElementById('mensagem').value=tp.msg;
+  updatePreview();
+}
+
+function interp(str,c,vagaVal){
+  const v=vagas.find(x=>x.slug===vagaVal||String(x.id)===vagaVal);
+  return str.replace(/\{\{nome\}\}/g,c.nome||'').replace(/\{\{vaga\}\}/g,v?v.titulo:vagaVal||'').replace(/\{\{empresa\}\}/g,v?v.empresa||'':'');
+}
+
+function updatePreview(){
+  const assunto=document.getElementById('assunto').value;
+  const msg=document.getElementById('mensagem').value;
+  const vaga=document.getElementById('vaga-sel').value;
+  const arr=[...selected];
+  if(!arr.length){document.getElementById('prev-para').textContent='—';document.getElementById('prev-assunto').textContent='—';document.getElementById('prev-body').textContent='Selecione candidatos e preencha o template.';return;}
+  const c=candidates.find(x=>String(x.id)===arr[0]);
+  if(!c)return;
+  document.getElementById('prev-para').textContent=`${c.nome} <${getEmail(c)||'sem e-mail'}>`;
+  document.getElementById('prev-assunto').textContent=interp(assunto,c,vaga);
+  document.getElementById('prev-body').textContent=interp(msg,c,vaga);
+}
+
+let _gmailUrl='';
+function abrirGmail(){
+  if(!selected.size){toast('Selecione ao menos 1 candidato','err');return;}
+  const assunto=document.getElementById('assunto').value.trim();
+  const msg=document.getElementById('mensagem').value.trim();
+  if(!assunto||!msg){toast('Preencha assunto e mensagem','err');return;}
+  const vaga=document.getElementById('vaga-sel').value;
+  const arr=[...selected];
+  const comEmail=arr.map(id=>candidates.find(c=>String(c.id)===id)).filter(c=>c&&getEmail(c));
+  const semEmail=arr.map(id=>candidates.find(c=>String(c.id)===id)).filter(c=>c&&!getEmail(c));
+  if(!comEmail.length){toast('Nenhum candidato selecionado tem e-mail','err');return;}
+  const first=comEmail[0];
+  const bccs=comEmail.map(c=>getEmail(c)).join(',');
+  const subj=interp(assunto,first,vaga);
+  const body=interp(msg,first,vaga);
+  _gmailUrl=`https://mail.google.com/mail/u/bancodetalentosnexus@gmail.com/?view=cm&to=bancodetalentosnexus@gmail.com&bcc=${encodeURIComponent(bccs)}&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+  document.getElementById('modal-gmail').classList.add('open');
+  document.getElementById('btn-gmail-ok').onclick=async()=>{
+    fecharModal();
+    window.top.open(_gmailUrl,'_blank');
+    if(semEmail.length)toast(`⚠️ ${semEmail.length} sem e-mail ignorados`,'err');
+    else toast(`Gmail aberto com ${comEmail.length} em CCO`,'ok');
+    // Move para recusado automaticamente
+    const tipo=document.getElementById('tipo').value;
+    if(tipo==='reprovado_agencia'||tipo==='reprovado_cliente'){
+      const etapa=tipo==='reprovado_cliente'?'recusado_cliente':'recusado';
+      await moverParaRecusado(arr,etapa);
+    }
+  };
+}
+
+async function moverParaRecusado(ids,etapa){
+  const h={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'};
+  let ok=0;
+  for(const id of ids){
+    const p=pipeline.find(x=>String(x.candidato_id)===String(id));
+    if(!p)continue;
+    try{
+      const r=await fetch(`${SB_URL}/rest/v1/pipeline?vaga_slug=eq.${encodeURIComponent(p.vaga_slug)}&candidato_id=eq.${encodeURIComponent(String(id))}`,{method:'PATCH',headers:h,body:JSON.stringify({etapa})});
+      if(r.ok){p.etapa=etapa;ok++;}
+    }catch(e){}
+  }
+  if(ok>0){toast(`✅ ${ok} candidato(s) movidos para ${etapa==='recusado'?'Rec. Agência':'Rec. Cliente'}`,'ok');selected.clear();renderLista();}
+}
+
+function fecharModal(){document.getElementById('modal-gmail').classList.remove('open');}
+
+function renderTemplates(){
+  const COR={aprovado:'#3b82f6',entrevista:'#e8943a',finalista:'#4fc87a',reprovado_agencia:'#e05252',reprovado_cliente:'#c0392b'};
+  const LBL={aprovado:'Aprovado',entrevista:'Convite Entrevista',finalista:'Finalista',reprovado_agencia:'Reprovado Agência',reprovado_cliente:'Reprovado Cliente'};
+  document.getElementById('template-list').innerHTML=Object.entries(TEMPLATES).map(([k,t])=>`
+    <div class="template-item">
+      <div class="ti-dot" style="background:${COR[k]||'#8a8b91'};"></div>
+      <div class="ti-info">
+        <div class="ti-etapa">${LBL[k]||k}</div>
+        <div class="ti-assunto">${t.assunto}</div>
+        <div class="ti-prev">${t.msg.split('\n')[2]||''}</div>
+      </div>
+      <button class="btn btn-sm" onclick="usarTemplate('${k}')">Usar</button>
+    </div>`).join('');
+}
+
+function usarTemplate(k){
+  const t=TEMPLATES[k];if(!t)return;
+  document.getElementById('tipo').value=k;
+  document.getElementById('assunto').value=t.assunto;
+  document.getElementById('mensagem').value=t.msg;
+  switchTab('compose');
+  updatePreview();
+  toast('Template aplicado','ok');
+}
+
+let _tt;
+function toast(msg,type=''){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className='show'+(type?' '+type:'');
+  clearTimeout(_tt);_tt=setTimeout(()=>el.className='',3000);
+}
+</script>
+</body>
+</html>

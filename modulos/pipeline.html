@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR" autocomplete="off">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Pipeline ATS | Nexus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --green:#3b82f6;--green-d:#1e40af;--green-glow:rgba(59,130,246,0.15);
+  --bg:#070709;--surface:#0e0f11;--surface2:#141518;--surface3:#1a1b1f;
+  --border:rgba(255,255,255,0.06);--border-a:rgba(141,198,63,0.2);
+  --text:#eeeef0;--text-2:#8a8b91;--text-3:#4a4b52;
+  --triagem:#4fa8e8;--pre:#a78bfa;--entrevista:#e8943a;
+  --finalista:#4fc87a;--aprovado:#3b82f6;--recusado:#e05252;
+  --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;height:100vh;overflow:hidden;}
+body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px;}
+.app{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+
+/* TOPBAR */
+.topbar{
+  height:56px;flex-shrink:0;
+  background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 20px;gap:12px;
+}
+.tb-info{flex:1;min-width:0;}
+.tb-title{font-size:15px;font-weight:800;line-height:1.2;}
+.tb-meta{font-size:11px;color:var(--text-2);margin-top:1px;}
+.btn{font-family:inherit;font-size:12px;font-weight:700;border-radius:8px;
+  padding:7px 14px;border:1px solid;cursor:pointer;transition:all 0.13s;
+  display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
+.btn-ghost{background:transparent;color:var(--text-2);border-color:var(--border);}
+.btn-ghost:hover{background:var(--surface2);color:var(--text);}
+.btn-primary{background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border-color:transparent;}
+.btn-primary:hover{opacity:0.88;}
+
+/* FILTROS */
+.filter-row{
+  flex-shrink:0;display:flex;align-items:center;gap:10px;
+  padding:10px 20px;border-bottom:1px solid var(--border);
+  background:var(--bg);
+}
+.s-wrap{position:relative;flex:0 0 260px;}
+.s-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--text-3);}
+.s-inp{
+  width:100%;background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;padding:7px 12px 7px 30px;color:var(--text);
+  font-family:inherit;font-size:12.5px;outline:none;transition:border-color 0.15s;
+}
+.s-inp:focus{border-color:var(--border-a);}
+.s-inp::placeholder{color:var(--text-3);}
+.filter-tabs{display:flex;gap:4px;margin-left:auto;}
+.ftab{
+  font-family:inherit;font-size:11.5px;font-weight:600;
+  border-radius:7px;padding:5px 12px;border:1px solid var(--border);
+  cursor:pointer;transition:all 0.13s;background:transparent;color:var(--text-3);
+}
+.ftab:hover{background:var(--surface2);color:var(--text);}
+.ftab.active{background:var(--green-glow);color:var(--green);border-color:var(--border-a);}
+.f-count{font-size:10px;color:var(--text-3);white-space:nowrap;}
+
+/* GRID */
+.grid-wrap{flex:1;overflow-y:auto;padding:20px;scrollbar-width:thin;scrollbar-color:var(--surface3) transparent;}
+.grid-wrap::-webkit-scrollbar{width:4px;}
+.grid-wrap::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:99px;}
+.vagas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
+
+/* VAGA CARD */
+.vaga-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:16px;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden;
+}
+.vaga-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;border-radius:14px 14px 0 0;
+  background:var(--green);opacity:0;transition:opacity 0.15s;
+}
+.vaga-card:hover{border-color:var(--border-a);box-shadow:0 6px 24px rgba(0,0,0,0.4);}
+.vaga-card:hover::before{opacity:1;}
+.vaga-card.vaga-int::before{background:var(--entrevista);}
+
+.vc-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
+.vc-ico{font-size:22px;line-height:1;flex-shrink:0;margin-top:1px;}
+.vc-info{flex:1;min-width:0;}
+.vc-name{font-size:13.5px;font-weight:700;line-height:1.3;margin-bottom:3px;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.vc-sub{font-size:11px;color:var(--text-3);}
+.vc-badge{
+  font-size:9.5px;font-weight:700;padding:2.5px 8px;border-radius:99px;
+  border:1px solid;white-space:nowrap;flex-shrink:0;margin-top:2px;
+}
+.vc-badge.pub{background:rgba(79,200,122,0.1);color:#4fc87a;border-color:rgba(79,200,122,0.22);}
+.vc-badge.int{background:rgba(232,148,58,0.1);color:#e8943a;border-color:rgba(232,148,58,0.22);}
+
+/* pipeline mini bar */
+.vc-pipe{
+  background:rgba(0,0,0,0.2);border:1px solid var(--border);
+  border-radius:9px;padding:10px 12px;margin-bottom:10px;
+}
+.vc-pipe-bar{display:flex;gap:3px;margin-bottom:8px;height:6px;border-radius:99px;overflow:hidden;}
+.vc-seg{transition:flex 0.3s;}
+.vc-stages{display:flex;justify-content:space-between;}
+.vc-stage{text-align:center;flex:1;}
+.vc-sn{font-size:12px;font-weight:800;font-family:'DM Mono',monospace;line-height:1;}
+.vc-sl{font-size:8.5px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-top:2px;}
+
+.vc-foot{display:flex;align-items:center;justify-content:space-between;}
+.vc-total{font-size:11.5px;color:var(--text-3);}
+.vc-total strong{color:var(--text-2);font-weight:700;}
+.vc-btn{
+  font-family:inherit;font-size:11px;font-weight:700;
+  border-radius:7px;padding:5px 12px;border:1px solid var(--border-a);
+  cursor:pointer;background:var(--green-glow);color:var(--green);
+  transition:all 0.13s;
+}
+.vc-btn:hover{background:rgba(141,198,63,0.22);}
+
+/* EMPTY STATE */
+.state-full{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:2rem;color:var(--text-3);}
+.state-ico{font-size:36px;opacity:0.15;margin-bottom:6px;}
+.state-title{font-size:15px;font-weight:700;color:rgba(238,238,240,0.4);}
+.state-sub{font-size:12px;line-height:1.65;max-width:320px;}
+.spinner{width:22px;height:22px;border:2px solid var(--surface3);border-top-color:var(--green);border-radius:50%;animation:spin 0.6s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:18px;right:18px;z-index:9999;
+  background:var(--surface2);border:1px solid var(--border-a);
+  border-radius:10px;padding:10px 16px;font-size:12.5px;font-weight:600;
+  transform:translateY(12px);opacity:0;pointer-events:none;
+  transition:all 0.2s;box-shadow:0 8px 24px rgba(0,0,0,0.5);
+}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.err{border-color:rgba(224,82,82,0.35);color:#e05252;}
+
+/* OVERLAY / MODAL */
+.overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px;}
+.overlay.show{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;max-width:460px;position:relative;max-height:88vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.6);}
+.modal-h{font-size:15px;font-weight:800;margin-bottom:4px;}
+.modal-sub{font-size:12px;color:var(--text-2);margin-bottom:20px;line-height:1.55;}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;width:28px;height:28px;cursor:pointer;color:var(--text-2);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.13s;}
+.modal-close:hover{background:var(--surface3);color:var(--text);}
+.f-label{font-size:10.5px;font-weight:700;color:var(--text-3);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.6px;}
+.f-inp,.f-sel{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;color:var(--text);font-family:inherit;font-size:13px;outline:none;margin-bottom:14px;transition:border-color 0.15s;-webkit-appearance:none;}
+.f-inp:focus,.f-sel:focus{border-color:var(--border-a);}
+.f-sel{cursor:pointer;}
+.f-sel option{background:var(--surface);}
+.modal-btn{width:100%;background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:opacity 0.15s;margin-top:2px;}
+.modal-btn:hover{opacity:0.9;}
+
+/* SECTION LABEL */
+.section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);padding:4px 0 10px;grid-column:1/-1;}
+
+@media(max-width:640px){
+  html,body{height:auto!important;overflow:auto!important;}
+  .app{height:auto!important;overflow:visible!important;}
+  .grid-wrap{overflow:visible!important;padding:12px;}
+  .vagas-grid{grid-template-columns:1fr;}
+  .filter-row{flex-wrap:wrap;gap:8px;}
+  .filter-tabs{margin-left:0;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-info">
+      <div class="tb-title">Pipeline</div>
+      <div class="tb-meta" id="tbMeta">Carregando…</div>
+    </div>
+    <button class="btn btn-ghost" onclick="navegar('banco-talentos')">Candidatos</button>
+    <button class="btn btn-primary" onclick="abrirNC()">+ Adicionar</button>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="filter-row">
+    <div class="s-wrap">
+      <span class="s-ico">🔍</span>
+      <input class="s-inp" id="busca" placeholder="Buscar vaga…" oninput="renderGrid()" autocomplete="off"/>
+    </div>
+    <div class="filter-tabs">
+      <button class="ftab active" id="ftAll" onclick="setFiltro('all')">Todas</button>
+      <button class="ftab" id="ftPub" onclick="setFiltro('pub')">Publicadas</button>
+      <button class="ftab" id="ftInt" onclick="setFiltro('int')">Internas</button>
+      <button class="ftab" id="ftAtiv" onclick="setFiltro('ativ')">Com candidatos</button>
+    </div>
+    <span class="f-count" id="fCount"></span>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid-wrap" id="gridWrap">
+    <div class="state-full" id="stateLoad">
+      <div class="spinner"></div>
+      <span style="font-size:12px;margin-top:4px;">Carregando vagas…</span>
+    </div>
+    <div class="vagas-grid" id="vagasGrid" style="display:none;"></div>
+    <div class="state-full" id="stateEmpty" style="display:none;">
+      <div class="state-ico">📁</div>
+      <div class="state-title">Nenhuma vaga encontrada</div>
+      <div class="state-sub">Tente outro filtro ou crie uma nova vaga.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: NOVA CANDIDATURA -->
+<div class="overlay" id="overlayNC">
+  <div class="modal">
+    <button class="modal-close" onclick="fecharNC()">✕</button>
+    <div class="modal-h">Adicionar ao Pipeline</div>
+    <div class="modal-sub">Selecione candidato, vaga e etapa inicial</div>
+    <label class="f-label">Candidato</label>
+    <select class="f-sel" id="ncCand"></select>
+    <label class="f-label">Vaga</label>
+    <select class="f-sel" id="ncVaga"></select>
+    <label class="f-label">Etapa inicial</label>
+    <select class="f-sel" id="ncEtapa">
+      <option value="triagem">Triagem</option>
+      <option value="pre">Pré-seleção</option>
+      <option value="entrevista">Entrevista</option>
+      <option value="finalista">Finalista</option>
+      <option value="aprovado">Aprovado</option>
+    </select>
+    <button class="modal-btn" onclick="confirmarNC()">Adicionar ao Pipeline</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+const PIPE_KEY = 'nexus_pipeline_v1';
+
+const ETAPAS = [
+  {id:'triagem',    label:'Triagem',   cor:'#4fa8e8'},
+  {id:'pre',        label:'Pré-sel.',  cor:'#a78bfa'},
+  {id:'entrevista', label:'Entrev.',   cor:'#e8943a'},
+  {id:'finalista',  label:'Final.',    cor:'#4fc87a'},
+  {id:'aprovado',   label:'Aprov.',    cor:'#3b82f6'},
+  {id:'recusado',   label:'Recus.',    cor:'#e05252'},
+];
+
+let _cands=[], _vagas=[], _pipe={};
+let _filtro='all';
+let _candIds=new Set(); // IDs de candidatos que ainda existem no disc_historico
+
+// Retorna apenas entradas do pipeline cujo candidato ainda existe
+function pipeValido(pipe){
+  return Object.fromEntries(Object.entries(pipe||{}).filter(([id])=>_candIds.has(id)));
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function navegar(mod){window.parent.postMessage({tipo:'nexus_navegar',mod},'*');}
+
+let _tt;
+function toast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show'+(err?' err':'');
+  clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function setFiltro(f){
+  _filtro=f;
+  ['All','Pub','Int','Ativ'].forEach(x=>document.getElementById('ft'+x).classList.remove('active'));
+  document.getElementById('ft'+f.charAt(0).toUpperCase()+f.slice(1)).classList.add('active');
+  renderGrid();
+}
+
+// ── SUPABASE ──
+async function loadPipe(){
+  try{
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/pipeline?select=vaga_slug,candidato_id,etapa`,
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+    const rows=await r.json();
+    _pipe={};
+    if(Array.isArray(rows)) rows.forEach(row=>{
+      if(!_pipe[row.vaga_slug]) _pipe[row.vaga_slug]={};
+      _pipe[row.vaga_slug][row.candidato_id]=row.etapa;
+    });
+    try{localStorage.setItem(PIPE_KEY,JSON.stringify(_pipe));}catch(e){}
+  }catch(e){
+    try{_pipe=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');}catch(e2){_pipe={};}
+  }
+}
+
+async function limparFantasmasOrfaos(){
+  const idsNoPipe=new Set();
+  Object.values(_pipe).forEach(vm=>Object.keys(vm||{}).forEach(id=>idsNoPipe.add(id)));
+  const orfaos=[...idsNoPipe].filter(id=>!_candIds.has(id));
+  if(!orfaos.length) return;
+  try{
+    const res=await fetch(
+      `${SUPABASE_URL}/rest/v1/pipeline?candidato_id=in.(${orfaos.join(',')})`,
+      {method:'DELETE',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'}}
+    );
+    if(res.ok){
+      console.log(`🧹 ${orfaos.length} entrada(s) fantasma removida(s) do pipeline`);
+      orfaos.forEach(id=>Object.values(_pipe).forEach(vm=>delete vm[id]));
+    }
+  }catch(e){console.warn('Erro ao limpar fantasmas:',e);}
+}
+
+async function saveEntry(vagaSlug,candId,etapa){
+  if(!_pipe[vagaSlug]) _pipe[vagaSlug]={};
+  _pipe[vagaSlug][String(candId)]=etapa;
+  try{localStorage.setItem(PIPE_KEY,JSON.stringify(_pipe));}catch(e){}
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/pipeline?on_conflict=vaga_slug,candidato_id`,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({vaga_slug:vagaSlug,candidato_id:String(candId),etapa,atualizado_em:new Date().toISOString()})
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+  }catch(e){
+    toast('⚠️ Erro ao salvar no Supabase — salvo localmente',true);
+  }
+}
+
+// ── INIT ──
+async function init(){
+  try{
+    const [r1,r2]=await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/disc_historico?order=criado_em.desc`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}),
+      fetch(`${SUPABASE_URL}/rest/v1/vagas?select=id,titulo,icone,empresa,cidade,slug,ativo,status`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}),
+    ]);
+    _cands=await r1.json(); if(!Array.isArray(_cands)) _cands=[];
+    _candIds=new Set(_cands.map(c=>String(c.id)));
+    _vagas=await r2.json(); if(!Array.isArray(_vagas)) _vagas=[];
+  }catch(e){_cands=[];_vagas=[];}
+  await loadPipe();
+  await limparFantasmasOrfaos();
+  document.getElementById('stateLoad').style.display='none';
+  popularSelects();
+  renderGrid();
+  updateBadge();
+}
+
+// Converte slug feio em título legível
+// Ex: "vaga-ats-auxiliar-de-contabilidade-mnjm6px4" → "Auxiliar de Contabilidade"
+function slugParaTitulo(slug){
+  // Remove prefixo "vaga-ats-" e sufixo aleatório (últimos 8 chars alfanum após último -)
+  let s = slug.replace(/^vaga-ats-/, '');
+  // Remove sufixo aleatório: sequência de 6-10 chars alfanuméricos no final
+  s = s.replace(/-[a-z0-9]{4,12}$/, '');
+  // Converte hífens em espaços e capitaliza cada palavra
+  return s.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') || slug;
+}
+
+// ── RENDER GRID ──
+function isVagaInterna(v){
+  // Vaga interna = criada pelo vagas-ats (slug começa com "vaga-ats-") OU ativo===false
+  return (v.slug&&v.slug.startsWith('vaga-ats-')) || v.ativo===false;
+}
+
+function renderGrid(){
+  const busca=(document.getElementById('busca').value||'').toLowerCase();
+
+  // Inclui vagas virtuais do mural (slugs no pipeline que não têm vaga-ats- e não estão cadastradas)
+  // Isso preserva vagas antigas do mural que já estavam no pipeline
+  const virtuaisMural=Object.keys(_pipe)
+    .filter(s=>!s.startsWith('vaga-ats-') && !_vagas.find(v=>v.slug===s))
+    .map(s=>({slug:s,titulo:slugParaTitulo(s),icone:'💼',ativo:true,_virtual:true}));
+  let lista=[..._vagas,...virtuaisMural];
+
+  // Filtros
+  if(_filtro==='pub') lista=lista.filter(v=>!isVagaInterna(v));
+  if(_filtro==='int') lista=lista.filter(v=>isVagaInterna(v));
+  if(_filtro==='ativ') lista=lista.filter(v=>Object.keys(_pipe[v.slug]||{}).length>0);
+  if(busca) lista=lista.filter(v=>(v.titulo||'').toLowerCase().includes(busca));
+
+  const ativasCount=lista.filter(v=>!v._virtual).length;
+  document.getElementById('fCount').textContent=`${ativasCount} vaga${ativasCount!==1?'s':''}`;
+
+  const grid=document.getElementById('vagasGrid');
+  if(!lista.length){
+    grid.style.display='none';
+    document.getElementById('stateEmpty').style.display='flex';
+    return;
+  }
+  document.getElementById('stateEmpty').style.display='none';
+  grid.style.display='grid';
+
+  const enc=lista.filter(v=>v._virtual);
+  const ativas=lista.filter(v=>!v._virtual);
+  const pub=ativas.filter(v=>!isVagaInterna(v));
+  const int=ativas.filter(v=>isVagaInterna(v));
+  let html='';
+
+  if(pub.length&&int.length){
+    html+=`<div class="section-label">🌐 Mural do Site · ${pub.length}</div>`;
+    html+=pub.map(renderVagaCard).join('');
+    html+=`<div class="section-label">🔒 Triagem Interna · ${int.length}</div>`;
+    html+=int.map(renderVagaCard).join('');
+  } else if(pub.length){
+    html+=`<div class="section-label">🌐 Mural do Site · ${pub.length}</div>`;
+    html+=pub.map(renderVagaCard).join('');
+  } else if(int.length){
+    html+=`<div class="section-label">🔒 Triagem Interna · ${int.length}</div>`;
+    html+=int.map(renderVagaCard).join('');
+  }
+
+  if(enc.length){
+    html+=`<div class="section-label" style="cursor:pointer;opacity:0.55;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'contents':'none';this.querySelector('.enc-arrow').textContent=this.nextElementSibling.style.display==='none'?'▶':'▼';">
+      📦 Encerradas · ${enc.length} <span class="enc-arrow" style="font-size:0.65rem;margin-left:4px;">▶</span>
+    </div>
+    <div style="display:none;">${enc.map(renderVagaCard).join('')}</div>`;
+  }
+
+  grid.innerHTML=html;
+}
+
+function renderVagaCard(v){
+  const pipe=pipeValido(_pipe[v.slug]||{});
+  const total=Object.keys(pipe).length;
+  const isInt=isVagaInterna(v);
+
+  // Conta por etapa
+  const cnt={};
+  ETAPAS.forEach(e=>{cnt[e.id]=0;});
+  Object.values(pipe).forEach(et=>{if(cnt[et]!==undefined)cnt[et]++;});
+
+  // Mini bar proporcional
+  const barTotal=total||1;
+  const barSegs=ETAPAS.map(e=>
+    cnt[e.id]>0?`<div class="vc-seg" style="flex:${cnt[e.id]/barTotal};background:${e.cor};"></div>`:''
+  ).join('');
+
+  // Stage pills
+  const stagesHtml=ETAPAS.slice(0,5).map(e=>`
+    <div class="vc-stage">
+      <div class="vc-sn" style="color:${cnt[e.id]>0?e.cor:'var(--text-3)'};">${cnt[e.id]}</div>
+      <div class="vc-sl">${e.label}</div>
+    </div>`).join('');
+
+  return `<div class="vaga-card${isInt?' vaga-int':''}" onclick="abrirTriagem('${esc(v.slug)}')">
+    <div class="vc-head">
+      <div class="vc-ico">${v.icone||'💼'}</div>
+      <div class="vc-info">
+        <div class="vc-name">${esc(v.titulo||v.slug)}</div>
+        <div class="vc-sub">${v.empresa?esc(v.empresa)+(v.cidade?' · '+esc(v.cidade):''):v.cidade?esc(v.cidade):'Pipeline'}</div>
+      </div>
+      <span class="vc-badge ${isInt?'int':'pub'}">${isInt?'Interna':'Publicada'}</span>
+    </div>
+    <div class="vc-pipe">
+      <div class="vc-pipe-bar">${total>0?barSegs:`<div style="flex:1;background:var(--surface3);border-radius:99px;"></div>`}</div>
+      <div class="vc-stages">${stagesHtml}</div>
+    </div>
+    <div class="vc-foot">
+      <span class="vc-total"><strong>${total}</strong> candidato${total!==1?'s':''}</span>
+      <button class="vc-btn">Abrir Triagem →</button>
+    </div>
+  </div>`;
+}
+
+function abrirTriagem(slug){
+  // Navega para pipeline-triagem dentro do iframe do ATS via postMessage
+  window.parent.postMessage({
+    tipo:'nexus_navegar',
+    mod:'pipeline-triagem',
+    params:`?vaga=${encodeURIComponent(slug)}`
+  },'*');
+}
+
+function updateBadge(){
+  // Slugs de vagas encerradas — não entram na contagem
+  const slugsEncerrados=new Set(
+    _vagas.filter(v=>v.status==='encerrada').map(v=>v.slug)
+  );
+
+  let total=0;
+  Object.entries(_pipe).forEach(([slug,vm])=>{
+    if(!slugsEncerrados.has(slug))
+      total+=Object.keys(pipeValido(vm||{})).length;
+  });
+  window.parent.postMessage({tipo:'nexus_badge',mod:'pipeline',valor:total},'*');
+
+  // Meta — só vagas não-encerradas
+  const vagasAtivas=_vagas.filter(v=>v.status!=='encerrada');
+  const allVagas=vagasAtivas.length;
+  document.getElementById('tbMeta').textContent=`${allVagas} vaga${allVagas!==1?'s':''} · ${total} candidato${total!==1?'s':''} no pipeline`;
+}
+
+// ── MODAL NOVA CANDIDATURA ──
+function popularSelects(){
+  document.getElementById('ncVaga').innerHTML='<option value="">Selecione a vaga</option>'+_vagas.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join('');
+  document.getElementById('ncCand').innerHTML='<option value="">Selecione o candidato</option>'+_cands.map(h=>`<option value="${h.id}">${esc(h.nome||'—')} — ${esc(h.vaga||'')}</option>`).join('');
+}
+function abrirNC(){popularSelects();document.getElementById('overlayNC').classList.add('show');}
+function fecharNC(){document.getElementById('overlayNC').classList.remove('show');}
+function confirmarNC(){
+  const candId=document.getElementById('ncCand').value;
+  const vagaSlug=document.getElementById('ncVaga').value;
+  const etapa=document.getElementById('ncEtapa').value;
+  if(!candId||!vagaSlug){toast('Selecione candidato e vaga',true);return;}
+  saveEntry(vagaSlug,candId,etapa);
+  renderGrid();updateBadge();fecharNC();
+  const h=_cands.find(x=>String(x.id)===candId);
+  toast(`${h?.nome||'Candidato'} adicionado!`);
+}
+
+init();
+</script>
+</body>
+</html>

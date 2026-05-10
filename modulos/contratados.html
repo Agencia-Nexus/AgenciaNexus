@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><script src="../supabase-config.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Contratados | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#9b59b6;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--accent);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.page-nav{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.page-nav a{font-family:inherit;font-size:0.72rem;font-weight:700;padding:0.45rem 1rem;border-radius:10px;border:1px solid var(--border2);color:var(--muted);text-decoration:none;transition:all 0.18s;}
+.page-nav a:hover{color:var(--text);border-color:var(--accent);}
+.page-nav a.active{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;}
+.kpi-val{font-size:1.8rem;font-weight:900;line-height:1;}.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}.btn-red:hover{background:rgba(231,76,60,0.18);}
+.form-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:1.5rem;margin-bottom:1.2rem;display:none;}.form-card.show{display:block;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+@media(max-width:600px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+.fl{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.fi{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}.fi:focus{border-color:var(--accent);}.fi::placeholder{color:var(--muted2);}
+.fsel{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2rem;}.fsel option{background:#161616;}
+.search-bar{display:flex;gap:0.5rem;margin-bottom:1rem;}
+.search-bar .fi{flex:1;}
+.filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.filter-chip{font-family:inherit;font-size:0.68rem;font-weight:700;padding:0.3rem 0.8rem;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.filter-chip.on{background:rgba(59,130,246,0.12);color:var(--accent);border-color:var(--border2);}
+
+/* agrupamento por empresa */
+.empresa-group{margin-bottom:1.5rem;}
+.empresa-header{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.6rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+.empresa-icon{width:36px;height:36px;border-radius:9px;background:rgba(59,130,246,0.08);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.empresa-nome{font-size:0.9rem;font-weight:800;}
+.empresa-count{font-size:0.65rem;color:var(--muted);font-weight:600;margin-left:auto;}
+.cont-list{display:flex;flex-direction:column;gap:0.4rem;}
+.cont-item{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:0.85rem 1.1rem;display:flex;align-items:center;gap:0.9rem;flex-wrap:wrap;transition:all 0.18s;}
+.cont-item:hover{border-color:var(--border2);}
+.cont-avatar{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:900;color:#fff;flex-shrink:0;}
+.cont-info{flex:1;min-width:0;}
+.cont-nome{font-size:0.85rem;font-weight:800;}
+.cont-sub{font-size:0.65rem;color:var(--muted);margin-top:0.1rem;}
+.badge-tipo{font-size:0.58rem;font-weight:800;padding:0.12rem 0.5rem;border-radius:99px;}
+.t-clt{background:rgba(59,130,246,0.1);color:var(--green);border:1px solid rgba(59,130,246,0.25);}
+.t-pj{background:rgba(155,89,182,0.1);color:var(--purple);border:1px solid rgba(155,89,182,0.25);}
+.t-temp{background:rgba(243,156,18,0.1);color:var(--orange);border:1px solid rgba(243,156,18,0.22);}
+.t-est{background:rgba(52,152,219,0.1);color:var(--blue);border:1px solid rgba(52,152,219,0.25);}
+.empty{text-align:center;padding:2.5rem;color:var(--muted2);font-size:0.78rem;}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}.toast.show{transform:translateY(0);opacity:1;}
+
+/* linha do tempo highlight */
+.timeline-badge{font-size:0.6rem;font-weight:700;color:var(--accent);background:rgba(59,130,246,0.08);border:1px solid var(--border2);border-radius:6px;padding:0.1rem 0.4rem;}
+
+@media(max-width:640px){
+  .page{padding:1rem 0.9rem 4rem !important;}
+  .hero{flex-direction:column !important;align-items:flex-start !important;gap:0.8rem !important;}
+  .hero .btn{width:100%;justify-content:center;}
+  .title{font-size:1.25rem !important;}
+  .kpi-row{grid-template-columns:repeat(2,1fr) !important;}
+  .toast{right:0.6rem !important;left:0.6rem !important;}
+}
+</style></head><body>
+<div class="page">
+  <div class="page-nav">
+    <a href="recolocacoes.html">🔁 Recolocações</a>
+    <a href="contratados.html" class="active">🏢 Contratados</a>
+    <a href="historico.html">📋 Histórico</a>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Gestão de Contratos</div>
+      <div class="title">Novos <span>Contratados</span></div>
+      <div class="sub">Registro de contratações por empresa cliente</div>
+    </div>
+    <button class="btn btn-accent" onclick="toggleForm()">➕ Registrar contratação</button>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kTotal" style="color:var(--accent);">0</div><div class="kpi-label">Total</div></div>
+    <div class="kpi"><div class="kpi-val" id="kEmpresas" style="color:var(--green);">0</div><div class="kpi-label">Empresas</div></div>
+    <div class="kpi"><div class="kpi-val" id="kMes" style="color:var(--blue);">0</div><div class="kpi-label">Este mês</div></div>
+    <div class="kpi"><div class="kpi-val" id="kCLT" style="color:var(--orange);">0</div><div class="kpi-label">CLT</div></div>
+  </div>
+
+  <div class="form-card" id="formCard">
+    <div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1rem;">🏢 Nova contratação</div>
+    <div class="grid-2">
+      <div><label class="fl">Nome do candidato *</label><input class="fi" id="cNome" placeholder="Nome completo"/></div>
+      <div><label class="fl">Empresa contratante *</label><input class="fi" id="cEmpresa" placeholder="Ex: Metalúrgica Rio Sul"/></div>
+    </div>
+    <div class="grid-3">
+      <div><label class="fl">Cargo / função</label><input class="fi" id="cCargo" placeholder="Ex: Técnico de Segurança"/></div>
+      <div><label class="fl">Tipo de contrato</label>
+        <select class="fsel" id="cTipo">
+          <option value="clt">CLT</option>
+          <option value="pj">PJ</option>
+          <option value="temp">Temporário</option>
+          <option value="est">Estágio</option>
+        </select>
+      </div>
+      <div><label class="fl">Data de início</label><input class="fi" type="date" id="cDataInicio"/></div>
+    </div>
+    <div class="grid-4">
+      <div><label class="fl">Salário / valor</label><input class="fi" id="cSalario" placeholder="R$ 0.000"/></div>
+      <div><label class="fl">Telefone</label><input class="fi" id="cTel" placeholder="(51) 9 9999-9999"/></div>
+      <div><label class="fl">Setor / área</label><input class="fi" id="cSetor" placeholder="Ex: Produção"/></div>
+      <div><label class="fl">Recrutador resp.</label><input class="fi" id="cRec" placeholder="Nome do consultor"/></div>
+    </div>
+    <div style="margin-bottom:0.8rem;"><label class="fl">Observações</label><textarea class="fi" id="cObs" rows="2" style="resize:vertical;line-height:1.6;" placeholder="Detalhes da contratação, benefícios, condições..."></textarea></div>
+    <div style="display:flex;gap:0.6rem;">
+      <button class="btn btn-accent" onclick="salvar()" style="flex:2;justify-content:center;">💾 Salvar</button>
+      <button class="btn btn-ghost" onclick="toggleForm()" style="flex:1;justify-content:center;">✕ Cancelar</button>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <input class="fi" id="searchInput" placeholder="🔍 Buscar por nome, empresa ou cargo..." oninput="render()"/>
+  </div>
+  <div class="filters">
+    <button class="filter-chip on" onclick="setFilter(this,'todos')">Todos</button>
+    <button class="filter-chip" onclick="setFilter(this,'clt')">CLT</button>
+    <button class="filter-chip" onclick="setFilter(this,'pj')">PJ</button>
+    <button class="filter-chip" onclick="setFilter(this,'temp')">Temporário</button>
+    <button class="filter-chip" onclick="setFilter(this,'est')">Estágio</button>
+  </div>
+
+  <div id="contList"><div class="empty">Carregando...</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+const TABELA = 'contratados';
+let _lista = [];
+let _filtro = 'todos';
+
+async function init() {
+  try {
+    _lista = await sbGet(TABELA, 'order=data_inicio.desc');
+  } catch(e) {
+    console.error(e);
+    toast('⚠️ Erro ao carregar dados', true);
+    _lista = [];
+  }
+  render();
+}
+
+function toggleForm() { document.getElementById('formCard').classList.toggle('show'); }
+
+function setFilter(el, f) {
+  _filtro = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  render();
+}
+
+async function salvar() {
+  const nome    = (document.getElementById('cNome').value || '').trim();
+  const empresa = (document.getElementById('cEmpresa').value || '').trim();
+  if (!nome)    { toast('Nome obrigatório', true); return; }
+  if (!empresa) { toast('Empresa obrigatória', true); return; }
+  const r = {
+    id:          'c' + Date.now(),
+    nome,
+    empresa,
+    cargo:       document.getElementById('cCargo').value.trim(),
+    tipo:        document.getElementById('cTipo').value,
+    data_inicio: document.getElementById('cDataInicio').value,
+    salario:     document.getElementById('cSalario').value.trim(),
+    tel:         document.getElementById('cTel').value.trim(),
+    setor:       document.getElementById('cSetor').value.trim(),
+    recrutador:  document.getElementById('cRec').value.trim(),
+    obs:         document.getElementById('cObs').value.trim()
+  };
+  try {
+    const salvo = await sbPost(TABELA, r);
+    _lista.unshift(salvo || r);
+    render();
+    document.getElementById('formCard').classList.remove('show');
+    limparForm();
+    toast('✅ Contratação registrada!');
+  } catch(e) {
+    toast('❌ Erro ao salvar: ' + e.message, true);
+  }
+}
+
+async function excluir(id) {
+  if (!confirm('Remover este registro?')) return;
+  try {
+    await sbDelete(TABELA, id);
+    _lista = _lista.filter(r => r.id !== id);
+    render();
+    toast('🗑 Registro removido');
+  } catch(e) {
+    toast('❌ Erro ao remover', true);
+  }
+}
+
+function limparForm() {
+  ['cNome','cEmpresa','cCargo','cDataInicio','cSalario','cTel','cSetor','cRec','cObs'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('cTipo').value = 'clt';
+}
+
+function render() {
+  const q = (document.getElementById('searchInput').value || '').toLowerCase();
+  let lista = _lista;
+  if (_filtro !== 'todos') lista = lista.filter(r => r.tipo === _filtro);
+  if (q) lista = lista.filter(r =>
+    (r.nome||'').toLowerCase().includes(q) ||
+    (r.empresa||'').toLowerCase().includes(q) ||
+    (r.cargo||'').toLowerCase().includes(q)
+  );
+
+  const agora = new Date();
+  const mesAtual = agora.getMonth();
+  const anoAtual = agora.getFullYear();
+  const empresas = [...new Set(_lista.map(r => r.empresa))];
+  const mesCont  = _lista.filter(r => {
+    if (!r.data_inicio) return false;
+    const d = new Date(r.data_inicio);
+    return d.getMonth() === mesAtual && d.getFullYear() === anoAtual;
+  });
+
+  document.getElementById('kTotal').textContent   = _lista.length;
+  document.getElementById('kEmpresas').textContent = empresas.length;
+  document.getElementById('kMes').textContent     = mesCont.length;
+  document.getElementById('kCLT').textContent     = _lista.filter(r => r.tipo === 'clt').length;
+
+  const el = document.getElementById('contList');
+  if (!lista.length) {
+    el.innerHTML = '<div class="empty">' + (q || _filtro !== 'todos' ? 'Nenhum resultado para o filtro.' : 'Nenhuma contratação registrada.<br><br><button class="btn btn-accent" onclick="toggleForm()">➕ Adicionar primeira</button>') + '</div>';
+    return;
+  }
+
+  // agrupar por empresa
+  const grupos = {};
+  lista.forEach(r => {
+    const emp = r.empresa || 'Sem empresa';
+    if (!grupos[emp]) grupos[emp] = [];
+    grupos[emp].push(r);
+  });
+
+  const tipoLabel = {clt:'CLT', pj:'PJ', temp:'Temporário', est:'Estágio'};
+  const tipoCls   = {clt:'t-clt', pj:'t-pj', temp:'t-temp', est:'t-est'};
+  const initials  = n => (n||'?').split(' ').map(p => p[0]).join('').toUpperCase().substring(0,2);
+
+  el.innerHTML = Object.entries(grupos).map(([emp, items]) => `
+    <div class="empresa-group">
+      <div class="empresa-header">
+        <div class="empresa-icon">🏢</div>
+        <div class="empresa-nome">${esc(emp)}</div>
+        <span class="empresa-count">${items.length} contratado${items.length !== 1 ? 's' : ''}</span>
+      </div>
+      <div class="cont-list">
+        ${items.map(r => `<div class="cont-item">
+          <div class="cont-avatar">${initials(r.nome)}</div>
+          <div class="cont-info">
+            <div class="cont-nome">${esc(r.nome)}</div>
+            <div class="cont-sub">
+              ${r.cargo ? esc(r.cargo) + ' · ' : ''}
+              ${r.setor ? esc(r.setor) + ' · ' : ''}
+              ${r.salario ? '💰 ' + esc(r.salario) + ' · ' : ''}
+              ${r.data_inicio ? '📅 ' + fmtData(r.data_inicio) : ''}
+              ${r.recrutador ? ' · 👤 ' + esc(r.recrutador) : ''}
+            </div>
+            ${r.obs ? `<div style="font-size:0.62rem;color:var(--muted);margin-top:0.12rem;">${esc(r.obs.substring(0,80))}${r.obs.length>80?'…':''}</div>` : ''}
+          </div>
+          <span class="badge-tipo ${tipoCls[r.tipo]||'t-clt'}">${tipoLabel[r.tipo]||r.tipo}</span>
+          ${r.tel ? `<a href="https://wa.me/55${r.tel.replace(/\D/g,'')}" target="_blank" class="btn btn-ghost" style="font-size:0.68rem;text-decoration:none;">💬</a>` : ''}
+          <button class="btn btn-red" style="font-size:0.68rem;" onclick="excluir('${r.id}')">🗑</button>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmtData = iso => iso ? new Date(iso + 'T12:00:00').toLocaleDateString('pt-BR') : '';
+let _tt;
+function toast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+init();
+</script></body></html>

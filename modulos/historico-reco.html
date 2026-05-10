@@ -1,0 +1,395 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><script src="../supabase-config.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Histórico | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#9b59b6;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--blue);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.page-nav{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.page-nav a{font-family:inherit;font-size:0.72rem;font-weight:700;padding:0.45rem 1rem;border-radius:10px;border:1px solid var(--border2);color:var(--muted);text-decoration:none;transition:all 0.18s;}
+.page-nav a:hover{color:var(--text);border-color:var(--accent);}
+.page-nav a.active{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;}
+.kpi-val{font-size:1.8rem;font-weight:900;line-height:1;}.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}.btn-red:hover{background:rgba(231,76,60,0.18);}
+.btn-blue{background:rgba(52,152,219,0.1);color:var(--blue);border-color:rgba(52,152,219,0.25);}.btn-blue:hover{background:rgba(52,152,219,0.18);}
+.form-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:1.5rem;margin-bottom:1.2rem;display:none;}.form-card.show{display:block;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+@media(max-width:600px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+.fl{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.fi{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}.fi:focus{border-color:var(--accent);}.fi::placeholder{color:var(--muted2);}
+.fsel{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2rem;}.fsel option{background:#161616;}
+.search-bar{display:flex;gap:0.5rem;margin-bottom:1.2rem;}
+.search-bar .fi{flex:1;}
+.empty{text-align:center;padding:2.5rem;color:var(--muted2);font-size:0.78rem;}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}.toast.show{transform:translateY(0);opacity:1;}
+
+/* cards de pessoa */
+.pessoa-card{background:var(--card);border:1px solid var(--border);border-radius:18px;margin-bottom:1rem;overflow:hidden;transition:all 0.18s;}
+.pessoa-card:hover{border-color:var(--border2);}
+.pessoa-header{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;cursor:pointer;user-select:none;}
+.pessoa-avatar{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:#fff;flex-shrink:0;}
+.pessoa-info{flex:1;min-width:0;}
+.pessoa-nome{font-size:0.9rem;font-weight:800;}
+.pessoa-sub{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;}
+.pessoa-stat{display:flex;align-items:center;gap:0.4rem;}
+.stat-pill{font-size:0.62rem;font-weight:700;padding:0.14rem 0.5rem;border-radius:99px;background:rgba(59,130,246,0.08);border:1px solid var(--border2);color:var(--accent);}
+.chevron{font-size:0.8rem;color:var(--muted);transition:transform 0.2s;margin-left:auto;}
+.pessoa-card.open .chevron{transform:rotate(180deg);}
+
+/* linha do tempo */
+.timeline{display:none;padding:0 1.3rem 1.2rem 1.3rem;}
+.pessoa-card.open .timeline{display:block;}
+.tl-line{position:relative;padding-left:1.5rem;}
+.tl-line::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--border2));}
+.tl-item{position:relative;margin-bottom:1rem;}
+.tl-item::before{content:'';position:absolute;left:-1.5rem;top:0.55rem;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(59,130,246,0.4);border:2px solid var(--bg);}
+.tl-item.atual::before{background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 6px rgba(59,130,246,0.4);}50%{box-shadow:0 0 14px rgba(59,130,246,0.7);}}
+.tl-empresa{font-size:0.85rem;font-weight:800;margin-bottom:0.1rem;}
+.tl-cargo{font-size:0.72rem;color:var(--muted);margin-bottom:0.15rem;}
+.tl-periodo{font-size:0.62rem;color:var(--muted2);margin-bottom:0.2rem;}
+.tl-obs{font-size:0.65rem;color:var(--muted);font-style:italic;padding:0.4rem 0.6rem;background:rgba(255,255,255,0.03);border-radius:6px;border-left:2px solid var(--border2);}
+.tl-badge-atual{font-size:0.58rem;font-weight:800;padding:0.1rem 0.45rem;border-radius:99px;background:rgba(59,130,246,0.12);color:var(--green);border:1px solid rgba(59,130,246,0.25);display:inline-block;margin-bottom:0.15rem;}
+.tl-actions{display:flex;gap:0.4rem;margin-top:0.4rem;}
+.add-entry-btn{display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;padding:0.5rem 0.8rem;border-radius:10px;border:1px dashed var(--border2);background:transparent;color:var(--muted);font-family:inherit;font-size:0.7rem;font-weight:600;cursor:pointer;transition:all 0.18s;width:100%;justify-content:center;}
+.add-entry-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* form inline na linha do tempo */
+.inline-form{background:var(--card2);border:1px solid var(--border2);border-radius:12px;padding:1rem;margin-top:0.6rem;display:none;}
+.inline-form.show{display:block;}
+
+/* modal pessoa */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:1.8rem;width:min(480px,92vw);max-height:88vh;overflow-y:auto;}
+.modal-title{font-size:1rem;font-weight:800;margin-bottom:1.2rem;color:var(--blue);}
+
+@media(max-width:640px){
+  .page{padding:1rem 0.9rem 4rem !important;}
+  .hero{flex-direction:column !important;align-items:flex-start !important;gap:0.8rem !important;}
+  .hero .btn{width:100%;justify-content:center;}
+  .title{font-size:1.25rem !important;}
+  .kpi-row{grid-template-columns:repeat(2,1fr) !important;}
+  .toast{right:0.6rem !important;left:0.6rem !important;}
+}
+</style></head><body>
+<div class="page">
+  <div class="page-nav">
+    <a href="recolocacoes.html">🔁 Recolocações</a>
+    <a href="contratados.html">🏢 Contratados</a>
+    <a href="historico.html" class="active">📋 Histórico</a>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Trajetória Profissional</div>
+      <div class="title">Histórico <span>Elaborado</span></div>
+      <div class="sub">Linha do tempo completa de cada candidato — empresas, cargos, períodos</div>
+    </div>
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+      <button class="btn btn-blue" onclick="toggleFormPessoa()">👤 Nova pessoa</button>
+      <button class="btn btn-accent" onclick="toggleFormEntry()">➕ Add entrada</button>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kPessoas" style="color:var(--accent);">0</div><div class="kpi-label">Pessoas</div></div>
+    <div class="kpi"><div class="kpi-val" id="kEntradas" style="color:var(--blue);">0</div><div class="kpi-label">Entradas</div></div>
+    <div class="kpi"><div class="kpi-val" id="kEmpresas" style="color:var(--green);">0</div><div class="kpi-label">Empresas únicas</div></div>
+    <div class="kpi"><div class="kpi-val" id="kMedia" style="color:var(--orange);">0</div><div class="kpi-label">Média por pessoa</div></div>
+  </div>
+
+  <!-- Form: nova pessoa no histórico -->
+  <div class="form-card" id="formPessoa" style="border-color:rgba(52,152,219,0.3);">
+    <div style="font-size:0.72rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1rem;">👤 Cadastrar pessoa no histórico</div>
+    <div class="grid-2">
+      <div><label class="fl">Nome *</label><input class="fi" id="pNome" placeholder="Nome completo"/></div>
+      <div><label class="fl">Telefone</label><input class="fi" id="pTel" placeholder="(51) 9 9999-9999"/></div>
+    </div>
+    <div class="grid-2">
+      <div><label class="fl">Área principal</label><input class="fi" id="pArea" placeholder="Ex: Manutenção, RH, TI..."/></div>
+      <div><label class="fl">Observações gerais</label><input class="fi" id="pObs" placeholder="Notas sobre o perfil"/></div>
+    </div>
+    <div style="display:flex;gap:0.6rem;">
+      <button class="btn btn-blue" onclick="salvarPessoa()" style="flex:2;justify-content:center;">💾 Salvar pessoa</button>
+      <button class="btn btn-ghost" onclick="toggleFormPessoa()" style="flex:1;justify-content:center;">✕ Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Form: nova entrada de histórico -->
+  <div class="form-card" id="formEntry">
+    <div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1rem;">📋 Adicionar entrada no histórico</div>
+    <div class="grid-2">
+      <div><label class="fl">Pessoa *</label>
+        <select class="fsel" id="ePessoa"><option value="">Selecione...</option></select>
+      </div>
+      <div><label class="fl">Empresa *</label><input class="fi" id="eEmpresa" placeholder="Nome da empresa"/></div>
+    </div>
+    <div class="grid-3">
+      <div><label class="fl">Cargo / função</label><input class="fi" id="eCargo" placeholder="Ex: Analista de RH"/></div>
+      <div><label class="fl">Data início</label><input class="fi" type="date" id="eInicio"/></div>
+      <div><label class="fl">Data fim <small style="opacity:0.5;">(vazio = atual)</small></label><input class="fi" type="date" id="eFim"/></div>
+    </div>
+    <div class="grid-2">
+      <div><label class="fl">Tipo</label>
+        <select class="fsel" id="eTipo">
+          <option value="emprego">Emprego</option>
+          <option value="estagio">Estágio</option>
+          <option value="freelance">Freelance / PJ</option>
+          <option value="voluntario">Voluntário</option>
+          <option value="recolocacao">Recolocação via Agência Nexus</option>
+        </select>
+      </div>
+      <div><label class="fl">Salário / valor</label><input class="fi" id="eSalario" placeholder="Ex: R$ 3.500"/></div>
+    </div>
+    <div style="margin-bottom:0.8rem;"><label class="fl">Observações</label><textarea class="fi" id="eObs" rows="2" style="resize:vertical;line-height:1.6;" placeholder="Motivo de saída, conquistas, projetos relevantes..."></textarea></div>
+    <div style="display:flex;gap:0.6rem;">
+      <button class="btn btn-accent" onclick="salvarEntry()" style="flex:2;justify-content:center;">💾 Salvar entrada</button>
+      <button class="btn btn-ghost" onclick="toggleFormEntry()" style="flex:1;justify-content:center;">✕ Cancelar</button>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <input class="fi" id="searchInput" placeholder="🔍 Buscar por nome ou empresa..." oninput="render()"/>
+  </div>
+
+  <div id="histList"><div class="empty">Carregando...</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+const TAB_PESSOAS  = 'historico_pessoas';
+const TAB_ENTRIES  = 'historico';
+let _pessoas = [];
+let _entries = [];
+
+async function init() {
+  try {
+    _pessoas = await sbGet(TAB_PESSOAS, 'order=criado_em.desc');
+    _entries = await sbGet(TAB_ENTRIES, 'order=data_inicio.desc');
+  } catch(e) {
+    console.error(e);
+    toast('⚠️ Erro ao carregar dados', true);
+    _pessoas = []; _entries = [];
+  }
+  populatePessoaSelect();
+  render();
+}
+
+function toggleFormPessoa() { document.getElementById('formPessoa').classList.toggle('show'); }
+function toggleFormEntry()   { document.getElementById('formEntry').classList.toggle('show'); }
+
+function populatePessoaSelect() {
+  const sel = document.getElementById('ePessoa');
+  sel.innerHTML = '<option value="">Selecione...</option>' +
+    _pessoas.map(p => `<option value="${p.id}">${esc(p.nome)}</option>`).join('');
+}
+
+async function salvarPessoa() {
+  const nome = (document.getElementById('pNome').value || '').trim();
+  if (!nome) { toast('Nome obrigatório', true); return; }
+  const r = {
+    id:   'p' + Date.now(),
+    nome,
+    tel:  document.getElementById('pTel').value.trim(),
+    area: document.getElementById('pArea').value.trim(),
+    obs:  document.getElementById('pObs').value.trim()
+  };
+  try {
+    const salvo = await sbPost(TAB_PESSOAS, r);
+    _pessoas.unshift(salvo || r);
+    populatePessoaSelect();
+    render();
+    document.getElementById('formPessoa').classList.remove('show');
+    ['pNome','pTel','pArea','pObs'].forEach(id => document.getElementById(id).value = '');
+    toast('✅ Pessoa cadastrada!');
+  } catch(e) {
+    toast('❌ Erro: ' + e.message, true);
+  }
+}
+
+async function salvarEntry() {
+  const pessoaId = document.getElementById('ePessoa').value;
+  const empresa  = (document.getElementById('eEmpresa').value || '').trim();
+  if (!pessoaId) { toast('Selecione a pessoa', true); return; }
+  if (!empresa)  { toast('Empresa obrigatória', true); return; }
+  const r = {
+    id:           'e' + Date.now(),
+    candidato_id: pessoaId,
+    empresa,
+    cargo:        document.getElementById('eCargo').value.trim(),
+    data_inicio:  document.getElementById('eInicio').value,
+    data_fim:     document.getElementById('eFim').value || null,
+    tipo:         document.getElementById('eTipo').value,
+    salario:      document.getElementById('eSalario').value.trim(),
+    obs:          document.getElementById('eObs').value.trim()
+  };
+  try {
+    const salvo = await sbPost(TAB_ENTRIES, r);
+    _entries.unshift(salvo || r);
+    render();
+    document.getElementById('formEntry').classList.remove('show');
+    ['eEmpresa','eCargo','eInicio','eFim','eSalario','eObs'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('ePessoa').value = '';
+    document.getElementById('eTipo').value = 'emprego';
+    toast('✅ Entrada adicionada!');
+  } catch(e) {
+    toast('❌ Erro: ' + e.message, true);
+  }
+}
+
+async function excluirEntry(id) {
+  if (!confirm('Remover esta entrada?')) return;
+  try {
+    await sbDelete(TAB_ENTRIES, id);
+    _entries = _entries.filter(e => e.id !== id);
+    render();
+    toast('🗑 Entrada removida');
+  } catch(e) {
+    toast('❌ Erro ao remover', true);
+  }
+}
+
+async function excluirPessoa(id) {
+  if (!confirm('Remover esta pessoa e todo seu histórico?')) return;
+  try {
+    await sbDelete(TAB_PESSOAS, id);
+    const entradas = _entries.filter(e => e.candidato_id === id);
+    for (const e of entradas) { try { await sbDelete(TAB_ENTRIES, e.id); } catch(_){} }
+    _pessoas = _pessoas.filter(p => p.id !== id);
+    _entries = _entries.filter(e => e.candidato_id !== id);
+    populatePessoaSelect();
+    render();
+    toast('🗑 Pessoa removida');
+  } catch(e) {
+    toast('❌ Erro ao remover', true);
+  }
+}
+
+function toggleCard(id) {
+  const el = document.querySelector(`.pessoa-card[data-id="${id}"]`);
+  if (el) el.classList.toggle('open');
+}
+
+function calcDuracao(inicio, fim) {
+  if (!inicio) return '';
+  const s = new Date(inicio + 'T12:00:00');
+  const e = fim ? new Date(fim + 'T12:00:00') : new Date();
+  const meses = Math.max(0, Math.round((e - s) / (1000 * 60 * 60 * 24 * 30.4)));
+  if (meses < 1) return '< 1 mês';
+  if (meses < 12) return meses + ' mês' + (meses > 1 ? 'es' : '');
+  const anos = Math.floor(meses / 12);
+  const m    = meses % 12;
+  return anos + 'a' + (m ? ' ' + m + 'm' : '');
+}
+
+const tipoIcon = {emprego:'💼', estagio:'🎓', freelance:'🔧', voluntario:'❤️', recolocacao:'🔁'};
+
+function render() {
+  const q = (document.getElementById('searchInput').value || '').toLowerCase();
+  let pessoas = _pessoas;
+  if (q) pessoas = pessoas.filter(p =>
+    (p.nome||'').toLowerCase().includes(q) ||
+    _entries.filter(e => e.candidato_id === p.id && (e.empresa||'').toLowerCase().includes(q)).length > 0
+  );
+
+  const todasEmpresas = [...new Set(_entries.map(e => e.empresa).filter(Boolean))];
+  document.getElementById('kPessoas').textContent  = _pessoas.length;
+  document.getElementById('kEntradas').textContent = _entries.length;
+  document.getElementById('kEmpresas').textContent = todasEmpresas.length;
+  document.getElementById('kMedia').textContent    = _pessoas.length ? (_entries.length / _pessoas.length).toFixed(1) : '0';
+
+  const el = document.getElementById('histList');
+  if (!pessoas.length) {
+    el.innerHTML = '<div class="empty">' + (q ? 'Nenhum resultado.' : 'Nenhuma pessoa cadastrada no histórico.<br><br><button class="btn btn-blue" onclick="toggleFormPessoa()">👤 Cadastrar primeira pessoa</button>') + '</div>';
+    return;
+  }
+
+  const initials = n => (n||'?').split(' ').map(p => p[0]).join('').toUpperCase().substring(0,2);
+
+  el.innerHTML = pessoas.map(p => {
+    const entries = _entries.filter(e => e.candidato_id === p.id).sort((a,b) => {
+      // ordena por data decrescente
+      const da = a.data_inicio || '0000-01-01';
+      const db = b.data_inicio || '0000-01-01';
+      return db.localeCompare(da);
+    });
+    const atual = entries.find(e => !e.data_fim);
+    return `
+    <div class="pessoa-card" data-id="${p.id}">
+      <div class="pessoa-header" onclick="toggleCard('${p.id}')">
+        <div class="pessoa-avatar">${initials(p.nome)}</div>
+        <div class="pessoa-info">
+          <div class="pessoa-nome">${esc(p.nome)}</div>
+          <div class="pessoa-sub">
+            ${p.area ? esc(p.area) + ' · ' : ''}
+            ${entries.length} entrada${entries.length !== 1 ? 's' : ''}
+            ${atual ? ' · <span style="color:var(--green);font-weight:700;">Ativo em ' + esc(atual.empresa) + '</span>' : ''}
+          </div>
+        </div>
+        <div style="display:flex;gap:0.4rem;align-items:center;">
+          ${entries.length ? `<span class="stat-pill">${entries.length} 🏢</span>` : ''}
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="timeline">
+        ${entries.length === 0 ? `<div style="font-size:0.72rem;color:var(--muted2);margin-bottom:0.8rem;">Nenhuma entrada ainda.</div>` : `
+        <div class="tl-line">
+          ${entries.map(e => `
+            <div class="tl-item ${!e.data_fim ? 'atual' : ''}">
+              ${!e.data_fim ? '<span class="tl-badge-atual">● Atual</span>' : ''}
+              <div class="tl-empresa">${tipoIcon[e.tipo]||'💼'} ${esc(e.empresa)}</div>
+              <div class="tl-cargo">${e.cargo ? esc(e.cargo) : '<span style="opacity:0.4;">Cargo não informado</span>'}${e.salario ? ' · 💰 ' + esc(e.salario) : ''}</div>
+              <div class="tl-periodo">
+                ${e.data_inicio ? fmtData(e.data_inicio) : '?'} → ${e.data_fim ? fmtData(e.data_fim) : 'presente'}
+                <span style="color:var(--accent);font-weight:700;margin-left:0.4rem;">${calcDuracao(e.data_inicio, e.data_fim)}</span>
+              </div>
+              ${e.obs ? `<div class="tl-obs">${esc(e.obs)}</div>` : ''}
+              <div class="tl-actions">
+                <button class="btn btn-red" style="font-size:0.6rem;padding:0.2rem 0.6rem;" onclick="excluirEntry('${e.id}')">🗑</button>
+              </div>
+            </div>`).join('')}
+        </div>`}
+        <div style="display:flex;gap:0.5rem;margin-top:0.3rem;flex-wrap:wrap;">
+          <button class="btn btn-accent" style="font-size:0.68rem;" onclick="preencherEntryParaPessoa('${p.id}')">➕ Add entrada</button>
+          ${p.tel ? `<a href="https://wa.me/55${p.tel.replace(/\D/g,'')}" target="_blank" class="btn btn-ghost" style="font-size:0.68rem;text-decoration:none;">💬 WhatsApp</a>` : ''}
+          <button class="btn btn-red" style="font-size:0.68rem;" onclick="excluirPessoa('${p.id}')">🗑 Remover pessoa</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function preencherEntryParaPessoa(pessoaId) {
+  // Abre o form de entrada já com a pessoa selecionada
+  document.getElementById('ePessoa').value = pessoaId;
+  document.getElementById('formEntry').classList.add('show');
+  document.getElementById('formEntry').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmtData = iso => iso ? new Date(iso + 'T12:00:00').toLocaleDateString('pt-BR') : '';
+let _tt;
+function toast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+init();
+</script></body></html>

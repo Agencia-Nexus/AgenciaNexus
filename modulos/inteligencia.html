@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Centro de IA | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;
+  --border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);
+  --text:#f0f0f0;--muted:#666;--muted2:#333;
+  --red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#a78bfa;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--purple);opacity:0.85;margin-bottom:0.35rem;}
+.hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.hero-title span{color:var(--purple);}
+.hero-sub{font-size:0.8rem;color:var(--muted);}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.7rem;margin-bottom:1.8rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem 1.2rem;transition:border-color 0.2s;}
+.kpi:hover{border-color:var(--border2);}
+.kpi-val{font-size:1.8rem;font-weight:900;color:var(--purple);line-height:1;}
+.kpi-label{font-size:0.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.25rem;}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:800px){.grid-2{grid-template-columns:1fr;}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.5rem;}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:1rem;}
+.card-title{font-size:0.78rem;font-weight:800;}
+.btn{font-family:inherit;font-size:0.72rem;font-weight:700;border-radius:9px;padding:0.42rem 0.9rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.35rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-purple{background:rgba(167,139,250,0.1);color:var(--purple);border-color:rgba(167,139,250,0.25);}
+.btn-purple:hover{background:rgba(167,139,250,0.18);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}
+.btn-red:hover{background:rgba(231,76,60,0.18);}
+
+/* BUSCA IA */
+.search-box{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.search-inner{display:flex;gap:0.6rem;align-items:center;}
+.s-input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:11px;
+  padding:0.7rem 1rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:all 0.2s;}
+.s-input:focus{border-color:rgba(167,139,250,0.4);background:rgba(167,139,250,0.04);}
+.s-input::placeholder{color:var(--muted);}
+.search-results{margin-top:1rem;max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:0.4rem;
+  scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.s-item{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 0.7rem;background:rgba(255,255,255,0.025);
+  border:1px solid rgba(255,255,255,0.05);border-radius:9px;transition:border-color 0.15s;cursor:pointer;}
+.s-item:hover{border-color:rgba(167,139,250,0.3);}
+.s-ava{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;}
+.s-nome{font-size:0.78rem;font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.s-meta{font-size:0.62rem;color:var(--muted);}
+.s-fit{font-size:0.72rem;font-weight:800;flex-shrink:0;}
+.s-cnt{font-size:0.68rem;color:var(--muted);margin-top:0.3rem;}
+
+/* NOTIFICAÇÕES */
+.notif-toolbar{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;flex-wrap:wrap;}
+.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:blink 1s ease-in-out infinite;display:none;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.notif-list{display:flex;flex-direction:column;gap:0.4rem;max-height:280px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.notif-item{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.7rem;
+  background:rgba(59,130,246,0.04);border:1px solid rgba(59,130,246,0.1);border-radius:9px;}
+.notif-dot2{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.notif-nome{font-size:0.78rem;font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.notif-sub{font-size:0.62rem;color:var(--muted);}
+.notif-time{font-size:0.62rem;color:var(--muted2);flex-shrink:0;}
+
+/* COMPARADOR */
+.cmp-selects{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.8rem;}
+.cmp-selects .cmp-select{flex:1 1 140px;min-width:0;}
+@media(max-width:600px){.cmp-selects .cmp-select{flex:1 1 100%;}}
+.cmp-select{background:#161616;border:1px solid rgba(255,255,255,0.09);
+  border-radius:10px;padding:0.5rem 0.75rem;color:var(--text);font-family:inherit;font-size:0.75rem;outline:none;-webkit-appearance:none;cursor:pointer;}
+.cmp-select option{background:#161616;color:var(--text);}
+.cmp-result{display:grid;gap:0.5rem;margin-top:0.8rem;}
+.cmp-col{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.9rem 1rem;}
+.cmp-nome{font-size:0.82rem;font-weight:800;margin-bottom:0.4rem;}
+.cmp-score{font-size:2rem;font-weight:900;line-height:1;}
+.cmp-bar-track{height:5px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;margin:0.4rem 0;}
+.cmp-bar-fill{height:100%;border-radius:99px;}
+.cmp-row{display:flex;justify-content:space-between;font-size:0.68rem;color:var(--muted);margin-top:0.3rem;}
+.cmp-row span:last-child{color:var(--text);font-weight:600;}
+
+/* SEM ENTREVISTA */
+.sem-ent-list{display:flex;flex-direction:column;gap:0.4rem;max-height:280px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.sem-ent-item{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.7rem;
+  background:rgba(231,76,60,0.04);border:1px solid rgba(231,76,60,0.12);border-radius:9px;}
+.sem-ent-nome{font-size:0.78rem;font-weight:700;flex:1;}
+.sem-ent-vaga{font-size:0.62rem;color:var(--muted);}
+.sem-ent-dias{font-size:0.68rem;font-weight:800;flex-shrink:0;}
+
+/* LOG */
+.log-list{font-family:monospace;font-size:0.7rem;color:var(--muted);max-height:200px;overflow-y:auto;
+  background:rgba(0,0,0,0.3);border-radius:10px;padding:0.7rem 0.85rem;
+  display:flex;flex-direction:column;gap:0.2rem;
+  scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.log-item{display:flex;gap:0.6rem;}
+.log-t{color:var(--muted2);flex-shrink:0;}
+.log-msg{color:var(--muted);}
+
+/* FILTER */
+.filter-row{display:flex;gap:0.5rem;margin-bottom:0.7rem;flex-wrap:wrap;}
+.filter-select{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:9px;
+  padding:0.4rem 1.8rem 0.4rem 0.65rem;color:var(--text);font-family:inherit;font-size:0.72rem;outline:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 0.5rem center;-webkit-appearance:none;}
+.filter-select option{background:#161616;}
+.spinner{width:16px;height:16px;border:2px solid var(--muted2);border-top-color:var(--purple);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-inline{font-size:0.75rem;color:var(--muted2);text-align:center;padding:1.2rem;}
+.status-txt{font-size:0.68rem;color:var(--muted);margin-top:0.5rem;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page, .wrap, .wrapper {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child { width: 100% !important; }
+  .hero .btn, .hero button { width: 100% !important; justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3,
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Formulários */
+  .form-card { padding: 1rem !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Filtros */
+  .filters, .discFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .filters::-webkit-scrollbar, .discFilters::-webkit-scrollbar { display: none !important; }
+  .fc, .filter-chip { flex-shrink: 0 !important; }
+
+  /* Listas de itens */
+  .notif-item, .resp-item, .hist-item, .user-row, .polling-row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .notif-msg { white-space: normal !important; font-size: 0.72rem !important; }
+
+  /* Mapa de talentos */
+  .quadrante-wrap { aspect-ratio: 1 !important; max-height: 280px !important; }
+  .talent-table { font-size: 0.68rem !important; }
+  .talent-table th, .talent-table td { padding: 0.38rem 0.4rem !important; }
+
+  /* NPS scale */
+  .scale-row { gap: 0.2rem !important; margin: 0.6rem 0 !important; }
+  .scale-btn { width: 36px !important; height: 36px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+  .nps-val { font-size: 3.5rem !important; }
+  .nps-score { padding: 1.2rem !important; }
+  .kpi-row.nps { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Permissões */
+  .role-grid { grid-template-columns: 1fr !important; }
+  .role-card { padding: 1rem !important; }
+  .perm-item { font-size: 0.68rem !important; }
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Equipe */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.6rem !important; }
+  .member-ava { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; }
+  .member-card { padding: 1rem !important; }
+  .member-btns { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* Fit Predictor */
+  .result-box { padding: 1rem !important; }
+  .score-num { font-size: 3.5rem !important; }
+  .bar-label { width: 70px !important; font-size: 0.6rem !important; }
+  .insights { font-size: 0.7rem !important; }
+  .hist-list { max-height: 200px !important; }
+
+  /* Inteligência / busca IA */
+  .search-inner { flex-direction: column !important; }
+  .s-input { width: 100% !important; }
+  .search-box { padding: 0.9rem !important; }
+
+  /* Notificações */
+  .notif-list { max-height: 300px !important; }
+  .kpi-row .kpi { text-align: center; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Seção labels */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Topbar (emails / entrevista) */
+  .topbar, .tbar {
+    padding: 0.7rem 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+  .topbar-actions { gap: 0.4rem !important; }
+  .topbar-actions .btn, .topbar-actions button { font-size: 0.68rem !important; padding: 0.38rem 0.65rem !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Inteligência Artificial</div>
+      <div class="hero-title">Centro de <span>IA</span></div>
+      <div class="hero-sub">Monitoramento em tempo real · Busca inteligente · Comparador · Alertas</div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="ikTotal">—</div><div class="kpi-label">Total candidatos</div></div>
+    <div class="kpi"><div class="kpi-val" id="ikHoje" style="color:var(--blue);">—</div><div class="kpi-label">Hoje</div></div>
+    <div class="kpi"><div class="kpi-val" id="ikSemEnt" style="color:var(--red);">—</div><div class="kpi-label">Sem entrevista</div></div>
+    <div class="kpi"><div class="kpi-val" id="ikNotif" style="color:var(--green);">0</div><div class="kpi-label">Notificações</div></div>
+    <div class="kpi"><div class="kpi-val" id="ikLog" style="color:var(--muted);">0</div><div class="kpi-label">Ações logadas</div></div>
+  </div>
+
+  <!-- LINHA 1: Busca + Notificações -->
+  <div class="sec-label">Busca & Monitoramento</div>
+  <div class="grid-2">
+    <!-- BUSCA IA -->
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">🔍 Busca Inteligente</span>
+        <kbd style="font-size:0.6rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:0.15rem 0.45rem;color:var(--muted);">Ctrl+K</kbd>
+      </div>
+      <div class="search-box" style="padding:0;background:none;border:none;">
+        <div class="search-inner">
+          <input class="s-input" id="intelSearch" placeholder="Buscar candidato, vaga, perfil DISC..." oninput="buscarIA(this.value)"/>
+          <button class="btn btn-purple" onclick="buscarIA(document.getElementById('intelSearch').value)">Buscar</button>
+        </div>
+        <div class="s-cnt" id="searchCnt"></div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+
+    <!-- NOTIFICAÇÕES -->
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">🔔 Monitoramento em Tempo Real</span>
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <div class="notif-dot" id="notifDot"></div>
+          <span id="pollingStatus" style="font-size:0.62rem;color:var(--muted);">Inativo</span>
+          <button class="btn btn-ghost" id="btnNotif" onclick="togglePolling()">▶ Ativar</button>
+        </div>
+      </div>
+      <div class="notif-list" id="notifList">
+        <div class="empty-inline">Ative o monitoramento para receber alertas em tempo real.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA 2: Sem entrevista + Comparador -->
+  <div class="sec-label">Alertas & Comparador</div>
+  <div class="grid-2">
+    <!-- SEM ENTREVISTA -->
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">⚠️ Candidatos sem entrevista</span>
+        <div style="display:flex;gap:0.4rem;align-items:center;">
+          <div class="filter-row" style="margin:0;">
+            <select class="filter-select" id="semEntVaga" onchange="filtrarSemEnt()">
+              <option value="">Todas as vagas</option>
+            </select>
+          </div>
+          <button class="btn btn-ghost" style="font-size:0.65rem;" onclick="exportarSemEnt()">⬇ CSV</button>
+          <button class="btn btn-red" style="font-size:0.65rem;" onclick="carregarSemEnt()">↺</button>
+        </div>
+      </div>
+      <div class="sem-ent-list" id="semEntList">
+        <div class="empty-inline"><span class="spinner"></span> Carregando...</div>
+      </div>
+      <div class="status-txt" id="semEntStatus"></div>
+    </div>
+
+    <!-- COMPARADOR -->
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">⚖️ Comparador de Candidatos</span>
+        <button class="btn btn-purple" onclick="comparar()">Comparar</button>
+      </div>
+      <div class="cmp-selects" id="cmpSelects">
+        <select class="cmp-select" id="cmpSel1"><option value="">— Candidato 1 —</option></select>
+        <select class="cmp-select" id="cmpSel2"><option value="">— Candidato 2 —</option></select>
+        <select class="cmp-select" id="cmpSel3"><option value="">— Candidato 3 —</option></select>
+      </div>
+      <div id="cmpResult"><div class="empty-inline">Selecione candidatos e clique em Comparar.</div></div>
+    </div>
+  </div>
+
+  <!-- LOG -->
+  <div class="sec-label">Log de Ações da Sessão</div>
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">📋 Auditoria da sessão</span>
+      <button class="btn btn-ghost" style="font-size:0.65rem;" onclick="limparLog()">Limpar</button>
+    </div>
+    <div class="log-list" id="logList"><div style="color:var(--muted2);font-size:0.72rem;">Nenhuma ação registrada ainda nesta sessão.</div></div>
+  </div>
+
+</div>
+<script>
+let SB_URL='',SB_KEY='',PIPE_KEY='nexus_pipeline_v1';
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;PIPE_KEY=c.pipe_key||PIPE_KEY;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;if(!_loaded)init();}});
+const COR={D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+const EMO={D:'🔴',I:'🟠',S:'🟢',C:'🔵'};
+
+let _hist=[], _semEntCache=[], _semEntFiltrado=[], _polling=null, _ultimoId=null, _loaded=false;
+const LOG=[];
+
+function log(msg){
+  const n=new Date(); const hh=String(n.getHours()).padStart(2,'0'); const mm=String(n.getMinutes()).padStart(2,'0');
+  LOG.unshift({t:hh+':'+mm,msg}); if(LOG.length>100) LOG.pop();
+  renderLog();
+  document.getElementById('ikLog').textContent=LOG.length;
+  // Propaga para auditoria global
+  try{const logs=JSON.parse(localStorage.getItem('nexus_audit_log')||'[]');logs.unshift({ts:new Date().toISOString(),usuario:'intel',msg});if(logs.length>500)logs.pop();localStorage.setItem('nexus_audit_log',JSON.stringify(logs));}catch(e){}
+}
+function renderLog(){
+  const el=document.getElementById('logList');
+  if(!LOG.length){el.innerHTML='<div style="color:var(--muted2);font-size:0.72rem;">Sem ações.</div>';return;}
+  el.innerHTML=LOG.map(l=>`<div class="log-item"><span class="log-t">${l.t}</span><span class="log-msg">${esc(l.msg)}</span></div>`).join('');
+}
+function limparLog(){LOG.length=0;renderLog();document.getElementById('ikLog').textContent=0;}
+
+async function init(){
+  lerCtx(); if(!SB_URL){setTimeout(()=>{lerCtx();if(SB_URL)init();},500);return;}
+  _loaded=true; log('Centro de IA aberto');
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?select=id,nome,vaga,data,fit_score,fit_nivel,entrevista_json,resumo_ia,criado_em&order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _hist=await r.json(); if(!Array.isArray(_hist)) _hist=[];
+    if(_hist.length) _ultimoId=Math.max(..._hist.map(r=>r.id||0));
+    log(`${_hist.length} candidatos carregados`);
+  }catch(e){_hist=[];log('Erro ao carregar candidatos: '+e.message);}
+
+  // KPIs
+  document.getElementById('ikTotal').textContent=_hist.length;
+  const hoje=new Date().toLocaleDateString('pt-BR');
+  document.getElementById('ikHoje').textContent=_hist.filter(h=>h.data===hoje).length;
+
+  // Sem entrevista
+  const semEnt=_hist.filter(h=>{
+    if(!h.entrevista_json&&!h.resumo_ia) return true;
+    try{const ej=typeof h.entrevista_json==='string'?JSON.parse(h.entrevista_json):(h.entrevista_json||{});return !ej.historia||ej.historia.length<10;}catch(e){return!h.resumo_ia;}
+  });
+  document.getElementById('ikSemEnt').textContent=semEnt.length;
+
+  popularComparador(_hist);
+  await carregarSemEnt();
+}
+
+// ── BUSCA ──
+let _searchTimer=null;
+async function buscarIA(q){
+  clearTimeout(_searchTimer);
+  _searchTimer=setTimeout(async()=>{
+    const el=document.getElementById('searchResults');
+    const cnt=document.getElementById('searchCnt');
+    q=(q||'').trim();
+    if(q.length<2){el.innerHTML='';cnt.textContent='';return;}
+    el.innerHTML='<div class="empty-inline"><span class="spinner"></span> Buscando...</div>';
+    try{
+      const r=await fetch(`${SB_URL}/rest/v1/disc_historico?or=(nome.ilike.*${encodeURIComponent(q)}*,vaga.ilike.*${encodeURIComponent(q)}*)&select=id,nome,vaga,data,fit_score,dom,sec&order=criado_em.desc&limit=25`,
+        {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+      const arr=await r.json();
+      if(!Array.isArray(arr)||!arr.length){el.innerHTML='<div class="empty-inline">Nenhum resultado.</div>';cnt.textContent='';return;}
+      cnt.textContent=arr.length+' resultado'+(arr.length>1?'s':'');
+      el.innerHTML=arr.map(h=>{
+        const cor=COR[h.dom]||'#888'; const emo=EMO[h.dom]||'⬜';
+        const fit=h.fit_score?parseInt(h.fit_score):null;
+        const fitCor=fit?fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c':'#666';
+        return `<div class="s-item" onclick="log('Buscou: ${esc(h.nome||'')}');navegar('banco-talentos')">
+          <div class="s-ava" style="background:${cor}15;border:1px solid ${cor}30;">${emo}</div>
+          <div style="flex:1;min-width:0;">
+            <div class="s-nome">${esc(h.nome||'—')}</div>
+            <div class="s-meta">📋 ${esc(h.vaga||'—')} · ${h.data||'—'}</div>
+          </div>
+          ${fit!==null?`<div class="s-fit" style="color:${fitCor};">${fit}%</div>`:''}
+        </div>`;
+      }).join('');
+      log(`Busca: "${q}" → ${arr.length} resultado(s)`);
+    }catch(e){el.innerHTML='<div class="empty-inline" style="color:var(--red);">Erro na busca.</div>';}
+  },350);
+}
+
+// ── POLLING ──
+async function togglePolling(){
+  if(_polling){
+    clearInterval(_polling); _polling=null;
+    document.getElementById('btnNotif').textContent='▶ Ativar';
+    document.getElementById('notifDot').style.display='none';
+    document.getElementById('pollingStatus').textContent='Inativo';
+    log('Monitoramento pausado'); return;
+  }
+  document.getElementById('btnNotif').textContent='⏸ Pausar';
+  document.getElementById('notifDot').style.display='block';
+  document.getElementById('pollingStatus').textContent='● Monitorando';
+  log('Monitoramento ativado (60s)');
+  await verificarNovos();
+  _polling=setInterval(verificarNovos,60000);
+}
+
+async function verificarNovos(){
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?select=id,nome,vaga,data,criado_em&order=criado_em.desc&limit=20`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const arr=await r.json(); if(!Array.isArray(arr)||!arr.length) return;
+    const maxId=Math.max(...arr.map(x=>x.id||0));
+    if(_ultimoId===null){_ultimoId=maxId;return;}
+    if(maxId>_ultimoId){
+      const novos=arr.filter(r=>r.id>_ultimoId);
+      _ultimoId=maxId;
+      const cnt=document.getElementById('ikNotif');
+      cnt.textContent=(parseInt(cnt.textContent)||0)+novos.length;
+      const list=document.getElementById('notifList');
+      const empty=list.querySelector('.empty-inline'); if(empty) empty.remove();
+      novos.forEach(r=>{
+        const item=document.createElement('div'); item.className='notif-item';
+        item.innerHTML=`<div class="notif-dot2"></div>
+          <div style="flex:1;min-width:0;">
+            <div class="notif-nome">${esc(r.nome||'Candidato')}</div>
+            <div class="notif-sub">📋 ${esc(r.vaga||'—')} · ${r.data||'—'}</div>
+          </div>
+          <div class="notif-time">Agora</div>`;
+        list.insertBefore(item,list.firstChild);
+        log(`Novo: ${r.nome||'?'} — ${r.vaga||'—'}`);
+      });
+      window.parent.postMessage({tipo:'nexus_toast',msg:`🔔 ${novos.length} novo(s) candidato(s)!`},'*');
+    }
+  }catch(e){log('Erro no polling: '+e.message);}
+}
+
+// ── SEM ENTREVISTA ──
+async function carregarSemEnt(){
+  const lista=document.getElementById('semEntList');
+  lista.innerHTML='<div class="empty-inline"><span class="spinner"></span> Carregando...</div>';
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?select=id,nome,vaga,data,entrevista_json,resumo_ia&order=criado_em.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const todos=await r.json(); if(!Array.isArray(todos)){lista.innerHTML='<div class="empty-inline" style="color:var(--red);">Erro.</div>';return;}
+    _semEntCache=todos.filter(h=>{
+      if(!h.entrevista_json&&!h.resumo_ia) return true;
+      try{const ej=typeof h.entrevista_json==='string'?JSON.parse(h.entrevista_json):(h.entrevista_json||{});return !ej.historia||ej.historia.length<10;}catch(e){return!h.resumo_ia;}
+    });
+    _semEntFiltrado=[..._semEntCache];
+    const vagas=[...new Set(_semEntCache.map(h=>h.vaga).filter(Boolean))].sort();
+    const sel=document.getElementById('semEntVaga');
+    sel.innerHTML='<option value="">Todas as vagas</option>'+vagas.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+    renderSemEnt(_semEntFiltrado);
+    log(`Sem entrevista: ${_semEntCache.length} de ${todos.length}`);
+    document.getElementById('ikSemEnt').textContent=_semEntCache.length;
+  }catch(e){lista.innerHTML='<div class="empty-inline" style="color:var(--red);">Erro: '+esc(e.message)+'</div>';}
+}
+function filtrarSemEnt(){
+  const v=document.getElementById('semEntVaga').value;
+  _semEntFiltrado=v?_semEntCache.filter(h=>h.vaga===v):[..._semEntCache];
+  renderSemEnt(_semEntFiltrado);
+}
+function renderSemEnt(lista){
+  const el=document.getElementById('semEntList');
+  if(!lista.length){el.innerHTML='<div class="empty-inline">✅ Todos têm entrevista nesta vaga.</div>';return;}
+  const hoje=new Date();
+  el.innerHTML=lista.map(h=>{
+    let dias=null;
+    if(h.data){try{const p=h.data.split('/');const d=new Date(p[2],p[1]-1,p[0]);dias=Math.floor((hoje-d)/86400000);}catch(e){}}
+    const diasTxt=dias===0?'Hoje':dias===1?'Ontem':dias>1?`${dias} dias`:'-';
+    const cor=dias===null?'#777':dias===0?'#2ecc71':dias<=2?'#f39c12':'#e74c3c';
+    return `<div class="sem-ent-item">
+      <span style="font-size:0.9rem;">⚠️</span>
+      <div style="flex:1;min-width:0;">
+        <div class="sem-ent-nome">${esc(h.nome||'—')}</div>
+        <div class="sem-ent-vaga">📋 ${esc(h.vaga||'—')}</div>
+      </div>
+      <span class="sem-ent-dias" style="color:${cor};">${diasTxt}</span>
+    </div>`;
+  }).join('');
+}
+function exportarSemEnt(){
+  if(!_semEntFiltrado.length){document.getElementById('semEntStatus').textContent='Nenhum registro.';return;}
+  const csv='Nome,Vaga,Data DISC\n'+_semEntFiltrado.map(h=>`"${h.nome||''}","${h.vaga||''}","${h.data||''}"`).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}));
+  a.download=`sem-entrevista-${new Date().toISOString().slice(0,10)}.csv`;a.click();
+  document.getElementById('semEntStatus').textContent=`✓ ${_semEntFiltrado.length} exportados`;
+  setTimeout(()=>{document.getElementById('semEntStatus').textContent='';},3000);
+  log(`Exportou sem entrevista: ${_semEntFiltrado.length}`);
+}
+
+// ── COMPARADOR ──
+function popularComparador(hist){
+  ['cmpSel1','cmpSel2','cmpSel3'].forEach(id=>{
+    const sel=document.getElementById(id);
+    const cur=sel.value;
+    sel.innerHTML='<option value="">— Selecione —</option>'+hist.map(h=>`<option value="${h.id}" ${h.id==cur?'selected':''}>${esc(h.nome||'?')} · ${esc(h.vaga||'—')}</option>`).join('');
+  });
+}
+function comparar(){
+  const ids=['cmpSel1','cmpSel2','cmpSel3'].map(id=>document.getElementById(id).value).filter(Boolean);
+  const el=document.getElementById('cmpResult');
+  if(!ids.length){el.innerHTML='<div class="empty-inline">Selecione ao menos um candidato.</div>';return;}
+  const cands=ids.map(id=>_hist.find(h=>String(h.id)===id)).filter(Boolean);
+  if(!cands.length){el.innerHTML='<div class="empty-inline">Candidatos não encontrados.</div>';return;}
+  const cores=['#a78bfa','#34d399','#f39c12'];
+  el.innerHTML=`<div class="cmp-result" style="grid-template-columns:repeat(${cands.length},1fr);">
+    ${cands.map((h,i)=>{
+      const fit=h.fit_score?parseInt(h.fit_score):0;
+      const fitCor=fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c';
+      return `<div class="cmp-col" style="border-color:${cores[i]}30;">
+        <div class="cmp-nome" style="color:${cores[i]};">${esc(h.nome||'—')}</div>
+        <div class="cmp-score" style="color:${fitCor};">${fit||'—'}${fit?'%':''}</div>
+        <div class="cmp-bar-track"><div class="cmp-bar-fill" style="width:${fit}%;background:${fitCor};"></div></div>
+        <div class="cmp-row"><span>Vaga</span><span>${esc((h.vaga||'—').substring(0,18))}</span></div>
+        <div class="cmp-row"><span>Perfil</span><span>${h.dom||'?'}+${h.sec||'?'}</span></div>
+        <div class="cmp-row"><span>Nível</span><span>${esc(h.fit_nivel||'—')}</span></div>
+        <div class="cmp-row"><span>Data</span><span>${h.data||'—'}</span></div>
+      </div>`;
+    }).join('')}
+  </div>`;
+  log(`Comparou: ${cands.map(h=>h.nome).join(' × ')}`);
+}
+
+// ── KEY ──
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();document.getElementById('intelSearch').focus();}
+});
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function navegar(mod){window.parent.postMessage({tipo:'nexus_navegar',mod},'*');}
+
+lerCtx(); if(SB_URL) init(); else setTimeout(()=>{lerCtx();if(SB_URL)init();else init();},400);
+</script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><script src="../supabase-config.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recolocações | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--green);}
+.sub{font-size:0.8rem;color:var(--muted);}
+
+/* nav entre páginas */
+.page-nav{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.page-nav a{font-family:inherit;font-size:0.72rem;font-weight:700;padding:0.45rem 1rem;border-radius:10px;border:1px solid var(--border2);color:var(--muted);text-decoration:none;transition:all 0.18s;}
+.page-nav a:hover{color:var(--text);border-color:var(--accent);}
+.page-nav a.active{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.7rem;margin-bottom:1.5rem;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;}
+.kpi-val{font-size:1.8rem;font-weight:900;line-height:1;}.kpi-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:0.2rem;}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-red{background:rgba(231,76,60,0.1);color:var(--red);border-color:rgba(231,76,60,0.25);}.btn-red:hover{background:rgba(231,76,60,0.18);}
+.btn-blue{background:rgba(52,152,219,0.1);color:var(--blue);border-color:rgba(52,152,219,0.25);}.btn-blue:hover{background:rgba(52,152,219,0.18);}
+.form-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:1.5rem;margin-bottom:1.2rem;display:none;}.form-card.show{display:block;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+@media(max-width:600px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+.fl{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.fi{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}.fi:focus{border-color:var(--accent);}.fi::placeholder{color:var(--muted2);}
+.fsel{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2rem;}.fsel option{background:#161616;}
+
+/* filtros */
+.filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.filter-chip{font-family:inherit;font-size:0.68rem;font-weight:700;padding:0.3rem 0.8rem;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.filter-chip.on{background:rgba(59,130,246,0.12);color:var(--accent);border-color:var(--border2);}
+.search-bar{display:flex;gap:0.5rem;margin-bottom:1rem;}
+.search-bar .fi{flex:1;}
+
+.rec-list{display:flex;flex-direction:column;gap:0.5rem;}
+.rec-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;transition:all 0.18s;}
+.rec-item:hover{border-color:var(--border2);}
+.rec-ico{width:42px;height:42px;border-radius:10px;background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.22);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.rec-info{flex:1;min-width:0;}
+.rec-nome{font-size:0.88rem;font-weight:800;}
+.rec-sub{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;}
+.badge-status{font-size:0.6rem;font-weight:800;padding:0.15rem 0.55rem;border-radius:99px;}
+.s-ativo{background:rgba(46,204,113,0.1);color:var(--green);border:1px solid rgba(46,204,113,0.25);}
+.s-buscando{background:rgba(243,156,18,0.1);color:var(--orange);border:1px solid rgba(243,156,18,0.22);}
+.s-recolocado{background:rgba(52,152,219,0.1);color:var(--blue);border:1px solid rgba(52,152,219,0.25);}
+.empty{text-align:center;padding:2.5rem;color:var(--muted2);font-size:0.78rem;}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}.toast.show{transform:translateY(0);opacity:1;}
+
+/* modal histórico rápido */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:1.8rem;width:min(480px,92vw);max-height:80vh;overflow-y:auto;}
+.modal-title{font-size:1rem;font-weight:800;margin-bottom:1.2rem;color:var(--accent);}
+.hist-entry{border-left:2px solid var(--border2);padding:0.5rem 0 0.5rem 1rem;margin-bottom:0.8rem;position:relative;}
+.hist-entry::before{content:'';position:absolute;left:-5px;top:0.6rem;width:8px;height:8px;border-radius:50%;background:var(--accent);}
+.hist-empresa{font-size:0.8rem;font-weight:700;}
+.hist-cargo{font-size:0.72rem;color:var(--muted);margin-top:0.1rem;}
+.hist-periodo{font-size:0.6rem;color:var(--muted2);margin-top:0.1rem;}
+.no-hist{font-size:0.75rem;color:var(--muted2);text-align:center;padding:1rem;}
+
+@media(max-width:640px){
+  .page{padding:1rem 0.9rem 4rem !important;}
+  .hero{flex-direction:column !important;align-items:flex-start !important;gap:0.8rem !important;}
+  .hero .btn{width:100%;justify-content:center;}
+  .title{font-size:1.25rem !important;}
+  .kpi-row{grid-template-columns:repeat(2,1fr) !important;}
+  .grid-2,.grid-3{grid-template-columns:1fr !important;}
+  .toast{right:0.6rem !important;left:0.6rem !important;}
+}
+</style></head><body>
+<div class="page">
+  <div class="page-nav">
+    <a href="recolocacoes.html" class="active">🔁 Recolocações</a>
+    <a href="contratados.html">🏢 Contratados</a>
+    <a href="historico.html">📋 Histórico</a>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Banco de Talentos</div>
+      <div class="title">Banco de <span>Recolocações</span></div>
+      <div class="sub">Candidatos disponíveis para novas oportunidades</div>
+    </div>
+    <button class="btn btn-accent" onclick="toggleForm()">➕ Registrar candidato</button>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val" id="kTotal" style="color:var(--accent);">0</div><div class="kpi-label">Total</div></div>
+    <div class="kpi"><div class="kpi-val" id="kBuscando" style="color:var(--orange);">0</div><div class="kpi-label">Buscando vaga</div></div>
+    <div class="kpi"><div class="kpi-val" id="kRecoloc" style="color:var(--blue);">0</div><div class="kpi-label">Recolocados</div></div>
+    <div class="kpi"><div class="kpi-val" id="kTaxa" style="color:var(--green);">0%</div><div class="kpi-label">Taxa sucesso</div></div>
+  </div>
+
+  <div class="form-card" id="formCard">
+    <div style="font-size:0.72rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1rem;">🔁 Candidato para recolocação</div>
+    <div class="grid-2">
+      <div><label class="fl">Nome *</label><input class="fi" id="rNome" placeholder="Nome completo"/></div>
+      <div><label class="fl">Área de interesse</label><input class="fi" id="rArea" placeholder="Ex: Manutenção Industrial"/></div>
+    </div>
+    <div class="grid-3">
+      <div><label class="fl">Último cargo</label><input class="fi" id="rCargo" placeholder="Ex: Técnico Elétrico"/></div>
+      <div><label class="fl">Telefone</label><input class="fi" id="rTel" placeholder="(51) 9 9999-9999"/></div>
+      <div><label class="fl">Status</label>
+        <select class="fsel" id="rStatus">
+          <option value="buscando">🟠 Buscando vaga</option>
+          <option value="ativo">🟢 Disponível</option>
+          <option value="recolocado">🔵 Recolocado</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div><label class="fl">Pretensão salarial</label><input class="fi" id="rSalario" placeholder="Ex: R$ 3.500"/></div>
+      <div><label class="fl">Disponibilidade</label><input class="fi" id="rDisp" placeholder="Ex: Imediata / 30 dias"/></div>
+    </div>
+    <div style="margin-bottom:0.8rem;"><label class="fl">Observações / perfil</label><textarea class="fi" id="rObs" rows="2" style="resize:vertical;line-height:1.6;" placeholder="Habilidades, cursos, certificações..."></textarea></div>
+    <div style="display:flex;gap:0.6rem;">
+      <button class="btn btn-accent" onclick="salvar()" style="flex:2;justify-content:center;">💾 Salvar</button>
+      <button class="btn btn-ghost" onclick="toggleForm()" style="flex:1;justify-content:center;">✕ Cancelar</button>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <input class="fi" id="searchInput" placeholder="🔍 Buscar por nome, cargo ou área..." oninput="render()"/>
+  </div>
+  <div class="filters">
+    <button class="filter-chip on" data-f="todos" onclick="setFilter(this,'todos')">Todos</button>
+    <button class="filter-chip" data-f="buscando" onclick="setFilter(this,'buscando')">🟠 Buscando</button>
+    <button class="filter-chip" data-f="ativo" onclick="setFilter(this,'ativo')">🟢 Disponível</button>
+    <button class="filter-chip" data-f="recolocado" onclick="setFilter(this,'recolocado')">🔵 Recolocado</button>
+  </div>
+
+  <div class="rec-list" id="recList"><div class="empty">Carregando...</div></div>
+</div>
+
+<!-- Modal histórico rápido -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">Histórico</div>
+    <div id="modalBody"></div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:1rem;" onclick="closeModalForce()">✕ Fechar</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+const TABELA = 'recolocacoes';
+const TABELA_HIST = 'historico';
+let _lista = [];
+let _hist = [];
+let _filtro = 'todos';
+
+async function init() {
+  try {
+    _lista = await sbGet(TABELA, 'order=criado_em.desc');
+    _hist  = await sbGet(TABELA_HIST, 'order=data_inicio.desc');
+  } catch(e) {
+    console.error(e);
+    toast('⚠️ Erro ao carregar dados', true);
+    _lista = []; _hist = [];
+  }
+  render();
+}
+
+function toggleForm() { document.getElementById('formCard').classList.toggle('show'); }
+
+function setFilter(el, f) {
+  _filtro = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  render();
+}
+
+async function salvar() {
+  const nome = (document.getElementById('rNome').value || '').trim();
+  if (!nome) { toast('Nome obrigatório', true); return; }
+  const r = {
+    id:       'r' + Date.now(),
+    nome,
+    area:     document.getElementById('rArea').value.trim(),
+    cargo:    document.getElementById('rCargo').value.trim(),
+    tel:      document.getElementById('rTel').value.trim(),
+    status:   document.getElementById('rStatus').value,
+    salario:  document.getElementById('rSalario').value.trim(),
+    disp:     document.getElementById('rDisp').value.trim(),
+    obs:      document.getElementById('rObs').value.trim()
+  };
+  try {
+    const salvo = await sbPost(TABELA, r);
+    _lista.unshift(salvo || r);
+    render();
+    document.getElementById('formCard').classList.remove('show');
+    limparForm();
+    toast('✅ Candidato registrado!');
+  } catch(e) {
+    toast('❌ Erro ao salvar: ' + e.message, true);
+  }
+}
+
+async function excluir(id) {
+  if (!confirm('Remover este candidato?')) return;
+  try {
+    await sbDelete(TABELA, id);
+    _lista = _lista.filter(r => r.id !== id);
+    render();
+    toast('🗑 Candidato removido');
+  } catch(e) {
+    toast('❌ Erro ao remover', true);
+  }
+}
+
+function verHistorico(id, nome) {
+  const entries = _hist.filter(h => h.candidato_id === id);
+  const el = document.getElementById('modalBody');
+  document.getElementById('modalTitle').textContent = '📋 Histórico — ' + nome;
+  if (!entries.length) {
+    el.innerHTML = '<div class="no-hist">Nenhum registro no histórico ainda.<br><a href="historico.html" style="color:var(--accent);font-size:0.75rem;">Adicionar em Histórico →</a></div>';
+  } else {
+    el.innerHTML = entries.map(h => `
+      <div class="hist-entry">
+        <div class="hist-empresa">🏢 ${esc(h.empresa)}</div>
+        <div class="hist-cargo">${esc(h.cargo)}</div>
+        <div class="hist-periodo">${fmtData(h.data_inicio)} ${h.data_fim ? '→ ' + fmtData(h.data_fim) : '→ atual'}</div>
+        ${h.obs ? `<div style="font-size:0.65rem;color:var(--muted);margin-top:0.2rem;">${esc(h.obs)}</div>` : ''}
+      </div>`).join('');
+  }
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal(e) { if (e.target.id === 'modalOverlay') closeModalForce(); }
+function closeModalForce() { document.getElementById('modalOverlay').classList.remove('show'); }
+
+function limparForm() {
+  ['rNome','rArea','rCargo','rTel','rObs','rSalario','rDisp'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('rStatus').value = 'buscando';
+}
+
+function render() {
+  const q = (document.getElementById('searchInput').value || '').toLowerCase();
+  let lista = _lista;
+  if (_filtro !== 'todos') lista = lista.filter(r => r.status === _filtro);
+  if (q) lista = lista.filter(r =>
+    (r.nome||'').toLowerCase().includes(q) ||
+    (r.cargo||'').toLowerCase().includes(q) ||
+    (r.area||'').toLowerCase().includes(q)
+  );
+
+  const buscando = _lista.filter(r => r.status === 'buscando' || r.status === 'ativo').length;
+  const recoloc  = _lista.filter(r => r.status === 'recolocado').length;
+  document.getElementById('kTotal').textContent    = _lista.length;
+  document.getElementById('kBuscando').textContent = buscando;
+  document.getElementById('kRecoloc').textContent  = recoloc;
+  document.getElementById('kTaxa').textContent     = _lista.length ? Math.round(recoloc / _lista.length * 100) + '%' : '0%';
+
+  const el = document.getElementById('recList');
+  if (!lista.length) {
+    el.innerHTML = '<div class="empty">' + (q || _filtro !== 'todos' ? 'Nenhum resultado para o filtro.' : 'Nenhum candidato registrado.<br><br><button class="btn btn-accent" onclick="toggleForm()">➕ Adicionar primeiro</button>') + '</div>';
+    return;
+  }
+  const cls = {buscando:'s-buscando', ativo:'s-ativo', recolocado:'s-recolocado'};
+  const lbl = {buscando:'🟠 Buscando', ativo:'🟢 Disponível', recolocado:'🔵 Recolocado'};
+  el.innerHTML = lista.map(r => `<div class="rec-item">
+    <div class="rec-ico">🔁</div>
+    <div class="rec-info">
+      <div class="rec-nome">${esc(r.nome)}</div>
+      <div class="rec-sub">
+        ${r.cargo ? esc(r.cargo) + ' · ' : ''}${r.area ? esc(r.area) + ' · ' : ''}
+        ${r.salario ? '💰 ' + esc(r.salario) + ' · ' : ''}
+        ${r.disp ? '⏱ ' + esc(r.disp) : ''}
+        <span style="opacity:0.5;"> · ${fmtData(r.criado_em)}</span>
+      </div>
+      ${r.obs ? `<div style="font-size:0.65rem;color:var(--muted);margin-top:0.15rem;">${esc(r.obs.substring(0,90))}${r.obs.length>90?'…':''}</div>` : ''}
+    </div>
+    <span class="badge-status ${cls[r.status]||'s-buscando'}">${lbl[r.status]||r.status}</span>
+    <button class="btn btn-blue" style="font-size:0.65rem;" onclick="verHistorico('${r.id}','${esc(r.nome)}')">📋</button>
+    ${r.tel ? `<a href="https://wa.me/55${r.tel.replace(/\D/g,'')}" target="_blank" class="btn btn-ghost" style="font-size:0.68rem;text-decoration:none;">💬</a>` : ''}
+    <button class="btn btn-red" style="font-size:0.68rem;" onclick="excluir('${r.id}')">🗑</button>
+  </div>`).join('');
+}
+
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmtData = iso => iso ? new Date(iso).toLocaleDateString('pt-BR') : '';
+let _tt;
+function toast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+init();
+</script></body></html>

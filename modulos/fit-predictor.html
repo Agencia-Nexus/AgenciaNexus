@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Previsão de Fit | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;--purple:#a78bfa;--D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.6rem;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--purple);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--purple);}
+.sub{font-size:0.8rem;color:var(--muted);}
+.beta{font-size:0.6rem;font-weight:800;padding:0.15rem 0.6rem;border-radius:99px;background:rgba(167,139,250,0.15);color:var(--purple);border:1px solid rgba(167,139,250,0.3);margin-left:0.5rem;vertical-align:middle;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr;}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+.card-title{font-size:0.78rem;font-weight:800;margin-bottom:1rem;color:var(--purple);}
+.fl{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.fi{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;margin-bottom:0.8rem;}.fi:focus{border-color:var(--purple);}.fi::placeholder{color:var(--muted2);}
+.fsel{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2rem;margin-bottom:0.8rem;}.fsel option{background:#161616;}
+.slider-wrap{margin-bottom:0.8rem;}
+.slider-row{display:flex;align-items:center;gap:0.6rem;}
+.slider{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);outline:none;cursor:pointer;}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--purple);cursor:pointer;}
+.slider-val{font-size:0.75rem;font-weight:800;color:var(--purple);min-width:32px;text-align:right;}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.55rem 1.2rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-purple{background:rgba(167,139,250,0.15);color:var(--purple);border-color:rgba(167,139,250,0.35);}.btn-purple:hover{background:rgba(167,139,250,0.25);}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+/* RESULTADO */
+.result-box{background:rgba(167,139,250,0.04);border:1px solid rgba(167,139,250,0.2);border-radius:16px;padding:1.6rem;display:none;}
+.result-box.show{display:block;}
+.result-score{text-align:center;margin-bottom:1.5rem;}
+.score-num{font-size:5rem;font-weight:900;line-height:1;}
+.score-label{font-size:0.82rem;color:var(--muted);margin-top:0.2rem;}
+.score-level{font-size:0.78rem;font-weight:800;padding:0.3rem 1rem;border-radius:99px;display:inline-block;margin-top:0.5rem;}
+.bars-section{margin-bottom:1rem;}
+.bar-row{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.55rem;}
+.bar-label{font-size:0.68rem;font-weight:700;width:90px;flex-shrink:0;}
+.bar-track{flex:1;height:8px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:99px;transition:width 1s cubic-bezier(0.4,0,0.2,1);}
+.bar-pct{font-size:0.68rem;font-weight:800;min-width:35px;text-align:right;}
+.insights{background:rgba(255,255,255,0.02);border-radius:12px;padding:1rem;font-size:0.75rem;line-height:1.75;color:#ccc;}
+.insight-ok{color:var(--green);}
+.insight-warn{color:var(--orange);}
+.insight-bad{color:var(--red);}
+/* HISTÓRICO */
+.hist-list{display:flex;flex-direction:column;gap:0.4rem;max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.hist-item{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 0.8rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:9px;}
+.hist-nome{font-size:0.75rem;font-weight:700;flex:1;}
+.hist-vaga{font-size:0.62rem;color:var(--muted);}
+.empty{text-align:center;padding:1.5rem;color:var(--muted2);font-size:0.75rem;}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}.toast.show{transform:translateY(0);opacity:1;}
+.spinner{width:18px;height:18px;border:2px solid var(--muted2);border-top-color:var(--purple);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}@keyframes spin{to{transform:rotate(360deg)}}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page, .wrap, .wrapper {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child { width: 100% !important; }
+  .hero .btn, .hero button { width: 100% !important; justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3,
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Formulários */
+  .form-card { padding: 1rem !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Filtros */
+  .filters, .discFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .filters::-webkit-scrollbar, .discFilters::-webkit-scrollbar { display: none !important; }
+  .fc, .filter-chip { flex-shrink: 0 !important; }
+
+  /* Listas de itens */
+  .notif-item, .resp-item, .hist-item, .user-row, .polling-row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .notif-msg { white-space: normal !important; font-size: 0.72rem !important; }
+
+  /* Mapa de talentos */
+  .quadrante-wrap { aspect-ratio: 1 !important; max-height: 280px !important; }
+  .talent-table { font-size: 0.68rem !important; }
+  .talent-table th, .talent-table td { padding: 0.38rem 0.4rem !important; }
+
+  /* NPS scale */
+  .scale-row { gap: 0.2rem !important; margin: 0.6rem 0 !important; }
+  .scale-btn { width: 36px !important; height: 36px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+  .nps-val { font-size: 3.5rem !important; }
+  .nps-score { padding: 1.2rem !important; }
+  .kpi-row.nps { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Permissões */
+  .role-grid { grid-template-columns: 1fr !important; }
+  .role-card { padding: 1rem !important; }
+  .perm-item { font-size: 0.68rem !important; }
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Equipe */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.6rem !important; }
+  .member-ava { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; }
+  .member-card { padding: 1rem !important; }
+  .member-btns { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* Fit Predictor */
+  .result-box { padding: 1rem !important; }
+  .score-num { font-size: 3.5rem !important; }
+  .bar-label { width: 70px !important; font-size: 0.6rem !important; }
+  .insights { font-size: 0.7rem !important; }
+  .hist-list { max-height: 200px !important; }
+
+  /* Inteligência / busca IA */
+  .search-inner { flex-direction: column !important; }
+  .s-input { width: 100% !important; }
+  .search-box { padding: 0.9rem !important; }
+
+  /* Notificações */
+  .notif-list { max-height: 300px !important; }
+  .kpi-row .kpi { text-align: center; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Seção labels */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Topbar (emails / entrevista) */
+  .topbar, .tbar {
+    padding: 0.7rem 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+  .topbar-actions { gap: 0.4rem !important; }
+  .topbar-actions .btn, .topbar-actions button { font-size: 0.68rem !important; padding: 0.38rem 0.65rem !important; }
+}
+
+</style></head><body>
+<div class="page">
+  <div class="hero">
+    <div class="eyebrow">Inteligência <span class="beta">Beta</span></div>
+    <div class="title">Previsão de <span>Fit Cultural</span></div>
+    <div class="sub">Calcule o fit de um candidato em relação ao perfil ideal da vaga com base em DISC e comportamento</div>
+  </div>
+
+  <div class="grid-2">
+    <!-- PAINEL DE ENTRADA -->
+    <div>
+      <div class="card">
+        <div class="card-title">🎯 Perfil ideal da vaga</div>
+        <label class="fl">Perfil DISC dominante ideal</label>
+        <select class="fsel" id="vDiscIdeal">
+          <option value="D">D — Dominante (liderança, resultados)</option>
+          <option value="I">I — Influente (comunicação, vendas)</option>
+          <option value="S" selected>S — Estável (operações, suporte)</option>
+          <option value="C">C — Criterioso (qualidade, análise)</option>
+        </select>
+        <label class="fl">Nível de exigência técnica</label>
+        <div class="slider-wrap"><div class="slider-row"><span style="font-size:0.65rem;color:var(--muted);">Baixo</span><input type="range" class="slider" id="slTecnico" min="1" max="10" value="6" oninput="document.getElementById('vTecnico').textContent=this.value"/><span style="font-size:0.65rem;color:var(--muted);">Alto</span><span class="slider-val" id="vTecnico">6</span></div></div>
+        <label class="fl">Fit cultural com a empresa</label>
+        <div class="slider-wrap"><div class="slider-row"><span style="font-size:0.65rem;color:var(--muted);">Baixo</span><input type="range" class="slider" id="slCultural" min="1" max="10" value="7" oninput="document.getElementById('vCultural').textContent=this.value"/><span style="font-size:0.65rem;color:var(--muted);">Alto</span><span class="slider-val" id="vCultural">7</span></div></div>
+        <label class="fl">Tolerância a pressão/metas</label>
+        <div class="slider-wrap"><div class="slider-row"><span style="font-size:0.65rem;color:var(--muted);">Baixa</span><input type="range" class="slider" id="slPressao" min="1" max="10" value="5" oninput="document.getElementById('vPressao').textContent=this.value"/><span style="font-size:0.65rem;color:var(--muted);">Alta</span><span class="slider-val" id="vPressao">5</span></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">👤 Dados do candidato</div>
+        <label class="fl">Nome do candidato</label>
+        <input class="fi" id="cNome" placeholder="Nome (para salvar no histórico)"/>
+        <label class="fl">Buscar candidato do Supabase</label>
+        <select class="fsel" id="cSelect" onchange="preencherCandidato()">
+          <option value="">— selecione ou preencha manual —</option>
+        </select>
+        <label class="fl">Perfil DISC do candidato</label>
+        <select class="fsel" id="cDisc">
+          <option value="D">D — Dominante</option>
+          <option value="I">I — Influente</option>
+          <option value="S" selected>S — Estável</option>
+          <option value="C">C — Criterioso</option>
+        </select>
+        <label class="fl">Fit score atual (DISC) %</label>
+        <div class="slider-wrap"><div class="slider-row"><input type="range" class="slider" id="slFit" min="0" max="100" value="70" oninput="document.getElementById('vFit').textContent=this.value+'%'"/><span class="slider-val" id="vFit">70%</span></div></div>
+        <label class="fl">Experiência na área (anos)</label>
+        <input class="fi" id="cExp" type="number" min="0" max="40" value="3" placeholder="3"/>
+        <button class="btn btn-purple" onclick="calcular()" style="width:100%;justify-content:center;margin-top:0.3rem;">🔮 Calcular previsão de fit</button>
+      </div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div>
+      <div class="result-box" id="resultBox">
+        <div class="result-score">
+          <div class="score-num" id="resScore" style="color:var(--purple);">—</div>
+          <div class="score-label">Fit Cultural Previsto</div>
+          <div class="score-level" id="resLevel">—</div>
+        </div>
+        <div class="bars-section" id="resBars"></div>
+        <div class="insights" id="resInsights"></div>
+        <div style="display:flex;gap:0.5rem;margin-top:1rem;">
+          <button class="btn btn-purple" onclick="salvarHistorico()" style="flex:1;justify-content:center;">💾 Salvar no histórico</button>
+          <button class="btn btn-ghost" onclick="navegar('triagem')" style="flex:1;justify-content:center;">📝 Ver Triagem</button>
+        </div>
+      </div>
+      <div id="resultEmpty" style="background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.1);border-radius:16px;padding:3rem;text-align:center;color:var(--muted);font-size:0.78rem;">
+        Preencha os dados e clique em<br><strong style="color:var(--purple);">Calcular previsão de fit</strong><br>para ver o resultado
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <div class="card-title">📋 Histórico de previsões</div>
+        <div class="hist-list" id="histList"><div class="empty">Nenhuma previsão salva.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='nexus_fitpred_v1';
+let SB_URL='',SB_KEY='',_hist=[],_lastResult=null,_cands=[];
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;carregarCands();}});
+function lerHist(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return[];}}
+function salvarHistLocal(){try{localStorage.setItem(KEY,JSON.stringify(_hist));}catch(e){}}
+
+async function carregarCands(){
+  lerCtx();if(!SB_URL)return;
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?select=id,nome,dom,pct_d,pct_i,pct_s,pct_c,fit_score&order=criado_em.desc`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    _cands=await r.json();if(!Array.isArray(_cands))_cands=[];
+    const sel=document.getElementById('cSelect');
+    sel.innerHTML='<option value="">— selecione ou preencha manual —</option>'+_cands.map(c=>`<option value="${c.id}">${esc(c.nome||'?')} (${c.dom||'?'})</option>`).join('');
+  }catch(e){}
+}
+function preencherCandidato(){
+  const id=document.getElementById('cSelect').value;if(!id)return;
+  const c=_cands.find(x=>String(x.id)===id);if(!c)return;
+  document.getElementById('cNome').value=c.nome||'';
+  document.getElementById('cDisc').value=c.dom||'S';
+  if(c.fit_score) document.getElementById('slFit').value=parseInt(c.fit_score);
+  document.getElementById('vFit').textContent=(document.getElementById('slFit').value)+'%';
+}
+
+function calcular(){
+  const vDisc=document.getElementById('vDiscIdeal').value;
+  const cDisc=document.getElementById('cDisc').value;
+  const fitBase=parseInt(document.getElementById('slFit').value);
+  const tecnico=parseInt(document.getElementById('slTecnico').value);
+  const cultural=parseInt(document.getElementById('slCultural').value);
+  const pressao=parseInt(document.getElementById('slPressao').value);
+  const exp=Math.min(parseInt(document.getElementById('cExp').value)||0,10);
+
+  // Matriz de compatibilidade DISC
+  const compat={D:{D:100,I:70,S:45,C:60},I:{D:65,I:100,S:75,C:50},S:{D:50,I:80,S:100,C:75},C:{D:55,I:55,S:80,C:100}};
+  const discFit=compat[vDisc]?.[cDisc]||60;
+
+  // Penalidades / bônus por pressão vs perfil
+  const pressaoBonus={D:pressao*3,I:pressao*1.5,S:pressao*-1,C:pressao*0.5};
+  const pBonus=pressaoBonus[cDisc]||0;
+
+  // Fit cultural ponderado
+  const fitCultural=((discFit*0.40)+(fitBase*0.30)+(cultural*8*0.15)+(exp*3*0.10)+(tecnico*5*0.05)+pBonus);
+  const score=Math.max(0,Math.min(100,Math.round(fitCultural)));
+
+  const cor=score>=80?'var(--green)':score>=65?'var(--accent)':score>=45?'var(--orange)':'var(--red)';
+  const level=score>=80?'🏆 Excelente fit':score>=65?'✅ Bom fit':score>=45?'⚠️ Fit parcial':'❌ Baixo fit';
+  const levelCls=score>=80?'grade-excelente':score>=65?'grade-bom':score>=45?'grade-medio':'grade-ruim';
+
+  document.getElementById('resScore').textContent=score+'%';
+  document.getElementById('resScore').style.color=cor;
+  document.getElementById('resLevel').textContent=level;
+  document.getElementById('resLevel').style.background=score>=80?'rgba(59,130,246,0.12)':score>=65?'rgba(59,130,246,0.12)':score>=45?'rgba(243,156,18,0.1)':'rgba(231,76,60,0.1)';
+  document.getElementById('resLevel').style.color=cor;
+  document.getElementById('resLevel').style.border=`1px solid ${cor}40`;
+
+  const bars=[
+    {label:'Compatib. DISC',val:discFit,cor:'#a78bfa'},
+    {label:'Fit DISC atual',val:fitBase,cor:'var(--blue)'},
+    {label:'Fit cultural',val:Math.min(100,cultural*10),cor:'var(--orange)'},
+    {label:'Experiência',val:Math.min(100,exp*10),cor:'var(--green)'},
+    {label:'Score final',val:score,cor},
+  ];
+  document.getElementById('resBars').innerHTML=bars.map(b=>`<div class="bar-row">
+    <div class="bar-label" style="color:var(--muted);">${b.label}</div>
+    <div class="bar-track"><div class="bar-fill" style="width:0%;background:${b.cor};" data-w="${b.val}"></div></div>
+    <div class="bar-pct" style="color:${b.cor};">${Math.round(b.val)}%</div>
+  </div>`).join('');
+  setTimeout(()=>{document.querySelectorAll('.bar-fill[data-w]').forEach(el=>{el.style.width=el.dataset.w+'%';});},50);
+
+  const insights=[];
+  if(vDisc===cDisc) insights.push(`<span class="insight-ok">✅ Perfil DISC compatível com o ideal da vaga (${vDisc})</span>`);
+  else insights.push(`<span class="insight-warn">⚠️ Perfil ${cDisc} vs ideal ${vDisc} — há diferença comportamental</span>`);
+  if(fitBase>=80) insights.push('<span class="insight-ok">✅ Fit score DISC acima de 80% — muito alinhado com a cultura</span>');
+  else if(fitBase<50) insights.push('<span class="insight-bad">❌ Fit score abaixo de 50% — revisar critérios DISC</span>');
+  if(exp>=5) insights.push('<span class="insight-ok">✅ Boa experiência na área</span>');
+  else if(exp<=1) insights.push('<span class="insight-warn">⚠️ Pouca experiência — considere período de adaptação</span>');
+  if(cDisc==='S'&&pressao>=7) insights.push('<span class="insight-warn">⚠️ Perfil Estável com alta pressão — monitorar adaptação</span>');
+  if(cDisc==='D'&&pressao>=7) insights.push('<span class="insight-ok">✅ Perfil Dominante performa bem sob pressão</span>');
+  document.getElementById('resInsights').innerHTML='<div style="font-size:0.7rem;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">📋 Insights</div>'+insights.map(i=>`<div style="margin-bottom:0.3rem;">${i}</div>`).join('');
+
+  _lastResult={score,level,vDisc,cDisc,fitBase,exp,data:new Date().toLocaleDateString('pt-BR')};
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('resultEmpty').style.display='none';
+}
+
+function salvarHistorico(){
+  if(!_lastResult){toast('Calcule primeiro',true);return;}
+  const nome=(document.getElementById('cNome').value||'').trim()||'Candidato anônimo';
+  _hist.unshift({..._lastResult,nome});
+  if(_hist.length>50)_hist.pop();
+  salvarHistLocal();renderHist();toast('✅ Salvo no histórico!');
+}
+function renderHist(){
+  const el=document.getElementById('histList');
+  _hist=lerHist();
+  if(!_hist.length){el.innerHTML='<div class="empty">Nenhuma previsão salva.</div>';return;}
+  el.innerHTML=_hist.map(h=>{
+    const cor=h.score>=80?'var(--green)':h.score>=65?'var(--accent)':h.score>=45?'var(--orange)':'var(--red)';
+    return `<div class="hist-item">
+      <div style="font-size:1.1rem;font-weight:900;color:${cor};min-width:42px;text-align:center;">${h.score}%</div>
+      <div style="flex:1;min-width:0;"><div class="hist-nome">${esc(h.nome)}</div><div class="hist-vaga">DISC ideal: ${h.vDisc} · Candidato: ${h.cDisc} · ${h.data}</div></div>
+    </div>`;
+  }).join('');
+}
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function navegar(mod){window.parent.postMessage({tipo:'nexus_navegar',mod},'*');}
+let _tt;function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(err?' err':'');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3000);}
+lerCtx();carregarCands();renderHist();
+</script></body></html>

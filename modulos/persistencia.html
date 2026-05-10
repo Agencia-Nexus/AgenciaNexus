@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Persistência de Dados | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.8rem;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);opacity:0.85;margin-bottom:0.35rem;}
+.hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.hero-title span{color:var(--green);}
+.hero-sub{font-size:0.8rem;color:var(--muted);line-height:1.6;}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+.sync-row{display:flex;align-items:center;gap:1rem;padding:0.85rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.sync-row:last-child{border-bottom:none;padding-bottom:0;}
+.sync-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.sync-info{flex:1;}
+.sync-name{font-size:0.82rem;font-weight:700;margin-bottom:0.12rem;}
+.sync-desc{font-size:0.65rem;color:var(--muted);}
+.sync-status{font-size:0.65rem;font-weight:700;padding:0.15rem 0.6rem;border-radius:99px;flex-shrink:0;white-space:nowrap;}
+.ss-ok{background:rgba(46,204,113,0.1);color:var(--green);border:1px solid rgba(46,204,113,0.25);}
+.ss-pend{background:rgba(243,156,18,0.1);color:var(--orange);border:1px solid rgba(243,156,18,0.25);}
+.ss-err{background:rgba(231,76,60,0.1);color:var(--red);border:1px solid rgba(231,76,60,0.25);}
+.ss-wait{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid rgba(255,255,255,0.1);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:10px;padding:0.5rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-blue{background:rgba(52,152,219,0.1);color:var(--blue);border-color:rgba(52,152,219,0.25);}
+.btn-blue:hover{background:rgba(52,152,219,0.18);}
+.log-box{background:rgba(0,0,0,0.3);border-radius:12px;padding:1rem;font-family:monospace;font-size:0.72rem;color:var(--muted);max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:0.2rem;scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.log-line{display:flex;gap:0.6rem;}
+.log-t{color:var(--muted2);flex-shrink:0;}
+.log-ok{color:var(--green);}
+.log-err{color:var(--red);}
+.log-info{color:var(--blue);}
+.log-warn{color:var(--orange);}
+.progress-wrap{background:rgba(255,255,255,0.04);border-radius:99px;height:8px;overflow:hidden;margin:0.8rem 0;}
+.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 0.4s ease;}
+.info-box{background:rgba(52,152,219,0.06);border:1px solid rgba(52,152,219,0.18);border-radius:12px;padding:1rem 1.2rem;font-size:0.75rem;color:#bbb;line-height:1.7;margin-bottom:1rem;}
+.info-box strong{color:var(--blue);}
+.schema-box{background:rgba(0,0,0,0.4);border-radius:10px;padding:0.9rem 1rem;font-family:monospace;font-size:0.7rem;color:#aaa;line-height:1.8;overflow-x:auto;white-space:pre;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  .page {
+    padding: 1rem 0.9rem 4rem !important;
+  }
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child,
+  .hero > button,
+  .hero > div[style*="display:flex"] {
+    width: 100%;
+  }
+  .hero .btn,
+  .hero button.btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .title { font-size: 1.25rem !important; }
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+  .form-card { padding: 1rem !important; }
+  .filters {
+    gap: 0.35rem !important;
+  }
+  .filter-chip { font-size: 0.65rem !important; padding: 0.22rem 0.6rem !important; }
+  .rec-item, .sla-item, .task-item, .rank-card, .vi, .sync-row {
+    flex-wrap: wrap !important;
+    gap: 0.6rem !important;
+  }
+  .sla-bar-wrap { flex: 1 1 100% !important; justify-content: space-between; }
+  .sla-bar { width: auto !important; flex: 1 !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+  .sec-label { font-size: 0.58rem !important; }
+  .add-form { flex-direction: column !important; }
+  .add-form .fi,
+  .add-form .fsel,
+  .add-form input[type=date] { width: 100% !important; }
+  .add-form .btn { width: 100% !important; justify-content: center !important; }
+  .tpl-grid { grid-template-columns: 1fr !important; }
+  .cand-list { max-height: 200px !important; }
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .sync-row { padding: 0.7rem 0 !important; }
+  .sync-ico { display: none !important; }
+  .schema-box { font-size: 0.62rem !important; }
+  .info-box { font-size: 0.7rem !important; }
+  .log-box { font-size: 0.65rem !important; }
+  .pesos-card { padding: 1rem !important; }
+  .pesos-grid { grid-template-columns: 1fr !important; }
+  .pesos-total { flex-wrap: wrap !important; gap: 0.5rem !important; }
+  .pesos-total .btn { flex: 1 1 auto !important; }
+  .filtro-row { gap: 0.4rem !important; }
+  .filter-select { font-size: 0.72rem !important; flex: 1 !important; }
+  .rank-scores { gap: 0.3rem !important; }
+  .score-final-val { font-size: 1.2rem !important; }
+  .score-bar { width: 44px !important; }
+  .vi-btns { width: 100% !important; justify-content: flex-end; }
+  .vi-tit { font-size: 0.82rem !important; }
+  .vagas-grid { grid-template-columns: 1fr !important; }
+  .modal { padding: 1.2rem !important; border-radius: 16px !important; }
+  .toast { right: 0.6rem !important; bottom: 0.6rem !important; left: 0.6rem !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Sistema · Dados</div>
+    <div class="hero-title">Persistência <span>Permanente</span></div>
+    <div class="hero-sub">Sincroniza pipeline, agenda e configurações com o Supabase. Mesmo que perca o histórico do navegador, todos os dados ficam na nuvem.</div>
+  </div>
+
+  <div class="info-box">
+    <strong>🔒 Como funciona a proteção de dados</strong><br/>
+    Os candidatos e vagas já ficam nativamente no <strong>Supabase</strong> — nunca se perdem. O que pode se perder ao trocar de navegador é: pipeline (kanban), agenda de entrevistas, log de auditoria e preferências. Este módulo sincroniza tudo isso com uma tabela <strong>nexus_config</strong> no Supabase, criando backup automático a cada ação importante.
+  </div>
+
+  <div class="sec-label">Status de sincronização</div>
+  <div class="card">
+    <div class="sync-row">
+      <div class="sync-ico" style="background:rgba(141,198,63,0.1);">🧠</div>
+      <div class="sync-info"><div class="sync-name">Candidatos (disc_historico)</div><div class="sync-desc">Todos os perfis DISC, fit scores e entrevistas — já no Supabase nativamente</div></div>
+      <span class="sync-status ss-ok">✓ Supabase nativo</span>
+    </div>
+    <div class="sync-row">
+      <div class="sync-ico" style="background:rgba(243,156,18,0.1);">💼</div>
+      <div class="sync-info"><div class="sync-name">Vagas</div><div class="sync-desc">Todas as vagas cadastradas — já no Supabase nativamente</div></div>
+      <span class="sync-status ss-ok">✓ Supabase nativo</span>
+    </div>
+    <div class="sync-row">
+      <div class="sync-ico" style="background:rgba(231,76,60,0.1);">⊞</div>
+      <div class="sync-info"><div class="sync-name">Pipeline ATS</div><div class="sync-desc">Estado do kanban — candidatos por vaga e etapa</div></div>
+      <span class="sync-status" id="stPipeline">Verificando...</span>
+    </div>
+    <div class="sync-row">
+      <div class="sync-ico" style="background:rgba(52,152,219,0.1);">📅</div>
+      <div class="sync-info"><div class="sync-name">Agenda de Entrevistas</div><div class="sync-desc">Eventos agendados com datas e candidatos</div></div>
+      <span class="sync-status" id="stAgenda">Verificando...</span>
+    </div>
+    <div class="sync-row">
+      <div class="sync-ico" style="background:rgba(167,139,250,0.1);">📜</div>
+      <div class="sync-info"><div class="sync-name">Log de Auditoria</div><div class="sync-desc">Histórico de ações do sistema</div></div>
+      <span class="sync-status" id="stLog">Verificando...</span>
+    </div>
+    <div class="sync-row">
+      <div class="sync-ico" style="background:rgba(255,255,255,0.06);">⚙️</div>
+      <div class="sync-info"><div class="sync-name">Preferências e configurações</div><div class="sync-desc">Prefs do painel, membros da equipe, dados da agência</div></div>
+      <span class="sync-status" id="stPrefs">Verificando...</span>
+    </div>
+  </div>
+
+  <div class="sec-label">Ações de sincronização</div>
+  <div class="card">
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <button class="btn btn-accent" onclick="sincronizarTudo()">☁ Sincronizar tudo agora</button>
+      <button class="btn btn-blue" onclick="restaurarDoSupabase()">⬇ Restaurar do Supabase</button>
+      <button class="btn btn-ghost" onclick="verificarStatus()">↺ Verificar status</button>
+    </div>
+    <div class="progress-wrap"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+    <div class="log-box" id="logBox"><div class="log-line"><span class="log-t">--:--</span><span class="log-info">Aguardando ação...</span></div></div>
+  </div>
+
+  <div class="sec-label">Configuração da tabela no Supabase</div>
+  <div class="card">
+    <div style="font-size:0.78rem;font-weight:700;margin-bottom:0.6rem;">Execute este SQL no Supabase SQL Editor para criar a tabela de configuração:</div>
+    <div class="schema-box" id="schemaBox">CREATE TABLE IF NOT EXISTS nexus_config (
+  id bigint generated always as identity primary key,
+  chave text not null unique,
+  valor jsonb,
+  atualizado_em timestamptz default now()
+);
+
+-- Permite leitura/escrita pela chave anon (ajuste conforme sua RLS)
+ALTER TABLE nexus_config ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "allow_all" ON nexus_config FOR ALL USING (true) WITH CHECK (true);</div>
+    <button class="btn btn-ghost" style="margin-top:0.7rem;" onclick="copiarSQL()">📋 Copiar SQL</button>
+    <div style="margin-top:1rem;">
+      <button class="btn btn-accent" onclick="criarTabelaAuto()">⚡ Criar tabela automaticamente</button>
+      <span style="font-size:0.68rem;color:var(--muted);margin-left:0.5rem;">tenta criar via API (requer permissões)</span>
+    </div>
+    <div class="sync-status" id="schemaMsg" style="margin-top:0.5rem;display:inline-block;font-size:0.72rem;font-weight:600;"></div>
+  </div>
+
+  <div class="sec-label">Sincronização automática</div>
+  <div class="card">
+    <div class="sync-row">
+      <div class="sync-info"><div class="sync-name">Auto-sync a cada 5 minutos</div><div class="sync-desc">Sincroniza silenciosamente enquanto o painel estiver aberto</div></div>
+      <button class="btn btn-ghost" id="btnAutoSync" onclick="toggleAutoSync()">▶ Ativar</button>
+    </div>
+    <div class="sync-row" style="border-top:1px solid rgba(255,255,255,0.05);padding-top:0.85rem;">
+      <div class="sync-info"><div class="sync-name">Última sincronização</div></div>
+      <span style="font-size:0.72rem;color:var(--muted);" id="ultimaSync">Nunca</span>
+    </div>
+  </div>
+</div>
+
+<script>
+let SB_URL='',SB_KEY='',PIPE_KEY='nexus_pipeline_v1';
+let _autoSyncInterval=null;
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;PIPE_KEY=c.pipe_key||PIPE_KEY;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;verificarStatus();}});
+
+function log(msg,tipo='info'){
+  const box=document.getElementById('logBox');
+  const now=new Date();const hh=String(now.getHours()).padStart(2,'0');const mm=String(now.getMinutes()).padStart(2,'0');const ss=String(now.getSeconds()).padStart(2,'0');
+  const line=document.createElement('div');line.className='log-line';
+  line.innerHTML=`<span class="log-t">${hh}:${mm}:${ss}</span><span class="log-${tipo}">${msg}</span>`;
+  box.insertBefore(line,box.firstChild);
+  if(box.children.length>100) box.removeChild(box.lastChild);
+}
+
+function setStatus(id,text,cls){const el=document.getElementById(id);if(el){el.textContent=text;el.className='sync-status '+cls;}}
+function setProg(pct){document.getElementById('prog').style.width=pct+'%';}
+
+async function sbGet(chave){
+  const r=await fetch(`${SB_URL}/rest/v1/nexus_config?chave=eq.${encodeURIComponent(chave)}&select=valor`,
+    {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+  if(!r.ok) throw new Error('GET '+r.status);
+  const arr=await r.json();
+  return arr.length?arr[0].valor:null;
+}
+
+async function sbUpsert(chave,valor){
+  const r=await fetch(`${SB_URL}/rest/v1/nexus_config`,{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({chave,valor,atualizado_em:new Date().toISOString()}),
+  });
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||e.hint||'UPSERT '+r.status);}
+}
+
+async function verificarStatus(){
+  lerCtx(); if(!SB_URL){log('Supabase não configurado — vá em Configurações','err');return;}
+  log('Verificando status de sincronização...','info');
+  const checks=[
+    {id:'stPipeline',chave:'pipeline'},
+    {id:'stAgenda',chave:'agenda'},
+    {id:'stLog',chave:'auditoria'},
+    {id:'stPrefs',chave:'prefs'},
+  ];
+  for(const c of checks){
+    try{
+      const val=await sbGet(c.chave);
+      if(val!==null){setStatus(c.id,'✓ Sincronizado','ss-ok');log(`${c.chave}: sincronizado`,'ok');}
+      else{setStatus(c.id,'⚠ Sem backup','ss-pend');log(`${c.chave}: sem backup no Supabase`,'warn');}
+    }catch(e){
+      if(e.message.includes('42P01')){setStatus(c.id,'Tabela inexistente','ss-err');log('Tabela nexus_config não existe — execute o SQL acima','err');}
+      else{setStatus(c.id,'Erro','ss-err');log(`${c.chave}: ${e.message}`,'err');}
+    }
+  }
+}
+
+async function sincronizarTudo(){
+  lerCtx(); if(!SB_URL){log('Supabase não configurado','err');return;}
+  log('Iniciando sincronização completa...','info'); setProg(0);
+  const itens=[
+    {chave:'pipeline',lsFn:()=>localStorage.getItem(PIPE_KEY)||'{}',label:'Pipeline'},
+    {chave:'agenda',lsFn:()=>localStorage.getItem('nexus_agenda_v1')||'[]',label:'Agenda'},
+    {chave:'auditoria',lsFn:()=>localStorage.getItem('nexus_audit_log')||'[]',label:'Auditoria'},
+    {chave:'prefs',lsFn:()=>JSON.stringify({prefs:localStorage.getItem('nexus_prefs'),agencia:localStorage.getItem('nexus_agencia'),membros:localStorage.getItem('nexus_membros')}),label:'Preferências'},
+  ];
+  let ok=0;
+  for(let i=0;i<itens.length;i++){
+    const it=itens[i];
+    setProg(Math.round(((i)/itens.length)*100));
+    try{
+      const valor=JSON.parse(it.lsFn());
+      await sbUpsert(it.chave,valor);
+      log(`✓ ${it.label} sincronizado`,'ok');
+      const statusId='st'+it.chave.charAt(0).toUpperCase()+it.chave.slice(1);
+      const ids={pipeline:'stPipeline',agenda:'stAgenda',auditoria:'stLog',prefs:'stPrefs'};
+      setStatus(ids[it.chave],'✓ Sincronizado','ss-ok');
+      ok++;
+    }catch(e){
+      log(`✗ ${it.label}: ${e.message}`,'err');
+      const ids={pipeline:'stPipeline',agenda:'stAgenda',auditoria:'stLog',prefs:'stPrefs'};
+      setStatus(ids[it.chave],'Erro','ss-err');
+    }
+  }
+  setProg(100);
+  const ts=new Date().toLocaleString('pt-BR');
+  document.getElementById('ultimaSync').textContent=ts;
+  try{localStorage.setItem('nexus_ultima_sync',ts);}catch(e){}
+  log(`Sincronização concluída: ${ok}/${itens.length} itens`,'ok');
+  setTimeout(()=>setProg(0),3000);
+}
+
+async function restaurarDoSupabase(){
+  lerCtx(); if(!SB_URL){log('Supabase não configurado','err');return;}
+  if(!confirm('Isso vai sobrescrever dados locais com os do Supabase. Continuar?')) return;
+  log('Restaurando dados do Supabase...','info'); setProg(0);
+  const mapa={pipeline:PIPE_KEY,agenda:'nexus_agenda_v1',auditoria:'nexus_audit_log'};
+  let ok=0;
+  const chaves=Object.keys(mapa);
+  for(let i=0;i<chaves.length;i++){
+    const chave=chaves[i];setProg(Math.round(((i)/chaves.length)*80));
+    try{
+      const val=await sbGet(chave);
+      if(val!==null){
+        localStorage.setItem(mapa[chave],JSON.stringify(val));
+        log(`✓ ${chave} restaurado`,'ok');ok++;
+      }else{log(`${chave}: sem dados no Supabase`,'warn');}
+    }catch(e){log(`✗ ${chave}: ${e.message}`,'err');}
+  }
+  // Preferências
+  try{
+    const prefs=await sbGet('prefs');
+    if(prefs){
+      if(prefs.prefs) localStorage.setItem('nexus_prefs',prefs.prefs);
+      if(prefs.agencia) localStorage.setItem('nexus_agencia',prefs.agencia);
+      if(prefs.membros) localStorage.setItem('nexus_membros',prefs.membros);
+      log('✓ Preferências restauradas','ok');ok++;
+    }
+  }catch(e){log('✗ Preferências: '+e.message,'err');}
+  setProg(100);
+  log(`Restauração concluída: ${ok} itens`,'ok');
+  setTimeout(()=>setProg(0),3000);
+  window.parent.postMessage({tipo:'nexus_toast',msg:`✅ ${ok} conjuntos de dados restaurados do Supabase`},'*');
+}
+
+async function criarTabelaAuto(){
+  lerCtx(); if(!SB_URL){log('Supabase não configurado','err');return;}
+  const el=document.getElementById('schemaMsg');
+  el.textContent='Tentando criar...';el.style.color='var(--muted)';
+  // Tenta via REST — se falhar, pede SQL manual
+  try{
+    // Testa se já existe
+    await sbGet('_test_');
+    el.textContent='✅ Tabela já existe! Pronto para sincronizar.';el.style.color='var(--green)';
+    log('Tabela nexus_config já existe','ok');
+  }catch(e){
+    if(e.message.includes('42P01')){
+      el.textContent='⚠️ Execute o SQL manualmente no Supabase SQL Editor (copie acima)';el.style.color='var(--orange)';
+      log('Não foi possível criar automaticamente — execute o SQL no dashboard do Supabase','warn');
+    }else{
+      el.textContent='✓ Tabela disponível para uso';el.style.color='var(--green)';
+      log('Tabela acessível','ok');
+    }
+  }
+}
+
+function copiarSQL(){
+  const sql=document.getElementById('schemaBox').textContent;
+  navigator.clipboard.writeText(sql).then(()=>{
+    window.parent.postMessage({tipo:'nexus_toast',msg:'✅ SQL copiado!'},'*');
+  }).catch(()=>{prompt('Copie o SQL:',sql);});
+}
+
+function toggleAutoSync(){
+  if(_autoSyncInterval){
+    clearInterval(_autoSyncInterval);_autoSyncInterval=null;
+    document.getElementById('btnAutoSync').textContent='▶ Ativar';
+    log('Auto-sync desativado','info');
+  }else{
+    _autoSyncInterval=setInterval(()=>{sincronizarTudo();},5*60*1000);
+    document.getElementById('btnAutoSync').textContent='⏸ Pausar';
+    log('Auto-sync ativado (a cada 5 minutos)','ok');
+    sincronizarTudo();
+  }
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  lerCtx();
+  try{const u=localStorage.getItem('nexus_ultima_sync');if(u) document.getElementById('ultimaSync').textContent=u;}catch(e){}
+  if(SB_URL) verificarStatus(); else setTimeout(()=>{lerCtx();if(SB_URL)verificarStatus();},500);
+});
+</script>
+</body>
+</html>

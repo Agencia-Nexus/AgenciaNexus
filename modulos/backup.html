@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Backup & Export | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.8rem;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);opacity:0.85;margin-bottom:0.35rem;}
+.hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.hero-title span{color:var(--green);}
+.hero-sub{font-size:0.8rem;color:var(--muted);}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+.export-row{display:flex;align-items:center;gap:1rem;padding:0.9rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.export-row:last-child{border-bottom:none;padding-bottom:0;}
+.export-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.export-info{flex:1;}
+.export-name{font-size:0.85rem;font-weight:700;margin-bottom:0.15rem;}
+.export-desc{font-size:0.68rem;color:var(--muted);}
+.export-cnt{font-size:0.68rem;font-weight:700;color:var(--accent);margin-top:0.15rem;}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:10px;padding:0.5rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.btn-blue{background:rgba(52,152,219,0.1);color:var(--blue);border-color:rgba(52,152,219,0.25);}
+.btn-blue:hover{background:rgba(52,152,219,0.18);}
+.import-zone{border:2px dashed rgba(59,130,246,0.2);border-radius:14px;padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.2s;}
+.import-zone:hover{border-color:var(--border2);background:rgba(59,130,246,0.03);}
+.import-zone.drag{border-color:var(--accent);background:rgba(59,130,246,0.06);}
+.import-txt{font-size:0.78rem;color:var(--muted);margin-top:0.35rem;}
+.progress-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;margin-top:0.5rem;}
+.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 0.4s ease;}
+.status-msg{font-size:0.72rem;margin-top:0.4rem;font-weight:600;}
+.status-msg.ok{color:var(--green);}
+.status-msg.err{color:var(--red);}
+.info-box{background:rgba(52,152,219,0.06);border:1px solid rgba(52,152,219,0.18);border-radius:12px;padding:1rem 1.2rem;font-size:0.75rem;color:#bbb;line-height:1.65;}
+.info-box strong{color:var(--blue);}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page { padding: 1rem 0.9rem 4rem !important; }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-right, .hero > div[style*="display:flex"], .hero > div:last-child {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  .hero-right .btn, .hero .btn, .hero button { justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-grid, .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.35rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3, .charts-grid,
+  .grid-2-col, .grid-3-col { grid-template-columns: 1fr !important; }
+
+  /* Cards */
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Botões */
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Toolbar / busca */
+  .toolbar { flex-wrap: wrap !important; }
+  .search-inp { width: 100% !important; min-width: unset !important; }
+
+  /* Seções */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Tabelas — scroll horizontal */
+  .log-table, .conv-table, .vaga-table {
+    overflow-x: auto !important;
+    display: block !important;
+  }
+  .log-table table { min-width: 520px !important; }
+  .conv-table, .vaga-table { min-width: 480px !important; }
+  .log-table th, .log-table td { padding: 0.45rem 0.6rem !important; font-size: 0.68rem !important; }
+
+  /* Rows de export/backup */
+  .export-row, .row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .export-ico { display: none !important; }
+  .export-row .btn { width: 100% !important; justify-content: center !important; }
+
+  /* Config rows */
+  .row { padding: 0.6rem 0 !important; }
+  .row-info strong { font-size: 0.76rem !important; }
+
+  /* Cards de clientes/roles */
+  .clients-grid, .role-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .client-card { padding: 1rem !important; }
+  .cc-btns { flex-wrap: wrap !important; }
+
+  /* Agendamento: layout de coluna única */
+  .layout { grid-template-columns: 1fr !important; }
+  .cal-card { padding: 0.8rem !important; border-radius: 14px !important; }
+
+  /* Period buttons (analytics) */
+  .period-btns { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .pbtn { font-size: 0.65rem !important; padding: 0.3rem 0.6rem !important; }
+
+  /* Funil de conversão */
+  .funil-step { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .funil-label { width: auto !important; text-align: left !important; flex: 0 0 100% !important; font-size: 0.65rem !important; }
+  .funil-bar-wrap { flex: 1 1 100% !important; height: 32px !important; }
+  .funil-num { width: auto !important; }
+  .funil-pct { width: auto !important; }
+
+  /* DISC quick links */
+  .quick-links { gap: 0.35rem !important; }
+  .qlink { font-size: 0.68rem !important; padding: 0.38rem 0.7rem !important; }
+
+  /* Dashboard específico */
+  .disc-dist-row { flex-direction: column !important; }
+  .top-vagas-list .tv-row { flex-wrap: wrap !important; gap: 0.4rem !important; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Info box */
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Paginação */
+  .pg { gap: 0.25rem !important; }
+  .pg-btn { padding: 0.28rem 0.5rem !important; font-size: 0.65rem !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div class="hero-eyebrow">Sistema · Dados</div>
+    <div class="hero-title">Backup & <span>Export</span></div>
+    <div class="hero-sub">Exporte, faça backup e importe dados do sistema</div>
+  </div>
+
+  <div class="sec-label">Exportar dados</div>
+  <div class="card">
+    <div class="export-row">
+      <div class="export-ico" style="background:rgba(59,130,246,0.1);">🧠</div>
+      <div class="export-info">
+        <div class="export-name">Candidatos & Avaliações DISC</div>
+        <div class="export-desc">Todos os candidatos com perfil DISC, fit score, entrevista e contatos</div>
+        <div class="export-cnt" id="cntCands">Carregando...</div>
+      </div>
+      <div style="display:flex;gap:0.4rem;">
+        <button class="btn btn-accent" onclick="exportarCands('csv')">⬇ CSV</button>
+        <button class="btn btn-ghost" onclick="exportarCands('json')">{ } JSON</button>
+      </div>
+    </div>
+    <div class="export-row">
+      <div class="export-ico" style="background:rgba(243,156,18,0.1);">💼</div>
+      <div class="export-info">
+        <div class="export-name">Vagas</div>
+        <div class="export-desc">Todas as vagas cadastradas com status, requisitos e dados de publicação</div>
+        <div class="export-cnt" id="cntVagas">Carregando...</div>
+      </div>
+      <div style="display:flex;gap:0.4rem;">
+        <button class="btn btn-accent" onclick="exportarVagas('csv')">⬇ CSV</button>
+        <button class="btn btn-ghost" onclick="exportarVagas('json')">{ } JSON</button>
+      </div>
+    </div>
+    <div class="export-row">
+      <div class="export-ico" style="background:rgba(231,76,60,0.1);">⊞</div>
+      <div class="export-info">
+        <div class="export-name">Pipeline ATS</div>
+        <div class="export-desc">Estado atual do kanban — candidatos por vaga e etapa</div>
+        <div class="export-cnt" id="cntPipe">Calculando...</div>
+      </div>
+      <div style="display:flex;gap:0.4rem;">
+        <button class="btn btn-accent" onclick="exportarPipeline('csv')">⬇ CSV</button>
+        <button class="btn btn-ghost" onclick="exportarPipeline('json')">{ } JSON</button>
+      </div>
+    </div>
+    <div class="export-row">
+      <div class="export-ico" style="background:rgba(52,152,219,0.1);">📅</div>
+      <div class="export-info">
+        <div class="export-name">Agenda de Entrevistas</div>
+        <div class="export-desc">Todos os eventos de agendamento com datas, candidatos e locais</div>
+        <div class="export-cnt" id="cntAgenda">Calculando...</div>
+      </div>
+      <button class="btn btn-accent" onclick="exportarAgenda()">⬇ CSV</button>
+    </div>
+    <div class="export-row">
+      <div class="export-ico" style="background:rgba(167,139,250,0.1);">📜</div>
+      <div class="export-info">
+        <div class="export-name">Log de Auditoria</div>
+        <div class="export-desc">Histórico completo de ações do sistema</div>
+        <div class="export-cnt" id="cntLog">Calculando...</div>
+      </div>
+      <button class="btn btn-accent" onclick="exportarLog()">⬇ CSV</button>
+    </div>
+  </div>
+
+  <div class="sec-label">Backup completo</div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <div style="flex:1;">
+        <div style="font-size:0.85rem;font-weight:700;margin-bottom:0.2rem;">💾 Backup total do sistema</div>
+        <div style="font-size:0.68rem;color:var(--muted);">Exporta todos os dados locais em um único arquivo JSON. Útil para migração ou backup preventivo.</div>
+      </div>
+      <button class="btn btn-blue" onclick="backupCompleto()">💾 Baixar backup completo</button>
+    </div>
+    <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="status-msg" id="backupMsg"></div>
+  </div>
+
+  <div class="sec-label">Restaurar backup</div>
+  <div class="card">
+    <div class="import-zone" id="importZone" onclick="document.getElementById('fileInput').click()"
+      ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+      <div style="font-size:2rem;">📂</div>
+      <div style="font-size:0.85rem;font-weight:700;margin-top:0.4rem;">Arraste ou clique para importar</div>
+      <div class="import-txt">Arquivo JSON gerado pelo backup completo</div>
+    </div>
+    <input type="file" id="fileInput" accept=".json" style="display:none;" onchange="importarArquivo(this.files[0])"/>
+    <div class="status-msg" id="importMsg"></div>
+  </div>
+
+  <div class="info-box">
+    <strong>ℹ️ Sobre o armazenamento de dados</strong><br/>
+    O pipeline, agenda, log e configurações são armazenados no <strong>localStorage</strong> do navegador. Os candidatos e vagas ficam no <strong>Supabase</strong> (banco de dados na nuvem) — esses dados persistem independentemente do navegador. O backup completo cobre apenas os dados locais.
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let SB_URL='',SB_KEY='',PIPE_KEY='nexus_pipeline_v1';
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;PIPE_KEY=c.pipe_key||PIPE_KEY;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;init();}});
+
+let _cands=[],_vagas=[];
+
+async function init(){
+  lerCtx(); if(!SB_URL){setTimeout(()=>{lerCtx();if(SB_URL)init();},500);return;}
+  try{const r=await fetch(`${SB_URL}/rest/v1/disc_historico?select=id`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});const d=await r.json();if(Array.isArray(d))document.getElementById('cntCands').textContent=d.length+' candidatos';}catch(e){document.getElementById('cntCands').textContent='Erro ao conectar';}
+  try{const r=await fetch(`${SB_URL}/rest/v1/vagas?select=id`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});const d=await r.json();if(Array.isArray(d))document.getElementById('cntVagas').textContent=d.length+' vagas';}catch(e){document.getElementById('cntVagas').textContent='Erro ao conectar';}
+  try{const pipe=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');let total=0;Object.values(pipe).forEach(vm=>total+=Object.keys(vm||{}).length);document.getElementById('cntPipe').textContent=total+' candidatos no pipeline';}catch(e){}
+  try{const agenda=JSON.parse(localStorage.getItem('nexus_agenda_v1')||'[]');document.getElementById('cntAgenda').textContent=agenda.length+' eventos';}catch(e){}
+  try{const log=JSON.parse(localStorage.getItem('nexus_audit_log')||'[]');document.getElementById('cntLog').textContent=log.length+' registros';}catch(e){}
+}
+
+async function exportarCands(fmt){
+  if(!SB_URL){toast('Supabase não configurado',true);return;}
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?order=criado_em.desc`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const d=await r.json(); if(!Array.isArray(d)){toast('Erro ao buscar dados',true);return;}
+    if(fmt==='json'){baixar(JSON.stringify(d,null,2),'candidatos.json','application/json');}
+    else{
+      const cab=['Nome','Vaga','Dom','Sec','Combinação','%D','%I','%S','%C','Fit Score','Nível','Data','E-mail','Telefone'];
+      const e=v=>{ v=String(v||''); return /[;"'\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+      const linhas=d.map(h=>[e(h.nome),e(h.vaga),h.dom||'',h.sec||'',e(h.combo_nome||''),h.pct_d||'',h.pct_i||'',h.pct_s||'',h.pct_c||'',h.fit_score||'',e(h.fit_nivel||''),e(h.data||''),e(h.email_externo||''),e(h.tel_externo||'')].join(';'));
+      baixar('\uFEFF'+cab.join(';')+'\n'+linhas.join('\n'),`candidatos-${ts()}.csv`,'text/csv;charset=utf-8;');
+    }
+    toast(`✅ ${d.length} candidatos exportados`);
+  }catch(e){toast('Erro: '+e.message,true);}
+}
+
+async function exportarVagas(fmt){
+  if(!SB_URL){toast('Supabase não configurado',true);return;}
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/vagas?order=criado_em.desc`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const d=await r.json(); if(!Array.isArray(d)){toast('Erro',true);return;}
+    if(fmt==='json') baixar(JSON.stringify(d,null,2),'vagas.json','application/json');
+    else{const cab=['Título','Empresa','Cidade','Área','Salário','Status','Criado'];const e=v=>String(v||'');const linhas=d.map(v=>[e(v.titulo),e(v.empresa),e(v.cidade),e(v.area),e(v.salario),e(v.status),e(v.criado_em)].map(x=>`"${x.replace(/"/g,'""')}"`).join(';'));baixar('\uFEFF'+cab.join(';')+'\n'+linhas.join('\n'),`vagas-${ts()}.csv`,'text/csv;charset=utf-8;');}
+    toast(`✅ ${d.length} vagas exportadas`);
+  }catch(e){toast('Erro: '+e.message,true);}
+}
+
+function exportarPipeline(fmt){
+  try{
+    const pipe=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}');
+    if(fmt==='json'){baixar(JSON.stringify(pipe,null,2),'pipeline.json','application/json');toast('✅ Pipeline exportado');return;}
+    const rows=[['Vaga Slug','Candidato ID','Etapa']];
+    Object.entries(pipe).forEach(([slug,vm])=>Object.entries(vm||{}).forEach(([id,et])=>rows.push([slug,id,et])));
+    baixar('\uFEFF'+rows.map(r=>r.join(';')).join('\n'),`pipeline-${ts()}.csv`,'text/csv;charset=utf-8;');
+    toast('✅ Pipeline exportado');
+  }catch(e){toast('Erro: '+e.message,true);}
+}
+
+function exportarAgenda(){
+  try{
+    const a=JSON.parse(localStorage.getItem('nexus_agenda_v1')||'[]');
+    if(!a.length){toast('Sem eventos na agenda');return;}
+    const csv='Candidato,E-mail,Vaga,Data,Hora,Tipo,Local\n'+a.map(ev=>{const d=new Date(ev.datetime);return`"${ev.candidato||''}","${ev.email||''}","${ev.vaga||''}","${d.toLocaleDateString('pt-BR')}","${d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}","${ev.tipo||''}","${ev.local||''}"`}).join('\n');
+    baixar('\uFEFF'+csv,`agenda-${ts()}.csv`,'text/csv;charset=utf-8;');
+    toast(`✅ ${a.length} eventos exportados`);
+  }catch(e){toast('Erro: '+e.message,true);}
+}
+
+function exportarLog(){
+  try{
+    const logs=JSON.parse(localStorage.getItem('nexus_audit_log')||'[]');
+    if(!logs.length){toast('Sem registros de log');return;}
+    const csv='Timestamp,Usuário,Ação\n'+logs.map(l=>`"${l.ts||''}","${l.usuario||'sistema'}","${(l.msg||'').replace(/"/g,'""')}"`).join('\n');
+    baixar('\uFEFF'+csv,`auditoria-${ts()}.csv`,'text/csv;charset=utf-8;');
+    toast(`✅ ${logs.length} registros exportados`);
+  }catch(e){toast('Erro: '+e.message,true);}
+}
+
+function backupCompleto(){
+  const p=document.getElementById('progressFill');const m=document.getElementById('backupMsg');
+  m.textContent='Coletando dados...';m.className='status-msg';p.style.width='20%';
+  setTimeout(()=>{
+    try{
+      const backup={ts:new Date().toISOString(),versao:'3.0',dados:{
+        pipeline:JSON.parse(localStorage.getItem(PIPE_KEY)||'{}'),
+        agenda:JSON.parse(localStorage.getItem('nexus_agenda_v1')||'[]'),
+        auditoria:JSON.parse(localStorage.getItem('nexus_audit_log')||'[]'),
+        prefs:JSON.parse(localStorage.getItem('nexus_prefs')||'{}'),
+        agencia:JSON.parse(localStorage.getItem('nexus_agencia')||'{}'),
+        membros:JSON.parse(localStorage.getItem('nexus_membros')||'[]'),
+      }};
+      p.style.width='80%';
+      setTimeout(()=>{
+        baixar(JSON.stringify(backup,null,2),`nexus-backup-${ts()}.json`,'application/json');
+        p.style.width='100%';m.className='status-msg ok';m.textContent='✅ Backup baixado com sucesso!';
+        setTimeout(()=>{p.style.width='0%';m.textContent='';},4000);
+      },300);
+    }catch(e){m.className='status-msg err';m.textContent='Erro: '+e.message;}
+  },200);
+}
+
+function importarArquivo(file){
+  if(!file) return;
+  const m=document.getElementById('importMsg');m.className='status-msg';m.textContent='Lendo arquivo...';
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const backup=JSON.parse(e.target.result);
+      if(!backup.dados){m.className='status-msg err';m.textContent='Arquivo inválido — formato não reconhecido.';return;}
+      if(!confirm('Isso vai SOBRESCREVER os dados locais atuais (pipeline, agenda, preferências). Continuar?')){m.textContent='';return;}
+      const {dados}=backup;
+      if(dados.pipeline) localStorage.setItem(PIPE_KEY,JSON.stringify(dados.pipeline));
+      if(dados.agenda) localStorage.setItem('nexus_agenda_v1',JSON.stringify(dados.agenda));
+      if(dados.auditoria) localStorage.setItem('nexus_audit_log',JSON.stringify(dados.auditoria));
+      if(dados.prefs) localStorage.setItem('nexus_prefs',JSON.stringify(dados.prefs));
+      if(dados.agencia) localStorage.setItem('nexus_agencia',JSON.stringify(dados.agencia));
+      if(dados.membros) localStorage.setItem('nexus_membros',JSON.stringify(dados.membros));
+      m.className='status-msg ok';m.textContent=`✅ Backup restaurado com sucesso! (gerado em ${new Date(backup.ts).toLocaleString('pt-BR')})`;
+      init();
+    }catch(ex){m.className='status-msg err';m.textContent='Erro ao ler arquivo: '+ex.message;}
+  };
+  reader.readAsText(file);
+}
+
+function dragOver(e){e.preventDefault();document.getElementById('importZone').classList.add('drag');}
+function dragLeave(){document.getElementById('importZone').classList.remove('drag');}
+function drop(e){e.preventDefault();dragLeave();const f=e.dataTransfer.files[0];if(f) importarArquivo(f);}
+
+function baixar(content,nome,tipo){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:tipo}));a.download=nome;a.click();}
+function ts(){return new Date().toISOString().slice(0,10);}
+let _tt;function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(err?' err':'');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3500);}
+lerCtx(); if(SB_URL) init(); else setTimeout(()=>{lerCtx();if(SB_URL)init();else init();},400);
+</script>
+</body>
+</html>

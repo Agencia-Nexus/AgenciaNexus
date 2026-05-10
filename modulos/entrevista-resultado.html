@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Fit Score — Mini-Entrevista | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --primary:#1e40af;--accent:#3b82f6;
+      --bg:#0a0a0a;--card:#141414;--card2:#1a1a1a;
+      --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.32);
+      --text:#f0f0f0;--muted:#888;--muted2:#444;
+      --D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;
+      --radius:18px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;overflow-x:hidden;}
+
+    /* GRID BACKGROUND */
+    body::before{content:'';position:fixed;inset:0;z-index:0;
+      background-image:linear-gradient(rgba(59,130,246,0.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(59,130,246,0.025) 1px,transparent 1px);
+      background-size:52px 52px;pointer-events:none;}
+    body::after{content:'';position:fixed;top:-10%;left:50%;transform:translateX(-50%);
+      width:1000px;height:600px;
+      background:radial-gradient(ellipse,rgba(59,130,246,0.06) 0%,transparent 70%);
+      pointer-events:none;z-index:0;}
+
+    .wrapper{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:2rem 1.4rem 5rem;}
+
+    /* ── TOP BAR ── */
+    .top-bar{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;margin-bottom:2.2rem;flex-wrap:wrap;}
+    .logo-area{display:flex;align-items:center;gap:0.85rem;}
+    .logo-area img{width:48px;height:48px;object-fit:contain;border-radius:10px;}
+    .logo-label{display:flex;flex-direction:column;}
+    .logo-label strong{font-size:0.85rem;font-weight:800;color:var(--accent);}
+    .logo-label span{font-size:0.68rem;color:var(--muted);}
+    .top-actions{display:flex;gap:0.55rem;flex-wrap:wrap;}
+    .btn-pdf{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:11px;padding:0.62rem 1.3rem;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.4rem;}
+    .btn-pdf:hover{opacity:0.88;transform:translateY(-1px);}
+    .btn-sec{background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.62rem 1.1rem;font-family:inherit;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.4rem;text-decoration:none;}
+    .btn-sec:hover{background:rgba(255,255,255,0.09);color:var(--text);}
+
+    /* ── PAGE HEADER ── */
+    .page-header{margin-bottom:1.6rem;}
+    .page-eyebrow{font-size:0.6rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);opacity:0.8;margin-bottom:0.4rem;}
+    .page-title{font-size:1.9rem;font-weight:900;line-height:1.15;margin-bottom:0.3rem;}
+    .page-title span{color:var(--accent);}
+    .page-sub{color:var(--muted);font-size:0.82rem;}
+
+    /* ── CAND BAR ── */
+    .cand-bar{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.5rem;display:flex;gap:0;margin-bottom:0.9rem;overflow:hidden;flex-wrap:wrap;}
+    .cand-field{flex:1;min-width:130px;padding:0.35rem 1rem 0.35rem 0;border-right:1px solid rgba(255,255,255,0.06);}
+    .cand-field:last-child{border-right:none;padding-right:0;}
+    .cand-field:first-child{padding-left:0;}
+    .cand-field label{font-size:0.59rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;display:block;margin-bottom:0.2rem;font-weight:700;}
+    .cand-field strong{font-size:0.88rem;font-weight:800;color:var(--text);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .cand-field strong.accent{color:var(--accent);}
+
+    /* ── PDF VISIBILITY BAR ── */
+    .pdf-visib-bar{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.55rem 1rem;margin-bottom:1.4rem;}
+    .pdf-visib-label{font-size:0.6rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;white-space:nowrap;flex-shrink:0;}
+    .pdf-visib-checks{display:flex;gap:0.9rem;flex-wrap:wrap;}
+    .pdf-visib-item{display:flex;align-items:center;gap:0.3rem;cursor:pointer;user-select:none;}
+    .pdf-visib-item input{accent-color:#e74c3c;width:13px;height:13px;cursor:pointer;}
+    .pdf-visib-item span{font-size:0.7rem;color:var(--muted);}
+    .pdf-visib-item input:checked + span{color:#e74c3c;text-decoration:line-through;opacity:0.55;}
+
+    /* ── SECTION HEADER ── */
+    .sec-hdr{display:flex;align-items:center;gap:0.5rem;font-size:0.67rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.8px;margin-bottom:1.1rem;}
+    .sec-hdr::after{content:'';flex:1;height:1px;background:var(--border);}
+
+    /* ── FIT SCORE HERO ── */
+    .fit-hero{background:linear-gradient(145deg,rgba(30,64,175,0.22),rgba(59,130,246,0.04) 60%);border:1px solid var(--border2);border-radius:22px;padding:2.2rem 2rem;margin-bottom:1rem;position:relative;overflow:hidden;}
+    .fit-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%);pointer-events:none;}
+
+    .fit-hero-main{display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;flex-wrap:wrap;margin-bottom:1.6rem;}
+    @media(max-width:600px){.fit-hero-main{grid-template-columns:1fr;}}
+
+    .gauge-wrap{position:relative;width:160px;height:160px;flex-shrink:0;margin:0 auto;}
+    .gauge-wrap svg{display:block;}
+    .gauge-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .fit-score-num{font-size:3.5rem;font-weight:900;line-height:1;letter-spacing:-2px;}
+    .gauge-label{font-size:0.56rem;color:var(--muted);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+
+    .fit-central{display:flex;flex-direction:column;gap:0.7rem;}
+    .fit-nivel-badge{display:inline-flex;align-items:center;gap:0.4rem;border-radius:99px;padding:0.38rem 1rem;font-size:0.8rem;font-weight:800;width:fit-content;}
+    .nl-baixo{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);}
+    .nl-medio{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+    .nl-alto{background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);}
+    .nl-excelente{background:rgba(59,130,246,0.15);color:#2ecc71;border:1px solid rgba(59,130,246,0.3);}
+
+    .fit-bar-track{height:8px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin:0.3rem 0;}
+    .fit-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 1.6s cubic-bezier(0.22,1,0.36,1);}
+    .fit-bar-labs{display:flex;justify-content:space-between;font-size:0.6rem;color:var(--muted);}
+    .fit-desc-vaga{font-size:0.8rem;color:var(--muted);}
+    .fit-resumo{font-size:0.86rem;color:rgba(240,240,240,0.78);line-height:1.72;}
+
+    .radar-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+    .radar-title{font-size:0.58rem;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.4rem;text-align:center;}
+
+    /* ── META BADGES ── */
+    .fit-meta{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:0.9rem;}
+    .meta-pill{font-size:0.67rem;border-radius:99px;padding:0.22rem 0.75rem;font-weight:700;}
+
+    /* ── SCORE GRID ── */
+    .scores-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:1rem;}
+    @media(max-width:540px){.scores-grid{grid-template-columns:1fr;}}
+
+    .score-etapa{border-radius:16px;padding:1.2rem;position:relative;overflow:hidden;}
+    .score-etapa-curriculo{background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.2);}
+    .score-etapa-entrevista{background:rgba(52,152,219,0.05);border:1px solid rgba(52,152,219,0.2);}
+    .score-etapa-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem;}
+    .score-etapa-num{font-size:2.6rem;font-weight:900;line-height:1;margin-bottom:0.25rem;}
+    .score-etapa-nivel{font-size:0.7rem;font-weight:700;margin-bottom:0.5rem;}
+    .score-etapa-bar{height:5px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin-bottom:0.55rem;}
+    .score-etapa-bar-fill{height:100%;border-radius:99px;transition:width 1.3s ease;}
+    .score-etapa-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.5rem;}
+    .score-etapa-tag{font-size:0.62rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:6px;padding:0.12rem 0.5rem;color:var(--muted);}
+    .score-etapa-resumo{font-size:0.72rem;color:var(--muted);line-height:1.55;}
+
+    /* ── LACUNAS ── */
+    .lacunas-box{background:rgba(231,76,60,0.05);border:1px solid rgba(231,76,60,0.18);border-radius:12px;padding:0.85rem 1rem;margin-top:0.9rem;}
+    .lacunas-title{font-size:0.62rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;}
+    .lacuna-item{font-size:0.75rem;color:#bbb;padding:0.18rem 0;display:flex;align-items:flex-start;gap:0.4rem;line-height:1.45;}
+
+    /* ── BREAKDOWN COMPETÊNCIAS ── */
+    .comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;margin-top:0.6rem;}
+    @media(max-width:500px){.comp-grid{grid-template-columns:repeat(2,1fr);}}
+    .comp-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.8rem;text-align:center;}
+    .comp-item-label{font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:0.4rem;}
+    .comp-item-num{font-size:1.7rem;font-weight:900;line-height:1;}
+    .comp-item-bar{height:4px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin-top:0.4rem;}
+    .comp-item-bar-fill{height:100%;border-radius:99px;background:var(--accent);transition:width 1.2s ease;}
+
+    /* ── CARD ── */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem 1.8rem;margin-bottom:0.9rem;animation:fadeup 0.4s ease both;}
+    @keyframes fadeup{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    .card h4{font-size:0.67rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.8px;margin-bottom:1.1rem;display:flex;align-items:center;gap:0.45rem;}
+
+    /* ── TAGS ── */
+    .tags-wrap{display:flex;flex-wrap:wrap;gap:0.4rem;}
+    .tag-forte{display:flex;align-items:center;gap:0.3rem;background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.22);border-radius:99px;padding:0.28rem 0.8rem;font-size:0.76rem;font-weight:700;color:var(--accent);}
+    .tag-atencao{display:flex;align-items:flex-start;gap:0.35rem;font-size:0.82rem;color:#d0d0d0;line-height:1.55;padding:0.42rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .tag-atencao:last-child{border-bottom:none;}
+    .tag-atencao .arr{color:#f39c12;flex-shrink:0;font-weight:900;margin-top:1px;}
+
+    /* ── FLAGS ── */
+    .flag-item{display:inline-flex;align-items:center;gap:0.3rem;border-radius:8px;padding:0.25rem 0.7rem;font-size:0.72rem;font-weight:700;margin:0.2rem;}
+
+    /* ── REQUISITOS ── */
+    .req-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+    @media(max-width:540px){.req-grid{grid-template-columns:1fr;}}
+    .req-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:0.9rem 1rem;}
+    .req-box h6{font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.6rem;}
+    .req-item{font-size:0.81rem;color:var(--muted);padding:0.2rem 0;display:flex;gap:0.4rem;align-items:flex-start;line-height:1.45;}
+
+    /* ── RESPOSTAS ── */
+    .resp-group-title{font-size:0.6rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.8px;padding:0.5rem 0 0.55rem;margin-top:0.5rem;border-bottom:1px solid var(--border);margin-bottom:0.7rem;display:flex;align-items:center;gap:0.4rem;}
+    .resp-block{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:1rem 1.1rem;margin-bottom:0.6rem;}
+    .resp-label{font-size:0.63rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:0.9px;display:block;margin-bottom:0.35rem;}
+    .resp-text{font-size:0.87rem;color:#e0e0e0;line-height:1.7;}
+    .star-sub-label{font-size:0.61rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.25rem;margin-top:0.5rem;}
+    .star-acao{color:#e67e22;}
+    .star-result{color:#2ecc71;}
+
+    /* ── ADMIN ── */
+    .admin-card{border-radius:var(--radius);padding:1.5rem 1.7rem;margin-bottom:0.9rem;}
+    .admin-card-blue{background:rgba(52,152,219,0.05);border:1px solid rgba(52,152,219,0.2);}
+    .admin-card-dark{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.09);}
+    .admin-card h4{font-size:0.67rem;font-weight:800;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem;}
+    .admin-resumo{font-size:0.87rem;color:#c0c0c0;line-height:1.74;white-space:pre-wrap;}
+    .recomendacao{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-left:3px solid var(--accent);border-radius:10px;padding:0.9rem 1.1rem;margin-top:0.85rem;font-size:0.87rem;color:var(--text);line-height:1.62;font-style:italic;}
+
+    /* ── OBS ── */
+    .obs-textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.9rem 1rem;color:var(--text);font-family:inherit;font-size:0.85rem;line-height:1.6;resize:vertical;min-height:110px;margin-top:0.5rem;transition:border-color 0.2s;}
+    .obs-textarea:focus{outline:none;border-color:var(--accent);}
+    .obs-textarea::placeholder{color:var(--muted);opacity:.6;}
+    .btn-salvar-obs{background:rgba(59,130,246,0.12);color:var(--accent);border:1px solid var(--border2);border-radius:10px;padding:0.55rem 1.2rem;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;margin-top:0.5rem;transition:all 0.2s;}
+    .btn-salvar-obs:hover{background:rgba(59,130,246,0.22);}
+
+    /* ── AVISO ── */
+    .aviso{background:rgba(200,100,0,0.06);border:1px solid rgba(200,100,0,0.2);border-radius:13px;padding:0.95rem 1.1rem;margin-top:1.2rem;}
+    .aviso p{font-size:0.8rem;color:#c8a060;line-height:1.62;}
+
+    /* ── FOOTER ── */
+    .footer{text-align:center;padding-top:2.2rem;font-size:0.67rem;color:#3a3a3a;letter-spacing:0.5px;}
+
+    /* ── PDF ── */
+    @media print{
+      body{background:#fff!important;color:#111!important;}
+      body::before,body::after{display:none;}
+      .top-bar,.btn-pdf,.btn-sec,.obs-textarea,.btn-salvar-obs,.pdf-visib-bar,.aviso{display:none!important;}
+      .cand-field.pdf-hidden{display:none!important;}
+      .wrapper{padding:1rem;max-width:100%;}
+      .card,.fit-hero,.admin-card,.cand-bar,.resp-block,.req-box,.score-etapa,.comp-item{
+        background:#fff!important;border:1px solid #ddd!important;color:#111!important;break-inside:avoid;}
+      .fit-bar-track,.comp-item-bar,.score-etapa-bar{background:#eee!important;}
+      .fit-resumo,.admin-resumo,.resp-text,.req-item,.tag-atencao{color:#333!important;}
+      .card h4,.admin-card h4,.sec-hdr{color:#1e40af!important;}
+      .fit-score-num,.score-etapa-num{color:#1e40af!important;}
+      .resp-group-title{color:#1e40af!important;border-bottom-color:#ddd!important;}
+      .tag-forte{background:#f0f7e6!important;color:#1e40af!important;border-color:#3b82f6!important;}
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="logo-area">
+      <img src="fundo.png" alt="Agência Nexus"/>
+      <div class="logo-label">
+        <strong>Agência Nexus</strong>
+        <span>Uso interno — Recrutamento</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn-pdf" onclick="window.print()">🖨️ Salvar PDF</button>
+      <a class="btn-sec" id="btnCurriculo" href="#" style="display:none;">📄 Currículo</a>
+      <a class="btn-sec" href="disc-historico.html" target="_blank">📋 Histórico</a>
+    </div>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-eyebrow">Relatório de Candidato</div>
+    <h1 class="page-title">Fit Score — <span>Mini-Entrevista</span></h1>
+    <p class="page-sub">Análise de compatibilidade candidato × vaga — uso restrito ao recrutador</p>
+  </div>
+
+  <!-- CAND BAR -->
+  <div class="cand-bar">
+    <div class="cand-field" id="wrapNome"><label>Candidato</label><strong class="accent" id="cNome">—</strong></div>
+    <div class="cand-field" id="wrapVaga"><label>Vaga</label><strong id="cVaga">—</strong></div>
+    <div class="cand-field" id="wrapData"><label>Data</label><strong id="cData">—</strong></div>
+    <div class="cand-field" id="wrapTel"><label>Telefone</label><strong id="cTel">—</strong></div>
+    <div class="cand-field" id="wrapEmail"><label>E-mail</label><strong id="cEmail">—</strong></div>
+  </div>
+
+  <!-- PDF VISIBILITY BAR -->
+  <div class="pdf-visib-bar">
+    <span class="pdf-visib-label">🙈 Ocultar no PDF:</span>
+    <div class="pdf-visib-checks">
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapNome',this)"/><span>Candidato</span></label>
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapVaga',this)"/><span>Vaga</span></label>
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapData',this)"/><span>Data</span></label>
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapTel',this)"/><span>Telefone</span></label>
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapEmail',this)"/><span>E-mail</span></label>
+    </div>
+  </div>
+
+  <!-- ══════ FIT SCORE HERO ══════ -->
+  <div class="fit-hero">
+    <div class="fit-hero-main">
+      <!-- GAUGE -->
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 120 120" width="160" height="160">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"/>
+          <circle id="fitGaugeArc" cx="60" cy="60" r="50" fill="none" stroke="#3b82f6" stroke-width="12"
+            stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314"
+            transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.8s cubic-bezier(0.22,1,0.36,1),stroke 0.4s;"/>
+        </svg>
+        <div class="gauge-inner">
+          <div class="fit-score-num" id="fitNum" style="color:#3b82f6;">—</div>
+          <div class="gauge-label">fit score</div>
+        </div>
+      </div>
+
+      <!-- CENTRAL INFO -->
+      <div class="fit-central">
+        <div class="fit-nivel-badge nl-alto" id="fitNivelBadge">Calculando...</div>
+        <div class="fit-desc-vaga" id="fitDesc">Compatibilidade com a vaga</div>
+        <div class="fit-bar-track"><div class="fit-bar-fill" id="fitBarFill" style="width:0%"></div></div>
+        <div class="fit-bar-labs"><span>0</span><span>50</span><span>100%</span></div>
+        <div class="fit-resumo" id="fitResumo">—</div>
+      </div>
+
+      <!-- RADAR CHART -->
+      <div class="radar-wrap">
+        <div class="radar-title">Perfil por dimensão</div>
+        <canvas id="radarChart" width="190" height="190"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- META BADGES (percentil, fallback, score composto) -->
+  <div class="fit-meta" id="fitMetaWrap" style="display:none;margin-bottom:0.9rem;"></div>
+
+  <!-- ══════ SCORES SEPARADOS ══════ -->
+  <div id="cardScoresSeparados" style="display:none;margin-bottom:0.9rem;">
+    <div class="sec-hdr">📊 Análise por Etapa</div>
+    <div class="scores-grid">
+      <!-- Currículo -->
+      <div class="score-etapa score-etapa-curriculo">
+        <div class="score-etapa-label" style="color:#3b82f6;">📄 Etapa 0 — Currículo</div>
+        <div class="score-etapa-num" id="scoreCurriculoNum" style="color:#3b82f6;">—</div>
+        <div class="score-etapa-nivel" id="nivelCurriculoBadge">—</div>
+        <div class="score-etapa-bar"><div class="score-etapa-bar-fill" id="barCurriculo" style="width:0%;background:#3b82f6;"></div></div>
+        <div class="score-etapa-tags" id="subCurriculo"></div>
+        <div class="score-etapa-resumo" id="resumoCurriculo">—</div>
+      </div>
+      <!-- Entrevista -->
+      <div class="score-etapa score-etapa-entrevista">
+        <div class="score-etapa-label" style="color:#3498db;">🎤 Etapas 1–4 — Entrevista</div>
+        <div class="score-etapa-num" id="scoreEntrevistaNum" style="color:#3498db;">—</div>
+        <div class="score-etapa-nivel" id="nivelEntrevistaBadge">—</div>
+        <div class="score-etapa-bar"><div class="score-etapa-bar-fill" id="barEntrevista" style="width:0%;background:#3498db;"></div></div>
+        <div class="score-etapa-tags" id="subEntrevista"></div>
+        <div class="score-etapa-resumo" id="resumoEntrevista">—</div>
+      </div>
+    </div>
+    <!-- Lacunas -->
+    <div id="lacunasWrap"></div>
+  </div>
+
+  <!-- ══════ COMPETÊNCIAS BREAKDOWN ══════ -->
+  <div class="card" id="cardCompetencias" style="display:none;">
+    <h4>🧠 Notas por Competência</h4>
+    <div class="comp-grid" id="compGrid"></div>
+  </div>
+
+  <!-- ══════ PONTOS FORTES ══════ -->
+  <div class="card" id="cardFortes">
+    <h4>✅ Pontos Fortes</h4>
+    <div class="tags-wrap" id="fortesWrap"><span style="color:var(--muted);font-size:0.83rem;">—</span></div>
+  </div>
+
+  <!-- ══════ PONTOS DE ATENÇÃO ══════ -->
+  <div class="card" id="cardAtencao">
+    <h4>🔸 Pontos de Atenção</h4>
+    <div id="atencaoWrap"><span style="color:var(--muted);font-size:0.83rem;">—</span></div>
+  </div>
+
+  <!-- ══════ FLAGS ══════ -->
+  <div class="admin-card admin-card-dark" id="flagsWrap" style="display:none;">
+    <h4 style="color:#f0f0f0;">🚩 Flags da Análise</h4>
+    <div id="flagsList" style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.2rem;"></div>
+  </div>
+
+  <!-- ══════ REQUISITOS ══════ -->
+  <div class="card" id="cardRequisitos">
+    <h4>📌 Mapeamento de Requisitos da Vaga</h4>
+    <div class="req-grid">
+      <div class="req-box" style="border-color:rgba(59,130,246,0.2);">
+        <h6 style="color:#2ecc71;">✓ Requisitos Atendidos</h6>
+        <div id="reqAtendidos"><div class="req-item" style="color:var(--muted);">—</div></div>
+      </div>
+      <div class="req-box" style="border-color:rgba(231,76,60,0.2);">
+        <h6 style="color:#e74c3c;">✗ Lacunas Identificadas</h6>
+        <div id="reqAusentes"><div class="req-item" style="color:var(--muted);">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ RESPOSTAS DA ENTREVISTA ══════ -->
+  <div class="card" id="cardEntrevista">
+    <h4>📝 Respostas da Mini-Entrevista</h4>
+    <div id="entrevistaWrap"><span style="color:var(--muted);">—</span></div>
+  </div>
+
+  <!-- ══════ DISC INSIGHT ══════ -->
+  <div class="admin-card admin-card-blue" id="discInsightWrap" style="display:none;">
+    <h4 style="color:#3498db;">🧠 DISC Insight — Perfil Comportamental</h4>
+    <div class="admin-resumo" id="discInsightText">—</div>
+  </div>
+
+  <!-- ══════ ANÁLISE ADMIN ══════ -->
+  <div class="admin-card admin-card-blue" id="cardAdmin">
+    <h4 style="color:#3498db;">🔍 Análise Detalhada para o Recrutador</h4>
+    <div class="admin-resumo" id="adminResumo">—</div>
+    <div class="recomendacao" id="adminRec">—</div>
+  </div>
+
+  <!-- ══════ OBSERVAÇÕES ══════ -->
+  <div class="card" id="cardObs">
+    <h4>📋 Observações do Recrutador</h4>
+    <p style="font-size:0.77rem;color:var(--muted);margin-bottom:0.3rem;">Anotações internas — salvas localmente neste dispositivo.</p>
+    <textarea class="obs-textarea" id="obsRecrutador" placeholder="Ex: Candidato demonstrou experiência sólida. Agendar entrevista presencial para verificar fit comportamental..."></textarea>
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-top:0.5rem;">
+      <button class="btn-salvar-obs" onclick="salvarObs()">💾 Salvar Observação</button>
+      <span id="obsSavedMsg" style="font-size:0.73rem;color:var(--accent);opacity:0;transition:opacity 0.3s;">✓ Salvo</span>
+    </div>
+  </div>
+
+  <div class="aviso">
+    <p>⚠️ <strong style="color:#e08000;">Aviso:</strong> A análise de Fit Score é gerada por IA com base nas respostas textuais do candidato e nos dados da vaga. Não deve ser utilizada como critério único de decisão. Fatores como contexto, experiência prática e motivação devem ser avaliados na entrevista presencial.</p>
+  </div>
+
+  <div class="footer">Agência Nexus · Guaíba/RS · Resultado gerado automaticamente pelo sistema</div>
+</div>
+
+<script>
+// ── URL PARAMS ────────────────────────────────────────────────
+const p = new URLSearchParams(window.location.search);
+const nome          = p.get('nome')     || 'Candidato';
+const vaga          = p.get('vaga')     || 'Não informada';
+const tel           = p.get('tel')      || '';
+const email         = p.get('email')    || '';
+const fitScore      = parseInt(p.get('fit')    || '0');
+const fitNivel      = p.get('nivel')    || 'Médio';
+const canal         = p.get('canal')    || '';
+const fitCurriculo  = parseInt(p.get('fitC')   || '0');
+const nivelCurriculo  = p.get('nivelC') || '';
+const fitEntrevista   = parseInt(p.get('fitE')  || '0');
+const nivelEntrevista = p.get('nivelE') || '';
+
+// Supabase
+const SB  = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+
+const dataHoje = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+const cores = {D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+
+let entData = {};
+let iaData  = {};
+
+// ── RENDERIZAÇÃO ──────────────────────────────────────────────
+function renderizarTudo() {
+  // Cabeçalho
+  document.getElementById('cNome').textContent = nome.toUpperCase();
+  document.getElementById('cVaga').textContent = vaga;
+  document.getElementById('cData').textContent = dataHoje;
+  const telNum = (tel||'').replace(/\D/g,'');
+  document.getElementById('cTel').textContent = telNum.length===11
+    ? `(${telNum.slice(0,2)}) ${telNum.slice(2,7)}-${telNum.slice(7)}`
+    : tel || '—';
+  document.getElementById('cEmail').textContent = email || '—';
+
+  // ── FIT SCORE HERO ────────────────────────────────────────────
+  const corScore = fitScore >= 80 ? '#2ecc71' : fitScore >= 65 ? '#3b82f6' : fitScore >= 45 ? '#f39c12' : '#e74c3c';
+  const nivelMap = {
+    'Excelente': { cls: 'nl-excelente', emoji: '⭐' },
+    'Alto':      { cls: 'nl-alto',      emoji: '🟢' },
+    'Médio':     { cls: 'nl-medio',     emoji: '🟡' },
+    'Baixo':     { cls: 'nl-baixo',     emoji: '🔴' },
+  };
+  const nivelInfo = nivelMap[fitNivel] || nivelMap['Médio'];
+
+  const gaugeArc = document.getElementById('fitGaugeArc');
+  if (gaugeArc) {
+    gaugeArc.style.stroke = corScore;
+    setTimeout(() => {
+      const circ = 2 * Math.PI * 50;
+      gaugeArc.style.strokeDashoffset = circ - (fitScore / 100) * circ;
+    }, 200);
+  }
+  const numEl = document.getElementById('fitNum');
+  numEl.style.color = corScore;
+  let cur = 0;
+  const iv = setInterval(()=>{
+    cur = Math.min(cur + 2, fitScore);
+    numEl.textContent = cur + '%';
+    if (cur >= fitScore) clearInterval(iv);
+  }, 22);
+
+  const badge = document.getElementById('fitNivelBadge');
+  badge.textContent = `${nivelInfo.emoji} Nível ${fitNivel}`;
+  badge.className = `fit-nivel-badge ${nivelInfo.cls}`;
+  document.getElementById('fitDesc').textContent = `Compatibilidade com a vaga de ${vaga}`;
+  document.getElementById('fitResumo').textContent = iaData.resumo_candidato || '—';
+  setTimeout(()=>{ document.getElementById('fitBarFill').style.width = fitScore + '%'; }, 200);
+
+  // ── META BADGES ─────────────────────────────────────────────
+  (function renderMeta() {
+    const metaWrap = document.getElementById('fitMetaWrap');
+    if (!metaWrap) return;
+    let html = '';
+    const pct = iaData.percentil_vaga;
+    const med = iaData.media_fit_vaga;
+    const tot = iaData.total_candidatos_vaga;
+    if (pct != null && tot != null && tot >= 2) {
+      const corP = pct >= 70 ? '#2ecc71' : pct >= 40 ? '#f39c12' : '#e74c3c';
+      html += `<span class="meta-pill" style="background:${corP}18;border:1px solid ${corP}44;color:${corP};">
+        📊 Percentil ${pct}% nesta vaga${med!=null?' · Média: '+med+'%':''}${tot?' · '+tot+' candidato'+(tot!==1?'s':''):''}
+      </span>`;
+    }
+    if (iaData.metodo_calculo === 'fallback_local') {
+      html += `<span class="meta-pill" style="background:rgba(243,156,18,0.1);border:1px solid rgba(243,156,18,0.3);color:#f39c12;">
+        ⚠️ Score calculado localmente (IA indisponível)
+      </span>`;
+    }
+    const fitIA = iaData.fit_score_ia;
+    if (fitIA != null && Math.abs(fitIA - fitScore) >= 2) {
+      html += `<span class="meta-pill" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);color:#3b82f6;">
+        🔀 Score composto: IA ${fitIA}% + Currículo + Entrevista → ${fitScore}%
+      </span>`;
+    }
+    metaWrap.innerHTML = html;
+    if (html) metaWrap.style.display = 'flex';
+  })();
+
+  // ── SCORES SEPARADOS ─────────────────────────────────────────
+  (function renderScoresSeparados() {
+    const card = document.getElementById('cardScoresSeparados');
+    const emojiNivel = n => n==='Excelente'?'⭐':n==='Alto'?'🟢':n==='Médio'?'🟡':'🔴';
+    const sC = fitCurriculo  || iaData.score_curriculo  || 0;
+    const nC = nivelCurriculo || iaData.nivel_curriculo  || '';
+    const sE = fitEntrevista  || iaData.score_entrevista || 0;
+    const nE = nivelEntrevista || iaData.nivel_entrevista || '';
+    const resumoC = iaData.resumo_curriculo  || '';
+    const resumoE = iaData.resumo_entrevista || '';
+    const notaExpC  = iaData.nota_exp_curriculo   != null ? iaData.nota_exp_curriculo   : null;
+    const notaFormC = iaData.nota_form_curriculo  != null ? iaData.nota_form_curriculo  : null;
+    const notaTecC  = iaData.nota_tec_curriculo   != null ? iaData.nota_tec_curriculo   : null;
+    const notaTrajE = iaData.nota_trajetoria      != null ? iaData.nota_trajetoria      : null;
+    const notaCompE = iaData.nota_competencias_ent!= null ? iaData.nota_competencias_ent: null;
+    const notaMotE  = iaData.nota_motivacao_ent   != null ? iaData.nota_motivacao_ent   : null;
+
+    if (!sC && !sE) { if(card) card.style.display='none'; return; }
+    if (card) card.style.display = 'block';
+
+    const corC = sC >= 65 ? '#3b82f6' : sC >= 40 ? '#f39c12' : '#e74c3c';
+    const corE = sE >= 65 ? '#3498db' : sE >= 40 ? '#f39c12' : '#e74c3c';
+
+    const numC = document.getElementById('scoreCurriculoNum');
+    if (numC) { numC.textContent = sC + '%'; numC.style.color = corC; }
+    const badgC = document.getElementById('nivelCurriculoBadge');
+    if (badgC && nC) { badgC.textContent = emojiNivel(nC) + ' ' + nC; badgC.style.color = corC; }
+    setTimeout(()=>{ const b = document.getElementById('barCurriculo'); if(b){ b.style.width=sC+'%'; b.style.background=corC; } }, 300);
+
+    const subC = document.getElementById('subCurriculo');
+    if (subC) {
+      const tagsC = [];
+      if (notaExpC  !== null) tagsC.push(`<span class="score-etapa-tag">💼 Exp: ${notaExpC}/10</span>`);
+      if (notaFormC !== null) tagsC.push(`<span class="score-etapa-tag">🎓 Form: ${notaFormC}/10</span>`);
+      if (notaTecC  !== null) tagsC.push(`<span class="score-etapa-tag">⚡ Téc: ${notaTecC}/10</span>`);
+      subC.innerHTML = tagsC.join('');
+    }
+    const rC = document.getElementById('resumoCurriculo'); if(rC && resumoC) rC.textContent = resumoC;
+
+    const numE = document.getElementById('scoreEntrevistaNum');
+    if (numE) { numE.textContent = sE + '%'; numE.style.color = corE; }
+    const badgE = document.getElementById('nivelEntrevistaBadge');
+    if (badgE && nE) { badgE.textContent = emojiNivel(nE) + ' ' + nE; badgE.style.color = corE; }
+    setTimeout(()=>{ const b = document.getElementById('barEntrevista'); if(b){ b.style.width=sE+'%'; b.style.background=corE; } }, 300);
+
+    const subE = document.getElementById('subEntrevista');
+    if (subE) {
+      const tagsE = [];
+      if (notaTrajE !== null) tagsE.push(`<span class="score-etapa-tag">📖 Traj: ${notaTrajE}/10</span>`);
+      if (notaCompE !== null) tagsE.push(`<span class="score-etapa-tag">🧠 Comp: ${notaCompE}/10</span>`);
+      if (notaMotE  !== null) tagsE.push(`<span class="score-etapa-tag">💭 Mot: ${notaMotE}/10</span>`);
+      subE.innerHTML = tagsE.join('');
+    }
+    const rE = document.getElementById('resumoEntrevista'); if(rE && resumoE) rE.textContent = resumoE;
+
+    // Lacunas
+    const lacWrap = document.getElementById('lacunasWrap');
+    if (lacWrap) {
+      const lacC = (iaData.lacunas_curriculo  || []).map(l=>'📄 '+l);
+      const lacE = (iaData.lacunas_entrevista || []).map(l=>'🎤 '+l);
+      const todas = lacC.concat(lacE);
+      if (todas.length > 0) {
+        lacWrap.innerHTML = `<div class="lacunas-box">
+          <div class="lacunas-title">⚠️ Lacunas identificadas (${todas.length})</div>
+          ${todas.map(l=>`<div class="lacuna-item"><span style="color:#e74c3c;flex-shrink:0;">✗</span>${l}</div>`).join('')}
+        </div>`;
+      }
+    }
+  })();
+
+  // ── COMPETÊNCIAS BREAKDOWN ────────────────────────────────────
+  (function renderCompetencias() {
+    const nc = iaData.notas_competencias || {};
+    const campos = [
+      { key:'comunicacao',    label:'Comunicação',    emoji:'🗣️' },
+      { key:'resiliencia',    label:'Resiliência',    emoji:'💪' },
+      { key:'equipe',         label:'Equipe',         emoji:'🤝' },
+      { key:'resultados',     label:'Resultados',     emoji:'🎯' },
+      { key:'proatividade',   label:'Proatividade',   emoji:'⚡' },
+      { key:'adaptabilidade', label:'Adaptabilidade', emoji:'🔄' },
+    ];
+    const com_dados = campos.filter(c => nc[c.key] != null);
+    if (!com_dados.length) { document.getElementById('cardCompetencias').style.display='none'; return; }
+    document.getElementById('cardCompetencias').style.display = 'block';
+    const grid = document.getElementById('compGrid');
+    grid.innerHTML = com_dados.map(c => {
+      const val = nc[c.key];
+      const pct = Math.round(val * 10);
+      const cor = pct >= 70 ? '#2ecc71' : pct >= 50 ? '#3b82f6' : pct >= 35 ? '#f39c12' : '#e74c3c';
+      return `<div class="comp-item">
+        <div class="comp-item-label">${c.emoji} ${c.label}</div>
+        <div class="comp-item-num" style="color:${cor};">${val}/10</div>
+        <div class="comp-item-bar"><div class="comp-item-bar-fill" style="width:${pct}%;background:${cor};"></div></div>
+      </div>`;
+    }).join('');
+    // animate bars
+    setTimeout(()=>{
+      grid.querySelectorAll('.comp-item-bar-fill').forEach(el=>{
+        const w = el.style.width; el.style.width='0%';
+        setTimeout(()=>{ el.style.width=w; },50);
+      });
+    }, 100);
+  })();
+
+  // ── RADAR CHART ───────────────────────────────────────────────
+  (function buildRadar() {
+    const ent2 = entData || {};
+    const atend2 = iaData.requisitos_atendidos || [];
+    const ausen2 = iaData.requisitos_ausentes  || [];
+    const expMap = {'Primeiro emprego / Sem experiência':10,'Menos de 1 ano':25,'1 a 2 anos':45,'2 a 5 anos':65,'5 a 10 anos':80,'Mais de 10 anos':95};
+    const bd2 = iaData.score_breakdown || {};
+    const nc2 = iaData.notas_competencias || {};
+    const dimExp = bd2.experiencia != null ? Math.round(bd2.experiencia * 10) : (expMap[ent2.exp_total] || Math.round(fitScore * 0.9));
+    const total2 = atend2.length + ausen2.length;
+    const dimTec = bd2.competencias != null ? Math.round(bd2.competencias * 10) : (total2 > 0 ? Math.round((atend2.length / total2) * 100) : Math.round(fitScore * 0.95));
+    const dimMot = bd2.motivacao != null ? Math.round(bd2.motivacao * 10) : (() => { const w = (ent2.motivacao || '').split(/\s+/).filter(Boolean).length; return Math.min(95, 30 + w * 3); })();
+    const nc2vals = [nc2.comunicacao, nc2.resiliencia, nc2.equipe, nc2.resultados, nc2.proatividade, nc2.adaptabilidade].filter(v => v != null);
+    const dimCom = nc2vals.length ? Math.round((nc2vals.reduce((s,v)=>s+v,0) / nc2vals.length) * 10) : (() => { const w = (ent2.historia||'').split(/\s+/).filter(Boolean).length; return Math.min(95, Math.round(20 + w * 0.5)); })();
+    const dimFit = bd2.disc != null ? Math.round(bd2.disc * 10) : Math.min(95, Math.round(fitScore * 0.85 + (ent2.conquistas||[]).length * 3));
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Experiência','Técnico','Motivação','Comunicação','Fit Cultural'],
+        datasets: [{ data: [dimExp, dimTec, dimMot, dimCom, dimFit],
+          backgroundColor: 'rgba(59,130,246,0.13)', borderColor: corScore,
+          borderWidth: 2, pointBackgroundColor: corScore, pointRadius: 4, pointBorderColor: 'transparent' }]
+      },
+      options: { animation: { duration: 1400 },
+        scales: { r: { min:0, max:100, ticks:{display:false,stepSize:25},
+          grid:{color:'rgba(255,255,255,0.07)'}, angleLines:{color:'rgba(255,255,255,0.07)'},
+          pointLabels:{color:'#777',font:{size:10.5,family:"'Sora',sans-serif"}} } },
+        plugins: { legend: { display: false } } }
+    });
+  })();
+
+  // ── PONTOS FORTES ─────────────────────────────────────────────
+  const fortes = iaData.pontos_fortes || [];
+  document.getElementById('fortesWrap').innerHTML = fortes.length
+    ? fortes.map(f=>`<div class="tag-forte">✓ ${f}</div>`).join('')
+    : '<span style="color:var(--muted);font-size:0.83rem;">Nenhum ponto registrado.</span>';
+
+  // ── ATENÇÃO ───────────────────────────────────────────────────
+  const atencao = iaData.pontos_atencao || [];
+  document.getElementById('atencaoWrap').innerHTML = atencao.length
+    ? atencao.map(a=>`<div class="tag-atencao"><span class="arr">›</span>${a}</div>`).join('')
+    : '<span style="color:var(--muted);font-size:0.83rem;">Nenhum ponto registrado.</span>';
+
+  // ── FLAGS ─────────────────────────────────────────────────────
+  const flagsWrap = document.getElementById('flagsWrap');
+  if (flagsWrap) {
+    const fd = iaData.flags || {};
+    const dest = fd.destaque || []; const aten = fd.atencao || []; const crit = fd.critico || [];
+    if (dest.length || aten.length || crit.length) {
+      flagsWrap.style.display = 'block';
+      let fhtml = '';
+      if (dest.length) fhtml += dest.map(f=>`<div class="flag-item" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);color:#2ecc71;">★ ${f}</div>`).join('');
+      if (aten.length) fhtml += aten.map(f=>`<div class="flag-item" style="background:rgba(243,156,18,0.1);border:1px solid rgba(243,156,18,0.25);color:#f39c12;">› ${f}</div>`).join('');
+      if (crit.length) fhtml += crit.map(f=>`<div class="flag-item" style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);color:#e74c3c;">✕ ${f}</div>`).join('');
+      document.getElementById('flagsList').innerHTML = fhtml;
+    } else { flagsWrap.style.display = 'none'; }
+  }
+
+  // ── REQUISITOS ────────────────────────────────────────────────
+  const atend = iaData.requisitos_atendidos || [];
+  const ausen = iaData.requisitos_ausentes  || [];
+  document.getElementById('reqAtendidos').innerHTML = atend.length
+    ? atend.map(r=>`<div class="req-item"><span style="color:#2ecc71;flex-shrink:0;font-weight:900;">✓</span><span style="color:#e0e0e0;">${r}</span></div>`).join('')
+    : '<div class="req-item" style="color:var(--muted);">Não identificados</div>';
+  document.getElementById('reqAusentes').innerHTML = ausen.length
+    ? ausen.map(r=>`<div class="req-item"><span style="color:#e74c3c;flex-shrink:0;font-weight:900;">✗</span><span style="color:#bbb;">${r}</span></div>`).join('')
+    : '<div class="req-item" style="color:var(--muted);">Nenhuma lacuna identificada ✓</div>';
+
+  // ── RESPOSTAS DA ENTREVISTA ───────────────────────────────────
+  function respBlock(label, valor, vazio) {
+    const val = valor || '';
+    const isEmpty = !val.trim();
+    if (isEmpty && !vazio) return '';
+    return `<div class="resp-block" style="${isEmpty ? 'opacity:0.42;' : ''}">
+      <span class="resp-label">${label}${isEmpty ? ' <span style="color:#f39c12;font-size:0.58rem;font-weight:700;text-transform:none;letter-spacing:0;">— não preenchido</span>' : ''}</span>
+      <div class="resp-text">${isEmpty ? '<em style="color:var(--muted);">—</em>' : String(val).replace(/\n/g,'<br>')}</div>
+    </div>`;
+  }
+
+  function starBlock(label, texto) {
+    if (!texto || !String(texto).trim()) {
+      return `<div class="resp-block" style="opacity:0.42;">
+        <span class="resp-label">${label} <span style="color:#f39c12;font-size:0.58rem;font-weight:700;text-transform:none;letter-spacing:0;">— não preenchido</span></span>
+        <div class="resp-text"><em style="color:var(--muted);">—</em></div>
+      </div>`;
+    }
+    return `<div class="resp-block">
+      <span class="resp-label">${label}</span>
+      <div class="resp-text">${String(texto).replace(/\n/g,'<br>')}</div>
+    </div>`;
+  }
+
+  const ent = entData;
+  const comp = ent.competencias || {};
+  let entHTML = '';
+
+  // — IDENTIFICAÇÃO —
+  entHTML += `<div class="resp-group-title">📋 Identificação</div>`;
+  entHTML += respBlock('🏷️ Área de Atuação Principal', ent.area, true);
+  entHTML += respBlock('⏱️ Tempo Total de Experiência', ent.exp_total, true);
+  if (ent.cargo_buscado)        entHTML += respBlock('🎯 Cargo que Busca', ent.cargo_buscado);
+  if (ent.expectativa_salarial) entHTML += respBlock('💰 Expectativa Salarial', ent.expectativa_salarial);
+  if (ent.disponibilidade)      entHTML += respBlock('🕐 Disponibilidade', ent.disponibilidade);
+
+  // — TRAJETÓRIA —
+  entHTML += `<div class="resp-group-title" style="margin-top:0.8rem;">📖 Trajetória</div>`;
+  entHTML += respBlock('📖 História Profissional', ent.historia, true);
+  entHTML += respBlock('🎯 Experiência Específica com a Vaga', ent.exp_vaga, true);
+
+  // — CONQUISTAS —
+  entHTML += `<div class="resp-group-title" style="margin-top:0.8rem;">🏆 Conquistas & Diferencial</div>`;
+  const conqList = (ent.conquistas||[]).filter(Boolean);
+  if (conqList.length) {
+    entHTML += `<div class="resp-block"><span class="resp-label">🏆 Conquistas (${conqList.length})</span>
+      <div class="resp-text"><ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:0.35rem;">
+        ${conqList.map(c=>`<li style="display:flex;gap:0.4rem;align-items:flex-start;"><span style="color:#3b82f6;font-weight:900;flex-shrink:0;margin-top:2px;">✓</span>${c}</li>`).join('')}
+      </ul></div></div>`;
+  } else {
+    entHTML += `<div class="resp-block" style="opacity:0.42;"><span class="resp-label">🏆 Conquistas <span style="color:#f39c12;font-size:0.58rem;font-weight:700;text-transform:none;letter-spacing:0;">— não preenchido</span></span><div class="resp-text"><em style="color:var(--muted);">Nenhuma conquista adicionada</em></div></div>`;
+  }
+  entHTML += respBlock('⚡ Maior Diferencial Profissional', ent.diferencial, true);
+
+  // — COMPETÊNCIAS STAR —
+  entHTML += `<div class="resp-group-title" style="margin-top:0.8rem;">🧠 Competências Comportamentais (Método STAR)</div>`;
+  entHTML += starBlock('🗣️ Comunicação',          comp.comunicacao);
+  entHTML += starBlock('💪 Resiliência',           comp.resiliencia);
+  entHTML += starBlock('🤝 Trabalho em Equipe',    comp.equipe);
+  entHTML += starBlock('🎯 Foco em Resultados',    comp.resultados);
+  entHTML += starBlock('⚡ Proatividade',          comp.proatividade);
+  entHTML += starBlock('🔄 Adaptabilidade',        comp.adaptabilidade);
+
+  // — MOTIVAÇÃO —
+  entHTML += `<div class="resp-group-title" style="margin-top:0.8rem;">💭 Motivação & Informações Finais</div>`;
+  entHTML += respBlock('💡 Por que quer essa vaga?', ent.motivacao, true);
+  entHTML += respBlock('📌 Informações Extras',      ent.extra,     true);
+
+  document.getElementById('entrevistaWrap').innerHTML = entHTML || '<span style="color:var(--muted);">Dados não disponíveis.</span>';
+
+  // ── DISC INSIGHT ──────────────────────────────────────────────
+  const discInsightEl = document.getElementById('discInsightWrap');
+  if (discInsightEl) {
+    if (iaData.disc_insight) {
+      discInsightEl.style.display = 'block';
+      document.getElementById('discInsightText').textContent = iaData.disc_insight;
+    } else {
+      discInsightEl.style.display = 'none';
+    }
+  }
+
+  // ── ANÁLISE ADMIN ─────────────────────────────────────────────
+  document.getElementById('adminResumo').textContent  = iaData.resumo_admin      || '—';
+  document.getElementById('adminRec').textContent     = iaData.recomendacao_admin || '—';
+
+  // ── OBSERVAÇÕES ───────────────────────────────────────────────
+  const obsKey = `fit_obs_${nome}_${vaga}`;
+  document.getElementById('obsRecrutador').value = localStorage.getItem(obsKey) || '';
+
+  // ── BOTÃO VER CURRÍCULO ───────────────────────────────────────
+  const curriculoUrl = 'curriculo.html'
+    + '?nome='   + encodeURIComponent(nome)
+    + '&vaga='   + encodeURIComponent(vaga)
+    + '&tel='    + encodeURIComponent(tel)
+    + '&email='  + encodeURIComponent(email)
+    + '&fit='    + fitScore
+    + '&nivel='  + encodeURIComponent(fitNivel)
+    + '&perfil=' + (p.get('perfil') || p.get('dom') || 'D')
+    + '&sec='    + (p.get('sec') || 'I')
+    + '&d='      + (p.get('d') || '0')
+    + '&i='      + (p.get('i') || '0')
+    + '&s='      + (p.get('s') || '0')
+    + '&c='      + (p.get('c') || '0');
+  const btnCurriculo = document.getElementById('btnCurriculo');
+  if (btnCurriculo) { btnCurriculo.href = curriculoUrl; btnCurriculo.style.display = 'flex'; }
+
+} // fim renderizarTudo()
+
+function salvarObs() {
+  const obsKey = `fit_obs_${nome}_${vaga}`;
+  localStorage.setItem(obsKey, document.getElementById('obsRecrutador').value);
+  const msg = document.getElementById('obsSavedMsg');
+  msg.style.opacity = '1';
+  setTimeout(()=>{ msg.style.opacity = '0'; }, 2200);
+}
+
+function togglePdfField(wrapId, cb) {
+  const el = document.getElementById(wrapId);
+  if (el) el.classList.toggle('pdf-hidden', cb.checked);
+}
+
+// ── CARREGAR DADOS ────────────────────────────────────────────
+(async function carregarDados() {
+  // 1. sessionStorage (mesma sessão)
+  try {
+    const ss_ent = sessionStorage.getItem('entrevista_dados');
+    const ss_ia  = sessionStorage.getItem('entrevista_ia');
+    if (ss_ent && ss_ia) {
+      entData = JSON.parse(ss_ent);
+      iaData  = JSON.parse(ss_ia);
+      renderizarTudo();
+      return;
+    }
+  } catch(e) {}
+
+  // 2. Supabase
+  const nome2 = nome;
+  if (!nome2 || nome2 === 'Candidato') { renderizarTudo(); return; }
+  try {
+    document.getElementById('entrevistaWrap').innerHTML =
+      '<span style="color:var(--muted);font-size:0.83rem;">⏳ Carregando dados...</span>';
+
+    const _sel = [
+      'entrevista_json','resumo_ia','resumo_admin','recomendacao_admin',
+      'pontos_fortes','pontos_atencao','requisitos_atendidos','requisitos_ausentes',
+      'score_experiencia','score_competencias','score_motivacao','score_disc',
+      'nota_comunicacao','nota_resiliencia','nota_equipe','nota_resultados','nota_proatividade','nota_adaptabilidade',
+      'star_comunicacao','star_resiliencia','star_equipe','star_resultados','star_proatividade','star_adaptabilidade',
+      'flags_destaque','flags_atencao','flags_critico','penalidades_json','disc_insight','modelo_ia',
+      'score_curriculo','nivel_curriculo','resumo_curriculo','nota_exp_curriculo','nota_form_curriculo','nota_tec_curriculo',
+      'score_entrevista','nivel_entrevista','resumo_entrevista','nota_trajetoria','nota_competencias_ent','nota_motivacao_ent',
+      'fit_score_ia','metodo_calculo','percentil_vaga','media_fit_vaga','total_candidatos_vaga',
+    ].join(',');
+
+    let res = await fetch(
+      `${SB}/rest/v1/disc_historico?nome=eq.${encodeURIComponent(nome2)}&vaga=eq.${encodeURIComponent(vaga)}&select=${_sel}&order=atualizado_em.desc&limit=1`,
+      { headers:{'apikey':KEY,'Authorization':'Bearer '+KEY} }
+    );
+    let arr = await res.json();
+
+    if (!Array.isArray(arr) || !arr.length) {
+      const nomeInicio = nome2.split(' ')[0];
+      res = await fetch(
+        `${SB}/rest/v1/disc_historico?nome=ilike.${encodeURIComponent(nomeInicio+'*')}&vaga=ilike.${encodeURIComponent('*'+vaga.split(' ')[0]+'*')}&select=${_sel}&order=atualizado_em.desc&limit=1`,
+        { headers:{'apikey':KEY,'Authorization':'Bearer '+KEY} }
+      );
+      arr = await res.json();
+    }
+
+    if (Array.isArray(arr) && arr.length > 0) {
+      const row = arr[0];
+      try { entData = JSON.parse(row.entrevista_json || '{}'); } catch(e) { entData = {}; }
+      const splitPipe = v => (v||'').split(' | ').map(s=>s.trim()).filter(Boolean);
+      iaData = {
+        resumo_candidato:    row.resumo_ia            || '',
+        resumo_admin:        row.resumo_admin         || '',
+        recomendacao_admin:  row.recomendacao_admin   || '',
+        pontos_fortes:       splitPipe(row.pontos_fortes),
+        pontos_atencao:      splitPipe(row.pontos_atencao),
+        requisitos_atendidos:splitPipe(row.requisitos_atendidos),
+        requisitos_ausentes: splitPipe(row.requisitos_ausentes),
+        score_breakdown: {
+          experiencia:  row.score_experiencia  != null ? parseFloat(row.score_experiencia)  : undefined,
+          competencias: row.score_competencias != null ? parseFloat(row.score_competencias) : undefined,
+          motivacao:    row.score_motivacao    != null ? parseFloat(row.score_motivacao)    : undefined,
+          disc:         row.score_disc         != null ? parseFloat(row.score_disc)         : undefined,
+        },
+        notas_competencias: {
+          comunicacao:    row.nota_comunicacao    != null ? parseFloat(row.nota_comunicacao)    : undefined,
+          resiliencia:    row.nota_resiliencia    != null ? parseFloat(row.nota_resiliencia)    : undefined,
+          equipe:         row.nota_equipe         != null ? parseFloat(row.nota_equipe)         : undefined,
+          resultados:     row.nota_resultados     != null ? parseFloat(row.nota_resultados)     : undefined,
+          proatividade:   row.nota_proatividade   != null ? parseFloat(row.nota_proatividade)   : undefined,
+          adaptabilidade: row.nota_adaptabilidade != null ? parseFloat(row.nota_adaptabilidade) : undefined,
+        },
+        star_analysis: {
+          comunicacao:    row.star_comunicacao    || '',
+          resiliencia:    row.star_resiliencia    || '',
+          equipe:         row.star_equipe         || '',
+          resultados:     row.star_resultados     || '',
+          proatividade:   row.star_proatividade   || '',
+          adaptabilidade: row.star_adaptabilidade || '',
+        },
+        flags: {
+          destaque: splitPipe(row.flags_destaque),
+          atencao:  splitPipe(row.flags_atencao),
+          critico:  splitPipe(row.flags_critico),
+        },
+        penalidades_aplicadas: (() => { try { return JSON.parse(row.penalidades_json || '[]'); } catch(e) { return []; } })(),
+        disc_insight: row.disc_insight || '',
+        modelo_ia:    row.modelo_ia    || '',
+        score_curriculo:       row.score_curriculo      != null ? parseInt(row.score_curriculo)      : undefined,
+        nivel_curriculo:       row.nivel_curriculo      || '',
+        resumo_curriculo:      row.resumo_curriculo     || '',
+        nota_exp_curriculo:    row.nota_exp_curriculo   != null ? parseFloat(row.nota_exp_curriculo)   : null,
+        nota_form_curriculo:   row.nota_form_curriculo  != null ? parseFloat(row.nota_form_curriculo)  : null,
+        nota_tec_curriculo:    row.nota_tec_curriculo   != null ? parseFloat(row.nota_tec_curriculo)   : null,
+        score_entrevista:      row.score_entrevista     != null ? parseInt(row.score_entrevista)      : undefined,
+        nivel_entrevista:      row.nivel_entrevista     || '',
+        resumo_entrevista:     row.resumo_entrevista    || '',
+        nota_trajetoria:       row.nota_trajetoria      != null ? parseFloat(row.nota_trajetoria)      : null,
+        nota_competencias_ent: row.nota_competencias_ent!= null ? parseFloat(row.nota_competencias_ent): null,
+        nota_motivacao_ent:    row.nota_motivacao_ent   != null ? parseFloat(row.nota_motivacao_ent)   : null,
+        fit_score_ia:          row.fit_score_ia          != null ? parseInt(row.fit_score_ia)           : null,
+        metodo_calculo:        row.metodo_calculo         || null,
+        percentil_vaga:        row.percentil_vaga         != null ? parseInt(row.percentil_vaga)         : null,
+        media_fit_vaga:        row.media_fit_vaga         != null ? parseInt(row.media_fit_vaga)         : null,
+        total_candidatos_vaga: row.total_candidatos_vaga  != null ? parseInt(row.total_candidatos_vaga)  : null,
+      };
+    }
+  } catch(e) { console.warn('Supabase erro:', e); }
+
+  renderizarTudo();
+})();
+</script>
+</body>
+</html>

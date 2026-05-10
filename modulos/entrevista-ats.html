@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Pré-Entrevista | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --primary:#1e40af;--accent:#3b82f6;
+      --bg:#0a0a0a;--card:#131313;--card2:#181818;
+      --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.32);
+      --text:#f0f0f0;--muted:#727272;--muted2:#3a3a3a;
+      --D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+    body::after{content:'';position:fixed;top:-15%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(59,130,246,0.05) 0%,transparent 68%);pointer-events:none;z-index:0;}
+    .wrap{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+    .wrap.candidate-mode{max-width:820px;margin:0 auto;padding:2rem 1.2rem 6rem;}
+    /* ── HEADER PADRÃO ATS ── */
+    .ats-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+    .ats-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#a78bfa;opacity:0.85;margin-bottom:0.35rem;}
+    .ats-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+    .ats-title span{color:#a78bfa;}
+    .ats-sub{font-size:0.8rem;color:var(--muted);}
+    .ats-btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+    .ats-btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}.ats-btn-accent:hover{opacity:0.88;transform:translateY(-1px);}
+    .ats-btn-blue{background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);}.ats-btn-blue:hover{background:rgba(52,152,219,0.18);}
+    .ats-btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}.ats-btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+    .ats-btn-green{background:rgba(59,130,246,0.1);color:var(--accent);border-color:rgba(59,130,246,0.25);}.ats-btn-green:hover{background:rgba(59,130,246,0.18);}
+    .ats-btn-wa{background:rgba(37,211,102,0.1);color:#25d366;border-color:rgba(37,211,102,0.25);}.ats-btn-wa:hover{background:rgba(37,211,102,0.18);}
+    /* ── PAINEL RECRUTADOR ── */
+    .rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;}
+    @media(max-width:780px){.rec-grid{grid-template-columns:1fr;}}
+    .rec-card{background:var(--card);border-radius:20px;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;}
+    .rec-card-purple{border:1px solid rgba(167,139,250,0.22);}
+    .rec-card-plain{border:1px solid var(--border);}
+    .rec-label{font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.4rem;}
+    .rec-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.58rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+    .rec-input:focus{border-color:#a78bfa;}
+    .rec-input::placeholder{color:var(--muted);}
+    .rec-select{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.58rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.85rem center;transition:border-color 0.2s;}
+    .rec-select:focus{border-color:#a78bfa;}
+    .rec-select option{background:#1a1a1a;}
+    .rec-req-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem;font-size:0.75rem;color:#bbb;line-height:1.7;min-height:120px;max-height:260px;overflow-y:auto;}
+    .rec-req-box.empty{color:var(--muted2);font-style:italic;display:flex;align-items:center;justify-content:center;}
+    .rec-link-box{background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.2);border-radius:12px;padding:0.9rem 1rem;font-size:0.75rem;color:#a78bfa;word-break:break-all;font-family:monospace;line-height:1.5;min-height:44px;display:none;}
+    .rec-link-box.visible{display:block;}
+    .rec-actions{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.4rem;}
+    .rec-sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem;}
+    .rec-sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+    .rec-vaga-meta{font-size:0.72rem;color:var(--muted);margin-top:-0.3rem;}
+    .rec-copied{display:none;font-size:0.72rem;color:#2ecc71;font-weight:700;align-self:center;}
+    .rec-copied.show{display:inline;}
+
+    /* TOP */
+    .tbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;}
+    .logo{display:flex;align-items:center;gap:0.8rem;}
+    .logo img{width:40px;height:40px;object-fit:contain;}
+    .logo span{font-size:0.8rem;color:var(--muted);}
+    .step-row{display:flex;align-items:center;gap:0.4rem;font-size:0.7rem;font-weight:700;}
+    .sdot{width:8px;height:8px;border-radius:50%;}
+    .sdot.done{background:var(--accent);}
+    .sdot.now{background:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,0.22);}
+    .sdot.next{background:var(--muted2);}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,rgba(30,64,175,0.18),rgba(59,130,246,0.05));border:1px solid var(--border2);border-radius:26px;padding:2rem 2rem 1.8rem;margin-bottom:1.3rem;position:relative;overflow:hidden;}
+    .hero::after{content:'✍️';position:absolute;right:1.8rem;top:1.2rem;font-size:3.5rem;opacity:0.1;pointer-events:none;}
+    .hero-ey{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.5rem;}
+    .hero-title{font-size:1.75rem;font-weight:900;line-height:1.18;margin-bottom:0.5rem;}
+    .hero-title span{color:var(--accent);}
+    .hero-sub{font-size:0.86rem;color:var(--muted);line-height:1.7;max-width:580px;}
+    .cand-pill{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.09);border:1px solid var(--border2);border-radius:99px;padding:0.3rem 1rem;font-size:0.77rem;font-weight:700;color:var(--accent);margin-top:1rem;}
+
+    /* VAGA INFO CARD */
+    .vaga-info-card{background:var(--card);border:1px solid rgba(52,152,219,0.2);border-radius:16px;padding:1rem 1.3rem;margin-bottom:1.3rem;display:flex;align-items:flex-start;gap:1rem;}
+    .vaga-info-ico{font-size:1.4rem;flex-shrink:0;margin-top:0.1rem;}
+    .vaga-info-body{flex:1;min-width:0;}
+    .vaga-info-titulo{font-size:0.88rem;font-weight:800;margin-bottom:0.2rem;}
+    .vaga-info-meta{font-size:0.73rem;color:var(--muted);margin-bottom:0.5rem;}
+    .vaga-info-req{font-size:0.75rem;color:#bbb;line-height:1.65;background:rgba(255,255,255,0.025);border-radius:8px;padding:0.7rem 0.85rem;border:1px solid rgba(255,255,255,0.06);}
+    .vaga-toggle{display:none !important;}
+    .vaga-desc-bloco{text-align:justify;margin-bottom:0.65rem;color:#bbb;}
+    .vaga-req-titulo{font-size:0.62rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.35rem;margin-top:0.55rem;}
+    .vaga-req-lista{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.22rem;}
+    .vaga-req-lista li{display:flex;align-items:flex-start;gap:0.4rem;color:#bbb;}
+    .vaga-req-lista li::before{content:'›';color:var(--accent);font-weight:900;flex-shrink:0;margin-top:0px;}
+    .vaga-toggle{font-size:0.68rem;color:var(--accent);font-weight:700;cursor:pointer;margin-top:0.35rem;display:inline-block;}
+    .vaga-badge{display:inline-flex;align-items:center;gap:0.3rem;background:rgba(52,152,219,0.1);border:1px solid rgba(52,152,219,0.2);border-radius:99px;padding:0.2rem 0.6rem;font-size:0.67rem;font-weight:700;color:#3498db;}
+    .vaga-badge.ok{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.2);color:#2ecc71;}
+    .vaga-badge.loading{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);color:var(--muted);}
+
+    /* TIPS */
+    .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:0.65rem;margin-bottom:1.3rem;}
+    .tip{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;}
+    .tip-ico{font-size:1.25rem;flex-shrink:0;}
+    .tip-t{font-size:0.76rem;font-weight:800;color:var(--accent);margin-bottom:0.2rem;}
+    .tip-d{font-size:0.71rem;color:#aaa;line-height:1.5;}
+    .tip-tags{margin-top:0.4rem;display:flex;flex-wrap:wrap;gap:0.22rem;}
+    .ttag{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.18);border-radius:5px;padding:0.1rem 0.42rem;font-size:0.63rem;font-weight:700;color:var(--accent);}
+
+    /* ETAPAS BAR */
+    .etapas{display:flex;gap:0;border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:1.3rem;}
+    .etapa{flex:1;padding:0.62rem 0.4rem;text-align:center;font-size:0.68rem;font-weight:700;color:var(--muted);background:var(--card);border-right:1px solid var(--border);transition:all 0.2s;cursor:default;}
+    .etapa:last-child{border-right:none;}
+    .etapa.ativa{background:rgba(59,130,246,0.1);color:var(--accent);}
+    .etapa.done{background:rgba(59,130,246,0.05);color:rgba(59,130,246,0.55);}
+    .etapa-n{display:block;font-size:0.56rem;opacity:0.52;margin-bottom:0.06rem;letter-spacing:1px;text-transform:uppercase;}
+
+    /* SEÇÕES */
+    .sec{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.7rem 1.9rem;margin-bottom:1rem;animation:fu 0.35s ease both;}
+    .sec.hidden{display:none;}
+    @keyframes fu{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    .sec-title{font-size:0.98rem;font-weight:900;margin-bottom:0.25rem;}
+    .sec-sub{font-size:0.81rem;color:var(--muted);line-height:1.68;margin-bottom:1.4rem;}
+
+    /* CAMPOS */
+    .fl{font-size:0.67rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.35rem;}
+    .fh{font-size:0.72rem;color:#b0b0b0;line-height:1.6;margin-bottom:0.5rem;background:rgba(255,255,255,0.04);border-radius:8px;padding:0.4rem 0.7rem;border:1px solid rgba(255,255,255,0.07);}
+    .fi{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:0.75rem 1rem;color:var(--text);font-family:inherit;font-size:0.87rem;outline:none;transition:border-color 0.2s,background 0.2s;}
+    .fi:focus{border-color:var(--accent);background:rgba(59,130,246,0.03);}
+    .fi::placeholder{color:#888;font-size:0.81rem;}
+    select.fi{background-color:#131313;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.9rem center;padding-right:2.2rem;-webkit-appearance:none;appearance:none;cursor:pointer;}
+    select.fi option{background:#131313;color:#f0f0f0;}
+    .ft{resize:vertical;line-height:1.72;font-size:0.87rem;}
+    .ft::placeholder{color:#888;}
+    .ft.xl{min-height:220px;}
+    .ft.lg{min-height:150px;}
+    .ft.md{min-height:105px;}
+    .frow{margin-bottom:1.1rem;}
+    .g2{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
+    @media(max-width:560px){.g2{grid-template-columns:1fr;}}
+    .wc{font-size:0.65rem;color:var(--muted2);text-align:right;margin-top:0.25rem;transition:color 0.2s;}
+    .wc.ok{color:var(--accent);}
+
+    /* CONQUISTAS TAGS */
+    .tadd{display:flex;gap:0.5rem;margin-bottom:0.5rem;}
+    .tinp{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:10px;padding:0.58rem 0.85rem;color:var(--text);font-family:inherit;font-size:0.81rem;outline:none;transition:border-color 0.2s;}
+    .tinp:focus{border-color:var(--accent);}
+    .tinp::placeholder{color:#888;}
+    .tbtn{background:rgba(59,130,246,0.13);color:var(--accent);border:1px solid var(--border2);border-radius:10px;padding:0.58rem 0.95rem;font-family:inherit;font-size:0.77rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+    .tbtn:hover{background:rgba(59,130,246,0.23);}
+    .tlist{display:flex;flex-wrap:wrap;gap:0.38rem;min-height:26px;}
+    .titem{display:flex;align-items:center;gap:0.32rem;background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.22);border-radius:99px;padding:0.26rem 0.72rem;font-size:0.74rem;font-weight:600;color:var(--accent);}
+    .tdel{background:none;border:none;color:rgba(231,76,60,0.45);cursor:pointer;font-size:0.85rem;line-height:1;padding:0;transition:color 0.15s;}
+    .tdel:hover{color:#e74c3c;}
+
+    /* BOTÕES NAV */
+    .navb{display:flex;gap:0.75rem;margin-top:1.8rem;justify-content:space-between;align-items:center;}
+    .bprev{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:12px;padding:0.82rem 1.7rem;font-family:inherit;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.2s;}
+    .bprev:hover{border-color:var(--accent);color:var(--accent);}
+    .bnext{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:12px;padding:0.82rem 2rem;font-family:inherit;font-size:0.9rem;font-weight:800;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.5rem;}
+    .bnext:hover{opacity:0.87;transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,0.18);}
+
+    /* REVISÃO */
+    .rev-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:1.1rem 1.3rem;margin-bottom:1.1rem;}
+    .rev-titulo{font-size:0.63rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;}
+    .rev-lin{font-size:0.79rem;color:var(--muted);line-height:1.72;margin-bottom:0.22rem;}
+    .rev-lin strong{color:var(--text);}
+
+    /* TELA IA */
+    #telaIA{display:none;text-align:center;padding:4rem 1rem 3rem;}
+    .ia-ring{width:68px;height:68px;border-radius:50%;border:3px solid rgba(59,130,246,0.13);border-top-color:var(--accent);animation:sp 0.82s linear infinite;margin:0 auto 1.5rem;}
+    @keyframes sp{to{transform:rotate(360deg);}}
+    .ia-t{font-size:1.1rem;font-weight:900;margin-bottom:0.35rem;}
+    .ia-s{font-size:0.82rem;color:var(--muted);}
+    .ia-steps{margin-top:1.3rem;display:flex;flex-direction:column;gap:0.42rem;max-width:320px;margin-left:auto;margin-right:auto;}
+    .ia-step{display:flex;align-items:center;gap:0.62rem;font-size:0.77rem;color:var(--muted2);padding:0.42rem 0.75rem;border-radius:8px;transition:all 0.3s;text-align:left;}
+    .ia-step.ativo{color:var(--text);background:rgba(59,130,246,0.07);}
+    .ia-step.feito{color:var(--accent);}
+    .ia-sico{width:17px;text-align:center;flex-shrink:0;}
+
+    /* RESULTADO */
+    #telaRes{display:none;animation:fu 0.5s ease both;}
+    .res-hero{background:linear-gradient(135deg,rgba(30,64,175,0.22),rgba(59,130,246,0.07));border:1px solid var(--border2);border-radius:26px;padding:2rem 2rem;margin-bottom:1.1rem;text-align:center;}
+    .res-ck{font-size:3rem;display:block;margin-bottom:0.7rem;}
+    .res-t{font-size:1.45rem;font-weight:900;margin-bottom:0.38rem;}
+    .res-s{font-size:0.85rem;color:var(--muted);line-height:1.65;max-width:500px;margin:0 auto;}
+
+    /* SCORE */
+    .score-wrap{display:flex;align-items:center;justify-content:center;gap:1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:1.5rem 1.3rem;margin:1.5rem 0 0.8rem;}
+    .score-num{font-size:3.8rem;font-weight:900;line-height:1;letter-spacing:-2px;}
+    .score-r strong{font-size:0.95rem;display:block;margin-bottom:0.22rem;}
+    .score-r span{font-size:0.74rem;color:var(--muted);}
+    .score-bar{height:9px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin:0.45rem 0 0.22rem;}
+    .score-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width 1.6s cubic-bezier(0.22,1,0.36,1);}
+    .score-labs{display:flex;justify-content:space-between;font-size:0.65rem;color:var(--muted);}
+    .nivel-b{display:inline-flex;align-items:center;gap:0.45rem;border-radius:99px;padding:0.38rem 1rem;font-size:0.8rem;font-weight:800;margin-top:0.55rem;}
+    .nl-baixo{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);}
+    .nl-medio{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+    .nl-alto{background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);}
+    .nl-excelente{background:rgba(59,130,246,0.15);color:#2ecc71;border:1px solid rgba(59,130,246,0.3);}
+
+    /* DISC DIMS */
+    .dims{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-top:1rem;}
+    @media(max-width:460px){.dims{grid-template-columns:1fr 1fr;}}
+    .dim{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:0.7rem;text-align:center;}
+    .dim-l{font-size:1.4rem;font-weight:900;line-height:1;margin-bottom:0.15rem;}
+    .dim-n{font-size:0.62rem;color:var(--muted);margin-bottom:0.35rem;}
+    .dim-bar{height:4px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin-bottom:0.25rem;}
+    .dim-fill{height:100%;border-radius:99px;}
+    .dim-pct{font-size:0.72rem;font-weight:800;}
+
+    /* ANÁLISE */
+    .analise-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem 1.7rem;margin-bottom:1rem;}
+    .a-titulo{font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);opacity:0.85;display:flex;align-items:center;gap:0.45rem;margin-bottom:0.9rem;}
+    .a-texto{font-size:0.86rem;color:var(--muted);line-height:1.76;}
+    .a-tags{display:flex;flex-wrap:wrap;gap:0.42rem;margin-top:0.9rem;}
+    .a-tag{display:flex;align-items:center;gap:0.32rem;background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.2);border-radius:99px;padding:0.28rem 0.75rem;font-size:0.73rem;font-weight:700;color:var(--accent);}
+    .a-atencao{margin-top:0.8rem;display:flex;flex-direction:column;gap:0.38rem;}
+    .a-at-item{display:flex;gap:0.45rem;font-size:0.79rem;color:var(--muted);line-height:1.5;}
+    .a-at-ico{color:#f39c12;flex-shrink:0;}
+
+    /* PASSOS */
+    .passos-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.7rem;margin-bottom:1rem;}
+    .passos-l{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.55rem;margin-top:0.75rem;}
+    .passos-l li{display:flex;gap:0.62rem;align-items:flex-start;font-size:0.83rem;color:var(--muted);line-height:1.5;}
+    .passos-l li .arr{color:var(--accent);font-weight:900;flex-shrink:0;margin-top:1px;}
+
+    /* AÇÕES */
+    .acoes{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.3rem;}
+    .btn-wa{background:linear-gradient(135deg,#1a7a1a,#25d366);color:#fff;border:none;border-radius:13px;padding:0.9rem 1.5rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:0.45rem;text-decoration:none;}
+    .btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,0.2);}
+    .btn-fechar{background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1);border-radius:13px;padding:0.9rem 1.3rem;font-family:inherit;font-size:0.86rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .btn-fechar:hover{background:rgba(255,255,255,0.09);color:var(--text);}
+
+    .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:#2ecc71;color:#fff;font-family:'Sora',sans-serif;font-size:0.82rem;font-weight:700;padding:0.62rem 1.4rem;border-radius:99px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:999;}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+    .toast.erro{background:#e74c3c;}
+
+    @media(max-width:560px){
+      .hero-title{font-size:1.4rem;}
+      .etapas{flex-wrap:wrap;}
+      .etapa{min-width:50%;}
+      .sec{padding:1.3rem 1.1rem;}
+    }
+  
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page, .wrap, .wrapper {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child { width: 100% !important; }
+  .hero .btn, .hero button { width: 100% !important; justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3,
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Formulários */
+  .form-card { padding: 1rem !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Filtros */
+  .filters, .discFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .filters::-webkit-scrollbar, .discFilters::-webkit-scrollbar { display: none !important; }
+  .fc, .filter-chip { flex-shrink: 0 !important; }
+
+  /* Listas de itens */
+  .notif-item, .resp-item, .hist-item, .user-row, .polling-row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .notif-msg { white-space: normal !important; font-size: 0.72rem !important; }
+
+  /* Mapa de talentos */
+  .quadrante-wrap { aspect-ratio: 1 !important; max-height: 280px !important; }
+  .talent-table { font-size: 0.68rem !important; }
+  .talent-table th, .talent-table td { padding: 0.38rem 0.4rem !important; }
+
+  /* NPS scale */
+  .scale-row { gap: 0.2rem !important; margin: 0.6rem 0 !important; }
+  .scale-btn { width: 36px !important; height: 36px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+  .nps-val { font-size: 3.5rem !important; }
+  .nps-score { padding: 1.2rem !important; }
+  .kpi-row.nps { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Permissões */
+  .role-grid { grid-template-columns: 1fr !important; }
+  .role-card { padding: 1rem !important; }
+  .perm-item { font-size: 0.68rem !important; }
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Equipe */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.6rem !important; }
+  .member-ava { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; }
+  .member-card { padding: 1rem !important; }
+  .member-btns { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* Fit Predictor */
+  .result-box { padding: 1rem !important; }
+  .score-num { font-size: 3.5rem !important; }
+  .bar-label { width: 70px !important; font-size: 0.6rem !important; }
+  .insights { font-size: 0.7rem !important; }
+  .hist-list { max-height: 200px !important; }
+
+  /* Inteligência / busca IA */
+  .search-inner { flex-direction: column !important; }
+  .s-input { width: 100% !important; }
+  .search-box { padding: 0.9rem !important; }
+
+  /* Notificações */
+  .notif-list { max-height: 300px !important; }
+  .kpi-row .kpi { text-align: center; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Seção labels */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Topbar (emails / entrevista) */
+  .topbar, .tbar {
+    padding: 0.7rem 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+  .topbar-actions { gap: 0.4rem !important; }
+  .topbar-actions .btn, .topbar-actions button { font-size: 0.68rem !important; padding: 0.38rem 0.65rem !important; }
+}
+
+@media (max-width: 640px) {
+  .tbar { flex-direction: column !important; align-items: flex-start !important; }
+  .step-row { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .hero { padding: 1.2rem 1rem 1rem !important; }
+  .hero-title { font-size: 1.3rem !important; }
+  .vaga-info-card { flex-direction: column !important; gap: 0.5rem !important; }
+  .cand-pill { font-size: 0.68rem !important; }
+  .wrap { padding: 1rem 0.9rem 5rem !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="wrap" id="mainWrap">
+
+  <!-- ═══════════════════════════════════════════════════════
+       MODO RECRUTADOR — visível apenas sem param ?nome=
+       ═══════════════════════════════════════════════════════ -->
+  <div id="recruiterPanel" style="display:none;">
+
+    <!-- Header padrão ATS -->
+    <div class="ats-hero">
+      <div>
+        <div class="ats-eyebrow">Pré-Entrevista · ATS</div>
+        <div class="ats-title">Gerar Link de <span>Entrevista</span></div>
+        <div class="ats-sub">Selecione a vaga, informe o candidato e envie o link personalizado para preenchimento assíncrono.</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button class="ats-btn ats-btn-ghost" onclick="navATS('disc')">🧠 DISC</button>
+        <button class="ats-btn ats-btn-ghost" onclick="navATS('candidatos')">👥 Candidatos</button>
+      </div>
+    </div>
+
+    <!-- Grid principal -->
+    <div class="rec-grid">
+
+      <!-- Card esquerdo: Dados do candidato + vaga -->
+      <div class="rec-card rec-card-purple">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <div style="width:44px;height:44px;border-radius:13px;background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🎤</div>
+          <div>
+            <div style="font-size:0.95rem;font-weight:800;">Dados do Envio</div>
+            <div style="font-size:0.72rem;color:var(--muted);">Candidato e vaga para o link</div>
+          </div>
+        </div>
+
+        <!-- Nome -->
+        <div>
+          <label class="rec-label">Nome do candidato *</label>
+          <input type="text" id="recNome" class="rec-input" placeholder="Ex: Maria Silva" oninput="recAtualizarLink()"/>
+        </div>
+
+        <!-- Telefone -->
+        <div>
+          <label class="rec-label">Telefone / WhatsApp <span style="font-weight:400;text-transform:none;letter-spacing:0;">(opcional)</span></label>
+          <input type="text" id="recTel" class="rec-input" placeholder="Ex: 51999999999" oninput="recAtualizarLink()"/>
+        </div>
+
+        <!-- Vaga -->
+        <div>
+          <label class="rec-label">Vaga <span id="recVagaCount" style="color:var(--muted2);font-weight:400;text-transform:none;letter-spacing:0;"></span></label>
+
+          <!-- Bloco: select do Supabase -->
+          <div id="recBlocoSelect">
+            <select id="recVagaSelect" class="rec-select" onchange="recSelecionarVaga()">
+              <option value="">⏳ Carregando vagas...</option>
+            </select>
+          </div>
+
+          <!-- Bloco: input manual (oculto por padrão) -->
+          <div id="recBlocoManual" style="display:none;">
+            <input type="text" id="recVagaManual" class="rec-input" placeholder="Ex: Auxiliar Administrativo, Vendedor..."/>
+            <div style="font-size:0.67rem;color:var(--muted);margin-top:0.3rem;">Digite o título da vaga manualmente</div>
+          </div>
+
+          <!-- Toggle modo manual -->
+          <div id="recModoManualToggle" style="display:flex;margin-top:0.5rem;">
+            <button id="recBtnToggle" onclick="recAtivarModoManual()" style="background:none;border:none;color:var(--muted);font-family:inherit;font-size:0.7rem;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px;">✏️ Digitar manualmente</button>
+          </div>
+
+          <div class="rec-vaga-meta" id="recVagaMeta"></div>
+        </div>
+
+        <!-- Botão gerar -->
+        <button class="ats-btn ats-btn-accent" style="width:100%;justify-content:center;padding:0.7rem;" onclick="recGerarLink()">
+          🔗 Gerar Link
+        </button>
+
+        <!-- E-mail do candidato (aparece após gerar link) -->
+        <div id="recEmailBlock" style="display:none;border-top:1px solid rgba(255,255,255,0.07);padding-top:0.9rem;">
+          <label class="rec-label" style="margin-bottom:0.4rem;">📧 Enviar link por e-mail</label>
+          <div style="display:flex;gap:0.5rem;">
+            <input type="email" id="recEmailCand" class="rec-input" placeholder="email@candidato.com" style="flex:1;"/>
+            <button id="btnEnviarEmail" onclick="recEnviarEmail()" style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);border-radius:10px;padding:0 0.9rem;font-family:inherit;font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.18s;" onmouseover="this.style.background='rgba(52,152,219,0.25)'" onmouseout="this.style.background='rgba(52,152,219,0.15)'">📧 Enviar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card direito: Requisitos + link gerado -->
+      <div class="rec-card rec-card-plain" style="gap:0.8rem;">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <div style="width:44px;height:44px;border-radius:13px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📋</div>
+          <div>
+            <div style="font-size:0.95rem;font-weight:800;">Requisitos da Vaga</div>
+            <div style="font-size:0.72rem;color:var(--muted);">Carregados do Supabase</div>
+          </div>
+        </div>
+
+        <div class="rec-req-box empty" id="recReqBox">Selecione uma vaga para ver os requisitos</div>
+
+        <!-- Link gerado -->
+        <div style="margin-top:0.2rem;">
+          <div class="rec-sec-label">Link gerado</div>
+          <div class="rec-link-box" id="recLinkBox"></div>
+          <div class="rec-actions" id="recLinkActions" style="display:none;">
+            <button class="ats-btn ats-btn-blue" onclick="recCopiarLink()">📋 Copiar link</button>
+            <button class="ats-btn ats-btn-wa" onclick="recEnviarWhatsApp()">💬 WhatsApp</button>
+            <span class="rec-copied" id="recCopied">✓ Copiado!</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /rec-grid -->
+
+    <!-- Histórico de links enviados recentes -->
+    <div class="rec-sec-label" style="margin-top:0.4rem;">Enviados recentemente</div>
+    <div id="recHistoricoWrap" style="font-size:0.78rem;color:var(--muted2);padding:0.5rem 0;">
+      Nenhum link enviado nesta sessão ainda.
+    </div>
+
+  </div><!-- /recruiterPanel -->
+
+  <!-- ═══════════════════════════════════════════════════════
+       MODO CANDIDATO — visível apenas com param ?nome=
+       ═══════════════════════════════════════════════════════ -->
+  <div id="candidatePanel" style="display:none;">
+
+  <!-- TOP -->
+  <div class="tbar">
+    <div class="logo">
+      <img src="fundo.png" alt="Agência Nexus"/>
+      <span>Agência Nexus</span>
+    </div>
+    <div class="step-row">
+      <div class="sdot done"></div>
+      <span style="color:var(--accent);font-size:0.68rem;">Teste DISC</span>
+      <span style="color:var(--muted2);margin:0 0.1rem;">›</span>
+      <div class="sdot now"></div>
+      <span style="color:var(--text);">Pré-Entrevista</span>
+      <span style="color:var(--muted2);margin:0 0.1rem;">›</span>
+      <div class="sdot next"></div>
+      <span style="color:var(--muted);">Análise IA</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-ey">✅ Teste DISC concluído · Etapa 2 de 3</div>
+    <h1 class="hero-title">Agora conta a <span>sua história</span></h1>
+    <p class="hero-sub">Esse é o momento de ir além do currículo. Quanto mais você contar — com números, exemplos reais e detalhes do dia a dia — maior a sua chance de ser chamado para a entrevista presencial.</p>
+    <div class="cand-pill" id="candPill">👤 Candidato</div>
+  </div>
+
+  <!-- CARD DA VAGA (preenchido dinamicamente) -->
+  <div class="vaga-info-card" id="vagaInfoCard" style="display:none;">
+    <div class="vaga-info-ico" id="vagaInfoIco">💼</div>
+    <div class="vaga-info-body">
+      <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.3rem;">
+        <div class="vaga-info-titulo" id="vagaInfoTitulo">—</div>
+        <div class="vaga-badge loading" id="vagaFetchBadge">⏳ Buscando requisitos...</div>
+      </div>
+      <div class="vaga-info-meta" id="vagaInfoMeta"></div>
+      <div class="vaga-info-req" id="vagaInfoReq"></div>
+      <span class="vaga-toggle" id="vagaToggle" onclick="toggleReq()" style="display:none;">Ver mais ▼</span>
+    </div>
+  </div>
+
+  <!-- DICAS -->
+  <div class="tips">
+    <div class="tip"><div class="tip-ico">🎯</div><div><div class="tip-t">Use verbos de ação</div><div class="tip-d">Mostre o que você fez, não só onde trabalhou.</div><div class="tip-tags"><span class="ttag">Coordenei</span><span class="ttag">Reduzi</span><span class="ttag">Implantei</span></div></div></div>
+    <div class="tip"><div class="tip-ico">📊</div><div><div class="tip-t">Coloque números</div><div class="tip-d">Resultados com quantidades são muito mais fortes.</div><div class="tip-tags"><span class="ttag">30/dia</span><span class="ttag">+20% vendas</span><span class="ttag">R$50k/mês</span></div></div></div>
+    <div class="tip"><div class="tip-ico">⭐</div><div><div class="tip-t">Inclua conquistas</div><div class="tip-d">Promoções, metas batidas, reconhecimentos.</div><div class="tip-tags"><span class="ttag">Promovido</span><span class="ttag">Funcionário do mês</span></div></div></div>
+    <div class="tip"><div class="tip-ico">💬</div><div><div class="tip-t">Seja específico</div><div class="tip-d">Nome da empresa, período, área — tudo ajuda!</div><div class="tip-tags"><span class="ttag">Empresa ABC</span><span class="ttag">2 anos</span></div></div></div>
+  </div>
+
+  <!-- ETAPAS -->
+  <div class="etapas">
+    <div class="etapa ativa" id="etapa1"><span class="etapa-n">ETAPA 1</span>Trajetória</div>
+    <div class="etapa" id="etapa2"><span class="etapa-n">ETAPA 2</span>Conquistas</div>
+    <div class="etapa" id="etapa3"><span class="etapa-n">ETAPA 3</span>Motivação</div>
+    <div class="etapa" id="etapa4"><span class="etapa-n">ETAPA 4</span>Enviar</div>
+  </div>
+
+  <!-- ETAPA 1 -->
+  <div class="sec" id="sec1">
+    <div class="sec-title">📋 Conta a sua trajetória profissional</div>
+    <div class="sec-sub">Escreva do jeito que você quiser — sem formato certo. Fale das empresas onde trabalhou, o que fazia, quantos clientes atendia, quantas vendas fazia, quantas máquinas manutencionava... <strong style="color:var(--text);">Qualquer número é muito bem-vindo.</strong></div>
+    <div class="frow">
+      <label class="fl">Sua história profissional — escreva livremente</label>
+      <div class="fh">💡 O que incluir: nomes das empresas · o que fazia no dia a dia · quantos clientes atendia · metas que bateu · quanto tempo em cada empresa · ferramentas que usava</div>
+      <textarea class="fi ft xl" id="historia" placeholder="Ex: Trabalhei 3 anos na empresa ABC como operador de caixa e depois supervisora. No caixa atendia em média 60 clientes por turno e era responsável pelo fechamento. Quando assumi a supervisão, coordenava 4 pessoas, controlava estoque de 500 itens e reduzi as perdas em 18%. Antes disso fiz 1 ano de auxiliar de cozinha no Restaurante XYZ servindo 120 pratos por almoço..." rows="10" oninput="wc(this,'wc1',60)"></textarea>
+      <div class="wc" id="wc1">0 palavras — escreva pelo menos 60 para uma análise completa</div>
+    </div>
+    <div class="g2">
+      <div class="frow">
+        <label class="fl">Área de atuação principal</label>
+        <input type="text" class="fi" id="area" placeholder="Ex: Vendas, Manutenção, Cozinha, Administrativo, TI..."/>
+      </div>
+      <div class="frow">
+        <label class="fl">Tempo total de experiência</label>
+        <select class="fi" id="expTotal">
+          <option value="">Selecione...</option>
+          <option>Primeiro emprego / Sem experiência</option><option>Menos de 1 ano</option>
+          <option>1 a 2 anos</option><option>2 a 5 anos</option>
+          <option>5 a 10 anos</option><option>Mais de 10 anos</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow">
+      <label class="fl">Experiência específica com a vaga <span id="vagaLabel" style="color:var(--accent);"></span></label>
+      <div class="fh">Tem algo do seu histórico que se relaciona diretamente com essa posição? Detalhe aqui.</div>
+      <textarea class="fi ft md" id="expVaga" placeholder="Ex: Já trabalhei em cargo parecido por 2 anos. Conheço os desafios da área e tenho familiaridade com o processo..." rows="4" oninput="wc(this,'wc2',0)"></textarea>
+      <div class="wc" id="wc2">0 palavras</div>
+    </div>
+    <div class="navb"><span></span><button class="bnext" onclick="irPara(2)">Continuar →</button></div>
+  </div>
+
+  <!-- ETAPA 2 -->
+  <div class="sec hidden" id="sec2">
+    <div class="sec-title">🏆 Conquistas e seu maior diferencial</div>
+    <div class="sec-sub">Adicione conquistas marcantes — promoções, metas batidas, prêmios, problemas resolvidos. Não existe pequeno demais!</div>
+    <div class="frow">
+      <label class="fl">Suas conquistas (adicione uma por vez)</label>
+      <div class="tadd">
+        <input type="text" class="tinp" id="conquInput" placeholder="Ex: Bati 130% da meta por 4 meses seguidos" maxlength="130" onkeydown="if(event.key==='Enter'){event.preventDefault();addConq();}"/>
+        <button class="tbtn" onclick="addConq()">+ Adicionar</button>
+      </div>
+      <div class="tlist" id="conquTags"><span style="font-size:0.72rem;color:var(--muted2);">Suas conquistas aparecem aqui...</span></div>
+    </div>
+    <div class="frow" style="margin-top:1.1rem;">
+      <label class="fl">Qual é o seu maior diferencial profissional?</label>
+      <div class="fh">O que as pessoas sempre comentam sobre você no trabalho? O que você faz melhor que a maioria?</div>
+      <textarea class="fi ft lg" id="diferencial" placeholder="Ex: Sou muito organizado e tenho facilidade para trabalhar sob pressão. Colegas sempre me procuram quando tem problema porque mantenho a calma e penso rápido..." rows="5" oninput="wc(this,'wc3',20)"></textarea>
+      <div class="wc" id="wc3">0 palavras</div>
+    </div>
+    <div class="navb"><button class="bprev" onclick="irPara(1)">← Voltar</button><button class="bnext" onclick="irPara(3)">Continuar →</button></div>
+  </div>
+
+  <!-- ETAPA 3 -->
+  <div class="sec hidden" id="sec3">
+    <div class="sec-title">💭 Motivação e informações finais</div>
+    <div class="sec-sub">Essas respostas ajudam o recrutador a entender quem você é além das experiências técnicas.</div>
+    <div class="frow">
+      <label class="fl">Por que você quer essa vaga? O que te motivou a se candidatar?</label>
+      <div class="fh">Seja sincero — autenticidade faz diferença.</div>
+      <textarea class="fi ft lg" id="motivacao" placeholder="Ex: Sempre trabalhei na área e essa vaga me chamou atenção porque combina com o que tenho de experiência. Quero crescer em uma empresa com mais estrutura..." rows="5" oninput="wc(this,'wc4',15)"></textarea>
+      <div class="wc" id="wc4">0 palavras</div>
+    </div>
+    <div class="frow">
+      <label class="fl">Tem algo mais que o recrutador deve saber?</label>
+      <div class="fh">Cursos, idiomas, disponibilidade, expectativa salarial, CNH, veículo próprio...</div>
+      <textarea class="fi ft md" id="extra" placeholder="Ex: Disponibilidade imediata. CNH B e veículo próprio. Expectativa salarial de R$ 2.500..." rows="4" oninput="wc(this,'wc5',0)"></textarea>
+      <div class="wc" id="wc5">0 palavras</div>
+    </div>
+    <div class="navb"><button class="bprev" onclick="irPara(2)">← Voltar</button><button class="bnext" onclick="irPara(4)">Continuar →</button></div>
+  </div>
+
+  <!-- ETAPA 4 -->
+  <div class="sec hidden" id="sec4">
+    <div class="sec-title">✅ Revise e envie sua candidatura</div>
+    <div class="sec-sub">Após o envio, nossa IA vai analisar seu relato comparando com os requisitos reais da vaga e gerar seu Fit Score.</div>
+    <div class="rev-box"><div class="rev-titulo">📋 Resumo do que você preencheu</div><div id="revConteudo"></div></div>
+    <div style="background:rgba(59,130,246,0.05);border:1px solid var(--border);border-radius:13px;padding:0.9rem 1.1rem;margin-bottom:0.8rem;">
+      <div style="font-size:0.77rem;color:var(--muted);line-height:1.62;">🔒 <strong style="color:var(--text);">Suas informações são privadas.</strong> Apenas os recrutadores da Agência Nexus terão acesso ao seu relato.</div>
+    </div>
+    <div class="navb"><button class="bprev" onclick="irPara(3)">← Voltar</button><button class="bnext" id="btnEnviar" onclick="enviar()">🚀 Enviar e Ver Análise</button></div>
+  </div>
+
+  <!-- TELA IA -->
+  <div id="telaIA">
+    <div class="ia-ring"></div>
+    <div class="ia-t">Analisando sua candidatura...</div>
+    <div class="ia-s" id="iaS">Iniciando</div>
+    <div class="ia-steps">
+      <div class="ia-step" id="is1"><span class="ia-sico">📝</span> Lendo seu relato profissional</div>
+      <div class="ia-step" id="is2"><span class="ia-sico">📋</span> Carregando requisitos da vaga</div>
+      <div class="ia-step" id="is3"><span class="ia-sico">🧠</span> Integrando perfil DISC</div>
+      <div class="ia-step" id="is4"><span class="ia-sico">🎯</span> Calculando compatibilidade real</div>
+      <div class="ia-step" id="is5"><span class="ia-sico">📊</span> Gerando Fit Score final</div>
+      <div class="ia-step" id="is6"><span class="ia-sico">✅</span> Finalizando análise</div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="telaRes" style="display:none;">
+    <div class="res-hero">
+      <span class="res-ck">🎉</span>
+      <div class="res-t">Pré-entrevista enviada com sucesso!</div>
+      <div class="res-s">Nossa IA analisou seu perfil comparando com os requisitos reais da vaga. Confira sua compatibilidade abaixo.</div>
+      <!-- Badge de confirmação de envio -->
+      <div id="emailConfirmBadge" style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:99px;padding:0.35rem 0.9rem;margin-top:0.6rem;font-size:0.72rem;font-weight:700;color:#2ecc71;">
+        ✅ Análise enviada para o recrutador
+      </div>
+      <div class="score-wrap">
+        <div class="score-num" id="scoreNum" style="color:var(--accent);">0%</div>
+        <div class="score-r">
+          <strong id="scoreLabel">Calculando...</strong>
+          <span id="scoreDesc">Compatibilidade com a vaga</span>
+          <div id="nivelB" class="nivel-b nl-alto" style="margin-top:0.5rem;display:none;"></div>
+        </div>
+      </div>
+      <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+      <div class="score-labs"><span>0%</span><span>50%</span><span>100%</span></div>
+      <!-- sem DISC aqui -->
+    </div>
+    <div class="analise-card">
+      <div class="a-titulo"><span>✨</span> O que a IA identificou na sua candidatura</div>
+      <div class="a-texto" id="iaTexto">Carregando...</div>
+      <div class="a-tags" id="fortesWrap"></div>
+      <div class="a-atencao" id="atencaoLista"></div>
+    </div>
+    <div class="passos-card">
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);opacity:0.85;">📌 Próximos passos</div>
+      <ul class="passos-l">
+        <li><span class="arr">→</span> Nossa equipe vai revisar sua candidatura completa (DISC + relato + análise IA)</li>
+        <li><span class="arr">→</span> Se houver compatibilidade, você será contactado por WhatsApp, e-mail ou telefone</li>
+        <li><span class="arr">→</span> Fique atento às mensagens — o contato pode vir nos próximos dias</li>
+        <li><span class="arr">→</span> Certifique-se de que seu telefone e e-mail estão corretos</li>
+      </ul>
+    </div>
+    <div class="acoes">
+      <!-- Botão fallback de email — só aparece se o envio automático falhar -->
+      <div id="emailFallbackBox" style="display:none;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.25);border-radius:14px;padding:1rem 1.2rem;margin-bottom:0.8rem;text-align:center;">
+        <div style="font-size:0.8rem;color:#e74c3c;font-weight:700;margin-bottom:0.5rem;">⚠️ O envio automático falhou</div>
+        <div style="font-size:0.73rem;color:#bbb;margin-bottom:0.8rem;line-height:1.55;">Clique abaixo para enviar sua candidatura manualmente por e-mail.</div>
+        <button onclick="abrirEmailFallback()" style="background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;border:none;border-radius:10px;padding:0.65rem 1.4rem;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;width:100%;">
+          📧 Enviar candidatura por e-mail agora
+        </button>
+      </div>
+      <button class="bnext" onclick="enviarDadosEFechar()" style="width:100%;justify-content:center;font-size:0.95rem;padding:1rem 2rem;">
+        Prosseguir com a candidatura →
+      </button>
+    </div>
+  </div>
+
+  </div><!-- /candidatePanel -->
+
+</div><!-- /mainWrap -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── PARAMS ──
+const up   = new URLSearchParams(window.location.search);
+const NOME = up.get('nome')   || 'Candidato';
+const VAGA = up.get('vaga')   || 'Não informada';
+const DOM  = (up.get('perfil') || up.get('dom') || 'D').toUpperCase();
+const SEC  = (up.get('sec')   || 'I').toUpperCase();
+const PCT  = { D:+up.get('d')||0, I:+up.get('i')||0, S:+up.get('s')||0, C:+up.get('c')||0 };
+const TEL  = up.get('tel') || '';
+
+// Supabase
+const SB  = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+
+// Estado global
+let conquistas = [];
+let vagaData   = null; // dados reais da vaga do Supabase
+
+// ── INIT ──
+document.getElementById('candPill').textContent  = `👤 ${NOME}  ·  Vaga: ${VAGA}`;
+document.getElementById('vagaLabel').textContent = `"${VAGA}"`;
+carregarDadosVaga();
+
+// ── BUSCA DADOS REAIS DA VAGA ──
+// ── BANCO LOCAL DE VAGAS — emergência se Supabase falhar ──
+// Vagas antigas mantidas só como último recurso. Novas vagas
+// vêm obrigatoriamente do Supabase (criadas no disc-admin).
+const VAGAS_LOCAL = [{"slug": "vaga-tecnico-manutencao", "titulo": "Técnico em Manutenção", "empresa": "Confidencial", "area": "Manutenção", "cidade": "Guaíba", "regime": "Efetivo", "salario": "R$ 2.200,00", "descricao": "Atuar na manutenção elétrica e mecânica de máquinas e equipamentos industriais. Realizar manutenções preventivas e corretivas, avaliando desempenho e condições dos componentes, executar lubrificação de máquinas e sistemas, substituição de rolamentos, correias e demais peças, além de reparos e trocas de componentes elétricos e eletrônicos, assegurando o pleno funcionamento dos sistemas produtivos.", "requisitos": "• Curso Técnico completo em Elétrica, Eletromecânica, Mecânica Industrial ou áreas afins • Experiência na função • Conhecimento em manutenção de equipamentos industriais • Capacidade de identificar falhas e aplicar soluções técnicas • Facilidade para trabalhar em equipe • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta: 07:30 – 17:48 • 1 hora de almoço", "beneficios": "• Vale transporte • Alimentação no local • Insalubridade 20% (R$ 324,20) • Cesta Básica • Oportunidade de crescimento interno", "ativo": true}, {"slug": "vaga-eletromecanico-manutencao", "titulo": "Eletromecânico de Manutenção", "empresa": "Confidencial", "area": "Manutenção", "cidade": "Guaíba", "regime": "Efetivo", "salario": "R$ 2.484,00", "descricao": "Atuar na manutenção preventiva e corretiva de equipamentos eletromecânicos industriais. Realizar diagnósticos de falhas elétricas e mecânicas, executar ajustes, testes e reparos em máquinas e sistemas, preencher relatórios técnicos e contribuir para a melhoria contínua dos processos de manutenção, seguindo normas de segurança e procedimentos internos.", "requisitos": "• Experiência na área de manutenção eletromecânica • Formação técnica em Eletromecânica, Eletrotécnica, Mecatrônica ou áreas correlatas • Perfil proativo, organizado e com facilidade para resolução de problemas • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta: 07:30 – 17:48 • 1 hora de almoço", "beneficios": "• Adicional de periculosidade: 30% sobre o salário (R$ 745,20) • Vale transporte • Almoço no local • Café da manhã no local • Cesta básica de qualidade • Oportunidades de crescimento interno", "ativo": true}, {"slug": "vaga-estagio-manutencao", "titulo": "Estágio Manutenção", "empresa": "Confidencial", "area": "Estágio", "cidade": "Guaíba", "regime": "Estágio", "salario": "R$ 900,00", "descricao": "Estágio em Manutenção Mecânica com foco em aprendizado e desenvolvimento técnico. Atuar dando suporte às atividades de manutenção preventiva e corretiva de máquinas e equipamentos, auxiliando na inspeção, ajustes e pequenos reparos. Apoiar na organização de peças e ferramentas, colaborar com a equipe na identificação de falhas, seguir normas de segurança e procedimentos internos.", "requisitos": "• Ensino Técnico ou Superior nas áreas de Mecânica, Eletromecânica ou Manutenção • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta: 07:30 – 16:00 • 1 hora de almoço", "beneficios": "• Vale transporte • Cesta Básica de Qualidade • Café da manhã • Crescimento • Possibilidade de efetivação", "ativo": true}, {"slug": "vaga-supervisor-producao", "titulo": "Supervisor de Produção", "empresa": "Confidencial", "area": "Produção", "cidade": "Guaíba", "regime": "CLT", "salario": "R$ 4.000,00", "descricao": "Indústria contrata Supervisor de Produção para liderar as atividades operacionais do setor, garantindo o cumprimento de metas, controle de processos e manutenção da qualidade e segurança nas operações. O profissional será responsável pela supervisão das rotinas de produção, acompanhamento de indicadores de desempenho (KPIs), orientação e desenvolvimento da equipe, implementação de melhorias contínuas, controle de qualidade e suporte técnico aos operadores. A função exige perfil de liderança, visão estratégica, boa comunicação, foco em resultados e comprometimento com a segurança e padrões de qualidade da empresa.", "requisitos": "• Formação em Engenharia de Produção ou Tecnólogo • Experiência em gestão de equipes industriais • Conhecimento em processos produtivos • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta: 07:30 - 17:48 • 1 Hora de Almoço", "beneficios": "• Vale Transporte • Insalubridade 20% (R$ 324,20) • Cesta Básica de Qualidade • Almoço no Local • Café da manhã no Local • Celular Corporativo • Bonificação por Metas", "ativo": true}, {"slug": "vaga-auxiliar-manutencao-1", "titulo": "Auxiliar de Manutenção 1º Turno", "empresa": "Confidencial", "area": "Manutenção", "cidade": "Guaíba", "regime": "CLT", "salario": "R$ 2.233,00", "descricao": "Atuação em indústria, apoiando as rotinas de manutenção mecânica e preventiva, com foco na organização, conservação e controle de ferramentas e equipamentos. O(a) profissional dará suporte às atividades corretivas, inspeções de máquinas e equipamentos, e execução de pequenos reparos sob supervisão, contribuindo para a continuidade operacional da produção. Participação nas rotinas de manutenção programada, identificação de necessidades de reposição de peças e materiais, e acompanhamento das normas de segurança e procedimentos técnicos da área. A função proporciona vivência prática no setor industrial, desenvolvimento de habilidades técnicas em manutenção mecânica e oportunidade de aprendizado contínuo em um ambiente estruturado.", "requisitos": "• Curso Técnico em Mecânica (completo ou em andamento) • Ensino Médio Completo • Experiência na área de manutenção • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta: 07:30 - 17:18 • 1 Hora de Almoço", "beneficios": "• Vale Transporte • Insalubridade 20% (R$ 324,20) • Cesta Básica • Almoço no Local • Café da manhã no Local", "ativo": true}, {"slug": "vaga-auxiliar-manutencao-2", "titulo": "Auxiliar de Manutenção 2º Turno", "empresa": "Confidencial", "area": "Manutenção", "cidade": "Guaíba", "regime": "CLT", "salario": "R$ 2.233,00", "descricao": "Atuação em indústria, apoiando as rotinas de manutenção mecânica e preventiva, com foco na organização, conservação e controle de ferramentas e equipamentos. O(a) profissional dará suporte às atividades corretivas, inspeções de máquinas e equipamentos, e execução de pequenos reparos sob supervisão, contribuindo para a continuidade operacional da produção. Participação nas rotinas de manutenção programada, identificação de necessidades de reposição de peças e materiais, e acompanhamento das normas de segurança e procedimentos técnicos da área. A função proporciona vivência prática no setor industrial, desenvolvimento de habilidades técnicas em manutenção mecânica e oportunidade de aprendizado contínuo em um ambiente estruturado.", "requisitos": "• Curso Técnico em Mecânica (completo ou em andamento) • Ensino Médio Completo • Experiência registrada na área de manutenção • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta: 17:00 - 02:08 • 1 Hora de Intervalo", "beneficios": "• Vale Transporte • Insalubridade 20% (R$ 324,20) • Adicional Noturno (R$ 41,70) • Cesta Básica", "ativo": true}, {"slug": "vaga-estagio-comercio-exterior", "titulo": "Estagiário(a) de Comércio Exterior", "empresa": "Confidencial", "area": "Comércio Exterior", "cidade": "Guaíba", "regime": "Estágio", "salario": "R$ 1.800,00", "descricao": "Excelente oportunidade para estudantes interessados em aprender e desenvolver habilidades práticas na área de Comércio Exterior e Compras. O(a) estagiário(a) atuará no suporte às rotinas do departamento, contribuindo com a pesquisa de partes, peças e componentes eletrônicos, apoio em cotações e levantamentos junto a fornecedores, organização e controle de registros relacionados às aquisições, além da manutenção das rotinas administrativas da área de compras e suprimentos. O estágio proporciona acompanhamento das atividades junto à equipe, garantindo aprendizado prático, desenvolvimento profissional e vivência no dia a dia do setor. Buscamos estudantes organizados, comunicativos, responsáveis e com facilidade para trabalhar em equipe. Proatividade, disciplina e vontade de aprender serão considerados diferenciais.", "requisitos": "• Cursando Ensino Superior em Comércio Exterior, Relações Internacionais, Administração, Engenharia de Produção ou Logística • Boa comunicação, organização e interesse pela área de Comércio Exterior • Conhecimento da língua chinesa será considerado diferencial • Vaga destinada a moradores de Guaíba", "horario": "• Segunda a Sexta – 09:00 - 16:00 • 1 Hora de Almoço", "beneficios": "• Vale transporte • Vale alimentação R$ 32/dia (R$704,00)", "ativo": true}, {"slug": "vaga-estagio-contabilidade", "titulo": "Estagiário(a) Contabilidade", "empresa": "Confidencial", "area": "Contabilidade", "cidade": "Guaíba", "regime": "Estágio", "salario": "R$ 1.700,00", "descricao": "Excelente oportunidade para estudantes de Ciências Contábeis que desejam desenvolver habilidades práticas na área financeira e contábil. O estagiário(a) atuará no apoio às rotinas do setor, contribuindo com a organização, controle e conferência de informações e documentos fiscais e financeiros da empresa, incluindo lançamento de informações e pedidos em sistema, organização de documentos, conferência de dados, suporte aos controles internos, auxílio em contas a pagar e acompanhamento das demandas do setor. O estágio proporciona vivência prática dos processos administrativos e contábeis, permitindo aprendizado e desenvolvimento profissional em um ambiente colaborativo. Buscamos estudantes organizados, responsáveis, com boa comunicação, atenção aos detalhes e facilidade para trabalho em equipe. Proatividade, disciplina e vontade de aprender serão considerados diferenciais.", "requisitos": "• Cursando Contabilidade (a partir do 5º semestre) • Interesse em atuar e aprender rotinas financeiras e contábeis • Perfil organizado e responsável • Boa comunicação e facilidade para trabalhar em equipe • Atenção a detalhes • Proatividade e disciplina (diferenciais) • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta – 09:00 - 16:00 • 1 Hora de Almoço", "beneficios": "• Vale alimentação R$ 32/dia (R$704,00) • Vale transporte", "ativo": true}, {"slug": "vaga-auxiliar-contabil-fiscal", "titulo": "Auxiliar Contábil", "empresa": "Confidencial", "area": "Administrativo", "cidade": "Guaíba", "regime": "CLT", "salario": "R$ 2.150,00", "descricao": "Atuação na área contábil e fiscal com execução de atividades de nível auxiliar, incluindo apuração de Simples Nacional e Lucro Presumido, lançamento de notas fiscais de entrada e saída, conciliação de contas, escrituração fiscal, auxílio na elaboração de obrigações acessórias e organização de documentos contábeis. Ambiente profissional com oportunidade de desenvolvimento na área.", "requisitos": "• Vaga destinada ao público feminino • Cursando Técnico em Contabilidade ou Ciências Contábeis • Mínimo 1 ano de experiência na área contábil/fiscal • Conhecimento em apuração de Simples Nacional e Lucro Presumido • Experiência com lançamento de notas fiscais • Organização e atenção aos detalhes • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta • 1 hora de almoço", "beneficios": "• Vale Transporte • Vale Alimentação (R$ 300,00) • Plano de Saúde", "ativo": true}, {"slug": "vaga-auxiliar-rh-dp", "titulo": "Auxiliar de RH/DP", "empresa": "Confidencial", "area": "Administrativo", "cidade": "Guaíba", "regime": "CLT", "salario": "R$ 2.150,00", "descricao": "Atuação na área de Recursos Humanos e Departamento Pessoal em escritório de contabilidade, com execução de atividades de nível auxiliar. Ambiente profissional com oportunidade de desenvolvimento na área. As atividades incluem processamento e conferência de folha de pagamento, cálculo de encargos trabalhistas como INSS, FGTS e IRRF, envio de obrigações acessórias como eSocial, DCTFWeb, SEFIP e RAIS quando aplicável, admissões, demissões e rescisões de contrato, cálculo de férias, 13º salário e afastamentos, controle de ponto e banco de horas, emissão de guias trabalhistas, atendimento a clientes para orientação sobre legislação trabalhista, organização e conferência de documentação de colaboradores, apoio em processos de auditoria trabalhista e controle de benefícios, incluindo vale-transporte, vale-alimentação e plano de saúde.", "requisitos": "• Vaga destinada ao público feminino • Ensino Técnico em RH/DP concluído ou Superior em Administração, Gestão de RH ou áreas afins cursando • Mínimo 1 ano de experiência na área de RH/DP • Conhecimento em folha de pagamento e encargos trabalhistas • Familiaridade com eSocial, DCTFWeb e demais obrigações acessórias • Conhecimento em encargos trabalhistas: INSS, FGTS, IRRF e contribuições sindicais • Experiência com admissões, demissões, férias, controle de ponto e benefícios • Conhecimento atualizado da legislação trabalhista • Domínio do Pacote Office (principalmente Excel) • Organização e atenção aos detalhes • Vaga destinada a moradores de Guaíba • Fácil acesso à empresa", "horario": "• Segunda a Sexta • 1 hora de almoço", "beneficios": "• Vale Transporte • Vale Alimentação (R$ 300,00) • Plano de Saúde", "ativo": true}];
+
+function normTxt(s) {
+  return (s||'').toLowerCase()
+    .replace(/1[\u00ba\u00aa\u00b0]/g,'1o').replace(/2[\u00ba\u00aa\u00b0]/g,'2o').replace(/3[\u00ba\u00aa\u00b0]/g,'3o')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[()]/g,'').replace(/[^a-z0-9\s]/g,' ')
+    .replace(/\s+/g,' ').trim();
+}
+
+async function carregarDadosVaga() {
+  const card  = document.getElementById('vagaInfoCard');
+  const badge = document.getElementById('vagaFetchBadge');
+  card.style.display = 'flex';
+  document.getElementById('vagaInfoTitulo').textContent = VAGA;
+
+  // 1. Supabase — busca exata pelo título
+  try {
+    const res = await fetch(
+      `${SB}/rest/v1/vagas?titulo=eq.${encodeURIComponent(VAGA)}&select=titulo,icone,empresa,cidade,area,salario,regime,descricao,requisitos,beneficios,horario,escolaridade,exp_minima,esc_minima&limit=1`,
+      { headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY } }
+    );
+    const arr = await res.json();
+    if (Array.isArray(arr) && arr.length > 0) {
+      vagaData = arr[0];
+      exibirVagaInfo(vagaData, badge);
+      return;
+    }
+  } catch(e) {}
+
+  // 2. Supabase — busca flexível ilike (cobre variações de acento/espaço)
+  try {
+    const palavras = VAGA.split(' ').filter(w=>w.length>2).slice(0,3).join('%');
+    const res2 = await fetch(
+      `${SB}/rest/v1/vagas?titulo=ilike.*${encodeURIComponent(palavras)}*&select=titulo,icone,empresa,cidade,area,salario,regime,descricao,requisitos,beneficios,horario,escolaridade,exp_minima,esc_minima&limit=1`,
+      { headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY } }
+    );
+    const arr2 = await res2.json();
+    if (Array.isArray(arr2) && arr2.length > 0) {
+      vagaData = arr2[0];
+      exibirVagaInfo(vagaData, badge);
+      return;
+    }
+  } catch(e) {}
+
+  // 3. VAGAS_LOCAL — último recurso emergencial (vagas antigas)
+  const vagaNorm = normTxt(VAGA);
+  let match = VAGAS_LOCAL.find(v => normTxt(v.titulo) === vagaNorm);
+  if (!match) match = VAGAS_LOCAL.find(v => {
+    const vn = normTxt(v.titulo);
+    return vn.includes(vagaNorm) || vagaNorm.includes(vn);
+  });
+  if (!match) {
+    const ws = vagaNorm.split(' ').filter(w=>w.length>2);
+    match = VAGAS_LOCAL.reduce((best, v) => {
+      const vn = normTxt(v.titulo);
+      const hits = ws.filter(w=>vn.includes(w)).length;
+      return hits > best.hits ? {v, hits} : best;
+    }, {v:null,hits:0}).v;
+  }
+  if (match) {
+    vagaData = match;
+    exibirVagaInfo(match, badge);
+  } else {
+    badge.textContent = '⚠️ Vaga não localizada';
+    badge.className = 'vaga-badge';
+  }
+}
+
+function exibirVagaInfo(v, badge) {
+  document.getElementById('vagaInfoIco').textContent    = v.icone || '\uD83D\uDCBC';
+  document.getElementById('vagaInfoTitulo').textContent = v.titulo || VAGA;
+  const meta = [v.empresa, v.cidade, v.area, v.salario, v.regime].filter(Boolean).join(' \u00b7 ');
+  document.getElementById('vagaInfoMeta').textContent   = meta;
+
+  // Monta HTML formatado: descrição justificada + requisitos em bullets
+  const reqEl = document.getElementById('vagaInfoReq');
+  let html = '';
+
+  if (v.descricao) {
+    html += `<div class="vaga-desc-bloco">${v.descricao.replace(/\n/g,'<br>')}</div>`;
+  }
+
+  if (v.requisitos) {
+    // Separa por • ou \n e transforma em lista
+    const itens = v.requisitos
+      .split(/[•\n]+/)
+      .map(s => s.trim())
+      .filter(Boolean);
+    if (itens.length > 1) {
+      html += `<div class="vaga-req-titulo">📌 Requisitos</div>`;
+      html += `<ul class="vaga-req-lista">${itens.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    } else {
+      html += `<div class="vaga-desc-bloco">${v.requisitos}</div>`;
+    }
+  }
+
+  if (html) {
+    reqEl.innerHTML = html;
+    document.getElementById('vagaToggle').style.display = 'inline-block';
+  }
+
+  badge.textContent = '\u2705 Requisitos carregados';
+  badge.className   = 'vaga-badge ok';
+}
+
+function toggleReq() {
+  const el  = document.getElementById('vagaInfoReq');
+  const btn = document.getElementById('vagaToggle');
+  const exp = el.classList.toggle('expanded');
+  btn.textContent = exp ? 'Ver menos' : 'Ver mais';
+}
+
+// ── NAVEGAÇÃO ──
+function irPara(n) {
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById(`sec${i}`).classList.add('hidden');
+    const et = document.getElementById(`etapa${i}`);
+    et.classList.remove('ativa','done');
+    if (i < n) et.classList.add('done');
+  }
+  const sec = document.getElementById(`sec${n}`);
+  sec.classList.remove('hidden');
+  sec.style.animationName = 'none';
+  requestAnimationFrame(() => { sec.style.animationName = ''; });
+  document.getElementById(`etapa${n}`).classList.add('ativa');
+  if (n === 4) gerarResumo();
+  // scroll removido — não sobe ao topo
+}
+
+// ── CONTADOR DE PALAVRAS ──
+function wc(el, destId, minP) {
+  const words = el.value.trim().split(/\s+/).filter(w => w.length > 0);
+  const n = words.length;
+  const dest = document.getElementById(destId);
+  if (minP > 0) {
+    dest.textContent = n >= minP ? `${n} palavras ✓ Ótimo!` : `${n} palavras — escreva pelo menos ${minP} para uma análise completa`;
+    dest.className = 'wc' + (n >= minP ? ' ok' : '');
+  } else {
+    dest.textContent = `${n} palavras`;
+  }
+}
+
+// ── CONQUISTAS ──
+function addConq() {
+  const inp = document.getElementById('conquInput');
+  const v = inp.value.trim();
+  if (!v) return;
+  if (conquistas.length >= 10) { toast('Máximo de 10 conquistas!','erro'); return; }
+  conquistas.push(v);
+  renderConq();
+  inp.value = '';
+  inp.focus();
+}
+function rmConq(i) { conquistas.splice(i, 1); renderConq(); }
+function renderConq() {
+  const el = document.getElementById('conquTags');
+  if (!conquistas.length) { el.innerHTML = '<span style="font-size:0.72rem;color:var(--muted2);">Suas conquistas aparecem aqui...</span>'; return; }
+  el.innerHTML = conquistas.map((c,i) => `<div class="titem">🏆 ${c} <button class="tdel" onclick="rmConq(${i})">×</button></div>`).join('');
+}
+
+// ── RESUMO ──
+function gerarResumo() {
+  const hist  = document.getElementById('historia').value.trim();
+  const area  = document.getElementById('area').value;
+  const exp   = document.getElementById('expTotal').value;
+  const expV  = document.getElementById('expVaga').value.trim();
+  const dif   = document.getElementById('diferencial').value.trim();
+  const mot   = document.getElementById('motivacao').value.trim();
+  const extra = document.getElementById('extra').value.trim();
+  const t = (s, max) => s.length > max ? s.slice(0, max) + '...' : s;
+  const lin = (lbl, v) => v ? `<div class="rev-lin"><strong>${lbl}</strong> ${t(v, 200)}</div>` : '';
+  let html = '';
+  html += lin('Trajetória:', hist);
+  if (area) html += lin('Área:', area);
+  if (exp)  html += lin('Experiência total:', exp);
+  if (expV) html += lin('Exp. com a vaga:', expV);
+  if (conquistas.length) html += lin('Conquistas:', conquistas.join(' · '));
+  html += lin('Diferencial:', dif);
+  html += lin('Motivação:', mot);
+  html += lin('Extras:', extra);
+  const wN = hist.split(/\s+/).filter(w => w.length > 0).length;
+  if (!html) html = '<span style="font-size:0.79rem;color:var(--muted2);">Nenhuma informação preenchida ainda.</span>';
+  else html += `<div style="margin-top:0.75rem;font-size:0.72rem;color:var(--accent);font-weight:700;">📊 ${wN} palavras no relato · ${conquistas.length} conquista${conquistas.length !== 1 ? 's' : ''}</div>`;
+  document.getElementById('revConteudo').innerHTML = html;
+}
+
+// ── ANIMAR PASSOS ──
+function animarPassos() {
+  const ids = ['is1','is2','is3','is4','is5','is6'];
+  const labels = [
+    'Lendo seu relato profissional...',
+    'Carregando requisitos reais da vaga...',
+    'Integrando perfil comportamental DISC...',
+    'Calculando compatibilidade com a vaga...',
+    'Gerando Fit Score final...',
+    'Finalizando análise completa...',
+  ];
+  let i = 0;
+  function prox() {
+    if (i > 0) document.getElementById(ids[i-1]).className = 'ia-step feito';
+    if (i < ids.length) {
+      document.getElementById(ids[i]).className = 'ia-step ativo';
+      document.getElementById('iaS').textContent = labels[i];
+      i++;
+      setTimeout(prox, 280 + Math.random() * 120);
+    }
+  }
+  prox();
+}
+
+// -- FIT LOCAL --
+function calcularFitLocal(dados, vd) {
+  const hist  = (dados.entrevista.historia    ||'').toLowerCase();
+  const expV  = (dados.entrevista.exp_vaga    ||'').toLowerCase();
+  const dife  = (dados.entrevista.diferencial ||'').toLowerCase();
+  const motiv = (dados.entrevista.motivacao   ||'').toLowerCase();
+  const area  = (dados.entrevista.area        ||'').toLowerCase();
+  const conq  = dados.entrevista.conquistas   || [];
+  const tudo  = hist+' '+expV+' '+dife+' '+motiv;
+  const reqTxt = vd ? (vd.requisitos||'')+(vd.descricao||'') : '';
+  const stop = new Set(['de','em','e','o','a','os','as','um','uma','para','com','na','no','ou','que','da','do','das','dos','se','ao','por','mais','sua','seu','ser','ter','voce','para','sobre','entre','pela','pelo']);
+
+  // ── MELHORIA 2: Palavras técnicas têm peso duplo ──
+  // Siglas, certificações e termos técnicos curtos valem 2x
+  const ehTecnica = w => /^[a-z]{2,6}$/.test(w) && (
+    /^\d/.test(w) ||                              // começa com número: nr10, iso9001
+    /^(nr|iso|clt|cipa|ppra|pcmso|cnpj|cnh|erp|sap|crm|sql|php|css|cfc|crc|crea|cfq)/.test(w) ||
+    w.length <= 4                                 // siglas curtas: excel, word, totvs
+  );
+
+  const allWords = [...new Set(reqTxt.toLowerCase().split(/\W+/).filter(w => w.length > 2 && !stop.has(w)))].slice(0, 40);
+  const matched     = allWords.filter(w => tudo.includes(w));
+  const matchedTec  = matched.filter(ehTecnica);
+  const totalPeso   = allWords.reduce((s, w) => s + (ehTecnica(w) ? 2 : 1), 0) || 1;
+  const matchPeso   = matched.reduce((s, w) => s + (ehTecnica(w) ? 2 : 1), 0);
+  const coverage    = Math.round((matchPeso / totalPeso) * 100);
+
+  const wc       = hist.split(/\s+/).filter(w => w.length > 0).length;
+  const temNum   = /\d+/.test(hist);
+  const temVerbo = /(trabalhei|atuei|realizei|coordenei|gerenciei|desenvolvi|reduzi|aumentei|atingi|fiz|fazia|servia|atendia|operava|manutencionava|produzia|controlava|inspecionava|implantei|liderei|treinei|negociei|captei|vendi|instalei|mantive|operei)/i.test(hist);
+
+  let bonus = 0;
+  let penalty = 0;
+  const notasBonus = [];
+  const notasPenalty = [];
+
+  // ── Qualidade do relato ──
+  if(wc >= 120) bonus += 15; else if(wc >= 80) bonus += 10; else if(wc >= 50) bonus += 5;
+  if(temNum)   bonus += 12;
+  if(temVerbo) bonus += 10;
+  if(expV.length > 30) bonus += 8;
+
+  // ── MELHORIA 3: Penalizar motivação genérica ──
+  const motivGenerico = /^.{0,25}$/.test(motiv.trim()) ||
+    /(crescimento|equipe|aprender|oportunidade|desafio|vontade de crescer|quero trabalhar|gosto de trabalhar|busco)/i.test(motiv) && motiv.trim().split(/\s+/).length < 15;
+  if(motiv.length > 20 && !motivGenerico) {
+    bonus += 5;
+    notasBonus.push('Motivação específica e personalizada');
+  } else if(motiv.length > 0 && motivGenerico) {
+    // não dá bônus, mas não penaliza
+  }
+
+  // ── MELHORIA 4: Conquistas escalonadas ──
+  if(conq.length >= 5)      { bonus += 15; notasBonus.push(conq.length+' conquistas profissionais documentadas'); }
+  else if(conq.length >= 3) { bonus += 10; notasBonus.push(conq.length+' conquistas profissionais'); }
+  else if(conq.length >= 1) { bonus += 5;  notasBonus.push('Conquistas profissionais registradas'); }
+
+  // ── MELHORIA 1: Escolaridade mínima (esc_minima da vaga) ──
+  const escOrdem = {'fundamental':1,'medio':2,'tecnico':3,'superior':4,'pos':5,'mestrado':6,'doutorado':7};
+  function escParaNivel(txt) {
+    if(!txt) return 0;
+    const t = txt.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if(t.includes('doutorado')) return 7;
+    if(t.includes('mestrado'))  return 6;
+    if(t.includes('pos') || t.includes('especializacao')) return 5;
+    if(t.includes('superior') || t.includes('graduacao') || t.includes('faculdade')) return 4;
+    if(t.includes('tecnico') || t.includes('tecnico')) return 3;
+    if(t.includes('medio') || t.includes('2o grau')) return 2;
+    if(t.includes('fundamental') || t.includes('1o grau')) return 1;
+    return 0;
+  }
+  const escMinVaga  = escParaNivel(vd?.esc_minima || '');
+  const escCandidato = escParaNivel(dados.candidato?.escolaridade || '');
+  let escBonus = 0, escLabel = '';
+  if(escMinVaga > 0) {
+    if(escCandidato >= escMinVaga)        { escBonus = 12; escLabel = 'Escolaridade atende ou supera o exigido'; }
+    else if(escCandidato === escMinVaga-1){ escBonus = 4;  escLabel = 'Escolaridade um nível abaixo do exigido'; }
+    else if(escCandidato > 0)             { escBonus = 0;  escLabel = 'Escolaridade abaixo do mínimo exigido'; notasPenalty.push(escLabel); }
+    else                                  { escBonus = 0;  escLabel = 'Escolaridade não informada'; }
+  }
+  bonus += escBonus;
+  if(escBonus > 0) notasBonus.push(escLabel);
+
+  // ── MELHORIA (anterior): Experiência mínima (exp_minima da vaga) ──
+  function expParaMeses(txt) {
+    if(!txt) return 0;
+    const t = txt.toLowerCase().trim();
+    if(t.includes('sem experiencia')||t.includes('primeiro emprego')||t.includes('sem exp')) return 0;
+    if(t.includes('6 meses')||t.includes('menos de 1')) return 6;
+    if(t.includes('1 a 2')||t.includes('1 ano')) return 12;
+    if(t.includes('2 a 5')||t.includes('2 anos')) return 24;
+    if(t.includes('3 anos')) return 36;
+    if(t.includes('5 a 10')||t.includes('5 anos')) return 60;
+    if(t.includes('mais de 10')||t.includes('10 anos')) return 120;
+    return 0;
+  }
+  const expMinVaga   = expParaMeses(vd?.exp_minima || '');
+  const expCandidato = expParaMeses(dados.entrevista.exp_total || '');
+  let expBonus = 0, expLabel = '';
+  if(expMinVaga > 0) {
+    if(expCandidato >= expMinVaga)      { expBonus = 15; expLabel = 'Experiência atende o mínimo exigido'; notasBonus.push(expLabel); }
+    else if(expCandidato > 0)           { expBonus = 7;  expLabel = 'Experiência abaixo do mínimo exigido'; notasPenalty.push(expLabel); }
+    else                                { expBonus = 0;  expLabel = 'Sem experiência para vaga que exige mínimo'; notasPenalty.push(expLabel); }
+  } else if(expCandidato > 0)           { expBonus = 8;  expLabel = 'Possui experiência prévia'; notasBonus.push(expLabel); }
+  bonus += expBonus;
+
+  // ── MELHORIA 5: Penalizar incompatibilidade de área ──
+  let areaBonus = 0, areaPenalty = 0, areaLabel = '';
+  const areaVaga = (vd?.area || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const areaCand = area.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  if(areaVaga && areaCand) {
+    // Grupos de áreas compatíveis
+    const grupos = [
+      ['manutencao','mecanica','eletrica','industrial','producao','operacao','tecnico'],
+      ['administrativo','financeiro','contabil','rh','recursos humanos','dp','pessoal'],
+      ['vendas','comercial','atendimento','relacionamento','cliente','televendas'],
+      ['ti','tecnologia','sistema','desenvolvimento','programacao','suporte','informatica'],
+      ['logistica','estoque','almoxarife','transporte','motorista','entrega'],
+      ['saude','enfermagem','farmacia','medico','hospitalar','clinica'],
+      ['educacao','professor','pedagogia','ensino','escola','treinamento'],
+      ['construcao','civil','obra','pedreiro','engenharia','arquitetura'],
+      ['cozinha','gastronomia','alimentacao','cozinheiro','confeitaria'],
+    ];
+    const grupoVaga = grupos.find(g => g.some(k => areaVaga.includes(k)));
+    const grupoCand = grupos.find(g => g.some(k => areaCand.includes(k)));
+    if(grupoVaga && grupoCand) {
+      if(grupoVaga === grupoCand) {
+        areaBonus = 10; areaLabel = 'Área de atuação alinhada com a vaga';
+        notasBonus.push(areaLabel);
+      } else {
+        areaPenalty = 10; areaLabel = 'Área de atuação diferente da vaga';
+        notasPenalty.push(areaLabel);
+      }
+    }
+  }
+  bonus  += areaBonus;
+  penalty += areaPenalty;
+
+  // ── ITEM 5: Certificações e CNH ──
+  // Detecta se a vaga exige algo específico e o candidato menciona no relato
+  const certifs = [
+    { sigla: /\bcnh\s*[abcde]\b/i,          label: 'CNH'            },
+    { sigla: /\bcnh\b/i,                     label: 'CNH'            },
+    { sigla: /\bnr[-\s]?10\b/i,              label: 'NR-10'          },
+    { sigla: /\bnr[-\s]?35\b/i,              label: 'NR-35'          },
+    { sigla: /\bnr[-\s]?12\b/i,              label: 'NR-12'          },
+    { sigla: /\bnr[-\s]?6\b/i,               label: 'NR-6'           },
+    { sigla: /\bnr[-\s]?33\b/i,              label: 'NR-33'          },
+    { sigla: /\bcipa\b/i,                    label: 'CIPA'           },
+    { sigla: /\biso\s*9001\b/i,              label: 'ISO 9001'       },
+    { sigla: /\biso\s*14001\b/i,             label: 'ISO 14001'      },
+    { sigla: /\bppra\b|\bpcmso\b/i,          label: 'PPRA/PCMSO'     },
+    { sigla: /\binsalubridade\b/i,           label: 'Insalubridade'  },
+    { sigla: /\bpowerbi\b|power\s*bi/i,      label: 'Power BI'       },
+    { sigla: /\bexcel\s*(avan|interm)/i,     label: 'Excel avançado' },
+    { sigla: /\bsap\b/i,                     label: 'SAP'            },
+    { sigla: /\btotvs\b/i,                   label: 'TOTVS'          },
+    { sigla: /\bcrc\b/i,                     label: 'CRC'            },
+    { sigla: /\bcrea\b/i,                    label: 'CREA'           },
+    { sigla: /\bcfq\b/i,                     label: 'CFQ'            },
+    { sigla: /\bhabilitac/i,                 label: 'Habilitação'    },
+  ];
+  const certifReq  = certifs.filter(c => c.sigla.test(reqTxt));   // exigidas pela vaga
+  const certifCand = certifReq.filter(c => c.sigla.test(tudo));   // que o candidato tem
+  const certifFalta = certifReq.filter(c => !c.sigla.test(tudo)); // que o candidato não tem
+  if(certifCand.length > 0) {
+    const pts = Math.min(certifCand.length * 4, 12); // até +12 pts
+    bonus += pts;
+    notasBonus.push('Certificação(ões) exigida(s) confirmada(s): '+certifCand.map(c=>c.label).join(', '));
+  }
+  if(certifFalta.length > 0) {
+    const pts = Math.min(certifFalta.length * 3, 9); // até -9 pts
+    penalty += pts;
+    notasPenalty.push('Certificação(ões) não mencionada(s): '+certifFalta.map(c=>c.label).join(', '));
+  }
+
+  // ── ITEM 6: Estabilidade — tempo na mesma empresa ──
+  // Detecta menção a períodos longos no relato (3+ anos = estabilidade)
+  const tempoLongo = [
+    /\b([3-9]|\d{2,})\s*anos?\b/i,                          // "3 anos", "5 anos", "12 anos"
+    /\b(tres|quatro|cinco|seis|sete|oito|nove|dez)\s*anos?\b/i, // por extenso
+    /\bdesde\s*(19|20)\d{2}\b/i,                             // "desde 2018"
+    /\b(decada|longa\s*trajetoria|muitos\s*anos)\b/i,
+  ];
+  const temEstabilidade = tempoLongo.some(rx => rx.test(hist));
+  // Garante que não é referência a "3 anos de estudo" ou similar
+  const contextoEmpresa = /(empresa|emprego|cargo|funcao|trabalh|firma|industria|fabrica|loja|hospital|escola)/i.test(hist);
+  if(temEstabilidade && contextoEmpresa) {
+    bonus += 8;
+    notasBonus.push('Demonstra estabilidade — histórico de longa permanência');
+  }
+
+  // ── ITEM 7: Cargo de liderança pontuado separadamente ──
+  const liderancaForte = /(coordenei|gerenciei|supervisionei|liderei|dirigi|chefia|gestao de equipe|respondia por|respondia pela equipe|liderava|coordenava|gerenciava|supervisionava)/i.test(hist+' '+expV);
+  const liderancaMedia = /(treinei|orientei|auxiliei na gestao|apoio de equipe|lider de turno|encarregado|responsavel pela equipe)/i.test(hist+' '+expV);
+  if(liderancaForte) {
+    bonus += 10;
+    notasBonus.push('Experiência comprovada em liderança de equipes');
+  } else if(liderancaMedia) {
+    bonus += 5;
+    notasBonus.push('Experiência em suporte de liderança ou coordenação');
+  }
+
+  // ── Penalidade por relato curto ──
+  if(wc < 30) penalty += 30; else if(wc < 50) penalty += 15;
+
+  const score = Math.max(10, Math.min(96, coverage + bonus - penalty));
+  const nivel = score >= 80 ? 'Excelente' : score >= 65 ? 'Alto' : score >= 45 ? 'Medio' : 'Baixo';
+
+  const reqAtend = matched.filter(w => !ehTecnica(w)).slice(0,3).map(w => w[0].toUpperCase()+w.slice(1))
+    .concat(matchedTec.slice(0,3).map(w => w.toUpperCase()));
+  const reqAus = allWords.filter(w => !matched.includes(w)).slice(0,4).map(w => w[0].toUpperCase()+w.slice(1));
+
+  const fortes = [];
+  if(temVerbo && wc >= 50) fortes.push('Relato com descrição clara das responsabilidades');
+  if(temNum)               fortes.push('Apresentou dados e resultados concretos');
+  if(expV.length > 30)     fortes.push('Experiência específica alinhada à vaga');
+  if(liderancaForte||liderancaMedia) fortes.push(...notasBonus.filter(n=>n.includes('liderança')));
+  if(temEstabilidade&&contextoEmpresa) fortes.push(...notasBonus.filter(n=>n.includes('estabilidade')));
+  if(certifCand.length>0)  fortes.push(...notasBonus.filter(n=>n.includes('Certificação')));
+  fortes.push(...notasBonus.filter(n=>!n.includes('liderança')&&!n.includes('estabilidade')&&!n.includes('Certificação')).slice(0,2));
+  if(!fortes.length)       fortes.push('Candidato com interesse demonstrado');
+
+  const atencao = [];
+  if(wc < 60)    atencao.push('Detalhar melhor as experiências na entrevista');
+  if(!temNum)    atencao.push('Incluir números e metas concretos');
+  if(certifFalta.length>0) atencao.push(...notasPenalty.filter(n=>n.includes('Certificação')));
+  atencao.push(...notasPenalty.filter(n=>!n.includes('Certificação')).slice(0,2));
+  if(!atencao.length) atencao.push('Confirmar disponibilidade e expectativa salarial');
+
+  const certifAdmin  = certifCand.length  ? ' Certif.confirmadas: '+certifCand.map(c=>c.label).join(',')+'. ' : '';
+  const certifFAdmin = certifFalta.length ? ' Certif.ausentes: '+certifFalta.map(c=>c.label).join(',')+'. ' : '';
+  const liderAdmin   = liderancaForte ? ' Liderança: comprovada. ' : liderancaMedia ? ' Liderança: suporte. ' : '';
+  const estabAdmin   = temEstabilidade&&contextoEmpresa ? ' Estabilidade: sim. ' : '';
+  const expAdmin  = vd?.exp_minima ? ' Exp.mín: '+vd.exp_minima+' | Candidato: '+(dados.entrevista.exp_total||'não inf.')+'. ' : '';
+  const escAdmin  = vd?.esc_minima ? ' Esc.mín: '+vd.esc_minima+'. ' : '';
+  const areaAdmin = areaLabel ? ' Área: '+areaLabel+'. ' : '';
+
+  const resumo = score >= 65
+    ? 'Perfil com compatibilidade '+nivel.toLowerCase()+' para '+vt+'. '+(temNum?'Demonstrou orientação a resultados. ':'')+notasBonus.slice(0,2).join('. ')+'.'
+    : 'Perfil com compatibilidade '+nivel.toLowerCase()+' com '+vt+'. '+(wc<50?'O relato pode ser enriquecido. ':'')+notasPenalty.slice(0,2).join('. ')+'.';
+
+  return {
+    fit_score: score,
+    nivel,
+    resumo_candidato: resumo,
+    pontos_fortes:    fortes.slice(0, 4),
+    pontos_atencao:   atencao.slice(0, 3),
+    recomendacao_admin: 'Compatibilidade '+nivel.toLowerCase()+' ('+score+'%). '+(reqAtend.length?'Alinhado em: '+reqAtend.join(', ')+'. ':'')+expAdmin+escAdmin+areaAdmin+certifAdmin+certifFAdmin+liderAdmin+estabAdmin+(score>=65?'Recomendar entrevista.':'Avaliar criteriosamente.'),
+    resumo_admin: 'Fit:'+score+'% | DISC:'+DOM+'+'+SEC+' D:'+PCT.D+'% I:'+PCT.I+'% S:'+PCT.S+'% C:'+PCT.C+'%. '+expAdmin+escAdmin+areaAdmin+certifAdmin+certifFAdmin+liderAdmin+estabAdmin+(reqAtend.length?'Req.atendidos: '+reqAtend.join(', ')+'. ':'')+( reqAus.length?'Lacunas: '+reqAus.join(', ')+'.':''),
+    requisitos_atendidos: reqAtend,
+    requisitos_ausentes:  reqAus,
+  };
+}
+
+// ── ENVIAR ──
+async function enviar() {
+  const dados = coletarDados();
+  if (dados.entrevista.historia.length < 50) {
+    toast('Preencha sua trajetória antes de enviar!','erro');
+    irPara(1);
+    return;
+  }
+
+  document.getElementById('sec4').classList.add('hidden');
+  document.getElementById('telaIA').style.display = 'block';
+  animarPassos();
+  // scroll removido — não sobe ao topo
+
+  // Monta contexto real da vaga para o prompt
+  let contextoVaga = `TÍTULO DA VAGA: ${VAGA}`;
+  if (vagaData) {
+    if (vagaData.descricao) contextoVaga += `\n\nDESCRIÇÃO DA VAGA:\n${vagaData.descricao}`;
+    if (vagaData.requisitos) contextoVaga += `\n\nREQUISITOS DA VAGA:\n${vagaData.requisitos}`;
+    if (vagaData.beneficios) contextoVaga += `\n\nBENEFÍCIOS:\n${vagaData.beneficios}`;
+    if (vagaData.area)  contextoVaga += `\n\nÁREA: ${vagaData.area}`;
+    if (vagaData.regime) contextoVaga += ` | REGIME: ${vagaData.regime}`;
+    if (vagaData.nivel) contextoVaga += ` | NÍVEL: ${vagaData.nivel}`;
+  }
+
+  const prompt = `Você é um recrutador sênior especialista da Agência Nexus.
+Analise a candidatura abaixo comparando o relato do candidato com os requisitos REAIS da vaga.
+Retorne SOMENTE um objeto JSON válido, sem markdown, sem texto fora do JSON.
+
+${contextoVaga}
+
+PERFIL DISC DO CANDIDATO:
+Dominante: ${DOM} | Secundário: ${SEC}
+D:${PCT.D}% I:${PCT.I}% S:${PCT.S}% C:${PCT.C}%
+
+RELATO LIVRE DO CANDIDATO:
+${dados.entrevista.historia}
+
+EXPERIÊNCIA ESPECÍFICA COM A VAGA:
+${dados.entrevista.exp_vaga || 'Não informado'}
+
+ÁREA: ${dados.entrevista.area || 'Não informado'} | TEMPO TOTAL: ${dados.entrevista.exp_total || 'Não informado'}
+
+CONQUISTAS:
+${dados.entrevista.conquistas.join(' | ') || 'Não informado'}
+
+DIFERENCIAL:
+${dados.entrevista.diferencial || 'Não informado'}
+
+MOTIVAÇÃO:
+${dados.entrevista.motivacao || 'Não informado'}
+
+INFORMAÇÕES EXTRAS:
+${dados.entrevista.extra || 'Não informado'}
+
+INSTRUÇÕES PARA O FIT SCORE:
+- Compare DIRETAMENTE o relato do candidato com os requisitos da vaga acima
+- O fit_score deve refletir o quanto o candidato atende os requisitos REAIS da vaga (0-100)
+- Considere também o alinhamento do perfil DISC com o tipo de função
+- Seja honesto: se o candidato não tem os requisitos, o score deve ser baixo
+- Se os dados da vaga não foram fornecidos, baseie-se no título e no relato
+
+Retorne APENAS este JSON:
+{
+  "fit_score": <inteiro 0-100>,
+  "nivel": "<Baixo|Médio|Alto|Excelente>",
+  "resumo_candidato": "<3-5 frases sobre o perfil e adequação à vaga. Use linguagem positiva e direta.>",
+  "pontos_fortes": ["<ponto 1>","<ponto 2>","<ponto 3>"],
+  "pontos_atencao": ["<ponto 1 para focar na entrevista>","<ponto 2>"],
+  "recomendacao_admin": "<1-2 frases objetivas: avançar ou não e por quê. Cite requisitos atendidos e lacunas.>",
+  "resumo_admin": "<5-7 frases para o recrutador com análise detalhada: quais requisitos da vaga o candidato atende, quais não atende, fit cultural DISC, experiências quantificadas, recomendação final>",
+  "requisitos_atendidos": ["<req 1 da vaga que o candidato atende>","<req 2>"],
+  "requisitos_ausentes": ["<req da vaga que o candidato NÃO demonstrou ter>"]
+}`;
+
+  const ia = calcularFitLocal(dados, vagaData);
+
+  dados.analise = ia;
+  await salvar(dados, ia);
+  mostrarResultado(dados, ia);
+}
+
+// ── COLETAR ──
+function coletarDados() {
+  return {
+    candidato: { nome: NOME, vaga: VAGA, perfil: DOM, sec: SEC, pct: PCT, tel: TEL },
+    entrevista: {
+      historia:    document.getElementById('historia').value.trim(),
+      area:        document.getElementById('area').value,
+      exp_total:   document.getElementById('expTotal').value,
+      exp_vaga:    document.getElementById('expVaga').value.trim(),
+      conquistas:  [...conquistas],
+      diferencial: document.getElementById('diferencial').value.trim(),
+      motivacao:   document.getElementById('motivacao').value.trim(),
+      extra:       document.getElementById('extra').value.trim(),
+    },
+    vaga_dados: vagaData,
+    data: new Date().toLocaleDateString('pt-BR'),
+    hora: new Date().toLocaleTimeString('pt-BR'),
+  };
+}
+
+// ── SALVAR ──
+async function salvar(dados, ia) {
+  const payload = {
+    entrevista_json:      JSON.stringify(dados.entrevista),
+    fit_score:            String(ia.fit_score),
+    fit_nivel:            ia.nivel,
+    resumo_ia:            ia.resumo_candidato,
+    resumo_admin:         ia.resumo_admin,
+    pontos_fortes:        (ia.pontos_fortes||[]).join(' | '),
+    pontos_atencao:       (ia.pontos_atencao||[]).join(' | '),
+    recomendacao_admin:   ia.recomendacao_admin,
+    requisitos_atendidos: (ia.requisitos_atendidos||[]).join(' | '),
+    requisitos_ausentes:  (ia.requisitos_ausentes||[]).join(' | '),
+  };
+  try {
+    await fetch(
+      `${SB}/rest/v1/disc_historico?nome=eq.${encodeURIComponent(NOME)}&vaga=eq.${encodeURIComponent(VAGA)}`,
+      { method: 'PATCH', headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(payload) }
+    );
+  } catch(e) {}
+  try { localStorage.setItem(`entrevista_${NOME}_${VAGA}`, JSON.stringify({ ...dados, analise: ia, ts: Date.now() })); } catch(e) {}
+
+  // ── E-MAIL UNIFICADO: DISC + Entrevista + Links ──
+  await enviarEmailUnificado(dados, ia).catch(()=>{});
+
+  try { localStorage.removeItem('entrevista_concluida'); } catch(e) {}
+  setTimeout(()=>{ try { localStorage.setItem('entrevista_concluida','1'); } catch(e) {} },300);
+}
+
+// ── RESULTADO ──
+function mostrarResultado(dados, ia) {
+  document.getElementById('telaIA').style.display = 'none';
+  document.getElementById('telaRes').style.display = 'block';
+  // scroll removido — não sobe ao topo
+
+  const score = ia.fit_score;
+  const cor = score >= 80 ? '#2ecc71' : score >= 60 ? '#f39c12' : '#e74c3c';
+  const nivelCls = { 'Baixo':'nl-baixo','Médio':'nl-medio','Alto':'nl-alto','Excelente':'nl-excelente' };
+  const nivelEmo = { 'Baixo':'🔴','Médio':'🟡','Alto':'🟢','Excelente':'⭐' };
+
+  const numEl = document.getElementById('scoreNum');
+  numEl.style.color = cor;
+  let cur = 0;
+  const iv = setInterval(() => { cur = Math.min(cur + 2, score); numEl.textContent = cur + '%'; if (cur >= score) clearInterval(iv); }, 28);
+
+  document.getElementById('scoreLabel').textContent = `Compatibilidade ${ia.nivel}`;
+  document.getElementById('scoreDesc').textContent  = `com a vaga de ${dados.candidato.vaga}`;
+
+  const badge = document.getElementById('nivelB');
+  badge.textContent = `${nivelEmo[ia.nivel]||'🎯'} Nível ${ia.nivel}`;
+  badge.className = `nivel-b ${nivelCls[ia.nivel]||'nl-alto'}`;
+  badge.style.display = 'inline-flex';
+
+  setTimeout(() => { document.getElementById('scoreFill').style.width = score + '%'; }, 150);
+
+  // sem DISC
+
+  document.getElementById('iaTexto').textContent = ia.resumo_candidato;
+  document.getElementById('fortesWrap').innerHTML = (ia.pontos_fortes||[]).map(pf => `<div class="a-tag">✓ ${pf}</div>`).join('');
+
+  const al = document.getElementById('atencaoLista');
+  if ((ia.pontos_atencao||[]).length) {
+    al.innerHTML = `<div style="font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.38rem;margin-top:0.55rem;">🔸 Para destacar na entrevista</div>` + ia.pontos_atencao.map(pa => `<div class="a-at-item"><span class="a-at-ico">›</span> ${pa}</div>`).join('');
+  }
+
+  const tel = TEL.replace(/\D/g,'');
+  const msg = encodeURIComponent(`Olá! Sou ${NOME} e acabei de concluir a pré-entrevista para a vaga de ${dados.candidato.vaga} pela Agência Nexus. Aguardo o contato! 😊`);
+  const btnWa = document.getElementById('btnWa');
+  if (tel) { btnWa.href = `https://wa.me/55${tel}?text=${msg}`; } else { btnWa.style.display = 'none'; }
+}
+
+const WEB3FORMS_KEY='dafbb472-9f38-4d31-b464-42a6c14adec5';
+
+// ── E-MAIL UNIFICADO (DISC + Mini-Entrevista + Links) ──
+async function enviarEmailUnificado(dados, ia) {
+  try {
+    const up2  = new URLSearchParams(window.location.search);
+    const base = window.location.href.replace(/entrevista\.html.*$/, '');
+
+    const temDISC = !!(up2.get('d') && up2.get('perfil'));
+
+    const nome   = encodeURIComponent(NOME);
+    const tel    = encodeURIComponent(up2.get('tel') || '');
+    const vaga   = encodeURIComponent(VAGA);
+    const canal  = encodeURIComponent(up2.get('canal') || '');
+    const d = up2.get('d') || PCT.D;
+    const i = up2.get('i') || PCT.I;
+    const s = up2.get('s') || PCT.S;
+    const c = up2.get('c') || PCT.C;
+    const rd = up2.get('rd') || '';
+    const ri = up2.get('ri') || '';
+    const rs = up2.get('rs') || '';
+    const rc = up2.get('rc') || '';
+    const tempo = up2.get('tempo') || '0';
+
+    const fitScore = ia.fit_score || 0;
+    const fitNivel = ia.nivel || 'Médio';
+    const conq = (dados.entrevista.conquistas||[]).join(' | ') || 'Não informado';
+    const tempoSeg = parseInt(tempo) || 0;
+    const tempoFmt = tempoSeg > 0 ? Math.floor(tempoSeg/60)+'min '+tempoSeg%60+'s' : 'Não registrado';
+
+    const resultadoUrl = temDISC
+      ? base+'disc-resultado.html?nome='+nome+'&tel='+tel+'&perfil='+DOM+'&sec='+SEC+'&d='+d+'&i='+i+'&s='+s+'&c='+c+'&rd='+rd+'&ri='+ri+'&rs='+rs+'&rc='+rc+'&vaga='+vaga+'&canal='+canal+'&tempo='+tempo
+      : '';
+    const relatorioUrl = temDISC
+      ? base+'disc-relatorio.html?nome='+nome+'&tel='+tel+'&perfil='+DOM+'&sec='+SEC+'&d='+d+'&i='+i+'&s='+s+'&c='+c+'&rd='+rd+'&ri='+ri+'&rs='+rs+'&rc='+rc+'&vaga='+vaga+'&canal='+canal+'&tempo='+tempo
+      : '';
+
+    const entEncoded = encodeURIComponent(JSON.stringify(dados.entrevista));
+    const iaEncoded  = encodeURIComponent(JSON.stringify({
+      resumo_candidato:    ia.resumo_candidato    || '',
+      resumo_admin:        ia.resumo_admin        || '',
+      recomendacao_admin:  ia.recomendacao_admin  || '',
+      pontos_fortes:       ia.pontos_fortes       || [],
+      pontos_atencao:      ia.pontos_atencao      || [],
+      requisitos_atendidos:ia.requisitos_atendidos|| [],
+      requisitos_ausentes: ia.requisitos_ausentes || [],
+    }));
+
+    const fitResultUrl = base+'entrevista-resultado.html'
+      +'?nome='+nome+'&tel='+tel+'&vaga='+vaga+'&canal='+canal
+      +'&perfil='+DOM+'&sec='+SEC+'&d='+d+'&i='+i+'&s='+s+'&c='+c
+      +'&fit='+fitScore+'&nivel='+encodeURIComponent(fitNivel)
+      +'&dados='+entEncoded+'&ia='+iaEncoded
+      +(resultadoUrl ? '&disc_url='+encodeURIComponent(resultadoUrl) : '');
+
+    const linhas = [
+      '══════════════════════════════════════',
+      temDISC ? '  DISC + ENTREVISTA — CANDIDATURA COMPLETA' : '  ENTREVISTA — CANDIDATURA',
+      '══════════════════════════════════════',
+      'Candidato : '+NOME,
+      'Vaga      : '+VAGA,
+      'Telefone  : '+(up2.get('tel') || '--'),
+      'Data      : '+dados.data+' às '+dados.hora,
+      '',
+    ];
+
+    if (temDISC) {
+      linhas.push(
+        '──────── PERFIL DISC ────────',
+        'Dominante : '+DOM+' | Secundário: '+SEC,
+        'Escala    : D:'+d+'%  I:'+i+'%  S:'+s+'%  C:'+c+'%',
+        'Tempo de resposta: '+tempoFmt,
+        '',
+      );
+    }
+
+    linhas.push(
+      '──────── FIT CULTURAL ────────',
+      'Fit Score : '+fitScore+'% ('+fitNivel+')',
+      'Recomendação: '+(ia.recomendacao_admin || '--'),
+      'Pontos fortes: '+(ia.pontos_fortes||[]).join(' | '),
+      'Pontos de atenção: '+(ia.pontos_atencao||[]).join(' | '),
+      '',
+      '──────── ANÁLISE ADMIN ────────',
+      ia.resumo_admin || '--',
+      '',
+      '──────── ENTREVISTA ────────',
+      'Trajetória:',
+      dados.entrevista.historia || '--',
+      '',
+      'Exp. específica: '+(dados.entrevista.exp_vaga || '--'),
+      'Área: '+(dados.entrevista.area || '--')+' | Tempo: '+(dados.entrevista.exp_total || '--'),
+      'Conquistas: '+conq,
+      'Diferencial: '+(dados.entrevista.diferencial || '--'),
+      'Motivação: '+(dados.entrevista.motivacao || '--'),
+      '',
+      '══════════════════════════════════════',
+      '🎯  FIT CULTURAL — RESULTADO:',
+      fitResultUrl,
+      '',
+    );
+
+    if (temDISC) {
+      linhas.push(
+        '🧠  RESULTADO DISC:',
+        resultadoUrl,
+        '',
+        '📄  RELATÓRIO DISC:',
+        relatorioUrl,
+        '',
+      );
+    }
+    linhas.push('══════════════════════════════════════');
+
+    const corpo = linhas.join('\n');
+
+    const assunto = temDISC
+      ? '🧠 DISC+Entrevista — '+NOME+' — '+VAGA+' — Fit: '+fitScore+'% ('+fitNivel+')'
+      : '✍️ Entrevista — '+NOME+' — '+VAGA+' — Fit: '+fitScore+'% ('+fitNivel+')';
+
+    const DEST = 'bancodetalentosnexus@gmail.com';
+
+    const payload = {
+      access_key: WEB3FORMS_KEY,
+      to:         DEST,
+      from_name:  'Sistema Agência Nexus — Recrutamento',
+      subject:    assunto,
+      nome:       NOME,
+      vaga:       VAGA,
+      telefone:   up2.get('tel') || '--',
+      data_hora:  dados.data+' às '+dados.hora,
+      fit_score:  fitScore+'% ('+fitNivel+')',
+      recomendacao: ia.recomendacao_admin || '--',
+      pontos_fortes: (ia.pontos_fortes||[]).join(' | '),
+      pontos_atencao: (ia.pontos_atencao||[]).join(' | '),
+      resumo_admin: ia.resumo_admin || '--',
+      requisitos_atendidos: (ia.requisitos_atendidos||[]).join(' | ') || '--',
+      requisitos_ausentes:  (ia.requisitos_ausentes||[]).join(' | ') || '--',
+      trajetoria: (dados.entrevista.historia || '').substring(0, 1500),
+      exp_vaga:   dados.entrevista.exp_vaga || '--',
+      diferencial: dados.entrevista.diferencial || '--',
+      motivacao:  dados.entrevista.motivacao || '--',
+      link_fit_resultado: fitResultUrl,
+      resultado_completo: corpo,
+    };
+
+    if (temDISC) {
+      payload.perfil_disc  = DOM+'+'+SEC+'  D:'+d+'% I:'+i+'% S:'+s+'% C:'+c+'%';
+      payload.tempo_disc   = tempoFmt;
+      payload.link_resultado_disc = resultadoUrl;
+      payload.link_relatorio_disc = relatorioUrl;
+    }
+
+    // ── Tenta web3forms com até 2 tentativas ──
+    let enviado = false;
+    for (let tentativa = 1; tentativa <= 2; tentativa++) {
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        console.log('EMAIL STATUS (tentativa '+tentativa+'):', data);
+        if (data.success) {
+          enviado = true;
+          console.log('✅ Email enviado para '+DEST);
+          break;
+        } else {
+          console.warn('web3forms falhou (tentativa '+tentativa+'):', data);
+        }
+      } catch(err) {
+        console.warn('web3forms erro (tentativa '+tentativa+'):', err);
+        if (tentativa < 2) await new Promise(r => setTimeout(r, 1500));
+      }
+    }
+
+    // ── Atualiza badge de confirmação ──
+    const badge = document.getElementById('emailConfirmBadge');
+    if (enviado) {
+      if (badge) { badge.textContent = '✅ Análise enviada para o recrutador'; badge.style.background = 'rgba(59,130,246,0.1)'; badge.style.borderColor = 'rgba(59,130,246,0.3)'; badge.style.color = '#2ecc71'; }
+      console.log('✅ Email enviado com sucesso para ' + DEST);
+    } else {
+      // Guarda corpo e assunto para o fallback manual
+      window._emailFallbackCorpo = corpo;
+      window._emailFallbackAssunto = assunto;
+      window._emailFallbackDEST = DEST;
+      // Mostra botão de fallback visível ao candidato
+      const fb = document.getElementById('emailFallbackBox');
+      if (fb) fb.style.display = 'block';
+      if (badge) { badge.textContent = '⚠️ Clique em "Enviar por e-mail" abaixo'; badge.style.background = 'rgba(231,76,60,0.08)'; badge.style.borderColor = 'rgba(231,76,60,0.3)'; badge.style.color = '#e74c3c'; }
+      console.warn('web3forms falhou — botão de fallback exibido ao candidato');
+    }
+
+  } catch(e) {
+    console.warn('enviarEmailUnificado erro:', e);
+    // Mesmo em erro inesperado, mostra o botão de fallback
+    const fb = document.getElementById('emailFallbackBox');
+    if (fb) fb.style.display = 'block';
+    const badge = document.getElementById('emailConfirmBadge');
+    if (badge) { badge.textContent = '⚠️ Clique em "Enviar por e-mail" abaixo'; badge.style.color = '#e74c3c'; }
+  }
+}
+
+// ── FALLBACK: abre Gmail composição quando automático falha ──
+function abrirEmailFallback() {
+  const DEST    = window._emailFallbackDEST    || 'bancodetalentosnexus@gmail.com';
+  const assunto = window._emailFallbackAssunto || ('✍️ Entrevista — ' + NOME + ' — ' + VAGA);
+  const corpo   = window._emailFallbackCorpo   || ('Candidato: ' + NOME + '\nVaga: ' + VAGA);
+  const gmailUrl = 'https://mail.google.com/mail/?view=cm'
+    + '&to='  + encodeURIComponent(DEST)
+    + '&su='  + encodeURIComponent(assunto)
+    + '&body='+ encodeURIComponent(corpo.substring(0, 8000));
+  try { (window.top || window).open(gmailUrl, '_blank'); } catch(e) { window.open(gmailUrl, '_blank'); }
+  // Atualiza mensagem para feedback visual
+  const fb = document.getElementById('emailFallbackBox');
+  if (fb) fb.innerHTML = '<div style="font-size:0.78rem;color:#2ecc71;font-weight:700;text-align:center;">📧 Gmail aberto! Confirme o envio para bancodetalentosnexus@gmail.com</div>';
+}
+
+// ── MODO: RECRUTADOR vs CANDIDATO ──────────────────────────────
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const IS_CANDIDATO = !!params.get('nome');
+
+  if (IS_CANDIDATO) {
+    // Modo candidato: layout centralizado original
+    const wrap = document.getElementById('mainWrap');
+    wrap.classList.add('candidate-mode');
+    document.getElementById('candidatePanel').style.display = 'block';
+  } else {
+    // Modo recrutador: painel interno ATS (já usa width:100% padrão)
+    document.getElementById('recruiterPanel').style.display = 'block';
+    recCarregarVagas();
+  }
+})();
+
+// ── RECRUTADOR: carregar vagas do Supabase ──────────────────────
+let _recVagas = [];
+let _recLinkGerado = '';
+let _recHistorico = [];
+let _recSB_URL = '';
+let _recSB_KEY = '';
+
+function _recGetCredenciais() {
+  // 1) Tenta localStorage (mesma origem que vagas-ats.html)
+  try {
+    const c = JSON.parse(localStorage.getItem('nexus_ctx_v3') || '{}');
+    if (c.sb_url) { _recSB_URL = c.sb_url; _recSB_KEY = c.sb_key; return true; }
+  } catch(e) {}
+  // 2) Fallback: credenciais hardcoded do próprio arquivo
+  _recSB_URL = SB; _recSB_KEY = KEY;
+  return true;
+}
+
+// Recebe credenciais do shell ATS via postMessage
+window.addEventListener('message', e => {
+  if (e.data?.tipo === 'nexus_ctx') {
+    _recSB_URL = e.data.sb_url;
+    _recSB_KEY = e.data.sb_key;
+    recCarregarVagas(); // recarrega com as credenciais certas
+  }
+});
+
+async function recCarregarVagas() {
+  _recGetCredenciais();
+  const sel = document.getElementById('recVagaSelect');
+  sel.innerHTML = '<option value="">⏳ Carregando vagas...</option>';
+  try {
+    const res = await fetch(
+      `${_recSB_URL}/rest/v1/vagas?select=titulo,icone,empresa,cidade,area,requisitos,descricao,exp_minima,esc_minima&order=titulo.asc&status=neq.encerrada`,
+      { headers: { 'apikey': _recSB_KEY, 'Authorization': 'Bearer ' + _recSB_KEY } }
+    );
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      _recVagas = data;
+      sel.innerHTML = '<option value="">— Selecione uma vaga —</option>'
+        + data.map((v, i) =>
+            `<option value="${i}">${v.icone || '💼'} ${v.titulo}${v.empresa && v.empresa !== 'Confidencial' ? ' · ' + v.empresa : ''}${v.cidade ? ' · ' + v.cidade : ''}</option>`
+          ).join('');
+      document.getElementById('recVagaCount').textContent = `(${data.length} disponíveis)`;
+      document.getElementById('recModoManualToggle').style.display = 'flex';
+    } else {
+      sel.innerHTML = '<option value="">⚠️ Nenhuma vaga encontrada</option>';
+      // Ativa automaticamente o modo manual se não encontrou vagas
+      recAtivarModoManual(true);
+    }
+  } catch(e) {
+    sel.innerHTML = '<option value="">❌ Erro ao carregar vagas</option>';
+    recAtivarModoManual(true);
+  }
+}
+
+// ── MODO MANUAL ──────────────────────────────────────────────────
+let _recModoManual = false;
+
+function recAtivarModoManual(forcar) {
+  _recModoManual = forcar !== undefined ? forcar : !_recModoManual;
+  const blocoSelect = document.getElementById('recBlocoSelect');
+  const blocoManual = document.getElementById('recBlocoManual');
+  const btnToggle   = document.getElementById('recBtnToggle');
+  if (_recModoManual) {
+    blocoSelect.style.display = 'none';
+    blocoManual.style.display = 'block';
+    if (btnToggle) btnToggle.textContent = '📋 Usar lista de vagas';
+  } else {
+    blocoSelect.style.display = 'block';
+    blocoManual.style.display = 'none';
+    if (btnToggle) btnToggle.textContent = '✏️ Digitar manualmente';
+  }
+}
+
+function recSelecionarVaga() {
+  const sel = document.getElementById('recVagaSelect');
+  const idx = sel.value;
+  const reqBox = document.getElementById('recReqBox');
+  const metaEl = document.getElementById('recVagaMeta');
+
+  if (idx === '' || idx === undefined) {
+    reqBox.innerHTML = 'Selecione uma vaga para ver os requisitos';
+    reqBox.className = 'rec-req-box empty';
+    metaEl.textContent = '';
+    return;
+  }
+
+  const v = _recVagas[+idx];
+  if (!v) return;
+
+  // Meta info
+  const meta = [v.area, v.cidade, v.exp_minima ? 'Exp. mín: ' + v.exp_minima : '', v.esc_minima ? 'Esc: ' + v.esc_minima : ''].filter(Boolean).join(' · ');
+  metaEl.textContent = meta;
+
+  // Requisitos
+  let html = '';
+  if (v.descricao) {
+    html += `<div style="margin-bottom:0.6rem;color:#ccc;">${v.descricao.replace(/\n/g,'<br>')}</div>`;
+  }
+  if (v.requisitos) {
+    const itens = v.requisitos.split(/[•\n]+/).map(s => s.trim()).filter(Boolean);
+    if (itens.length > 1) {
+      html += `<div style="font-size:0.62rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.35rem;">📌 Requisitos</div>`;
+      html += itens.map(i => `<div style="display:flex;gap:0.4rem;margin-bottom:0.18rem;"><span style="color:var(--accent);font-weight:900;flex-shrink:0;">›</span><span>${i}</span></div>`).join('');
+    } else {
+      html += `<div>${v.requisitos}</div>`;
+    }
+  }
+  if (!html) html = '<span style="color:var(--muted2);">Requisitos não cadastrados para essa vaga.</span>';
+
+  reqBox.innerHTML = html;
+  reqBox.className = 'rec-req-box';
+  recAtualizarLink();
+}
+
+function recAtualizarLink() {
+  // Atualiza link ao vivo, mas sem exibir ainda (aguarda clique em Gerar)
+}
+
+function recGerarLink() {
+  const nome = document.getElementById('recNome').value.trim();
+  const tel  = document.getElementById('recTel').value.trim().replace(/\D/g, '');
+
+  if (!nome) { toast('Informe o nome do candidato!', 'erro'); return; }
+
+  let vagaTitulo = '';
+  if (_recModoManual) {
+    vagaTitulo = document.getElementById('recVagaManual').value.trim();
+    if (!vagaTitulo) { toast('Informe o nome da vaga!', 'erro'); return; }
+  } else {
+    const idx = document.getElementById('recVagaSelect').value;
+    if (idx === '') { toast('Selecione uma vaga!', 'erro'); return; }
+    const v = _recVagas[+idx];
+    if (!v) return;
+    vagaTitulo = v.titulo;
+  }
+
+  const base = window.location.href.replace(/[?#].*$/, '');
+  const params = new URLSearchParams({ nome, vaga: vagaTitulo });
+  if (tel) params.set('tel', tel);
+
+  _recLinkGerado = base + '?' + params.toString();
+
+  // Exibir link
+  const linkBox = document.getElementById('recLinkBox');
+  linkBox.textContent = _recLinkGerado;
+  linkBox.classList.add('visible');
+  document.getElementById('recLinkActions').style.display = 'flex';
+
+  // Mostrar campo de email para envio
+  document.getElementById('recEmailBlock').style.display = 'block';
+
+  // Adicionar ao histórico
+  _recHistorico.unshift({ nome, vaga: vagaTitulo, link: _recLinkGerado, hora: new Date().toLocaleTimeString('pt-BR') });
+  recRenderHistorico();
+
+  toast('✅ Link gerado com sucesso!');
+}
+
+async function recEnviarEmail() {
+  const emailCand = document.getElementById('recEmailCand').value.trim();
+  const nome = document.getElementById('recNome').value.trim();
+  const idx  = document.getElementById('recVagaSelect').value;
+  const vagaTitulo = _recModoManual
+    ? document.getElementById('recVagaManual').value.trim()
+    : (_recVagas[+idx]?.titulo || '');
+
+  if (!emailCand || !emailCand.includes('@')) {
+    toast('Informe um e-mail válido!', 'erro'); return;
+  }
+  if (!_recLinkGerado) {
+    toast('Gere o link primeiro!', 'erro'); return;
+  }
+
+  const btnEmail = document.getElementById('btnEnviarEmail');
+  btnEmail.disabled = true;
+  btnEmail.textContent = '⏳ Enviando...';
+
+  try {
+    const payload = {
+      access_key: WEB3FORMS_KEY,
+      subject: `Agência Nexus — Pré-entrevista: ${vagaTitulo}`,
+      from_name: 'Agência Nexus',
+      to: emailCand,
+      replyto: 'adm@agencianexus.com',
+      message: `Olá, ${nome}!\n\nA Agência Nexus convida você para preencher a pré-entrevista referente à vaga "${vagaTitulo}".\n\nAcesse o link abaixo — vai levar menos de 10 minutos:\n\n${_recLinkGerado}\n\nQualquer dúvida, entre em contato.\nBoa sorte! 🍀\n\nEquipe Agência Nexus\nadm@agencianexus.com`,
+    };
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.success) {
+      toast('✅ E-mail enviado para ' + emailCand);
+      btnEmail.textContent = '✅ E-mail enviado!';
+      // Atualiza histórico com email
+      if (_recHistorico[0]) _recHistorico[0].email = emailCand;
+      recRenderHistorico();
+    } else {
+      throw new Error(data.message || 'Erro desconhecido');
+    }
+  } catch(e) {
+    toast('Erro ao enviar e-mail: ' + e.message, 'erro');
+    btnEmail.disabled = false;
+    btnEmail.textContent = '📧 Enviar por e-mail';
+  }
+}
+
+function recCopiarLink() {
+  if (!_recLinkGerado) return;
+  navigator.clipboard.writeText(_recLinkGerado).then(() => {
+    const el = document.getElementById('recCopied');
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2200);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = _recLinkGerado;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const el = document.getElementById('recCopied');
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2200);
+  });
+}
+
+function recEnviarWhatsApp() {
+  if (!_recLinkGerado) return;
+  const nome  = document.getElementById('recNome').value.trim();
+  const tel   = document.getElementById('recTel').value.trim().replace(/\D/g, '');
+  const vaga  = _recModoManual
+    ? document.getElementById('recVagaManual').value.trim()
+    : (_recVagas[+document.getElementById('recVagaSelect').value]?.titulo || '');
+
+  const msg = encodeURIComponent(
+    `Olá, ${nome}! 👋\n\nA Agência Nexus convida você para preencher a pré-entrevista referente à vaga *${vaga}*.\n\n`
+    + `Basta acessar o link abaixo, que vai levar menos de 10 minutos:\n\n${_recLinkGerado}\n\n`
+    + `Qualquer dúvida, entre em contato. Boa sorte! 🍀`
+  );
+
+  const waUrl = tel
+    ? `https://wa.me/55${tel}?text=${msg}`
+    : `https://wa.me/?text=${msg}`;
+
+  window.open(waUrl, '_blank');
+}
+
+function recRenderHistorico() {
+  const wrap = document.getElementById('recHistoricoWrap');
+  if (!_recHistorico.length) {
+    wrap.textContent = 'Nenhum link enviado nesta sessão ainda.';
+    return;
+  }
+  wrap.innerHTML = _recHistorico.slice(0, 8).map(h => `
+    <div style="display:flex;align-items:center;gap:0.8rem;padding:0.55rem 0.85rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;margin-bottom:0.4rem;">
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.8rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">👤 ${h.nome}</div>
+        <div style="font-size:0.67rem;color:var(--muted);margin-top:0.05rem;">💼 ${h.vaga} · ${h.hora}${h.email ? ' · 📧 '+h.email : ''}</div>
+      </div>
+      <button onclick="navigator.clipboard.writeText('${h.link.replace(/'/g,"\\'")}');toast('✓ Copiado!')" style="background:rgba(167,139,250,0.1);color:#a78bfa;border:1px solid rgba(167,139,250,0.25);border-radius:8px;padding:0.3rem 0.65rem;font-family:inherit;font-size:0.68rem;font-weight:700;cursor:pointer;">📋 Copiar</button>
+    </div>`).join('');
+}
+
+function navATS(mod) {
+  window.parent.postMessage({ tipo: 'nexus_navegar', mod }, '*');
+}
+
+// ── LEGACY: mantida para compatibilidade ──
+async function enviarEmailEntrevista(dados, ia) {
+  return enviarEmailUnificado(dados, ia);
+}
+
+async function enviarDadosEFechar(){
+  _concluirERedirecionarParaVagas();
+}
+
+function fechar(){
+  _concluirERedirecionarParaVagas();
+}
+
+// Sinaliza conclusão total e volta para vagas.html para abrir modal de currículo
+function _concluirERedirecionarParaVagas(){
+  try{ localStorage.removeItem('entrevista_concluida'); }catch(e){}
+  try{ localStorage.setItem('entrevista_concluida','1'); }catch(e){}
+
+  const up2   = new URLSearchParams(window.location.search);
+  const canal  = up2.get('canal')  || '';
+  const vaga   = up2.get('vaga')   || VAGA;
+
+  // Monta URL absoluta de retorno baseada na localização atual da entrevista
+  const base   = window.location.href.replace(/entrevista\.html.*$/, '');
+  const retornoRaw = up2.get('retorno') || 'vagas.html';
+  // Se retorno já é absoluto usa direto, senão concatena com base
+  const retorno = retornoRaw.startsWith('http') ? retornoRaw : base + retornoRaw;
+
+  window.location.href = retorno
+    + (retorno.includes('?') ? '&' : '?')
+    + `abrir_modal=1&canal=${encodeURIComponent(canal)}&vaga=${encodeURIComponent(vaga)}`;
+}
+function toast(msg, tipo='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (tipo === 'erro' ? ' erro' : '');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.classList.remove('show'); }, 3200);
+}
+
+// ── Integração com o shell ATS ──────────────────────────────────
+(function(){
+  function lerCtxEntrevista(){
+    try{
+      const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');
+      if(c.sb_url && typeof SUPABASE_URL !== 'undefined') {
+        window.SUPABASE_URL = c.sb_url;
+        window.SUPABASE_KEY = c.sb_key;
+      }
+    }catch(e){}
+  }
+  window.addEventListener('message', e=>{
+    if(e.data?.tipo==='nexus_ctx'){
+      try{ window.SUPABASE_URL=e.data.sb_url; window.SUPABASE_KEY=e.data.sb_key; }catch(er){}
+    }
+  });
+  lerCtxEntrevista();
+})();
+</script>
+</body>
+</html>

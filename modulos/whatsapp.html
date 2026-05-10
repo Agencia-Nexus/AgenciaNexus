@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script src="../guard.js"></script><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>WhatsApp | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--green:#2ecc71;--wpp:#25D366;}
+*{margin:0;padding:0;box-sizing:border-box;}html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(37,211,102,0.02)1px,transparent 1px),linear-gradient(90deg,rgba(37,211,102,0.02)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{margin-bottom:1.8rem;}.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--wpp);opacity:0.85;margin-bottom:0.35rem;}
+.title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}.title span{color:var(--wpp);}.sub{font-size:0.8rem;color:var(--muted);}
+.sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+.f-label{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.f-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;margin-bottom:0.8rem;transition:border-color 0.2s;}
+.f-inp:focus{border-color:rgba(37,211,102,0.4);}
+.f-ta{resize:vertical;min-height:100px;line-height:1.6;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;}
+@media(max-width:600px){.grid-2{grid-template-columns:1fr;}}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.55rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-wpp{background:rgba(37,211,102,0.15);color:var(--wpp);border-color:rgba(37,211,102,0.35);}
+.btn-wpp:hover{background:rgba(37,211,102,0.25);}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.6rem;margin-bottom:1rem;}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.85rem;cursor:pointer;transition:all 0.18s;}
+.tpl:hover,.tpl.sel{background:rgba(37,211,102,0.06);border-color:rgba(37,211,102,0.25);}
+.tpl-name{font-size:0.78rem;font-weight:800;margin-bottom:0.25rem;}
+.tpl-prev{font-size:0.62rem;color:var(--muted);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;}
+.cand-list{display:flex;flex-direction:column;gap:0.35rem;max-height:240px;overflow-y:auto;margin-bottom:0.8rem;scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.cand-row{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0.65rem;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);border-radius:8px;cursor:pointer;}
+.cand-row:hover{background:rgba(255,255,255,0.05);}
+.cand-nome{flex:1;font-size:0.78rem;font-weight:700;}
+.cand-tel{font-size:0.62rem;color:var(--wpp);}
+.spinner{width:16px;height:16px;border:2px solid var(--muted2);border-top-color:var(--wpp);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  .page {
+    padding: 1rem 0.9rem 4rem !important;
+  }
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero > div:last-child,
+  .hero > button,
+  .hero > div[style*="display:flex"] {
+    width: 100%;
+  }
+  .hero .btn,
+  .hero button.btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .title { font-size: 1.25rem !important; }
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.4rem !important; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+  .form-card { padding: 1rem !important; }
+  .filters {
+    gap: 0.35rem !important;
+  }
+  .filter-chip { font-size: 0.65rem !important; padding: 0.22rem 0.6rem !important; }
+  .rec-item, .sla-item, .task-item, .rank-card, .vi, .sync-row {
+    flex-wrap: wrap !important;
+    gap: 0.6rem !important;
+  }
+  .sla-bar-wrap { flex: 1 1 100% !important; justify-content: space-between; }
+  .sla-bar { width: auto !important; flex: 1 !important; }
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+  .sec-label { font-size: 0.58rem !important; }
+  .add-form { flex-direction: column !important; }
+  .add-form .fi,
+  .add-form .fsel,
+  .add-form input[type=date] { width: 100% !important; }
+  .add-form .btn { width: 100% !important; justify-content: center !important; }
+  .tpl-grid { grid-template-columns: 1fr !important; }
+  .cand-list { max-height: 200px !important; }
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .sync-row { padding: 0.7rem 0 !important; }
+  .sync-ico { display: none !important; }
+  .schema-box { font-size: 0.62rem !important; }
+  .info-box { font-size: 0.7rem !important; }
+  .log-box { font-size: 0.65rem !important; }
+  .pesos-card { padding: 1rem !important; }
+  .pesos-grid { grid-template-columns: 1fr !important; }
+  .pesos-total { flex-wrap: wrap !important; gap: 0.5rem !important; }
+  .pesos-total .btn { flex: 1 1 auto !important; }
+  .filtro-row { gap: 0.4rem !important; }
+  .filter-select { font-size: 0.72rem !important; flex: 1 !important; }
+  .rank-scores { gap: 0.3rem !important; }
+  .score-final-val { font-size: 1.2rem !important; }
+  .score-bar { width: 44px !important; }
+  .vi-btns { width: 100% !important; justify-content: flex-end; }
+  .vi-tit { font-size: 0.82rem !important; }
+  .vagas-grid { grid-template-columns: 1fr !important; }
+  .modal { padding: 1.2rem !important; border-radius: 16px !important; }
+  .toast { right: 0.6rem !important; bottom: 0.6rem !important; left: 0.6rem !important; }
+}
+
+</style>
+</head><body>
+<div class="page">
+  <div class="hero"><div class="eyebrow">Comunicação</div><div class="title">WhatsApp / <span>SMS</span></div><div class="sub">Envio rápido via wa.me · Templates prontos</div></div>
+  <div class="sec-label">Template da mensagem</div>
+  <div class="card">
+    <div class="tpl-grid" id="tplGrid"></div>
+    <label class="f-label">Mensagem (use {nome} para personalizar)</label>
+    <textarea class="f-inp f-ta" id="msgTxt" rows="5"></textarea>
+    <label class="f-label">Número manual (com DDD, ex: 51999999999)</label>
+    <div style="display:flex;gap:0.6rem;">
+      <input class="f-inp" id="numManual" placeholder="51999999999" style="margin-bottom:0;flex:1;" oninput="this.value=this.value.replace(/\D/g,'')"/>
+      <button class="btn btn-wpp" onclick="enviarManual()">📱 Enviar</button>
+    </div>
+  </div>
+  <div class="sec-label">Enviar para candidatos</div>
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.5rem;">
+      <span style="font-size:0.75rem;font-weight:700;">Candidatos com telefone cadastrado</span>
+      <button class="btn btn-ghost" style="font-size:0.68rem;" onclick="carregarCands()">↺ Atualizar</button>
+    </div>
+    <div class="cand-list" id="candList"><div style="text-align:center;padding:1rem;color:var(--muted);font-size:0.75rem;"><span class="spinner"></span></div></div>
+    <div style="font-size:0.7rem;color:var(--muted);margin-top:0.4rem;">Clique no candidato para abrir WhatsApp Web com a mensagem pré-preenchida</div>
+  </div>
+</div>
+<script>
+let SB_URL='',SB_KEY='';
+function lerCtx(){try{const c=JSON.parse(localStorage.getItem('nexus_ctx_v3')||'{}');if(c.sb_url){SB_URL=c.sb_url;SB_KEY=c.sb_key;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.tipo==='nexus_ctx'){SB_URL=e.data.sb_url;SB_KEY=e.data.sb_key;carregarCands();}});
+const TPLS=[
+  {nome:'Convite entrevista',texto:'Olá {nome}! Tudo bem? 😊\n\nSomos da Agência Nexus e gostaríamos de convidá-lo(a) para uma entrevista.\n\nQuando teria disponibilidade esta semana?'},
+  {nome:'Negativa gentil',texto:'Olá {nome}, tudo bem?\n\nAgradecemos muito seu interesse e participação em nosso processo seletivo.\n\nNo momento optamos por outro candidato, mas seu perfil ficará em nosso banco de talentos! 🙏'},
+  {nome:'Aprovação',texto:'Parabéns {nome}! 🎉\n\nVocê foi aprovado(a) no processo seletivo da Agência Nexus!\n\nEntre em contato para combinarmos os próximos passos.'},
+  {nome:'Confirmar presença',texto:'Olá {nome}! 👋\n\nLembrando que sua entrevista está confirmada. Por favor confirme sua presença respondendo esta mensagem. Obrigado!'},
+  {nome:'Envio de vaga',texto:'Olá {nome}! Temos uma oportunidade que combina com seu perfil.\n\nGostaria de saber mais detalhes? Responda esta mensagem! 😊'},
+];
+function renderTpls(){
+  document.getElementById('tplGrid').innerHTML=TPLS.map((t,i)=>`
+    <div class="tpl" onclick="selTpl(${i})" id="tpl${i}"><div class="tpl-name">${esc(t.nome)}</div><div class="tpl-prev">${esc(t.texto)}</div></div>`).join('');
+  selTpl(0);
+}
+
+function selTpl(i) {
+  document.querySelectorAll('.tpl').forEach(el => el.classList.remove('sel'));
+  document.getElementById('tpl' + i)?.classList.add('sel');
+  document.getElementById('msgTxt').value = TPLS[i].texto;
+}
+
+function montar(texto, nome) {
+  // Pega apenas o primeiro nome e garante que não venha vazio
+  const primeiroNome = (nome || '').trim().split(' ')[0] || 'candidato';
+  return texto.replace(/{nome}/gi, primeiroNome);
+}
+
+function enviarWpp(tel, nome) {
+  // 1. Prepara a mensagem personalizada
+  const msgBruta = document.getElementById('msgTxt').value;
+  const msgFinal = montar(msgBruta, nome);
+
+  // 2. Limpa o número (remove tudo que não for dígito)
+  let numLimpo = tel.replace(/\D/g, '');
+
+  // 3. Garante que comece com 55 e tenha tamanho mínimo
+  if (!numLimpo.startsWith('55')) numLimpo = '55' + numLimpo;
+  
+  if (numLimpo.length < 12) {
+    alert('O número de telefone parece incompleto (mínimo DDD + Número).');
+    return;
+  }
+
+// 4. Monta a URL no padrão moderno (wa.me é o oficial e evita bloqueios)
+const url = `https://wa.me/${numLimpo.startsWith('55') ? numLimpo : '55' + numLimpo}?text=${encodeURIComponent(msgFinal)}`;
+
+// 5. SOLUÇÃO: Em vez de window.open, simulamos um clique real de usuário
+const linkFake = document.createElement('a');
+linkFake.href = url;
+linkFake.target = '_blank';
+linkFake.rel = 'noopener noreferrer';
+
+// Adiciona, clica e remove para o navegador entender como uma ação humana
+document.body.appendChild(linkFake);
+linkFake.click();
+document.body.removeChild(linkFake);
+}
+
+function enviarManual() {
+  const tel = document.getElementById('numManual').value;
+  if (!tel) {
+    alert('Por favor, digite um número.');
+    return;
+  }
+  // Passa nome vazio para o 'montar' usar o padrão "candidato"
+  enviarWpp(tel, '');
+}
+
+async function carregarCands(){
+  lerCtx();if(!SB_URL){document.getElementById('candList').innerHTML='<div style="text-align:center;padding:1rem;color:var(--muted);font-size:0.75rem;">Supabase não configurado</div>';return;}
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/disc_historico?select=id,nome,vaga,tel_externo&tel_externo=not.is.null&order=criado_em.desc`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const arr=await r.json();if(!Array.isArray(arr)){document.getElementById('candList').innerHTML='<div style="text-align:center;padding:1rem;color:var(--muted);font-size:0.75rem;">Erro ao carregar</div>';return;}
+    if(!arr.length){document.getElementById('candList').innerHTML='<div style="text-align:center;padding:1rem;color:var(--muted);font-size:0.75rem;">Nenhum candidato com telefone cadastrado.<br/>Adicione telefones no módulo Banco de Talentos.</div>';return;}
+    document.getElementById('candList').innerHTML=arr.map(h=>`
+      <div class="cand-row" onclick="enviarWpp('${esc(h.tel_externo||'')}','${esc(h.nome||'')}')">
+        <span style="font-size:1rem;">💬</span>
+        <div style="flex:1;min-width:0;"><div class="cand-nome">${esc(h.nome||'—')}</div><div style="font-size:0.62rem;color:var(--muted);">📋 ${esc(h.vaga||'—')}</div></div>
+        <div class="cand-tel">📱 ${esc(h.tel_externo)}</div>
+      </div>`).join('');
+  }catch(e){document.getElementById('candList').innerHTML='<div style="text-align:center;padding:1rem;color:var(--red);font-size:0.75rem;">Erro: '+esc(e.message)+'</div>';}
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+renderTpls();lerCtx();if(SB_URL)carregarCands();else setTimeout(()=>{lerCtx();if(SB_URL)carregarCands();},400);
+</script></body></html>

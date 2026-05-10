@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../guard.js">
+// ═══════════════════════════════════════════════
+// SISTEMA DE LEMBRETES — 15 minutos antes
+// ═══════════════════════════════════════════════
+
+// IDs de eventos já notificados (evita duplicatas)
+const _notificados15 = new Set(JSON.parse(localStorage.getItem('nexus_notif15') || '[]'));
+
+function salvarNotificados() {
+  try { localStorage.setItem('nexus_notif15', JSON.stringify([..._notificados15])); } catch(_) {}
+}
+
+// Verifica a cada 60 segundos se alguma entrevista começa em ~15 min
+function verificarLembretes() {
+  const agora = Date.now();
+  const JANELA_MIN = 14 * 60 * 1000; // 14 min
+  const JANELA_MAX = 16 * 60 * 1000; // 16 min
+
+  _eventos.forEach(ev => {
+    const inicio = new Date(ev.datetime).getTime();
+    const diff = inicio - agora;
+    const chave = ev.id + '_15min';
+
+    if (diff >= JANELA_MIN && diff <= JANELA_MAX && !_notificados15.has(chave)) {
+      _notificados15.add(chave);
+      salvarNotificados();
+
+      const hora = new Date(ev.datetime).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+      // 1. Notificação nativa do navegador
+      if (Notification.permission === 'granted') {
+        new Notification('⏰ Entrevista em 15 minutos!', {
+          body: `${ev.candidato} — ${ev.vaga || 'Vaga não informada'}\n🕐 ${hora} · ${ev.tipo}`,
+          icon: 'icone.png',
+          badge: 'icone.png',
+          tag: chave,
+          requireInteraction: true
+        });
+      }
+
+      // 2. Notificação no celular via ntfy
+      notificarCelularLembrete(ev, hora);
+
+      // 3. Toast visual no painel
+      toast(`⏰ EM 15 MIN: ${ev.candidato} — ${hora}`, false);
+    }
+  });
+}
+
+async function notificarCelularLembrete(ev, hora) {
+  try {
+    const tipoEmoji = { presencial: '🏢', video: '🎥', telefone: '📞' }[ev.tipo] || '📅';
+    const url = 'https://ntfy.sh/' + NTFY_TOPICO;
+    const corpo = `⏰ EM 15 MINUTOS!\nCandidato: ${ev.candidato}\nVaga: ${ev.vaga || 'Nao informada'}\nHorario: ${hora}\nTipo: ${tipoEmoji} ${ev.tipo}\nLocal: ${ev.local || 'A confirmar'}`;
+    await fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain',
+        'Title': 'Entrevista em 15 min — Agência Nexus',
+        'Priority': 'urgent',
+        'Tags': 'alarm_clock,briefcase'
+      },
+      body: corpo
+    });
+  } catch(e) { console.warn('ntfy lembrete falhou:', e); }
+}
+
+// ── Permissão Web Push ──
+async function pedirPermissaoNotif() {
+  const btn = document.getElementById('btnNotifBrowser');
+  const status = document.getElementById('notifStatus');
+
+  if (!('Notification' in window)) {
+    status.innerHTML = '❌ Seu navegador não suporta notificações. Use Chrome ou Edge.';
+    status.style.color = 'var(--red)';
+    return;
+  }
+
+  if (Notification.permission === 'granted') {
+    status.innerHTML = '✅ Notificações já estão ativas! Você receberá alertas 15 min antes.';
+    status.style.color = 'var(--green)';
+    btn.textContent = '✅ Alertas ativos';
+    btn.disabled = true;
+    // Dispara notificação de teste
+    new Notification('✅ Alertas Agência Nexus ativos!', {
+      body: 'Você receberá lembretes 15 minutos antes de cada entrevista.',
+      icon: 'icone.png'
+    });
+    return;
+  }
+
+  if (Notification.permission === 'denied') {
+    status.innerHTML = '🚫 Notificações bloqueadas. Clique no 🔒 na barra de endereço do navegador e libere as notificações para este site.';
+    status.style.color = 'var(--red)';
+    return;
+  }
+
+  const perm = await Notification.requestPermission();
+  if (perm === 'granted') {
+    status.innerHTML = '✅ Alertas ativados! Você receberá lembretes 15 min antes de cada entrevista.';
+    status.style.color = 'var(--green)';
+    btn.textContent = '✅ Alertas ativos';
+    btn.disabled = true;
+    new Notification('✅ Alertas Agência Nexus ativos!', {
+      body: 'Você receberá lembretes 15 minutos antes de cada entrevista.',
+      icon: 'icone.png'
+    });
+  } else {
+    status.innerHTML = '❌ Permissão negada. Ative nas configurações do navegador.';
+    status.style.color = 'var(--red)';
+  }
+}
+
+// ── Inicializa status do botão ao carregar ──
+function iniciarStatusNotif() {
+  const btn = document.getElementById('btnNotifBrowser');
+  const status = document.getElementById('notifStatus');
+  const topico = document.getElementById('ntfyTopicoDisplay');
+  if (topico) topico.textContent = NTFY_TOPICO;
+
+  if (!('Notification' in window)) {
+    btn.style.display = 'none';
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    status.innerHTML = '✅ Alertas do navegador ativos — você será avisado 15 min antes de cada entrevista.';
+    status.style.color = 'var(--green)';
+    btn.textContent = '✅ Alertas ativos';
+    btn.style.background = 'rgba(59,130,246,0.1)';
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'rgba(59,130,246,0.25)';
+    btn.disabled = true;
+  } else if (Notification.permission === 'denied') {
+    status.innerHTML = '🚫 Notificações bloqueadas no navegador. Libere nas configurações do site.';
+    status.style.color = 'var(--red)';
+    btn.textContent = '🚫 Bloqueado — libere nas config.';
+  }
+}
+
+// Inicia o loop de verificação a cada 60 segundos
+setInterval(verificarLembretes, 60 * 1000);
+
+// Chama uma vez logo ao carregar (caso já esteja perto do horário)
+setTimeout(verificarLembretes, 5000);
+
+</script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Agendamento | Agência Nexus ATS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.min.js"></script>
+<style>
+:root{--accent:#3b82f6;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(59,130,246,0.12);--border2:rgba(59,130,246,0.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--red:#e74c3c;--orange:#f39c12;--blue:#3498db;--green:#2ecc71;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);opacity:0.85;margin-bottom:0.35rem;}
+.hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
+.hero-title span{color:var(--orange);}
+.hero-sub{font-size:0.8rem;color:var(--muted);}
+.btn{font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.55rem 1.1rem;border:1px solid;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-accent{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
+.btn-accent:hover{opacity:0.88;}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border-color:rgba(255,255,255,0.09);}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:1.2rem;}
+@media(max-width:900px){.layout{grid-template-columns:1fr;}}
+.cal-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem;overflow:hidden;}
+/* FullCalendar overrides */
+.fc{font-family:'Sora',sans-serif!important;font-size:0.8rem;}
+.fc-toolbar-title{font-size:1rem!important;font-weight:800!important;color:var(--text)!important;}
+.fc-button{background:rgba(255,255,255,0.06)!important;border:1px solid rgba(255,255,255,0.1)!important;color:var(--text)!important;font-family:'Sora',sans-serif!important;font-size:0.72rem!important;font-weight:700!important;border-radius:8px!important;transition:all 0.15s!important;}
+.fc-button:hover{background:rgba(255,255,255,0.12)!important;}
+.fc-button-active,.fc-button-primary:not(:disabled):active{background:rgba(59,130,246,0.2)!important;border-color:var(--border2)!important;color:var(--accent)!important;}
+.fc-daygrid-day{background:transparent!important;}
+.fc-daygrid-day:hover{background:rgba(255,255,255,0.03)!important;}
+.fc-day-today{background:rgba(59,130,246,0.06)!important;}
+.fc-col-header-cell{background:rgba(255,255,255,0.03)!important;border-color:var(--border)!important;}
+.fc-col-header-cell-cushion{color:var(--muted)!important;font-size:0.68rem!important;font-weight:700!important;text-transform:uppercase!important;letter-spacing:0.8px!important;text-decoration:none!important;}
+.fc-daygrid-day-number{color:var(--muted)!important;font-size:0.72rem!important;text-decoration:none!important;}
+.fc-day-today .fc-daygrid-day-number{color:var(--accent)!important;font-weight:800!important;}
+.fc-scrollgrid{border-color:var(--border)!important;}
+.fc-scrollgrid td,.fc-scrollgrid th{border-color:rgba(255,255,255,0.06)!important;}
+.fc-event{border-radius:6px!important;font-size:0.7rem!important;font-weight:700!important;padding:0!important;border:none!important;cursor:pointer!important;overflow:hidden!important;}
+.fc-event-title{font-weight:700!important;}
+.fc-daygrid-event-dot{display:none!important;}
+.fc-event-time{display:none!important;}
+/* PAINEL DIREITO */
+.side-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.2rem 1.4rem;}
+.side-card+.side-card{margin-top:0.8rem;}
+.side-title{font-size:0.78rem;font-weight:800;margin-bottom:1rem;}
+.event-list{display:flex;flex-direction:column;gap:0.4rem;max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--muted2) transparent;}
+.event-item{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.7rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:9px;cursor:pointer;transition:border-color 0.15s;}
+.event-item:hover{border-color:var(--border2);}
+.event-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.event-info{flex:1;min-width:0;}
+.event-nome{font-size:0.75rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.event-meta{font-size:0.62rem;color:var(--muted);margin-top:0.05rem;}
+.event-hora{font-size:0.68rem;font-weight:700;flex-shrink:0;}
+.empty-cal{text-align:center;padding:1.5rem;color:var(--muted2);font-size:0.75rem;}
+/* MODAL */
+.overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto;}
+.overlay.show{display:flex;}
+.modal{background:#141414;border:1px solid var(--border2);border-radius:20px;padding:1.8rem;width:100%;max-width:480px;position:relative;margin:auto;}
+.modal h3{font-size:1rem;font-weight:900;margin-bottom:0.2rem;}
+.modal-sub{font-size:0.75rem;color:var(--muted);margin-bottom:1.3rem;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:28px;height:28px;cursor:pointer;color:var(--muted);font-size:0.85rem;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:#fff;}
+.f-label{font-size:0.65rem;font-weight:700;color:var(--muted);display:block;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.f-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;margin-bottom:0.8rem;transition:border-color 0.2s;}
+.f-input:focus{border-color:var(--accent);}
+.f-select{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.85rem;outline:none;margin-bottom:0.8rem;cursor:pointer;-webkit-appearance:none;}
+.f-select option{background:#161616;}
+.modal-btns{display:flex;gap:0.6rem;margin-top:0.5rem;}
+.toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:0.6rem 1rem;font-size:0.78rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all 0.22s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* =====================================================
+   MOBILE RESPONSIVO — Agência Nexus ATS
+   ===================================================== */
+@media (max-width: 640px) {
+  /* Página */
+  .page { padding: 1rem 0.9rem 4rem !important; }
+
+  /* Hero */
+  .hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-right, .hero > div[style*="display:flex"], .hero > div:last-child {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  .hero-right .btn, .hero .btn, .hero button { justify-content: center !important; }
+  .hero-title, .title { font-size: 1.25rem !important; }
+  .hero-sub, .sub { font-size: 0.72rem !important; }
+
+  /* KPIs */
+  .kpi-grid, .kpi-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .kpi { padding: 0.7rem 0.8rem !important; }
+  .kpi-val { font-size: 1.35rem !important; }
+  .kpi-label { font-size: 0.55rem !important; }
+
+  /* Grids */
+  .grid-2, .grid-3, .charts-grid,
+  .grid-2-col, .grid-3-col { grid-template-columns: 1fr !important; }
+
+  /* Cards */
+  .card { padding: 1rem !important; border-radius: 14px !important; }
+  .card-head { flex-wrap: wrap !important; gap: 0.5rem !important; }
+
+  /* Botões */
+  .btn { font-size: 0.72rem !important; padding: 0.45rem 0.8rem !important; }
+
+  /* Toolbar / busca */
+  .toolbar { flex-wrap: wrap !important; }
+  .search-inp { width: 100% !important; min-width: unset !important; }
+
+  /* Seções */
+  .sec-label { font-size: 0.55rem !important; }
+
+  /* Tabelas — scroll horizontal */
+  .log-table, .conv-table, .vaga-table {
+    overflow-x: auto !important;
+    display: block !important;
+  }
+  .log-table table { min-width: 520px !important; }
+  .conv-table, .vaga-table { min-width: 480px !important; }
+  .log-table th, .log-table td { padding: 0.45rem 0.6rem !important; font-size: 0.68rem !important; }
+
+  /* Rows de export/backup */
+  .export-row, .row {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .export-ico { display: none !important; }
+  .export-row .btn { width: 100% !important; justify-content: center !important; }
+
+  /* Config rows */
+  .row { padding: 0.6rem 0 !important; }
+  .row-info strong { font-size: 0.76rem !important; }
+
+  /* Cards de clientes/roles */
+  .clients-grid, .role-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .client-card { padding: 1rem !important; }
+  .cc-btns { flex-wrap: wrap !important; }
+
+  /* Agendamento: layout de coluna única */
+  .layout { grid-template-columns: 1fr !important; }
+  .cal-card { padding: 0.8rem !important; border-radius: 14px !important; }
+
+  /* Period buttons (analytics) */
+  .period-btns { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .pbtn { font-size: 0.65rem !important; padding: 0.3rem 0.6rem !important; }
+
+  /* Funil de conversão */
+  .funil-step { flex-wrap: wrap !important; gap: 0.3rem !important; }
+  .funil-label { width: auto !important; text-align: left !important; flex: 0 0 100% !important; font-size: 0.65rem !important; }
+  .funil-bar-wrap { flex: 1 1 100% !important; height: 32px !important; }
+  .funil-num { width: auto !important; }
+  .funil-pct { width: auto !important; }
+
+  /* DISC quick links */
+  .quick-links { gap: 0.35rem !important; }
+  .qlink { font-size: 0.68rem !important; padding: 0.38rem 0.7rem !important; }
+
+  /* Dashboard específico */
+  .disc-dist-row { flex-direction: column !important; }
+  .top-vagas-list .tv-row { flex-wrap: wrap !important; gap: 0.4rem !important; }
+
+  /* Toast */
+  .toast {
+    right: 0.6rem !important;
+    bottom: 0.6rem !important;
+    left: 0.6rem !important;
+    max-width: none !important;
+  }
+
+  /* Info box */
+  .info-box { font-size: 0.68rem !important; padding: 0.75rem 0.9rem !important; }
+
+  /* Paginação */
+  .pg { gap: 0.25rem !important; }
+  .pg-btn { padding: 0.28rem 0.5rem !important; font-size: 0.65rem !important; }
+}
+
+@media (max-width: 640px) {
+  .layout { grid-template-columns: 1fr !important; }
+  .fc-toolbar { flex-wrap: wrap !important; gap: 0.4rem !important; }
+  .fc-toolbar-title { font-size: 0.85rem !important; }
+  .fc-button { font-size: 0.62rem !important; padding: 0.3rem 0.55rem !important; }
+  .fc-daygrid-day-number { font-size: 0.62rem !important; }
+  .fc-event { font-size: 0.6rem !important; padding: 0.05rem 0.2rem !important; }
+  .cal-card { padding: 0.75rem !important; }
+  .side-card { padding: 0.85rem 1rem !important; }
+  .hero { flex-direction: column !important; align-items: flex-start !important; gap: 0.8rem !important; }
+  .hero > div[style*="display:flex"] { width: 100% !important; flex-wrap: wrap !important; }
+  .hero .btn { flex: 1 !important; justify-content: center !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Comunicação · Calendário</div>
+      <div class="hero-title">Agendamento de <span>Entrevistas</span></div>
+      <div class="hero-sub">Calendário integrado · Convites automáticos por e-mail</div>
+    </div>
+    <button class="btn btn-accent" onclick="abrirModal()">➕ Agendar entrevista</button>
+  </div>
+
+  <div class="layout">
+    <div class="cal-card">
+      <div id="calendar"></div>
+    </div>
+    <div>
+      <div class="side-card">
+        <div class="side-title">📅 Próximas entrevistas</div>
+        <div class="event-list" id="proximasList"><div class="empty-cal">Nenhuma entrevista agendada.</div></div>
+      </div>
+      <div class="side-card" style="margin-top:0.8rem;">
+        <div class="side-title">⚡ Ações rápidas</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" onclick="abrirModal()">➕ Nova entrevista</button>
+          <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" onclick="navegar('emails')">✉️ Enviar convites por e-mail</button>
+          <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" onclick="navegar('banco-talentos')">👥 Ver candidatos</button>
+          <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" onclick="exportarCSV()">⬇ Exportar agenda CSV</button>
+        </div>
+      </div>
+      <div class="side-card" style="margin-top:0.8rem;">
+        <div class="side-title">📊 Resumo do mês</div>
+        <div id="resumoMes" style="display:flex;flex-direction:column;gap:0.45rem;"></div>
+      </div>
+
+      <div class="side-card" style="margin-top:0.8rem;border-color:rgba(243,156,18,0.25);">
+        <div class="side-title">🔔 Alertas 15 min antes</div>
+        <div id="notifStatus" style="font-size:0.72rem;color:var(--muted);line-height:1.6;margin-bottom:0.7rem;">Ative as notificações para receber um alerta 15 minutos antes de cada entrevista.</div>
+        <button id="btnNotifBrowser" class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:0.5rem;" onclick="pedirPermissaoNotif()">🔔 Ativar alertas no navegador</button>
+        <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:0.7rem;margin-top:0.2rem;">
+          <div style="font-size:0.6rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">📱 Notificação no celular (ntfy)</div>
+          <div style="font-size:0.7rem;color:var(--muted);line-height:1.7;">1. Instale o app <strong style="color:var(--text);">ntfy</strong> no Android ou iPhone<br>2. Assine o tópico:<br><code id="ntfyTopicoDisplay" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:6px;padding:0.2rem 0.5rem;font-size:0.7rem;color:var(--accent);display:inline-block;margin:0.3rem 0;word-break:break-all;">nexus-agenda-nexus</code><br>3. Pronto — você receberá alertas automáticos!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="fecharModal()">✕</button>
+    <h3 id="modalTitulo">📅 Agendar Entrevista</h3>
+    <div class="modal-sub">Preencha os dados e o sistema preparará o convite por e-mail</div>
+    <input type="hidden" id="fId"/>
+    <label class="f-label">Candidato (nome)</label>
+    <input class="f-input" id="fCand" placeholder="Nome do candidato" autocomplete="off"/>
+    <label class="f-label">E-mail do candidato</label>
+    <input class="f-input" id="fEmail" type="email" placeholder="candidato@email.com"/>
+    <label class="f-label">Vaga</label>
+    <input class="f-input" id="fVaga" placeholder="Título da vaga"/>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
+      <div>
+        <label class="f-label">Data</label>
+        <input class="f-input" id="fData" type="date"/>
+      </div>
+      <div>
+        <label class="f-label">Horário</label>
+        <input class="f-input" id="fHora" type="time" value="09:00"/>
+      </div>
+    </div>
+    <label class="f-label">Tipo</label>
+    <select class="f-select" id="fTipo">
+      <option value="presencial">🏢 Presencial</option>
+      <option value="video">🎥 Videoconferência</option>
+      <option value="telefone">📞 Telefone</option>
+    </select>
+    <label class="f-label">Local / Link</label>
+    <input class="f-input" id="fLocal" placeholder="Endereço ou link da reunião"/>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="fecharModal()" style="flex:1;justify-content:center;">Fechar</button>
+      <button id="btnExcluir" class="btn" onclick="excluirEventoAtual()" style="flex:1;justify-content:center;display:none;background:rgba(231,76,60,0.12);color:#e74c3c;border-color:rgba(231,76,60,0.3);">🗑️ Cancelar</button>
+      <button id="btnCalendario" class="btn btn-ghost" onclick="exportarICSAtual()" style="flex:1;justify-content:center;display:none;" title="Abrir no Google Calendar com lembrete de 15 min">📅 Google Cal</button>
+      <button id="btnSalvar" class="btn btn-accent" onclick="salvarEvento()" style="flex:2;justify-content:center;">✅ Agendar</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   CONFIGURAÇÃO — edite apenas estas duas linhas
+   ═══════════════════════════════════════════════ */
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+// Crie um nome único para seu canal ntfy (sem espaços, ex: nexus-agenda-2024)
+// Depois abra o app ntfy no celular e assine este mesmo nome
+const NTFY_TOPICO = 'nexus-agenda-nexus'; // ← altere se quiser
+
+/* ═══════════════════════════════════════════════ */
+
+let _eventos = [];
+let _cal = null;
+const CORES_TIPO = { presencial: '#3b82f6', video: '#3498db', telefone: '#f39c12' };
+
+// ── Supabase helpers ──
+const sb = {
+  headers: {
+    'Content-Type': 'application/json',
+    'apikey': SUPABASE_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_KEY,
+    'Prefer': 'return=representation'
+  },
+  url: (path) => SUPABASE_URL + '/rest/v1/' + path
+};
+
+async function carregarEventos() {
+  try {
+    // 1. Apaga registros com mais de 2 dias após a data da entrevista
+    const limite = new Date();
+    limite.setDate(limite.getDate() - 30);
+    await fetch(sb.url('agendamentos?datetime=lt.' + limite.toISOString()), {
+      method: 'DELETE',
+      headers: sb.headers
+    });
+
+    // 2. Carrega todos os eventos restantes
+    const res = await fetch(sb.url('agendamentos?order=datetime.asc'), {
+      headers: { ...sb.headers, 'Prefer': '' }
+    });
+    if (!res.ok) throw new Error('Erro ao carregar');
+    const dados = await res.json();
+    _eventos = dados.map(row => ({
+      id: row.id,
+      candidato: row.candidato,
+      email: row.email || '',
+      vaga: row.vaga || '',
+      datetime: row.datetime,
+      tipo: row.tipo || 'presencial',
+      local: row.local || ''
+    }));
+  } catch (e) {
+    console.warn('Supabase offline, usando localStorage:', e);
+    try { _eventos = JSON.parse(localStorage.getItem('nexus_agenda_v1') || '[]'); } catch (_) { _eventos = []; }
+  }
+}
+
+async function inserirEvento(ev) {
+  try {
+    const res = await fetch(sb.url('agendamentos'), {
+      method: 'POST',
+      headers: sb.headers,
+      body: JSON.stringify({
+        id: ev.id,
+        candidato: ev.candidato,
+        email: ev.email,
+        vaga: ev.vaga,
+        datetime: ev.datetime,
+        tipo: ev.tipo,
+        local: ev.local
+      })
+    });
+    if (!res.ok) throw new Error('Erro ao salvar');
+  } catch (e) {
+    console.warn('Fallback localStorage:', e);
+    _eventos.push(ev);
+    try { localStorage.setItem('nexus_agenda_v1', JSON.stringify(_eventos)); } catch (_) {}
+  }
+}
+
+async function excluirEvento(id) {
+  try {
+    await fetch(sb.url('agendamentos?id=eq.' + encodeURIComponent(id)), {
+      method: 'DELETE',
+      headers: sb.headers
+    });
+  } catch (e) {
+    console.warn('Erro ao excluir:', e);
+  }
+  _eventos = _eventos.filter(e => e.id !== id);
+}
+
+// ── Notificação ntfy (Android) ──
+async function notificarCelular(ev) {
+  try {
+    const d = new Date(ev.datetime);
+    const dataFmt = d.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
+    const horaFmt = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const tipoEmoji = { presencial: 'Presencial', video: 'Videoconferencia', telefone: 'Telefone' }[ev.tipo] || ev.tipo;
+    // Usar URL com parametros para evitar problemas de CORS com headers customizados
+    const url = 'https://ntfy.sh/' + NTFY_TOPICO
+      + '?title=Nova+entrevista+-+Agência+Nexus'
+      + '&priority=high'
+      + '&tags=calendar,briefcase';
+    const corpo = `Candidato: ${ev.candidato}\nVaga: ${ev.vaga || 'Nao informada'}\nTipo: ${tipoEmoji}\nData: ${dataFmt} as ${horaFmt}\nLocal: ${ev.local || 'A confirmar'}`;
+    await fetch(url, {
+      method: 'POST',
+      mode: 'no-cors', // evita bloqueio de CORS em iframes
+      headers: { 'Content-Type': 'text/plain' },
+      body: corpo
+    });
+    // no-cors nao retorna status, entao assumimos sucesso se nao lancar excecao
+    toast('📱 Notificação enviada ao celular!');
+  } catch (e) {
+    console.warn('ntfy falhou:', e);
+    toast('⚠️ Sem conexão com ntfy.sh — verifique a internet', true);
+  }
+}
+
+// ── Inicialização ──
+window.addEventListener('DOMContentLoaded', async () => {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('fData').value = today;
+
+  await carregarEventos();
+
+  _cal = new FullCalendar.Calendar(document.getElementById('calendar'), {
+    initialView: 'dayGridMonth', locale: 'pt-br',
+    headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
+    events: _eventos.map(evToFC),
+    editable: false, selectable: true,
+    select: info => { document.getElementById('fData').value = info.startStr; abrirModal(); },
+    eventClick: info => editarEvento(info.event.id),
+    height: 'auto',
+    eventContent: function(arg) {
+      const hora = arg.event.extendedProps.hora || '';
+      const nome = arg.event.extendedProps.candidato || arg.event.title || '';
+      const cor = arg.event.backgroundColor;
+      return {
+        html: `<div style="display:flex;align-items:center;gap:3px;padding:1px 4px;overflow:hidden;width:100%;">
+          <span style="font-size:0.65rem;font-weight:800;color:#fff;opacity:0.95;white-space:nowrap;flex-shrink:0;">${hora}</span>
+          <span style="font-size:0.65rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${nome}</span>
+        </div>`
+      };
+    },
+    eventDidMount: info => { info.el.title = info.event.extendedProps.candidato + ' — ' + info.event.extendedProps.vaga; }
+  });
+  _cal.render();
+  renderProximas();
+  renderResumo();
+  iniciarStatusNotif();
+});
+
+function evToFC(ev) {
+  const d = new Date(ev.datetime);
+  const hora = ev.datetime.split('T')[1]?.substring(0, 5) || '';
+  return {
+    id: ev.id,
+    title: ev.candidato,
+    start: ev.datetime,
+    backgroundColor: CORES_TIPO[ev.tipo] || '#3b82f6',
+    borderColor: 'transparent',
+    extendedProps: { candidato: ev.candidato, vaga: ev.vaga, tipo: ev.tipo, local: ev.local, email: ev.email, hora: hora }
+  };
+}
+
+function abrirModal(ev = null) {
+  const editando = !!ev;
+  document.getElementById('modalTitulo').textContent = editando ? '✏️ Editar Entrevista' : '📅 Agendar Entrevista';
+  document.getElementById('btnSalvar').textContent = editando ? '💾 Salvar alterações' : '✅ Agendar';
+  document.getElementById('btnExcluir').style.display = editando ? 'inline-flex' : 'none';
+  document.getElementById('btnCalendario').style.display = editando ? 'inline-flex' : 'none';
+  document.getElementById('fId').value = ev?.id || '';
+  if (ev) {
+    document.getElementById('fCand').value = ev.candidato || '';
+    document.getElementById('fEmail').value = ev.email || '';
+    document.getElementById('fVaga').value = ev.vaga || '';
+    document.getElementById('fData').value = ev.datetime?.split('T')[0] || '';
+    document.getElementById('fHora').value = ev.datetime?.split('T')[1]?.substring(0, 5) || '09:00';
+    document.getElementById('fTipo').value = ev.tipo || 'presencial';
+    document.getElementById('fLocal').value = ev.local || '';
+  }
+  document.getElementById('overlay').classList.add('show');
+}
+function fecharModal() { document.getElementById('overlay').classList.remove('show'); limparForm(); }
+async function excluirEventoAtual() {
+  const id = document.getElementById('fId').value;
+  if (!id) return;
+  const nome = document.getElementById('fCand').value;
+  if (!confirm('Cancelar a entrevista de ' + nome + '?')) return;
+  await excluirEvento(id);
+  const calEv = _cal.getEventById(id);
+  if (calEv) calEv.remove();
+  renderProximas(); renderResumo();
+  fecharModal();
+  toast('🗑️ Entrevista cancelada');
+}
+function limparForm() {
+  ['fCand', 'fEmail', 'fVaga', 'fLocal'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fTipo').value = 'presencial';
+}
+
+async function salvarEvento() {
+  const cand = (document.getElementById('fCand').value || '').trim();
+  const data = document.getElementById('fData').value;
+  const hora = document.getElementById('fHora').value;
+  if (!cand || !data) { toast('Preencha candidato e data', true); return; }
+
+  const ev = {
+    id: 'ev_' + Date.now(),
+    candidato: cand,
+    email: document.getElementById('fEmail').value.trim(),
+    vaga: document.getElementById('fVaga').value.trim(),
+    datetime: data + 'T' + hora + ':00',
+    tipo: document.getElementById('fTipo').value,
+    local: document.getElementById('fLocal').value.trim()
+  };
+
+  await inserirEvento(ev);
+  _eventos.push(ev);
+  _cal.addEvent(evToFC(ev));
+  renderProximas();
+  renderResumo();
+
+  // Mostra botão de calendário no modal
+  document.getElementById('btnCalendario').style.display = 'inline-flex';
+  document.getElementById('fId').value = ev.id;
+
+  // Notifica celular
+  await notificarCelular(ev);
+
+  // Convite por e-mail
+  if (ev.email) {
+    const assunto = encodeURIComponent(`Convite para entrevista — Agência Nexus`);
+    const corpo = encodeURIComponent(`Prezado(a) ${ev.candidato},\n\nFicamos felizes em convidá-lo(a) para uma entrevista!\n\n📅 Data: ${new Date(ev.datetime).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}\n🕐 Horário: ${hora}\n📍 Local: ${ev.local || 'A confirmar'}\n💼 Vaga: ${ev.vaga}\n\nPor favor, confirme sua presença respondendo este e-mail.\n\nAtenciosamente,\nEquipe Agência Nexus`);
+    window.open(`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(ev.email)}&su=${assunto}&body=${corpo}`, '_blank');
+  }
+
+  fecharModal();
+  toast('✅ Agendado e salvo no Supabase' + (ev.email ? ' — convite aberto no Gmail' : ''));
+}
+
+function editarEvento(id) { const ev = _eventos.find(e => e.id === id); if (ev) abrirModal(ev); }
+
+function exportarICSAtual() {
+  const id = document.getElementById('fId').value;
+  if (id) exportarICSEvento(id);
+}
+
+function renderProximas() {
+  const agora = new Date();
+  const futuras = _eventos.filter(ev => new Date(ev.datetime) >= agora)
+    .sort((a, b) => new Date(a.datetime) - new Date(b.datetime)).slice(0, 8);
+  const el = document.getElementById('proximasList');
+  if (!futuras.length) { el.innerHTML = '<div class="empty-cal">Nenhuma entrevista futura.</div>'; return; }
+  el.innerHTML = futuras.map(ev => {
+    const hora = ev.datetime.split('T')[1]?.substring(0, 5) || '';
+    const [ano, mes, dia] = ev.datetime.split('T')[0].split('-');
+    const data = new Date(+ano, +mes - 1, +dia).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+    return `<div class="event-item" style="cursor:default;">
+      <div class="event-dot" style="background:${CORES_TIPO[ev.tipo] || '#3b82f6'};flex-shrink:0;"></div>
+      <div class="event-info" onclick="editarEvento('${ev.id}')" style="cursor:pointer;">
+        <div class="event-nome">${esc(ev.candidato)}</div>
+        <div class="event-meta">📋 ${esc(ev.vaga || '—')} · ${ev.tipo}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.2rem;">
+        <div class="event-hora" style="color:${CORES_TIPO[ev.tipo] || '#3b82f6'};">${hora}</div>
+        <div style="font-size:0.6rem;color:var(--muted);text-align:right;">${data}</div>
+        <button onclick="exportarICSEvento('${ev.id}')" title="Abrir no Google Calendar do celular" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:5px;padding:0.15rem 0.35rem;font-size:0.6rem;color:var(--accent);cursor:pointer;font-family:inherit;font-weight:700;white-space:nowrap;">📅 G.Cal</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderResumo() {
+  const agora = new Date(); const mes = agora.getMonth(); const ano = agora.getFullYear();
+  const doMes = _eventos.filter(ev => { const d = new Date(ev.datetime); return d.getMonth() === mes && d.getFullYear() === ano; });
+  const por = { presencial: 0, video: 0, telefone: 0 };
+  doMes.forEach(ev => { por[ev.tipo] = (por[ev.tipo] || 0) + 1; });
+  document.getElementById('resumoMes').innerHTML = `
+    <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--muted);">Total este mês</span><strong>${doMes.length}</strong></div>
+    <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--accent);">🏢 Presenciais</span><strong>${por.presencial}</strong></div>
+    <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--blue);">🎥 Videoconferência</span><strong>${por.video}</strong></div>
+    <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--orange);">📞 Telefone</span><strong>${por.telefone}</strong></div>`;
+}
+
+function exportarCSV() {
+  if (!_eventos.length) { toast('Nenhum evento para exportar'); return; }
+  const csv = 'Candidato,E-mail,Vaga,Data,Hora,Tipo,Local\n' + _eventos.map(ev => {
+    const d = new Date(ev.datetime);
+    return `"${ev.candidato}","${ev.email || ''}","${ev.vaga || ''}","${d.toLocaleDateString('pt-BR')}","${d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}","${ev.tipo}","${ev.local || ''}"`;
+  }).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' }));
+  a.download = `agenda-entrevistas-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  toast('✅ Agenda exportada');
+}
+
+function abrirGoogleCalendar(ev) {
+  const d = new Date(ev.datetime);
+  const fim = new Date(d.getTime() + 60 * 60 * 1000);
+  function fmt(date) {
+    return date.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  }
+  const tipoLabel = { presencial: 'Presencial', video: 'Videoconferência', telefone: 'Telefone' }[ev.tipo] || ev.tipo;
+  const hora = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  const titulo = encodeURIComponent('Entrevista — ' + ev.candidato);
+  const detalhes = encodeURIComponent('Candidato: ' + ev.candidato + '\nVaga: ' + (ev.vaga || 'Não informada') + '\nTipo: ' + tipoLabel + '\nHorário: ' + hora);
+  const local = encodeURIComponent(ev.local || 'A confirmar');
+  const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + titulo
+    + '&dates=' + fmt(d) + '/' + fmt(fim)
+    + '&details=' + detalhes
+    + '&location=' + local;
+  window.open(url, '_blank');
+  toast('📅 Abrindo Google Calendar — clique em "Salvar"!');
+}
+function exportarICSEvento(id) { const ev = _eventos.find(e => e.id === id); if (ev) abrirGoogleCalendar(ev); }
+
+function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function navegar(mod) { window.parent.postMessage({ tipo: 'nexus_navegar', mod }, '*'); }
+let _tt;
+function toast(msg, err = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(_tt); _tt = setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
+</body>
+</html>

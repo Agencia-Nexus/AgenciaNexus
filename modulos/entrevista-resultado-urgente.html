@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Resultado de Entrevista — Urgente | Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --primary:#1e40af;--accent:#3b82f6;
+      --bg:#0a0a0a;--card:#131313;--card2:#181818;
+      --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.3);
+      --text:#f0f0f0;--muted:#777;--muted2:#444;
+      --D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;
+      --urg:#f97316;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+
+    .page{position:relative;z-index:1;padding:2rem 2rem 5rem;width:100%;}
+
+    /* ── HEADER ── */
+    .page-header{margin-bottom:2rem;}
+    .eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--urg);opacity:0.9;margin-bottom:0.4rem;}
+    .page-title{font-size:1.7rem;font-weight:900;margin-bottom:0.3rem;line-height:1.15;}
+    .page-title span{color:var(--accent);}
+    .page-sub{font-size:0.82rem;color:var(--muted);line-height:1.6;max-width:540px;}
+
+    /* ── ALERTA URGÊNCIA ── */
+    .alert-banner{display:flex;align-items:flex-start;gap:0.8rem;background:rgba(249,115,22,0.07);border:1px solid rgba(249,115,22,0.3);border-radius:14px;padding:1rem 1.2rem;margin-bottom:2rem;}
+    .alert-icon{font-size:1.2rem;flex-shrink:0;margin-top:0.05rem;}
+    .alert-text{font-size:0.8rem;color:var(--urg);line-height:1.65;}
+    .alert-text strong{color:#fdba74;}
+
+    /* ── SEÇÕES ── */
+    .section{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.6rem;margin-bottom:1.2rem;}
+    .section-title{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.4rem;}
+    .section-title::before{content:'';display:inline-block;width:3px;height:12px;background:var(--accent);border-radius:2px;}
+
+    /* ── INPUTS ── */
+    .field{margin-bottom:1.1rem;}
+    .field:last-child{margin-bottom:0;}
+    .field-label{font-size:0.62rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.35rem;}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+    @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
+    .inp{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.7rem 1rem;color:var(--text);font-family:inherit;font-size:0.88rem;outline:none;transition:border-color 0.2s,background 0.2s;}
+    .inp:focus{border-color:var(--accent);background:rgba(59,130,246,0.04);}
+    .inp::placeholder{color:var(--muted2);}
+    select.inp{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.85rem center;padding-right:2.4rem;-webkit-appearance:none;appearance:none;cursor:pointer;background-color:rgba(255,255,255,0.04);}
+    select.inp option{background:#161616;color:#f0f0f0;}
+    textarea.inp{resize:vertical;min-height:90px;font-size:0.82rem;line-height:1.55;}
+
+    /* ── FIT SCORE ── */
+    .fit-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;margin-bottom:0.5rem;}
+    @media(max-width:540px){.fit-row{grid-template-columns:1fr 1fr;}}
+    .fit-opt{position:relative;cursor:pointer;}
+    .fit-opt input[type=radio]{display:none;}
+    .fit-card{border:2px solid rgba(255,255,255,0.08);border-radius:14px;padding:0.9rem 0.8rem;transition:all 0.2s;background:rgba(255,255,255,0.02);text-align:center;}
+    .fit-opt input:checked ~ .fit-card{border-color:var(--fcolor);background:rgba(var(--frgb),0.1);}
+    .fit-badge{font-size:1.4rem;margin-bottom:0.3rem;}
+    .fit-label{font-size:0.82rem;font-weight:800;}
+    .fit-desc{font-size:0.65rem;color:var(--muted);margin-top:0.15rem;}
+    .fit-check{position:absolute;top:0.5rem;right:0.5rem;width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.18);background:transparent;transition:all 0.2s;}
+    .fit-opt input:checked ~ .fit-card .fit-check{background:var(--fcolor);border-color:var(--fcolor);}
+    .opt-reprovado{--fcolor:#e74c3c;--frgb:231,76,60;}
+    .opt-cautela  {--fcolor:#f39c12;--frgb:243,156,18;}
+    .opt-aprovado {--fcolor:#2ecc71;--frgb:46,204,113;}
+    .opt-destaque {--fcolor:#a78bfa;--frgb:167,139,250;}
+    .opt-reserva  {--fcolor:#3498db;--frgb:52,152,219;}
+    .opt-pendente {--fcolor:#888;--frgb:120,120,120;}
+
+    /* ── COMPETÊNCIAS ── */
+    .comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.5rem;}
+    @media(max-width:500px){.comp-grid{grid-template-columns:1fr;}}
+    .comp-row{display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.55rem 0.75rem;}
+    .comp-lbl{font-size:0.75rem;font-weight:700;flex:1;}
+    .comp-stars{display:flex;gap:3px;}
+    .star-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;opacity:0.28;transition:opacity 0.15s,transform 0.1s;padding:0;line-height:1;}
+    .star-btn.on{opacity:1;}
+    .star-btn:hover{transform:scale(1.18);}
+
+    /* ── PONTOS ── */
+    .tags-input-wrap{display:flex;gap:0.5rem;margin-bottom:0.45rem;}
+    .tags-inp{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:9px;padding:0.52rem 0.8rem;color:var(--text);font-family:inherit;font-size:0.8rem;outline:none;transition:border-color 0.2s;}
+    .tags-inp:focus{border-color:var(--accent);}
+    .tags-inp::placeholder{color:#666;}
+    .tags-btn{background:rgba(59,130,246,0.13);color:var(--accent);border:1px solid var(--border2);border-radius:9px;padding:0.52rem 0.9rem;font-family:inherit;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+    .tags-btn:hover{background:rgba(59,130,246,0.23);}
+    .tags-list{display:flex;flex-wrap:wrap;gap:0.35rem;min-height:24px;}
+    .tag-item{display:flex;align-items:center;gap:0.28rem;border-radius:99px;padding:0.22rem 0.68rem;font-size:0.72rem;font-weight:700;}
+    .tag-forte{background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.22);color:var(--accent);}
+    .tag-atencao{background:rgba(243,156,18,0.09);border:1px solid rgba(243,156,18,0.22);color:#f39c12;}
+    .tag-del{background:none;border:none;cursor:pointer;font-size:0.8rem;line-height:1;padding:0;opacity:0.5;transition:opacity 0.15s;}
+    .tag-del:hover{opacity:1;}
+
+    /* ── MOTIVO ── */
+    .motivo-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1rem;}
+    @media(max-width:520px){.motivo-grid{grid-template-columns:1fr;}}
+    .motivo-opt{position:relative;cursor:pointer;}
+    .motivo-opt input[type=radio]{display:none;}
+    .motivo-card{border:1.5px solid rgba(255,255,255,0.08);border-radius:11px;padding:0.7rem 0.85rem;font-size:0.78rem;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:0.45rem;transition:all 0.18s;}
+    .motivo-opt input:checked ~ .motivo-card{border-color:rgba(249,115,22,0.45);background:rgba(249,115,22,0.07);color:var(--urg);}
+    .motivo-card .dot{width:8px;height:8px;border-radius:50%;border:2px solid currentColor;flex-shrink:0;transition:background 0.18s;}
+    .motivo-opt input:checked ~ .motivo-card .dot{background:currentColor;}
+
+    /* ── PREVIEW ── */
+    #previewSection{display:none;animation:fadeUp 0.4s ease both;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .preview-header{display:flex;align-items:center;gap:0.9rem;margin-bottom:1.2rem;}
+    .preview-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:900;flex-shrink:0;border:3px solid;}
+    .preview-name{font-size:1.1rem;font-weight:800;}
+    .preview-meta{font-size:0.75rem;color:var(--muted);margin-top:0.1rem;}
+    .nivel-badge{display:inline-flex;align-items:center;gap:0.4rem;border-radius:99px;padding:0.35rem 1rem;font-size:0.8rem;font-weight:800;margin-bottom:0.8rem;}
+
+    /* ── BOTÕES ── */
+    .actions{display:flex;gap:0.7rem;flex-wrap:wrap;margin-top:1.5rem;}
+    .btn{font-family:inherit;font-size:0.84rem;font-weight:800;border-radius:11px;padding:0.75rem 1.5rem;border:none;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:0.45rem;}
+    .btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;}.btn-primary:hover{opacity:0.88;transform:translateY(-1px);}
+    .btn-urg{background:linear-gradient(135deg,#c2410c,var(--urg));color:#fff;border:none;}.btn-urg:hover{opacity:0.88;transform:translateY(-1px);}
+    .btn-preview{background:rgba(59,130,246,0.1);color:var(--accent);border:1px solid rgba(59,130,246,0.25);}.btn-preview:hover{background:rgba(59,130,246,0.17);}
+    .btn-ghost{background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid rgba(255,255,255,0.09);}.btn-ghost:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+    .btn:disabled{opacity:0.35;cursor:not-allowed;transform:none!important;}
+
+    /* ── TOAST ── */
+    .toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:#161616;border:1px solid rgba(59,130,246,0.35);border-radius:14px;padding:0.9rem 1.3rem;display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;font-weight:700;box-shadow:0 8px 32px rgba(0,0,0,0.5);animation:toastIn 0.3s ease both;max-width:320px;}
+    @keyframes toastIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+    .toast-ok{color:#2ecc71;border-color:rgba(59,130,246,0.35);}
+    .toast-err{color:#e74c3c;border-color:rgba(231,76,60,0.35);}
+
+    /* ── MODAL ── */
+    .overlay{position:fixed;inset:0;z-index:8888;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+    .modal{background:#161616;border:1px solid rgba(249,115,22,0.25);border-radius:22px;padding:2rem;width:100%;max-width:440px;}
+    .modal h3{font-size:1.1rem;font-weight:800;margin-bottom:0.4rem;}
+    .modal p{font-size:0.82rem;color:var(--muted);line-height:1.65;margin-bottom:1.4rem;}
+    .modal-actions{display:flex;gap:0.6rem;flex-wrap:wrap;}
+
+    /* ── HISTÓRICO ── */
+    .log-item{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:11px;padding:0.85rem 1rem;display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.55rem;}
+    .log-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+    .log-info{flex:1;min-width:0;}
+    .log-nome{font-size:0.85rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .log-meta{font-size:0.7rem;color:var(--muted);margin-top:0.12rem;}
+    .log-chips{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:0.35rem;}
+    .chip{font-size:0.65rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:99px;border:1px solid;}
+    .empty-log{text-align:center;padding:2rem;color:var(--muted);font-size:0.82rem;}
+
+    .step-tag{font-size:0.6rem;font-weight:700;background:rgba(249,115,22,0.1);color:var(--urg);border:1px solid rgba(249,115,22,0.25);border-radius:99px;padding:0.15rem 0.6rem;text-transform:uppercase;letter-spacing:1px;display:inline-flex;align-items:center;gap:0.3rem;}
+    .divider{border:none;border-top:1px solid rgba(255,255,255,0.05);margin:1.2rem 0;}
+
+    .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:center;}
+    @media(max-width:480px){.chart-row{grid-template-columns:1fr;}}
+    .chart-wrap{max-width:200px;margin:0 auto;}
+    .chart-lbl{font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;text-align:center;margin-bottom:0.4rem;}
+    .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:0.7rem;}
+    .bar-lbl{width:130px;font-size:0.8rem;font-weight:700;flex-shrink:0;}
+    .bar-track{flex:1;height:8px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;}
+    .bar-fill{height:100%;border-radius:99px;}
+    .bar-pct{width:36px;font-size:0.78rem;font-weight:800;text-align:right;}
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="eyebrow">🚨 Medida de Urgência</div>
+    <h1 class="page-title">Resultado de <span>Entrevista Urgente</span></h1>
+    <p class="page-sub">Use este painel quando houver necessidade de registrar manualmente o resultado de uma entrevista, sem passar pelo fluxo padrão. Preencha com base nas observações do recrutador.</p>
+  </div>
+
+  <!-- ALERTA -->
+  <div class="alert-banner">
+    <span class="alert-icon">⚠️</span>
+    <div class="alert-text">
+      <strong>Atenção:</strong> Este registro substitui o resultado formal de entrevista e deve ser usado apenas como medida de urgência. Registre o motivo e, quando possível, solicite que o candidato passe pelo fluxo padrão.
+    </div>
+  </div>
+
+  <!-- PASSO 1 — IDENTIFICAÇÃO -->
+  <div class="section">
+    <div class="section-title">
+      <span class="step-tag">Passo 1</span> Identificação do Candidato
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Nome completo *</label>
+        <input class="inp" id="inputNome" type="text" placeholder="Ex: Maria Santos"/>
+      </div>
+      <div class="field">
+        <label class="field-label">WhatsApp / Telefone</label>
+        <input class="inp" id="inputTel" type="tel" placeholder="(51) 99999-0000"
+          oninput="var d=this.value.replace(/\D/g,'').slice(0,11);if(d.length<=2)this.value=d;else if(d.length<=6)this.value='('+d.slice(0,2)+') '+d.slice(2);else if(d.length<=10)this.value='('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6);else this.value='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7)"/>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">E-mail</label>
+        <input class="inp" id="inputEmail" type="email" placeholder="maria@email.com"/>
+      </div>
+      <div class="field">
+        <label class="field-label">Vaga / Processo *</label>
+        <input class="inp" id="inputVaga" type="text" placeholder="Ex: Auxiliar de Produção"/>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Recrutador responsável *</label>
+      <input class="inp" id="inputAdmin" type="text" placeholder="Seu nome completo"/>
+    </div>
+  </div>
+
+  <!-- PASSO 2 — RESULTADO GERAL -->
+  <div class="section">
+    <div class="section-title">
+      <span class="step-tag">Passo 2</span> Resultado Geral da Entrevista
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Selecione o <strong style="color:var(--text)">parecer geral</strong> sobre o candidato com base na entrevista.</p>
+    <div class="fit-row">
+      <label class="fit-opt opt-aprovado">
+        <input type="radio" name="resultado" value="aprovado"/>
+        <div class="fit-card">
+          <div class="fit-badge">✅</div>
+          <div class="fit-label" style="color:#2ecc71;">Aprovado</div>
+          <div class="fit-desc">Candidato recomendado para avançar</div>
+          <div class="fit-check"></div>
+        </div>
+      </label>
+      <label class="fit-opt opt-cautela">
+        <input type="radio" name="resultado" value="cautela"/>
+        <div class="fit-card">
+          <div class="fit-badge">⚠️</div>
+          <div class="fit-label" style="color:#f39c12;">Com Cautela</div>
+          <div class="fit-desc">Pontos positivos, mas há ressalvas</div>
+          <div class="fit-check"></div>
+        </div>
+      </label>
+      <label class="fit-opt opt-reprovado">
+        <input type="radio" name="resultado" value="reprovado"/>
+        <div class="fit-card">
+          <div class="fit-badge">❌</div>
+          <div class="fit-label" style="color:#e74c3c;">Reprovado</div>
+          <div class="fit-desc">Não atende ao perfil da vaga</div>
+          <div class="fit-check"></div>
+        </div>
+      </label>
+      <label class="fit-opt opt-destaque">
+        <input type="radio" name="resultado" value="destaque"/>
+        <div class="fit-card">
+          <div class="fit-badge">⭐</div>
+          <div class="fit-label" style="color:#a78bfa;">Destaque</div>
+          <div class="fit-desc">Perfil acima do esperado</div>
+          <div class="fit-check"></div>
+        </div>
+      </label>
+      <label class="fit-opt opt-reserva">
+        <input type="radio" name="resultado" value="reserva"/>
+        <div class="fit-card">
+          <div class="fit-badge">📋</div>
+          <div class="fit-label" style="color:#3498db;">Banco de Reserva</div>
+          <div class="fit-desc">Bom perfil, mas não agora</div>
+          <div class="fit-check"></div>
+        </div>
+      </label>
+      <label class="fit-opt opt-pendente">
+        <input type="radio" name="resultado" value="pendente"/>
+        <div class="fit-card">
+          <div class="fit-badge">⏳</div>
+          <div class="fit-label" style="color:#aaa;">Pendente</div>
+          <div class="fit-desc">Aguarda mais informações</div>
+          <div class="fit-check"></div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- PASSO 3 — FIT % -->
+  <div class="section">
+    <div class="section-title">
+      <span class="step-tag">Passo 3</span> Fit com a Vaga (%)
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Ajuste o percentual de aderência ao perfil da vaga. <strong style="color:var(--text)">0% = sem fit · 100% = fit perfeito.</strong></p>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <input type="range" id="slFit" min="0" max="100" value="50"
+        style="-webkit-appearance:none;appearance:none;flex:1;height:6px;border-radius:99px;outline:none;cursor:pointer;background:linear-gradient(90deg,#3b82f6 50%,rgba(255,255,255,0.08) 50%);"
+        oninput="updateFit(this.value)"/>
+      <div id="valFit" style="width:48px;text-align:right;font-size:1rem;font-weight:900;color:var(--accent);">50%</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:var(--muted);margin-top:0.4rem;padding:0 2px;">
+      <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+    </div>
+  </div>
+
+  <!-- PASSO 4 — COMPETÊNCIAS -->
+  <div class="section">
+    <div class="section-title">
+      <span class="step-tag">Passo 4</span> Avaliação de Competências
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Avalie cada competência de <strong style="color:var(--text)">1 a 5 estrelas</strong> com base na entrevista.</p>
+    <div class="comp-grid">
+      <div class="comp-row"><span class="comp-lbl">🗣️ Comunicação</span><div class="comp-stars" id="st_com" data-key="com"></div></div>
+      <div class="comp-row"><span class="comp-lbl">💪 Resiliência</span><div class="comp-stars" id="st_res" data-key="res"></div></div>
+      <div class="comp-row"><span class="comp-lbl">🤝 Trabalho em Equipe</span><div class="comp-stars" id="st_eq" data-key="eq"></div></div>
+      <div class="comp-row"><span class="comp-lbl">🎯 Foco em Resultados</span><div class="comp-stars" id="st_foc" data-key="foc"></div></div>
+      <div class="comp-row"><span class="comp-lbl">🧠 Raciocínio Lógico</span><div class="comp-stars" id="st_log" data-key="log"></div></div>
+      <div class="comp-row"><span class="comp-lbl">📋 Organização</span><div class="comp-stars" id="st_org" data-key="org"></div></div>
+      <div class="comp-row"><span class="comp-lbl">🚀 Proatividade</span><div class="comp-stars" id="st_pro" data-key="pro"></div></div>
+      <div class="comp-row"><span class="comp-lbl">🎓 Conhecimento Técnico</span><div class="comp-stars" id="st_tec" data-key="tec"></div></div>
+    </div>
+  </div>
+
+  <!-- PASSO 5 — PONTOS FORTES & ATENÇÃO -->
+  <div class="section">
+    <div class="section-title">
+      <span class="step-tag">Passo 5</span> Pontos Fortes & Pontos de Atenção
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">✅ Pontos Fortes</label>
+        <div class="tags-input-wrap">
+          <input class="tags-inp" id="inputForte" placeholder="Ex: Boa comunicação" onkeydown="if(event.key==='Enter'){event.preventDefault();addTag('forte');}"/>
+          <button class="tags-btn" onclick="addTag('forte')">+ Add</button>
+        </div>
+        <div class="tags-list" id="listForte"></div>
+      </div>
+      <div class="field">
+        <label class="field-label">⚠️ Pontos de Atenção</label>
+        <div class="tags-input-wrap">
+          <input class="tags-inp" id="inputAtencao" placeholder="Ex: Pouca experiência" onkeydown="if(event.key==='Enter'){event.preventDefault();addTag('atencao');}"/>
+          <button class="tags-btn" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.25);" onclick="addTag('atencao')">+ Add</button>
+        </div>
+        <div class="tags-list" id="listAtencao"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASSO 6 — RESUMO & RECOMENDAÇÃO -->
+  <div class="section">
+    <div class="section-title">
+      <span class="step-tag">Passo 6</span> Resumo & Recomendação
+    </div>
+    <div class="field">
+      <label class="field-label">Resumo da Entrevista</label>
+      <textarea class="inp" id="inputResumo" placeholder="Descreva brevemente como foi a entrevista, impressões gerais e aspectos relevantes observados..."></textarea>
+    </div>
+    <div class="field">
+      <label class="field-label">Recomendação ao Gestor</label>
+      <textarea class="inp" id="inputRec" placeholder="Ex: Recomendo avançar para segunda fase. Candidato demonstrou boa aderência técnica, porém deve-se observar a experiência em gestão de equipes..."></textarea>
+    </div>
+  </div>
+
+  <!-- PASSO 7 — MOTIVO DE URGÊNCIA -->
+  <div class="section">
+    <div class="section-title">
+      <span class="step-tag">Passo 7</span> Motivo da Urgência
+    </div>
+    <div class="motivo-grid">
+      <label class="motivo-opt">
+        <input type="radio" name="motivo" value="prazo_vaga"/>
+        <div class="motivo-card"><span class="dot"></span>Prazo apertado da vaga</div>
+      </label>
+      <label class="motivo-opt">
+        <input type="radio" name="motivo" value="indisponibilidade"/>
+        <div class="motivo-card"><span class="dot"></span>Candidato com indisponibilidade de sistema</div>
+      </label>
+      <label class="motivo-opt">
+        <input type="radio" name="motivo" value="entrevista_presencial"/>
+        <div class="motivo-card"><span class="dot"></span>Entrevista presencial sem agendamento prévio</div>
+      </label>
+      <label class="motivo-opt">
+        <input type="radio" name="motivo" value="solicitacao_cliente"/>
+        <div class="motivo-card"><span class="dot"></span>Solicitação do cliente / empresa</div>
+      </label>
+      <label class="motivo-opt">
+        <input type="radio" name="motivo" value="tecnico"/>
+        <div class="motivo-card"><span class="dot"></span>Problema técnico no sistema</div>
+      </label>
+      <label class="motivo-opt">
+        <input type="radio" name="motivo" value="outro"/>
+        <div class="motivo-card"><span class="dot"></span>Outro motivo</div>
+      </label>
+    </div>
+    <div class="field" style="margin-top:0.5rem;">
+      <label class="field-label">Observações complementares</label>
+      <textarea class="inp" id="inputObs" placeholder="Detalhes adicionais sobre o motivo da urgência (opcional)..."></textarea>
+    </div>
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="actions">
+    <button class="btn btn-preview" onclick="gerarPreview()">👁 Visualizar Resultado</button>
+    <button class="btn btn-urg" onclick="confirmarRegistro()">🚨 Registrar Urgente</button>
+    <button class="btn btn-ghost" onclick="limparFormulario()">🗑 Limpar</button>
+  </div>
+
+  <!-- PREVIEW -->
+  <div id="previewSection">
+    <hr class="divider" style="margin:2rem 0 1.5rem;"/>
+    <div class="section">
+      <div class="section-title">👁 Pré-visualização do Resultado</div>
+      <div class="preview-header">
+        <div class="preview-avatar" id="pvAvatar">👤</div>
+        <div>
+          <div class="preview-name" id="pvNome">—</div>
+          <div class="preview-meta" id="pvMeta">—</div>
+        </div>
+      </div>
+      <div id="pvNivel"></div>
+
+      <div class="chart-row" style="margin-top:1rem;">
+        <div id="pvBars"></div>
+        <div>
+          <div class="chart-lbl">Competências</div>
+          <div class="chart-wrap"><canvas id="pvChart" height="200"></canvas></div>
+        </div>
+      </div>
+
+      <hr class="divider"/>
+      <div id="pvResumo" style="font-size:0.85rem;color:var(--muted);line-height:1.7;"></div>
+      <div id="pvPontos" style="margin-top:1rem;"></div>
+    </div>
+  </div>
+
+  <!-- HISTÓRICO LOCAL -->
+  <div class="section" style="margin-top:2rem;">
+    <div class="section-title" style="justify-content:space-between;align-items:center;flex-direction:row;display:flex;">
+      <span style="display:flex;align-items:center;gap:0.4rem;"><span class="step-tag" style="display:inline-flex;">Sessão</span> Histórico de Registros</span>
+      <button class="btn btn-ghost" style="padding:0.3rem 0.7rem;font-size:0.72rem;" onclick="limparHistorico()">Limpar</button>
+    </div>
+    <div id="logWrap">
+      <div class="empty-log">Nenhum registro realizado ainda nesta sessão.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL CONFIRMAÇÃO -->
+<div class="overlay" id="modalOverlay" style="display:none;">
+  <div class="modal">
+    <h3>🚨 Confirmar Registro Urgente</h3>
+    <p id="modalTexto">Você está prestes a registrar manualmente o resultado desta entrevista. Deseja confirmar?</p>
+    <div class="modal-actions">
+      <button class="btn btn-urg" onclick="executarRegistro()">✅ Confirmar</button>
+      <button class="btn btn-ghost" onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DADOS
+// ============================================================
+const RESULTADO_INFO = {
+  aprovado:  { label:'Aprovado',          emoji:'✅', cor:'#2ecc71', rgb:'46,204,113'  },
+  cautela:   { label:'Com Cautela',       emoji:'⚠️', cor:'#f39c12', rgb:'243,156,18' },
+  reprovado: { label:'Reprovado',         emoji:'❌', cor:'#e74c3c', rgb:'231,76,60'  },
+  destaque:  { label:'Destaque',          emoji:'⭐', cor:'#a78bfa', rgb:'167,139,250'},
+  reserva:   { label:'Banco de Reserva',  emoji:'📋', cor:'#3498db', rgb:'52,152,219' },
+  pendente:  { label:'Pendente',          emoji:'⏳', cor:'#888',    rgb:'120,120,120'},
+};
+
+const COMP_LABELS = {
+  com:'🗣️ Comunicação', res:'💪 Resiliência', eq:'🤝 Trabalho em Equipe',
+  foc:'🎯 Foco em Resultados', log:'🧠 Raciocínio Lógico', org:'📋 Organização',
+  pro:'🚀 Proatividade', tec:'🎓 Conhecimento Técnico'
+};
+
+const MOTIVOS_TXT = {
+  prazo_vaga:'Prazo apertado da vaga',
+  indisponibilidade:'Candidato com indisponibilidade de sistema',
+  entrevista_presencial:'Entrevista presencial sem agendamento prévio',
+  solicitacao_cliente:'Solicitação do cliente / empresa',
+  tecnico:'Problema técnico no sistema',
+  outro:'Outro motivo',
+};
+
+// ============================================================
+// ESTRELAS
+// ============================================================
+const compScores = {com:0,res:0,eq:0,foc:0,log:0,org:0,pro:0,tec:0};
+
+document.querySelectorAll('.comp-stars').forEach(wrap => {
+  const key = wrap.dataset.key;
+  for(let i=1;i<=5;i++){
+    const b = document.createElement('button');
+    b.className = 'star-btn';
+    b.textContent = '★';
+    b.dataset.val = i;
+    b.onclick = () => setStars(key, i);
+    wrap.appendChild(b);
+  }
+});
+
+function setStars(key, val){
+  compScores[key] = val;
+  const wrap = document.querySelector(`.comp-stars[data-key="${key}"]`);
+  wrap.querySelectorAll('.star-btn').forEach((b,i) => b.classList.toggle('on', i < val));
+}
+
+// ============================================================
+// FIT SLIDER
+// ============================================================
+function updateFit(val){
+  document.getElementById('valFit').textContent = val + '%';
+  const sl = document.getElementById('slFit');
+  sl.style.background = `linear-gradient(90deg,#3b82f6 ${val}%,rgba(255,255,255,0.08) ${val}%)`;
+}
+
+// ============================================================
+// TAGS
+// ============================================================
+const tagsForte   = [];
+const tagsAtencao = [];
+
+function addTag(tipo){
+  const inp  = document.getElementById(tipo === 'forte' ? 'inputForte' : 'inputAtencao');
+  const val  = inp.value.trim();
+  if(!val) return;
+  const arr  = tipo === 'forte' ? tagsForte : tagsAtencao;
+  if(arr.includes(val)){ inp.value=''; return; }
+  arr.push(val);
+  renderTags(tipo);
+  inp.value = '';
+}
+
+function removeTag(tipo, idx){
+  const arr = tipo === 'forte' ? tagsForte : tagsAtencao;
+  arr.splice(idx,1);
+  renderTags(tipo);
+}
+
+function renderTags(tipo){
+  const arr  = tipo === 'forte' ? tagsForte : tagsAtencao;
+  const wrap = document.getElementById(tipo === 'forte' ? 'listForte' : 'listAtencao');
+  const cls  = tipo === 'forte' ? 'tag-forte' : 'tag-atencao';
+  wrap.innerHTML = arr.map((t,i)=>`
+    <span class="tag-item ${cls}">${t}
+      <button class="tag-del" onclick="removeTag('${tipo}',${i})">✕</button>
+    </span>`).join('');
+}
+
+// ============================================================
+// PREVIEW
+// ============================================================
+let pvChartInst = null;
+
+function gerarPreview(){
+  const nome = document.getElementById('inputNome').value.trim();
+  const res  = document.querySelector('input[name=resultado]:checked')?.value;
+  if(!nome || !res){ showToast('Preencha o nome e o resultado antes de visualizar.','err'); return; }
+
+  const fit  = parseInt(document.getElementById('slFit').value);
+  const vaga = document.getElementById('inputVaga').value.trim();
+  const info = RESULTADO_INFO[res];
+
+  document.getElementById('pvAvatar').style.cssText = `background:rgba(${info.rgb},0.15);color:${info.cor};border-color:rgba(${info.rgb},0.4);`;
+  document.getElementById('pvAvatar').textContent = info.emoji;
+  document.getElementById('pvNome').textContent = nome;
+  document.getElementById('pvMeta').textContent = (vaga ? vaga + ' · ' : '') + 'Fit: ' + fit + '%';
+
+  document.getElementById('pvNivel').innerHTML = `
+    <span style="display:inline-flex;align-items:center;gap:0.4rem;border-radius:99px;padding:0.35rem 1rem;font-size:0.8rem;font-weight:800;background:rgba(${info.rgb},0.12);color:${info.cor};border:1px solid rgba(${info.rgb},0.3);">
+      ${info.emoji} ${info.label}
+    </span>`;
+
+  // Barras competências
+  const comps = Object.entries(compScores);
+  document.getElementById('pvBars').innerHTML = comps.map(([k,v])=>`
+    <div class="bar-row">
+      <div class="bar-lbl" style="font-size:0.72rem;">${COMP_LABELS[k].split(' ').slice(1).join(' ')}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${v*20}%;background:${v>=4?'#2ecc71':v>=3?'#3b82f6':v>=2?'#f39c12':'#e74c3c'};"></div></div>
+      <div class="bar-pct" style="color:${v>=4?'#2ecc71':v>=3?'#3b82f6':v>=2?'#f39c12':'#e74c3c'};">${v}/5</div>
+    </div>`).join('');
+
+  // Radar chart
+  if(pvChartInst) pvChartInst.destroy();
+  pvChartInst = new Chart(document.getElementById('pvChart'), {
+    type:'radar',
+    data:{
+      labels: Object.values(COMP_LABELS).map(l => l.split(' ').slice(1,3).join(' ')),
+      datasets:[{
+        data: Object.values(compScores),
+        backgroundColor:'rgba(59,130,246,0.15)',
+        borderColor:'#3b82f6',
+        borderWidth:2,
+        pointBackgroundColor:'#3b82f6',
+        pointRadius:3,
+      }]
+    },
+    options:{
+      responsive:true,
+      scales:{r:{
+        min:0,max:5,ticks:{display:false},
+        grid:{color:'rgba(255,255,255,0.07)'},
+        pointLabels:{color:'#666',font:{family:'Sora',size:9}},
+        angleLines:{color:'rgba(255,255,255,0.06)'},
+      }},
+      plugins:{legend:{display:false}},
+    }
+  });
+
+  const resumo = document.getElementById('inputResumo').value.trim();
+  document.getElementById('pvResumo').textContent = resumo || '';
+
+  let pontosHtml = '';
+  if(tagsForte.length) pontosHtml += `<div style="margin-bottom:0.6rem;font-size:0.7rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;">✅ Pontos Fortes</div><div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.9rem;">${tagsForte.map(t=>`<span class="tag-item tag-forte">${t}</span>`).join('')}</div>`;
+  if(tagsAtencao.length) pontosHtml += `<div style="margin-bottom:0.6rem;font-size:0.7rem;font-weight:700;color:#f39c12;text-transform:uppercase;letter-spacing:1px;">⚠️ Pontos de Atenção</div><div style="display:flex;flex-wrap:wrap;gap:0.35rem;">${tagsAtencao.map(t=>`<span class="tag-item tag-atencao">${t}</span>`).join('')}</div>`;
+  document.getElementById('pvPontos').innerHTML = pontosHtml;
+
+  const sec = document.getElementById('previewSection');
+  sec.style.display = 'block';
+  sec.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ============================================================
+// CONFIRMAÇÃO / REGISTRO
+// ============================================================
+function confirmarRegistro(){
+  const nome   = document.getElementById('inputNome').value.trim();
+  const admin  = document.getElementById('inputAdmin').value.trim();
+  const res    = document.querySelector('input[name=resultado]:checked')?.value;
+  const motivo = document.querySelector('input[name=motivo]:checked')?.value;
+
+  if(!nome)  { showToast('Informe o nome do candidato.','err');        return; }
+  if(!admin) { showToast('Informe o nome do recrutador responsável.','err'); return; }
+  if(!res)   { showToast('Selecione o resultado da entrevista.','err'); return; }
+  if(!motivo){ showToast('Selecione o motivo da urgência.','err');      return; }
+
+  const info = RESULTADO_INFO[res];
+  document.getElementById('modalTexto').innerHTML = `
+    Você está registrando o resultado <strong style="color:${info.cor}">${info.emoji} ${info.label}</strong>
+    para <strong>${nome}</strong>.<br><br>
+    <span style="color:#888;font-size:0.8rem;">Motivo: ${MOTIVOS_TXT[motivo]||motivo} · Recrutador: ${admin}</span>
+  `;
+  document.getElementById('modalOverlay').style.display = 'flex';
+}
+
+function fecharModal(){
+  document.getElementById('modalOverlay').style.display = 'none';
+}
+
+function executarRegistro(){
+  fecharModal();
+  const nome   = document.getElementById('inputNome').value.trim();
+  const tel    = document.getElementById('inputTel').value.trim();
+  const email  = document.getElementById('inputEmail').value.trim();
+  const vaga   = document.getElementById('inputVaga').value.trim();
+  const admin  = document.getElementById('inputAdmin').value.trim();
+  const obs    = document.getElementById('inputObs').value.trim();
+  const resumo = document.getElementById('inputResumo').value.trim();
+  const rec    = document.getElementById('inputRec').value.trim();
+  const res    = document.querySelector('input[name=resultado]:checked').value;
+  const motivo = document.querySelector('input[name=motivo]:checked').value;
+  const fit    = parseInt(document.getElementById('slFit').value);
+
+  const registro = {
+    nome, tel, email, vaga, admin, obs, resumo, rec,
+    resultado: res,
+    resultado_label: RESULTADO_INFO[res].label,
+    fit_score: fit,
+    competencias: {...compScores},
+    pontos_fortes:   [...tagsForte],
+    pontos_atencao:  [...tagsAtencao],
+    motivo, motivo_txt: MOTIVOS_TXT[motivo]||motivo,
+    registrado_em: new Date().toISOString(),
+    ts: Date.now(),
+  };
+
+  // Salva no localStorage
+  try{
+    const hist = JSON.parse(localStorage.getItem('ent_urgente_hist')||'[]');
+    hist.unshift(registro);
+    localStorage.setItem('ent_urgente_hist', JSON.stringify(hist.slice(0,50)));
+  }catch(e){}
+
+  adicionarLog(registro);
+  showToast('✅ Resultado registrado com sucesso para ' + nome + '!', 'ok');
+
+  // Determinar nível com base no fit
+  const nivelStr = fit >= 80 ? 'Excelente' : fit >= 65 ? 'Alto' : fit >= 45 ? 'Médio' : 'Baixo';
+
+  // Popular sessionStorage para o entrevista-resultado.html exibir os dados
+  const entDataSS = {
+    area: vaga || '',
+    exp_total: '',
+    historia: resumo || '',
+    exp_vaga: '',
+    conquistas: [],
+    diferencial: '',
+    motivacao: obs || '',
+    extra: '',
+    competencias: {}
+  };
+  const iaDataSS = {
+    resumo_candidato: resumo || '',
+    resumo_admin: resumo || '',
+    recomendacao_admin: rec || '',
+    pontos_fortes: [...tagsForte],
+    pontos_atencao: [...tagsAtencao],
+    requisitos_atendidos: [],
+    requisitos_ausentes: [],
+  };
+  try {
+    sessionStorage.setItem('entrevista_dados', JSON.stringify(entDataSS));
+    sessionStorage.setItem('entrevista_ia', JSON.stringify(iaDataSS));
+  } catch(e) {}
+
+  // Modal de sucesso com link
+  const params = new URLSearchParams({
+    nome, email: email||'', tel: tel||'',
+    vaga: vaga||'', resultado: res, fit, nivel: nivelStr, admin, motivo,
+    urgente: '1',
+    ia: JSON.stringify(iaDataSS),
+    dados: JSON.stringify(entDataSS)
+  });
+  const link = window.location.href.replace(/[^/]*$/, '') + 'entrevista-resultado.html?' + params.toString();
+
+  setTimeout(()=>{
+    const m = document.createElement('div');
+    m.className = 'overlay';
+    m.style.zIndex = '9999';
+    m.innerHTML = `
+      <div class="modal" style="max-width:500px;border-color:rgba(59,130,246,0.22);">
+        <h3>✅ Resultado Registrado!</h3>
+        <p>O resultado <strong style="color:${RESULTADO_INFO[res].cor}">${RESULTADO_INFO[res].emoji} ${RESULTADO_INFO[res].label}</strong> (Fit ${fit}%) foi registrado para <strong>${nome}</strong>.</p>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.09);border-radius:10px;padding:0.8rem 1rem;margin:-0.4rem 0 1rem;font-size:0.73rem;color:#aaa;word-break:break-all;line-height:1.6;">
+          <div style="font-size:0.6rem;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;">Link gerado:</div>
+          <span style="color:var(--accent);">${link}</span>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="navigator.clipboard.writeText('${link.replace(/'/g,"\\'")}').then(()=>showToast('Link copiado!','ok'))">📋 Copiar link</button>
+          <button class="btn btn-ghost" onclick="this.closest('.overlay').remove()">Fechar</button>
+        </div>
+      </div>`;
+    document.body.appendChild(m);
+  }, 400);
+
+  limparFormulario(true);
+}
+
+// ============================================================
+// LOG / HISTÓRICO
+// ============================================================
+function adicionarLog(r){
+  const wrap  = document.getElementById('logWrap');
+  const empty = wrap.querySelector('.empty-log');
+  if(empty) empty.remove();
+  const info  = RESULTADO_INFO[r.resultado];
+  const el    = document.createElement('div');
+  el.className = 'log-item';
+  el.innerHTML = `
+    <div class="log-badge" style="background:rgba(${info.rgb},0.12);color:${info.cor};border:2px solid rgba(${info.rgb},0.25);">${info.emoji}</div>
+    <div class="log-info">
+      <div class="log-nome">${r.nome}</div>
+      <div class="log-meta">${r.vaga?r.vaga+' · ':''}Recrutador: ${r.admin} · ${new Date(r.ts).toLocaleString('pt-BR')}</div>
+      <div class="log-chips">
+        <span class="chip" style="background:rgba(${info.rgb},0.1);border-color:rgba(${info.rgb},0.25);color:${info.cor};">${info.label}</span>
+        <span class="chip" style="background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#3b82f6;">Fit ${r.fit_score}%</span>
+        <span class="chip" style="background:rgba(249,115,22,0.08);border-color:rgba(249,115,22,0.2);color:#f97316;">🚨 Urgente</span>
+      </div>
+    </div>`;
+  wrap.insertBefore(el, wrap.firstChild);
+}
+
+(function carregarHistorico(){
+  try{
+    const hist = JSON.parse(localStorage.getItem('ent_urgente_hist')||'[]');
+    if(hist.length){
+      document.getElementById('logWrap').innerHTML='';
+      hist.forEach(r=>adicionarLog(r));
+    }
+  }catch(e){}
+})();
+
+function limparHistorico(){
+  localStorage.removeItem('ent_urgente_hist');
+  document.getElementById('logWrap').innerHTML='<div class="empty-log">Nenhum registro realizado ainda nesta sessão.</div>';
+}
+
+// ============================================================
+// LIMPAR / UTILITÁRIOS
+// ============================================================
+function limparFormulario(manterAdmin){
+  ['inputNome','inputTel','inputEmail','inputVaga','inputResumo','inputRec','inputObs'].forEach(id => document.getElementById(id).value='');
+  if(!manterAdmin) document.getElementById('inputAdmin').value='';
+  document.querySelectorAll('input[name=resultado],input[name=motivo]').forEach(i=>i.checked=false);
+  updateFit(50);
+  document.getElementById('slFit').value = 50;
+  Object.keys(compScores).forEach(k=>{ compScores[k]=0; document.querySelectorAll(`.comp-stars[data-key="${k}"] .star-btn`).forEach(b=>b.classList.remove('on')); });
+  tagsForte.length=0; tagsAtencao.length=0;
+  renderTags('forte'); renderTags('atencao');
+  document.getElementById('previewSection').style.display='none';
+}
+
+let toastTimer = null;
+function showToast(msg, tipo){
+  let t = document.getElementById('toastEl');
+  if(t) t.remove();
+  t = document.createElement('div');
+  t.id = 'toastEl';
+  t.className = 'toast toast-'+(tipo||'ok');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t&&t.remove(), 3500);
+}
+</script>
+</body>
+</html>
