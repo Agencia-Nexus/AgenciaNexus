@@ -355,7 +355,8 @@ body.dark-mode .btn-secondary {
 
 
     /* Back Button */
-    .back-button {
+    .back-button,
+    .topics-toggle-mobile {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -558,7 +559,7 @@ body.dark-mode .btn-secondary {
 
       /* Topics mobile aparece abaixo do Voltar (via flex-column no wrapper) */
       .topics-toggle-mobile {
-        display: flex;
+        display: inline-flex;
         background: rgba(255, 255, 255, 0.2);
         border: 2px solid rgba(255, 255, 255, 0.4);
         backdrop-filter: blur(10px);
@@ -573,7 +574,6 @@ body.dark-mode .btn-secondary {
         align-items: center;
         justify-content: center;
         white-space: nowrap;
-        width: fit-content;
       }
 
       body:not(.dark-mode) .topics-toggle-mobile {
