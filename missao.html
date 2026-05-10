@@ -1064,9 +1064,9 @@ body.dark-mode .chip { background: #2a2a2a; }
       right: 1.15rem;
       width: 28px; height: 28px;
       border-radius: 50%;
-      background: rgba(30,64,175,0.85);
+      background: #2563eb;
       border: none;
-      color: #fff;
+      color: #ffffff;
       font-size: 0.55rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -1078,8 +1078,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       backdrop-filter: blur(4px);
     }
     body.dark-mode .scroll-top-btn {
-      background: rgba(30,30,30,0.45);
-      color: rgba(100,180,0,0.4);
+      background: #2563eb;
+      color: #ffffff;
     }
     .scroll-top-btn.visible {
       opacity: 1; pointer-events: auto; transform: translateY(0);
@@ -2480,7 +2480,7 @@ setInterval(nextSlide, 4000);
       document.getElementById('topicsDropdown').classList.remove('open');
     }
     function toggleTopicsMobile(e) {
-      if (e) e.stopPropagation();
+      e.stopPropagation();
       document.getElementById('topicsDropdownMobile').classList.toggle('open');
     }
     function closeTopicsMobile() {
