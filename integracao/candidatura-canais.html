@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Enviar Candidatura | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #1d4ed8;
+      --accent:  #3b82f6;
+      --bg:      #0a0a0a;
+      --card:    #131313;
+      --card2:   #181818;
+      --border:  rgba(59,130,246,0.15);
+      --border2: rgba(59,130,246,0.32);
+      --text:    #f0f0f0;
+      --muted:   #727272;
+      --muted2:  #3a3a3a;
+      --D: #e74c3c; --I: #f39c12; --S: #2ecc71; --C: #3498db;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: fixed; top: -15%; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse, rgba(59,130,246,0.05) 0%, transparent 68%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      position: relative; z-index: 1;
+      width: 100%;
+      padding: 2rem 2rem 5rem;
+    }
+
+    /* ── VAGA PILL ── */
+
+    /* ── RESUMO DO CANDIDATO ── */
+    .resumo-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1rem 1.3rem; margin-bottom: 1.4rem;
+      display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap;
+    }
+    .resumo-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(59,130,246,0.1); border: 2px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .resumo-info { flex: 1; min-width: 0; }
+    .resumo-nome { font-size: 0.95rem; font-weight: 800; }
+    .resumo-meta { font-size: 0.72rem; color: var(--muted); margin-top: 0.15rem; }
+    .resumo-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+    .chip {
+      font-size: 0.65rem; font-weight: 700; padding: 0.18rem 0.65rem;
+      border-radius: 99px; border: 1px solid;
+    }
+    .chip-disc { background: rgba(59,130,246,0.09); border-color: rgba(59,130,246,0.3); color: var(--accent); }
+    .chip-fit  { background: rgba(46,204,113,0.09); border-color: rgba(46,204,113,0.3); color: #2ecc71; }
+    .chip-ent  { background: rgba(52,152,219,0.09); border-color: rgba(52,152,219,0.3); color: #3498db; }
+
+    /* ── SEÇÃO TÍTULO ── */
+    .sec-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.7rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── GRID DE CANAIS ── */
+    .canais-grid {
+      display: flex; flex-direction: column; gap: 0.65rem;
+      margin-bottom: 1.4rem;
+    }
+    .canal-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.1rem 1.3rem;
+      display: flex; align-items: center; gap: 1rem;
+      cursor: pointer; transition: all 0.2s;
+      position: relative; overflow: hidden;
+      text-decoration: none; color: inherit;
+    }
+    .canal-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(59,130,246,0.04));
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .canal-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+    .canal-card:hover::before { opacity: 1; }
+    .canal-card.selected {
+      border-color: var(--accent);
+      background: rgba(59,130,246,0.06);
+    }
+    .canal-ico {
+      width: 46px; height: 46px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .canal-info { flex: 1; min-width: 0; }
+    .canal-nome { font-size: 0.88rem; font-weight: 800; margin-bottom: 0.15rem; }
+    .canal-sub  { font-size: 0.72rem; color: var(--muted); line-height: 1.55; }
+    .canal-arrow {
+      font-size: 1.1rem; color: var(--muted); flex-shrink: 0;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .canal-card:hover .canal-arrow { transform: translateX(3px); color: var(--accent); }
+    .canal-badge {
+      position: absolute; top: 0.6rem; right: 0.6rem;
+      font-size: 0.55rem; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 99px;
+      border: 1px solid;
+    }
+
+    /* ── DETALHE DO CANAL (expandido) ── */
+    .canal-detalhe {
+      display: none;
+      background: rgba(0,0,0,0.25); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1rem 1.2rem; margin-top: 0.4rem;
+      animation: fadeIn 0.2s ease;
+    }
+    .canal-detalhe.open { display: block; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+
+    .bonus-onus-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 520px) { .bonus-onus-grid { grid-template-columns: 1fr; } }
+
+    .bonus-box, .onus-box {
+      border-radius: 10px; padding: 0.8rem 1rem;
+    }
+    .bonus-box {
+      background: rgba(79,114,20,0.12); border-left: 3px solid var(--accent);
+    }
+    .onus-box {
+      background: rgba(220,38,38,0.07); border-left: 3px solid rgba(220,38,38,0.6);
+    }
+    .box-title {
+      font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 0.55rem;
+    }
+    .bonus-box .box-title { color: var(--accent); }
+    .onus-box  .box-title { color: #e74c3c; }
+    .box-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+    .box-list li {
+      font-size: 0.75rem; color: #bbb; line-height: 1.5;
+      display: flex; gap: 0.4rem; align-items: flex-start;
+    }
+    .box-list li span { flex-shrink: 0; }
+
+    .btn-confirmar {
+      width: 100%; background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; border: none; border-radius: 12px;
+      padding: 0.9rem 1.5rem; font-family: inherit;
+      font-size: 0.92rem; font-weight: 800; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: center;
+      justify-content: center; gap: 0.5rem; letter-spacing: 0.01em;
+    }
+    .btn-confirmar:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-confirmar:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* ── AVISO PRIVACIDADE ── */
+    .privacidade {
+      background: rgba(59,130,246,0.05); border: 1px solid var(--border);
+      border-radius: 13px; padding: 0.85rem 1.1rem; margin-bottom: 1.4rem;
+      font-size: 0.77rem; color: var(--muted); line-height: 1.62;
+    }
+    .privacidade strong { color: var(--text); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 3rem 1rem;
+      color: var(--muted); font-size: 0.85rem; display: none;
+    }
+    .empty-state span { font-size: 2.5rem; display: block; margin-bottom: 0.8rem; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: rgba(20,20,20,0.96); border: 1px solid var(--border2);
+      border-radius: 12px; padding: 0.7rem 1.4rem;
+      font-size: 0.82rem; font-weight: 700; color: var(--accent);
+      z-index: 9999; transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+      pointer-events: none; white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast.erro { color: #e74c3c; border-color: rgba(231,76,60,0.4); }
+
+    /* ── STEP INDICATOR ── */
+    .steps-row {
+      display: flex; align-items: center; gap: 0; margin-bottom: 1.6rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: 13px; overflow: hidden;
+    }
+    .step-item {
+      flex: 1; padding: 0.6rem 0.4rem; text-align: center;
+      font-size: 0.66rem; font-weight: 700; color: var(--muted);
+      border-right: 1px solid var(--border); transition: all 0.2s;
+    }
+    .step-item:last-child { border-right: none; }
+    .step-item.done { background: rgba(59,130,246,0.05); color: rgba(59,130,246,0.55); }
+    .step-item.now  { background: rgba(59,130,246,0.1); color: var(--accent); }
+    .step-n { display: block; font-size: 0.54rem; opacity: 0.52; margin-bottom: 0.04rem; letter-spacing: 1px; text-transform: uppercase; }
+
+    /* ── MODAL DE CONFIRMAÇÃO ── */
+    .modal-ov {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+      display: none; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-ov.active { display: flex; }
+    .modal-box {
+      background: #111; border: 1px solid var(--border2); border-radius: 22px;
+      width: 100%; max-width: 460px; padding: 2rem;
+      position: relative; animation: fadeIn 0.25s ease;
+    }
+    .modal-box-ico { font-size: 2.2rem; text-align: center; margin-bottom: 0.7rem; }
+    .modal-box h3 { font-size: 1.1rem; font-weight: 900; text-align: center; margin-bottom: 0.3rem; }
+    .modal-box p  { font-size: 0.82rem; color: var(--muted); text-align: center; line-height: 1.6; margin-bottom: 1.3rem; }
+    .modal-btns { display: flex; flex-direction: column; gap: 0.55rem; }
+    .modal-close-btn {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.07); border: none; border-radius: 8px;
+      width: 30px; height: 30px; cursor: pointer; color: var(--muted);
+      font-size: 0.9rem; display: flex; align-items: center; justify-content: center;
+      transition: all 0.18s;
+    }
+    .modal-close-btn:hover { background: rgba(255,255,255,0.13); color: #fff; }
+    .btn-cancel-modal {
+      background: rgba(255,255,255,0.05); color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+      padding: 0.75rem; font-family: inherit; font-size: 0.85rem;
+      cursor: pointer; font-weight: 700; transition: all 0.18s;
+    }
+    .btn-cancel-modal:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER — padrão Nexus ATS -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem;">
+    <div>
+      <div style="font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;">Candidatura · ATS</div>
+      <div style="font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;line-height:1.2;">Envie seu <span style="color:var(--accent);">Currículo</span></div>
+      <div style="font-size:0.8rem;color:var(--muted);">Escolha o canal abaixo para concluir. Seu perfil DISC e análise de fit já foram registrados.</div>
+      <span class="vaga-pill" id="vagaPill" style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.32);border-radius:99px;padding:0.3rem 1rem;font-size:0.75rem;font-weight:700;color:var(--accent);margin-top:0.55rem;">🏢 Carregando...</span>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.7rem;font-weight:700;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:99px;padding:0.38rem 0.9rem;">
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
+        <span style="color:rgba(59,130,246,0.7);">DISC</span>
+        <span style="color:var(--muted2);margin:0 0.1rem;">›</span>
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
+        <span style="color:rgba(59,130,246,0.7);">Entrevista</span>
+        <span style="color:var(--muted2);margin:0 0.1rem;">›</span>
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,0.22);display:inline-block;"></span>
+        <span style="color:var(--text);">Envio</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMO DO CANDIDATO -->
+  <div class="resumo-card" id="resumoCard">
+    <div class="resumo-avatar">👤</div>
+    <div class="resumo-info">
+      <div class="resumo-nome" id="resumoNome">—</div>
+      <div class="resumo-meta" id="resumoMeta">—</div>
+      <div class="resumo-chips" id="resumoChips"></div>
+    </div>
+  </div>
+
+  <!-- CANAIS -->
+  <div class="sec-label">📤 Escolha como enviar seu currículo</div>
+  <div class="canais-grid" id="canaisGrid">
+    <div class="empty-state" id="emptyState" style="display:block;">
+      <span>⏳</span>
+      <div>Carregando canais disponíveis...</div>
+    </div>
+  </div>
+
+  <!-- PRIVACIDADE -->
+  <div class="privacidade">
+    🔒 <strong>Suas informações são privadas.</strong> Apenas os recrutadores da Agência Nexus terão acesso ao seu perfil e candidatura.
+  </div>
+
+</div>
+
+<!-- MODAL DE CONFIRMAÇÃO DO CANAL -->
+<div class="modal-ov" id="modalConfirmar">
+  <div class="modal-box">
+    <button class="modal-close-btn" onclick="fecharModal()">✕</button>
+    <div class="modal-box-ico" id="modalIco">📤</div>
+    <h3 id="modalTitulo">Confirmar envio</h3>
+    <p id="modalDesc">Você está prestes a enviar sua candidatura.</p>
+    <div class="bonus-onus-grid" id="modalBonusOnus"></div>
+    <div class="modal-btns">
+      <button class="btn-confirmar" id="btnConfirmar" onclick="executarCanal()">Enviar Currículo →</button>
+      <button class="btn-cancel-modal" onclick="fecharModal()">← Voltar e escolher outro canal</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DADOS DA URL
+// ═══════════════════════════════════════════════
+const UP = new URLSearchParams(window.location.search);
+const VAGA  = UP.get('vaga')  || UP.get('vagaAtual') || '';
+const CANAL = UP.get('canal') || '';
+const NOME  = UP.get('nome')  || '';
+const TEL   = UP.get('tel')   || '';
+const EMAIL = UP.get('email') || '';
+const DOM   = UP.get('perfil') || UP.get('dom') || '';
+const SEC   = UP.get('sec')   || '';
+const FIT   = UP.get('fit')   || '';
+const NIVEL = UP.get('nivel') || '';
+const CANDIDATO_ID = (() => {
+  const fromUrl = UP.get('candidato_id') || '';
+  if (fromUrl) return fromUrl;
+  try {
+    const raw = localStorage.getItem('candidatura_id');
+    if (raw) { const obj = JSON.parse(raw); if (obj && obj.id) return obj.id; }
+  } catch(e){}
+  return '';
+})();
+
+// Fallback: lê localStorage se URL não trouxer
+let _discLS = null;
+let _dadosLS = null;
+try { _discLS  = JSON.parse(localStorage.getItem('disc_resultado') || 'null'); } catch(e){}
+try { _dadosLS = JSON.parse(localStorage.getItem('candidatura_dados') || 'null'); } catch(e){}
+
+const _nome  = NOME  || _dadosLS?.nome  || '—';
+const _vaga  = VAGA  || '—';
+const _tel   = TEL   || _dadosLS?.tel   || _discLS?.telefoneCandidate || '';
+const _email = EMAIL || _dadosLS?.email || _discLS?.emailCandidate    || '';
+const _dom   = DOM   || _discLS?.dominante || _discLS?.dom || '';
+const _sec   = SEC   || _discLS?.secundario || _discLS?.sec || '';
+const _fit   = FIT   || '';
+const _nivel = NIVEL || '';
+const _canal = CANAL || '';
+
+let _canalSelecionado = null;
+
+// ═══════════════════════════════════════════════
+// DADOS DOS CANAIS — espelho do vagas.html
+// ═══════════════════════════════════════════════
+const CANAIS_DADOS = {
+  forms: {
+    ico: '📋', titulo: 'Google Forms', cor: 'rgba(52,152,219,0.12)', corBorda: 'rgba(52,152,219,0.3)', corTexto: '#3498db',
+    sub: 'Candidatura estruturada — canal mais completo para análise do seu perfil.',
+    badge: 'Google Forms', badgeCor: 'rgba(59,130,246,0.15)', badgeBorda: 'rgba(59,130,246,0.35)', badgeTexto: '#3b82f6',
+    bonus: ['Confirmação de recebimento automática','Permite anexar currículo diretamente','Resposta organizada e estruturada','Registro permanente no banco de talentos','Maior chance de triagem detalhada'],
+    onus:  ['Requer mais tempo para preenchimento','Em caso de aderência, entraremos em contato','Retorno sobre o processo pode ser nulo'],
+    tipo: 'forms', btnLabel: '📋 Preencher Formulário →'
+  },
+  formulario_interno: {
+    ico: '📝', titulo: 'Formulário Interno', cor: 'rgba(59,130,246,0.08)', corBorda: 'rgba(59,130,246,0.25)', corTexto: '#3b82f6',
+    sub: 'Candidatura direta pelo site com perguntas personalizadas.',
+    badge: 'Site Nexus', badgeCor: 'rgba(59,130,246,0.1)', badgeBorda: 'rgba(59,130,246,0.25)', badgeTexto: '#3b82f6',
+    bonus: ['Perguntas personalizadas para avaliação de competências','Análise mais completa do perfil','Controle total dos dados — respeita LGPD'],
+    onus:  ['Depende de validação interna','Pode exigir cadastro completo'],
+    tipo: 'formulario_interno', btnLabel: '📝 Abrir Formulário →'
+  },
+  whatsapp1: {
+    ico: '💬', titulo: 'WhatsApp — Comercial', cor: 'rgba(37,211,102,0.08)', corBorda: 'rgba(37,211,102,0.25)', corTexto: '#25D366',
+    sub: 'Envio de currículo para o processo seletivo. Mensagem já preparada.',
+    bonus: ['Canal rápido e direto','Mensagem já preenchida com seus dados'],
+    onus:  ['Confirmação de recebimento nula — alto volume','Anexe seu currículo manualmente ao abrir o WhatsApp','Retorno nulo exceto em caso de convocação'],
+    numero: '5551993381495', tipo: 'whatsapp1', btnLabel: '💬 Enviar pelo WhatsApp →'
+  },
+  whatsapp2: {
+    ico: '💬', titulo: 'WhatsApp — Recrutamento', cor: 'rgba(37,211,102,0.08)', corBorda: 'rgba(37,211,102,0.25)', corTexto: '#25D366',
+    sub: 'Canal de recrutamento — mensagem já preparada com seus dados.',
+    bonus: ['Canal rápido','Mensagem personalizada com vaga e perfil'],
+    onus:  ['Anexe seu currículo manualmente ao abrir o WhatsApp','Confirmação de recebimento nula','Retorno nulo exceto em caso de convocação'],
+    numero: '5551996976579', tipo: 'whatsapp2', btnLabel: '💬 Enviar pelo WhatsApp →'
+  },
+  email1: {
+    ico: '✉️', titulo: 'E-mail — Comercial', cor: 'rgba(52,152,219,0.08)', corBorda: 'rgba(52,152,219,0.22)', corTexto: '#3498db',
+    sub: 'E-mail administrativo geral — assunto e corpo já preenchidos.',
+    bonus: ['Registro no banco de talentos','Respeita LGPD','Permite anexar currículo diretamente'],
+    onus:  ['Pode cair em spam — verifique enviados','Em caso de aderência, entraremos em contato'],
+    email: 'adm@agencianexus.com', tipo: 'email1', btnLabel: '✉️ Enviar por E-mail →'
+  },
+  email2: {
+    ico: '✉️', titulo: 'E-mail — Recrutamento', cor: 'rgba(52,152,219,0.08)', corBorda: 'rgba(52,152,219,0.22)', corTexto: '#3498db',
+    sub: 'E-mail especializado do departamento de Recrutamento.',
+    bonus: ['Confirmação de recebimento','Registro no banco de talentos','Respeita LGPD'],
+    onus:  ['Pode cair em spam — verifique enviados'],
+    email: 'bancodecurriculosnexus@gmail.com', tipo: 'email2', btnLabel: '✉️ Enviar por E-mail →'
+  },
+  email3: {
+    ico: '✉️', titulo: 'E-mail — Banco de Currículos', cor: 'rgba(52,152,219,0.08)', corBorda: 'rgba(52,152,219,0.22)', corTexto: '#3498db',
+    sub: 'Canal exclusivo do banco de currículos da agência.',
+    bonus: ['Cadastro direto no banco de currículos','Perfil disponível para futuras oportunidades','Registro permanente'],
+    onus:  ['Pode cair em spam — verifique enviados'],
+    email: 'bancodetalentosnexus@gmail.com', tipo: 'email3', btnLabel: '✉️ Enviar por E-mail →'
+  },
+  telegram: {
+    ico: '✈️', titulo: 'Telegram — Recrutamento', cor: 'rgba(0,136,204,0.1)', corBorda: 'rgba(0,136,204,0.25)', corTexto: '#0088cc',
+    sub: 'Canal de recrutamento via Telegram.',
+    bonus: ['Resposta ágil','Canal direto com recrutamento','Fácil envio de currículo'],
+    onus:  ['Alto volume pode causar resposta lenta'],
+    username: '+5551996976579', tipo: 'telegram', btnLabel: '✈️ Enviar pelo Telegram →'
+  }
+};
+
+// Formulários por vaga (espelho do vagas.html)
+const FORMULARIOS_POR_VAGA = {
+  'Estágio Manutenção':                      'https://docs.google.com/forms/d/e/1FAIpQLSdhq6SJi-eIqbPfbiyjpilCMNv1u5-WMsC03PMSL6-eL68Zmw/viewform',
+  'Analista Financeiro':                     'https://docs.google.com/forms/d/e/1FAIpQLSetYls3frGFnF5rg3P1jqQymZGcxpw9AYFGvtqeBSIgZxcxyw/viewform',
+  'Auxiliar de Produção Turno 1':            'https://docs.google.com/forms/d/e/1FAIpQLSfaitmXZzAq7IcL2P7u_6Us12_6Q2bzZq3TxKW_cDz0M1McIg/viewform',
+  'Auxiliar de Produção Turno 2':            'https://docs.google.com/forms/d/e/1FAIpQLScO9hO17q4k6rerPr1-vGi3NkU0ySUGZyrNB7t1Llwx4bCmzg/viewform',
+  'Auxiliar de Produção Turno 3':            'https://docs.google.com/forms/d/e/1FAIpQLSdhQanPssLigqUeFpQvA6fRXPt2e_7-_uvQVzFBa9rW05y1xA/viewform',
+  'Supervisor de Produção':                  'https://docs.google.com/forms/d/e/1FAIpQLSe4RRTTfjseGJb7r5w_X2TEHM7r0101hbdd6leyI5gHu1CKeg/viewform',
+  'Auxiliar de Manutenção 1º Turno':         'https://docs.google.com/forms/d/e/1FAIpQLSf5FOq8_6tjtGKeDrrhBeIcgLs6IvTXjKRnaj1rdAyhBtMN1A/viewform',
+  'Auxiliar de Manutenção 2º Turno':         'https://docs.google.com/forms/d/e/1FAIpQLSefHFscRn-MpgihiPtAe5MKhmeWobw4mEW_gDkUUr7R3TWzZg/viewform',
+  'Técnico em Manutenção':                   'https://docs.google.com/forms/d/e/1FAIpQLSfBi2vZx3mfHTY_TCWMoSjMY7ZWEm2U7eoo-Nk7WFGjC0nmGw/viewform',
+  'Eletromecânico de Manutenção':            'https://docs.google.com/forms/d/e/1FAIpQLSeoykupHwfWa04a34vt5-9OHKXTewq76wMM1lAxkYKO29LQRg/viewform',
+  'Auxiliar Contábil/Fiscal':                'https://docs.google.com/forms/d/e/1FAIpQLSefQ3I_aq3Ug_B585ghlTJkObH8N93RlRLUg2zCuE_LeZOXSg/viewform',
+  'Auxiliar de RH/DP':                       'https://docs.google.com/forms/d/e/1FAIpQLScjWQIo5XPonE48VeBphl40rPC4yAqdXQDkY3hv3NqHt0TqKw/viewform',
+  'Estagiário(a) de Comércio Exterior':      'https://docs.google.com/forms/d/e/1FAIpQLSdhq6SJi-eIqbPfbiyjpilCMNv1u5-WMsC03PMSL6-eL68Zmw/viewform',
+  'Estagiário(a) Contabilidade':             'https://docs.google.com/forms/d/e/1FAIpQLSefQ3I_aq3Ug_B585ghlTJkObH8N93RlRLUg2zCuE_LeZOXSg/viewform',
+  'Técnico em Elétrica e Mecânica Industrial':'https://docs.google.com/forms/d/e/1FAIpQLSfBi2vZx3mfHTY_TCWMoSjMY7ZWEm2U7eoo-Nk7WFGjC0nmGw/viewform',
+};
+
+// ═══════════════════════════════════════════════
+// CANAIS POR VAGA — define quais canais aparecem para cada vaga
+// Edite conforme necessário. Chaves disponíveis:
+//   forms | formulario_interno | whatsapp1 | whatsapp2 | email1 | email2 | email3 | telegram
+// ═══════════════════════════════════════════════
+const CANAIS_POR_VAGA = {
+  'Auxiliar de Manutenção':                    ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Mecânico de Manutenção':                    ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Mecânico de  Manutenção':                   ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Técnico em Manutenção':                     ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Eletromecânico de Manutenção':              ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Estágio Manutenção':                        ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Supervisor de Produção':                    ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Auxiliar de Manutenção 1º Turno':           ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Auxiliar de Manutenção 2º Turno':           ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Estagiário(a) de Comércio Exterior':        ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Estagiário(a) Contabilidade':               ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Auxiliar Contábil/Fiscal':                  ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Auxiliar de RH/DP':                         ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Técnico em Elétrica e Mecânica Industrial': ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+  'Analista Financeiro':                       ['formulario_interno', 'forms', 'whatsapp1', 'whatsapp2'],
+};
+
+
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  renderResumo();
+  renderCanais();
+  document.getElementById('vagaPill').textContent = '🏢 ' + (_vaga || 'Vaga não especificada');
+});
+
+function renderResumo() {
+  document.getElementById('resumoNome').textContent = _nome;
+  document.getElementById('resumoMeta').textContent =
+    (_vaga ? '📋 ' + _vaga : '') + (_tel ? '  ·  📱 ' + _tel : '') + (_email ? '  ·  ✉️ ' + _email : '');
+
+  const chips = document.getElementById('resumoChips');
+  chips.innerHTML = '';
+  if (_dom) {
+    const c = document.createElement('span');
+    c.className = 'chip chip-disc';
+    c.textContent = '🧠 DISC ' + _dom + (_sec ? '+'+_sec : '');
+    chips.appendChild(c);
+  }
+  if (_fit) {
+    const c = document.createElement('span');
+    c.className = 'chip chip-fit';
+    c.textContent = '🎯 Fit ' + _fit + '%' + (_nivel ? ' · ' + _nivel : '');
+    chips.appendChild(c);
+  }
+  const entOk = UP.get('entrevista_ok') === '1' || localStorage.getItem('entrevista_ok') === '1';
+  if (entOk) {
+    const c = document.createElement('span');
+    c.className = 'chip chip-ent';
+    c.textContent = '🎤 Entrevista concluída';
+    chips.appendChild(c);
+  }
+}
+
+function renderCanais() {
+  const grid = document.getElementById('canaisGrid');
+  const empty = document.getElementById('emptyState');
+
+  // Decide quais canais mostrar:
+  // Prioridade: canal único na URL > ?canais= na URL > CANAIS_POR_VAGA > nenhum (mostra tela vazia)
+  let canaisParaMostrar = [];
+  if (_canal && CANAIS_DADOS[_canal]) {
+    // Canal único específico passado na URL
+    canaisParaMostrar = [_canal];
+  } else {
+    // 1. Tenta ler canais do param ?canais= (passado pelo vagas.html via data-canais)
+    try {
+      const raw = UP.get('canais');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length) canaisParaMostrar = parsed.filter(k => CANAIS_DADOS[k]);
+      }
+    } catch(e){}
+    // 2. Lookup por nome da vaga no mapa CANAIS_POR_VAGA (vagas antigas sem data-canais)
+    if (!canaisParaMostrar.length && _vaga && _vaga !== '—') {
+      const porVaga = CANAIS_POR_VAGA[_vaga];
+      if (Array.isArray(porVaga) && porVaga.length) canaisParaMostrar = porVaga.filter(k => CANAIS_DADOS[k]);
+    }
+    // SEM FALLBACK: se não há canais definidos, a tela de vazia é exibida.
+    // Toda vaga DEVE ter data-canais no card OU entrada no CANAIS_POR_VAGA.
+  }
+
+  if (!canaisParaMostrar.length) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = '';
+  canaisParaMostrar.forEach(key => {
+    const d = CANAIS_DADOS[key];
+    if (!d) return;
+
+    const wrapper = document.createElement('div');
+
+    const card = document.createElement('div');
+    card.className = 'canal-card';
+    card.style.cssText = `background:${d.cor||'var(--card)'};border-color:${d.corBorda||'var(--border)'};`;
+    card.dataset.canal = key;
+    card.onclick = () => abrirDetalhe(key, wrapper, card);
+
+    card.innerHTML = `
+      <div class="canal-ico" style="background:${d.cor||'rgba(255,255,255,0.05)'};border-radius:13px;">${d.ico}</div>
+      <div class="canal-info">
+        <div class="canal-nome" style="color:${d.corTexto||'var(--text)'};">${d.titulo}</div>
+        <div class="canal-sub">${d.sub}</div>
+      </div>
+      <div class="canal-arrow">→</div>
+      ${d.badge ? `<span class="canal-badge" style="background:${d.badgeCor};border-color:${d.badgeBorda};color:${d.badgeTexto};">${d.badge}</span>` : ''}
+    `;
+
+    const detalhe = document.createElement('div');
+    detalhe.className = 'canal-detalhe';
+    detalhe.id = 'detalhe-' + key;
+    detalhe.innerHTML = `
+      <div class="bonus-onus-grid">
+        <div class="bonus-box">
+          <div class="box-title">✅ O que você ganha</div>
+          <ul class="box-list">${(d.bonus||[]).map(b=>`<li><span>✓</span>${b}</li>`).join('')}</ul>
+        </div>
+        <div class="onus-box">
+          <div class="box-title">⚠️ Atenção</div>
+          <ul class="box-list">${(d.onus||[]).map(o=>`<li><span>⚠</span>${o}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <button class="btn-confirmar" onclick="confirmarCanal('${key}')">
+        ${d.btnLabel || 'Enviar Currículo →'}
+      </button>
+    `;
+
+    wrapper.appendChild(card);
+    wrapper.appendChild(detalhe);
+    grid.appendChild(wrapper);
+  });
+
+  // Se só tem 1 canal, já abre automaticamente
+  if (canaisParaMostrar.length === 1) {
+    const w = grid.firstElementChild;
+    if (w) abrirDetalhe(canaisParaMostrar[0], w, w.firstElementChild);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// INTERAÇÃO
+// ═══════════════════════════════════════════════
+let _aberto = null;
+function abrirDetalhe(key, wrapper, card) {
+  // Fecha o anterior
+  if (_aberto && _aberto !== wrapper) {
+    _aberto.querySelector('.canal-detalhe')?.classList.remove('open');
+    _aberto.querySelector('.canal-card')?.classList.remove('selected');
+  }
+  const det = wrapper.querySelector('.canal-detalhe');
+  const isOpen = det.classList.contains('open');
+  det.classList.toggle('open', !isOpen);
+  card.classList.toggle('selected', !isOpen);
+  _aberto = isOpen ? null : wrapper;
+  if (!isOpen) det.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function confirmarCanal(key) {
+  _canalSelecionado = key;
+  const d = CANAIS_DADOS[key];
+  if (!d) return;
+
+  document.getElementById('modalIco').textContent    = d.ico;
+  document.getElementById('modalTitulo').textContent = 'Enviar por ' + d.titulo + '?';
+  document.getElementById('modalDesc').textContent   = 'Sua candidatura para "' + _vaga + '" será enviada via ' + d.titulo + '. Após confirmar, você será direcionado para concluir o envio.';
+  document.getElementById('btnConfirmar').textContent = d.btnLabel || 'Enviar Currículo →';
+  document.getElementById('modalConfirmar').classList.add('active');
+}
+
+function fecharModal() {
+  document.getElementById('modalConfirmar').classList.remove('active');
+  _canalSelecionado = null;
+}
+
+function irParaObrigado() {
+  const nome = UP.get('nome') || _nome || '';
+  const vaga = _vaga || '';
+  setTimeout(() => {
+    window.location.href = 'obrigado.html?nome=' + encodeURIComponent(nome) + '&vaga=' + encodeURIComponent(vaga);
+  }, 800);
+}
+
+function executarCanal() {
+  if (!_canalSelecionado) return;
+  const d    = CANAIS_DADOS[_canalSelecionado];
+  const vaga = _vaga;
+  const msg  = montarMensagem();
+  const assunto = encodeURIComponent('Candidatura — ' + vaga + (_dom ? ' | DISC: '+_dom : '') + (CANDIDATO_ID ? ' | ID: '+CANDIDATO_ID : ''));
+  const corpo   = encodeURIComponent('Olá,\n\nTenho interesse na vaga de ' + vaga + '.\n\nSegue meu currículo em anexo.\n\nObrigado(a)');
+
+  // Limpa estado
+  setTimeout(() => {
+    try {
+      localStorage.removeItem('disc_resultado');
+      localStorage.removeItem('candidatura_dados');
+      localStorage.removeItem('entrevista_ok');
+      localStorage.removeItem('candidatura_id');
+    } catch(e){}
+  }, 1000);
+
+  switch (d.tipo) {
+    case 'forms': {
+      const link = FORMULARIOS_POR_VAGA[vaga];
+      if (!link) {
+        toast('Formulário não encontrado para "' + vaga + '". Entre em contato.', 'erro');
+        return;
+      }
+      window.open(link, '_blank');
+      fecharModal();
+      toast('✅ Formulário aberto! Preencha e envie.');
+      break;
+    }
+    case 'formulario_interno': {
+      const url = 'formulario.html?vaga=' + encodeURIComponent(vaga) + '&canal=' + encodeURIComponent(_canalSelecionado);
+      window.open(url, '_blank');
+      fecharModal();
+      toast('✅ Formulário interno aberto!');
+      break;
+    }
+    case 'whatsapp1':
+    case 'whatsapp2': {
+      window.open('https://wa.me/' + d.numero + '?text=' + encodeURIComponent(msg), '_blank');
+      fecharModal();
+      irParaObrigado();
+      break;
+    }
+    case 'email1':
+    case 'email2':
+    case 'email3': {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.open('mailto:' + d.email + '?subject=' + assunto + '&body=' + corpo, '_blank');
+      } else {
+        window.open('https://mail.google.com/mail/?view=cm&to=' + d.email + '&su=' + assunto + '&body=' + corpo, '_blank');
+      }
+      fecharModal();
+      toast('✅ E-mail aberto! Anexe seu currículo.');
+      irParaObrigado();
+      break;
+    }
+    case 'telegram': {
+      window.open('https://t.me/' + d.username + '?text=' + encodeURIComponent(msg), '_blank');
+      fecharModal();
+      toast('✅ Telegram aberto!');
+      irParaObrigado();
+      break;
+    }
+    default:
+      toast('Canal não reconhecido.', 'erro');
+  }
+}
+
+function montarMensagem() {
+  let m = 'Olá! Me chamo ' + _nome + ' e tenho interesse na vaga de ' + _vaga + '.';
+  if (_dom) m += ' Meu perfil DISC é ' + _dom + (_sec ? '/'+_sec : '') + '.';
+  if (_fit) m += ' Fit Score: ' + _fit + '%.';
+  if (_tel) m += ' Telefone: ' + _tel + '.';
+  m += ' Segue meu currículo em anexo. Fico à disposição!';
+  return m;
+}
+
+// Fecha modal ao clicar fora
+document.getElementById('modalConfirmar').addEventListener('click', function(e) {
+  if (e.target === this) fecharModal();
+});
+
+// ═══ TOAST ═══
+function toast(msg, tipo = 'ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (tipo === 'erro' ? ' erro' : '');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3400);
+}
+</script>
+</body>
+</html>

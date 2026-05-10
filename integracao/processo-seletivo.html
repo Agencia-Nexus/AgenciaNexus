@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Processo Seletivo | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --primary:#1d4ed8;--accent:#3b82f6;
+      --bg:#0d0d0d;--card:#161616;--card2:#1c1c1c;
+      --border:rgba(59,130,246,0.18);--border2:rgba(59,130,246,0.32);
+      --text:#f0f0f0;--muted:#888;
+      --D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;overflow-x:hidden;}
+    body::before{
+      content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);
+      background-size:40px 40px;
+    }
+
+    .wrapper{position:relative;z-index:1;width:100%;padding:2rem 2rem 5rem;}
+    @media(max-width:480px){.wrapper{padding:1.4rem 1rem 4rem;}}
+
+    /* ── HEADER padrão Nexus ATS ── */
+    .page-header{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+    .page-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;}
+    .page-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;line-height:1.2;}
+    .page-title span{color:var(--accent);}
+    .page-sub{font-size:0.8rem;color:var(--muted);}
+    .btn-voltar{
+      font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;
+      padding:0.52rem 1.1rem;border:1px solid rgba(255,255,255,0.09);
+      background:rgba(255,255,255,0.04);color:var(--muted);text-decoration:none;
+      display:inline-flex;align-items:center;gap:0.4rem;transition:all 0.18s;
+    }
+    .btn-voltar:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+
+    .vaga-pill{
+      display:inline-flex;align-items:center;gap:0.5rem;
+      background:rgba(59,130,246,0.09);border:1px solid var(--border2);
+      border-radius:99px;padding:0.38rem 1.1rem;
+      font-size:0.75rem;font-weight:700;color:var(--accent);
+      margin-bottom:1.6rem;
+    }
+
+    /* ── SECTION TITLE ── */
+    .stitle{
+      font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+      color:var(--accent);opacity:0.8;display:flex;align-items:center;gap:0.6rem;
+      margin-bottom:1.1rem;margin-top:0.4rem;
+    }
+    .stitle::after{content:'';flex:1;height:1px;background:var(--border);}
+
+    /* ── CARD ── */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.8rem;margin-bottom:1.2rem;}
+    .card p{font-size:0.88rem;color:var(--muted);line-height:1.75;margin-bottom:0.85rem;}
+    .card p:last-child{margin-bottom:0;}
+    .card strong{color:var(--text);font-weight:700;}
+
+    /* ── HIGHLIGHT ── */
+    .hbox{
+      background:rgba(59,130,246,0.06);border:1px solid var(--border2);
+      border-radius:13px;padding:1rem 1.2rem;margin:1rem 0;
+      display:flex;gap:0.8rem;align-items:flex-start;
+    }
+    .hbox .hi{font-size:1.2rem;flex-shrink:0;margin-top:0.05rem;}
+    .hbox .ht{font-size:0.82rem;color:var(--muted);line-height:1.7;}
+    .hbox .ht strong{color:var(--accent);}
+
+    /* ── WARNING ── */
+    .wbox{
+      background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);
+      border-radius:13px;padding:1rem 1.2rem;margin-bottom:1.2rem;
+      display:flex;gap:0.8rem;align-items:flex-start;
+    }
+    .wbox .wi{font-size:1.2rem;flex-shrink:0;}
+    .wbox .wt{font-size:0.82rem;color:#d99080;line-height:1.7;}
+    .wbox .wt strong{color:#e74c3c;}
+
+    /* ── ATS DEF ── */
+    .ats-def{
+      background:var(--card2);border:1px solid var(--border);
+      border-radius:13px;padding:1rem 1.2rem;margin:0.9rem 0;
+      display:flex;flex-direction:column;gap:0.5rem;
+    }
+    .ats-row{display:flex;gap:0.7rem;align-items:baseline;flex-wrap:wrap;}
+    .ats-label{font-size:0.6rem;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+    .ats-val{font-size:0.83rem;color:var(--muted);line-height:1.6;}
+    .ats-val strong{color:var(--text);}
+
+    /* ── STEPS (passo a passo e IA) ── */
+    .steps{display:flex;flex-direction:column;gap:0.6rem;margin:0.9rem 0;}
+    .step{
+      display:flex;gap:0.9rem;align-items:flex-start;
+      background:var(--card2);border:1px solid var(--border);
+      border-radius:13px;padding:0.9rem 1.1rem;
+      transition:border-color 0.2s;
+    }
+    .step:hover{border-color:var(--border2);}
+    .step-num{
+      width:28px;height:28px;border-radius:50%;flex-shrink:0;
+      background:rgba(59,130,246,0.1);border:1.5px solid rgba(59,130,246,0.3);
+      display:flex;align-items:center;justify-content:center;
+      font-size:0.7rem;font-weight:900;color:var(--accent);
+    }
+    .step-body .sname{font-size:0.85rem;font-weight:800;color:var(--text);margin-bottom:0.2rem;}
+    .step-body .sdesc{font-size:0.79rem;color:var(--muted);line-height:1.65;}
+    .step-time{
+      display:inline-flex;align-items:center;gap:0.25rem;margin-top:0.4rem;
+      background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.16);
+      border-radius:99px;padding:0.13rem 0.6rem;
+      font-size:0.62rem;font-weight:700;color:var(--accent);
+    }
+
+    /* ── DISC PILLS ── */
+    .disc-pills{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:0.8rem;}
+    .dp{font-size:0.68rem;font-weight:800;border-radius:99px;padding:0.22rem 0.75rem;border:1px solid;}
+    .dp-d{background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.35);color:#e74c3c;}
+    .dp-i{background:rgba(243,156,18,0.12);border-color:rgba(243,156,18,0.35);color:#f39c12;}
+    .dp-s{background:rgba(46,204,113,0.12);border-color:rgba(46,204,113,0.35);color:#2ecc71;}
+    .dp-c{background:rgba(52,152,219,0.12);border-color:rgba(52,152,219,0.35);color:#3498db;}
+
+    /* ── FAQ ── */
+    .faq-item{
+      background:var(--card2);border:1px solid var(--border);
+      border-radius:13px;padding:1rem 1.2rem;margin-bottom:0.5rem;
+      cursor:pointer;transition:border-color 0.2s;
+    }
+    .faq-item:hover{border-color:var(--border2);}
+    .faq-q{font-size:0.84rem;font-weight:700;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:0.5rem;}
+    .faq-arrow{font-size:0.65rem;color:var(--accent);flex-shrink:0;transition:transform 0.2s;}
+    .faq-item.open .faq-arrow{transform:rotate(180deg);}
+    .faq-a{font-size:0.79rem;color:var(--muted);line-height:1.68;display:none;padding-top:0.45rem;}
+    .faq-item.open .faq-a{display:block;}
+
+    /* ── TRUST ── */
+    .trust-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1.3rem 0 0.5rem;}
+    .trust-chip{
+      display:flex;align-items:center;gap:0.3rem;
+      background:rgba(59,130,246,0.06);border:1px solid var(--border);
+      border-radius:99px;padding:0.24rem 0.8rem;
+      font-size:0.67rem;font-weight:700;color:var(--muted);
+    }
+    .trust-chip span{color:var(--accent);}
+
+    /* ── CTA ── */
+    .cta-wrap{margin-top:1.8rem;text-align:center;}
+    .btn-start{
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;border:none;border-radius:14px;
+      padding:1rem 2.5rem;font-family:inherit;
+      font-size:0.97rem;font-weight:800;cursor:pointer;
+      width:100%;max-width:440px;
+      transition:opacity 0.2s,transform 0.2s;
+      box-shadow:0 8px 28px rgba(59,130,246,0.18);
+      margin-bottom:0.55rem;
+    }
+    .btn-start:hover{opacity:0.88;transform:translateY(-2px);}
+    .cta-note{font-size:0.69rem;color:var(--muted);}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .card,.step,.faq-item,.hbox,.ats-def,.wbox{animation:fadeUp 0.35s ease both;}
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER — padrão Nexus ATS -->
+  <div class="page-header">
+    <div>
+      <div class="page-eyebrow">Processo Seletivo · ATS</div>
+      <div class="page-title">Bem-vindo ao nosso <span>processo seletivo</span></div>
+      <div class="page-sub">Entenda como funciona antes de começar — leva menos de 1 minuto para ler.</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+      <a href="vagas.html" class="btn-voltar"
+         onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='var(--text)'"
+         onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='var(--muted)'">
+        ← Vagas
+      </a>
+    </div>
+  </div>
+
+  <div class="vaga-pill" id="vagaPill">📋 Carregando vaga…</div>
+
+  <!-- ══ 1. APRESENTAÇÃO ══ -->
+  <div class="stitle">O que é este processo</div>
+  <div class="card">
+    <p>
+      Bem-vindo ao processo seletivo da <strong>Agência Nexus</strong>. Antes de iniciar sua candidatura, queremos ser completamente transparentes sobre como nossa seleção funciona e quais ferramentas utilizamos para conhecer você melhor.
+    </p>
+    <p>
+      Nosso processo é <strong>100% online, gratuito</strong> e pode ser feito pelo celular. Ele foi criado para ser justo, ágil e baseado em dados reais — sem entrevistas presenciais na triagem inicial e sem critérios subjetivos escondidos.
+    </p>
+    <div class="hbox">
+      <div class="hi">⏱️</div>
+      <div class="ht">O processo completo leva entre <strong>15 e 20 minutos</strong>. Tenha esse tempo disponível antes de começar — candidaturas incompletas são removidas automaticamente após 24 horas para manter a fila organizada.</div>
+    </div>
+  </div>
+
+  <!-- ══ 2. O QUE É UM ATS ══ -->
+  <div class="stitle">O que é um ATS</div>
+  <div class="card">
+    <p>Utilizamos um <strong>ATS</strong> próprio desenvolvido pela Agência Nexus. Mas o que significa isso?</p>
+
+    <div class="ats-def">
+      <div class="ats-row">
+        <span class="ats-label">Em inglês</span>
+        <span class="ats-val"><strong>Applicant Tracking System</strong></span>
+      </div>
+      <div class="ats-row">
+        <span class="ats-label">Em português</span>
+        <span class="ats-val"><strong>Sistema de Rastreamento de Candidatos</strong></span>
+      </div>
+    </div>
+
+    <p>
+      Um ATS é uma plataforma que organiza e centraliza todo o processo de recrutamento — da abertura da vaga à contratação. Ele substitui planilhas, e-mails espalhados e anotações em papel, reunindo tudo em um único lugar de forma estruturada.
+    </p>
+    <p>
+      No nosso caso, o ATS vai além: ele integra <strong>avaliação comportamental DISC</strong>, <strong>mini entrevista virtual</strong> e análise por <strong>inteligência artificial</strong> — conectados para dar ao recrutador uma visão completa do candidato antes da primeira ligação.
+    </p>
+  </div>
+
+  <!-- ══ 3. INTELIGÊNCIA ARTIFICIAL ══ -->
+  <div class="stitle">Como a IA funciona no processo</div>
+  <div class="card">
+    <p>
+      Nosso ATS utiliza <strong>Inteligência Artificial</strong> em uma das etapas. Queremos ser transparentes sobre o que ela faz — e o que ela <em>não</em> faz.
+    </p>
+
+    <div class="hbox">
+      <div class="hi">🤖</div>
+      <div class="ht">
+        A IA utilizada é baseada no modelo de linguagem <strong>Llama 3.2</strong>, desenvolvido pela Meta — um modelo de grande porte (LLM) especializado em compreensão e geração de texto em português.
+      </div>
+    </div>
+
+    <p>Após a mini entrevista, a IA realiza uma <strong>análise de compatibilidade</strong> entre suas respostas e os requisitos da vaga, avaliando:</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="sname">Alinhamento com a vaga</div>
+          <div class="sdesc">Compara sua experiência relatada com os requisitos da posição — área de atuação, tempo de experiência, habilidades mencionadas.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="sname">Perfil comportamental DISC</div>
+          <div class="sdesc">O resultado do teste DISC é cruzado com o perfil comportamental desejado para a função, gerando um índice de compatibilidade.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="sname">Qualidade das respostas</div>
+          <div class="sdesc">Avalia a consistência, profundidade e clareza das suas respostas — não o vocabulário ou estilo de escrita.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="sname">Geração do parecer</div>
+          <div class="sdesc">A IA gera um resumo estruturado que chega ao recrutador junto com suas informações, agilizando a triagem sem substituir a decisão humana.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox" style="margin-top:0.4rem;">
+      <div class="hi">⚖️</div>
+      <div class="ht">
+        <strong>Importante:</strong> a IA é uma ferramenta de apoio, não de decisão final. Nenhum candidato é eliminado automaticamente por ela. Toda decisão de avançar ou não no processo é tomada por um recrutador humano da Agência Nexus.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 4. O QUE É O DISC ══ -->
+  <div class="stitle">O teste DISC</div>
+  <div class="card">
+    <p>
+      O <strong>DISC</strong> é uma metodologia comportamental usada mundialmente por empresas de recrutamento. Ele mapeia como cada pessoa tende a agir no ambiente de trabalho em 4 dimensões:
+    </p>
+
+    <div class="disc-pills">
+      <span class="dp dp-d">🔴 D — Dominância · foco em resultados e desafios</span>
+      <span class="dp dp-i">🟡 I — Influência · foco em pessoas e comunicação</span>
+      <span class="dp dp-s">🟢 S — Estabilidade · foco em ritmo e consistência</span>
+      <span class="dp dp-c">🔵 C — Conformidade · foco em qualidade e análise</span>
+    </div>
+
+    <p style="margin-top:1rem;">
+      Não existe perfil certo ou errado. O teste não mede inteligência, esforço ou capacidade — ele mapeia comportamentos naturais. O objetivo é <strong>entender como você trabalha melhor</strong> e identificar o encaixe com a vaga.
+    </p>
+    <p>
+      Responda sempre com honestidade o que mais representa você no dia a dia. Respostas autênticas geram resultados mais precisos — e isso beneficia você.
+    </p>
+  </div>
+
+  <!-- ══ 5. PASSO A PASSO ══ -->
+  <div class="stitle">Passo a passo da candidatura</div>
+
+  <div class="steps" style="margin-bottom:1.2rem;">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="sname">📋 Dados de contato</div>
+        <div class="sdesc">Preencha nome, telefone, e-mail, cidade, bairro e disponibilidade. Esses dados identificam você no sistema e garantem que o recrutador consiga entrar em contato.</div>
+        <span class="step-time">⏱ ~2 minutos</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="sname">🧠 Teste DISC</div>
+        <div class="sdesc">Avaliação comportamental com perguntas de múltipla escolha. Responda com honestidade — não há resposta certa ou errada. Seu perfil é gerado automaticamente ao final.</div>
+        <span class="step-time">⏱ ~8 minutos</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="sname">🎤 Mini entrevista virtual</div>
+        <div class="sdesc">Responda por texto perguntas sobre sua trajetória, experiências e motivações. Esta etapa substitui a triagem por telefone — mais cômodo para você, mais eficiente para nós.</div>
+        <span class="step-time">⏱ ~5 minutos</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="sname">📄 Envio do currículo</div>
+        <div class="sdesc">Escolha como prefere enviar seu currículo — WhatsApp, e-mail ou formulário online. Uma mensagem já vem pré-preenchida com seus dados e resultado do DISC para facilitar.</div>
+        <span class="step-time">⏱ ~1 minuto</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wbox">
+    <div class="wi">⚠️</div>
+    <div class="wt">
+      <strong>Atenção:</strong> após iniciar, você tem <strong>24 horas para concluir todas as etapas</strong>. Candidaturas parciais são removidas automaticamente para manter a fila de seleção organizada. Tenha uns 20 minutos disponíveis antes de começar.
+    </div>
+  </div>
+
+  <!-- ══ 6. FAQ ══ -->
+  <div class="stitle">Dúvidas frequentes</div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">💰 O processo é gratuito? <span class="faq-arrow">▼</span></div>
+    <div class="faq-a">Sim, 100% gratuito. A Agência Nexus nunca cobra nada do candidato — nem taxa de cadastro, nem acesso ao resultado do DISC, em nenhuma etapa.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">📱 Posso fazer pelo celular? <span class="faq-arrow">▼</span></div>
+    <div class="faq-a">Sim. Todo o processo foi desenvolvido para funcionar bem em smartphones. Não precisa de computador nem de nenhum aplicativo instalado — basta o navegador.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">🧠 O resultado do DISC pode me reprovar? <span class="faq-arrow">▼</span></div>
+    <div class="faq-a">Não. O DISC não reprova ninguém. Todos os perfis têm pontos fortes e são valorizados em contextos diferentes. O objetivo é encontrar o melhor encaixe entre seu perfil e a vaga.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">🤖 A IA decide se sou aprovado? <span class="faq-arrow">▼</span></div>
+    <div class="faq-a">Não. A IA gera um resumo e um índice de compatibilidade para auxiliar o recrutador — mas toda decisão de avançar no processo é tomada por uma pessoa da Agência Nexus. Nenhuma reprovação é automática.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">🔒 Meus dados estão seguros? <span class="faq-arrow">▼</span></div>
+    <div class="faq-a">Seus dados são usados exclusivamente para fins de recrutamento e armazenados em banco de dados seguro. Não são compartilhados com terceiros fora do processo seletivo.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">⏳ O que acontece se eu não terminar? <span class="faq-arrow">▼</span></div>
+    <div class="faq-a">Se você não concluir todas as etapas em 24 horas, seu cadastro parcial é removido automaticamente. Você pode se candidatar novamente quando quiser, sem penalidade.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">📞 O que acontece depois que eu terminar? <span class="faq-arrow">▼</span></div>
+    <div class="faq-a">Após concluir todas as etapas, seu currículo e resultado do DISC chegam diretamente ao recrutador responsável pela vaga. Se seu perfil avançar, entraremos em contato pelo telefone ou e-mail informado.</div>
+  </div>
+
+  <!-- TRUST -->
+  <div class="trust-row">
+    <div class="trust-chip"><span>✓</span> Sem cobrança</div>
+    <div class="trust-chip"><span>✓</span> 100% online</div>
+    <div class="trust-chip"><span>✓</span> Dados protegidos</div>
+    <div class="trust-chip"><span>✓</span> ~15 a 20 min</div>
+    <div class="trust-chip"><span>✓</span> Funciona no celular</div>
+    <div class="trust-chip"><span>✓</span> Decisão humana</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <button class="btn-start" onclick="iniciarCandidatura()">Entendi, quero me candidatar →</button>
+    <div class="cta-note">Você será redirecionado para o formulário de candidatura</div>
+  </div>
+
+</div>
+<script>
+  const _p     = new URLSearchParams(window.location.search);
+  const _vaga  = _p.get('vaga')   || '';
+  const _slug  = _p.get('slug')   || '';
+  const _canais = _p.get('canais') || '';
+
+  if (_vaga) {
+    document.getElementById('vagaPill').textContent = '📋 ' + _vaga;
+    document.title = 'Processo Seletivo — ' + _vaga + ' | Agência Nexus';
+  } else {
+    document.getElementById('vagaPill').textContent = '📋 Vaga não especificada';
+  }
+
+  function iniciarCandidatura() {
+    let url = 'candidatura.html';
+    if (_vaga)   url += '?vaga='   + encodeURIComponent(_vaga);
+    if (_slug)   url += '&slug='   + encodeURIComponent(_slug);
+    if (_canais) url += (_vaga ? '&' : '?') + 'canais=' + encodeURIComponent(_canais);
+    window.location.href = url;
+  }
+</script>
+</body>
+</html>

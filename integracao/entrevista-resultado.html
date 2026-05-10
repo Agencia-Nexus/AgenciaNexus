@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Fit Score — Mini-Entrevista | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --primary:#1d4ed8;--accent:#3b82f6;
+      --bg:#0d0d0d;--card:#161616;--card2:#1a1a1a;
+      --border:rgba(59,130,246,0.18);--border2:rgba(59,130,246,0.32);
+      --text:#f0f0f0;--muted:#888;--muted2:#444;
+      --D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;
+      background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);
+      background-size:48px 48px;pointer-events:none;}
+
+    .wrapper{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:2rem 1.2rem 5rem;}
+
+    /* TOP BAR */
+    .top-bar{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;margin-bottom:2rem;flex-wrap:wrap;}
+    .logo-area{display:flex;align-items:center;gap:0.8rem;}
+    .logo-area img{width:52px;height:52px;object-fit:contain;}
+    .logo-area span{font-size:0.78rem;color:var(--muted);}
+    .top-actions{display:flex;gap:0.6rem;flex-wrap:wrap;}
+    .btn-pdf{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:11px;padding:0.65rem 1.4rem;font-family:inherit;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.4rem;}
+    .btn-pdf:hover{opacity:0.87;transform:translateY(-1px);}
+    .btn-sec{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid rgba(255,255,255,0.12);border-radius:11px;padding:0.65rem 1.2rem;font-family:inherit;font-size:0.83rem;font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.4rem;text-decoration:none;}
+    .btn-sec:hover{background:rgba(255,255,255,0.1);color:var(--text);}
+
+    .page-title{font-size:1.7rem;font-weight:900;margin-bottom:0.25rem;}
+    .page-title span{color:var(--accent);}
+    .page-sub{color:var(--muted);font-size:0.83rem;margin-bottom:2rem;}
+
+    /* CAND BAR */
+    .cand-bar{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem 1.4rem;display:flex;gap:1.8rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+    .cand-field label{font-size:0.63rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:0.15rem;}
+    .cand-field strong{font-size:0.9rem;font-weight:700;color:var(--accent);}
+
+    /* CARDS */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.7rem 1.9rem;margin-bottom:1.1rem;}
+    .card h4{font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.4rem;}
+
+    /* FIT SCORE HERO */
+    .fit-hero{background:linear-gradient(135deg,rgba(79,114,20,0.2),rgba(59,130,246,0.06));
+      border:1px solid var(--border2);border-radius:22px;padding:2rem;margin-bottom:1.1rem;}
+    .fit-hero-top{display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+    .gauge-wrap{position:relative;width:170px;height:170px;flex-shrink:0;}
+    .gauge-wrap svg{display:block;}
+    .gauge-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .fit-score-num{font-size:3.8rem;font-weight:900;line-height:1;letter-spacing:-2px;}
+    .gauge-label{font-size:0.58rem;color:var(--muted);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+    .fit-nivel-badge{display:inline-flex;align-items:center;gap:0.4rem;border-radius:99px;padding:0.4rem 1.1rem;font-size:0.82rem;font-weight:800;margin:0.5rem 0;}
+    .nl-baixo{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);}
+    .nl-medio{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+    .nl-alto{background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);}
+    .nl-excelente{background:rgba(46,204,113,0.15);color:#2ecc71;border:1px solid rgba(46,204,113,0.3);}
+    .fit-bar-track{height:10px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin:0.6rem 0 0.3rem;}
+    .fit-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 1.6s cubic-bezier(0.22,1,0.36,1);}
+    .fit-bar-labs{display:flex;justify-content:space-between;font-size:0.64rem;color:var(--muted);}
+    .fit-resumo{font-size:0.88rem;color:var(--muted);line-height:1.7;max-width:600px;margin:1rem auto 0;text-align:left;}
+    /* RADAR */
+    .radar-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .radar-title{font-size:0.6rem;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;}
+
+    /* DISC mini */
+
+    /* PONTOS */
+    .tags-wrap{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.6rem;}
+    .tag-forte{display:flex;align-items:center;gap:0.3rem;background:rgba(59,130,246,0.09);border:1px solid rgba(59,130,246,0.22);border-radius:99px;padding:0.28rem 0.75rem;font-size:0.76rem;font-weight:700;color:var(--accent);}
+    .tag-atencao{display:flex;align-items:center;gap:0.35rem;font-size:0.82rem;color:var(--muted);line-height:1.55;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .tag-atencao:last-child{border-bottom:none;}
+    .tag-atencao .arr{color:#f39c12;flex-shrink:0;}
+
+    /* REQUISITOS */
+    .req-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-top:0.6rem;}
+    @media(max-width:540px){.req-grid{grid-template-columns:1fr;}}
+    .req-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.85rem 1rem;}
+    .req-box h6{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.55rem;}
+    .req-item{font-size:0.81rem;color:var(--muted);padding:0.18rem 0;display:flex;gap:0.4rem;align-items:flex-start;line-height:1.45;}
+
+    /* ENTREVISTA RESPOSTAS */
+    .resp-block{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:1rem 1.1rem;margin-bottom:0.7rem;}
+    .resp-label{font-size:0.65rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.35rem;}
+    .resp-text{font-size:0.86rem;color:var(--text);line-height:1.68;}
+    .resp-meta{font-size:0.72rem;color:var(--muted);margin-top:0.3rem;}
+
+    /* ADMIN */
+    .admin-card{background:rgba(52,152,219,0.06);border:1px solid rgba(52,152,219,0.2);border-radius:16px;padding:1.3rem 1.5rem;margin-bottom:1.1rem;}
+    .admin-card h4{color:#3498db;}
+    .admin-resumo{font-size:0.87rem;color:var(--muted);line-height:1.72;white-space:pre-wrap;}
+    .recomendacao{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.85rem 1rem;margin-top:0.8rem;font-size:0.87rem;color:var(--text);line-height:1.6;font-style:italic;}
+
+    /* OBS RECRUTADOR */
+    .obs-textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:0.9rem 1rem;color:var(--text);font-family:inherit;font-size:0.85rem;line-height:1.6;resize:vertical;min-height:110px;margin-top:0.5rem;transition:border-color 0.2s;}
+    .obs-textarea:focus{outline:none;border-color:var(--accent);}
+    .obs-textarea::placeholder{color:var(--muted);opacity:.6;}
+    .btn-salvar-obs{background:rgba(59,130,246,0.13);color:var(--accent);border:1px solid var(--border2);border-radius:10px;padding:0.55rem 1.2rem;font-family:inherit;font-size:0.82rem;font-weight:700;cursor:pointer;margin-top:0.5rem;transition:all 0.2s;}
+    .btn-salvar-obs:hover{background:rgba(59,130,246,0.22);}
+
+    .aviso{background:rgba(224,128,0,0.07);border:1px solid rgba(224,128,0,0.22);border-radius:12px;padding:0.9rem 1.1rem;margin-top:1.2rem;}
+    .aviso p{font-size:0.8rem;color:#c8a060;line-height:1.6;}
+    .footer{text-align:center;padding-top:2rem;font-size:0.7rem;color:#444;}
+
+    /* ── VISIBILIDADE PDF ── */
+    .pdf-visib-bar{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:0.6rem 1.1rem;margin-bottom:1.2rem;}
+    .pdf-visib-label{font-size:0.65rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;white-space:nowrap;flex-shrink:0;}
+    .pdf-visib-checks{display:flex;gap:1rem;flex-wrap:wrap;}
+    .pdf-visib-item{display:flex;align-items:center;gap:0.35rem;cursor:pointer;user-select:none;}
+    .pdf-visib-item input{accent-color:#e74c3c;width:14px;height:14px;cursor:pointer;}
+    .pdf-visib-item span{font-size:0.72rem;color:var(--muted);}
+    .pdf-visib-item input:checked + span{color:#e74c3c;text-decoration:line-through;opacity:0.6;}
+
+    /* CURRÍCULO ESTRUTURADO */
+    .curriculo-sec{margin-bottom:0.9rem;}
+    .curriculo-sec-title{font-size:0.62rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin:0.8rem 0 0.5rem;display:flex;align-items:center;gap:0.35rem;}
+    .exp-row{background:rgba(255,255,255,0.025);border:1px solid rgba(59,130,246,0.12);border-radius:11px;padding:0.75rem 1rem;margin-bottom:0.5rem;}
+    .exp-row-head{display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.2rem;}
+    .exp-cargo{font-size:0.84rem;font-weight:800;color:var(--text);}
+    .exp-empresa{font-size:0.78rem;color:var(--accent);font-weight:700;}
+    .exp-periodo{font-size:0.68rem;color:var(--muted);white-space:nowrap;}
+    .exp-ativ{font-size:0.77rem;color:#aaa;line-height:1.6;margin-top:0.3rem;}
+    .curso-row{display:flex;gap:0.5rem;align-items:flex-start;font-size:0.8rem;color:#bbb;padding:0.22rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+    .curso-row:last-child{border-bottom:none;}
+    .habil-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.4rem;}
+    .habil-tag{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:5px;padding:0.15rem 0.55rem;font-size:0.7rem;font-weight:700;color:var(--accent);}
+    .cert-tag{background:rgba(52,152,219,0.07);border:1px solid rgba(52,152,219,0.18);border-radius:5px;padding:0.15rem 0.55rem;font-size:0.7rem;font-weight:700;color:#3498db;}
+
+    /* INFO PILLS — escolaridade, CNH, disponibilidade etc */
+    .info-pills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;}
+    .info-pill{display:flex;align-items:center;gap:0.3rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:8px;padding:0.28rem 0.7rem;font-size:0.73rem;color:#ccc;}
+    .info-pill strong{color:var(--text);font-weight:700;}
+
+    /* RED FLAGS */
+    .red-flags-wrap{display:flex;flex-direction:column;gap:0.4rem;margin-top:0.6rem;}
+    .red-flag-item{display:flex;align-items:flex-start;gap:0.5rem;background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);border-radius:10px;padding:0.55rem 0.85rem;font-size:0.81rem;color:#e87b6f;line-height:1.5;}
+    .red-flag-ico{flex-shrink:0;font-size:1rem;}
+
+    /* ALERTAS inline */
+    .alerta-rotatividade{background:rgba(243,156,18,0.09);border:1px solid rgba(243,156,18,0.28);border-radius:10px;padding:0.55rem 0.9rem;font-size:0.79rem;color:#f39c12;margin-top:0.6rem;display:flex;gap:0.45rem;align-items:flex-start;}
+    .alerta-revisao-ia{background:rgba(52,152,219,0.07);border:1px solid rgba(52,152,219,0.22);border-radius:10px;padding:0.5rem 0.85rem;font-size:0.76rem;color:#5dade2;margin-bottom:0.7rem;display:flex;gap:0.4rem;align-items:flex-start;}
+
+    /* COERENCIA / PROGRESSAO — sub-blocos dentro do admin */
+    .admin-sub{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:0.7rem 0.9rem;margin-top:0.65rem;font-size:0.82rem;color:#aaa;line-height:1.6;}
+    .admin-sub strong{color:var(--text);font-size:0.67rem;text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:0.3rem;}
+
+    /* PRINT */
+    @media print{
+      body{background:#fff!important;color:#111!important;}
+      body::before{display:none;}
+      .top-bar,.btn-pdf,.btn-sec,.obs-textarea,.btn-salvar-obs,.pdf-visib-bar{display:none!important;}
+      .cand-field.pdf-hidden{display:none!important;}
+      .wrapper{padding:1rem;max-width:100%;}
+      .card,.fit-hero,.admin-card,.cand-bar,.resp-block,.req-box{
+        background:#fff!important;border:1px solid #ddd!important;color:#111!important;break-inside:avoid;}
+      .fit-bar-track{background:#eee!important;}
+      .fit-resumo,.admin-resumo,.resp-text,.req-item,.tag-atencao{color:#333!important;}
+      .card h4,.admin-card h4{color:#1d4ed8!important;}
+      .fit-score-num{color:#1d4ed8!important;}
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="top-bar">
+    <div class="logo-area">
+      <img src="fundo.png" alt="Agência Nexus"/>
+      <span>Uso interno — Agência Nexus</span>
+    </div>
+    <div class="top-actions">
+      <button class="btn-pdf" onclick="window.print()">🖨️ Salvar em PDF</button>
+      <a class="btn-sec" id="btnCurriculo" href="#" style="display:none;">📄 Ver Currículo</a>
+      <a class="btn-sec" href="disc-historico.html" target="_blank">📋 Histórico</a>
+    </div>
+  </div>
+
+  <h1 class="page-title">Fit Score — <span>Mini-Entrevista</span></h1>
+  <p class="page-sub">Análise de compatibilidade candidato × vaga — uso restrito ao recrutador</p>
+
+  <div class="cand-bar">
+    <div class="cand-field" id="wrapNome"><label>Candidato</label><strong id="cNome">—</strong></div>
+    <div class="cand-field" id="wrapVaga"><label>Vaga</label><strong id="cVaga">—</strong></div>
+    <div class="cand-field" id="wrapData"><label>Data</label><strong id="cData">—</strong></div>
+    <div class="cand-field" id="wrapTel"><label>Telefone</label><strong id="cTel">—</strong></div>
+    <div class="cand-field" id="wrapEmail"><label>E-mail</label><strong id="cEmail">—</strong></div>
+  </div>
+
+  <!-- barra de visibilidade — some no PDF -->
+  <div class="pdf-visib-bar">
+    <span class="pdf-visib-label">🙈 Ocultar no PDF:</span>
+    <div class="pdf-visib-checks">
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapNome',this)"/><span>Candidato</span></label>
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapVaga',this)"/><span>Vaga</span></label>
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapData',this)"/><span>Data</span></label>
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapTel',this)"/><span>Telefone</span></label>
+      <label class="pdf-visib-item"><input type="checkbox" onchange="togglePdfField('wrapEmail',this)"/><span>E-mail</span></label>
+    </div>
+  </div>
+
+  <!-- FIT SCORE HERO -->
+  <div class="fit-hero">
+    <div class="fit-hero-top">
+      <!-- GAUGE -->
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 120 120" width="170" height="170">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="11"/>
+          <circle id="fitGaugeArc" cx="60" cy="60" r="50" fill="none" stroke="#3b82f6" stroke-width="11"
+            stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314"
+            transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.8s cubic-bezier(0.22,1,0.36,1),stroke 0.4s;"/>
+        </svg>
+        <div class="gauge-inner">
+          <div class="fit-score-num" id="fitNum" style="color:#3b82f6;">—</div>
+          <div class="gauge-label">fit score</div>
+        </div>
+      </div>
+      <!-- RADAR CHART -->
+      <div class="radar-wrap">
+        <div class="radar-title">Perfil por dimensão</div>
+        <canvas id="radarChart" width="200" height="200"></canvas>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div class="fit-nivel-badge nl-alto" id="fitNivelBadge">Calculando...</div>
+      <div style="font-size:0.82rem;color:var(--muted);" id="fitDesc">Compatibilidade com a vaga</div>
+    </div>
+    <div class="fit-bar-track"><div class="fit-bar-fill" id="fitBarFill" style="width:0%"></div></div>
+    <div class="fit-bar-labs"><span>0%</span><span>50%</span><span>100%</span></div>
+    <div class="fit-resumo" id="fitResumo">—</div>
+  </div>
+
+  <!-- PONTOS FORTES -->
+  <div class="card" id="cardFortes">
+    <h4>✅ Pontos Fortes</h4>
+    <div class="tags-wrap" id="fortesWrap">—</div>
+  </div>
+
+  <!-- PONTOS DE ATENÇÃO -->
+  <div class="card" id="cardAtencao">
+    <h4>🔸 Pontos de Atenção (para aprofundar na entrevista)</h4>
+    <div id="atencaoWrap">—</div>
+  </div>
+
+  <!-- REQUISITOS -->
+  <div class="card" id="cardRequisitos">
+    <h4>📌 Mapeamento de Requisitos da Vaga</h4>
+    <div class="req-grid">
+      <div class="req-box" style="border-color:rgba(46,204,113,0.2);">
+        <h6 style="color:#2ecc71;">✓ Requisitos Atendidos</h6>
+        <div id="reqAtendidos">—</div>
+      </div>
+      <div class="req-box" style="border-color:rgba(231,76,60,0.2);">
+        <h6 style="color:#e74c3c;">✗ Lacunas Identificadas</h6>
+        <div id="reqAusentes">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESPOSTAS DA ENTREVISTA -->
+  <div class="card" id="cardEntrevista">
+    <h4>📝 Respostas da Mini-Entrevista</h4>
+    <div id="entrevistaWrap">—</div>
+  </div>
+
+  <!-- ANÁLISE ADMIN -->
+  <div class="admin-card" id="cardAdmin">
+    <h4>🔍 Análise Detalhada para o Recrutador</h4>
+    <div class="admin-resumo" id="adminResumo">—</div>
+    <div class="recomendacao" id="adminRec">—</div>
+  </div>
+
+  <!-- RED FLAGS -->
+  <div class="card" id="cardRedFlags" style="border-color:rgba(231,76,60,0.25);display:none;">
+    <h4 style="color:#e74c3c;">🚩 Alertas & Red Flags</h4>
+    <div class="red-flags-wrap" id="redFlagsWrap"></div>
+  </div>
+
+  <!-- OBSERVAÇÕES DO RECRUTADOR -->
+  <div class="card" id="cardObs">
+    <h4>📋 Observações do Recrutador</h4>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.4rem;">Anotações internas — salvas localmente neste dispositivo.</p>
+    <textarea class="obs-textarea" id="obsRecrutador" placeholder="Ex: Candidato demonstrou experiência sólida. Agendar entrevista presencial para verificar fit comportamental..."></textarea>
+    <button class="btn-salvar-obs" onclick="salvarObs()">💾 Salvar Observação</button>
+    <span id="obsSavedMsg" style="font-size:0.74rem;color:var(--accent);margin-left:0.8rem;opacity:0;transition:opacity 0.3s;">✓ Salvo</span>
+  </div>
+
+  <div class="aviso">
+    <p>⚠️ <strong style="color:#e08000;">Aviso:</strong> A análise de Fit Score é gerada por IA com base nas respostas textuais do candidato e nos dados da vaga. Não deve ser utilizada como critério único de decisão. Fatores como contexto, experiência prática e motivação devem ser avaliados na entrevista presencial.</p>
+  </div>
+
+  <div class="footer">Agência Nexus · Guaíba/RS · Resultado gerado automaticamente pelo sistema</div>
+</div>
+
+<script>
+// ── URL PARAMS ────────────────────────────────────────────────
+const p = new URLSearchParams(window.location.search);
+const nome     = p.get('nome')     || 'Candidato';
+const vaga     = p.get('vaga')     || 'Não informada';
+const tel      = p.get('tel')      || '';
+const email    = p.get('email')    || '';
+const fitScore = parseInt(p.get('fit')   || '0');
+const fitNivel = p.get('nivel')    || 'Médio';
+const canal    = p.get('canal')    || '';
+const canais   = p.get('canais')   || '';
+const candidatoId = p.get('candidato_id') || '';
+const modoCandidato = p.get('modo') === 'candidato';
+
+// Supabase
+const SB  = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+
+const dataHoje = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+const cores = {D:'#e74c3c',I:'#f39c12',S:'#2ecc71',C:'#3498db'};
+
+// Dados em memória — preenchidos do Supabase ou sessionStorage
+let entData = {};
+let iaData  = {};
+
+// ── MODO CANDIDATO: oculta seções de recrutador e mostra botão de candidatura ──
+function aplicarModoCandidato() {
+  if (!modoCandidato) return;
+
+  // Oculta elementos restritos ao recrutador
+  const idsOcultar = ['cardAdmin','cardRedFlags','cardObs','cardEntrevista','cardRequisitos'];
+  idsOcultar.forEach(id => { const el = document.getElementById(id); if(el) el.style.display='none'; });
+
+  // Ajusta título e subtítulo
+  const tit = document.querySelector('.page-title');
+  if (tit) tit.innerHTML = 'Seu Resultado — <span>Fit Cultural</span>';
+  const sub = document.querySelector('.page-sub');
+  if (sub) sub.textContent = 'Veja como seu perfil se encaixa na vaga de '+vaga;
+
+  // Troca barra de topo por versão do candidato (sem botão PDF/histórico)
+  const topActions = document.querySelector('.top-actions');
+  if (topActions) topActions.innerHTML = '';
+  const logoSpan = document.querySelector('.logo-area span');
+  if (logoSpan) logoSpan.textContent = 'Agência Nexus';
+
+  // Cria botão "Continuar candidatura" logo abaixo do score
+  const btnHtml = `
+    <div id="btnCandidaturaWrap" style="text-align:center;margin:1.5rem 0 0.5rem;">
+      <button onclick="irParaCandidatura()"
+        style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff;border:none;border-radius:14px;
+               padding:1rem 2.2rem;font-family:inherit;font-size:1rem;font-weight:800;cursor:pointer;
+               box-shadow:0 4px 20px rgba(59,130,246,0.3);transition:all 0.2s;display:inline-flex;align-items:center;gap:0.6rem;">
+        🚀 Continuar candidatura
+      </button>
+      <p style="font-size:0.75rem;color:#666;margin-top:0.6rem;">Você será direcionado para finalizar sua candidatura</p>
+    </div>`;
+  const fitHero = document.querySelector('.fit-hero');
+  if (fitHero) fitHero.insertAdjacentHTML('afterend', btnHtml);
+}
+
+function irParaCandidatura() {
+  // Monta URL da candidatura-canais.html com todos os parâmetros
+  const base = window.location.href.replace(/entrevista-resultado\.html.*$/, '');
+  const _n  = encodeURIComponent(nome);
+  const _v  = encodeURIComponent(vaga);
+  const _t  = encodeURIComponent(tel);
+  const _e  = encodeURIComponent(email);
+  const _dom = encodeURIComponent(p.get('perfil') || p.get('dom') || '');
+  const _sec = encodeURIComponent(p.get('sec') || '');
+  const _d  = p.get('d') || '0'; const _i = p.get('i') || '0';
+  const _s  = p.get('s') || '0'; const _c = p.get('c') || '0';
+  const _canal  = encodeURIComponent(canal);
+  const _canais = encodeURIComponent(canais);
+  const _fit    = fitScore;
+  const _nivel  = encodeURIComponent(fitNivel);
+
+  let url = base + 'candidatura-canais.html'
+    + '?nome='   + _n + '&vaga='   + _v + '&tel=' + _t + '&email=' + _e
+    + '&perfil=' + _dom + '&sec='  + _sec
+    + '&d=' + _d + '&i=' + _i + '&s=' + _s + '&c=' + _c
+    + '&canal='  + _canal
+    + (_canais ? '&canais=' + _canais : '')
+    + '&fit='    + _fit
+    + '&nivel='  + _nivel
+    + (candidatoId ? '&candidato_id=' + encodeURIComponent(candidatoId) : '')
+    + '&entrevista_ok=1';
+
+  window.location.href = url;
+}
+
+// ── RENDERIZAÇÃO (chamada após dados carregados) ───────────────
+function renderizarTudo() {
+  aplicarModoCandidato();
+
+  // Cabeçalho
+  document.getElementById('cNome').textContent = nome.toUpperCase();
+  document.getElementById('cVaga').textContent = vaga;
+  document.getElementById('cData').textContent = dataHoje;
+  const telNum = (tel||'').replace(/\D/g,'');
+  document.getElementById('cTel').textContent = telNum.length===11
+    ? `(${telNum.slice(0,2)}) ${telNum.slice(2,7)}-${telNum.slice(7)}`
+    : tel || '—';
+  document.getElementById('cEmail').textContent = email || '—';
+
+  // ── FIT SCORE HERO ────────────────────────────────────────────
+  const corScore = fitScore >= 80 ? '#2ecc71' : fitScore >= 65 ? '#3b82f6' : fitScore >= 45 ? '#f39c12' : '#e74c3c';
+  const nivelMap = {
+    'Excelente': { cls: 'nl-excelente', emoji: '⭐' },
+    'Alto':      { cls: 'nl-alto',      emoji: '🟢' },
+    'Médio':     { cls: 'nl-medio',     emoji: '🟡' },
+    'Baixo':     { cls: 'nl-baixo',     emoji: '🔴' },
+  };
+  const nivelInfo = nivelMap[fitNivel] || nivelMap['Médio'];
+
+  const gaugeArc = document.getElementById('fitGaugeArc');
+  if (gaugeArc) {
+    gaugeArc.style.stroke = corScore;
+    setTimeout(() => {
+      const circ = 2 * Math.PI * 50;
+      gaugeArc.style.strokeDashoffset = circ - (fitScore / 100) * circ;
+    }, 200);
+  }
+  const numEl = document.getElementById('fitNum');
+  numEl.style.color = corScore;
+  let cur = 0;
+  const iv = setInterval(()=>{
+    cur = Math.min(cur+2, fitScore);
+    numEl.textContent = cur + '%';
+    if(cur >= fitScore) clearInterval(iv);
+  }, 22);
+  const badge = document.getElementById('fitNivelBadge');
+  badge.textContent = `${nivelInfo.emoji} Nível ${fitNivel}`;
+  badge.className = `fit-nivel-badge ${nivelInfo.cls}`;
+  document.getElementById('fitDesc').textContent = `Compatibilidade com a vaga de ${vaga}`;
+  document.getElementById('fitResumo').textContent = iaData.resumo_candidato || '—';
+  setTimeout(()=>{ document.getElementById('fitBarFill').style.width = fitScore + '%'; }, 200);
+
+  // ── RADAR CHART ──────────────────────────────────────────────
+  (function buildRadar() {
+    const ent2 = entData || {};
+    const atend2 = iaData.requisitos_atendidos || [];
+    const ausen2 = iaData.requisitos_ausentes  || [];
+    const expMap = {'Primeiro emprego / Sem experiência':10,'Menos de 1 ano':25,'1 a 2 anos':45,'2 a 5 anos':65,'5 a 10 anos':80,'Mais de 10 anos':95};
+    const dimExp = expMap[ent2.exp_total] || Math.round(fitScore * 0.9);
+    const total2 = atend2.length + ausen2.length;
+    const dimTec = total2 > 0 ? Math.round((atend2.length / total2) * 100) : Math.round(fitScore * 0.95);
+    const motWords = (ent2.motivacao || '').split(/\s+/).filter(Boolean).length;
+    const dimMot = Math.min(95, 30 + motWords * 3);
+    const histWords = (ent2.historia || '').split(/\s+/).filter(Boolean).length;
+    const dimCom = Math.min(95, Math.round(20 + histWords * 0.5));
+    const dimFit = Math.min(95, Math.round(fitScore * 0.85 + (ent2.conquistas||[]).length * 3));
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Experiência','Técnico','Motivação','Comunicação','Fit Cultural'],
+        datasets: [{ data: [dimExp, dimTec, dimMot, dimCom, dimFit],
+          backgroundColor: 'rgba(59,130,246,0.15)', borderColor: corScore,
+          borderWidth: 2, pointBackgroundColor: corScore, pointRadius: 4 }]
+      },
+      options: { animation: { duration: 1400 },
+        scales: { r: { min:0, max:100, ticks:{display:false,stepSize:25},
+          grid:{color:'rgba(255,255,255,0.08)'}, angleLines:{color:'rgba(255,255,255,0.08)'},
+          pointLabels:{color:'#888',font:{size:11,family:"'Sora',sans-serif"}} } },
+        plugins: { legend: { display: false } } }
+    });
+  })();
+
+  // ── PONTOS FORTES ────────────────────────────────────────────
+  const fortes = iaData.pontos_fortes || [];
+  document.getElementById('fortesWrap').innerHTML = fortes.length
+    ? fortes.map(f=>`<div class="tag-forte">✓ ${f}</div>`).join('')
+    : '<span style="color:var(--muted);font-size:0.83rem;">Nenhum ponto registrado.</span>';
+
+  // ── ATENÇÃO ──────────────────────────────────────────────────
+  const atencao = iaData.pontos_atencao || [];
+  document.getElementById('atencaoWrap').innerHTML = atencao.length
+    ? atencao.map(a=>`<div class="tag-atencao"><span class="arr">›</span> ${a}</div>`).join('')
+    : '<span style="color:var(--muted);font-size:0.83rem;">Nenhum ponto registrado.</span>';
+
+  // ── REQUISITOS ───────────────────────────────────────────────
+  const atend = iaData.requisitos_atendidos || [];
+  const ausen = iaData.requisitos_ausentes  || [];
+  document.getElementById('reqAtendidos').innerHTML = atend.length
+    ? atend.map(r=>`<div class="req-item"><span style="color:#2ecc71;flex-shrink:0;font-weight:900;">✓</span><span style="color:#e0e0e0;">${r}</span></div>`).join('')
+    : '<div class="req-item" style="color:var(--muted);">Não identificados</div>';
+  document.getElementById('reqAusentes').innerHTML = ausen.length
+    ? ausen.map(r=>`<div class="req-item"><span style="color:#e74c3c;flex-shrink:0;font-weight:900;">✗</span><span style="color:#bbb;">${r}</span></div>`).join('')
+    : '<div class="req-item" style="color:var(--muted);">Nenhuma lacuna identificada ✓</div>';
+
+  // ── ENTREVISTA RESPOSTAS — TODOS OS CAMPOS ──────────────────
+  function respBlock(label, valor, vazio) {
+    const val = valor || '';
+    const isEmpty = !val.trim();
+    if (isEmpty && !vazio) return '';
+    return `<div class="resp-block" style="${isEmpty ? 'opacity:0.45;' : ''}">
+      <span class="resp-label">${label}${isEmpty ? ' <span style="color:#f39c12;font-size:0.6rem;">— não preenchido</span>' : ''}</span>
+      <div class="resp-text">${isEmpty ? '<em style="color:var(--muted);">—</em>' : String(val).replace(/\n/g,'<br>')}</div>
+    </div>`;
+  }
+  function starBlock(label, acao, res) {
+    const hasAcao = (acao||'').trim();
+    const hasRes  = (res||'').trim();
+    const isEmpty = !hasAcao && !hasRes;
+    return `<div class="resp-block" style="${isEmpty ? 'opacity:0.45;' : ''}">
+      <span class="resp-label">${label}${isEmpty ? ' <span style="color:#f39c12;font-size:0.6rem;">— não preenchido</span>' : ''}</span>
+      ${hasAcao ? `<div style="margin-bottom:0.5rem;"><span style="font-size:0.63rem;font-weight:700;color:#e67e22;text-transform:uppercase;letter-spacing:0.5px;">🟠 O que fez</span><div class="resp-text" style="margin-top:0.25rem;">${String(hasAcao).replace(/\n/g,'<br>')}</div></div>` : '<div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.35rem;">🟠 O que fez — <em>não preenchido</em></div>'}
+      ${hasRes  ? `<div><span style="font-size:0.63rem;font-weight:700;color:#2ecc71;text-transform:uppercase;letter-spacing:0.5px;">🟢 Resultado</span><div class="resp-text" style="margin-top:0.25rem;">${String(hasRes).replace(/\n/g,'<br>')}</div></div>` : '<div style="font-size:0.75rem;color:var(--muted);">🟢 Resultado — <em>não preenchido</em></div>'}
+    </div>`;
+  }
+
+  // Helper: alerta revisão IA
+  function revisaoIaAlerta() {
+    const flag = iaData.revisao_ia_flag || (entData.campos_revisados_ia && entData.campos_revisados_ia.length > 0);
+    if (!flag) return '';
+    const campos = iaData.revisao_ia_campos || entData.campos_revisados_ia || [];
+    return `<div class="alerta-revisao-ia"><span>🤖</span><span>Candidato utilizou revisão por IA em ${campos.length > 0 ? campos.length + ' campo(s)' : 'alguns campos'}. Avalie o <strong style="color:#5dade2;">conteúdo e fatos</strong>, não o estilo da escrita.</span></div>`;
+  }
+
+  const ent = entData;
+  const comp = ent.competencias || {};
+  // curriculo pode vir de entData._curriculo (Supabase) ou da estrutura legada
+  const curric = entData._curriculo || entData.curriculo || {};
+  let entHTML = '';
+
+  // — ALERTA REVISÃO IA —
+  entHTML += revisaoIaAlerta();
+
+  // — IDENTIFICAÇÃO —
+  entHTML += `<div style="font-size:0.63rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin:0.5rem 0 0.6rem;">📋 Identificação</div>`;
+  entHTML += respBlock('🏷️ Área de Atuação Principal', ent.area, true);
+  entHTML += respBlock('⏱️ Tempo Total de Experiência', ent.exp_total, true);
+  entHTML += respBlock('🎯 Tempo de Experiência Específica na Função', ent.exp_especifica, false);
+
+  // — INFO PILLS (escolaridade, CNH, veículo, disponibilidade, expectativa salarial) —
+  const pills = [];
+  if (ent.escolaridade)          pills.push(`<div class="info-pill">🎓 <strong>${ent.escolaridade}</strong></div>`);
+  if (ent.disponibilidade)       pills.push(`<div class="info-pill">📅 Disponibilidade: <strong>${ent.disponibilidade}</strong></div>`);
+  if (ent.expectativa_salarial)  pills.push(`<div class="info-pill">💰 Expectativa salarial: <strong>${ent.expectativa_salarial}</strong></div>`);
+  if (ent.cnh && ent.cnh !== 'Não tenho')  pills.push(`<div class="info-pill">🚗 CNH: <strong>${ent.cnh}</strong></div>`);
+  if (ent.veiculo && ent.veiculo !== 'Não')pills.push(`<div class="info-pill">🚘 Veículo: <strong>${ent.veiculo}</strong></div>`);
+  if (pills.length) entHTML += `<div class="info-pills">${pills.join('')}</div><div style="margin-bottom:0.7rem;"></div>`;
+
+  // — CURRÍCULO ESTRUTURADO —
+  const exps   = curric.experiencias || [];
+  const cursos = curric.cursos || [];
+  const certs  = curric.certificados || [];
+  const habils = curric.habilidades || [];
+  if (exps.length || cursos.length || certs.length || habils.length) {
+    entHTML += `<div style="font-size:0.63rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin:1rem 0 0.5rem;">📄 Currículo Estruturado</div>`;
+    if (exps.length) {
+      entHTML += `<div class="curriculo-sec-title">💼 Experiências Profissionais</div>`;
+      entHTML += exps.map(e => {
+        const periodo = e.saida === 'atual' ? `${e.entrada||''} — atual` : `${e.entrada||''} a ${e.saida||''}`;
+        return `<div class="exp-row">
+          <div class="exp-row-head">
+            <div><div class="exp-cargo">${e.cargo||'—'}</div><div class="exp-empresa">${e.empresa||'—'}</div></div>
+            <div class="exp-periodo">${periodo}</div>
+          </div>
+          ${e.atividades ? `<div class="exp-ativ">${String(e.atividades).replace(/\n/g,'<br>')}</div>` : ''}
+        </div>`;
+      }).join('');
+    }
+    if (cursos.length) {
+      entHTML += `<div class="curriculo-sec-title">🎓 Cursos e Formações</div>`;
+      entHTML += `<div class="resp-block">${cursos.map(c => `<div class="curso-row"><span style="color:var(--accent);font-weight:900;flex-shrink:0;">›</span><span><strong style="color:var(--text);">${c.nome||'—'}</strong>${c.inst ? ` — ${c.inst}` : ''}${c.mod ? ` <span style="font-size:0.68rem;color:var(--muted);">(${c.mod})</span>` : ''}</span></div>`).join('')}</div>`;
+    }
+    if (certs.length) {
+      entHTML += `<div class="curriculo-sec-title">📜 Certificados</div>`;
+      entHTML += `<div class="habil-tags">${certs.map(c => `<span class="cert-tag">📜 ${c}</span>`).join('')}</div><div style="margin-bottom:0.7rem;"></div>`;
+    }
+    if (habils.length) {
+      entHTML += `<div class="curriculo-sec-title">⚡ Habilidades</div>`;
+      entHTML += `<div class="habil-tags">${habils.map(h => `<span class="habil-tag">${h}</span>`).join('')}</div><div style="margin-bottom:0.7rem;"></div>`;
+    }
+  }
+
+  // — TRAJETÓRIA —
+  entHTML += `<div style="font-size:0.63rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin:1rem 0 0.6rem;">📖 Trajetória</div>`;
+  entHTML += respBlock('📖 História Profissional', ent.historia, true);
+  entHTML += respBlock('🎯 Experiência Específica com a Vaga', ent.exp_vaga, true);
+  entHTML += respBlock('🤝 Voluntariado / Projetos Escolares', ent.voluntario, false);
+  if (iaData.exp_especifica_aval) {
+    entHTML += `<div class="admin-sub"><strong>🔍 Avaliação IA — Exp. Específica</strong>${iaData.exp_especifica_aval}</div>`;
+  }
+  if (iaData.rotatividade_alerta) {
+    entHTML += `<div class="alerta-rotatividade"><span>⚠️</span><span><strong>Alta rotatividade detectada</strong> — 2 ou mais empregos com menos de 1 ano. Avaliar estabilidade durante entrevista.</span></div>`;
+  }
+  if (iaData.progressao_carreira) {
+    entHTML += `<div class="admin-sub"><strong>📈 Progressão de Carreira</strong>${iaData.progressao_carreira}</div>`;
+  }
+
+  // — CONQUISTAS —
+  entHTML += `<div style="font-size:0.63rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin:1rem 0 0.6rem;">🏆 Conquistas & Diferencial</div>`;
+  const conqList = (ent.conquistas||[]).filter(Boolean);
+  if (conqList.length) {
+    entHTML += `<div class="resp-block"><span class="resp-label">🏆 Conquistas (${conqList.length})</span><div class="resp-text"><ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:0.3rem;">${conqList.map(c=>`<li style="display:flex;gap:0.4rem;"><span style="color:#3b82f6;font-weight:900;flex-shrink:0;">✓</span>${c}</li>`).join('')}</ul></div></div>`;
+  } else {
+    entHTML += `<div class="resp-block" style="opacity:0.45;"><span class="resp-label">🏆 Conquistas <span style="color:#f39c12;font-size:0.6rem;">— não preenchido</span></span><div class="resp-text"><em style="color:var(--muted);">Nenhuma conquista adicionada</em></div></div>`;
+  }
+  entHTML += respBlock('⚡ Maior Diferencial Profissional', ent.diferencial, true);
+
+  // — COMPETÊNCIAS STAR —
+  entHTML += `<div style="font-size:0.63rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin:1rem 0 0.6rem;">🧠 Competências Comportamentais (Método STAR)</div>`;
+  if (comp.me_fale) {
+    entHTML += `<div class="resp-block"><span class="resp-label">🗣️ Me fale sobre você</span><div class="resp-text">${String(comp.me_fale).replace(/\n/g,'<br>')}</div></div>`;
+  }
+  entHTML += starBlock('🗣️ Comunicação', comp.comunicacao_acao, comp.comunicacao_res);
+  entHTML += starBlock('💪 Resiliência', comp.resiliencia_acao, comp.resiliencia_res);
+  entHTML += starBlock('🤝 Trabalho em Equipe', comp.equipe_acao, comp.equipe_res);
+  entHTML += starBlock('🎯 Foco em Resultados', comp.resultados_acao, comp.resultados_res);
+  entHTML += starBlock('⚡ Proatividade', comp.proatividade_acao, comp.proatividade_res);
+  entHTML += starBlock('🔄 Adaptabilidade', comp.adaptabilidade_acao, comp.adaptabilidade_res);
+
+  // — MOTIVAÇÃO & EXTRAS —
+  entHTML += `<div style="font-size:0.63rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin:1rem 0 0.6rem;">💭 Motivação & Informações Finais</div>`;
+  entHTML += respBlock('💡 Por que quer essa vaga?', ent.motivacao, true);
+  entHTML += respBlock('📌 Informações Extras', ent.extra, true);
+
+  document.getElementById('entrevistaWrap').innerHTML = entHTML || '<span style="color:var(--muted);">Dados não disponíveis.</span>';
+
+  // ── ANÁLISE ADMIN ─────────────────────────────────────────────
+  document.getElementById('adminResumo').textContent   = iaData.resumo_admin     || '—';
+  document.getElementById('adminRec').textContent      = iaData.recomendacao_admin || '—';
+
+  // ── COERÊNCIA —
+  if (iaData.coerencia_nota !== null && iaData.coerencia_nota !== undefined) {
+    const cor = iaData.coerencia_nota >= 7 ? '#2ecc71' : iaData.coerencia_nota >= 4 ? '#f39c12' : '#e74c3c';
+    const adminCard = document.getElementById('cardAdmin');
+    if (adminCard) {
+      const sub = document.createElement('div');
+      sub.className = 'admin-sub';
+      sub.innerHTML = `<strong>🔗 Nota de Coerência entre Etapas</strong><span style="font-size:1.1rem;font-weight:900;color:${cor};">${iaData.coerencia_nota}/10</span> — quanto mais alto, maior a consistência entre trajetória declarada e competências respondidas.`;
+      adminCard.appendChild(sub);
+    }
+  }
+
+  // ── RED FLAGS ─────────────────────────────────────────────────
+  const redFlags = iaData.red_flags || [];
+  const rfWrap = document.getElementById('redFlagsWrap');
+  const rfCard = document.getElementById('cardRedFlags');
+  if (rfCard) {
+    if (redFlags.length > 0) {
+      rfWrap.innerHTML = redFlags.map(f => {
+        const txt = typeof f === 'string' ? f : (f.emoji ? f.emoji + ' ' + f.label : f.label);
+        return `<div class="red-flag-item"><span class="red-flag-ico">🚩</span><span>${txt}</span></div>`;
+      }).join('');
+      rfCard.style.display = '';
+    } else {
+      rfCard.style.display = 'none';
+    }
+  }
+
+  // ── OBSERVAÇÕES ───────────────────────────────────────────────
+  const obsKey = `fit_obs_${nome}_${vaga}`;
+  document.getElementById('obsRecrutador').value = localStorage.getItem(obsKey) || '';
+
+  // ── BOTÃO VER CURRÍCULO ───────────────────────────────────────
+  const curriculoUrl = 'curriculo.html'
+    + '?nome='  + encodeURIComponent(nome)
+    + '&vaga='  + encodeURIComponent(vaga)
+    + '&tel='   + encodeURIComponent(tel)
+    + '&email=' + encodeURIComponent(email)
+    + '&fit='   + fitScore
+    + '&nivel=' + encodeURIComponent(fitNivel)
+    + '&perfil='+ (p.get('perfil') || p.get('dom') || 'D')
+    + '&sec='   + (p.get('sec') || 'I')
+    + '&d='     + (p.get('d') || '0')
+    + '&i='     + (p.get('i') || '0')
+    + '&s='     + (p.get('s') || '0')
+    + '&c='     + (p.get('c') || '0');
+  const btnCurriculo = document.getElementById('btnCurriculo');
+  if (btnCurriculo) { btnCurriculo.href = curriculoUrl; btnCurriculo.style.display = 'flex'; }
+} // fim renderizarTudo()
+
+function salvarObs() {
+  const obsKey = `fit_obs_${nome}_${vaga}`;
+  localStorage.setItem(obsKey, document.getElementById('obsRecrutador').value);
+  const msg = document.getElementById('obsSavedMsg');
+  msg.style.opacity = '1';
+  setTimeout(()=>{ msg.style.opacity = '0'; }, 2200);
+}
+
+// ── CARREGAR DADOS: Supabase primeiro, sessionStorage como fallback ───────────
+(async function carregarDados() {
+  // 1. Tenta sessionStorage (mesma sessão, candidato acabou de fazer)
+  try {
+    const ss_ent = sessionStorage.getItem('entrevista_dados');
+    const ss_ia  = sessionStorage.getItem('entrevista_ia');
+    if (ss_ent && ss_ia) {
+      const dadosCompletos = JSON.parse(ss_ent);
+      // entrevista_dados pode ser { entrevista:{...}, curriculo:{...} } ou diretamente o objeto entrevista
+      if (dadosCompletos.entrevista) {
+        entData = dadosCompletos.entrevista;
+        entData._curriculo = dadosCompletos.curriculo || {};
+      } else {
+        entData = dadosCompletos;
+      }
+      iaData  = JSON.parse(ss_ia);
+      renderizarTudo();
+      return;
+    }
+  } catch(e) {}
+
+  // 2. Busca no Supabase pelo nome+vaga (link do email, outro dispositivo, etc.)
+  if (!nome || nome === 'Candidato') { renderizarTudo(); return; }
+  try {
+    document.getElementById('entrevistaWrap').innerHTML =
+      '<span style="color:var(--muted);font-size:0.83rem;">⏳ Carregando dados...</span>';
+
+    const _sel = 'entrevista_json,curriculo_json,resumo_ia,resumo_admin,recomendacao_admin,pontos_fortes,pontos_atencao,requisitos_atendidos,requisitos_ausentes,red_flags_json,progressao_carreira,rotatividade_alerta,coerencia_nota,revisao_ia_flag,revisao_ia_campos,exp_especifica,exp_especifica_aval';
+    // Busca exata
+    let res = await fetch(
+      `${SB}/rest/v1/disc_historico?nome=eq.${encodeURIComponent(nome)}&vaga=eq.${encodeURIComponent(vaga)}&select=${_sel}&order=atualizado_em.desc&limit=1`,
+      { headers:{'apikey':KEY,'Authorization':'Bearer '+KEY} }
+    );
+    let arr = await res.json();
+
+    // Busca flexível se não achou exato
+    if (!Array.isArray(arr) || !arr.length) {
+      const nomeInicio = nome.split(' ')[0];
+      res = await fetch(
+        `${SB}/rest/v1/disc_historico?nome=ilike.${encodeURIComponent(nomeInicio+'*')}&vaga=ilike.${encodeURIComponent('*'+vaga.split(' ')[0]+'*')}&select=${_sel}&order=atualizado_em.desc&limit=1`,
+        { headers:{'apikey':KEY,'Authorization':'Bearer '+KEY} }
+      );
+      arr = await res.json();
+    }
+
+    if (Array.isArray(arr) && arr.length > 0) {
+      const row = arr[0];
+      // Monta entData
+      try { entData = JSON.parse(row.entrevista_json || '{}'); } catch(e) { entData = {}; }
+      // Monta curriculo a partir de curriculo_json (se existir) ou do entrevista_json legado
+      if (row.curriculo_json) {
+        try { entData._curriculo = JSON.parse(row.curriculo_json); } catch(e) {}
+      }
+      // Monta iaData — campos salvos como strings "a | b | c"
+      const splitPipe = v => (v||'').split(' | ').map(s=>s.trim()).filter(Boolean);
+      let redFlags = [];
+      try { redFlags = JSON.parse(row.red_flags_json || '[]'); } catch(e) {}
+      iaData = {
+        resumo_candidato:    row.resumo_ia            || '',
+        resumo_admin:        row.resumo_admin         || '',
+        recomendacao_admin:  row.recomendacao_admin   || '',
+        pontos_fortes:       splitPipe(row.pontos_fortes),
+        pontos_atencao:      splitPipe(row.pontos_atencao),
+        requisitos_atendidos:splitPipe(row.requisitos_atendidos),
+        requisitos_ausentes: splitPipe(row.requisitos_ausentes),
+        red_flags:           redFlags,
+        progressao_carreira: row.progressao_carreira  || '',
+        rotatividade_alerta: row.rotatividade_alerta  || false,
+        coerencia_nota:      row.coerencia_nota       ?? null,
+        revisao_ia_flag:     row.revisao_ia_flag      || false,
+        revisao_ia_campos:   (() => { try { return JSON.parse(row.revisao_ia_campos || '[]'); } catch(e) { return []; } })(),
+        exp_especifica_aval: row.exp_especifica_aval  || '',
+      };
+    }
+  } catch(e) { console.warn('Supabase carregar erro:', e); }
+
+  renderizarTudo();
+})();
+
+function togglePdfField(wrapId, cb){
+  const el = document.getElementById(wrapId);
+  if(el) el.classList.toggle('pdf-hidden', cb.checked);
+}
+</script>
+</body>
+</html>

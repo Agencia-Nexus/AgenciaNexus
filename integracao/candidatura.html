@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Candidatura | Agência Nexus</title>
+  <link rel="icon" type="image/png" href="icone.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --primary:#1d4ed8;
+      --accent:#3b82f6;
+      --bg:#0d0d0d;
+      --card:#161616;
+      --card2:#1c1c1c;
+      --border:rgba(59,130,246,0.18);
+      --border2:rgba(59,130,246,0.32);
+      --text:#f0f0f0;
+      --muted:#888;
+      --muted2:#444;
+      --D:#e74c3c;--I:#f39c12;--S:#2ecc71;--C:#3498db;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;
+      background-image:linear-gradient(rgba(59,130,246,0.035) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(59,130,246,0.035) 1px,transparent 1px);
+      background-size:44px 44px;pointer-events:none;}
+    body::after{content:'';position:fixed;top:-20%;left:50%;transform:translateX(-50%);
+      width:960px;height:620px;
+      background:radial-gradient(ellipse,rgba(59,130,246,0.06) 0%,transparent 65%);
+      pointer-events:none;z-index:0;}
+
+    .wrap{position:relative;z-index:1;width:100%;padding:1.8rem 2rem 5rem;}
+
+    /* ── STEPPER ── */
+    .stepper{display:flex;align-items:center;gap:0;margin-bottom:2rem;}
+    .step-item{display:flex;flex-direction:column;align-items:center;gap:0.35rem;flex:1;position:relative;}
+    .step-item:not(:last-child)::after{content:'';position:absolute;top:18px;left:calc(50% + 18px);
+      width:calc(100% - 36px);height:2px;background:var(--muted2);z-index:0;transition:background 0.4s;}
+    .step-item.done:not(:last-child)::after{background:var(--accent);}
+    .step-circle{width:36px;height:36px;border-radius:50%;border:2px solid var(--muted2);
+      background:var(--card);display:flex;align-items:center;justify-content:center;
+      font-size:0.8rem;font-weight:800;color:var(--muted);position:relative;z-index:1;
+      transition:all 0.4s;}
+    .step-item.active .step-circle{border-color:var(--accent);color:var(--accent);
+      background:rgba(59,130,246,0.08);box-shadow:0 0 0 4px rgba(59,130,246,0.12);}
+    .step-item.done .step-circle{border-color:var(--accent);background:var(--accent);color:#111;}
+    .step-label{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;
+      color:var(--muted);text-align:center;transition:color 0.4s;}
+    .step-item.active .step-label{color:var(--accent);}
+    .step-item.done .step-label{color:rgba(59,130,246,0.7);}
+
+    /* ── VAGA PILL ── */
+    .vaga-pill{display:inline-flex;align-items:center;gap:0.5rem;
+      background:rgba(59,130,246,0.09);border:1px solid var(--border2);
+      border-radius:99px;padding:0.3rem 1rem;font-size:0.75rem;font-weight:700;
+      color:var(--accent);}
+
+    /* ── SECTION CARD ── */
+    .section-card{background:var(--card);border:1px solid var(--border);
+      border-radius:20px;padding:1.8rem;margin-bottom:1.2rem;
+      animation:fadeUp 0.35s ease both;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .section-title{font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      color:var(--accent);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;}
+    .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+    /* ── FORM FIELDS ── */
+    .field{margin-bottom:1.1rem;}
+    .field label{display:block;font-size:0.78rem;font-weight:700;color:var(--accent);
+      margin-bottom:0.45rem;letter-spacing:0.3px;}
+    .field select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.9rem center;padding-right:2.2rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+    .field select option{background:#161616;color:#f0f0f0;}
+    .field input,.field select{width:100%;padding:0.9rem 1.1rem;
+      background:rgba(255,255,255,0.03);border:1px solid var(--border);
+      border-radius:12px;color:var(--text);font-family:inherit;font-size:0.92rem;
+      outline:none;transition:border-color 0.25s,box-shadow 0.25s;}
+    .field input:focus,.field select:focus{border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+    .field input::placeholder{color:var(--muted);}
+    .field input.error{border-color:#e74c3c;}
+    .field-hint{font-size:0.72rem;color:var(--muted);margin-top:0.35rem;}
+    .field-error{font-size:0.72rem;color:#e74c3c;margin-top:0.35rem;display:none;}
+    .field.has-error .field-error{display:block;}
+    .field.has-error input{border-color:#e74c3c;}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
+
+    /* ── STEP CONTENT ── */
+    .step-content{display:none;}
+    .step-content.active{display:block;}
+
+    /* ── STEP 2/3 GATEWAY ── */
+    .gateway-card{background:var(--card);border:1px solid var(--border);
+      border-radius:20px;padding:2rem;text-align:center;margin-bottom:1.2rem;}
+    .gateway-icon{font-size:3rem;margin-bottom:1rem;}
+    .gateway-title{font-size:1.15rem;font-weight:800;margin-bottom:0.5rem;}
+    .gateway-sub{font-size:0.84rem;color:var(--muted);line-height:1.65;max-width:460px;margin:0 auto 1.5rem;}
+
+    /* status badges */
+    .badge{display:inline-flex;align-items:center;gap:0.4rem;padding:0.28rem 0.85rem;
+      border-radius:99px;font-size:0.7rem;font-weight:700;}
+    .badge-ok{background:rgba(46,204,113,0.12);color:#2ecc71;border:1px solid rgba(46,204,113,0.3);}
+    .badge-pending{background:rgba(59,130,246,0.09);color:var(--accent);border:1px solid var(--border);}
+    .badge-locked{background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid rgba(255,255,255,0.1);}
+
+    /* disc result summary */
+    .disc-summary{background:rgba(59,130,246,0.05);border:1px solid var(--border);
+      border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.2rem;display:none;}
+    .disc-summary.visible{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+    .disc-profile-badge{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;
+      justify-content:center;font-size:1.5rem;font-weight:900;flex-shrink:0;}
+    .disc-profile-info{flex:1;min-width:0;}
+    .disc-profile-name{font-size:1rem;font-weight:800;margin-bottom:0.2rem;}
+    .disc-profile-sub{font-size:0.76rem;color:var(--muted);}
+    .disc-bars{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;}
+    .disc-bar-chip{font-size:0.68rem;font-weight:700;padding:0.18rem 0.65rem;border-radius:99px;}
+
+    /* lock overlay on locked steps */
+    .lock-overlay{display:flex;align-items:center;justify-content:center;gap:0.7rem;
+      background:rgba(255,255,255,0.025);border:1px dashed rgba(255,255,255,0.12);
+      border-radius:14px;padding:1.2rem;margin-bottom:1rem;color:var(--muted);font-size:0.82rem;}
+    .lock-overlay span.icon{font-size:1.4rem;}
+
+    /* ── BUTTONS ── */
+    .btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;border:none;border-radius:14px;padding:0.95rem 2.2rem;
+      font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;
+      transition:opacity 0.2s,transform 0.2s;width:100%;margin-top:0.5rem;}
+    .btn-primary:hover{opacity:0.88;transform:translateY(-2px);}
+    .btn-primary:disabled{opacity:0.38;cursor:not-allowed;transform:none;}
+    .btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted);
+      border-radius:14px;padding:0.95rem 2.2rem;font-family:inherit;font-size:0.9rem;
+      font-weight:600;cursor:pointer;transition:all 0.2s;width:100%;margin-top:0.5rem;}
+    .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+    .btn-row{display:flex;gap:0.8rem;margin-top:0.5rem;}
+    .btn-row .btn-primary{flex:2;}
+    .btn-row .btn-outline{flex:1;}
+
+    /* channel buttons */
+    .canal-btn{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.03);
+      border:1px solid var(--border);border-radius:16px;padding:1.1rem 1.3rem;
+      cursor:pointer;transition:all 0.25s;font-family:inherit;color:var(--text);
+      width:100%;margin-bottom:0.8rem;text-align:left;}
+    .canal-btn:hover{border-color:var(--accent);background:rgba(59,130,246,0.06);}
+    .canal-btn .canal-icon{font-size:1.8rem;flex-shrink:0;}
+    .canal-btn .canal-info{flex:1;}
+    .canal-btn .canal-name{font-size:0.92rem;font-weight:700;margin-bottom:0.18rem;}
+    .canal-btn .canal-sub{font-size:0.74rem;color:var(--muted);}
+    .canal-btn .canal-arrow{color:var(--muted);font-size:1rem;}
+
+    /* ── DISC TYPE SELECTOR ── */
+    .disc-type-btn{background:rgba(255,255,255,0.03);border:1px solid var(--border);
+      border-radius:16px;padding:1.1rem;cursor:pointer;transition:all 0.25s;
+      font-family:inherit;color:var(--text);text-align:center;position:relative;}
+    .disc-type-btn:hover{border-color:var(--accent);background:rgba(59,130,246,0.06);}
+    .disc-type-btn.active{border-color:var(--accent);background:rgba(59,130,246,0.1);
+      box-shadow:0 0 0 3px rgba(59,130,246,0.12);}
+    .disc-type-icon{font-size:1.6rem;margin-bottom:0.4rem;}
+    .disc-type-name{font-size:0.9rem;font-weight:800;margin-bottom:0.3rem;}
+    .disc-type-desc{font-size:0.7rem;color:var(--muted);line-height:1.5;}
+    .disc-type-badge{display:inline-block;background:rgba(59,130,246,0.15);
+      color:var(--accent);border:1px solid rgba(59,130,246,0.3);
+      border-radius:99px;font-size:0.6rem;font-weight:700;padding:0.15rem 0.55rem;
+      margin-top:0.4rem;letter-spacing:0.5px;}
+
+    /* ── FINAL MODAL ── */
+    #finalModal{position:fixed;inset:0;z-index:9000;display:none;
+      background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);
+      align-items:center;justify-content:center;padding:1rem;}
+    #finalModal.active{display:flex;}
+    .final-modal-inner{background:var(--card);border:1px solid var(--border2);
+      border-radius:24px;padding:2rem;max-width:520px;width:100%;
+      max-height:90vh;overflow-y:auto;animation:fadeUp 0.35s ease both;}
+    .final-modal-header{text-align:center;margin-bottom:1.5rem;}
+    .final-modal-header .check{font-size:2.8rem;margin-bottom:0.5rem;}
+    .final-modal-header h2{font-size:1.3rem;font-weight:900;margin-bottom:0.3rem;}
+    .final-modal-header p{font-size:0.84rem;color:var(--muted);}
+    .summary-row{display:flex;align-items:center;gap:0.8rem;
+      background:rgba(255,255,255,0.03);border:1px solid var(--border);
+      border-radius:12px;padding:0.9rem 1rem;margin-bottom:0.7rem;}
+    .summary-label{font-size:0.7rem;font-weight:700;color:var(--muted);
+      text-transform:uppercase;letter-spacing:0.8px;width:80px;flex-shrink:0;}
+    .summary-val{font-size:0.88rem;font-weight:600;flex:1;}
+
+    /* ── TOAST ── */
+    .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(80px);
+      background:#1e1e1e;border:1px solid var(--border);border-radius:99px;
+      padding:0.65rem 1.4rem;font-size:0.82rem;font-weight:600;color:var(--text);
+      z-index:9999;transition:transform 0.35s,opacity 0.35s;opacity:0;white-space:nowrap;}
+    .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+    .toast.ok{border-color:rgba(46,204,113,0.4);color:#2ecc71;}
+    .toast.err{border-color:rgba(231,76,60,0.4);color:#e74c3c;}
+
+    /* spinner */
+    .spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.25);
+      border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:0.5rem;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* saving indicator */
+    .saving{display:none;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--muted);
+      justify-content:center;margin-top:1rem;}
+    .saving.show{display:flex;}
+
+    @media(max-width:480px){
+      .wrap{padding:1.2rem 0.9rem 5rem;}
+      .hero{padding:1.4rem 1.3rem;}
+      .hero-title{font-size:1.3rem;}
+      .section-card{padding:1.4rem;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER — padrão Nexus ATS -->
+  <div class="hero" style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;background:none;border:none;border-radius:0;padding:0;margin-bottom:1.6rem;overflow:visible;">
+    <div>
+      <div class="hero-eyebrow" style="font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;">Candidatura · ATS</div>
+      <div class="hero-title" style="font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;line-height:1.2;">Sua <span>Candidatura</span></div>
+      <div class="hero-sub" style="font-size:0.8rem;color:var(--muted);">Preencha os 3 passos para concluir. Leva entre 10 e 20 minutos.</div>
+      <div class="vaga-pill" id="vagaPill" style="margin-top:0.55rem;">🏢 Carregando vaga...</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+      <a href="vagas.html" style="font-family:inherit;font-size:0.78rem;font-weight:700;border-radius:11px;padding:0.52rem 1.1rem;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;transition:all 0.18s;"
+         onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='var(--text)'"
+         onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='var(--muted)'">
+        ← Vagas
+      </a>
+    </div>
+  </div>
+
+  <!-- STEPPER -->
+  <div class="stepper" id="stepper">
+    <div class="step-item active" id="si-1">
+      <div class="step-circle">1</div>
+      <div class="step-label">Identificação</div>
+    </div>
+    <div class="step-item" id="si-2">
+      <div class="step-circle">2</div>
+      <div class="step-label">Teste DISC</div>
+    </div>
+    <div class="step-item" id="si-3">
+      <div class="step-circle">3</div>
+      <div class="step-label">Entrevista</div>
+    </div>
+    <div class="step-item" id="si-4">
+      <div class="step-circle">✓</div>
+      <div class="step-label">Envio</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ETAPA 1 — IDENTIFICAÇÃO                 -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="step-content active" id="step1">
+    <div class="section-card">
+      <div class="section-title">Etapa 1 — Identificação</div>
+
+      <div class="field-row">
+        <div class="field" id="f-nome">
+          <label for="inNome">Nome completo <span style="color:#e74c3c">*</span></label>
+          <input type="text" id="inNome" placeholder="Ex: João da Silva" autocomplete="name"/>
+          <div class="field-error" id="err-nome">Informe nome e sobrenome.</div>
+        </div>
+        <div class="field" id="f-email">
+          <label for="inEmail">E-mail <span style="color:#e74c3c">*</span></label>
+          <input type="email" id="inEmail" placeholder="seu@email.com" autocomplete="email"/>
+          <div class="field-error" id="err-email">E-mail inválido.</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-tel">
+        <label for="inTel">Telefone / WhatsApp <span style="color:#e74c3c">*</span></label>
+        <input type="tel" id="inTel" placeholder="(51) 99999-9999" autocomplete="tel" inputmode="numeric"/>
+        <div class="field-hint">Formato: (DDD) XXXXX-XXXX — usado apenas para contato da agência.</div>
+        <div class="field-error" id="err-tel">Telefone incompleto. Use (DDD) + número.</div>
+      </div>
+
+      <div class="field" id="f-mae">
+        <label for="inMae">Nome da mãe <span style="color:#e74c3c">*</span></label>
+        <input type="text" id="inMae" placeholder="Ex: Maria da Silva" autocomplete="off"/>
+        <div class="field-hint">Usado para identificar sua candidatura com segurança.</div>
+        <div class="field-error" id="err-mae">Informe o nome completo da sua mãe.</div>
+      </div>
+
+      <div class="field" id="f-cidade">
+        <label for="inCidade">Cidade <span style="color:#e74c3c">*</span></label>
+        <select id="inCidade" onchange="toggleOutraCidade()">
+          <option value="">— Selecione sua cidade —</option>
+          <option value="Alvorada, RS">Alvorada, RS</option>
+          <option value="Bento Gonçalves, RS">Bento Gonçalves, RS</option>
+          <option value="Cachoeirinha, RS">Cachoeirinha, RS</option>
+          <option value="Canoas, RS">Canoas, RS</option>
+          <option value="Caxias do Sul, RS">Caxias do Sul, RS</option>
+          <option value="Eldorado do Sul, RS">Eldorado do Sul, RS</option>
+          <option value="Esteio, RS">Esteio, RS</option>
+          <option value="Farroupilha, RS">Farroupilha, RS</option>
+          <option value="Gramado, RS">Gramado, RS</option>
+          <option value="Gravataí, RS">Gravataí, RS</option>
+          <option value="Guaíba, RS">Guaíba, RS</option>
+          <option value="Lajeado, RS">Lajeado, RS</option>
+          <option value="Arroio dos Ratos, RS">Arroio dos Ratos, RS</option>
+          <option value="Montenegro, RS">Montenegro, RS</option>
+          <option value="Nova Hartz, RS">Nova Hartz, RS</option>
+          <option value="Nova Petrópolis, RS">Nova Petrópolis, RS</option>
+          <option value="Novo Hamburgo, RS">Novo Hamburgo, RS</option>
+          <option value="Parobé, RS">Parobé, RS</option>
+          <option value="Pelotas, RS">Pelotas, RS</option>
+          <option value="Porto Alegre, RS">Porto Alegre, RS</option>
+          <option value="Rio Grande, RS">Rio Grande, RS</option>
+          <option value="Rolante, RS">Rolante, RS</option>
+          <option value="Santa Cruz do Sul, RS">Santa Cruz do Sul, RS</option>
+          <option value="Santo Ângelo, RS">Santo Ângelo, RS</option>
+          <option value="São Leopoldo, RS">São Leopoldo, RS</option>
+          <option value="São Sebastião do Caí, RS">São Sebastião do Caí, RS</option>
+          <option value="Sapiranga, RS">Sapiranga, RS</option>
+          <option value="Sapucaia do Sul, RS">Sapucaia do Sul, RS</option>
+          <option value="Taquara, RS">Taquara, RS</option>
+          <option value="Charqueadas, RS">Charqueadas, RS</option>
+          <option value="Três Coroas, RS">Três Coroas, RS</option>
+          <option value="Viamão, RS">Viamão, RS</option>
+          <option value="Itajaí, SC">Itajaí, SC</option>
+          <option value="Outra">📍 Outra cidade...</option>
+        </select>
+        <div class="field-error" id="err-cidade">Selecione sua cidade.</div>
+      </div>
+
+      <div class="field" id="f-outra-cidade" style="display:none;">
+        <label for="inOutraCidade">Qual cidade? <span style="color:#e74c3c">*</span></label>
+        <input type="text" id="inOutraCidade" placeholder="Ex: Santa Maria, RS" autocomplete="address-level2"/>
+        <div class="field-error" id="err-outra-cidade">Informe o nome da sua cidade.</div>
+      </div>
+
+      <div class="field" id="f-bairro">
+        <label for="inBairro">Bairro <span style="color:#e74c3c">*</span></label>
+        <input type="text" id="inBairro" placeholder="Ex: Centro" autocomplete="address-level3"/>
+        <div class="field-hint">Informe o bairro onde você mora atualmente.</div>
+        <div class="field-error" id="err-bairro">Informe seu bairro.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" id="f-idade">
+          <label for="inIdade">Idade <span style="color:#e74c3c">*</span></label>
+          <input type="number" id="inIdade" placeholder="Ex: 28" min="14" max="99" inputmode="numeric"/>
+          <div class="field-error" id="err-idade">Informe uma idade válida (14–99 anos).</div>
+        </div>
+
+        <div class="field" id="f-disponibilidade">
+          <label for="inDisponibilidade">Disponibilidade <span style="color:#e74c3c">*</span></label>
+          <select id="inDisponibilidade">
+            <option value="">— Selecione —</option>
+            <option value="Imediata">✅ Imediata</option>
+            <option value="A combinar">🗓️ A combinar</option>
+          </select>
+          <div class="field-error" id="err-disponibilidade">Selecione sua disponibilidade.</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(59,130,246,0.04);border:1px solid rgba(59,130,246,0.15);border-radius:16px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;">
+          <span style="font-size:1rem;">💡</span>
+          <span style="font-size:0.8rem;font-weight:700;color:var(--accent);">Por que pedimos essas informações?</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.55rem;">
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+            <span style="font-size:0.85rem;min-width:20px;">📧</span>
+            <div style="font-size:0.76rem;color:var(--muted);line-height:1.55;"><strong style="color:var(--text);">E-mail</strong> — principal forma de contato e de identificar você no sistema caso volte a se candidatar por outro dispositivo.</div>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+            <span style="font-size:0.85rem;min-width:20px;">📱</span>
+            <div style="font-size:0.76rem;color:var(--muted);line-height:1.55;"><strong style="color:var(--text);">Telefone</strong> — usado para contato direto pela agência e como dado de confirmação da sua identidade.</div>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+            <span style="font-size:0.85rem;min-width:20px;">👩</span>
+            <div style="font-size:0.76rem;color:var(--muted);line-height:1.55;"><strong style="color:var(--text);">Nome da mãe</strong> — funciona como uma segunda chave de identificação. Se você trocar de e-mail ou acessar de outro aparelho, esse dado garante que seu resultado do teste DISC seja reconhecido e não precise ser refeito.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btnContinuar1" onclick="salvarEtapa1()">
+        Continuar para o Teste DISC →
+      </button>
+
+      <div class="saving" id="savingIndicator">
+        <span class="spinner"></span> Salvando seus dados...
+      </div>
+    </div>
+
+    <div class="section-card" style="padding:1.2rem 1.8rem;">
+      <div style="display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap;">
+        <div style="font-size:1.5rem;">🔒</div>
+        <div>
+          <div style="font-size:0.82rem;font-weight:700;margin-bottom:0.3rem;">Seus dados estão seguros</div>
+          <div style="font-size:0.76rem;color:var(--muted);line-height:1.6;">Suas informações são usadas exclusivamente pela Agência Nexus para o processo seletivo e nunca são vendidas ou compartilhadas com terceiros.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ETAPA 2 — DISC                          -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="step-content" id="step2">
+
+    <!-- DISC result summary (shown after completion) -->
+    <div class="disc-summary" id="discSummary">
+      <div class="disc-profile-badge" id="discBadge">D</div>
+      <div class="disc-profile-info">
+        <div class="disc-profile-name" id="discProfileName">Perfil DISC</div>
+        <div class="disc-profile-sub" id="discProfileSub">Resultado carregado</div>
+        <div class="disc-bars" id="discBars"></div>
+      </div>
+      <span class="badge badge-ok">✓ Concluído</span>
+    </div>
+
+    <div class="gateway-card" id="discGateway">
+      <div class="gateway-icon">🧠</div>
+      <div class="gateway-title">Teste de Perfil Comportamental DISC</div>
+      <div class="gateway-sub">O teste DISC ajuda a entender seu estilo de trabalho e como você se relaciona com equipes. Leva aproximadamente 8 a 12 minutos. Não há respostas certas ou erradas.</div>
+      <span class="badge badge-pending" style="margin-bottom:1.5rem;">Obrigatório para prosseguir</span>
+
+      <!-- Escolha do tipo de DISC -->
+      <div style="margin-bottom:1.2rem;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:0.8rem;">Escolha o formato do teste:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;max-width:480px;margin:0 auto;" id="discTypeGrid">
+          <button class="disc-type-btn active" id="btnTypeIpsativo" onclick="selecionarTipoDisc('ipsativo')">
+            <div class="disc-type-icon">🎯</div>
+            <div class="disc-type-name">Ipsativo</div>
+            <div class="disc-type-desc">Ordene as opções por preferência — resultado mais preciso</div>
+            <div class="disc-type-badge">Recomendado</div>
+          </button>
+          <button class="disc-type-btn" id="btnTypeClassico" onclick="selecionarTipoDisc('classico')">
+            <div class="disc-type-icon">✅</div>
+            <div class="disc-type-name">Clássico</div>
+            <div class="disc-type-desc">Escolha uma opção por pergunta — mais simples e rápido</div>
+          </button>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btnIniciarDisc" onclick="iniciarDisc()" style="max-width:360px;margin:0 auto;">
+        Iniciar Teste DISC →
+      </button>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:0.8rem;">
+        Você será redirecionado para o teste e retornará automaticamente.
+      </div>
+    </div>
+
+    <div class="section-card" id="discConcluido" style="display:none;">
+      <div style="text-align:center;margin-bottom:1.4rem;">
+        <div style="font-size:2.5rem;margin-bottom:0.6rem;">✅</div>
+        <div style="font-size:1rem;font-weight:800;margin-bottom:0.3rem;">Teste DISC concluído!</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.6rem;">Ótimo trabalho. Agora desbloqueamos a Entrevista IA para você.</div>
+        <div id="discTTLInfo" style="margin:0.8rem auto 1.2rem;max-width:480px;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.18);border-radius:14px;padding:1rem 1.2rem;text-align:left;">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+            <span style="font-size:1rem;">⏱</span>
+            <span style="font-size:0.82rem;font-weight:700;color:var(--accent);">Resultado válido por 2 semanas</span>
+            <span id="discTTLTexto" style="font-size:0.72rem;color:var(--muted);margin-left:auto;white-space:nowrap;"></span>
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted);line-height:1.65;">
+            Seu perfil DISC fica armazenado <strong style="color:var(--text);">apenas no seu navegador</strong> (localStorage), por até <strong style="color:var(--text);">2 semanas</strong>. Isso significa que você não precisa refazer o teste se se candidatar a outra vaga nesse período — seu resultado será aproveitado automaticamente.<br/><br/>
+            🔒 <strong style="color:var(--text);">Privacidade:</strong> os dados de perfil são enviados à Agência Nexus somente quando você avança para a entrevista e confirma sua candidatura. Nenhuma informação é compartilhada com terceiros.
+          </div>
+        </div>
+        <div>
+          <button class="btn-primary" onclick="avancarParaStep3()" style="max-width:300px;margin:0 auto;">
+            Continuar para a Entrevista →
+          </button>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:1.1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
+        <div style="font-size:0.76rem;color:var(--muted);line-height:1.5;">
+          Quer refazer o teste? O resultado anterior será descartado.
+        </div>
+        <button onclick="confirmarRefazerDisc()" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--muted);border-radius:10px;padding:0.5rem 1.1rem;font-family:inherit;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;"
+          onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+          onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='var(--muted)'">
+          🔄 Refazer o teste
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ETAPA 3 — ENTREVISTA                    -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="step-content" id="step3">
+
+    <div class="lock-overlay" id="step3Lock">
+      <span class="icon">🔒</span>
+      <span>A Entrevista IA será desbloqueada após a conclusão do Teste DISC (Etapa 2).</span>
+    </div>
+
+    <div class="gateway-card" id="entrevistaGateway" style="display:none;">
+      <div class="gateway-icon">🎙️</div>
+      <div class="gateway-title">Entrevista com IA</div>
+      <div class="gateway-sub">Responda às perguntas da nossa IA sobre sua experiência e motivação para a vaga. Leva entre 5 e 10 minutos. Seja autêntico — não existe resposta errada.</div>
+      <span class="badge badge-pending" style="margin-bottom:1.2rem;">Obrigatório para enviar currículo</span>
+      <button class="btn-primary" id="btnIniciarEntrevista" onclick="iniciarEntrevista()" style="max-width:360px;margin:0 auto;">
+        Iniciar Entrevista →
+      </button>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:0.8rem;">
+        Você será redirecionado para a entrevista e retornará automaticamente.
+      </div>
+    </div>
+
+    <div class="section-card" id="entrevistaConcluida" style="display:none;">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <div style="font-size:2.5rem;margin-bottom:0.6rem;">✅</div>
+        <div style="font-size:1rem;font-weight:800;margin-bottom:0.3rem;">Entrevista concluída!</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:1.4rem;">Parabéns! Você completou todas as etapas. Escolha abaixo como deseja enviar seu currículo.</div>
+        <button class="btn-primary" id="btnMostrarCanais" onclick="mostrarCanaisInline()" style="max-width:320px;margin:0 auto;">
+          Ver opções de envio 🎉
+        </button>
+      </div>
+
+      <!-- Canais inline — revelados ao clicar -->
+      <div id="canaisInlineWrap" style="display:none;animation:fadeUp 0.35s ease both;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:1rem;text-align:center;">Escolha o canal de envio:</div>
+
+        <!-- Resumo candidato -->
+        <div style="background:rgba(59,130,246,0.05);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.2rem;">
+          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+            <div><div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.15rem;">Candidato</div><div style="font-size:0.88rem;font-weight:700;" id="sumNomeInline">—</div></div>
+            <div><div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.15rem;">Vaga</div><div style="font-size:0.88rem;font-weight:700;" id="sumVagaInline">—</div></div>
+            <div><div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.15rem;">Perfil DISC</div><div style="font-size:0.88rem;font-weight:700;" id="sumDiscInline">—</div></div>
+            <div><div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.15rem;">Entrevista</div><div style="font-size:0.88rem;font-weight:700;color:#2ecc71;">Concluída ✓</div></div>
+          </div>
+        </div>
+
+        <!-- Botões de canal gerados dinamicamente -->
+        <div id="canaisEnvioInline"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- ════════════════════════════════════════════ -->
+<!-- MODAL FINAL — ENVIO DE CURRÍCULO            -->
+<!-- ════════════════════════════════════════════ -->
+<div id="finalModal">
+  <div class="final-modal-inner">
+    <div class="final-modal-header">
+      <div class="check">🎉</div>
+      <h2>Tudo pronto para enviar!</h2>
+      <p>Revise seu resumo e escolha como deseja enviar seu currículo.</p>
+    </div>
+
+    <!-- RESUMO -->
+    <div style="margin-bottom:1.5rem;">
+      <div class="summary-row">
+        <div class="summary-label">Candidato</div>
+        <div class="summary-val" id="sumNome">—</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">Vaga</div>
+        <div class="summary-val" id="sumVaga">—</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">Perfil DISC</div>
+        <div class="summary-val" id="sumDisc">—</div>
+      </div>
+      <div class="summary-row" id="sumEntrevistaRow" style="display:none;">
+        <div class="summary-label">Entrevista</div>
+        <div class="summary-val" id="sumEntrevista">Concluída ✓</div>
+      </div>
+    </div>
+
+    <!-- CANAL DE ENVIO (gerado dinamicamente) -->
+    <div id="canaisEnvio"></div>
+
+    <button class="btn-outline" onclick="document.getElementById('finalModal').classList.remove('active')" style="margin-top:0.5rem;">
+      Cancelar
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                  -->
+<!-- ════════════════════════════════════════════ -->
+<script>
+// ──────────────────────────────────────────────
+// ──────────────────────────────────────────────
+// CONFIGURAÇÃO — VAGAS → CANAIS ATIVOS
+// ──────────────────────────────────────────────
+// Cada vaga define:
+//   canais: array com os IDs dos canais ativos (ordem = ordem de exibição)
+//   + dados específicos de cada canal (email, whatsapp, forms_url, telegram, etc.)
+//
+// IDs de canais disponíveis:
+//   'email1'    → adm@agencianexus.com             (comercial)
+//   'email2'    → bancodecurriculosnexus@gmail.com
+//   'email3'    → bancodetalentosnexus@gmail.com
+//   'email4'    → recrutamento@agencianexus.com    (recrutamento 1 — ajuste se necessário)
+//   'email5'    → recrutamento2@agencianexus.com   (recrutamento 2 — ajuste o endereço)
+//   'forms'     → Google Forms
+//   'formulario'→ Formulário interno
+//   'whatsapp1' → WhatsApp principal
+//   'whatsapp2' → WhatsApp recrutamento
+//   'telegram1' → Telegram canal 1
+//   'telegram2' → Telegram canal 2
+// ──────────────────────────────────────────────
+// ──────────────────────────────────────────────
+// UTILITÁRIO — SLUG DE VAGA
+// Garante consistência no vaga_slug em todos os
+// pontos onde o pipeline é inserido/atualizado.
+// ──────────────────────────────────────────────
+function toSlug(str) {
+  return (str || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+const VAGAS_CONFIG = {
+
+  // ── Vagas existentes — sem WhatsApp ──────────
+
+  'Auxiliar de Manutenção': {
+    canais: ['email2', 'email3', 'forms'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Auxiliar de Manutenção',
+    forms: 'https://forms.google.com/TODO_auxiliar_manutencao',
+  },
+  'Mecânico de  Manutenção': {
+    canais: ['email2', 'email3', 'forms'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Mecânico de Manutenção',
+    forms: 'https://forms.google.com/TODO_mecanico_manutencao',
+  },
+  'Técnico em Manutenção': {
+    canais: ['email2', 'email3', 'forms'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Técnico em Manutenção',
+    forms: 'https://forms.google.com/TODO_tecnico_manutencao',
+  },
+  'Eletromecânico de Manutenção': {
+    canais: ['email2', 'email3', 'forms'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Eletromecânico de Manutenção',
+    forms: 'https://forms.google.com/TODO_eletromecanico',
+  },
+  'Estágio Manutenção': {
+    canais: ['email2', 'email3', 'forms'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Estágio Manutenção',
+    forms: 'https://forms.google.com/TODO_estagio_manutencao',
+  },
+  'Supervisor de Produção': {
+    canais: ['email1', 'email2', 'email3'],
+    email1: 'adm@agencianexus.com',
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Supervisor de Produção',
+  },
+  'Auxiliar de Manutenção 1º Turno': {
+    canais: ['email2', 'email3', 'forms'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Auxiliar de Manutenção 1º Turno',
+    forms: 'https://forms.google.com/TODO_aux_manut_1',
+  },
+  'Auxiliar de Manutenção 2º Turno': {
+    canais: ['email2', 'email3', 'forms'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Auxiliar de Manutenção 2º Turno',
+    forms: 'https://forms.google.com/TODO_aux_manut_2',
+  },
+  'Estagiário(a) de Comércio Exterior': {
+    canais: ['email2', 'email3', 'formulario'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Estágio Comércio Exterior',
+    formulario: 'formulario.html?vaga=Est%C3%A1gio+Com%C3%A9rcio+Exterior',
+  },
+  'Estágio Contabilidade': {
+    canais: ['email2', 'email3', 'formulario'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Estágio Contabilidade',
+    formulario: 'formulario.html?vaga=Est%C3%A1gio+Contabilidade',
+  },
+  'Auxiliar Contábil/Fiscal': {
+    canais: ['email2', 'email3', 'formulario'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Auxiliar Contábil/Fiscal',
+    formulario: 'formulario.html?vaga=Auxiliar+Cont%C3%A1bil',
+  },
+  'Auxiliar de RH/DP': {
+    canais: ['email2', 'email3', 'formulario'],
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    assunto: 'Candidatura — Auxiliar de RH/DP',
+    formulario: 'formulario.html?vaga=Auxiliar+RH',
+  },
+
+  // ── Vaga estratégica — todos os 11 canais ativos ──
+  'Vaga Estratégica': {
+    canais: ['email1', 'email2', 'email3', 'email4', 'email5', 'forms', 'formulario', 'whatsapp1', 'whatsapp2', 'telegram1', 'telegram2'],
+    email1: 'adm@agencianexus.com',
+    email2: 'bancodecurriculosnexus@gmail.com',
+    email3: 'bancodetalentosnexus@gmail.com',
+    email4: 'recrutamento@agencianexus.com',        // recrutamento 1 — ajuste se necessário
+    email5: 'recrutamento2@agencianexus.com',       // recrutamento 2 — ajuste o endereço
+    assunto: 'Candidatura — Vaga Estratégica',
+    forms: 'https://forms.google.com/TODO_vaga_estrategica',
+    formulario: 'formulario.html?vaga=Vaga+Estrat%C3%A9gica',
+    whatsapp1: '5551998503183',
+    whatsapp2: '5551999999999',
+    telegram1: 'agencianexus',
+    telegram2: 'nexusrecrutamento',
+  },
+
+  // ── Adicione novas vagas aqui ─────────────────
+  // 'Nome da Vaga': {
+  //   canais: ['email2', 'email3', 'forms'],
+  //   email2: 'bancodecurriculosnexus@gmail.com',
+  //   email3: 'bancodetalentosnexus@gmail.com',
+  //   assunto: 'Candidatura — Nome da Vaga',
+  //   forms: 'https://forms.google.com/...',
+  // },
+};
+
+// Configuração padrão se a vaga não estiver no VAGAS_CONFIG
+const CANAL_PADRAO = {
+  canais: ['email2', 'email3'],
+  email2: 'bancodecurriculosnexus@gmail.com',
+  email3: 'bancodetalentosnexus@gmail.com',
+  assunto: 'Candidatura',
+};
+
+// ──────────────────────────────────────────────
+// SUPABASE
+// ──────────────────────────────────────────────
+const SB  = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4';
+
+function sbHeaders(extra = {}) {
+  return {
+    'apikey': KEY,
+    'Authorization': 'Bearer ' + KEY,
+    'Content-Type': 'application/json',
+    ...extra,
+  };
+}
+
+async function sbPost(table, body) {
+  const res = await fetch(`${SB}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: sbHeaders({ 'Prefer': 'return=representation' }),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbPatch(table, filter, body) {
+  const res = await fetch(`${SB}/rest/v1/${table}?${filter}`, {
+    method: 'PATCH',
+    headers: sbHeaders({ 'Prefer': 'return=minimal' }),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(await res.text());
+}
+
+// ──────────────────────────────────────────────
+// ESTADO GLOBAL
+// ──────────────────────────────────────────────
+const up = new URLSearchParams(window.location.search);
+let VAGA         = up.get('vaga')  || '';
+// Slug real da vaga (vindo do id do card em vagas.html)
+// Ex: "vaga-analista-financeiro-senior" ou "vaga-ats-analista-financeiro-senior-abc123"
+// Se não vier na URL, gera pelo nome como fallback
+let VAGA_SLUG    = up.get('slug')  || '';
+let STEP_PARAM   = parseInt(up.get('step') || '1');
+let DISC_OK      = up.get('disc_ok')      === '1';
+let ENTREVISTA_OK= up.get('entrevista_ok') === '1';
+
+// Canais vindos da URL (vagas criadas via painel)
+// Se não vier na URL, usa VAGAS_CONFIG abaixo (vagas antigas)
+let CANAIS_URL = null;
+try {
+  const raw = up.get('canais');
+  if (raw) CANAIS_URL = JSON.parse(raw);
+} catch(e){}
+
+// Retorna a config de canais resolvida para a vaga atual.
+// Prioridade: 1) URL param ?canais= (vagas novas via painel)
+//             2) VAGAS_CONFIG pelo nome da vaga (vagas antigas hardcoded)
+//             3) CANAL_PADRAO
+function resolverConfigCanais() {
+  if (CANAIS_URL && CANAIS_URL.length > 0) {
+    return { canais: CANAIS_URL, assunto: 'Candidatura — ' + VAGA };
+  }
+  return VAGAS_CONFIG[VAGA] || CANAL_PADRAO;
+}
+
+// LS keys
+const LS_CAND_ID  = 'candidatura_id';
+const LS_CAND_DATA= 'candidatura_dados';
+const LS_DISC_RES = 'disc_resultado';
+const LS_TTL      = 21 * 24 * 60 * 60 * 1000; // 3 semanas (DISC) — igual ao banco
+
+let candidaturaId   = null;
+let discResultado   = null;
+let entrevistaId    = null;
+let currentStep     = 1;
+let discTipoSelecionado = 'ipsativo'; // 'ipsativo' ou 'classico'
+
+// ──────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', init);
+
+async function init() {
+  // Mostrar vaga no pill
+  if (VAGA) {
+    document.getElementById('vagaPill').textContent = '🏢 ' + VAGA;
+  } else {
+    document.getElementById('vagaPill').textContent = '🏢 Vaga não especificada';
+  }
+
+  // Recuperar candidaturaId do LS (se ainda válido)
+  try {
+    const raw = localStorage.getItem(LS_CAND_ID);
+    if (raw) {
+      const obj = JSON.parse(raw);
+      if (obj.id && obj.ts && (Date.now() - obj.ts) < LS_TTL) {
+        candidaturaId = obj.id;
+      }
+    }
+  } catch(e){}
+
+  // Pré-preencher nome/email/tel/mae se já salvos
+  try {
+    const dados = JSON.parse(localStorage.getItem(LS_CAND_DATA) || '{}');
+    if (dados.nome)   document.getElementById('inNome').value  = dados.nome;
+    if (dados.email)  document.getElementById('inEmail').value = dados.email;
+    if (dados.tel)    document.getElementById('inTel').value   = dados.tel;
+    if (dados.mae)    document.getElementById('inMae').value   = dados.mae;
+    if (dados.cidade) {
+      const sel = document.getElementById('inCidade');
+      if (sel) {
+        // Normaliza para comparar sem problemas de encoding/acento
+        const norm = s => (s||'').normalize('NFC').trim().toLowerCase();
+        const matchOpt = Array.from(sel.options).find(o => norm(o.value) === norm(dados.cidade));
+        if (matchOpt) {
+          sel.value = matchOpt.value; // usa o value exato da option, não o do LS
+        } else if (dados.cidade) {
+          sel.value = 'Outra';
+          const outraEl = document.getElementById('inOutraCidade');
+          if (outraEl) outraEl.value = dados.cidade;
+          const wrap = document.getElementById('f-outra-cidade');
+          if (wrap) wrap.style.display = '';
+        }
+      }
+    }
+    if (dados.bairro) { const el = document.getElementById('inBairro'); if(el) el.value = dados.bairro; }
+    if (dados.idade) { const el = document.getElementById('inIdade'); if(el) el.value = dados.idade; }
+    if (dados.disponibilidade) { const el = document.getElementById('inDisponibilidade'); if(el) el.value = dados.disponibilidade; }
+  } catch(e){}
+
+  // Verificar resultado DISC no LS
+  verificarDiscLS();
+
+  // ── Fallback: se veio da entrevista via botão "Enviar Candidatura",
+  //    reconstrói discResultado a partir dos params da URL ──
+  if (!discResultado && DISC_OK && up.get('d')) {
+    try {
+      const _dom = up.get('dom') || up.get('perfil') || '';
+      const _sec = up.get('sec') || '';
+      discResultado = {
+        dominante:  _dom,
+        dom:        _dom,
+        secundario: _sec,
+        sec:        _sec,
+        nome:       _dom + (_sec ? '+'+_sec : ''),
+        pct: {
+          D: parseFloat(up.get('d')||'0'),
+          I: parseFloat(up.get('i')||'0'),
+          S: parseFloat(up.get('s')||'0'),
+          C: parseFloat(up.get('c')||'0'),
+        },
+        ts: Date.now(),
+      };
+      // Salva no LS para próximas chamadas
+      localStorage.setItem('disc_resultado', JSON.stringify(discResultado));
+    } catch(e){}
+  }
+
+  // ── Pré-preencher nome/email/tel se vieram na URL ──
+  try {
+    const _nUrl = up.get('nome');
+    const _eUrl = up.get('email');
+    const _tUrl = up.get('tel');
+    if (_nUrl) { const el = document.getElementById('inNome');  if(el && !el.value) el.value = _nUrl; }
+    if (_eUrl) { const el = document.getElementById('inEmail'); if(el && !el.value) el.value = _eUrl; }
+    if (_tUrl) { const el = document.getElementById('inTel');   if(el && !el.value) el.value = _tUrl; }
+    // Salva no LS também
+    if (_nUrl || _eUrl || _tUrl) {
+      const dadosLS = JSON.parse(localStorage.getItem('candidatura_dados') || '{}');
+      if (_nUrl) dadosLS.nome  = _nUrl;
+      if (_eUrl) dadosLS.email = _eUrl;
+      if (_tUrl) dadosLS.tel   = _tUrl;
+      localStorage.setItem('candidatura_dados', JSON.stringify(dadosLS));
+    }
+  } catch(e){}
+
+  // ── Retorno do DISC (veio de disc.html de volta) ──
+  if (DISC_OK && STEP_PARAM >= 2) {
+    await handleDiscReturn();
+    navigateTo(2);
+    return;
+  }
+
+  // ── Retorno da entrevista ──
+  if (ENTREVISTA_OK && STEP_PARAM >= 3) {
+    handleEntrevistaReturn();
+    navigateTo(3);
+    return;
+  }
+
+  // ── Caso padrão: SEMPRE começa no step 1 ──
+  // O step 1 fica pré-preenchido com os dados do LS se existirem.
+  // O candidato confirma os dados e clica em Continuar.
+  // Lá dentro de salvarEtapa1() é que validamos se o DISC ainda é válido.
+  navigateTo(1);
+}
+
+function verificarDiscLS() {
+  // Lê cache local — apenas como acelerador. Fonte da verdade = Supabase (consultado em salvarEtapa1).
+  try {
+    const raw = localStorage.getItem(LS_DISC_RES);
+    if (!raw) return;
+    const obj = JSON.parse(raw);
+    const TTL_3_SEMANAS = 21 * 24 * 60 * 60 * 1000; // sempre 3 semanas, igual ao banco
+    if (obj.ts && (Date.now() - obj.ts) < TTL_3_SEMANAS) {
+      discResultado = obj;
+      if (obj.maeCandidate) {
+        try {
+          const dadosLS = JSON.parse(localStorage.getItem(LS_CAND_DATA) || '{}');
+          if (!dadosLS.mae) {
+            dadosLS.mae = obj.maeCandidate;
+            localStorage.setItem(LS_CAND_DATA, JSON.stringify(dadosLS));
+          }
+        } catch(e){}
+      }
+    } else {
+      // Cache local expirado — limpa; Supabase ainda pode ter resultado válido
+      localStorage.removeItem(LS_DISC_RES);
+      discResultado = null;
+    }
+  } catch(e){}
+}
+
+// ──────────────────────────────────────────────
+// NAVEGAÇÃO DE STEPS
+// ──────────────────────────────────────────────
+async function navigateTo(step) {
+  currentStep = step;
+
+  // Ocultar todos os steps
+  document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+
+  // Atualizar stepper visual
+  document.querySelectorAll('.step-item').forEach((el, i) => {
+    el.classList.remove('active', 'done');
+    if (i + 1 < step) el.classList.add('done');
+    else if (i + 1 === step) el.classList.add('active');
+  });
+
+  // Mostrar step correto
+  const el = document.getElementById('step' + step);
+  if (el) el.classList.add('active');
+
+  // Lógica específica de cada step
+  if (step === 2) await renderStep2();
+  if (step === 3) renderStep3();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ──────────────────────────────────────────────
+// MÁSCARAS E FORMATAÇÃO DE CAMPOS
+// ──────────────────────────────────────────────
+(function setupFieldBehaviors() {
+  const inNome  = document.getElementById('inNome');
+  const inEmail = document.getElementById('inEmail');
+  const inTel   = document.getElementById('inTel');
+
+  // Auto-capitalizar nome (cada palavra)
+  inNome.addEventListener('input', function() {
+    const pos = this.selectionStart;
+    const val = this.value.replace(/\b(\w)/g, c => c.toUpperCase());
+    if (val !== this.value) {
+      this.value = val;
+      try { this.setSelectionRange(pos, pos); } catch(e){}
+    }
+    // Limpar erro ao digitar
+    document.getElementById('f-nome').classList.remove('has-error');
+  });
+
+  // Auto-lowercase e-mail
+  inEmail.addEventListener('input', function() {
+    const pos = this.selectionStart;
+    const val = this.value.toLowerCase();
+    if (val !== this.value) {
+      this.value = val;
+      try { this.setSelectionRange(pos, pos); } catch(e){}
+    }
+    document.getElementById('f-email').classList.remove('has-error');
+  });
+
+  // Máscara de telefone brasileiro: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX
+  inTel.addEventListener('input', function(e) {
+    // Pegar apenas dígitos
+    let d = this.value.replace(/\D/g, '').slice(0, 11);
+    let masked = '';
+    if (d.length === 0) {
+      masked = '';
+    } else if (d.length <= 2) {
+      masked = '(' + d;
+    } else if (d.length <= 6) {
+      masked = '(' + d.slice(0,2) + ') ' + d.slice(2);
+    } else if (d.length <= 10) {
+      // Fixo: (XX) XXXX-XXXX
+      masked = '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+    } else {
+      // Celular: (XX) XXXXX-XXXX
+      masked = '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
+    }
+    this.value = masked;
+    document.getElementById('f-tel').classList.remove('has-error');
+  });
+
+  // Permitir só dígitos no telefone (bloquear letras)
+  inTel.addEventListener('keydown', function(e) {
+    const allowed = ['Backspace','Delete','Tab','ArrowLeft','ArrowRight','Home','End'];
+    if (!allowed.includes(e.key) && !/^\d$/.test(e.key) && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+    }
+  });
+
+  const inMae = document.getElementById('inMae');
+
+  // Auto-capitalizar nome da mãe
+  if (inMae) {
+    inMae.addEventListener('input', function() {
+      const pos = this.selectionStart;
+      const val = this.value.replace(/(\w)/g, c => c.toUpperCase());
+      if (val !== this.value) {
+        this.value = val;
+        try { this.setSelectionRange(pos, pos); } catch(e){}
+      }
+      document.getElementById('f-mae').classList.remove('has-error');
+    });
+  }
+
+  const inCidade = document.getElementById('inCidade');
+
+  // Remove has-error ao mudar seleção (select não precisa de auto-capitalizar)
+  if (inCidade) {
+    inCidade.addEventListener('change', function() {
+      document.getElementById('f-cidade').classList.remove('has-error');
+    });
+  }
+
+  const inBairro = document.getElementById('inBairro');
+
+  // Auto-capitalizar bairro
+  if (inBairro) {
+    inBairro.addEventListener('input', function() {
+      const pos = this.selectionStart;
+      const val = this.value.replace(/\b(\w)/g, c => c.toUpperCase());
+      if (val !== this.value) {
+        this.value = val;
+        try { this.setSelectionRange(pos, pos); } catch(e){}
+      }
+      document.getElementById('f-bairro').classList.remove('has-error');
+    });
+  }
+
+  // Navegação por Enter entre campos
+  [inNome, inEmail, inTel, inMae, inCidade, inBairro].filter(Boolean).forEach((el, i, arr) => {
+    el.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (i < arr.length - 1) {
+          arr[i + 1].focus();
+        } else {
+          salvarEtapa1();
+        }
+      }
+    });
+  });
+})();
+
+// ──────────────────────────────────────────────
+// TOGGLE OUTRA CIDADE
+// ──────────────────────────────────────────────
+function toggleOutraCidade() {
+  const sel = document.getElementById('inCidade');
+  const wrap = document.getElementById('f-outra-cidade');
+  const inp = document.getElementById('inOutraCidade');
+  if (!sel || !wrap) return;
+  // Usa value; se vazio por encoding, compara pelo texto da option
+  let selVal = sel.value;
+  if (!selVal && sel.selectedIndex > 0) {
+    const txt = (sel.options[sel.selectedIndex]?.text || '').trim();
+    if (txt === '📍 Outra cidade...') selVal = 'Outra';
+  }
+  const show = selVal === 'Outra';
+  wrap.style.display = show ? '' : 'none';
+  if (!show && inp) inp.value = '';
+  document.getElementById('f-cidade').classList.remove('has-error');
+  if (wrap) wrap.classList.remove('has-error');
+}
+
+// Auto-capitalizar outra cidade
+document.addEventListener('DOMContentLoaded', function() {
+  const inOutra = document.getElementById('inOutraCidade');
+  if (inOutra) {
+    inOutra.addEventListener('input', function() {
+      const pos = this.selectionStart;
+      const val = this.value.replace(/\b(\w)/g, c => c.toUpperCase());
+      if (val !== this.value) { this.value = val; try { this.setSelectionRange(pos, pos); } catch(e){} }
+      document.getElementById('f-outra-cidade').classList.remove('has-error');
+    });
+  }
+});
+
+// ──────────────────────────────────────────────
+// ETAPA 1 — SALVAR IDENTIFICAÇÃO
+// ──────────────────────────────────────────────
+async function salvarEtapa1() {
+  const nome   = document.getElementById('inNome').value.trim();
+  const email  = document.getElementById('inEmail').value.trim();
+  const tel    = document.getElementById('inTel').value.trim();
+  const mae    = document.getElementById('inMae').value.trim();
+  // Lê cidade pelo value; se vazio mas há opção selecionada, usa o texto da opção
+  // (cobre casos de encoding diferente em caracteres especiais como í, ã, é)
+  const _cidadeEl = document.getElementById('inCidade');
+  let cidadeSel = (_cidadeEl?.value || '').trim();
+  if (!cidadeSel && _cidadeEl && _cidadeEl.selectedIndex > 0) {
+    cidadeSel = (_cidadeEl.options[_cidadeEl.selectedIndex]?.text || '').trim();
+    if (cidadeSel === '📍 Outra cidade...') cidadeSel = 'Outra';
+  }
+  const outraCidade = (document.getElementById('inOutraCidade')?.value || '').trim();
+  const cidade = cidadeSel === 'Outra' ? outraCidade : cidadeSel;
+  const bairro          = (document.getElementById('inBairro')?.value || '').trim();
+  const idade           = (document.getElementById('inIdade')?.value || '').trim();
+  const disponibilidade = (document.getElementById('inDisponibilidade')?.value || '').trim();
+
+  let valido = true;
+
+  // Validar nome (mínimo nome + sobrenome)
+  const nomePartes = nome.split(/\s+/).filter(Boolean);
+  document.getElementById('f-nome').classList.toggle('has-error', nomePartes.length < 2);
+  if (nomePartes.length < 2) valido = false;
+
+  // Validar email
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  document.getElementById('f-email').classList.toggle('has-error', !emailOk);
+  if (!emailOk) valido = false;
+
+  // Validar telefone (obrigatório, deve ter DDD + 8 ou 9 dígitos)
+  const telDigits = tel.replace(/\D/g, '');
+  const telOk = telDigits.length === 10 || telDigits.length === 11;
+  document.getElementById('f-tel').classList.toggle('has-error', !telOk);
+  if (!telOk) {
+    const errEl = document.getElementById('err-tel');
+    if (errEl) errEl.textContent = tel ? 'Telefone incompleto. Use (DDD) + número.' : 'Informe seu telefone ou WhatsApp.';
+    valido = false;
+  }
+
+  // Validar nome da mãe (mínimo nome + sobrenome)
+  const maePartes = mae.split(/\s+/).filter(Boolean);
+  document.getElementById('f-mae').classList.toggle('has-error', maePartes.length < 2);
+  if (maePartes.length < 2) valido = false;
+
+  // Validar cidade
+  const cidadeOk = cidadeSel !== '';
+  document.getElementById('f-cidade').classList.toggle('has-error', !cidadeOk);
+  if (!cidadeOk) valido = false;
+  // Validar outra cidade (se selecionado "Outra")
+  if (cidadeSel === 'Outra') {
+    const outraOk = outraCidade.length >= 2;
+    document.getElementById('f-outra-cidade').classList.toggle('has-error', !outraOk);
+    if (!outraOk) valido = false;
+  }
+
+  // Validar bairro
+  const bairroOk = bairro.length >= 2;
+  document.getElementById('f-bairro').classList.toggle('has-error', !bairroOk);
+  if (!bairroOk) valido = false;
+
+  // Validar idade
+  const idadeNum = parseInt(idade, 10);
+  const idadeOk = !isNaN(idadeNum) && idadeNum >= 14 && idadeNum <= 99;
+  document.getElementById('f-idade').classList.toggle('has-error', !idadeOk);
+  if (!idadeOk) valido = false;
+
+  // Validar disponibilidade
+  const dispOk = disponibilidade !== '';
+  document.getElementById('f-disponibilidade').classList.toggle('has-error', !dispOk);
+  if (!dispOk) valido = false;
+
+  if (!valido) { toast('Verifique os campos destacados.', 'err'); return; }
+
+  const btn = document.getElementById('btnContinuar1');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Salvando...';
+  document.getElementById('savingIndicator').classList.add('show');
+
+  // Salvar no LS (incluindo nome_mae)
+  localStorage.setItem(LS_CAND_DATA, JSON.stringify({ nome, email, tel, mae, cidade, bairro, idade, disponibilidade }));
+
+  // Salvar no Supabase
+  try {
+    const vagaConfig = resolverConfigCanais();
+    const agora = new Date().toISOString();
+    const payload = {
+      nome,
+      email_externo: email || null,
+      tel_externo: tel || null,
+      nome_mae: mae || null,
+      cidade: cidade || null,
+      bairro: bairro || null,
+      idade: idadeNum || null,
+      disponibilidade: disponibilidade || null,
+      vaga: VAGA || 'Não especificada',
+      canal: (Array.isArray(vagaConfig.canais) ? vagaConfig.canais.join(',') : null),
+      atualizado_em: agora,
+    };
+
+    // ── Busca e/ou cria registro no Supabase ──────────────────
+    // Sistema de pontuação com 4 filtros — à prova de troca de dispositivo
+    const TTL_3_SEMANAS = 21 * 24 * 60 * 60 * 1000;
+    const telDigits = tel.replace(/\D/g, '');
+
+    try {
+      // ── Busca pelos 4 filtros em PARALELO — todos ao mesmo tempo ──
+      // email=4pts | nome_mae=3pts | telefone=2pts | nome=1pt
+      // Mínimo 2 pontos para considerar match (evita falsos positivos)
+      const SELECT_FIELDS = 'id,nome,email_externo,tel_externo,nome_mae,disc_perfil,sec,pct_d,pct_i,pct_s,pct_c,disc_atualizado_em,url,vaga';
+
+      const buscas = await Promise.allSettled([
+        // 1. Por e-mail
+        email
+          ? fetch(`${SB}/rest/v1/disc_historico?email_externo=eq.${encodeURIComponent(email.toLowerCase().trim())}&select=${SELECT_FIELDS}&order=criado_em.desc&limit=20`, { headers: sbHeaders() })
+              .then(r => r.ok ? r.json() : [])
+          : Promise.resolve([]),
+        // 2. Por nome da mãe
+        mae
+          ? fetch(`${SB}/rest/v1/disc_historico?nome_mae=ilike.${encodeURIComponent(mae.trim())}&select=${SELECT_FIELDS}&order=criado_em.desc&limit=20`, { headers: sbHeaders() })
+              .then(r => r.ok ? r.json() : [])
+          : Promise.resolve([]),
+        // 3. Por telefone
+        tel
+          ? fetch(`${SB}/rest/v1/disc_historico?tel_externo=eq.${encodeURIComponent(tel.trim())}&select=${SELECT_FIELDS}&order=criado_em.desc&limit=20`, { headers: sbHeaders() })
+              .then(r => r.ok ? r.json() : [])
+          : Promise.resolve([]),
+        // 4. Por nome
+        nome
+          ? fetch(`${SB}/rest/v1/disc_historico?nome=ilike.${encodeURIComponent(nome.trim())}&select=${SELECT_FIELDS}&order=criado_em.desc&limit=20`, { headers: sbHeaders() })
+              .then(r => r.ok ? r.json() : [])
+          : Promise.resolve([]),
+      ]);
+
+      // Mescla todos os resultados dedupicando por id
+      const vistos = new Set();
+      let candidatos = [];
+      for (const b of buscas) {
+        const lista = (b.status === 'fulfilled' && Array.isArray(b.value)) ? b.value : [];
+        for (const c of lista) {
+          if (!vistos.has(c.id)) { vistos.add(c.id); candidatos.push(c); }
+        }
+      }
+
+      // ── Pontuar cada candidato pelos 4 critérios de identidade ──
+      function pontuar(c) {
+        let pts = 0;
+        if (email     && (c.email_externo||'').toLowerCase().trim() === email.toLowerCase().trim())  pts += 4;
+        if (mae       && (c.nome_mae    ||'').toLowerCase().trim() === mae.toLowerCase().trim())     pts += 3;
+        if (telDigits && (c.tel_externo ||'').replace(/\D/g,'')    === telDigits)                  pts += 2;
+        if (nome      && (c.nome        ||'').toLowerCase().trim() === nome.toLowerCase().trim())    pts += 1;
+        return pts;
+      }
+
+      // Ordena: maior pontuação primeiro; empate → prefere quem tem DISC
+      candidatos.sort((a, b) => {
+        const pa = pontuar(a), pb = pontuar(b);
+        if (pa !== pb) return pb - pa;
+        // Empate de pontos: quem tem DISC vem PRIMEIRO (maior prioridade)
+        const aDisc = !!(a.disc_perfil && parseFloat(a.pct_d||0) > 0);
+        const bDisc = !!(b.disc_perfil && parseFloat(b.pct_d||0) > 0);
+        return (aDisc ? 0 : 1) - (bDisc ? 0 : 1); // sem DISC vai para o fim
+      });
+
+      // Pega o melhor: maior pontuação E, entre empatados, prefere quem tem DISC
+      // Como o sort já ordenou corretamente, basta pegar o primeiro com pts >= 2
+      const melhorPts = candidatos.length > 0 ? pontuar(candidatos[0]) : 0;
+      let melhor = (melhorPts >= 2) ? candidatos[0] : null;
+      // Dentro dos empatados na pontuação máxima, prefere explicitamente quem tem DISC
+      if (melhor && !(melhor.disc_perfil && parseFloat(melhor.pct_d||0) > 0)) {
+        const comDisc = candidatos.find(c => pontuar(c) === melhorPts && c.disc_perfil && parseFloat(c.pct_d||0) > 0);
+        if (comDisc) melhor = comDisc;
+      }
+
+      if (melhor && melhorPts >= 2) {
+        // ── Candidato encontrado ────────────────────────────
+
+        // Fonte do DISC: sempre o registro com maior pontuação QUE TEM DISC.
+        // Pode ser diferente do "melhor" (que pode ser da mesma vaga sem DISC).
+        const fonteDisc = candidatos.find(c =>
+          pontuar(c) >= 2 && c.disc_perfil && parseFloat(c.pct_d||0) > 0
+        ) || null;
+
+        const vagaDoMelhor = (melhor.vaga || '').trim().toLowerCase();
+        const vagaNova     = (VAGA || '').trim().toLowerCase();
+
+        // Registros da mesma vaga na lista (para reusar em vez de criar novo)
+        const registroMesmaVaga = candidatos.find(c =>
+          (c.vaga||'').trim().toLowerCase() === vagaNova && pontuar(c) >= 2
+        );
+
+        if (registroMesmaVaga) {
+          // Já existe registro para esta vaga → atualiza ele
+          candidaturaId = registroMesmaVaga.id;
+          localStorage.setItem(LS_CAND_ID, JSON.stringify({ id: candidaturaId, ts: Date.now() }));
+          const patchVaga = {
+            nome, email_externo: email || null, tel_externo: tel || null,
+            nome_mae: mae || null, cidade: cidade || null, bairro: bairro || null,
+            idade: idadeNum || null, disponibilidade: disponibilidade || null,
+            vaga: VAGA || null, atualizado_em: agora,
+          };
+          // Sempre injeta o DISC da fonte (mesmo que o registro da vaga não tenha)
+          if (fonteDisc) {
+            patchVaga.dom               = fonteDisc.disc_perfil;
+            patchVaga.disc_perfil       = fonteDisc.disc_perfil;
+            patchVaga.sec               = fonteDisc.sec || null;
+            patchVaga.pct_d             = fonteDisc.pct_d;
+            patchVaga.pct_i             = fonteDisc.pct_i || null;
+            patchVaga.pct_s             = fonteDisc.pct_s || null;
+            patchVaga.pct_c             = fonteDisc.pct_c || null;
+            patchVaga.url               = fonteDisc.url   || null;
+            patchVaga.disc_atualizado_em = fonteDisc.disc_atualizado_em || agora;
+            patchVaga.status            = 'disc_ok';
+          }
+          await sbPatch('disc_historico', `id=eq.${candidaturaId}`, patchVaga);
+        } else {
+          // Vaga nova → cria registro herdando o DISC da fonte
+          const novoRegistro = {
+            ...payload,
+            criado_em: agora,
+            dom:              fonteDisc?.disc_perfil || null,
+            disc_perfil:      fonteDisc?.disc_perfil || null,
+            sec:              fonteDisc?.sec         || null,
+            pct_d:            fonteDisc?.pct_d       || null,
+            pct_i:            fonteDisc?.pct_i       || null,
+            pct_s:            fonteDisc?.pct_s       || null,
+            pct_c:            fonteDisc?.pct_c       || null,
+            disc_atualizado_em: fonteDisc?.disc_atualizado_em || null,
+            url:              fonteDisc?.url         || null,
+            status:           fonteDisc ? 'disc_ok' : null,
+          };
+          const result = await sbPost('disc_historico', novoRegistro);
+          if (result && result[0] && result[0].id) {
+            candidaturaId = result[0].id;
+            localStorage.setItem(LS_CAND_ID, JSON.stringify({ id: candidaturaId, ts: Date.now() }));
+          }
+        }
+
+        // ── Propagar DISC para TODOS os registros da pessoa sem DISC ──
+        // Usa fonteDisc como referência (o registro que tem DISC válido)
+        const discAtualizado = fonteDisc?.disc_atualizado_em
+          ? new Date(fonteDisc.disc_atualizado_em).getTime() : 0;
+        const discValido = !!(fonteDisc &&
+          fonteDisc.disc_perfil &&
+          parseFloat(fonteDisc.pct_d||0) > 0 &&
+          (Date.now() - discAtualizado) < TTL_3_SEMANAS);
+
+        if (discValido) {
+          // Propagar para todos os outros registros sem DISC (já temos a lista em candidatos)
+          const semDisc = candidatos.filter(c =>
+            c.id !== fonteDisc.id && (!c.disc_perfil || !(parseFloat(c.pct_d||0) > 0))
+          );
+          for (const c of semDisc) {
+            try {
+              await fetch(`${SB}/rest/v1/disc_historico?id=eq.${encodeURIComponent(c.id)}`, {
+                method: 'PATCH',
+                headers: sbHeaders({ 'Prefer': 'return=minimal' }),
+                body: JSON.stringify({
+                  dom:               fonteDisc.disc_perfil,
+                  disc_perfil:       fonteDisc.disc_perfil,
+                  sec:               fonteDisc.sec         || null,
+                  pct_d:             fonteDisc.pct_d,
+                  pct_i:             fonteDisc.pct_i       || null,
+                  pct_s:             fonteDisc.pct_s       || null,
+                  pct_c:             fonteDisc.pct_c       || null,
+                  url:               fonteDisc.url         || null,
+                  disc_atualizado_em: new Date().toISOString(),
+                  status:            'disc_ok',
+                }),
+              });
+            } catch(ePatch) { console.warn('Propagação DISC falhou para id:', c.id, ePatch); }
+          }
+        }
+
+        // ── Setar discResultado para o candidato prosseguir sem refazer o teste ──
+        if (discValido) {
+          discResultado = {
+            dominante: fonteDisc.disc_perfil, dom: fonteDisc.disc_perfil,
+            secundario: fonteDisc.sec || '',   sec: fonteDisc.sec || '',
+            nome: fonteDisc.disc_perfil + (fonteDisc.sec ? '+' + fonteDisc.sec : ''),
+            pct: {
+              D: parseFloat(fonteDisc.pct_d || 0),
+              I: parseFloat(fonteDisc.pct_i || 0),
+              S: parseFloat(fonteDisc.pct_s || 0),
+              C: parseFloat(fonteDisc.pct_c || 0),
+            },
+            emailCandidate: email,
+            maeCandidate:   mae,
+            nomeCandidate:  nome,
+            ts: Date.now(),
+          };
+          try { localStorage.setItem(LS_DISC_RES, JSON.stringify(discResultado)); } catch(e){}
+        } else if (!discValido) {
+          discResultado = null;
+          try { localStorage.removeItem(LS_DISC_RES); } catch(e){}
+        }
+
+      } else {
+        // ── Candidato não encontrado — criar novo registro ──
+        const result = await sbPost('disc_historico', { ...payload, criado_em: agora });
+        if (result && result[0] && result[0].id) {
+          candidaturaId = result[0].id;
+          localStorage.setItem(LS_CAND_ID, JSON.stringify({ id: candidaturaId, ts: Date.now() }));
+        }
+      }
+    } catch(_e) {
+      console.warn('Supabase lookup error:', _e);
+      // Fallback: criar registro novo se busca falhar
+      try {
+        const result = await sbPost('disc_historico', { ...payload, criado_em: agora });
+        if (result && result[0] && result[0].id) {
+          candidaturaId = result[0].id;
+          localStorage.setItem(LS_CAND_ID, JSON.stringify({ id: candidaturaId, ts: Date.now() }));
+        }
+      } catch(e2) { console.warn('Supabase fallback error:', e2); }
+    }
+
+  } catch(e) {
+    console.warn('Supabase error (non-blocking):', e);
+  }
+
+  document.getElementById('savingIndicator').classList.remove('show');
+  btn.disabled = false;
+  btn.textContent = 'Continuar para o Teste DISC →';
+
+  // ── Resultado final do reaproveitamento ──────────────────────
+  // discResultado foi preenchido (ou não) pelo Supabase acima
+  // localStorage é apenas cache — Supabase é a fonte da verdade
+  if (discResultado) {
+    toast('✅ Seu perfil DISC foi reaproveitado! Você não precisa refazer o teste.', 'ok');
+  } else {
+    toast('Dados salvos! Vamos ao Teste DISC.', 'ok');
+  }
+
+  // ── Insere no pipeline assim que candidato preenche os dados ──
+  // Usa slug real da vaga (passado via URL ?slug=) ou gera pelo nome como fallback
+  try {
+    const _vagaSlug = VAGA_SLUG || toSlug(VAGA);
+    if (_vagaSlug && candidaturaId) {
+      await fetch(`${SB}/rest/v1/pipeline?on_conflict=vaga_slug,candidato_id`, {
+        method: 'POST',
+        headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+        body: JSON.stringify({ vaga_slug: _vagaSlug, candidato_id: String(candidaturaId), etapa: 'triagem', atualizado_em: new Date().toISOString() })
+      });
+    }
+  } catch(e) { console.warn('Pipeline auto-insert (etapa1):', e); }
+
+  setTimeout(() => navigateTo(2), 600);
+}
+
+// ──────────────────────────────────────────────
+// ETAPA 2 — DISC
+// ──────────────────────────────────────────────
+async function renderStep2() {
+  // Se chegou aqui via retorno do DISC (outro dispositivo), garantir que buscou no Supabase
+  if (!discResultado && DISC_OK) {
+    await handleDiscReturn();
+  }
+  if (discResultado) {
+    // Mostrar resumo DISC
+    renderDiscSummary(discResultado);
+    document.getElementById('discGateway').style.display   = 'none';
+    document.getElementById('discConcluido').style.display = 'block';
+    document.getElementById('discSummary').classList.add('visible');
+    atualizarTTLDisplay();
+
+    // Atualizar texto do card para segunda candidatura
+    const tituloEl = document.querySelector('#discConcluido [style*="font-weight:800"]');
+    const subEl    = document.querySelector('#discConcluido [style*="color:var(--muted)"][style*="0.82rem"]');
+    if (tituloEl) tituloEl.textContent = 'Teste DISC já realizado ✅';
+    if (subEl)    subEl.textContent    = 'Seu perfil DISC está válido e foi confirmado com seus dados. Prossiga para a Entrevista.';
+
+    // Se já tem entrevista concluída → step 3
+    if (ENTREVISTA_OK || localStorage.getItem('entrevista_ok') === '1') {
+      setTimeout(() => navigateTo(3), candidaturaId ? 300 : 800);
+    }
+  } else {
+    document.getElementById('discGateway').style.display   = '';
+    document.getElementById('discConcluido').style.display = 'none';
+    document.getElementById('discSummary').classList.remove('visible');
+  }
+}
+
+function renderDiscSummary(r) {
+  const colors = { D:'#e74c3c', I:'#f39c12', S:'#2ecc71', C:'#3498db' };
+  const dim = r.dominante || r.dom || '?';
+  const sec = r.secundario || r.sec || '';
+  const nome = r.nome || r.nomeCandidate || r.perfil?.nome || dim;
+
+  const badge = document.getElementById('discBadge');
+  badge.textContent = dim;
+  badge.style.background = (colors[dim] || '#888') + '22';
+  badge.style.color = colors[dim] || '#888';
+  badge.style.border = `2px solid ${colors[dim] || '#888'}`;
+
+  document.getElementById('discProfileName').textContent = nome + (sec ? ` / ${sec}` : '');
+  document.getElementById('discProfileSub').textContent  = 'Perfil DISC identificado';
+
+  const pct = r.pct || {};
+  const bars = document.getElementById('discBars');
+  bars.innerHTML = ['D','I','S','C'].map(d => {
+    const v = pct[d] || 0;
+    return `<span class="disc-bar-chip" style="background:${colors[d]}22;color:${colors[d]};border:1px solid ${colors[d]}44;">${d}: ${v}%</span>`;
+  }).join('');
+}
+
+async function handleDiscReturn() {
+  verificarDiscLS();
+
+  // Se o localStorage está vazio (outro dispositivo/navegador) mas veio disc_ok=1 na URL,
+  // buscar resultado direto do Supabase pelo candidato_id ou pelos dados da URL.
+  if (!discResultado) {
+    try {
+      const up = new URLSearchParams(window.location.search);
+      const _id   = up.get('candidato_id') || candidaturaId;
+      const _nome  = up.get('nome')  || '';
+      const _email = up.get('email') || '';
+      const _tel   = up.get('tel')   || '';
+      const _mae   = up.get('mae')   || '';
+      const TTL_3_SEMANAS = 21 * 24 * 60 * 60 * 1000;
+      let registro = null;
+
+      if (_id) {
+        // Busca direta por ID — o mais rápido e certeiro
+        const r = await fetch(
+          `${SB}/rest/v1/disc_historico?id=eq.${encodeURIComponent(_id)}&select=id,disc_perfil,sec,pct_d,pct_i,pct_s,pct_c,disc_atualizado_em&limit=1`,
+          { headers: sbHeaders() }
+        );
+        if (r.ok) { const arr = await r.json(); if (arr && arr[0]) registro = arr[0]; }
+      }
+
+      if (!registro && (_email || _mae || _tel || _nome)) {
+        // Fallback: busca pelos 4 filtros em PARALELO e pontua para achar o melhor
+        const SELECT_DISC = 'id,nome,email_externo,tel_externo,nome_mae,disc_perfil,sec,pct_d,pct_i,pct_s,pct_c,disc_atualizado_em';
+        const _telDigits = (_tel || '').replace(/\D/g, '');
+
+        const buscasDisc = await Promise.allSettled([
+          _email
+            ? fetch(`${SB}/rest/v1/disc_historico?email_externo=eq.${encodeURIComponent(_email.toLowerCase().trim())}&select=${SELECT_DISC}&order=criado_em.desc&limit=20`, { headers: sbHeaders() }).then(r => r.ok ? r.json() : [])
+            : Promise.resolve([]),
+          _mae
+            ? fetch(`${SB}/rest/v1/disc_historico?nome_mae=ilike.${encodeURIComponent(_mae.trim())}&select=${SELECT_DISC}&order=criado_em.desc&limit=20`, { headers: sbHeaders() }).then(r => r.ok ? r.json() : [])
+            : Promise.resolve([]),
+          _tel
+            ? fetch(`${SB}/rest/v1/disc_historico?tel_externo=eq.${encodeURIComponent(_tel.trim())}&select=${SELECT_DISC}&order=criado_em.desc&limit=20`, { headers: sbHeaders() }).then(r => r.ok ? r.json() : [])
+            : Promise.resolve([]),
+          _nome
+            ? fetch(`${SB}/rest/v1/disc_historico?nome=ilike.${encodeURIComponent(_nome.trim())}&select=${SELECT_DISC}&order=criado_em.desc&limit=20`, { headers: sbHeaders() }).then(r => r.ok ? r.json() : [])
+            : Promise.resolve([]),
+        ]);
+
+        const vistos2 = new Set();
+        let candidatosDisc = [];
+        for (const b of buscasDisc) {
+          const lista = (b.status === 'fulfilled' && Array.isArray(b.value)) ? b.value : [];
+          for (const c of lista) {
+            if (!vistos2.has(c.id)) { vistos2.add(c.id); candidatosDisc.push(c); }
+          }
+        }
+
+        function pontuarDisc(c) {
+          let pts = 0;
+          if (_email     && (c.email_externo||'').toLowerCase().trim() === _email.toLowerCase().trim())  pts += 4;
+          if (_mae       && (c.nome_mae    ||'').toLowerCase().trim() === _mae.toLowerCase().trim())     pts += 3;
+          if (_telDigits && (c.tel_externo ||'').replace(/\D/g,'')    === _telDigits)                  pts += 2;
+          if (_nome      && (c.nome        ||'').toLowerCase().trim() === _nome.toLowerCase().trim())    pts += 1;
+          return pts;
+        }
+
+        // Ordena: maior pontuação primeiro; empate → prefere quem tem DISC
+        candidatosDisc.sort((a, b) => {
+          const pa = pontuarDisc(a), pb = pontuarDisc(b);
+          if (pa !== pb) return pb - pa;
+          const aDisc = !!(a.disc_perfil && parseFloat(a.pct_d||0) > 0);
+          const bDisc = !!(b.disc_perfil && parseFloat(b.pct_d||0) > 0);
+          return (aDisc ? 0 : 1) - (bDisc ? 0 : 1);
+        });
+
+        // Pega o melhor com pts >= 2; entre empatados, prefere quem tem DISC
+        const _melhorPtsDisc = candidatosDisc.length > 0 ? pontuarDisc(candidatosDisc[0]) : 0;
+        let melhorDisc = (_melhorPtsDisc >= 2) ? candidatosDisc[0] : null;
+        if (melhorDisc && !(melhorDisc.disc_perfil && parseFloat(melhorDisc.pct_d||0) > 0)) {
+          const comDiscAlt = candidatosDisc.find(c => pontuarDisc(c) === _melhorPtsDisc && c.disc_perfil && parseFloat(c.pct_d||0) > 0);
+          if (comDiscAlt) melhorDisc = comDiscAlt;
+        }
+        if (melhorDisc) registro = melhorDisc;
+      }
+
+      if (registro && registro.disc_perfil) {
+        const discAt = registro.disc_atualizado_em ? new Date(registro.disc_atualizado_em).getTime() : 0;
+        if ((Date.now() - discAt) < TTL_3_SEMANAS) {
+          const dom = registro.disc_perfil;
+          const sec = registro.sec || '';
+          discResultado = {
+            dominante: dom, dom,
+            secundario: sec, sec,
+            nome: dom + (sec ? '+' + sec : ''),
+            pct: {
+              D: parseFloat(registro.pct_d || 0),
+              I: parseFloat(registro.pct_i || 0),
+              S: parseFloat(registro.pct_s || 0),
+              C: parseFloat(registro.pct_c || 0),
+            },
+            ts: Date.now(),
+          };
+          if (!candidaturaId && registro.id) {
+            candidaturaId = registro.id;
+            localStorage.setItem(LS_CAND_ID, JSON.stringify({ id: candidaturaId, ts: Date.now() }));
+          }
+          // Salvar no cache local para próximas visitas no mesmo dispositivo
+          try { localStorage.setItem(LS_DISC_RES, JSON.stringify(discResultado)); } catch(e){}
+          console.log('✅ DISC recuperado do Supabase em handleDiscReturn');
+        }
+      }
+    } catch(e) { console.warn('handleDiscReturn — busca Supabase:', e); }
+  }
+
+  // PATCH status + dados completos do DISC no Supabase
+  if (candidaturaId && discResultado) {
+    try {
+      const dimDisc = discResultado.dominante || discResultado.dom || null;
+      const secDisc = discResultado.secundario || discResultado.sec || null;
+      const pct = discResultado.pct || {};
+      const patchPayload = {
+        status: 'disc_ok',
+        disc_perfil: dimDisc,
+        dom: dimDisc,
+        sec: secDisc,
+        pct_d: pct.D != null ? String(pct.D) : undefined,
+        pct_i: pct.I != null ? String(pct.I) : undefined,
+        pct_s: pct.S != null ? String(pct.S) : undefined,
+        pct_c: pct.C != null ? String(pct.C) : undefined,
+        disc_atualizado_em: new Date().toISOString(),
+      };
+      Object.keys(patchPayload).forEach(k => patchPayload[k] === undefined && delete patchPayload[k]);
+      sbPatch('disc_historico', `id=eq.${candidaturaId}`, patchPayload);
+    } catch(e){ console.warn('Supabase PATCH disc:', e); }
+  }
+}
+
+function confirmarRefazerDisc() {
+  // Mini confirmação inline — sem alert nativo
+  const btn = event.currentTarget;
+  if (btn.dataset.confirmando === '1') {
+    // Segunda vez: confirmar
+    discResultado = null;
+    try { localStorage.removeItem(LS_DISC_RES); } catch(e) {}
+    // Também limpar progresso salvo de ambos os modos
+    try { localStorage.removeItem('disc_prog_' + (VAGA||'geral')); } catch(e) {}
+    // Reset visual
+    document.getElementById('discConcluido').style.display = 'none';
+    document.getElementById('discSummary').classList.remove('visible');
+    document.getElementById('discGateway').style.display = '';
+    // Reset stepper
+    document.querySelectorAll('.step-item').forEach((el,i) => {
+      el.classList.remove('active','done');
+      if (i+1 < currentStep) el.classList.add('done');
+      else if (i+1 === currentStep) el.classList.add('active');
+    });
+    btn.dataset.confirmando = '0';
+    btn.textContent = '🔄 Refazer o teste';
+    btn.style.borderColor = 'rgba(255,255,255,0.15)';
+    btn.style.color = 'var(--muted)';
+  } else {
+    // Primeira vez: pedir confirmação
+    btn.dataset.confirmando = '1';
+    btn.textContent = '⚠️ Confirmar refazer?';
+    btn.style.borderColor = '#f39c12';
+    btn.style.color = '#f39c12';
+    // Auto-reverter após 4s se não clicar de novo
+    setTimeout(() => {
+      if (btn.dataset.confirmando === '1') {
+        btn.dataset.confirmando = '0';
+        btn.textContent = '🔄 Refazer o teste';
+        btn.style.borderColor = 'rgba(255,255,255,0.15)';
+        btn.style.color = 'var(--muted)';
+      }
+    }, 4000);
+  }
+}
+
+function atualizarTTLDisplay() {
+  try {
+    const raw = localStorage.getItem(LS_DISC_RES);
+    if (!raw) return;
+    const obj = JSON.parse(raw);
+    if (!obj.ts) return;
+    const TTL_3_SEMANAS = 21 * 24 * 60 * 60 * 1000;
+    const expiresAt = obj.ts + TTL_3_SEMANAS;
+    const remaining = expiresAt - Date.now();
+    if (remaining <= 0) return;
+    const dias  = Math.floor(remaining / 86400000);
+    const horas = Math.floor((remaining % 86400000) / 3600000);
+    const el = document.getElementById('discTTLTexto');
+    if (el) {
+      if (dias > 0) {
+        el.textContent = `(expira em ${dias} dia${dias !== 1 ? 's' : ''}${horas > 0 ? ' e ' + horas + 'h' : ''})`;
+      } else {
+        el.textContent = `(expira em ${horas}h)`;
+      }
+    }
+  } catch(e) {}
+}
+
+function selecionarTipoDisc(tipo) {
+  discTipoSelecionado = tipo;
+  document.getElementById('btnTypeIpsativo').classList.toggle('active', tipo === 'ipsativo');
+  document.getElementById('btnTypeClassico').classList.toggle('active', tipo === 'classico');
+}
+
+function iniciarDisc() {
+  const dados = JSON.parse(localStorage.getItem(LS_CAND_DATA) || '{}');
+  const nome  = dados.nome  || document.getElementById('inNome')?.value  || '';
+  const email = dados.email || document.getElementById('inEmail')?.value || '';
+  const tel   = dados.tel   || document.getElementById('inTel')?.value   || '';
+  const mae   = dados.mae   || document.getElementById('inMae')?.value   || '';
+
+  // Limpa resultado anterior
+  localStorage.removeItem(LS_DISC_RES);
+
+  const base = window.location.href.replace(/candidatura\.html.*$/, '');
+  const canaisParam = CANAIS_URL ? '&canais=' + encodeURIComponent(JSON.stringify(CANAIS_URL)) : '';
+  const retornoUrl = window.location.origin + window.location.pathname
+    + '?vaga='     + encodeURIComponent(VAGA)
+    + '&step=2&disc_ok=1'
+    + canaisParam
+    + (candidaturaId ? '&candidato_id=' + encodeURIComponent(candidaturaId) : '')
+    + (nome  ? '&nome='  + encodeURIComponent(nome)  : '')
+    + (email ? '&email=' + encodeURIComponent(email) : '')
+    + (tel   ? '&tel='   + encodeURIComponent(tel)   : '')
+    + (mae   ? '&mae='   + encodeURIComponent(mae)   : '');
+
+  // Escolhe o arquivo conforme tipo selecionado
+  const discArquivo = discTipoSelecionado === 'classico' ? 'disc-classico.html' : 'disc.html';
+
+  const url = base + discArquivo
+    + '?retorno='   + encodeURIComponent(retornoUrl)
+    + '&vaga='      + encodeURIComponent(VAGA)
+    + (candidaturaId ? '&candidato_id=' + encodeURIComponent(candidaturaId) : '')
+    + (nome  ? '&nome='  + encodeURIComponent(nome)  : '')
+    + (email ? '&email=' + encodeURIComponent(email) : '')
+    + (tel   ? '&tel='   + encodeURIComponent(tel)   : '')
+    + (mae   ? '&mae='   + encodeURIComponent(mae)   : '');
+
+  // Redirecionar na mesma aba
+  window.location.href = url;
+}
+
+function avancarParaStep3() {
+  navigateTo(3);
+}
+
+// ──────────────────────────────────────────────
+// ETAPA 3 — ENTREVISTA
+// ──────────────────────────────────────────────
+function renderStep3() {
+  const entOk = ENTREVISTA_OK || localStorage.getItem('entrevista_ok') === '1';
+  const discOk = !!discResultado;
+
+  if (entOk) {
+    document.getElementById('step3Lock').style.display        = 'none';
+    document.getElementById('entrevistaGateway').style.display = 'none';
+    document.getElementById('entrevistaConcluida').style.display = 'block';
+  } else if (discOk) {
+    document.getElementById('step3Lock').style.display         = 'none';
+    document.getElementById('entrevistaGateway').style.display  = 'block';
+    document.getElementById('entrevistaConcluida').style.display = 'none';
+  } else {
+    document.getElementById('step3Lock').style.display          = '';
+    document.getElementById('entrevistaGateway').style.display   = 'none';
+    document.getElementById('entrevistaConcluida').style.display = 'none';
+  }
+}
+
+function handleEntrevistaReturn() {
+  localStorage.setItem('entrevista_ok', '1');
+  ENTREVISTA_OK = true;
+
+  // Tentar ler entrevista_id do LS
+  try { entrevistaId = localStorage.getItem('entrevista_id') || null; } catch(e){}
+
+  // PATCH status no Supabase
+  // Tenta com candidaturaId atual; se não tiver, tenta recuperar pelo e-mail + nome_mae
+  (async function(){
+    let _id = candidaturaId;
+    if (!_id) {
+      try {
+        const dados = JSON.parse(localStorage.getItem(LS_CAND_DATA) || '{}');
+        const _email = dados.email || '';
+        const _mae   = dados.mae   || '';
+        if (_email && _mae) {
+          const chk = await fetch(
+            `${SB}/rest/v1/disc_historico?email_externo=eq.${encodeURIComponent(_email)}&nome_mae=eq.${encodeURIComponent(_mae)}&select=id&order=criado_em.desc&limit=1`,
+            { headers: sbHeaders() }
+          );
+          const ex = await chk.json();
+          if (ex && ex.length > 0) {
+            _id = ex[0].id;
+            candidaturaId = _id;
+            localStorage.setItem(LS_CAND_ID, JSON.stringify({ id: _id, ts: Date.now() }));
+          }
+        }
+      } catch(e){ console.warn('lookup candidaturaId:', e); }
+    }
+    if (_id) {
+      try {
+        await sbPatch('disc_historico', `id=eq.${_id}`, {
+          status: 'entrevista_ok',
+          atualizado_em: new Date().toISOString(),
+          ...(entrevistaId ? { entrevista_id: entrevistaId } : {}),
+        });
+      } catch(e){ console.warn('Supabase PATCH entrevista:', e); }
+    }
+  })();
+}
+
+function iniciarEntrevista() {
+  const dados = JSON.parse(localStorage.getItem(LS_CAND_DATA) || '{}');
+  const nome  = dados.nome  || '';
+  const email = dados.email || '';
+  const tel   = dados.tel   || '';
+
+  const r = discResultado || {};
+  const pct = r.pct || {};
+
+  const base = window.location.href.replace(/candidatura\.html.*$/, '');
+  const canaisParam = CANAIS_URL ? '&canais=' + encodeURIComponent(JSON.stringify(CANAIS_URL)) : '';
+  const retornoUrl = window.location.origin + window.location.pathname + '?vaga=' + encodeURIComponent(VAGA) + '&step=3&entrevista_ok=1' + canaisParam;
+
+  const url = base + 'entrevista.html'
+    + '?retorno='  + encodeURIComponent(retornoUrl)
+    + '&vaga='     + encodeURIComponent(VAGA)
+    + '&nome='     + encodeURIComponent(nome)
+    + '&email='    + encodeURIComponent(email)
+    + '&tel='      + encodeURIComponent(tel)
+    + '&perfil='   + encodeURIComponent(r.dominante || r.dom || '')
+    + '&sec='      + encodeURIComponent(r.secundario || r.sec || '')
+    + '&d='        + encodeURIComponent(pct.D || 0)
+    + '&i='        + encodeURIComponent(pct.I || 0)
+    + '&s='        + encodeURIComponent(pct.S || 0)
+    + '&c='        + encodeURIComponent(pct.C || 0)
+    + (candidaturaId ? '&candidato_id=' + encodeURIComponent(candidaturaId) : '')
+    + canaisParam;
+
+  window.location.href = url;
+}
+
+// ──────────────────────────────────────────────
+// CANAIS INLINE (pós-entrevista)
+// ──────────────────────────────────────────────
+function mostrarCanaisInline() {
+  const btn = document.getElementById('btnMostrarCanais');
+  if (btn) btn.style.display = 'none';
+
+  const wrap = document.getElementById('canaisInlineWrap');
+  if (wrap) wrap.style.display = 'block';
+
+  // Preencher resumo inline
+  const dados = JSON.parse(localStorage.getItem(LS_CAND_DATA) || '{}');
+  const nome  = dados.nome  || '—';
+  const email = dados.email || '';
+  const tel   = dados.tel   || '';
+
+  const r   = discResultado || {};
+  const dim = r.dominante || r.dom || '?';
+  const sec = r.secundario || r.sec || '';
+  const perfilNome = r.nome || r.perfil?.nome || dim;
+
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setEl('sumNomeInline', nome);
+  setEl('sumVagaInline', VAGA || 'Não especificada');
+  setEl('sumDiscInline', perfilNome + (sec ? ` / ${sec}` : '') + (dim !== '?' ? ` (${dim})` : ''));
+
+  // Gerar botões de canal inline
+  const config  = resolverConfigCanais();
+  const msgBase = montarMensagem(nome, VAGA, dim, sec, tel);
+  const canaisEl = document.getElementById('canaisEnvioInline');
+  if (!canaisEl) return;
+  canaisEl.innerHTML = '';
+
+  const canais = gerarCanaisConfig(config, msgBase, nome, VAGA, dim, email, tel);
+  canais.forEach(c => {
+    const btn2 = document.createElement('button');
+    btn2.className = 'canal-btn';
+    btn2.innerHTML = `
+      <span class="canal-icon">${c.icon}</span>
+      <span class="canal-info">
+        <span class="canal-name">${c.nome}</span>
+        <span class="canal-sub">${c.descricao}</span>
+      </span>
+      <span class="canal-arrow">→</span>`;
+    btn2.onclick = () => executarCanal(c);
+    canaisEl.appendChild(btn2);
+  });
+
+  // Smooth scroll para os canais
+  setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+// ──────────────────────────────────────────────
+// MODAL FINAL — ENVIO DE CURRÍCULO
+// ──────────────────────────────────────────────
+function abrirModalFinal() {
+  const dados = JSON.parse(localStorage.getItem(LS_CAND_DATA) || '{}');
+  const nome  = dados.nome  || '—';
+  const email = dados.email || '';
+  const tel   = dados.tel   || '';
+
+  const r   = discResultado || {};
+  const dim = r.dominante || r.dom || '?';
+  const sec = r.secundario || r.sec || '';
+  const perfilNome = r.nome || r.perfil?.nome || dim;
+
+  // Preencher resumo
+  document.getElementById('sumNome').textContent = nome;
+  document.getElementById('sumVaga').textContent = VAGA || 'Não especificada';
+  document.getElementById('sumDisc').textContent = perfilNome + (sec ? ` / ${sec}` : '') + (dim ? ` (${dim})` : '');
+
+  if (ENTREVISTA_OK || localStorage.getItem('entrevista_ok') === '1') {
+    document.getElementById('sumEntrevistaRow').style.display = '';
+  }
+
+  // Gerar botões de canal
+  const config = resolverConfigCanais();
+  const msgBase = montarMensagem(nome, VAGA, dim, sec, tel);
+  const canaisEl = document.getElementById('canaisEnvio');
+  canaisEl.innerHTML = '';
+
+  const canais = gerarCanaisConfig(config, msgBase, nome, VAGA, dim, email, tel);
+  canais.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'canal-btn';
+    btn.innerHTML = `
+      <span class="canal-icon">${c.icon}</span>
+      <span class="canal-info">
+        <span class="canal-name">${c.nome}</span>
+        <span class="canal-sub">${c.descricao}</span>
+      </span>
+      <span class="canal-arrow">→</span>`;
+    btn.onclick = () => executarCanal(c);
+    canaisEl.appendChild(btn);
+  });
+
+  document.getElementById('finalModal').classList.add('active');
+}
+
+function montarMensagem(nome, vaga, perfil, sec, tel) {
+  let msg = `Olá! Me chamo ${nome} e tenho interesse na vaga de ${vaga || 'sua empresa'}.`;
+  if (perfil) msg += ` Meu perfil DISC é ${perfil}${sec ? '/' + sec : ''}.`;
+  if (tel) msg += ` Meu telefone é ${tel}.`;
+  msg += ' Segue meu currículo em anexo. Fico à disposição!';
+  if (candidaturaId) {
+    msg += `\n\n---\nRef: ${candidaturaId}`;
+  }
+  return msg;
+}
+
+function gerarCanaisConfig(config, msg, nome, vaga, perfil, email, tel) {
+  const assunto = (config.assunto || `Candidatura — ${vaga}`) + (perfil ? ` | DISC: ${perfil}` : '') + (candidaturaId ? ` | ID: ${candidaturaId}` : '');
+  const corpo   = msg;
+  const canais  = [];
+
+  // Suporte ao array de canais ativos (nova estrutura)
+  // Fallback: se ainda vier config.canal (string), converte para array de um item
+  const idsAtivos = Array.isArray(config.canais)
+    ? config.canais
+    : (config.canal ? [config.canal] : ['email2']);
+
+  // Mapa de builders por ID de canal
+  const builders = {
+    email1: () => ({
+      icon: '✉️',
+      nome: 'E-mail Comercial',
+      descricao: `Enviar para adm@agencianexus.com — assunto e corpo já preenchidos`,
+      tipo: 'email',
+      url: `mailto:${config.email1 || 'adm@agencianexus.com'}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`,
+    }),
+    email2: () => ({
+      icon: '✉️',
+      nome: 'Banco de Currículos',
+      descricao: `Enviar para bancodecurriculosnexus@gmail.com — assunto e corpo já preenchidos`,
+      tipo: 'email',
+      url: `mailto:${config.email2 || 'bancodecurriculosnexus@gmail.com'}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`,
+    }),
+    email3: () => ({
+      icon: '✉️',
+      nome: 'Banco de Talentos',
+      descricao: `Enviar para bancodetalentosnexus@gmail.com — assunto e corpo já preenchidos`,
+      tipo: 'email',
+      url: `mailto:${config.email3 || 'bancodetalentosnexus@gmail.com'}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`,
+    }),
+    email4: () => ({
+      icon: '✉️',
+      nome: 'Recrutamento 1',
+      descricao: `Enviar para ${config.email4 || 'recrutamento@agencianexus.com'} — assunto e corpo já preenchidos`,
+      tipo: 'email',
+      url: `mailto:${config.email4 || 'recrutamento@agencianexus.com'}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`,
+    }),
+    email5: () => ({
+      icon: '✉️',
+      nome: 'Recrutamento 2',
+      descricao: `Enviar para ${config.email5 || 'recrutamento2@agencianexus.com'} — assunto e corpo já preenchidos`,
+      tipo: 'email',
+      url: `mailto:${config.email5 || 'recrutamento2@agencianexus.com'}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`,
+    }),
+    forms: () => ({
+      icon: '📋',
+      nome: 'Formulário Google',
+      descricao: 'Preencha o formulário online com seus dados',
+      tipo: 'forms',
+      url: config.forms || 'https://forms.google.com/',
+    }),
+    formulario: () => ({
+      icon: '📝',
+      nome: 'Formulário Interno',
+      descricao: 'Formulário da Nexus com seus dados pré-informados',
+      tipo: 'formulario',
+      url: config.formulario || ('formulario.html?vaga=' + encodeURIComponent(vaga)),
+    }),
+    formulario_interno: () => ({
+      icon: '📝',
+      nome: 'Formulário Interno',
+      descricao: 'Formulário da Nexus com seus dados pré-informados',
+      tipo: 'formulario',
+      url: config.formulario || ('formulario.html?vaga=' + encodeURIComponent(vaga)),
+    }),
+    whatsapp1: () => ({
+      icon: '💬',
+      nome: 'WhatsApp Principal',
+      descricao: 'Mensagem pronta com seu nome, vaga e perfil DISC',
+      tipo: 'whatsapp',
+      url: `https://wa.me/${config.whatsapp1 || '5551998503183'}?text=${encodeURIComponent(msg)}`,
+    }),
+    whatsapp2: () => ({
+      icon: '💬',
+      nome: 'WhatsApp Recrutamento',
+      descricao: 'Mensagem pronta com seu nome, vaga e perfil DISC',
+      tipo: 'whatsapp',
+      url: `https://wa.me/${config.whatsapp2 || '5551998503183'}?text=${encodeURIComponent(msg)}`,
+    }),
+    telegram1: () => ({
+      icon: '✈️',
+      nome: 'Telegram Canal 1',
+      descricao: 'Abre o Telegram com mensagem pronta',
+      tipo: 'telegram',
+      url: config.telegram1
+        ? `https://t.me/${config.telegram1}?text=${encodeURIComponent(msg)}`
+        : `tg://msg?text=${encodeURIComponent(msg)}`,
+    }),
+    telegram2: () => ({
+      icon: '✈️',
+      nome: 'Telegram Canal 2',
+      descricao: 'Abre o Telegram com mensagem pronta',
+      tipo: 'telegram',
+      url: config.telegram2
+        ? `https://t.me/${config.telegram2}?text=${encodeURIComponent(msg)}`
+        : `tg://msg?text=${encodeURIComponent(msg)}`,
+    }),
+  };
+
+  // Gera botões na ordem declarada em `canais:`
+  idsAtivos.forEach(id => {
+    if (builders[id]) canais.push(builders[id]());
+  });
+
+  // Fallback: se nenhum canal configurado
+  if (canais.length === 0) {
+    canais.push({
+      icon: '✉️',
+      nome: 'Banco de Currículos',
+      descricao: 'Canal padrão da Agência Nexus',
+      tipo: 'email',
+      url: `mailto:bancodecurriculosnexus@gmail.com?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`,
+    });
+  }
+
+  return canais;
+}
+
+async function executarCanal(c) {
+  // Garantir candidaturaId — se não tiver, buscar pelo e-mail + nome_mae
+  let _id = candidaturaId;
+  if (!_id) {
+    try {
+      const dados = JSON.parse(localStorage.getItem(LS_CAND_DATA) || '{}');
+      const _email = dados.email || '';
+      const _mae   = dados.mae   || '';
+      if (_email && _mae) {
+        const chk = await fetch(
+          `${SB}/rest/v1/disc_historico?email_externo=eq.${encodeURIComponent(_email)}&nome_mae=eq.${encodeURIComponent(_mae)}&select=id&order=criado_em.desc&limit=1`,
+          { headers: sbHeaders() }
+        );
+        const ex = await chk.json();
+        if (ex && ex.length > 0) {
+          _id = ex[0].id;
+          candidaturaId = _id;
+          localStorage.setItem(LS_CAND_ID, JSON.stringify({ id: _id, ts: Date.now() }));
+        }
+      }
+    } catch(e){ console.warn('lookup candidaturaId (executarCanal):', e); }
+  }
+
+  // Registrar envio no Supabase
+  if (_id) {
+    try {
+      await sbPatch('disc_historico', `id=eq.${_id}`, {
+        status: 'curriculo_enviado',
+        canal: c.tipo,
+        atualizado_em: new Date().toISOString(),
+      });
+    } catch(e){ console.warn('Supabase PATCH canal:', e); }
+
+    // Inserir no pipeline automaticamente ao escolher canal
+    try {
+      const vagaSlug = toSlug(VAGA);
+      if (vagaSlug) {
+        await fetch(`${SB}/rest/v1/pipeline?on_conflict=vaga_slug,candidato_id`, {
+          method: 'POST',
+          headers: { ...sbHeaders(), 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+          body: JSON.stringify({
+            vaga_slug: vagaSlug,
+            candidato_id: String(_id),
+            etapa: 'triagem',
+            atualizado_em: new Date().toISOString()
+          })
+        });
+        await sbPatch('disc_historico', `id=eq.${_id}`, {
+          vaga: vagaSlug,
+          atualizado_em: new Date().toISOString()
+        });
+      }
+    } catch(e){ console.warn('Pipeline auto-insert:', e); }
+  }
+
+  // Limpar estado após envio
+  setTimeout(() => {
+    try {
+      localStorage.removeItem(LS_DISC_RES);
+      localStorage.removeItem(LS_CAND_ID);
+      localStorage.removeItem(LS_CAND_DATA);
+      localStorage.removeItem('entrevista_ok');
+    } catch(e){}
+  }, 1500);
+
+  // Abrir canal
+  window.location.href = c.url;
+}
+
+// ──────────────────────────────────────────────
+// UTILITÁRIOS
+// ──────────────────────────────────────────────
+function toast(msg, tipo = 'ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className   = 'toast show ' + tipo;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// Fechar modal ao clicar fora
+document.getElementById('finalModal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('active');
+});
+
+// Fechar dropdowns ao clicar fora
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.dropdown-menu') && !e.target.closest('.btn-apply')) {
+    document.querySelectorAll('.dropdown-menu.active').forEach(m => m.classList.remove('active'));
+  }
+});
+</script>
+
+</body>
+</html>
