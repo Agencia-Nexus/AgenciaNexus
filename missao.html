@@ -1477,7 +1477,6 @@ body.dark-mode .chip { background: #2a2a2a; }
     <a href="#section-valores" class="topics-link" onclick="closeTopics()">💎 Nossos Valores</a>
     <a href="#section-historia" class="topics-link" onclick="closeTopics()">📖 Nossa História</a>
   </div>
-  <div class="topics-mobile-overlay" id="topicsMobileOverlay" onclick="closeTopicsMobile()"></div>
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
     <a href="#section-missao" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Nossa Missão</a>
     <a href="#section-como-vivemos" class="topics-link-mobile" onclick="closeTopicsMobile()">💡 Como Vivemos Nossa Missão</a>
@@ -2482,23 +2481,23 @@ setInterval(nextSlide, 4000);
     }
     function toggleTopicsMobile() {
       const dropdown = document.getElementById('topicsDropdownMobile');
-      const overlay = document.getElementById('topicsMobileOverlay');
       dropdown.classList.toggle('open');
-      overlay.classList.toggle('open');
     }
     function closeTopicsMobile() {
       const dropdown = document.getElementById('topicsDropdownMobile');
-      const overlay = document.getElementById('topicsMobileOverlay');
       dropdown.classList.remove('open');
-      overlay.classList.remove('open');
     }
     document.addEventListener('click', (e) => {
-      const t = document.getElementById('topicsToggle');
-      const d = document.getElementById('topicsDropdown');
-      const tm = document.getElementById('topicsToggleMobile');
-      const dm = document.getElementById('topicsDropdownMobile');
-      if (d && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
-      if (dm && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
+      const toggle = document.getElementById('topicsToggle');
+      const dropdown = document.getElementById('topicsDropdown');
+      const toggleM = document.getElementById('topicsToggleMobile');
+      const dropdownM = document.getElementById('topicsDropdownMobile');
+      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
+        closeTopics();
+      }
+      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
+        closeTopicsMobile();
+      }
     });
 </script>
 </body>
