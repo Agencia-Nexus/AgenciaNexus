@@ -184,7 +184,11 @@ body.dark-mode .chatbot-messages ol {
     /* ================================================================= */
     body.menu-open .back-button,
     body.menu-open .menu-toggle,
-    body.menu-open .theme-toggle {
+    body.menu-open .theme-toggle,
+    body.menu-open .topics-toggle,
+    body.menu-open .topics-toggle-mobile,
+    body.menu-open .topics-dropdown,
+    body.menu-open .topics-dropdown-mobile {
       display: none !important;
           pointer-events: none !important;
 
@@ -193,7 +197,9 @@ body.dark-mode .chatbot-messages ol {
 
     body.scrolling .theme-toggle,
     body.scrolling .back-button,
-    body.scrolling .menu-toggle {
+    body.scrolling .menu-toggle,
+    body.scrolling .topics-toggle,
+    body.scrolling .topics-toggle-mobile {
       opacity: 0;
       pointer-events: none;
     }
@@ -350,10 +356,6 @@ body.dark-mode .btn-secondary {
 
     /* Back Button */
     .back-button {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -367,9 +369,9 @@ body.dark-mode .btn-secondary {
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
       height: 50px;
       justify-content: center;
+      white-space: nowrap;
     }
 
     .back-button:hover {
@@ -379,10 +381,6 @@ body.dark-mode .btn-secondary {
 
     /* Menu Toggle */
     .menu-toggle {
-      position: fixed;
-      top: 2rem;
-      left: calc(2rem + 105px);
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -397,12 +395,258 @@ body.dark-mode .btn-secondary {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 80px;
+      white-space: nowrap;
     }
 
     .menu-toggle:hover {
       background: rgba(255, 255, 255, 0.3);
       transform: scale(1.05);
+    }
+
+    /* ======================================== */
+    /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
+    /* ======================================== */
+    .top-left-buttons {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* ======================================== */
+    /* TOPICS BUTTON — mesmo estilo dos outros  */
+    /* ======================================== */
+    .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .topics-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Modo claro — todos os botões do topo */
+    body:not(.dark-mode) .back-button,
+    body:not(.dark-mode) .menu-toggle,
+    body:not(.dark-mode) .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+
+    body:not(.dark-mode) .back-button:hover,
+    body:not(.dark-mode) .menu-toggle:hover,
+    body:not(.dark-mode) .topics-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+
+    /* Esconder quando menu/chat aberto ou scrolling */
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons {
+      display: none !important;
+    }
+
+    body.scrolling .top-left-buttons {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Topics Dropdown - Desktop */
+    .topics-dropdown {
+      position: fixed;
+      top: calc(2rem + 58px);
+      left: 2rem;
+      z-index: 1001;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0;
+      min-width: 210px;
+      display: none;
+      flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+
+    body.dark-mode .topics-dropdown {
+      background: #1a1a1a;
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .topics-dropdown.open {
+      display: flex;
+    }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block;
+      padding: 0.65rem 1.1rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.18s ease;
+    }
+
+    body.dark-mode .topics-link {
+      color: #f0f0f0;
+    }
+
+    .topics-link:hover {
+      background: rgba(30, 64, 175, 0.1);
+      color: #1e40af;
+      padding-left: 1.4rem;
+    }
+
+    body.dark-mode .topics-link:hover {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+    }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown {
+      display: none !important;
+    }
+
+    /* ======================================================= */
+    /* TOPICS MOBILE — abaixo do Voltar, oculto no desktop      */
+    /* ======================================================= */
+    .topics-toggle-mobile {
+      display: none;
+    }
+
+    .topics-dropdown-mobile {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      /* No mobile: top-row mostra só Voltar e Menu */
+      .topics-toggle {
+        display: none !important;
+      }
+
+      /* Topics mobile aparece abaixo do Voltar (via flex-column no wrapper) */
+      .topics-toggle-mobile {
+        display: flex;
+        background: rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(10px);
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 1rem;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        height: 50px;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        align-self: flex-start;
+      }
+
+      body:not(.dark-mode) .topics-toggle-mobile {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(0, 0, 0, 0.4);
+        color: rgb(27, 27, 27);
+      }
+
+      body:not(.dark-mode) .topics-toggle-mobile:hover {
+        color: white;
+        background: rgba(30, 64, 175, 0.4);
+      }
+
+      /* Dropdown mobile: logo abaixo do botão Topics mobile */
+      .topics-dropdown-mobile {
+        position: fixed;
+        top: calc(2rem + 116px);
+        left: 2rem;
+        z-index: 1001;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0;
+        min-width: 210px;
+        flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+
+      body.dark-mode .topics-dropdown-mobile {
+        background: #1a1a1a;
+        border-color: rgba(255,255,255,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      }
+
+      .topics-dropdown-mobile.open {
+        display: flex;
+      }
+
+      .topics-link-mobile {
+        display: block;
+        padding: 0.65rem 1.1rem;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: all 0.18s ease;
+      }
+
+      body.dark-mode .topics-link-mobile {
+        color: #f0f0f0;
+      }
+
+      .topics-link-mobile:hover {
+        background: rgba(30, 64, 175, 0.1);
+        color: #1e40af;
+        padding-left: 1.4rem;
+      }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topics-toggle-mobile {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        height: 50px;
+      }
+      .topics-dropdown-mobile {
+        top: calc(2rem + 116px);
+      }
     }
 
     /* Menu Content */
@@ -1420,9 +1664,7 @@ body.dark-mode .quick-btn {
       }
 
       .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 90px);
+        /* posição controlada pelo wrapper .top-left-buttons */
       }
 
       .chatbot-window {
@@ -1469,18 +1711,13 @@ body.dark-mode .quick-btn {
       }
 
       .back-button {
-        margin-right: 0.3rem;
         padding: 0.8rem 1rem;
         font-size: 0.9rem;
       }
 
       .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 85px);
         padding: 0.8rem 1rem;
         font-size: 0.9rem;
-        min-width: auto;
         height: 50px;
       }
 
@@ -1582,13 +1819,13 @@ body.dark-mode .chip { background: #2a2a2a; }
   right: 1.15rem;
   width: 28px; height: 28px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.55);
+  background: #1e40af;
   border: none;
-  color: rgba(79,114,20,0.45);
+  color: #ffffff;
   font-size: 0.55rem;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: none;
+  box-shadow: 0 2px 10px rgba(30,64,175,0.5);
   z-index: 99;
   opacity: 0; pointer-events: none;
   transform: translateY(6px);
@@ -1596,16 +1833,17 @@ body.dark-mode .chip { background: #2a2a2a; }
   backdrop-filter: blur(4px);
 }
 body.dark-mode .scroll-top-btn {
-  background: rgba(30,30,30,0.45);
-  color: rgba(100,180,0,0.4);
+  background: #1e40af;
+  color: #ffffff;
 }
 .scroll-top-btn.visible {
   opacity: 1; pointer-events: auto; transform: translateY(0);
 }
 .scroll-top-btn:hover {
-  background: rgba(79,114,20,0.15);
-  color: var(--primary);
+  background: #1d4ed8;
+  color: #ffffff;
   transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(30,64,175,0.7);
 }
 
 
@@ -1808,9 +2046,39 @@ body.dark-mode .scroll-top-btn {
     <span id="themeIcon">🌙</span>
   </button>
 
-  <a href="index.html" class="back-button">Voltar</a>
+  <!-- Wrapper flex: Voltar | Menu | Topics — espaçamento automático igual -->
+  <div class="top-left-buttons" id="topLeftButtons">
 
-  <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+    <div class="top-row">
+      <a href="index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+    </div>
+
+    <!-- Topics mobile: aparece abaixo do Voltar -->
+    <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
+
+  </div>
+
+  <!-- Topics Dropdown Desktop -->
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#section-conectar" class="topics-link" onclick="closeTopics()">🔗 Conectar Conosco</a>
+    <a href="#section-dicas" class="topics-link" onclick="closeTopics()">🎯 Dicas para Candidatos</a>
+    <a href="#section-comportamento" class="topics-link" onclick="closeTopics()">💡 Comportamento</a>
+    <a href="#section-baixar" class="topics-link" onclick="closeTopics()">📄 Baixe seu Currículo</a>
+    <a href="#section-gerador" class="topics-link" onclick="closeTopics()">🚀 Gere seu Currículo</a>
+    <a href="#section-envio" class="topics-link" onclick="closeTopics()">📧 Envio de Currículo</a>
+  </div>
+
+  <!-- Topics Dropdown Mobile -->
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#section-conectar" class="topics-link-mobile" onclick="closeTopicsMobile()">🔗 Conectar Conosco</a>
+    <a href="#section-dicas" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Dicas para Candidatos</a>
+    <a href="#section-comportamento" class="topics-link-mobile" onclick="closeTopicsMobile()">💡 Comportamento</a>
+    <a href="#section-baixar" class="topics-link-mobile" onclick="closeTopicsMobile()">📄 Baixe seu Currículo</a>
+    <a href="#section-gerador" class="topics-link-mobile" onclick="closeTopicsMobile()">🚀 Gere seu Currículo</a>
+    <a href="#section-envio" class="topics-link-mobile" onclick="closeTopicsMobile()">📧 Envio de Currículo</a>
+  </div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -1846,7 +2114,7 @@ body.dark-mode .scroll-top-btn {
   <header class="header">
     <div class="header-content">
       <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-        <img src="imagens/fundo.png" alt="Mural de Vagas" class="header-bg-img">
+        <img src="fundo.png" alt="Mural de Vagas" class="header-bg-img">
         <div>
           <h1 style="margin: 0 0 0.5rem 0;">Candidatos</h1>
           <p style="margin: 0;">Conheça nossos canais e dicas para se candidatar com sucesso</p>
@@ -1856,7 +2124,7 @@ body.dark-mode .scroll-top-btn {
   </header>
 
 
-  <div class="info-bar" style="
+  <div id="section-conectar" class="info-bar" style="
   display: block;          /* garante que o div ocupe o espaço completo */
   width: 100%;             /* ocupa 100% da largura disponível */
   max-width: 100%;         /* garante que não seja limitado por container externo */
@@ -1877,7 +2145,7 @@ body.dark-mode .scroll-top-btn {
         <!-- CARD 1 -->
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/wpps.png" alt="WhatsApp" style="width:60px; height:60px;">
+            <img src="wpps.png" alt="WhatsApp" style="width:60px; height:60px;">
           </div>
           <h3>WhatsApp</h3>
           <p>Canal rápido para enviar seu currículo e tirar dúvidas. Nossa equipe responde com agilidade.</p>
@@ -1890,7 +2158,7 @@ body.dark-mode .scroll-top-btn {
    <!-- CARD 2 -->
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/gmail.png" alt="E-mail" style="width:60px; height:60px;">
+            <img src="gmail.png" alt="E-mail" style="width:60px; height:60px;">
           </div>
           <h3>E-mail</h3>
           <p>Envie seu currículo em PDF para análise cuidadosa. Responderemos assim que possível.</p>
@@ -1903,7 +2171,7 @@ body.dark-mode .scroll-top-btn {
         <!-- CARD 3 -->
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/ia.png" alt="Sistema ATS" style="width:60px; height:60px;">
+            <img src="ia.png" alt="Sistema ATS" style="width:60px; height:60px;">
           </div>
           <h3>Nexus Recruiter</h3>
           <p>Nosso sistema de IA analisa seu perfil automaticamente e conecta com vagas compatíveis.</p>
@@ -1915,7 +2183,7 @@ body.dark-mode .scroll-top-btn {
     </div>
   </section>
 
-  <div class="info-bar" style="
+  <div id="section-dicas" class="info-bar" style="
   display: block;          /* garante que o div ocupe o espaço completo */
   width: 100%;             /* ocupa 100% da largura disponível */
   max-width: 100%;         /* garante que não seja limitado por container externo */
@@ -1926,7 +2194,7 @@ body.dark-mode .scroll-top-btn {
   text-align: center;      /* centraliza o conteúdo dentro do div */
   padding: 1rem 0;         /* espaçamento interno */
 ">
-    🎯 Dicas Para Candidatos!
+    🎯 Dicas para Candidatos!
   </div>
 
   <section class="contact-section">
@@ -1935,7 +2203,7 @@ body.dark-mode .scroll-top-btn {
 
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/cvi.png" alt="Currículo" style="width:60px; height:60px;">
+            <img src="cvi.png" alt="Currículo" style="width:60px; height:60px;">
           </div>
           <h3>Currículo Impecável</h3>
           <p>Seu currículo é seu primeiro contato. Mantenha-o sempre atualizado, com informações claras e bem organizadas. Use formato PDF, evite cores excessivas e fontes estranhas. Destaque suas principais competências, certificações e experiências relevantes. Seja objetivo: recrutadores gastam segundos na leitura inicial.</p>
@@ -1943,7 +2211,7 @@ body.dark-mode .scroll-top-btn {
 
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/imgp.png" alt="Imagem Profissional" style="width:60px; height:60px;">
+            <img src="imgp.png" alt="Imagem Profissional" style="width:60px; height:60px;">
           </div>
           <h3>Imagem Profissional</h3>
           <p>Vista-se adequadamente para entrevistas, pesquise sobre a cultura da empresa. Use linguagem profissional em todas as comunicações, mesmo em WhatsApp. Sua primeira impressão importa e pode abrir ou fechar portas. Não é necessário colocar dados pessoais no currículo, apenas E-mail, telefone, Linkedin (opcional) e demais dados de contato.</p>
@@ -1951,7 +2219,7 @@ body.dark-mode .scroll-top-btn {
 
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/in.png" alt="LinkedIn" style="width:60px; height:60px;">
+            <img src="in.png" alt="LinkedIn" style="width:60px; height:60px;">
           </div>
           <h3>LinkedIn Otimizado</h3>
           <p>Complete totalmente seu perfil do LinkedIn com foto, headline, descrição detalhada, experiências e habilidades. Mantenha-o sincronizado com seu currículo. Networking é ouro: conecte-se com profissionais da sua área. LinkedIn é a vitrine moderna do profissional.</p>
@@ -1959,7 +2227,7 @@ body.dark-mode .scroll-top-btn {
 
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/urgente.png" alt="Urgência" style="width:60px; height:60px;">
+            <img src="urgente.png" alt="Urgência" style="width:60px; height:60px;">
           </div>
           <h3>Responda com Urgência</h3>
           <p>Quando entrarmos em contato, responda dentro de 24 horas. Demonstre interesse genuíno e entusiasmo pela oportunidade. Atrasos em respostas podem significar perda de chances. Cumpra prazos e compromissos durante todo o processo seletivo.</p>
@@ -1967,7 +2235,7 @@ body.dark-mode .scroll-top-btn {
 
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/disponibilidade.png" alt="Disponibilidade total" style="width:60px; height:60px;">
+            <img src="disponibilidade.png" alt="Disponibilidade total" style="width:60px; height:60px;">
           </div>
           <h3>Disponibilidade Total</h3>
           <p>Certifique-se de que seus dados de contato (WhatsApp, email, telefone) estão corretos e atualizados. Verifique regularmente suas mensagens. Não perca oportunidades por falta de comunicação. Deixe um voicemail profissional em seu telefone.</p>
@@ -1975,7 +2243,7 @@ body.dark-mode .scroll-top-btn {
 
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/confiante.png" alt="Autenticidade e honestidade" style="width:60px; height:60px;">
+            <img src="confiante.png" alt="Autenticidade e honestidade" style="width:60px; height:60px;">
           </div>
           <h3>Autenticidade e Honestidade</h3>
           <p>Apresente suas verdadeiras habilidades e experiências. Nunca minta sobre qualificações, isso será descoberto. Demonstre entusiasmo genuíno pela oportunidade e pela empresa. Pesquise sobre a empresa antes de se candidatar.</p>
@@ -1983,7 +2251,7 @@ body.dark-mode .scroll-top-btn {
 
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/estude.png" alt="Estudo contínuo" style="width:60px; height:60px;">
+            <img src="estude.png" alt="Estudo contínuo" style="width:60px; height:60px;">
           </div>
           <h3>Estude Continuamente</h3>
           <p>O mercado muda constantemente. Invista em sua formação com cursos, certificações e aprendizado. Mencione seus estudos recentes no currículo. Empresas valorizam profissionais que nunca param de aprender e se atualizar.</p>
@@ -1991,7 +2259,7 @@ body.dark-mode .scroll-top-btn {
 
         <div class="contact-card">
           <div class="contact-icon">
-            <img src="imagens/equipe.png" alt="Trabalho em equipe" style="width:60px; height:60px;">
+            <img src="equipe.png" alt="Trabalho em equipe" style="width:60px; height:60px;">
           </div>
           <h3>Trabalho em Equipe</h3>
           <p>Destaque suas habilidades de comunicação e colaboração. Mencione projetos onde trabalhou em equipe. Mostre que sabe lidar com feedback e críticas construtivas. Equipes modernas valorizam comunicação clara e colaboração efetiva.</p>
@@ -2020,7 +2288,7 @@ body.dark-mode .scroll-top-btn {
     }
   </style>
 
-  <div class="info-bar" style="
+  <div id="section-comportamento" class="info-bar" style="
   display: block;          /* garante que o div ocupe o espaço completo */
   width: 100%;             /* ocupa 100% da largura disponível */
   max-width: 100%;         /* garante que não seja limitado por container externo */
@@ -2084,7 +2352,7 @@ body.dark-mode .scroll-top-btn {
     </div>
   </section>
 
-  <div class="info-bar" style="
+  <div id="section-baixar" class="info-bar" style="
   display: block;          /* garante que o div ocupe o espaço completo */
   width: 100%;             /* ocupa 100% da largura disponível */
   max-width: 100%;         /* garante que não seja limitado por container externo */
@@ -2105,10 +2373,10 @@ body.dark-mode .scroll-top-btn {
 
 <div class="contact-card">
   <div class="contact-icon">
-    <img src="imagens/cv1.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
+    <img src="cv1.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
   </div>
   <h3>Modelo de Currículo </h3>
-  <p>Baixe este modelo de currículo clásico no Word, feito para plataforma ATS ou recrutador</p>
+  <p>Baixe este modelo de currículo clássico no Word, feito para plataforma ATS ou recrutador</p>
 <a href="https://github.com/AgenciaNexus/agenciaexittus/raw/main/curriculo1.docx" 
    download 
    class="contact-link"
@@ -2129,7 +2397,7 @@ body.dark-mode .scroll-top-btn {
 
       <div class="contact-card">
         <div class="contact-icon">
-          <img src="imagens/cv2.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
+          <img src="cv2.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
         </div>
         <h3>Modelo de Currículo</h3>
         <p>Baixe este modelo de currículo para aprendiz.</p>
@@ -2153,7 +2421,7 @@ body.dark-mode .scroll-top-btn {
 
       <div class="contact-card">
         <div class="contact-icon">
-          <img src="imagens/cv3.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
+          <img src="cv3.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
         </div>
         <h3>Modelo de Currículo</h3>
         <p>Baixe este modelo de currículo pronto, voltado para conteúdo.</p>
@@ -2187,7 +2455,7 @@ body.dark-mode .scroll-top-btn {
   <!-- Cabeçalho -->
   <div style="text-align:center;margin-bottom:2.5rem;">
     <span style="display:inline-block;background:rgba(79,114,20,0.12);border:1px solid rgba(79,114,20,0.35);border-radius:99px;padding:0.3rem 1rem;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1e40af;margin-bottom:0.9rem;">✦ Novidade</span>
-    <h2 style="font-size:1.7rem;font-weight:900;margin-bottom:0.6rem;line-height:1.2;">Gere seu currículo em PDF na hora</h2>
+    <h2 id="section-gerador" style="font-size:1.7rem;font-weight:900;margin-bottom:0.6rem;line-height:1.2;">Gere seu Currículo em PDF na hora</h2>
     <p style="font-size:0.95rem;opacity:0.65;max-width:520px;margin:0 auto;line-height:1.65;">Sem Word, sem complicação. Preencha uma vez e baixe 3 versões prontas — para e-mail, WhatsApp e sistemas ATS.</p>
   </div>
 
@@ -2311,9 +2579,9 @@ body.dark-mode .scroll-top-btn {
 
     <div style="max-width: 700px; width: 100%;">
     <div class="contact-icon" style="text-align: center;">
-      <img src="imagens/gmail.png" alt="Envio de currículo" width="40" height="40">
+      <img src="gmail.png" alt="Envio de currículo" width="40" height="40">
     </div>
-    <h3 style="text-align: center;">Envie seu Currículo</h3>
+    <h3 id="section-envio" style="text-align: center;">Envio de Currículo</h3>
     <p style="text-align: center;">PASSO 1: Preencha seus dados pessoais. Após isso, você poderá enviar seu currículo.</p>
 
     <form id="formCadastro" style="display: flex; flex-direction: column; gap: 1.5rem;">
@@ -2429,7 +2697,7 @@ body.dark-mode .scroll-top-btn {
   <!-- Chatbot -->
 <!-- NOVO -->
   <button class="chatbot-button" id="chatbotBtn" onclick="toggleChatbot()">
-    <img src="imagens/chatbot.png" alt="Chatbot" style="width:32px; height:32px;">
+    <img src="chatbot.png" alt="Chatbot" style="width:32px; height:32px;">
   </button>
   <div class="chatbot-window" id="chatbotWindow">
     <div class="chatbot-header">
@@ -2972,6 +3240,42 @@ Tente novamente em instantes.`));
     // FIM CHATBOT INTELIGENTE
 
 
+
+// TOPICS DROPDOWN - DESKTOP
+    function toggleTopics() {
+      const dropdown = document.getElementById('topicsDropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    function closeTopics() {
+      const dropdown = document.getElementById('topicsDropdown');
+      dropdown.classList.remove('open');
+    }
+
+    // TOPICS DROPDOWN - MOBILE
+    function toggleTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.toggle('open');
+    }
+
+    function closeTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.remove('open');
+    }
+
+    // Close topics when clicking outside
+    document.addEventListener('click', (e) => {
+      const toggle = document.getElementById('topicsToggle');
+      const dropdown = document.getElementById('topicsDropdown');
+      const toggleM = document.getElementById('topicsToggleMobile');
+      const dropdownM = document.getElementById('topicsDropdownMobile');
+      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
+        closeTopics();
+      }
+      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
+        closeTopicsMobile();
+      }
+    });
 
     // Fechar menu ao clicar fora
     document.addEventListener('click', (e) => {
