@@ -1064,9 +1064,9 @@ body.dark-mode .chip { background: #2a2a2a; }
       right: 1.15rem;
       width: 28px; height: 28px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.55);
+      background: rgba(30,64,175,0.85);
       border: none;
-      color: rgba(30,64,175,0.45);
+      color: #fff;
       font-size: 0.55rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -1468,7 +1468,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       <a href="index.html" class="back-button">Voltar</a>
       <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
       <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
-      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile(event)" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
     </div>
   </div>
   <div class="topics-dropdown" id="topicsDropdown">
@@ -1479,9 +1479,8 @@ body.dark-mode .chip { background: #2a2a2a; }
   </div>
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
     <a href="#section-missao" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Nossa Missão</a>
-    <a href="#section-visao" class="topics-link-mobile" onclick="closeTopicsMobile()">🔭 Nossa Visão</a>
-    <a href="#section-valores" class="topics-link-mobile" onclick="closeTopicsMobile()">💎 Nossos Valores</a>
-    <a href="#section-historia" class="topics-link-mobile" onclick="closeTopicsMobile()">📖 Nossa História</a>
+    <a href="#section-como-vivemos" class="topics-link-mobile" onclick="closeTopicsMobile()">💡 Como Vivemos Nossa Missão</a>
+    <a href="#section-promessa" class="topics-link-mobile" onclick="closeTopicsMobile()">🤝 Nossa Promessa</a>
   </div>
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -1529,7 +1528,7 @@ body.dark-mode .chip { background: #2a2a2a; }
 
   <section class="content-section">
     <div class="content-container">
-      <h2>Nossa Missão</h2>
+      <h2 id="section-missao">Nossa Missão</h2>
       
       <p>
         O mundo está em constante transformação — e o recrutamento junto com ele. O processo seletivo de 2022 já era diferente do de 2023, que era diferente do de 2024, e assim seguirá. Assim como o Fordismo teve que se reinventar, o RH também. Metodologias envelhecem, novas realidades surgem, e quem não acompanha fica para trás.
@@ -1816,7 +1815,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       </script>
       <!-- FIM ANIMAÇÃO -->
 
-      <h2>Como Vivemos Nossa Missão</h2>
+      <h2 id="section-como-vivemos">Como Vivemos Nossa Missão</h2>
 
       <h3>Para Candidatos</h3>
       <ul class="highlight-list">
@@ -1843,7 +1842,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li><strong>Educação:</strong> Compartilhamos conhecimento sobre mercado de trabalho, inteligência artificial e tendências profissionais — porque uma comunidade mais sábia é uma comunidade mais forte</li>
       </ul>
 
-      <h2>Nossa Promessa</h2>
+      <h2 id="section-promessa">Nossa Promessa</h2>
 
       <div class="highlight-box">
         <strong>✅ Transparência Total:</strong> Você saberá exatamente o que esperar, quando esperar, e por quê<br><br>
@@ -2480,7 +2479,8 @@ setInterval(nextSlide, 4000);
     function closeTopics() {
       document.getElementById('topicsDropdown').classList.remove('open');
     }
-    function toggleTopicsMobile() {
+    function toggleTopicsMobile(e) {
+      if (e) e.stopPropagation();
       document.getElementById('topicsDropdownMobile').classList.toggle('open');
     }
     function closeTopicsMobile() {
