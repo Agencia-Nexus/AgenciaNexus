@@ -2491,8 +2491,8 @@ setInterval(nextSlide, 4000);
       const d = document.getElementById('topicsDropdown');
       const tm = document.getElementById('topicsToggleMobile');
       const dm = document.getElementById('topicsDropdownMobile');
-      if (d && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
-      if (dm && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
+      if (d && d.classList.contains('open') && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
+      if (dm && dm.classList.contains('open') && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
     });
 </script>
 </body>
