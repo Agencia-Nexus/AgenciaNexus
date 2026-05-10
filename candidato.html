@@ -414,6 +414,7 @@ body.dark-mode .btn-secondary {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      align-items: flex-start;
     }
 
     .top-row {
@@ -641,8 +642,14 @@ body.dark-mode .btn-secondary {
     @media (max-width: 480px) {
       .topics-toggle-mobile {
         padding: 0.8rem 1.5rem;
+        border-radius: 50px;
         font-size: 1rem;
         height: 50px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        width: auto;
       }
       .topics-dropdown-mobile {
         top: calc(2rem + 116px);
@@ -2053,10 +2060,8 @@ body.dark-mode .scroll-top-btn {
       <a href="index.html" class="back-button">Voltar</a>
       <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
       <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
     </div>
-
-    <!-- Topics mobile: aparece abaixo do Voltar -->
-    <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
 
   </div>
 
