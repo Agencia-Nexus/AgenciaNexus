@@ -103,33 +103,38 @@ html.dark-mode body {
   }
   @media (max-width: 768px) {
     .header { min-height: 290px; }
-    .header-bg-img {
-      position: absolute !important;
-      width: 200px !important;
-      height: 200px !important;
-      top: -20px !important;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
-      z-index: 0 !important;
-      opacity: 0.9 !important;
-    }
+      .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+      }
   }
-  @media (max-width: 480px) {
-    .header { min-height: 320px; }
-    .header-bg-img {
-      position: absolute !important;
-      left: 50% !important;
-      top: 10px !important;
-      transform: translateX(-50%) !important;
-      width: 120px !important;
-      height: auto !important;
-      z-index: 0 !important;
-      opacity: 0.9 !important;
-    }
+    /* MOBILE PEQUENO - 480px ou menos */
+    @media (max-width: 480px) {
+      .header {
+        min-height: 250px;
+      }
+      
+      .header-bg-img {
+        position: absolute;
+        left: 50%;
+        top: -100%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: auto;
+        z-index: 0;
+        opacity: 0.9;
+      }
+      
    .header-content {
         position: relative;
         z-index: 1;
-        margin-top: 170px !important;
+        margin-top: 160px !important;
         text-align: center;
       }
     }
