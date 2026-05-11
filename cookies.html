@@ -508,6 +508,24 @@ body.dark-mode .btn-primary:hover {
     .topics-toggle-mobile { display: none; }
     .topics-dropdown-mobile { display: none; }
 
+    @media (max-width: 480px) {
+      .back-button,
+      .menu-toggle,
+      .topics-toggle-mobile {
+        padding: 0.8rem 1rem !important;
+        font-size: 0.9rem;
+        height: 50px;
+        width: fit-content !important;
+        min-width: 0 !important;
+      }
+
+      .theme-toggle {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        min-width: 45px;
+      }
+    }
+
     @media (max-width: 768px) {
       .topics-toggle { display: none !important; }
       .topics-toggle-mobile { display: inline-flex !important; }
