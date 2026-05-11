@@ -1795,16 +1795,19 @@ body.dark-mode .chip { background: #2a2a2a; }
       }
 @media (max-width: 768px) {
   .top-left-buttons {
-    left: 1rem;
-    right: 1rem;
-    width: auto;
+    left: 1rem !important;
+    right: 1rem !important;
+    width: auto !important;
   }
   .top-row {
-    width: 100%;
-    justify-content: space-between;
+    width: 100% !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+  }
+  .topics-toggle-mobile {
+    margin-left: auto !important;
   }
 }
-      .header-content {
         position: relative;
         z-index: 1;
         max-width: 1200px;
