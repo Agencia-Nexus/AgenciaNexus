@@ -5258,7 +5258,7 @@ function candidatarSe(btn) {
   // Usa o id do card como slug (ex: "vaga-analista-financeiro-senior")
   var slugAttr = card ? (card.getAttribute('data-slug') || card.id || '') : '';
   // Redireciona para página dedicada do processo seletivo
-  var url = 'processo-seletivo.html?vaga=' + encodeURIComponent(titulo);
+  var url = '../integracao/processo-seletivo.html?vaga=' + encodeURIComponent(titulo);
   if (slugAttr) url += '&slug=' + encodeURIComponent(slugAttr);
   if (canaisAttr) url += '&canais=' + encodeURIComponent(canaisAttr);
   window.location.href = url;
