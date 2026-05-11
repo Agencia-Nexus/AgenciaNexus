@@ -105,6 +105,7 @@ body:not(.dark-mode) .back-button:hover,
 body:not(.dark-mode) .menu-toggle:hover,
 body:not(.dark-mode) .theme-toggle:hover {
   color: white;
+  background: rgba(30, 64, 175, 0.4);
 }
 
 /* confg bulets chatbot*/
@@ -338,28 +339,8 @@ body.dark-mode .btn-primary:hover {
 }
 
 
-    /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
-    .top-left-buttons {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-start;
-    }
-
-    .top-row {
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
-      align-items: center;
-    }
-
     /* Back Button */
-    .back-button,
-    .topics-toggle-mobile {
+    .back-button {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -384,8 +365,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     /* Menu Toggle */
-    .menu-toggle,
-    .topics-toggle-mobile {
+    .menu-toggle {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -408,7 +388,29 @@ body.dark-mode .btn-primary:hover {
       transform: scale(1.05);
     }
 
-    /* Topics Toggle Desktop */
+    /* WRAPPER FLEX — igual ao valores.html */
+    .top-left-buttons {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      pointer-events: none;
+    }
+    .top-left-buttons * {
+      pointer-events: auto;
+    }
+
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
     .topics-toggle {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
@@ -421,7 +423,7 @@ body.dark-mode .btn-primary:hover {
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       white-space: nowrap;
@@ -432,16 +434,12 @@ body.dark-mode .btn-primary:hover {
       transform: scale(1.05);
     }
 
-    body:not(.dark-mode) .back-button,
-    body:not(.dark-mode) .menu-toggle,
     body:not(.dark-mode) .topics-toggle {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(0, 0, 0, 0.4);
       color: rgb(27, 27, 27);
     }
 
-    body:not(.dark-mode) .back-button:hover,
-    body:not(.dark-mode) .menu-toggle:hover,
     body:not(.dark-mode) .topics-toggle:hover {
       color: white;
       background: rgba(30, 64, 175, 0.4);
@@ -457,7 +455,6 @@ body.dark-mode .btn-primary:hover {
       pointer-events: none;
     }
 
-    /* Topics Dropdown Desktop */
     .topics-dropdown {
       position: fixed;
       top: calc(2rem + 58px);
@@ -508,7 +505,6 @@ body.dark-mode .btn-primary:hover {
     body.chat-open .topics-dropdown,
     body.menu-open .topics-dropdown { display: none !important; }
 
-    /* Topics Mobile */
     .topics-toggle-mobile { display: none; }
     .topics-dropdown-mobile { display: none; }
 
@@ -1526,13 +1522,14 @@ body.dark-mode .chip { background: #2a2a2a; }
     <span id="themeIcon">🌙</span>
   </button>
 
+  <!-- Voltar | Menu | Topics -->
   <div class="top-left-buttons" id="topLeftButtons">
     <div class="top-row">
       <a href="index.html" class="back-button">Voltar</a>
       <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
       <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
     </div>
-    <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
   </div>
 
   <div class="topics-dropdown" id="topicsDropdown">
@@ -1542,7 +1539,6 @@ body.dark-mode .chip { background: #2a2a2a; }
     <a href="#section-direitos" class="topics-link" onclick="closeTopics()">⚖️ Seus Direitos</a>
     <a href="#section-contato" class="topics-link" onclick="closeTopics()">📧 Contato</a>
   </div>
-
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
     <a href="#section-cookies" class="topics-link-mobile" onclick="closeTopicsMobile()">🍪 O que são Cookies?</a>
     <a href="#section-tipos" class="topics-link-mobile" onclick="closeTopicsMobile()">📋 Tipos de Cookies</a>
