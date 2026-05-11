@@ -548,6 +548,14 @@ body.dark-mode .btn-primary:hover {
       .topics-toggle { display: none !important; }
       .topics-toggle-mobile { display: inline-flex !important; }
 
+           @media (max-width: 768px) {
+  .topics-toggle { display: none !important; }
+  .topics-toggle-mobile { display: inline-flex !important; }
+
+  .menu-toggle { margin-left: -3px; }
+  .topics-toggle-mobile { margin-left: 0px; }
+}
+
       body:not(.dark-mode) .topics-toggle-mobile {
         background: rgba(255, 255, 255, 0.2);
         border: 2px solid rgba(0, 0, 0, 0.4);
@@ -1449,7 +1457,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     }
 
     .topics-toggle-mobile {
-  margin-left: 75px;
+  margin-left: 78px;
 }
     /* Redes sociais */
     .footer-social {
