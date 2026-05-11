@@ -101,18 +101,18 @@ html.dark-mode body {
       text-align: center;
     }
   }
-   @media (max-width: 768px) {
-      .header { min-height: 290px; }
-         .header-bg-img {
-        position: absolute !important;
-        width: 200px !important;
-        height: 200px !important;
-        top: -100px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 0 !important;
-        opacity: 0.9 !important;
-      }
+  @media (max-width: 768px) {
+    .header { min-height: 290px; }
+    .header-bg-img {
+      position: absolute !important;
+      width: 200px !important;
+      height: 200px !important;
+      top: -160px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      z-index: 0 !important;
+      opacity: 0.9 !important;
+    }
   }
   @media (max-width: 480px) {
     .header { min-height: 250px; }
@@ -264,6 +264,10 @@ body.dark-mode .chatbot-messages ol {
       color: white;
       position: relative;
       overflow: hidden;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .header::before {
@@ -282,6 +286,8 @@ body.dark-mode .chatbot-messages ol {
       z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
+      width: 100%;
+      text-align: center;
     }
 
     .header h1 {
