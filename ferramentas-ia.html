@@ -403,7 +403,6 @@ body.menu-open .theme-toggle {
 
   /* MOBILE PEQUENO - 480px ou menos */
   @media (max-width: 480px) {
-    .header { min-height: 250px; }
       .header-bg-img {
         position: absolute;
         left: 50%;
@@ -752,7 +751,12 @@ body.menu-open .theme-toggle {
       gap: 8px;
       align-items: center;
     }
-
+@media (max-width: 768px) {
+  .top-left-buttons {
+    left: 4rem;
+  }
+  /* ... resto das regras que já estão aí ... */
+}
     .top-row {
       display: flex;
       flex-direction: row;
