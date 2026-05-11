@@ -264,7 +264,6 @@ body.dark-mode {
     <a href="index.html" class="back-button">Voltar</a>
     <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
     <button class="topics-toggle" onclick="toggleTopics()" title="Topics">Topics</button>
-    <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
   </div>
 
   <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile();"></div>
@@ -1154,17 +1153,14 @@ body.dark-mode .chatbot-messages ol {
       display: none !important; 
     }
 
-    .topics-toggle-mobile { display: none; }
     .topics-dropdown-mobile { 
       display: none; 
     }
 
     @media (max-width: 768px) {
-      .topics-toggle { display: none !important; }
-      .topics-toggle-mobile { display: inline-flex !important; }
       .topics-dropdown-mobile {
         position: fixed; 
-        top: calc(2rem + 116px); 
+        top: calc(2rem + 174px); 
         left: 2rem; 
         z-index: 1001;
         background: white; 
