@@ -70,82 +70,129 @@ body.menu-open .theme-toggle {
   body.scrolling .menu-toggle { opacity: 0; pointer-events: none; }
 
   /* BOTÕES DO TOPO */
-  .back-button, .menu-toggle, .theme-toggle {
-    background: rgba(0,0,0,0.2);
-    border: 2px solid rgba(255,255,255,0.4);
+  .back-button,
+  .menu-toggle,
+  .theme-toggle {
+    background: rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     color: white;
     transition: all 0.3s ease;
   }
-  .back-button:hover  { background: rgba(255,255,255,0.3); transform: translateX(-5px); }
-  .menu-toggle:hover  { background: rgba(255,255,255,0.3); transform: scale(1.05); }
-  .theme-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+
+  .back-button:hover,
+  .menu-toggle:hover,
+  .theme-toggle:hover {
+    background: rgba(79, 114, 20, 0.4);
+    transform: scale(1.05);
+  }
+
   body:not(.dark-mode) .back-button,
   body:not(.dark-mode) .menu-toggle,
   body:not(.dark-mode) .theme-toggle {
-    background: rgba(255,255,255,0.2);
-    border: 2px solid rgba(0,0,0,0.4);
-    color: rgb(27,27,27);
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    color: rgb(27, 27, 27);
   }
+
   body:not(.dark-mode) .back-button:hover,
   body:not(.dark-mode) .menu-toggle:hover,
-  body:not(.dark-mode) .theme-toggle:hover { color: white; }
+  body:not(.dark-mode) .theme-toggle:hover {
+    color: white;
+  }
 
   .theme-toggle {
-    position: fixed; top: 2rem; right: 2rem; z-index: 1000;
-    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
-    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
-    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
-    height: 50px; display: flex; align-items: center; justify-content: center; min-width: 50px;
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
   }
 
   .back-button,
   .topics-toggle-mobile {
-    position: fixed; top: 2rem; left: 2rem; z-index: 1000;
-    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
-    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
-    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
-    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
-    height: 50px; justify-content: center; white-space: nowrap;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    height: 50px;
+    justify-content: center;
+    white-space: nowrap;
+    margin: 0;
   }
 
   .back-button:hover {
-    background: rgba(255,255,255,0.3); transform: translateX(-5px);
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-5px);
   }
 
   .menu-toggle,
   .topics-toggle-mobile {
-    position: fixed; top: 2rem; left: calc(2rem + 105px); z-index: 1000;
-    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
-    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
-    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
-    height: 50px; display: flex; align-items: center; justify-content: center; min-width: 80px;
-    white-space: nowrap; transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    margin: 0;
   }
 
   .menu-toggle:hover {
-    background: rgba(255,255,255,0.3); transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
   }
 
-  .topics-toggle {
-    position: fixed; top: 2rem; left: calc(2rem + 210px); z-index: 1000;
-    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
-    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
-    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
-    height: 50px; display: flex; align-items: center; justify-content: center;
-    white-space: nowrap; transition: all 0.3s ease;
-  }
-
-  .topics-toggle:hover {
-    background: rgba(255,255,255,0.3); transform: scale(1.05);
-  }
-
-  @media (max-width: 768px) {
-    .menu-toggle { left: calc(2rem + 90px); }
-  }
   @media (max-width: 480px) {
-    .back-button { padding: 0.8rem 1rem; font-size: 0.9rem; }
-    .menu-toggle { left: calc(2rem + 85px); padding: 0.8rem 1rem; font-size: 0.9rem; min-width: auto; }
-    .theme-toggle { font-size: 0.9rem; padding: 0.6rem 1rem; min-width: 45px; }
+    .back-button,
+    .menu-toggle,
+    .topics-toggle-mobile {
+      padding: 0.8rem 1rem !important;
+      font-size: 0.9rem;
+      height: 50px;
+      width: fit-content !important;
+      min-width: 0 !important;
+    }
+
+    .theme-toggle {
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+      min-width: 45px;
+    }
   }
 
   /* OVERLAY */
@@ -371,7 +418,7 @@ body.menu-open .theme-toggle {
     .header-content {
       position: relative;
       z-index: 1;
-      margin-top: 130px;
+      margin-top: 150px;
       text-align: center;
     }
   }
@@ -821,7 +868,7 @@ body.menu-open .theme-toggle {
 
     @media (max-width: 768px) {
       .topics-toggle { display: none !important; }
-.topics-toggle-mobile { display: inline-flex !important; margin-left: 44px; }
+.topics-toggle-mobile { display: inline-flex !important; }
 
       body:not(.dark-mode) .topics-toggle-mobile {
         background: rgba(255, 255, 255, 0.2);
