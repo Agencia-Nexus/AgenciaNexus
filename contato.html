@@ -69,61 +69,70 @@ html.dark-mode body {
   background: #0a0a0a !important;
   color: #f0f0f0 !important;
 }
-    .header-bg-img {
-  position: absolute;
-  z-index: 0;
-  opacity: 0.9;
-  pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  .header {
-    min-height: 280px;
-  }
-
-  .header-bg-img {
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-  }
-
-  .header-content {
-    margin-top: 120px;
-    position: relative;
-    z-index: 1;
-  }
-}
-
-
-
-
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .header-content img:not(.header-bg-img) {
-    width: 120px;
-    height: 120px;
-  }
-}
-
-    
-/* ==============vagsa================== */
-
-  @media (max-width: 768px) {
-      .header {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
+  /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+      .header-bg-img {
+        position: absolute;
+        left: -5.5%;
+        top: 77%;
+        transform: translateY(-50%);
+        width: 250px;
+        height: 250px;
+        z-index: 0;
+        opacity: 0.9;
       }
+  @media (min-width: 1024px) {
+    .header { min-height: 220px; }
+    .header-bg-img {
+      position: absolute;
+      left: -1.5%;
+      top: 77%;
+      transform: translateY(-50%);
+      width: 250px;
+      height: 250px;
+      z-index: 0;
+      opacity: 0.9;
     }
-    /* ======================================== */
-
-
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+  }
+  @media (max-width: 768px) {
+    .header { min-height: 290px; }
+     .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+      }
+  }
+  @media (max-width: 480px) {
+    .header { min-height: 250px; }
+    .header-bg-img {
+      position: absolute;
+      left: 50%;
+      top: -100%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: auto;
+      z-index: 0;
+      opacity: 0.9;
+    }
+    .header-content {
+      position: relative;
+      z-index: 1;
+      margin-top: 150px;
+      text-align: center;
+    }
+  }
 
 /* ======================================== */
 /* BOTOES DO TOPO - MODO PADRÃO (ESCURO) */
@@ -131,28 +140,25 @@ html.dark-mode body {
 .back-button,
 .menu-toggle,
 .theme-toggle {
-  background: rgba(0, 0, 0, 0.2); /* fundo leve escuro */
-  border: 2px solid rgba(255, 255, 255, 0.4); /* borda clara */
-  color: white; /* texto branco */
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: white;
   transition: all 0.3s ease;
 }
 
 .back-button:hover,
 .menu-toggle:hover,
 .theme-toggle:hover {
-  background: rgba(79, 114, 20, 0.4); /* hover verde escuro */
+  background: rgba(79, 114, 20, 0.4);
   transform: scale(1.05);
 }
 
-/* ======================================== */
-/* BOTOES DO TOPO - MODO CLARO */
-/* ======================================== */
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
 body:not(.dark-mode) .theme-toggle {
-  background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
-  border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
-  color: rgb(27, 27, 27); /* texto vermelho escuro */
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  color: rgb(27, 27, 27);
 }
 
 body:not(.dark-mode) .back-button:hover,
@@ -161,7 +167,7 @@ body:not(.dark-mode) .theme-toggle:hover {
   color: white;
 }
 
-    
+
 
 
 /* confg bulets chatbot*/
@@ -259,20 +265,6 @@ body.dark-mode .chatbot-messages ol {
       color: white;
       position: relative;
       overflow: hidden;
-    }
-
-    @media (max-width: 768px) {
-      .header {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .header {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-      }
     }
 
     .header::before {
@@ -379,10 +371,6 @@ body.dark-mode .btn-secondary {
 
     /* Back Button */
     .back-button {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -399,6 +387,8 @@ body.dark-mode .btn-secondary {
       gap: 0.5rem;
       height: 50px;
       justify-content: center;
+      white-space: nowrap;
+      margin: 0;
     }
 
     .back-button:hover {
@@ -408,10 +398,6 @@ body.dark-mode .btn-secondary {
 
     /* Menu Toggle */
     .menu-toggle {
-      position: fixed;
-      top: 2rem;
-      left: calc(2rem + 105px);
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -423,10 +409,11 @@ body.dark-mode .btn-secondary {
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 80px;
+      white-space: nowrap;
+      margin: 0;
     }
 
     .menu-toggle:hover {
@@ -1287,112 +1274,6 @@ body.dark-mode .quick-btn {
       transform: scale(1.05);
     }
 
-    /* ========== MUDANÇA 1: IMAGEM FUNDO.PNG SEM EMPURRAR TEXTO ========== */
-    /* Ajustar o header com altura controlada */
-    .header {
-      position: relative;
-      min-height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-@media (max-width: 768px) {
-  .header-bg-img {
-    left: 10%;
-    top: 18%;
-    width: 120px;
-    height: 120px;
-  }
-}
-
-
-
-
-    /* MOBILE - 768px ou menos */
-    @media (max-width: 768px) {
-  
-  
-  .header {
-   min-height: 290px; /* ← MUDE AQUI - altura do header mobile (diminua para compactar) */
-}
-
-   @media (max-width: 768px) {
-      .header-bg-img {
-        position: absolute !important;
-        width: 200px !important;
-        height: 200px !important;
-        top: -160px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 0 !important;
-        opacity: 0.9 !important;
-      }
-}
-
-      .header-content {
-        position: relative;
-        z-index: 1;
-        margin-top: 130px; /* ← MUDE AQUI - empurra texto para baixo */
-        text-align: center;
-      }
-    }
-
-    /* DESKTOP - 1024px ou mais */
-    
-    @media (min-width: 1024px) {
-    .header {
-    min-height: 220px;
-  }
-
- .header-bg-img {
-        position: absolute;
-        left: -5.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
-      }
-
-      .header-content {
-        position: relative;
-        z-index: 1;
-        max-width: 1200px;
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-      }
-    }
-    /* ========== FIM MUDANÇA 1 ========== */
-
-    /* ========== MUDANÇA 2: HEADER-CONTENT LAYOUT ========== */
-    /* Desktop: lado a lado */
-    @media (min-width: 1024px) {
-      .header-content > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-        flex-wrap: nowrap;
-      }
-    }
-
-    /* MOBILE - 768px ou menos */
-    @media (max-width: 768px) {
-      .header-bg-img {
-        position: absolute !important;
-        width: 200px !important;
-        height: 200px !important;
-        top: -160px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 0 !important;
-        opacity: 0.9 !important;
-      }
-    }
-    /* ========== FIM MUDANÇA 2 ========== */
 
     /* Responsivo */
     @media (max-width: 768px) {
@@ -1402,12 +1283,6 @@ body.dark-mode .quick-btn {
 
       .header p {
         font-size: 1rem;
-      }
-
-      .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 90px);
       }
 
       .chatbot-window {
@@ -1452,16 +1327,6 @@ body.dark-mode .quick-btn {
         margin-right: 0.3rem;
         padding: 0.8rem 1rem;
         font-size: 0.9rem;
-      }
-
-      .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 85px);
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-        min-width: auto;
-        height: 50px;
       }
 
       .theme-toggle {
@@ -1804,6 +1669,84 @@ body.dark-mode .chip { background: #2a2a2a; }
       gap: 0.35rem;
     }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+    .top-left-buttons {
+      position: fixed; top: 2rem; left: 2rem; z-index: 1000;
+      display: flex; flex-direction: row; gap: 8px; align-items: center;
+    }
+    .top-row { display: flex; flex-direction: row; gap: 8px; align-items: center; }
+
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons { display: none !important; }
+    body.scrolling .top-left-buttons { opacity: 0; pointer-events: none; }
+
+    .topics-toggle {
+      background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+      cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+      transition: all 0.3s ease; height: 50px; display: inline-flex;
+      align-items: center; justify-content: center; white-space: nowrap;
+    }
+    .topics-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+    body:not(.dark-mode) .topics-toggle { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+    body:not(.dark-mode) .topics-toggle:hover { color: white; background: rgba(30,64,175,0.4); }
+
+    .topics-dropdown {
+      position: fixed; top: calc(2rem + 58px); left: 2rem; z-index: 1001;
+      background: white; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0; min-width: 210px; display: none; flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    body.dark-mode .topics-dropdown { background: #1a1a1a; border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+    .topics-dropdown.open { display: flex; }
+
+    .topics-overlay { display: none; position: fixed; inset: 0; z-index: 999; background: transparent; }
+    .topics-overlay.open { display: block; }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block; padding: 0.65rem 1.1rem; color: #1a1a1a;
+      text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: all 0.18s ease;
+    }
+    body.dark-mode .topics-link { color: #f0f0f0; }
+    .topics-link:hover { background: rgba(30,64,175,0.1); color: #1e40af; padding-left: 1.4rem; }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown { display: none !important; }
+
+    .topics-toggle-mobile { display: none; }
+    .topics-dropdown-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
+      body:not(.dark-mode) .topics-toggle-mobile { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+      body:not(.dark-mode) .topics-toggle-mobile:hover { color: white; background: rgba(30,64,175,0.4); }
+
+      .topics-dropdown-mobile {
+        position: fixed; top: calc(2rem + 116px); left: 2rem; z-index: 1001;
+        background: white; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0; min-width: 210px; flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+      body.dark-mode .topics-dropdown-mobile { background: #1a1a1a; border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+      .topics-dropdown-mobile.open { display: flex; }
+
+      .topics-link-mobile {
+        display: block; padding: 0.65rem 1.1rem; color: #1a1a1a;
+        text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: all 0.18s ease;
+      }
+      body.dark-mode .topics-link-mobile { color: #f0f0f0; }
+      .topics-link-mobile:hover { background: rgba(30,64,175,0.1); color: #1e40af; padding-left: 1.4rem; }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile { display: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -1812,9 +1755,27 @@ body.dark-mode .chip { background: #2a2a2a; }
     <span id="themeIcon">🌙</span>
   </button>
 
-  <a href="index.html" class="back-button">Voltar</a>
-
-  <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+  <div class="top-left-buttons" id="topLeftButtons">
+    <div class="top-row">
+      <a href="index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
+    </div>
+  </div>
+  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile();"></div>
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#sec-contatos" class="topics-link" onclick="closeTopics()">📞 Contatos</a>
+    <a href="#sec-formularios" class="topics-link" onclick="closeTopics()">📝 Formulários</a>
+    <a href="#sec-mapa" class="topics-link" onclick="closeTopics()">📍 Localização</a>
+    <a href="#sec-redes" class="topics-link" onclick="closeTopics()">📲 Redes Sociais</a>
+  </div>
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#sec-contatos" class="topics-link-mobile" onclick="closeTopicsMobile()">📞 Contatos</a>
+    <a href="#sec-formularios" class="topics-link-mobile" onclick="closeTopicsMobile()">📝 Formulários</a>
+    <a href="#sec-mapa" class="topics-link-mobile" onclick="closeTopicsMobile()">📍 Localização</a>
+    <a href="#sec-redes" class="topics-link-mobile" onclick="closeTopicsMobile()">📲 Redes Sociais</a>
+  </div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -1863,7 +1824,7 @@ body.dark-mode .chip { background: #2a2a2a; }
   </header>
 
 
-  <section class="contact-section">
+  <section class="contact-section" id="sec-contatos">
     <div class="contact-container">
       <div class="contact-grid">
     <!-- CONTATO 1 -->
@@ -1914,7 +1875,7 @@ body.dark-mode .chip { background: #2a2a2a; }
 </div>
 
   <!-- Dois Formulários -->
-  <div class="forms-wrapper">
+  <div class="forms-wrapper" id="sec-formularios">
 
     <!-- FORMULÁRIO 1: EMAIL (Formspree) -->
     <div class="form-card">
@@ -2003,7 +1964,7 @@ body.dark-mode .chip { background: #2a2a2a; }
   </div>
 
   <!-- Mapa Section -->
-  <section class="map-section">
+  <section class="map-section" id="sec-mapa">
     <h2>Nos Encontre</h2>
     <p class="map-subtitle">Estamos localizados em toda região sul do Brasil, com sede em Guaíba - RS</p>
     <div class="map-container">
@@ -2020,7 +1981,7 @@ body.dark-mode .chip { background: #2a2a2a; }
   </section>
 
   <!-- Social Media Section -->
-  <section class="social-section">
+  <section class="social-section" id="sec-redes">
     <h2>Siga-nos nas Redes Sociais</h2>
     <div class="social-grid">
       <a href="https://www.instagram.com/nexuscarreiras/" target="_blank" class="social-card" title="Instagram">
@@ -2669,6 +2630,23 @@ const url = `https://wa.me/5551999747808?text=${encodeURIComponent(texto)}`;
   window.open(url, '_blank');
   document.getElementById('contatoFormWpp').reset();
 }
+
+    function toggleTopics() {
+      document.getElementById('topicsDropdown').classList.toggle('open');
+      document.getElementById('topicsOverlay').classList.toggle('open');
+    }
+    function closeTopics() {
+      document.getElementById('topicsDropdown').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
+    }
+    function toggleTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
+      document.getElementById('topicsOverlay').classList.toggle('open');
+    }
+    function closeTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
+    }
 
   </script>
 </body>
