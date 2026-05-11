@@ -49,36 +49,61 @@ html.dark-mode body {
   }
   body.dark-mode { background: var(--bg-dark); color: var(--text-dark); }
 
-  body.chat-open  .theme-toggle,
-  body.chat-open  .back-button,
-  body.chat-open  .menu-toggle { display: none !important; }
-  body.menu-open  .back-button,
-  body.menu-open  .menu-toggle,
-  body.menu-open  .theme-toggle { display: none !important; }
-  body.scrolling  .theme-toggle,
-  body.scrolling  .back-button,
-  body.scrolling  .menu-toggle { opacity: 0; pointer-events: none; }
+  body.chat-open .theme-toggle,
+  body.chat-open .back-button,
+  body.chat-open .menu-toggle { display: none !important; }
 
-  .back-button,.menu-toggle,.theme-toggle { background:rgba(0,0,0,0.2);border:2px solid rgba(255,255,255,0.4);color:white;transition:all 0.3s ease; }
+  body.menu-open .back-button,
+  body.menu-open .menu-toggle,
+  body.menu-open .theme-toggle { display: none !important; pointer-events: none !important; }
+
+  body.scrolling .theme-toggle,
+  body.scrolling .back-button,
+  body.scrolling .menu-toggle { opacity: 0; pointer-events: none; }
+
+  .back-button,
+  .menu-toggle,
+  .theme-toggle { background: rgba(0,0,0,0.2); border: 2px solid rgba(255,255,255,0.4); color: white; transition: all 0.3s ease; }
+
+  .back-button:hover, .menu-toggle:hover, .theme-toggle:hover { background: rgba(79,114,20,0.4); transform: scale(1.05); }
+
   body:not(.dark-mode) .back-button,
   body:not(.dark-mode) .menu-toggle,
-  body:not(.dark-mode) .theme-toggle { background:rgba(255,255,255,0.2);border:2px solid rgba(0,0,0,0.4);color:rgb(27,27,27); }
+  body:not(.dark-mode) .theme-toggle { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+
   body:not(.dark-mode) .back-button:hover,
   body:not(.dark-mode) .menu-toggle:hover,
-  body:not(.dark-mode) .theme-toggle:hover { color:white; }
+  body:not(.dark-mode) .theme-toggle:hover { color: white; }
 
   .theme-toggle { position:fixed;top:2rem;right:2rem;z-index:1000;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.4);backdrop-filter:blur(10px);padding:0.8rem 1.5rem;border-radius:50px;cursor:pointer;font-size:1rem;color:white;font-weight:600;transition:all 0.3s ease;height:50px;display:flex;align-items:center;justify-content:center;min-width:50px; }
   .theme-toggle:hover { background:rgba(255,255,255,0.3);transform:scale(1.05); }
-  .back-button  { position:fixed;top:2rem;left:2rem;z-index:1000;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.4);backdrop-filter:blur(10px);padding:0.8rem 1.5rem;border-radius:50px;cursor:pointer;font-size:1rem;color:white;font-weight:600;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;height:50px;justify-content:center; }
-  .back-button:hover { background:rgba(255,255,255,0.3);transform:translateX(-5px); }
-  .menu-toggle  { position:fixed;top:2rem;left:calc(2rem + 105px);z-index:1000;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.4);backdrop-filter:blur(10px);padding:0.8rem 1.5rem;border-radius:50px;cursor:pointer;font-size:1rem;color:white;font-weight:600;transition:all 0.3s ease;height:50px;display:flex;align-items:center;justify-content:center;min-width:80px; }
-  .menu-toggle:hover { background:rgba(255,255,255,0.3);transform:scale(1.05); }
 
-  @media (max-width:768px) { .menu-toggle{left:calc(2rem + 90px);} }
-  @media (max-width:480px) {
-    .back-button{padding:0.8rem 1rem;font-size:0.9rem;}
-    .menu-toggle{left:calc(2rem + 85px);padding:0.8rem 1rem;font-size:0.9rem;min-width:auto;}
-    .theme-toggle{font-size:0.9rem;padding:0.6rem 1rem;min-width:45px;}
+  .back-button,
+  .topics-toggle-mobile {
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+    transition: all 0.3s ease; text-decoration: none; display: inline-flex;
+    align-items: center; height: 50px; justify-content: center; white-space: nowrap; margin: 0;
+  }
+  .back-button:hover { background: rgba(255,255,255,0.3); transform: translateX(-5px); }
+
+  .menu-toggle,
+  .topics-toggle-mobile {
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+    transition: all 0.3s ease; height: 50px; display: inline-flex;
+    align-items: center; justify-content: center; white-space: nowrap; margin: 0;
+  }
+  .menu-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+
+  @media (max-width: 480px) {
+    .back-button, .menu-toggle, .topics-toggle-mobile {
+      padding: 0.8rem 1rem !important; font-size: 0.9rem;
+      height: 50px; width: fit-content !important; min-width: 0 !important;
+    }
+    .theme-toggle { font-size:0.9rem; padding:0.6rem 1rem; min-width:45px; }
   }
 
   .menu-overlay { position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:95;display:none;opacity:0;transition:opacity 0.3s ease; }
@@ -843,12 +868,118 @@ html.dark-mode body {
       gap: 0.35rem;
     }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+
+    /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
+    .top-left-buttons {
+      position: fixed; top: 2rem; left: 2rem; z-index: 1000;
+      display: flex; flex-direction: row; gap: 8px; align-items: center;
+    }
+    .top-row { display: flex; flex-direction: row; gap: 8px; align-items: center; }
+
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons { display: none !important; }
+    body.scrolling .top-left-buttons { opacity: 0; pointer-events: none; }
+
+    .topics-toggle {
+      background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+      cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+      transition: all 0.3s ease; height: 50px; display: inline-flex;
+      align-items: center; justify-content: center; white-space: nowrap;
+    }
+    .topics-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+    body:not(.dark-mode) .topics-toggle { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+    body:not(.dark-mode) .topics-toggle:hover { color: white; background: rgba(30,64,175,0.4); }
+
+    .topics-dropdown {
+      position: fixed; top: calc(2rem + 58px); left: 2rem; z-index: 1001;
+      background: white; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0; min-width: 210px; display: none; flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    body.dark-mode .topics-dropdown { background: #1a1a1a; border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+    .topics-dropdown.open { display: flex; }
+
+    .topics-overlay { display: none; position: fixed; inset: 0; z-index: 999; background: transparent; }
+    .topics-overlay.open { display: block; }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block; padding: 0.65rem 1.1rem; color: #1a1a1a;
+      text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: all 0.18s ease;
+    }
+    body.dark-mode .topics-link { color: #f0f0f0; }
+    .topics-link:hover { background: rgba(30,64,175,0.1); color: #1e40af; padding-left: 1.4rem; }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown { display: none !important; }
+
+    .topics-toggle-mobile { display: none; }
+    .topics-dropdown-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
+      body:not(.dark-mode) .topics-toggle-mobile { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+      body:not(.dark-mode) .topics-toggle-mobile:hover { color: white; background: rgba(30,64,175,0.4); }
+
+      .topics-dropdown-mobile {
+        position: fixed; top: calc(2rem + 116px); left: 2rem; z-index: 1001;
+        background: white; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0; min-width: 210px; flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+      body.dark-mode .topics-dropdown-mobile { background: #1a1a1a; border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+      .topics-dropdown-mobile.open { display: flex; }
+
+      .topics-link-mobile {
+        display: block; padding: 0.65rem 1.1rem; color: #1a1a1a;
+        text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: all 0.18s ease;
+      }
+      body.dark-mode .topics-link-mobile { color: #f0f0f0; }
+      .topics-link-mobile:hover { background: rgba(30,64,175,0.1); color: #1e40af; padding-left: 1.4rem; }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile { display: none !important; }
+    }
   </style>
 <body>
 
   <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
-  <a href="index.html" class="back-button">Voltar</a>
-  <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+
+  <div class="top-left-buttons" id="topLeftButtons">
+    <div class="top-row">
+      <a href="index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
+    </div>
+  </div>
+  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile();"></div>
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#sec-dicas" class="topics-link" onclick="closeTopics()">🌟 Dicas de Carreira</a>
+    <a href="#sec-vagas" class="topics-link" onclick="closeTopics()">🔍 Sites de Vagas</a>
+    <a href="#sec-cursos" class="topics-link" onclick="closeTopics()">🎓 Cursos Gratuitos</a>
+    <a href="#sec-dicas-rapidas" class="topics-link" onclick="closeTopics()">⚡ Dicas Rápidas</a>
+    <a href="#sec-transporte" class="topics-link" onclick="closeTopics()">🚌 Transporte</a>
+    <a href="#sec-ats" class="topics-link" onclick="closeTopics()">🤖 Sistema ATS</a>
+    <a href="#sec-grupos" class="topics-link" onclick="closeTopics()">📲 Grupos & Redes</a>
+  </div>
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#sec-dicas" class="topics-link-mobile" onclick="closeTopicsMobile()">🌟 Dicas de Carreira</a>
+    <a href="#sec-vagas" class="topics-link-mobile" onclick="closeTopicsMobile()">🔍 Sites de Vagas</a>
+    <a href="#sec-cursos" class="topics-link-mobile" onclick="closeTopicsMobile()">🎓 Cursos Gratuitos</a>
+    <a href="#sec-dicas-rapidas" class="topics-link-mobile" onclick="closeTopicsMobile()">⚡ Dicas Rápidas</a>
+    <a href="#sec-transporte" class="topics-link-mobile" onclick="closeTopicsMobile()">🚌 Transporte</a>
+    <a href="#sec-ats" class="topics-link-mobile" onclick="closeTopicsMobile()">🤖 Sistema ATS</a>
+    <a href="#sec-grupos" class="topics-link-mobile" onclick="closeTopicsMobile()">📲 Grupos & Redes</a>
+  </div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -897,7 +1028,7 @@ html.dark-mode body {
 <!-- ============================================================ -->
 <!-- SEÇÃO: DICAS GERAIS DE CARREIRA                              -->
 <!-- ============================================================ -->
-<div class="info-bar">🌟 Dicas Gerais de Carreira</div>
+<div class="info-bar" id="sec-dicas">🌟 Dicas Gerais de Carreira</div>
 <section class="content-section">
   <div class="cards-grid">
 
@@ -937,7 +1068,7 @@ html.dark-mode body {
 <!-- ============================================================ -->
 <!-- SEÇÃO: SITES ÚTEIS PARA BUSCA DE EMPREGO                    -->
 <!-- ============================================================ -->
-<div class="info-bar">
+<div class="info-bar" id="sec-vagas">
   <img src="imagens/lupa.png" width="20" height="20" alt="Busca de empregos">
   Sites para Busca de Emprego
 </div>
@@ -1016,7 +1147,7 @@ html.dark-mode body {
   <!-- ============================================================ -->
   <!-- SEÇÃO: CURSOS GRATUITOS & CERTIFICAÇÕES                      -->
   <!-- ============================================================ -->
-  <div class="info-bar">🎓 Cursos Gratuitos & Certificações</div>
+  <div class="info-bar" id="sec-cursos">🎓 Cursos Gratuitos & Certificações</div>
   <section class="content-section">
     <div class="cards-grid">
 
@@ -1059,7 +1190,7 @@ html.dark-mode body {
   <!-- ============================================================ -->
   <!-- SEÇÃO: DICAS RÁPIDAS — LISTA                                 -->
   <!-- ============================================================ -->
-  <div class="info-bar">⚡ Dicas Rápidas</div>
+  <div class="info-bar" id="sec-dicas-rapidas">⚡ Dicas Rápidas</div>
   <section class="content-section">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:2rem;">
 
@@ -1085,7 +1216,7 @@ html.dark-mode body {
   <!-- ============================================================ -->
   <!-- SEÇÃO: TRANSPORTE                                            -->
   <!-- ============================================================ -->
-  <div class="info-bar">🚌 Transporte — Horários & Linhas</div>
+  <div class="info-bar" id="sec-transporte">🚌 Transporte — Horários & Linhas</div>
   <section class="content-section">
     <div class="tip-box">
       💡 Selecione o tipo de transporte abaixo para ver as linhas disponíveis e baixar os horários em PDF. Os PDFs são disponibilizados pelas empresas de transporte, se algum link estiver indisponível, entre em contato com a operadora diretamente.
@@ -1222,7 +1353,7 @@ html.dark-mode body {
 <!-- ============================================================ -->
 <!-- SEÇÃO: SISTEMA ATS                                           -->
 <!-- ============================================================ -->
-<div class="info-bar">🤖 O que é um Sistema ATS?</div>
+<div class="info-bar" id="sec-ats">🤖 O que é um Sistema ATS?</div>
 <section class="content-section">
 
   <div class="ats-hero">
@@ -1500,7 +1631,7 @@ body.menu-open .theme-toggle {
   }
 </style>
 
-<div class="info-bar">📲 Grupos & Redes Sociais de Vagas</div>
+<div class="info-bar" id="sec-grupos">📲 Grupos & Redes Sociais de Vagas</div>
 <section class="content-section">
 
   <div class="tip-box">
@@ -2137,6 +2268,23 @@ loadSavedTheme();
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape') fecharPreview();
     });
+
+    function toggleTopics() {
+      document.getElementById('topicsDropdown').classList.toggle('open');
+      document.getElementById('topicsOverlay').classList.toggle('open');
+    }
+    function closeTopics() {
+      document.getElementById('topicsDropdown').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
+    }
+    function toggleTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
+      document.getElementById('topicsOverlay').classList.toggle('open');
+    }
+    function closeTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
+    }
   </script>
 
   <!-- ── MODAL DE PRÉ-VISUALIZAÇÃO ── -->
