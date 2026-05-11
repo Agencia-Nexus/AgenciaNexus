@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 
-     <script>
+<script>
     if (localStorage.getItem('theme') !== 'light') {
       document.documentElement.classList.add('dark-mode');
       document.addEventListener('DOMContentLoaded', () => {
@@ -14,25 +14,24 @@
       document.documentElement.style.transition = '';
     });
   </script>
-
-
+  
   <!-- Meta Tags Essenciais -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  
+
   <!-- Título e Descrição -->
   <title>Sobre a Agência Nexus – Conheça Nossa História e Missão</title>
   <meta name="description" content="Conheça a Agência Nexus: nossa história, missão e valores. Saiba como conectamos profissionais a oportunidades reais de emprego e ajudamos a desenvolver carreiras com transparência e excelência." />
   <meta name="keywords" content="sobre a agência, Nexus, missão e valores, história da empresa, equipe de recrutamento, desenvolvimento de carreira, profissionais, oportunidades de emprego, recrutamento e seleção" />
-  
+
   <!-- Meta Tags de Rastreamento -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Agência Nexus" />
   <meta name="publisher" content="Agência Nexus" />
   <meta name="revisit-after" content="7 days" />
   <meta name="language" content="Portuguese" />
-  
+
   <!-- Open Graph (Redes Sociais) -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Sobre a Agência Nexus – Conheça Nossa História e Missão" />
@@ -43,27 +42,22 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:site_name" content="Agência Nexus" />
-  
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Sobre a Agência Nexus – Conheça Nossa História e Missão" />
   <meta name="twitter:description" content="Descubra a história, missão e valores da Agência Nexus. Saiba como conectamos talentos a oportunidades reais de emprego." />
   <meta name="twitter:image" content="https://agencia-nexus.github.io/AgenciaNexus/og-image-sobre.png" />
-  
+
   <!-- Canonical URL -->
   <link rel="canonical" href="https://agencia-nexus.github.io/AgenciaNexus/sobre.html" />
-  
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png" />
   <link rel="shortcut icon" href="icone.png" type="image/png" />
   <link rel="apple-touch-icon" href="icone.png" />
 </head>
-<body>
-  <!-- Conteúdo da página Sobre vai aqui -->
-</body>
-</html>
-
 
   <style>
     * {
@@ -71,10 +65,14 @@
       padding: 0;
       box-sizing: border-box;
     }
+html.dark-mode body {
+  background: #0a0a0a !important;
+  color: #f0f0f0 !important;
+}
 
-/* ======================================== */
-/* BOTOES DO TOPO - MODO PADRÃO (ESCURO) */
-/* ======================================== */
+html.dark-mode .content-container {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
 .back-button,
 .menu-toggle,
 .theme-toggle {
@@ -84,12 +82,6 @@
   transition: all 0.3s ease;
 }
 
-.back-button:hover,
-.menu-toggle:hover,
-.theme-toggle:hover {
-  background: rgba(79, 114, 20, 0.4);
-  transform: scale(1.05);
-}
 
 body.chat-open .chatbot-button {
   opacity: 0;
@@ -98,11 +90,14 @@ body.chat-open .chatbot-button {
   transition: 0.3s ease;
 }
 
-
     
-/* ======================================== */
-/* BOTOES DO TOPO - MODO CLARO */
-/* ======================================== */
+.back-button:hover,
+.menu-toggle:hover,
+.theme-toggle:hover {
+  background: rgba(30, 64, 175, 0.4);
+  transform: scale(1.05);
+}
+
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
 body:not(.dark-mode) .theme-toggle {
@@ -117,7 +112,6 @@ body:not(.dark-mode) .theme-toggle:hover {
   color: white;
 }
 
-/* confg bulets chatbot*/
 .chatbot-messages ul,
 .chatbot-messages ol {
   padding-left: 1.2rem;
@@ -162,6 +156,8 @@ body.dark-mode .chatbot-messages ol {
     body.menu-open .menu-toggle,
     body.menu-open .theme-toggle {
       display: none !important;
+        pointer-events: none !important;
+
     }
 
     body.scrolling .theme-toggle,
@@ -301,7 +297,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .btn-primary {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
     }
 
@@ -312,12 +308,12 @@ body.dark-mode .chatbot-messages ol {
 
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+      box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
     }
 
     body.dark-mode .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 30px rgba(144, 238, 144, 0.4);
     }
 
     .btn {
@@ -336,10 +332,6 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .back-button {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -364,10 +356,6 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .menu-toggle {
-      position: fixed;
-      top: 2rem;
-      left: calc(2rem + 105px);
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -449,14 +437,14 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .menu-link.active-page {
-      background: rgba(79, 114, 20, 0.12);
+      background: rgba(30, 64, 175, 0.12);
       color: var(--primary);
       font-weight: 700;
     }
 
     body.dark-mode .menu-link.active-page {
-      color: #90EE90;
-      background: rgba(79, 114, 20, 0.2);
+      color: #38bdf8;
+      background: rgba(30, 64, 175, 0.2);
     }
 
     .content-section {
@@ -550,7 +538,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .highlight-box {
-      background: linear-gradient(135deg, rgba(79, 114, 20, 0.1), rgba(100, 124, 1, 0.05));
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(13, 71, 161, 0.05));
       border-left: 4px solid var(--primary);
       padding: 1.5rem;
       margin: 1.5rem 0;
@@ -558,7 +546,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     body.dark-mode .highlight-box {
-      background: linear-gradient(135deg, rgba(79, 114, 20, 0.15), rgba(100, 124, 1, 0.1));
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.15), rgba(13, 71, 161, 0.1));
     }
 
     .values-grid {
@@ -569,21 +557,21 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .value-card {
-      background: linear-gradient(135deg, rgba(79, 114, 20, 0.05), rgba(100, 124, 1, 0.05));
-      border: 2px solid rgba(79, 114, 20, 0.2);
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(13, 71, 161, 0.05));
+      border: 2px solid rgba(30, 64, 175, 0.2);
       border-radius: 15px;
       padding: 1.5rem;
       transition: all 0.3s ease;
     }
 
     body.dark-mode .value-card {
-      background: linear-gradient(135deg, rgba(79, 114, 20, 0.1), rgba(100, 124, 1, 0.1));
-      border-color: rgba(79, 114, 20, 0.3);
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(13, 71, 161, 0.1));
+      border-color: rgba(30, 64, 175, 0.3);
     }
 
     .value-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(79, 114, 20, 0.15);
+      box-shadow: 0 10px 30px rgba(30, 64, 175, 0.15);
     }
 
     .value-card h4 {
@@ -623,7 +611,7 @@ body.dark-mode .chatbot-messages ol {
 
     .chatbot-button:hover {
       transform: scale(1.1);
-      box-shadow: 0 6px 30px rgba(79, 114, 20, 0.6);
+      box-shadow: 0 6px 30px rgba(30, 64, 175, 0.6);
     }
 
     .chatbot-button.active {
@@ -658,7 +646,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .chatbot-header {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       padding: 1rem;
       border-radius: 15px 15px 0 0;
@@ -676,6 +664,19 @@ body.dark-mode .chatbot-messages ol {
       margin: 0.3rem 0 0 0;
       font-size: 0.8rem;
       opacity: 0.9;
+    }
+
+    .close-chatbot {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .close-chatbot:hover {
+      transform: rotate(90deg);
     }
 
     .ai-toggle-wrap {
@@ -740,19 +741,6 @@ body.dark-mode .chatbot-messages ol {
       0%,100% { opacity:1; } 50% { opacity:0.6; }
     }
 
-    .close-chatbot {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .close-chatbot:hover {
-      transform: rotate(90deg);
-    }
-
     .chatbot-messages {
       flex: 1;
       overflow-y: auto;
@@ -814,7 +802,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .message.user .message-content {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
     }
 
@@ -891,7 +879,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .chatbot-send-btn {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       border: none;
       border-radius: 8px;
@@ -921,7 +909,7 @@ body.dark-mode .chatbot-messages ol {
         opacity: 0.9;
       }
 
-    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO EM SERVIÇOS.HTML */
+    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
     /* DESKTOP - 1024px ou mais */
     @media (min-width: 1024px) {
       .header {
@@ -984,19 +972,36 @@ body.dark-mode .chatbot-messages ol {
       }
     }
 
- @media (max-width: 768px) {
+    @media (max-width: 768px) {
       .header h1 {
         font-size: 2rem;
         margin-top: 60px;
       }
+
       .header p {
         font-size: 1rem;
       }
 
       .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 90px);
+        }
+
+      .chatbot-window {
+        width: 90vw;
+        height: 60vh;
+        bottom: 2rem;
+        right: 0.5rem;
+          z-index: 99;
+
+      }
+
+      .content-container {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.8rem;
       }
 
       .back-button,
@@ -1009,33 +1014,7 @@ body.dark-mode .chatbot-messages ol {
         min-width: 0 !important;
       }
 
-      .chatbot-window {
-        width: 90vw;
-        height: 60vh;
-        bottom: 2rem;
-        right: 0.5rem;
-      }
-
-      .content-container {
-        padding: 1.5rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .header h1 {
-        font-size: 1.8rem;
-padding-top: 60px;      }
-
-      .back-button {
-        margin-right: 0.3rem;
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-      }
-
       .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 85px);
         padding: 0.8rem 1rem;
         font-size: 0.9rem;
         min-width: auto;
@@ -1051,6 +1030,8 @@ padding-top: 60px;      }
       .chatbot-button {
         bottom: 2rem;
         right: 1rem;
+          z-index: 100;
+
       }
 
       .chatbot-window {
@@ -1102,78 +1083,6 @@ padding-top: 60px;      }
       }
     }
 
-     .carousel-container {
-      position: relative;
-      width: 90%;
-      max-width: 690px;
-      margin: 2rem auto;
-      overflow: hidden;
-      border-radius: 15px;
-      border: 1px solid rgba(79, 114, 20, 0.2);
-    }
-
-
-    
-    .carousel {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .carousel img {
-      width: 100%;
-      flex-shrink: 0;
-      object-fit: cover;
-    }
-
-    .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent; /* sem cor de fundo */
-  color: var(--primary); /* cor do símbolo */
-  border: none;           /* sem borda */
-  font-size: 2.5rem;      /* tamanho da seta */
-  cursor: pointer;
-  z-index: 10;
-  padding: 0 0.5rem;
-  font-weight: bold;
-  transition: transform 0.2s;
-}
-
-.carousel-btn:hover {
-  transform: translateY(-50%) scale(1.2); /* efeito leve ao passar o mouse */
-}
-
-.prev {
-  left: 0.5rem;
-}
-
-.next {
-  right: 0.5rem;
-}
-
-
-    .static-image-container {
-      width: 100%;
-      text-align: center;
-      margin: 2rem 0;
-    }
-
-.static-image-container img {
-  max-width: 500px; /* largura máxima no desktop */
-  width: 100%;      /* ocupa até 100% do container se a tela for menor */
-  height: auto;     /* mantém proporção da imagem */
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-
-    .static-image-container img:hover {
-      transform: scale(1.02);
-    }
-
-
         .message-content p { margin: 0 0 0.55rem 0; line-height: 1.55; }
 .message-content p:last-child { margin-bottom: 0; }
 .message-content strong { font-weight: 700; }
@@ -1189,7 +1098,6 @@ padding-top: 60px;      }
 body.dark-mode .chip { background: #2a2a2a; }
 .chip:hover { background: var(--primary); color: white; transform: translateY(-1px); }
 
-
     .scroll-top-btn {
       position: fixed;
       bottom: calc(2rem + 60px + 1.4rem);
@@ -1198,7 +1106,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       border-radius: 50%;
       background: rgba(255,255,255,0.55);
       border: none;
-      color: rgba(30,64,175,0.45);
+      color: rgba(59,130,246,0.45);
       font-size: 0.55rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -1210,14 +1118,14 @@ body.dark-mode .chip { background: #2a2a2a; }
       backdrop-filter: blur(4px);
     }
     body.dark-mode .scroll-top-btn {
-      background: rgba(30,30,30,0.45);
-      color: rgba(100,180,0,0.4);
+      background: #2563eb;
+      color: #ffffff;
     }
     .scroll-top-btn.visible {
       opacity: 1; pointer-events: auto; transform: translateY(0);
     }
     .scroll-top-btn:hover {
-      background: rgba(30,64,175,0.15);
+      background: rgba(79,114,20,0.15);
       color: var(--primary);
       transform: translateY(-2px);
     }
@@ -1225,7 +1133,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     /* ══ FOOTER PROFISSIONAL ══ */
     footer {
       --ft-bg:            #f2f5ee;
-      --ft-border:        rgba(79, 114, 20, 0.18);
+      --ft-border:        rgba(30, 64, 175, 0.18);
       --ft-text:          #1a1a1a;
       --ft-muted:         rgba(0, 0, 0, 0.45);
       --ft-social-bg:     rgba(0, 0, 0, 0.06);
@@ -1248,7 +1156,7 @@ body.dark-mode .chip { background: #2a2a2a; }
 
     body.dark-mode footer {
       --ft-bg:            #0d0d0d;
-      --ft-border:        rgba(141, 198, 63, 0.15);
+      --ft-border:        rgba(30, 64, 175, 0.15);
       --ft-text:          #e0e0e0;
       --ft-muted:         rgba(255, 255, 255, 0.45);
       --ft-social-bg:     rgba(255, 255, 255, 0.06);
@@ -1259,8 +1167,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       --ft-copy:          rgba(255, 255, 255, 0.3);
       --ft-copy-strong:   rgba(255, 255, 255, 0.5);
       --ft-badge:         rgba(255, 255, 255, 0.25);
-      --ft-accent:        #3b82f6;
-      --ft-title:         #3b82f6;
+      --ft-accent:        #38bdf8;
+      --ft-title:         #38bdf8;
     }
 
     .footer-top {
@@ -1328,8 +1236,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       color: var(--ft-muted);
     }
     .footer-social-link:hover {
-      background: rgba(96,165,250,0.12);
-      border-color: rgba(96,165,250,0.35);
+      background: rgba(141,198,63,0.12);
+      border-color: rgba(141,198,63,0.35);
       color: var(--ft-accent);
       transform: translateY(-2px);
     }
@@ -1410,6 +1318,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       gap: 0.35rem;
     }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+  
     .top-left-buttons {
       position: fixed;
       top: 2rem;
@@ -1448,7 +1357,6 @@ body.dark-mode .chip { background: #2a2a2a; }
       align-items: center;
       justify-content: center;
       white-space: nowrap;
-      margin-left: 208px;
     }
 
     .topics-toggle:hover {
@@ -1499,13 +1407,6 @@ body.dark-mode .chip { background: #2a2a2a; }
       box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     }
 
-    .topics-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 999;
-    }
-    .topics-overlay.open { display: block; }
     .topics-dropdown.open { display: flex; }
 
     @keyframes topicsDropIn {
@@ -1552,15 +1453,13 @@ body.dark-mode .chip { background: #2a2a2a; }
       justify-content: center;
       white-space: nowrap;
       margin: 0;
-  
     }
     .topics-toggle-mobile { display: none; }
     .topics-dropdown-mobile { display: none; }
 
     @media (max-width: 768px) {
       .topics-toggle { display: none !important; }
-  .topics-toggle-mobile { display: inline-flex !important; margin-left: 167px; }
-      
+      .topics-toggle-mobile { display: inline-flex !important; }
 
       body:not(.dark-mode) .topics-toggle-mobile {
         background: rgba(255, 255, 255, 0.2);
@@ -1619,8 +1518,6 @@ body.dark-mode .chip { background: #2a2a2a; }
     }
 
 </style>
-
-  </style>
 </head>
 <body>
 
@@ -1628,42 +1525,24 @@ body.dark-mode .chip { background: #2a2a2a; }
     <span id="themeIcon">🌙</span>
   </button>
 
+  <!-- Voltar | Menu | Topics -->
   <div class="top-left-buttons" id="topLeftButtons">
     <div class="top-row">
       <a href="index.html" class="back-button">Voltar</a>
       <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
       <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
-      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
     </div>
   </div>
-  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics();closeTopicsMobile();"></div>
   <div class="topics-dropdown" id="topicsDropdown">
-    <a href="#conexao" class="topics-link" onclick="closeTopics()">🔗 Nexus — A Conexão que Transforma</a>
-    <a href="#atuacao" class="topics-link" onclick="closeTopics()">🗺️ Nossa Atuação no Brasil</a>
-    <a href="#como-surgiu" class="topics-link" onclick="closeTopics()">🌱 Como a Nexus Surgiu</a>
-    <a href="#nome-nexus" class="topics-link" onclick="closeTopics()">❓ Por Que o Nome Nexus?</a>
-    <a href="#impacto" class="topics-link" onclick="closeTopics()">📊 Nosso Impacto em Números</a>
-    <a href="#tecnologia" class="topics-link" onclick="closeTopics()">⚙️ Nossa Estrutura Tecnológica</a>
-    <a href="#contato" class="topics-link" onclick="closeTopics()">📞 Fale com a Nexus</a>
-    <a href="#equipe" class="topics-link" onclick="closeTopics()">🤝 Nossa Equipe</a>
-    <a href="#diferencial" class="topics-link" onclick="closeTopics()">⭐ O que nos Diferencia</a>
-    <a href="#compromisso" class="topics-link" onclick="closeTopics()">🤲 Nosso Compromisso com Cada Parte</a>
-    <a href="#conformidade" class="topics-link" onclick="closeTopics()">📋 Conformidade e Responsabilidade</a>
-    <a href="#onde-chegar" class="topics-link" onclick="closeTopics()">🎯 Onde Queremos Chegar</a>
+    <a href="#cultura" class="topics-link" onclick="closeTopics()">🌱 Nossa Cultura</a>
+    <a href="#valores-principais" class="topics-link" onclick="closeTopics()">⭐ Valores Principais</a>
+    <a href="#principios" class="topics-link" onclick="closeTopics()">🎯 Nossos Princípios</a>
   </div>
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
-    <a href="#conexao" class="topics-link-mobile" onclick="closeTopicsMobile()">🔗 Nexus — A Conexão que Transforma</a>
-    <a href="#atuacao" class="topics-link-mobile" onclick="closeTopicsMobile()">🗺️ Nossa Atuação no Brasil</a>
-    <a href="#como-surgiu" class="topics-link-mobile" onclick="closeTopicsMobile()">🌱 Como a Nexus Surgiu</a>
-    <a href="#nome-nexus" class="topics-link-mobile" onclick="closeTopicsMobile()">❓ Por Que o Nome Nexus?</a>
-    <a href="#impacto" class="topics-link-mobile" onclick="closeTopicsMobile()">📊 Nosso Impacto em Números</a>
-    <a href="#tecnologia" class="topics-link-mobile" onclick="closeTopicsMobile()">⚙️ Nossa Estrutura Tecnológica</a>
-    <a href="#contato" class="topics-link-mobile" onclick="closeTopicsMobile()">📞 Fale com a Nexus</a>
-    <a href="#equipe" class="topics-link-mobile" onclick="closeTopicsMobile()">🤝 Nossa Equipe</a>
-    <a href="#diferencial" class="topics-link-mobile" onclick="closeTopicsMobile()">⭐ O que nos Diferencia</a>
-    <a href="#compromisso" class="topics-link-mobile" onclick="closeTopicsMobile()">🤲 Nosso Compromisso com Cada Parte</a>
-    <a href="#conformidade" class="topics-link-mobile" onclick="closeTopicsMobile()">📋 Conformidade e Responsabilidade</a>
-    <a href="#onde-chegar" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Onde Queremos Chegar</a>
+    <a href="#cultura" class="topics-link-mobile" onclick="closeTopicsMobile()">🌱 Nossa Cultura</a>
+    <a href="#valores-principais" class="topics-link-mobile" onclick="closeTopicsMobile()">⭐ Valores Principais</a>
+    <a href="#principios" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Nossos Princípios</a>
   </div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
@@ -1671,10 +1550,10 @@ body.dark-mode .chip { background: #2a2a2a; }
   <div class="menu-content" id="menuContent">
     <div class="menu-section">
       <h3>Bem-Vindo</h3>
-      <a href="sobre.html" class="menu-link active-page">Sobre</a>
+      <a href="sobre.html" class="menu-link">Sobre</a>
       <a href="missao.html" class="menu-link">Missão</a>
       <a href="visao.html" class="menu-link">Visão</a>
-      <a href="valores.html" class="menu-link">Valores</a>
+      <a href="valores.html" class="menu-link active-page">Valores</a>
     </div>
     <div class="menu-section">
       <h3>Carreira</h3>
@@ -1690,7 +1569,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       <a href="contato.html" class="menu-link">Contato</a>
     </div>
     <div class="menu-section">
-      <h3>ℹInformações</h3>
+      <h3>Informações</h3>
       <a href="lgbt.html" class="menu-link">LGBT+</a>
       <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
       <a href="indexcookies.html" class="menu-link">Cookies</a>
@@ -1701,10 +1580,10 @@ body.dark-mode .chip { background: #2a2a2a; }
   <header class="header">
     <div class="header-content">
       <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-        <img src="imagens/fundo.png" alt="Sobre Agência Nexus" class="header-bg-img">
+        <img src="imagens/fundo.png" alt="Nossos Valores" class="header-bg-img">
         <div>
-          <h1 style="margin: 0 0 0.5rem 0;">Sobre</h1>
-          <p>Soluções completas em recrutamento e seleção</p>
+          <h1 style="margin: 0 0 0.5rem 0;">Nossos Valores</h1>
+          <p>Os princípios que guiam nossas ações e decisões</p>
         </div>
       </div>
     </div>
@@ -2130,9 +2009,6 @@ body.dark-mode .chip { background: #2a2a2a; }
       </div>
     </div>
   </section>
-
-  
-  
    <footer>
     <div class="footer-top">
 
@@ -2240,7 +2116,9 @@ body.dark-mode .chip { background: #2a2a2a; }
     </div>
 
   </footer>
- 
+
+
+  
   <!-- Botão Voltar ao Topo -->
   <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
 
@@ -2274,7 +2152,11 @@ body.dark-mode .chip { background: #2a2a2a; }
   <!-- Chatbot -->
 <!-- NOVO -->
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* ================================================================= */
+    /* MENU FUNCTIONS - CONTROLE DE ABERTURA E FECHAMENTO DO MENU     */
+    /* ================================================================= */
+    
     const menuContent = document.getElementById('menuContent');
     const menuOverlay = document.getElementById('menuOverlay');
     
@@ -2290,18 +2172,24 @@ body.dark-mode .chip { background: #2a2a2a; }
       }
     }
 
-    function closeMenu() {
-      menuContent.classList.remove('active');
-      menuOverlay.classList.remove('active');
-      document.body.classList.remove('menu-open');
-      menuContent.style.left = '-100%';
-    }
+function closeMenu() {
+  menuContent.classList.remove('active');
+  menuOverlay.classList.remove('active');
+  menuContent.style.left = '-100%';
+  setTimeout(() => {
+    document.body.classList.remove('menu-open');
+  }, 300);
+}
+    
+    /* ================================================================= */
 
     document.querySelectorAll('.menu-link').forEach(link => {
       link.addEventListener('click', closeMenu);
     });
 
-     function toggleTheme() {
+// THEME TOGGLE - COM PERSISTÊNCIA
+
+function toggleTheme() {
       document.body.classList.toggle('dark-mode');
       document.documentElement.classList.toggle('dark-mode');
       const isDarkMode = document.body.classList.contains('dark-mode');
@@ -2309,7 +2197,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     }
 
-    function loadSavedTheme() {
+function loadSavedTheme() {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme !== 'light') {
         document.body.classList.add('dark-mode');
@@ -2322,10 +2210,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       }
     }
 
-    loadSavedTheme();
+loadSavedTheme();
 
-    // CHATBOT CONFIG
-   
     // iNICIO CHATBOT INTELIGENTE
     const KB = {
       saudacoes: {
@@ -2367,7 +2253,7 @@ body.dark-mode .chip { background: #2a2a2a; }
   contato: {
         gatilhos: ['contato','telefone','whatsapp','zap','ligar','email','e-mail','endereço','endereco','onde fica','localização','agendar','reunião','conversar','falar'],
         respostas: [
-          'Claro! 📞 Estamos sempre disponíveis:\n\n- **WhatsApp:** (51) 99850-3183\n- **E-mail:** adm.agencianexus@outlook.com\n- **Endereço:** R. São José, 584 - sala 204, Guaíba - RS\n\nO jeito mais rápido é pelo WhatsApp — respondemos em minutos!'
+          'Claro! 📞 Estamos sempre disponíveis:\n\n- **WhatsApp:** (51) 99697-6579\n- **E-mail:** adm.agencianexus@outlook.com\n- **Endereço:** Atuação em toda a Região Sul do Brasil (100% Digital)\n\nO jeito mais rápido é pelo WhatsApp — respondemos em minutos!'
         ],
         chips: ['💬 Abrir WhatsApp agora','📧 Enviar e-mail','↩️ Voltar ao início']
       },
@@ -2408,7 +2294,6 @@ body.dark-mode .chip { background: #2a2a2a; }
         chips: ['🔍 Ver vagas','👤 Sou candidato','🏢 Sou empresa','📞 Falar com a equipe','↩️ Voltar ao início'] 
       }
     };
-    
 
 const CHIP_ACOES = {
       '🌐 Ver vagas online':               () => window.open('vagas.html','_blank'),
@@ -2555,39 +2440,64 @@ const CHIP_ACOES = {
       msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
     }
 
-        function markdownParaHTML(texto) {
-      function processarInline(str) {
-        return str
-          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#3b82f6;text-decoration:underline;">$1</a>');
-      }
-      const linhas = texto.split('\n');
-      const blocos = []; let listaAtual = [];
-      function fecharLista() {
-        if (listaAtual.length) { blocos.push('<ul>'+listaAtual.map(i=>`<li>${i}</li>`).join('')+'</ul>'); listaAtual = []; }
-      }
-      for (let linha of linhas) {
-        linha = linha.trim();
-        if (/^[-\*] (.+)/.test(linha)) {
-          listaAtual.push(processarInline(linha.replace(/^[-\*] /,'')));
-          continue;
-        }
-        fecharLista();
-        if (!linha) continue;
-        blocos.push(`<p>${processarInline(linha)}</p>`);
-      }
-      fecharLista();
-      return blocos.join('');
+ function markdownParaHTML(texto) {
+  function processarInline(str) {
+    return str
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#38bdf8;text-decoration:underline;">$1</a>');
+  }
+
+  // Dividimos por quebra de linha, mas mantemos o controle de blocos
+  const linhas = texto.split('\n');
+  const blocos = []; 
+  let listaAtual = [];
+
+  function fecharLista() {
+    if (listaAtual.length > 0) {
+      blocos.push('<ul>' + listaAtual.map(i => `<li>${i}</li>`).join('') + '</ul>');
+      listaAtual = [];
+    }
+  }
+
+  for (let linha of linhas) {
+    const linhaLimpa = linha.trim();
+
+    // 1. Detectar Listas (Iniciadas com - ou *)
+    const matchLista = linhaLimpa.match(/^[-\*]\s+(.+)/);
+    if (matchLista) {
+      listaAtual.push(processarInline(matchLista[1]));
+      continue;
     }
 
-    function escapeHtml(t) {
-      return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-    // FIM CHATBOT INTELIGENTE
+    // Se não for item de lista, fecha qualquer lista aberta antes de processar o próximo bloco
+    fecharLista();
 
+    // 2. Linhas Vazias (Pulamos para evitar parágrafos vazios <p></p>)
+    if (!linhaLimpa) continue;
+
+    // 3. Cabeçalhos (Opcional, mas útil: # Título)
+    const matchHeader = linhaLimpa.match(/^(#{1,6})\s+(.+)/);
+    if (matchHeader) {
+      const nivel = matchHeader[1].length;
+      blocos.push(`<h${nivel}>${processarInline(matchHeader[2])}</h${nivel}>`);
+      continue;
+    }
+
+    // 4. Parágrafos normais
+    blocos.push(`<p>${processarInline(linhaLimpa)}</p>`);
+  }
+
+  // Garante que nenhuma lista ficou aberta no final do texto
+  fecharLista();
+
+  return blocos.join('');
+}
+
+function escapeHtml(t) {
+  return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
     // ============= MODO IA (Llama via Edge Function Supabase) =============
     let modoIA = false;
-
     const EDGE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co/functions/v1/chatbot-groq';
 
     function toggleModoIA() {
@@ -2596,12 +2506,12 @@ const CHIP_ACOES = {
       const statusText = document.getElementById('chatbotStatusText');
       wrap.classList.toggle('ai-on', modoIA);
       if (modoIA) {
-        statusText.textContent = '\u{1F916} Modo IA ativo (Llama)';
-        adicionarBubbleBot(markdownParaHTML('\u{1F916} **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
+        statusText.textContent = '🤖 Modo IA ativo (Llama)';
+        adicionarBubbleBot(markdownParaHTML('🤖 **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
       } else {
         statusText.textContent = '● Assistente virtual';
-        adicionarBubbleBot(markdownParaHTML('\u{1F4AC} Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
-        setTimeout(() => adicionarChips(['\u{1F464} Sou candidato','\u{1F3E2} Sou empresa','\u{1F50D} Ver vagas','\u{1F4DE} Contato']), 300);
+        adicionarBubbleBot(markdownParaHTML('💬 Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
+        setTimeout(() => adicionarChips(['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']), 300);
       }
     }
 
@@ -2623,17 +2533,20 @@ const CHIP_ACOES = {
           const data = await resp.json();
           const resposta = data.resposta || 'Não consegui gerar uma resposta.';
           adicionarBubbleBot(markdownParaHTML(resposta));
-          setTimeout(() => adicionarChips(['\u{1F4AC} Continuar','\u{1F4DE} Falar com humano','\u{21A9}\uFE0F Voltar ao início']), 300);
+          setTimeout(() => adicionarChips(['💬 Continuar','📞 Falar com humano','↩️ Voltar ao início']), 300);
         } catch (e) {
-          adicionarBubbleBot(markdownParaHTML(`\u274C **Erro na IA:** ${e.message}\n\nTente novamente em instantes.`));
+          adicionarBubbleBot(markdownParaHTML(`❌ **Erro na IA:** ${e.message}
+
+Tente novamente em instantes.`));
         }
       }, 1000);
     }
-    // FIM MODO IA
+    // FIM CHATBOT INTELIGENTE
 
 
-    
 
+
+    // Fechar menu ao clicar fora
     document.addEventListener('click', (e) => {
       const menu = document.getElementById('menuContent');
       const menuOverlay = document.getElementById('menuOverlay');
@@ -2646,7 +2559,9 @@ const CHIP_ACOES = {
       }
     });
 
+    // Fechar chatbot ao clicar fora
     document.getElementById('chatbotWindow').addEventListener('click', (e) => {
+      e.stopPropagation();
     });
 
     document.addEventListener('click', (e) => {
@@ -2661,7 +2576,6 @@ const CHIP_ACOES = {
 
     let scrollTimeout;
     window.addEventListener('scroll', () => {
-      // Scroll top button
       const scrollBtn = document.getElementById("scrollTopBtn");
       if (scrollBtn) scrollBtn.classList.toggle("visible", window.scrollY > 400);
 
@@ -2672,6 +2586,7 @@ const CHIP_ACOES = {
       }, 250);
     });
 
+    // FECHAMENTO DO MENU COM ARRASTO (Touch)
     let startX = 0;
     let currentX = 0;
     let isDragging = false;
@@ -2687,76 +2602,54 @@ const CHIP_ACOES = {
       if (!isDragging) return;
       currentX = e.touches[0].clientX;
       const deltaX = currentX - startX;
+
       if (deltaX < 0) {
         menuContent.style.left = `${deltaX}px`;
       }
     }, false);
 
+
     menuContent.addEventListener('touchend', () => {
       if (!isDragging) return;
       isDragging = false;
       const deltaX = currentX - startX;
+
       menuContent.style.transition = 'left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+
       if (deltaX < -50) {
         closeMenu();
       } else {
         menuContent.style.left = '0';
       }
     });
-
+    
     menuOverlay.addEventListener('click', () => {
       closeMenu();
     });
 
+  reviews.map(review => `
+  <div class="review-card">
+    <img src="${review.photo}" alt="${review.name}" class="review-photo">
+    <h3>${review.name}</h3>
+    <p>${review.rating}</p>
+    <p>${review.text}</p>
+  </div>
+`).join('')
 
-    
-const carousel = document.getElementById('carousel');
-const slides = carousel.querySelectorAll('img');
-let currentIndex = 0;
-
-// Função para atualizar a posição do carrossel
-function updateCarousel() {
-  const slideWidth = carousel.clientWidth; // pega a largura atual do container
-  carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-}
-
-// Avança para o próximo slide
-function nextSlide() {
-  currentIndex++;
-  if (currentIndex >= slides.length) currentIndex = 0;
-  updateCarousel();
-}
-
-// Volta para o slide anterior
-function prevSlide() {
-  currentIndex--;
-  if (currentIndex < 0) currentIndex = slides.length - 1;
-  updateCarousel();
-}
-
-// Recalcular ao redimensionar (importante para mobile)
-window.addEventListener('resize', updateCarousel);
-
-// Autoplay: muda automaticamente a cada 2 segundos
-setInterval(nextSlide, 2000);
-
-// Inicializa o carrossel
-updateCarousel();
+  
     function toggleTopics() {
       document.getElementById('topicsDropdown').classList.toggle('open');
-      document.getElementById('topicsOverlay').classList.toggle('open');
     }
     function closeTopics() {
       document.getElementById('topicsDropdown').classList.remove('open');
-      document.getElementById('topicsOverlay').classList.remove('open');
     }
     function toggleTopicsMobile() {
-      document.getElementById('topicsDropdownMobile').classList.toggle('open');
-      document.getElementById('topicsOverlay').classList.toggle('open');
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.toggle('open');
     }
     function closeTopicsMobile() {
-      document.getElementById('topicsDropdownMobile').classList.remove('open');
-      document.getElementById('topicsOverlay').classList.remove('open');
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.remove('open');
     }
     document.addEventListener('click', (e) => {
       const toggle = document.getElementById('topicsToggle');
@@ -2769,7 +2662,7 @@ updateCarousel();
       if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
         closeTopicsMobile();
       }
-    }, true);
+    });
 </script>
 
 </body>
