@@ -263,7 +263,23 @@ body.dark-mode {
   <div class="nav-buttons-container">
     <a href="index.html" class="back-button">Voltar</a>
     <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
-    <button class="topics-toggle" title="Topics">Topics</button>
+    <button class="topics-toggle" onclick="toggleTopics()" title="Topics">Topics</button>
+  </div>
+
+  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile();"></div>
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#video-contato" class="topics-link" onclick="closeTopics()">📌 Informações de contato</a>
+    <a href="#video-resumo" class="topics-link" onclick="closeTopics()">✍️ Resumo profissional</a>
+    <a href="#video-experiencia" class="topics-link" onclick="closeTopics()">💼 Experiência</a>
+    <a href="#video-educacao" class="topics-link" onclick="closeTopics()">🎓 Educação</a>
+    <a href="#video-habilidades" class="topics-link" onclick="closeTopics()">⚡ Habilidades</a>
+  </div>
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#video-contato" class="topics-link-mobile" onclick="closeTopicsMobile()">📌 Informações de contato</a>
+    <a href="#video-resumo" class="topics-link-mobile" onclick="closeTopicsMobile()">✍️ Resumo profissional</a>
+    <a href="#video-experiencia" class="topics-link-mobile" onclick="closeTopicsMobile()">💼 Experiência</a>
+    <a href="#video-educacao" class="topics-link-mobile" onclick="closeTopicsMobile()">🎓 Educação</a>
+    <a href="#video-habilidades" class="topics-link-mobile" onclick="closeTopicsMobile()">⚡ Habilidades</a>
   </div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
@@ -1073,6 +1089,122 @@ body.dark-mode .chatbot-messages ol {
       transform: scale(1.05);
     }
 
+    /* ═══ DROPDOWN DE TOPICS ═══ */
+    .topics-overlay { 
+      display: none; 
+      position: fixed; 
+      inset: 0; 
+      z-index: 999; 
+      background: transparent; 
+    }
+    .topics-overlay.open { 
+      display: block; 
+    }
+
+    .topics-dropdown {
+      position: fixed; 
+      top: calc(2rem + 58px); 
+      left: 2rem; 
+      z-index: 1001;
+      background: white; 
+      border-radius: 14px; 
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0; 
+      min-width: 210px; 
+      display: none; 
+      flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    body.dark-mode .topics-dropdown { 
+      background: #1a1a1a; 
+      border-color: rgba(255,255,255,0.1); 
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5); 
+    }
+    .topics-dropdown.open { 
+      display: flex; 
+    }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block; 
+      padding: 0.65rem 1.1rem; 
+      color: #1a1a1a;
+      text-decoration: none; 
+      font-size: 0.88rem; 
+      font-weight: 600; 
+      transition: all 0.18s ease;
+    }
+    body.dark-mode .topics-link { 
+      color: #f0f0f0; 
+    }
+    .topics-link:hover { 
+      background: rgba(30,64,175,0.1); 
+      color: #1e40af; 
+      padding-left: 1.4rem; 
+    }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown { 
+      display: none !important; 
+    }
+
+    .topics-dropdown-mobile { 
+      display: none; 
+    }
+
+    @media (max-width: 768px) {
+      .topics-dropdown-mobile {
+        position: fixed; 
+        top: calc(2rem + 116px); 
+        left: 2rem; 
+        z-index: 1001;
+        background: white; 
+        border-radius: 14px; 
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0; 
+        min-width: 210px; 
+        flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+      body.dark-mode .topics-dropdown-mobile { 
+        background: #1a1a1a; 
+        border-color: rgba(255,255,255,0.1); 
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5); 
+      }
+      .topics-dropdown-mobile.open { 
+        display: flex; 
+      }
+
+      .topics-link-mobile {
+        display: block; 
+        padding: 0.65rem 1.1rem; 
+        color: #1a1a1a;
+        text-decoration: none; 
+        font-size: 0.88rem; 
+        font-weight: 600; 
+        transition: all 0.18s ease;
+      }
+      body.dark-mode .topics-link-mobile { 
+        color: #f0f0f0; 
+      }
+      .topics-link-mobile:hover { 
+        background: rgba(30,64,175,0.1); 
+        color: #1e40af; 
+        padding-left: 1.4rem; 
+      }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile { 
+        display: none !important; 
+      }
+    }
+
         .message-content p { margin: 0 0 0.55rem 0; line-height: 1.55; }
 .message-content p:last-child { margin-bottom: 0; }
 .message-content strong { font-weight: 700; }
@@ -1576,9 +1708,9 @@ body.dark-mode .chip { background: #2a2a2a; }
         min-height: 220px;
       }
 
-      .header-bg-img {
+    .header-bg-img {
         position: absolute;
-        left: -1.5%;
+        left: -5.5%;
         top: 77%;
         transform: translateY(-50%);
         width: 250px;
@@ -1627,7 +1759,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       .header-content {
         position: relative;
         z-index: 1;
-        margin-top: 150px;
+        margin-top: 125px;
         text-align: center;
       }
     }
@@ -1646,7 +1778,6 @@ body.dark-mode .chip { background: #2a2a2a; }
         font-size: 0.9rem;
         min-width: auto;
         height: 50px;
-         margin-left: -0.5rem!important;  /* ← AQUI para mover Menu */ 
       }
 
       .topics-toggle {
@@ -1690,8 +1821,6 @@ body.dark-mode .chip { background: #2a2a2a; }
         font-size: 0.9rem;
         min-width: auto;
         height: 50px;
-            margin-left: -0.5rem!important;  /* ← AQUI para mover Menu */ 
-
       }
 
       .topics-toggle {
@@ -1699,8 +1828,6 @@ body.dark-mode .chip { background: #2a2a2a; }
         font-size: 0.9rem;
         min-width: auto;
         height: 50px;
-            margin-left: -0.2rem;    /* ← AQUI para mover Menu */
-
       }
 
       .theme-toggle {
@@ -1940,21 +2067,49 @@ function closeMenu() {
   }, 300);
 }
 
-    // Função para lidar com o botão Topics
-    function handleTopics() {
-      // Você pode customizar esta função para navegar, abrir modal, etc.
-      // Por enquanto, ela rola para a seção de vídeos
-      const videoSection = document.querySelector('.tv-section');
-      if (videoSection) {
-        videoSection.scrollIntoView({ behavior: 'smooth' });
-      }
+    // Funções para o dropdown de Topics
+    function toggleTopics() {
+      const dropdown = document.getElementById('topicsDropdown');
+      const overlay = document.getElementById('topicsOverlay');
+      if (dropdown) dropdown.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('open');
     }
 
-    // Adicionar event listener ao botão Topics
-    const topicsBtn = document.querySelector('.topics-toggle');
-    if (topicsBtn) {
-      topicsBtn.addEventListener('click', handleTopics);
+    function closeTopics() {
+      const dropdown = document.getElementById('topicsDropdown');
+      const overlay = document.getElementById('topicsOverlay');
+      if (dropdown) dropdown.classList.remove('open');
+      if (overlay) overlay.classList.remove('open');
     }
+
+    function toggleTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      const overlay = document.getElementById('topicsOverlay');
+      if (dropdown) dropdown.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('open');
+    }
+
+    function closeTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      const overlay = document.getElementById('topicsOverlay');
+      if (dropdown) dropdown.classList.remove('open');
+      if (overlay) overlay.classList.remove('open');
+    }
+
+    // Fechar dropdown ao clicar fora
+    document.addEventListener('click', (e) => {
+      const topicsToggle = document.querySelector('.topics-toggle');
+      const topicsToggleMobile = document.querySelector('.topics-toggle-mobile');
+      const dropdown = document.getElementById('topicsDropdown');
+      const dropdownMobile = document.getElementById('topicsDropdownMobile');
+      
+      if (topicsToggle && !topicsToggle.contains(e.target) && dropdown && !dropdown.contains(e.target)) {
+        closeTopics();
+      }
+      if (topicsToggleMobile && !topicsToggleMobile.contains(e.target) && dropdownMobile && !dropdownMobile.contains(e.target)) {
+        closeTopicsMobile();
+      }
+    });
     /* ================================================================= */
 
     document.querySelectorAll('.menu-link').forEach(link => {
