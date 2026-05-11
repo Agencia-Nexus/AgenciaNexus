@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Serviços | Agência Exittus – Soluções em Recrutamento</title>
+  <meta name="description" content="Conheça os serviços completos da Agência Exittus em recrutamento e seleção de profissionais." />
+  <meta name="keywords" content="serviços, recrutamento, seleção, consultoria RH, testes comportamentais" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Exittus" />
+  <link rel="icon" type="image/png" href="icone.png">
+  <meta property="og:title" content="Serviços | Agência Exittus" />
+  <meta property="og:description" content="Soluções completas em recrutamento e seleção de profissionais." />
+  <meta property="og:type" content="website" />
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Procura de Emprego - Desktop</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #4F7214, #647C01);
+      overflow: hidden;
+    }
+
+    /* BLOQUEADOR MOBILE */
+    #mobileBlocker {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #4F7214, #647C01);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #mobileBlocker.show {
+      display: flex;
+    }
+
+    .mobile-msg {
+      background: white;
+      padding: 50px 40px;
+      border-radius: 20px;
+      max-width: 450px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .mobile-msg h1 {
+      font-size: 3rem;
+      color: #4F7214;
+      margin-bottom: 15px;
+    }
+
+    .mobile-msg p {
+      color: #666;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+    /* CONTAINER PRINCIPAL */
+    #mainContainer {
+      width: 100%;
+      height: 108%;
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #4F7214, #647C01);
+      color: white;
+      padding: 8px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    /* INFO BAR */
+    .info-bar {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 10px;
+      background: #f5f5f5;
+      border-bottom: 2px solid #ddd;
+      flex-shrink: 0;
+    }
+
+    .info-item {
+      text-align: center;
+      flex: 1;
+    }
+
+    .info-label {
+      color: #666;
+      font-size: 0.65rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .info-value {
+      color: #4F7214;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 1px;
+    }
+
+    /* GAME CONTENT - AUMENTAR/DIMINUIR PADDING PARA AJUSTAR CANVAS */
+    #gameContent {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+      padding: 1px;     /* 👈 AJUSTE AQUI: 5px=canvas maior, 20px=canvas menor */
+      gap: 5px;         /* 👈 AJUSTE AQUI: espaço entre controles */
+    }
+
+    #gameContent.active {
+      display: flex;
+    }
+
+    /* CANVAS */
+    .canvas-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    #gameCanvas {
+      display: block;
+      background: white;
+      border: 3px solid #4F7214;
+      max-width: 100%;
+      max-height: 100%;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    /* CONTROLES */
+    .controls-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      padding: 5px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      flex-wrap: wrap;
+    }
+
+    .instructions {
+      font-size: 0.8rem;
+      color: #666;
+      white-space: nowrap;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, 48px);
+      grid-template-rows: repeat(2, 48px);
+      gap: 5px;
+    }
+
+    .btn-dir {
+      border: 2px solid #4F7214;
+      background: white;
+      color: #4F7214;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .btn-dir:hover {
+      background: #4F7214;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .btn-dir:active {
+      transform: translateY(0);
+    }
+
+    .btn-dir[data-dir="up"] { grid-column: 2; grid-row: 1; }
+    .btn-dir[data-dir="left"] { grid-column: 1; grid-row: 2; }
+    .btn-dir[data-dir="down"] { grid-column: 2; grid-row: 2; }
+    .btn-dir[data-dir="right"] { grid-column: 3; grid-row: 2; }
+
+    /* FOOTER */
+    .footer-controls {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 5px;
+      flex-shrink: 0;
+      background: #f5f5f5;
+      border-top: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .footer-btn {
+      background: linear-gradient(135deg, #4F7214, #647C01);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .footer-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(79,114,20,0.3);
+    }
+
+    /* MODAIS */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-content h2 {
+      color: #4F7214;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .modal-content p {
+      color: #666;
+      font-size: 1rem;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .modal-stats {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      text-align: left;
+      font-size: 1rem;
+    }
+
+    .modal-stats p {
+      margin: 8px 0;
+    }
+
+    .btn-modal {
+      background: linear-gradient(135deg, #4F7214, #647C01);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+      transition: all 0.3s;
+      user-select: none;
+    }
+
+    .btn-modal:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(79,114,20,0.3);
+    }
+
+    /* CHARACTER SELECTION */
+    .character-selection {
+      text-align: center;
+    }
+
+    .character-selection h2 {
+      color: #4F7214;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+
+    .character-selection p {
+      color: #666;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .character-option {
+      padding: 15px;
+      border: 3px solid #e0e0e0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: white;
+      user-select: none;
+    }
+
+    .character-option:hover {
+      border-color: #4F7214;
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(79,114,20,0.2);
+    }
+
+    .character-option.selected {
+      border-color: #4F7214;
+      background: #f0f8e8;
+      box-shadow: 0 5px 15px rgba(79,114,20,0.3);
+    }
+
+    .character-preview {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    .character-name {
+      font-weight: bold;
+      color: #4F7214;
+      font-size: 0.9rem;
+      margin-bottom: 3px;
+    }
+
+    .character-description {
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    .btn-start-game {
+      background: linear-gradient(135deg, #4F7214, #647C01);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 1.05rem;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+      user-select: none;
+      transition: all 0.3s;
+    }
+
+    .btn-start-game:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(79,114,20,0.3);
+    }
+
+    .btn-start-game:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      #mobileBlocker {
+        display: flex !important;
+      }
+      #mainContainer {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="mobileBlocker" class="show">
+  <div class="mobile-msg">
+    <h1>🖥️</h1>
+    <h1>Desktop Only</h1>
+    <p>Este jogo foi desenvolvido exclusivamente para computador.</p>
+    <p>Por favor, acesse em um dispositivo com tela maior para melhor experiência.</p>
+  </div>
+</div>
+
+<div id="mainContainer">
+  <div class="header">
+    <h1>🎮 Procura de Emprego - Agência Exittus</h1>
+  </div>
+
+  <div class="modal active" id="modalCharacterSelect">
+    <div class="modal-content">
+      <div class="character-selection">
+        <h2>🎯 Escolha seu Personagem</h2>
+        <p>Todos têm direito a uma oportunidade!</p>
+        <div class="characters-grid">
+          <div class="character-option" data-character="0" onclick="selectCharacter(0)">
+            <div class="character-preview">👨🏻</div>
+            <div class="character-name">Homem</div>
+            <div class="character-description"></div>
+          </div>
+          <div class="character-option" data-character="1" onclick="selectCharacter(1)">
+            <div class="character-preview">👨🏿</div>
+            <div class="character-name">Homem</div>
+            <div class="character-description"></div>
+          </div>
+          <div class="character-option" data-character="2" onclick="selectCharacter(2)">
+            <div class="character-preview">👩</div>
+            <div class="character-name">Mulher</div>
+            <div class="character-description"></div>
+          </div>
+          <div class="character-option" data-character="3" onclick="selectCharacter(3)">
+            <div class="character-preview">♿</div>
+            <div class="character-name">PCD</div>
+            <div class="character-description">Com deficiência</div>
+          </div>
+        </div>
+        <button class="btn-start-game" id="btnStartGame" onclick="startGame()" disabled>✨ Começar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="gameContent">
+    <div class="info-bar">
+      <div class="info-item">
+        <div class="info-label">FASE</div>
+        <div class="info-value" id="phaseDisplay">1/10</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">COMPETÊNCIAS</div>
+        <div class="info-value" id="skillsDisplay">0/4</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">CONCORRENTES</div>
+        <div class="info-value" id="enemyDisplay">0</div>
+      </div>
+    </div>
+
+    <div class="canvas-wrapper">
+      <!-- 👇 AJUSTE CANVAS: mude 700 para 600, 800, 900, etc para aumentar/diminuir -->
+      <canvas id="gameCanvas" width="700" height="700"></canvas>
+    </div>
+ 
+    <div class="footer-controls">
+      <button class="footer-btn" onclick="voltarMenu()">← Voltar</button>
+      <button class="footer-btn" onclick="location.reload()">🔄 Reiniciar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modalFaseCompleta">
+  <div class="modal-content">
+    <h2>🎉 Fase Completa!</h2>
+    <p>Parabéns! Competências coletadas!</p>
+    <div class="modal-stats">
+      <p>Competências: <strong id="skillsCompletadas">0</strong></p>
+      <p>Concorrentes evitados: <strong id="inimigosEvitados">0</strong></p>
+    </div>
+    <button class="btn-modal" onclick="proximaFase()">Próxima Fase →</button>
+  </div>
+</div>
+
+<div class="modal" id="modalGameOver">
+  <div class="modal-content">
+    <h2>💔 Game Over!</h2>
+    <p>Você foi alcançado por um concorrente.</p>
+    <div class="modal-stats">
+      <p>Fase: <strong id="faseAlcancada">1</strong></p>
+      <p>Competências: <strong id="totalCompetencias">0</strong></p>
+    </div>
+    <button class="btn-modal" onclick="location.reload()">Tentar Novamente 🔄</button>
+  </div>
+</div>
+
+<div class="modal" id="modalVitoria">
+  <div class="modal-content">
+    <h2>🏆 Parabéns!</h2>
+    <p>Você conquistou o emprego!</p>
+    <div class="modal-stats">
+      <p>Total de fases: <strong>10/10</strong></p>
+      <p>Competências: <strong id="totalSkillsColetadas">0</strong></p>
+    </div>
+    <p style="margin-top: 15px; color: #4F7214; font-weight: bold;">Agora busque seu verdadeiro emprego! 🚀</p>
+    <button class="btn-modal" onclick="location.reload()">Jogar Novamente 🔄</button>
+  </div>
+</div>
+
+<script>
+  function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  }
+
+  function checkDevice() {
+    const blocker = document.getElementById('mobileBlocker');
+    const container = document.getElementById('mainContainer');
+    if (isMobile()) {
+      blocker.classList.add('show');
+      container.style.display = 'none';
+    } else {
+      blocker.classList.remove('show');
+      container.style.display = 'flex';
+    }
+  }
+
+  checkDevice();
+  window.addEventListener('resize', checkDevice);
+
+  let selectedCharacter = null;
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+
+  const CHARACTERS = [
+    { name: 'Branco', headColor: '#F4A460', bodyColor: '#FF006E', skinTone: '#F4A460' },
+    { name: 'Negro', headColor: '#8B6F47', bodyColor: '#FF006E', skinTone: '#8B6F47' },
+    { name: 'LGBT+', headColor: '#F4A460', bodyColor: '#FF1493', skinTone: '#F4A460' },
+    { name: 'PCD', headColor: '#F4A460', bodyColor: '#4169E1', skinTone: '#F4A460', hasWheelchair: true }
+  ];
+
+  function selectCharacter(index) {
+    selectedCharacter = index;
+    document.querySelectorAll('.character-option').forEach((opt, i) => {
+      opt.classList.toggle('selected', i === index);
+    });
+    document.getElementById('btnStartGame').disabled = false;
+  }
+
+  function startGame() {
+    if (selectedCharacter === null) return;
+    document.getElementById('modalCharacterSelect').classList.remove('active');
+    document.getElementById('gameContent').classList.add('active');
+    setTimeout(resizeCanvas, 100);
+    initPhase();
+    gameLoop();
+  }
+
+  function voltarMenu() {
+    gameRunning = false;
+    document.getElementById('gameContent').classList.remove('active');
+    document.getElementById('modalCharacterSelect').classList.add('active');
+    selectedCharacter = null;
+    document.querySelectorAll('.character-option').forEach(opt => opt.classList.remove('selected'));
+    document.getElementById('btnStartGame').disabled = true;
+  }
+
+  function resizeCanvas() {
+    const wrapper = document.querySelector('.canvas-wrapper');
+    const size = Math.min(wrapper.clientWidth, wrapper.clientHeight) - 6;
+    canvas.width = size;
+    canvas.height = size;
+    TILE_SIZE = canvas.width / COLS;
+  }
+
+  window.addEventListener('resize', () => {
+    if (document.getElementById('gameContent').classList.contains('active')) {
+      resizeCanvas();
+    }
+  });
+
+  let TILE_SIZE = 60;
+  const COLS = 10;
+  const ROWS = 10;
+
+  const PHASES = [
+    { skills: 3, concorrentes: 1 },
+    { skills: 3, concorrentes: 2 },
+    { skills: 4, concorrentes: 2 },
+    { skills: 4, concorrentes: 3 },
+    { skills: 5, concorrentes: 3 },
+    { skills: 5, concorrentes: 4 },
+    { skills: 6, concorrentes: 4 },
+    { skills: 6, concorrentes: 5 },
+    { skills: 7, concorrentes: 5 },
+    { skills: 8, concorrentes: 5 }
+  ];
+
+  let currentPhase = 0;
+  let totalSkillsCollected = 0;
+  let gameRunning = true;
+
+  class Player {
+    constructor() {
+      this.x = 0;
+      this.y = 0;
+      this.width = TILE_SIZE * 0.8;
+      this.height = TILE_SIZE * 0.8;
+      this.character = CHARACTERS[selectedCharacter];
+    }
+
+    draw() {
+      const x = this.x * TILE_SIZE + TILE_SIZE / 2;
+      const y = this.y * TILE_SIZE + TILE_SIZE / 2;
+      const w = this.width / 2;
+      const h = this.height / 2;
+
+      ctx.fillStyle = this.character.headColor;
+      ctx.beginPath();
+      ctx.arc(x, y - h * 0.8, w * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#8B7355';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.fillStyle = this.character.bodyColor;
+      ctx.fillRect(x - w * 0.4, y - h * 0.4, w * 0.8, h * 0.6);
+      ctx.strokeStyle = '#CC0055';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x - w * 0.4, y - h * 0.4, w * 0.8, h * 0.6);
+
+      ctx.strokeStyle = this.character.skinTone;
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x - w * 0.4, y - h * 0.2);
+      ctx.lineTo(x - w * 0.7, y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + w * 0.4, y - h * 0.2);
+      ctx.lineTo(x + w * 0.7, y);
+      ctx.stroke();
+
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(x - w * 0.15, y + h * 0.3);
+      ctx.lineTo(x - w * 0.2, y + h * 0.65);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + w * 0.15, y + h * 0.3);
+      ctx.lineTo(x + w * 0.2, y + h * 0.65);
+      ctx.stroke();
+
+      ctx.fillStyle = 'black';
+      ctx.beginPath();
+      ctx.arc(x - w * 0.2, y - h * 0.8, 3, 0, Math.PI * 2);
+      ctx.arc(x + w * 0.2, y - h * 0.8, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(x, y - h * 0.6, w * 0.15, 0, Math.PI);
+      ctx.stroke();
+
+      if (this.character.hasWheelchair) {
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(x - w * 0.3, y + h * 0.5, w * 0.25, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x + w * 0.3, y + h * 0.5, w * 0.25, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+
+    move(dx, dy) {
+      const newX = this.x + dx;
+      const newY = this.y + dy;
+      if (newX >= 0 && newX < COLS && newY >= 0 && newY < ROWS) {
+        this.x = newX;
+        this.y = newY;
+      }
+    }
+  }
+
+  class Concorrente {
+    constructor(x, y, tipo = 0) {
+      this.x = x;
+      this.y = y;
+      this.tipo = tipo;
+      this.moveCounter = 0;
+      this.moveInterval = Math.random() * 4 + 2;
+      this.width = TILE_SIZE * 0.7;
+      this.height = TILE_SIZE * 0.7;
+    }
+
+    draw() {
+      const x = this.x * TILE_SIZE + TILE_SIZE / 2;
+      const y = this.y * TILE_SIZE + TILE_SIZE / 2;
+      const w = this.width / 2;
+      const h = this.height / 2;
+
+      const colors = [
+        { color: '#FF6B6B', head: '#FFB6C1', eye: '#FF0000' },
+        { color: '#FF8C00', head: '#FFD700', eye: '#FF8C00' },
+        { color: '#4169E1', head: '#87CEEB', eye: '#4169E1' },
+        { color: '#8B008B', head: '#DDA0DD', eye: '#8B008B' },
+        { color: '#000080', head: '#4169E1', eye: '#FFD700' }
+      ];
+      const { color, head, eye } = colors[this.tipo % 5];
+
+      ctx.fillStyle = head;
+      ctx.beginPath();
+      ctx.arc(x, y - h * 0.8, w * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x - w * 0.25, y - h * 1.1);
+      ctx.lineTo(x - w * 0.4, y - h * 1.4);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + w * 0.25, y - h * 1.1);
+      ctx.lineTo(x + w * 0.4, y - h * 1.4);
+      ctx.stroke();
+
+      ctx.fillStyle = color;
+      ctx.fillRect(x - w * 0.4, y - h * 0.4, w * 0.8, h * 0.6);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x - w * 0.4, y - h * 0.4, w * 0.8, h * 0.6);
+
+      ctx.fillStyle = eye;
+      ctx.beginPath();
+      ctx.arc(x - w * 0.2, y - h * 0.8, 4, 0, Math.PI * 2);
+      ctx.arc(x + w * 0.2, y - h * 0.8, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = 'black';
+      ctx.beginPath();
+      ctx.arc(x - w * 0.2, y - h * 0.8, 2, 0, Math.PI * 2);
+      ctx.arc(x + w * 0.2, y - h * 0.8, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    moveRandom() {
+      this.moveCounter++;
+      if (this.moveCounter > this.moveInterval) {
+        const directions = [
+          { dx: 1, dy: 0 }, { dx: -1, dy: 0 },
+          { dx: 0, dy: 1 }, { dx: 0, dy: -1 },
+          { dx: 0, dy: 0 }
+        ];
+        const dir = directions[Math.floor(Math.random() * directions.length)];
+        const newX = this.x + dir.dx;
+        const newY = this.y + dir.dy;
+        if (newX >= 0 && newX < COLS && newY >= 0 && newY < ROWS) {
+          this.x = newX;
+          this.y = newY;
+        }
+        this.moveCounter = 0;
+        this.moveInterval = Math.random() * 10 + 5;
+      }
+    }
+  }
+
+  class Skill {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.collected = false;
+      this.pulse = 0;
+    }
+
+    draw() {
+      if (this.collected) return;
+      const x = this.x * TILE_SIZE + TILE_SIZE / 2;
+      const y = this.y * TILE_SIZE + TILE_SIZE / 2;
+      this.pulse += 0.05;
+
+      const glowSize = TILE_SIZE * 0.35 + Math.sin(this.pulse) * TILE_SIZE * 0.1;
+      ctx.fillStyle = `rgba(255, 215, 0, 0.5)`;
+      ctx.beginPath();
+      ctx.arc(x, y, glowSize, 0, Math.PI * 2);
+      ctx.fill();
+
+      drawStar(x, y, 5, TILE_SIZE * 0.25, TILE_SIZE * 0.12, '#FFD700');
+    }
+  }
+
+  function drawStar(cx, cy, spikes, outerRadius, innerRadius, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    let rot = (Math.PI / 2) * 3;
+    let step = Math.PI / spikes;
+    ctx.moveTo(cx, cy - outerRadius);
+    for (let i = 0; i < spikes; i++) {
+      ctx.lineTo(cx + Math.cos(rot) * outerRadius, cy + Math.sin(rot) * outerRadius);
+      rot += step;
+      ctx.lineTo(cx + Math.cos(rot) * innerRadius, cy + Math.sin(rot) * innerRadius);
+      rot += step;
+    }
+    ctx.lineTo(cx, cy - outerRadius);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  let player = new Player();
+  let concorrentes = [];
+  let skills = [];
+  let skillsCollected = 0;
+
+  function initPhase() {
+    const phase = PHASES[currentPhase];
+    player = new Player();
+    player.x = 0;
+    player.y = 0;
+
+    concorrentes = [];
+    for (let i = 0; i < phase.concorrentes; i++) {
+      let x, y, valid;
+      do {
+        valid = true;
+        x = Math.floor(Math.random() * (COLS - 2)) + 1;
+        y = Math.floor(Math.random() * (ROWS - 2)) + 1;
+        for (let c of concorrentes) {
+          if (c.x === x && c.y === y) valid = false;
+        }
+        if (x === 0 && y === 0) valid = false;
+      } while (!valid);
+      concorrentes.push(new Concorrente(x, y, i % 5));
+    }
+
+    skills = [];
+    skillsCollected = 0;
+    for (let i = 0; i < phase.skills; i++) {
+      let x, y, valid;
+      do {
+        valid = true;
+        x = Math.floor(Math.random() * COLS);
+        y = Math.floor(Math.random() * ROWS);
+        if (x === player.x && y === player.y) valid = false;
+        for (let skill of skills) {
+          if (skill.x === x && skill.y === y) valid = false;
+        }
+        for (let c of concorrentes) {
+          if (c.x === x && c.y === y) valid = false;
+        }
+      } while (!valid);
+      skills.push(new Skill(x, y));
+    }
+
+    gameRunning = true;
+    updateUI();
+  }
+
+  function updateUI() {
+    document.getElementById('phaseDisplay').textContent = `${currentPhase + 1}/10`;
+    document.getElementById('skillsDisplay').textContent = `${skillsCollected}/${PHASES[currentPhase].skills}`;
+    document.getElementById('enemyDisplay').textContent = concorrentes.length;
+  }
+
+  function drawGame() {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = '#e0e0e0';
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= COLS; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * TILE_SIZE, 0);
+      ctx.lineTo(i * TILE_SIZE, canvas.height);
+      ctx.stroke();
+    }
+    for (let i = 0; i <= ROWS; i++) {
+      ctx.beginPath();
+      ctx.moveTo(0, i * TILE_SIZE);
+      ctx.lineTo(canvas.width, i * TILE_SIZE);
+      ctx.stroke();
+    }
+
+    const goalX = COLS - 1;
+    const goalY = ROWS - 1;
+    ctx.fillStyle = '#4F7214';
+    ctx.fillRect(goalX * TILE_SIZE + 5, goalY * TILE_SIZE + 5, TILE_SIZE - 10, TILE_SIZE - 10);
+    ctx.fillStyle = '#FFD700';
+    ctx.font = 'bold 20px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('💼', goalX * TILE_SIZE + TILE_SIZE / 2, goalY * TILE_SIZE + TILE_SIZE / 2);
+
+    skills.forEach(skill => skill.draw());
+    concorrentes.forEach(c => {
+      c.moveRandom();
+      c.draw();
+    });
+    player.draw();
+  }
+
+  function checkCollisions() {
+    for (let skill of skills) {
+      if (!skill.collected && skill.x === player.x && skill.y === player.y) {
+        skill.collected = true;
+        skillsCollected++;
+        totalSkillsCollected++;
+        updateUI();
+      }
+    }
+
+    for (let c of concorrentes) {
+      if (c.x === player.x && c.y === player.y) {
+        gameRunning = false;
+        showGameOver();
+        return;
+      }
+    }
+
+    if (player.x === COLS - 1 && player.y === ROWS - 1) {
+      if (skillsCollected === PHASES[currentPhase].skills) {
+        gameRunning = false;
+        showFaseCompleta();
+      }
+    }
+  }
+
+  function gameLoop() {
+    drawGame();
+    if (gameRunning) checkCollisions();
+    requestAnimationFrame(gameLoop);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (!gameRunning) return;
+    const key = e.key.toLowerCase();
+    if (key === 'arrowup' || key === 'w') { e.preventDefault(); player.move(0, -1); }
+    if (key === 'arrowdown' || key === 's') { e.preventDefault(); player.move(0, 1); }
+    if (key === 'arrowleft' || key === 'a') { e.preventDefault(); player.move(-1, 0); }
+    if (key === 'arrowright' || key === 'd') { e.preventDefault(); player.move(1, 0); }
+  });
+
+  document.querySelectorAll('.btn-dir').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!gameRunning) return;
+      const dir = btn.dataset.dir;
+      if (dir === 'up') player.move(0, -1);
+      if (dir === 'down') player.move(0, 1);
+      if (dir === 'left') player.move(-1, 0);
+      if (dir === 'right') player.move(1, 0);
+    });
+  });
+
+  function showFaseCompleta() {
+    document.getElementById('skillsCompletadas').textContent = skillsCollected;
+    document.getElementById('inimigosEvitados').textContent = concorrentes.length;
+    document.getElementById('modalFaseCompleta').classList.add('active');
+  }
+
+  function showGameOver() {
+    document.getElementById('faseAlcancada').textContent = currentPhase + 1;
+    document.getElementById('totalCompetencias').textContent = totalSkillsCollected;
+    document.getElementById('modalGameOver').classList.add('active');
+  }
+
+  function proximaFase() {
+    document.getElementById('modalFaseCompleta').classList.remove('active');
+    if (currentPhase < 9) {
+      currentPhase++;
+      initPhase();
+    } else {
+      document.getElementById('modalVitoria').classList.add('active');
+      document.getElementById('totalSkillsColetadas').textContent = totalSkillsCollected + skillsCollected;
+    }
+  }
+</script>
+
+</body>
+</html>
