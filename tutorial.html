@@ -260,10 +260,13 @@ body.dark-mode {
     <span id="themeIcon">🌙</span>
   </button>
 
-  <div class="nav-buttons-container">
-    <a href="index.html" class="back-button">Voltar</a>
-    <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
-    <button class="topics-toggle" onclick="toggleTopics()" title="Topics">Topics</button>
+  <div class="nav-buttons-container" id="topLeftButtons">
+    <div class="top-row">
+      <a href="index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
+    </div>
   </div>
 
   <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile();"></div>
@@ -1019,6 +1022,36 @@ body.dark-mode .chatbot-messages ol {
       flex-wrap: wrap;
     }
 
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .topics-toggle-mobile {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .topics-toggle-mobile:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
     .back-button {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
@@ -1153,11 +1186,23 @@ body.dark-mode .chatbot-messages ol {
       display: none !important; 
     }
 
-    .topics-dropdown-mobile { 
-      display: none; 
-    }
+    .topics-toggle-mobile { display: none; }
+    .topics-dropdown-mobile { display: none; }
 
     @media (max-width: 768px) {
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
+
+      body:not(.dark-mode) .topics-toggle-mobile {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(0, 0, 0, 0.4);
+        color: rgb(27, 27, 27);
+      }
+      body:not(.dark-mode) .topics-toggle-mobile:hover {
+        color: white;
+        background: rgba(30, 64, 175, 0.4);
+      }
+
       .topics-dropdown-mobile {
         position: fixed; 
         top: calc(2rem + 116px); 
