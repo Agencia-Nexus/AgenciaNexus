@@ -1412,10 +1412,6 @@ body.dark-mode .chip { background: #2a2a2a; }
       flex-direction: row;
       gap: 8px;
       align-items: center;
-      pointer-events: none;
-    }
-    .top-left-buttons * {
-      pointer-events: auto;
     }
 
     .top-row {
@@ -1519,25 +1515,6 @@ body.dark-mode .chip { background: #2a2a2a; }
     body.chat-open .topics-dropdown,
     body.menu-open .topics-dropdown { display: none !important; }
 
-
-    .topics-toggle-mobile {
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(10px);
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 1rem;
-      color: white;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      height: 50px;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      margin: 0;
-    }
     .topics-toggle-mobile { display: none; }
     .topics-dropdown-mobile { display: none; }
 
@@ -1609,6 +1586,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     <span id="themeIcon">🌙</span>
   </button>
 
+  <!-- Voltar | Menu | Topics -->
   <div class="top-left-buttons" id="topLeftButtons">
     <div class="top-row">
       <a href="index.html" class="back-button">Voltar</a>
@@ -2715,24 +2693,18 @@ updateCarousel();
       document.getElementById('topicsDropdown').classList.remove('open');
     }
     function toggleTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.toggle('open');
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
     }
     function closeTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.remove('open');
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
     }
     document.addEventListener('click', (e) => {
-      const toggle = document.getElementById('topicsToggle');
-      const dropdown = document.getElementById('topicsDropdown');
-      const toggleM = document.getElementById('topicsToggleMobile');
-      const dropdownM = document.getElementById('topicsDropdownMobile');
-      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
-        closeTopics();
-      }
-      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
-        closeTopicsMobile();
-      }
+      const t = document.getElementById('topicsToggle');
+      const d = document.getElementById('topicsDropdown');
+      const tm = document.getElementById('topicsToggleMobile');
+      const dm = document.getElementById('topicsDropdownMobile');
+      if (d && d.classList.contains('open') && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
+      if (dm && dm.classList.contains('open') && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
     });
 
 </script>
