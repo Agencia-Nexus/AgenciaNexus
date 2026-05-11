@@ -66,11 +66,6 @@
       box-sizing: border-box;
     }
 
-/* ======================================== */
-/* BOTOES DO TOPO - MODO PADRÃO (ESCURO) */
-/* ======================================== */
-
-
 .theme-toggle {
   position: fixed; top: 2rem; right: 2rem; z-index: 1000;
   background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
@@ -79,50 +74,23 @@
   height: 50px; display: flex; align-items: center; justify-content: center; min-width: 50px;
   transition: all 0.3s ease;
 }
+.theme-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
 
-.theme-toggle:hover {
-  background: rgba(255,255,255,0.3); transform: scale(1.05);
-}
+html.dark-mode body { background: #0a0a0a !important; color: #f0f0f0 !important; }
 
-
-
-.topics-toggle,
-.topics-toggle-mobile {
-  background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
-  backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
-  cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
-  height: 50px; display: inline-flex; align-items: center; justify-content: center;
-  white-space: nowrap; transition: all 0.3s ease; margin: 0;
-}
-
-.topics-toggle:hover {
-  background: rgba(255,255,255,0.3); transform: scale(1.05);
-}
-
-html.dark-mode body {
-  background: #0a0a0a !important;
-  color: #f0f0f0 !important;
-}
-
-/* ======================================== */
-/* BOTOES DO TOPO - MODO CLARO */
-/* ======================================== */
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
 body:not(.dark-mode) .theme-toggle,
 body:not(.dark-mode) .topics-toggle,
 body:not(.dark-mode) .topics-toggle-mobile {
-  background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
-  border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
-  color: rgb(27, 27, 27); /* texto vermelho escuro */
+  background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27);
 }
-
 body:not(.dark-mode) .back-button:hover,
 body:not(.dark-mode) .menu-toggle:hover,
 body:not(.dark-mode) .theme-toggle:hover,
-body:not(.dark-mode) .topics-toggle:hover {
-  color: white;
-  background: rgba(30, 64, 175, 0.4);
+body:not(.dark-mode) .topics-toggle:hover,
+body:not(.dark-mode) .topics-toggle-mobile:hover {
+  color: white; background: rgba(30,64,175,0.4);
 }
 
 /* confg bulets chatbot*/
@@ -968,20 +936,12 @@ body.dark-mode .btn-primary:hover {
         font-size: 1.8rem;
       }
 
-      .back-button {
-        margin-right: 0.3rem;
-        padding: 0.8rem 1rem;
+      .back-button, .menu-toggle, .topics-toggle-mobile {
+        padding: 0.8rem 1rem !important;
         font-size: 0.9rem;
-      }
-
-      .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 85px);
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-        min-width: auto;
         height: 50px;
+        width: fit-content !important;
+        min-width: 0 !important;
       }
 
       .theme-toggle {
