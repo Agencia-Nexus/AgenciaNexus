@@ -419,9 +419,12 @@ body.dark-mode {
       }
 
 
-           @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .top-left-buttons { left: 1rem !important; right: 1rem !important; width: calc(100vw - 2rem) !important; }
+  .top-row { width: 100% !important; }
   .topics-toggle { display: none !important; }
-  .topics-toggle-mobile { display: inline-flex !important; }
+  .topics-toggle-mobile { display: inline-flex !important; margin-left: auto !important; }
+}
 
   .menu-toggle { margin-left: -3px; }
   .topics-toggle-mobile { margin-left: 100px; }
