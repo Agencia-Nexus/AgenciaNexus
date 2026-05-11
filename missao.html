@@ -307,7 +307,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .btn-primary {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
     }
 
@@ -611,7 +611,7 @@ body.dark-mode .chatbot-messages ol {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
       border: none;
       cursor: pointer;
       display: flex;
@@ -661,7 +661,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .chatbot-header {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       padding: 1rem;
       border-radius: 15px 15px 0 0;
@@ -772,7 +772,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .message.user .message-content {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
     }
 
@@ -849,10 +849,10 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .chatbot-send-btn {
-      background: #2563eb;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       width: 40px;
       height: 40px;
       cursor: pointer;
@@ -886,9 +886,9 @@ body.dark-mode .chatbot-messages ol {
         min-height: 220px;
       }
 
-       .header-bg-img {
+    .header-bg-img {
         position: absolute;
-        left: -1.5%;
+        left: -5.5%;
         top: 77%;
         transform: translateY(-50%);
         width: 250px;
@@ -896,7 +896,6 @@ body.dark-mode .chatbot-messages ol {
         z-index: 0;
         opacity: 0.9;
       }
-
 
 
       .header-content {
@@ -939,24 +938,14 @@ body.dark-mode .chatbot-messages ol {
       .header-content {
         position: relative;
         z-index: 1;
-        margin-top: 130px;
+        margin-top: 125px;
         text-align: center;
       }
     }
 
     @media (max-width: 768px) {
-  .header-content {
-    position: relative;
-    z-index: 1;
-    margin-top: 150px; /* ← adicione isso */
-    text-align: center;
-  }
-}
-
-    @media (max-width: 768px) {
       .header h1 {
         font-size: 2rem;
-        
       }
 
       .header p {
@@ -977,7 +966,6 @@ body.dark-mode .chatbot-messages ol {
       }
     }
 
-    
     @media (max-width: 480px) {
       .header h1 {
         font-size: 1.8rem;
@@ -1076,9 +1064,9 @@ body.dark-mode .chip { background: #2a2a2a; }
       right: 1.15rem;
       width: 28px; height: 28px;
       border-radius: 50%;
-      background: #2563eb;
+      background: rgba(255,255,255,0.55);
       border: none;
-      color: #ffffff;
+      color: rgba(30,64,175,0.45);
       font-size: 0.55rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -1301,10 +1289,6 @@ body.dark-mode .chip { background: #2a2a2a; }
       flex-direction: row;
       gap: 8px;
       align-items: center;
-      pointer-events: none;
-    }
-    .top-left-buttons * {
-      pointer-events: auto;
     }
 
     .top-row {
@@ -1411,12 +1395,9 @@ body.dark-mode .chip { background: #2a2a2a; }
     .topics-toggle-mobile { display: none; }
     .topics-dropdown-mobile { display: none; }
 
-@media (max-width: 768px) {
-  .topics-toggle { display: none !important; }
-  .topics-toggle-mobile { 
-    display: inline-flex !important;
-    margin-left: 5px; /* ← adicione aqui, ajuste o valor */
-  }
+    @media (max-width: 768px) {
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
 
       body:not(.dark-mode) .topics-toggle-mobile {
         background: rgba(255, 255, 255, 0.2);
@@ -1498,8 +1479,9 @@ body.dark-mode .chip { background: #2a2a2a; }
   </div>
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
     <a href="#section-missao" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Nossa Missão</a>
-    <a href="#section-como-vivemos" class="topics-link-mobile" onclick="closeTopicsMobile()">💡 Como Vivemos Nossa Missão</a>
-    <a href="#section-promessa" class="topics-link-mobile" onclick="closeTopicsMobile()">🤝 Nossa Promessa</a>
+    <a href="#section-visao" class="topics-link-mobile" onclick="closeTopicsMobile()">🔭 Nossa Visão</a>
+    <a href="#section-valores" class="topics-link-mobile" onclick="closeTopicsMobile()">💎 Nossos Valores</a>
+    <a href="#section-historia" class="topics-link-mobile" onclick="closeTopicsMobile()">📖 Nossa História</a>
   </div>
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -1547,7 +1529,7 @@ body.dark-mode .chip { background: #2a2a2a; }
 
   <section class="content-section">
     <div class="content-container">
-      <h2 id="section-missao">Nossa Missão</h2>
+      <h2>Nossa Missão</h2>
       
       <p>
         O mundo está em constante transformação — e o recrutamento junto com ele. O processo seletivo de 2022 já era diferente do de 2023, que era diferente do de 2024, e assim seguirá. Assim como o Fordismo teve que se reinventar, o RH também. Metodologias envelhecem, novas realidades surgem, e quem não acompanha fica para trás.
@@ -1834,7 +1816,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       </script>
       <!-- FIM ANIMAÇÃO -->
 
-      <h2 id="section-como-vivemos">Como Vivemos Nossa Missão</h2>
+      <h2>Como Vivemos Nossa Missão</h2>
 
       <h3>Para Candidatos</h3>
       <ul class="highlight-list">
@@ -1861,7 +1843,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li><strong>Educação:</strong> Compartilhamos conhecimento sobre mercado de trabalho, inteligência artificial e tendências profissionais — porque uma comunidade mais sábia é uma comunidade mais forte</li>
       </ul>
 
-      <h2 id="section-promessa">Nossa Promessa</h2>
+      <h2>Nossa Promessa</h2>
 
       <div class="highlight-box">
         <strong>✅ Transparência Total:</strong> Você saberá exatamente o que esperar, quando esperar, e por quê<br><br>
@@ -2463,30 +2445,33 @@ const CHIP_ACOES = {
 
     
 const carousel = document.getElementById('carousel');
-if (carousel) {
-  const slides = carousel.querySelectorAll('img');
-  let currentIndex = 0;
+const slides = carousel.querySelectorAll('img');
+let currentIndex = 0;
 
-  function updateCarousel() {
-    const slideWidth = carousel.clientWidth;
-    carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-  }
-
-  function nextSlide() {
-    currentIndex++;
-    if (currentIndex >= slides.length) currentIndex = 0;
-    updateCarousel();
-  }
-
-  function prevSlide() {
-    currentIndex--;
-    if (currentIndex < 0) currentIndex = slides.length - 1;
-    updateCarousel();
-  }
-
-  window.addEventListener('resize', updateCarousel);
-  setInterval(nextSlide, 4000);
+// Função para atualizar a posição do carrossel
+function updateCarousel() {
+  const slideWidth = carousel.clientWidth; // pega a largura atual do container
+  carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 }
+
+// Avança para o próximo slide
+function nextSlide() {
+  currentIndex++;
+  if (currentIndex >= slides.length) currentIndex = 0;
+  updateCarousel();
+}
+
+// Volta para o slide anterior
+function prevSlide() {
+  currentIndex--;
+  if (currentIndex < 0) currentIndex = slides.length - 1;
+  updateCarousel();
+}
+
+// Recalcular ao redimensionar window.addEventListener('resize', updateCarousel);
+
+// Auto-play a cada 4 segundos
+setInterval(nextSlide, 4000);
 
   
     function toggleTopics() {
@@ -2496,42 +2481,19 @@ if (carousel) {
       document.getElementById('topicsDropdown').classList.remove('open');
     }
     function toggleTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.toggle('open');
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
     }
     function closeTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.remove('open');
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
     }
     document.addEventListener('click', (e) => {
-      const toggle = document.getElementById('topicsToggle');
-      const dropdown = document.getElementById('topicsDropdown');
-      const toggleM = document.getElementById('topicsToggleMobile');
-      const dropdownM = document.getElementById('topicsDropdownMobile');
-      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
-        closeTopics();
-      }
-      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
-        closeTopicsMobile();
-      }
+      const t = document.getElementById('topicsToggle');
+      const d = document.getElementById('topicsDropdown');
+      const tm = document.getElementById('topicsToggleMobile');
+      const dm = document.getElementById('topicsDropdownMobile');
+      if (d && d.classList.contains('open') && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
+      if (dm && dm.classList.contains('open') && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
     });
-</script>
-<script>
-// Topics close-on-outside-click - script isolado
-(function() {
-  document.addEventListener('click', function(e) {
-    var toggle = document.getElementById('topicsToggle');
-    var dropdown = document.getElementById('topicsDropdown');
-    var toggleM = document.getElementById('topicsToggleMobile');
-    var dropdownM = document.getElementById('topicsDropdownMobile');
-    if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
-      dropdown.classList.remove('open');
-    }
-    if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
-      dropdownM.classList.remove('open');
-    }
-  });
-})();
 </script>
 </body>
 </html>

@@ -237,15 +237,6 @@ body.dark-mode .chatbot-messages ol {
       margin: 0 auto;
     }
 
-    @media (max-width: 768px) {
-  .header-content {
-    position: relative;
-    z-index: 1;
-    margin-top: 150px; /* ← adicione isso */
-    text-align: center;
-  }
-}
-
     /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
    .header-bg-img {
         position: absolute;
@@ -262,7 +253,7 @@ body.dark-mode .chatbot-messages ol {
       .header { min-height: 220px; }
    .header-bg-img {
         position: absolute;
-        left: -1.5%;
+        left: -5.5%;
         top: 77%;
         transform: translateY(-50%);
         width: 250px;
@@ -270,7 +261,6 @@ body.dark-mode .chatbot-messages ol {
         z-index: 0;
         opacity: 0.9;
       }
-
 
       .header-content {
         position: relative;
@@ -281,9 +271,9 @@ body.dark-mode .chatbot-messages ol {
         text-align: center;
       }
     }
-       /* MOBILE - 768px ou menos */
     @media (max-width: 768px) {
-     .header-bg-img {
+      .header { min-height: 290px; }
+         .header-bg-img {
         position: absolute !important;
         width: 200px !important;
         height: 200px !important;
@@ -293,7 +283,6 @@ body.dark-mode .chatbot-messages ol {
         z-index: 0 !important;
         opacity: 0.9 !important;
       }
-    
     }
     @media (max-width: 480px) {
       .header { min-height: 250px; }
@@ -310,7 +299,7 @@ body.dark-mode .chatbot-messages ol {
       .header-content {
         position: relative;
         z-index: 1;
-        margin-top: 150px;
+        margin-top: 125px;
         text-align: center;
       }
     }
@@ -695,12 +684,12 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .btn-primary {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
     }
 
     body.dark-mode .btn-primary {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
     }
 
@@ -789,7 +778,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .chatbot-header {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       padding: 1rem;
       border-radius: 15px 15px 0 0;
@@ -934,7 +923,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .message.user .message-content {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
     }
 
@@ -970,10 +959,10 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .chatbot-send-btn {
-      background: #2563eb;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       width: 40px;
       height: 40px;
       cursor: pointer;
@@ -993,9 +982,9 @@ body.dark-mode .chatbot-messages ol {
       right: 1.15rem;
       width: 28px; height: 28px;
       border-radius: 50%;
-      background: #1e40af;
+      background: rgba(255,255,255,0.55);
       border: none;
-      color: #ffffff;
+      color: rgba(59,130,246,0.45);
       font-size: 0.55rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -1007,7 +996,7 @@ body.dark-mode .chatbot-messages ol {
       backdrop-filter: blur(4px);
     }
     body.dark-mode .scroll-top-btn {
-      background: #1e40af;
+      background: #2563eb;
       color: #ffffff;
     }
     .scroll-top-btn.visible {
@@ -1315,10 +1304,6 @@ body.dark-mode .chatbot-messages ol {
       flex-direction: row;
       gap: 8px;
       align-items: center;
-      pointer-events: none;
-    }
-    .top-left-buttons * {
-      pointer-events: auto;
     }
 
     .top-row {
@@ -1512,11 +1497,10 @@ body.dark-mode .chatbot-messages ol {
   </div>
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
     <a href="#section-intro" class="topics-link-mobile" onclick="closeTopicsMobile()">📖 Introdução</a>
-    <a href="#section-info" class="topics-link-mobile" onclick="closeTopicsMobile()">📋 Informações Coletadas</a>
-    <a href="#section-uso" class="topics-link-mobile" onclick="closeTopicsMobile()">🔒 Como Usamos</a>
     <a href="#section-direitos" class="topics-link-mobile" onclick="closeTopicsMobile()">⚖️ Seus Direitos (LGPD)</a>
     <a href="#section-seguranca" class="topics-link-mobile" onclick="closeTopicsMobile()">🛡️ Segurança dos Dados</a>
     <a href="#section-cookies" class="topics-link-mobile" onclick="closeTopicsMobile()">🍪 Cookies</a>
+    <a href="#section-obrigacoes" class="topics-link-mobile" onclick="closeTopicsMobile()">📜 Obrigações da Nexus</a>
   </div>
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -2474,42 +2458,19 @@ loadSavedTheme();
       document.getElementById('topicsDropdown').classList.remove('open');
     }
     function toggleTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.toggle('open');
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
     }
     function closeTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.remove('open');
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
     }
     document.addEventListener('click', (e) => {
-      const toggle = document.getElementById('topicsToggle');
-      const dropdown = document.getElementById('topicsDropdown');
-      const toggleM = document.getElementById('topicsToggleMobile');
-      const dropdownM = document.getElementById('topicsDropdownMobile');
-      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
-        closeTopics();
-      }
-      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
-        closeTopicsMobile();
-      }
+      const t = document.getElementById('topicsToggle');
+      const d = document.getElementById('topicsDropdown');
+      const tm = document.getElementById('topicsToggleMobile');
+      const dm = document.getElementById('topicsDropdownMobile');
+      if (d && d.classList.contains('open') && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
+      if (dm && dm.classList.contains('open') && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
     });
-</script>
-<script>
-// Topics close-on-outside-click - script isolado
-(function() {
-  document.addEventListener('click', function(e) {
-    var toggle = document.getElementById('topicsToggle');
-    var dropdown = document.getElementById('topicsDropdown');
-    var toggleM = document.getElementById('topicsToggleMobile');
-    var dropdownM = document.getElementById('topicsDropdownMobile');
-    if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
-      dropdown.classList.remove('open');
-    }
-    if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
-      dropdownM.classList.remove('open');
-    }
-  });
-})();
 </script>
 </body>
 </html>

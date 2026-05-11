@@ -241,15 +241,6 @@ body.dark-mode .chatbot-messages ol {
       margin: 0 auto;
     }
 
-    @media (max-width: 768px) {
-  .header-content {
-    position: relative;
-    z-index: 1;
-    margin-top: 180px; /* ← adicione isso */
-    text-align: center;
-  }
-}
-
     .header h1 {
       font-size: 3rem;
       font-weight: 800;
@@ -906,10 +897,10 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .chatbot-send-btn {
-      background: #2563eb;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       width: 40px;
       height: 40px;
       cursor: pointer;
@@ -940,7 +931,7 @@ body.dark-mode .chatbot-messages ol {
       .header { min-height: 220px; }
       .header-bg-img {
         position: absolute;
-        left: -1.5%;
+        left: -5.5%;
         top: 77%;
         transform: translateY(-50%);
         width: 250px;
@@ -986,7 +977,7 @@ body.dark-mode .chatbot-messages ol {
       .header-content {
         position: relative;
         z-index: 1;
-        margin-top: 150px;
+        margin-top: 125px;
         text-align: center;
       }
     }
@@ -1562,10 +1553,6 @@ body.dark-mode .chip { background: #2a2a2a; }
       flex-direction: row;
       gap: 8px;
       align-items: center;
-      pointer-events: none;
-    }
-    .top-left-buttons * {
-      pointer-events: auto;
     }
 
     .top-row {
@@ -1760,10 +1747,9 @@ body.dark-mode .chip { background: #2a2a2a; }
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
     <a href="#section-resultados" class="topics-link-mobile" onclick="closeTopicsMobile()">📊 Nossos Resultados</a>
     <a href="#section-especialistas" class="topics-link-mobile" onclick="closeTopicsMobile()">🏆 Especialistas em RH</a>
-    <a href="#section-contratacao" class="topics-link-mobile" onclick="closeTopicsMobile()">🤝 Tipos de Contratação</a>
-    <a href="#section-multicanal" class="topics-link-mobile" onclick="closeTopicsMobile()">📣 Multi-Canal</a>
     <a href="#section-servicos" class="topics-link-mobile" onclick="closeTopicsMobile()">⚙️ Serviços da Nexus</a>
     <a href="#section-compromissos" class="topics-link-mobile" onclick="closeTopicsMobile()">✅ Nossos Compromissos</a>
+    <a href="#ficha-vaga" class="topics-link-mobile" onclick="closeTopicsMobile()">📋 Abrir uma Vaga</a>
   </div>
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -3904,42 +3890,20 @@ const CHIP_ACOES = {
       document.getElementById('topicsDropdown').classList.remove('open');
     }
     function toggleTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.toggle('open');
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
     }
     function closeTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.remove('open');
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
     }
     document.addEventListener('click', (e) => {
-      const toggle = document.getElementById('topicsToggle');
-      const dropdown = document.getElementById('topicsDropdown');
-      const toggleM = document.getElementById('topicsToggleMobile');
-      const dropdownM = document.getElementById('topicsDropdownMobile');
-      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
-        closeTopics();
-      }
-      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
-        closeTopicsMobile();
-      }
+      const t = document.getElementById('topicsToggle');
+      const d = document.getElementById('topicsDropdown');
+      const tm = document.getElementById('topicsToggleMobile');
+      const dm = document.getElementById('topicsDropdownMobile');
+      if (d && d.classList.contains('open') && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
+      if (dm && dm.classList.contains('open') && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
     });
 </script>
-<script>
-// Topics close-on-outside-click - script isolado
-(function() {
-  document.addEventListener('click', function(e) {
-    var toggle = document.getElementById('topicsToggle');
-    var dropdown = document.getElementById('topicsDropdown');
-    var toggleM = document.getElementById('topicsToggleMobile');
-    var dropdownM = document.getElementById('topicsDropdownMobile');
-    if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
-      dropdown.classList.remove('open');
-    }
-    if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
-      dropdownM.classList.remove('open');
-    }
-  });
-})();
-</script>
+
 </body>
 </html>
