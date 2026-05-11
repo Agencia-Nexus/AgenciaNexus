@@ -413,18 +413,23 @@ body.dark-mode {
     
 
     @media (max-width: 768px) {
+      .top-left-buttons {
+        left: 1rem !important;
+        right: 1rem !important;
+        top: 1rem !important;
+        width: calc(100vw - 2rem) !important;
+      }
+      .top-row {
+        width: 100% !important;
+        flex-wrap: nowrap !important;
+      }
       .topics-toggle { display: none !important; }
       .topics-toggle-mobile {
         display: inline-flex !important;
+        position: static !important;
+        margin-left: 0 !important;
       }
-
-
-@media (max-width: 768px) {
-  .top-left-buttons { left: 1rem !important; right: 1rem !important; width: calc(100vw - 2rem) !important; }
-  .top-row { width: 100% !important; }
-  .topics-toggle { display: none !important; }
-  .topics-toggle-mobile { display: inline-flex !important; margin-left: auto !important; }
-}
+    }
 
 
       body:not(.dark-mode) .topics-toggle-mobile {
@@ -440,7 +445,7 @@ body.dark-mode {
 
       .topics-dropdown-mobile {
         position: fixed;
-        top: calc(2rem + 116px);
+        top: calc(1rem + 58px);
         left: 2rem;
         z-index: 1001;
         background: white;
@@ -504,7 +509,7 @@ body.dark-mode {
       <a href="index.html" class="back-button">Voltar</a>
       <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
       <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
-<button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="position:fixed;top:2rem;right:5rem;">Topics</button>    </div>
+<button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>    </div>
   </div>
   <div class="topics-dropdown" id="topicsDropdown">
     <a href="#video-contato" class="topics-link" onclick="closeTopics()">📞 Informações de Contato</a>
