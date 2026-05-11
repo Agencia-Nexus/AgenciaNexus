@@ -1103,7 +1103,7 @@ body.dark-mode .chatbot-messages ol {
 
     .topics-dropdown {
       position: fixed; 
-      top: calc(2rem + 150px); 
+      top: calc(2rem + 58px); 
       left: 2rem; 
       z-index: 1001;
       background: white; 
@@ -1235,6 +1235,17 @@ body.dark-mode .chip { background: #2a2a2a; }
       z-index: 97;
     }
 
+@media (max-width: 768px) {
+  .topics-dropdown-mobile {
+    top: calc(2rem + 150px) !important;
+  }
+}
+
+@media (max-width: 468px) {
+  .topics-dropdown-mobile {
+    top: calc(2rem + 150px) !important;
+  }
+}
 
 
     body.dark-mode .menu-content {
