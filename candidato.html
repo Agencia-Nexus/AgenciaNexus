@@ -69,32 +69,10 @@ html.dark-mode body {
   background: #0a0a0a !important;
   color: #f0f0f0 !important;
 }
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-   padding-top: 3rem;
-
-  }
-
-  .header-content img:not(.header-bg-img) {
-    width: 120px;
-    height: 120px;
-  }
-}
-
     
 /* ==============vagsa================== */
 
-  @media (max-width: 768px) {
-      .header {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-      }
-    }
-    /* ======================================== */
+/* ======================================== */
 
 
 
@@ -238,20 +216,6 @@ body.dark-mode .chatbot-messages ol {
       color: white;
       position: relative;
       overflow: hidden;
-    }
-
-    @media (max-width: 768px) {
-      .header {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .header {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-      }
     }
 
     .header::before {
@@ -1540,26 +1504,43 @@ body.dark-mode .quick-btn {
       transform: scale(1.05);
     }
 
-    /* ========== MUDANÇA 1: IMAGEM FUNDO.PNG SEM EMPURRAR TEXTO ========== */
-    /* Ajustar o header com altura controlada */
-    .header {
-      position: relative;
-      min-height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ESTILO BASE - garante que a imagem sempre aparece */
+    /* ESTILO BASE */
     .header-bg-img {
       position: absolute;
-      left: -7.9%;
-      top: 90%;
+      left: -5.5%;
+      top: 77%;
       transform: translateY(-50%);
-      width: 350px;
-      height: 350px;
+      width: 250px;
+      height: 250px;
       z-index: 0;
       opacity: 0.9;
+    }
+
+    /* DESKTOP - 1024px ou mais */
+    @media (min-width: 1024px) {
+      .header {
+        min-height: 220px;
+      }
+
+    .header-bg-img {
+      position: absolute;
+      left: -1.5%;
+      top: 77%;
+      transform: translateY(-50%);
+      width: 250px;
+      height: 250px;
+      z-index: 0;
+      opacity: 0.9;
+    }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+      }
     }
 
     /* MOBILE - 768px ou menos */
@@ -1578,6 +1559,24 @@ body.dark-mode .quick-btn {
         z-index: 0 !important;
         opacity: 0.9 !important;
       }
+    }
+
+    /* MOBILE PEQUENO - 480px ou menos */
+    @media (max-width: 480px) {
+      .header {
+        min-height: 250px;
+      }
+
+      .header-bg-img {
+        position: absolute;
+        left: 50%;
+        top: -100%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: auto;
+        z-index: 0;
+        opacity: 0.9;
+      }
 
       .header-content {
         position: relative;
@@ -1586,59 +1585,6 @@ body.dark-mode .quick-btn {
         text-align: center;
       }
     }
-
-    /* DESKTOP - 1024px ou mais */
-    @media (min-width: 1024px) {
-      .header {
-        min-height: 220px;
-      }
-
-      .header-bg-img {
-        position: absolute;
-        left: -1.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
-      }
-
-      .header-content {
-        position: relative;
-        z-index: 1;
-        max-width: 1200px;
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-      }
-    }
-    /* ========== FIM MUDANÇA 1 ========== */
-
-    /* ========== MUDANÇA 2: HEADER-CONTENT LAYOUT ========== */
-    /* Desktop: lado a lado */
-    @media (min-width: 1024px) {
-      .header-content > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-        flex-wrap: nowrap;
-      }
-    }
-
-    /* Mobile: coluna centralizada */
-    @media (max-width: 768px) {
-      .header-content > div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        text-align: center;
-      }
-    }
-    /* ========== FIM MUDANÇA 2 ========== */
 
     /* Responsivo */
     @media (max-width: 768px) {
