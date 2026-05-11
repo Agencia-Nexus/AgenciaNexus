@@ -1435,6 +1435,24 @@ body.dark-mode .chip { background: #2a2a2a; }
     body.chat-open .topics-dropdown,
     body.menu-open .topics-dropdown { display: none !important; }
 
+    .topics-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 999;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .topics-overlay.open {
+      display: block;
+      opacity: 1;
+    }
+
 
     .topics-toggle-mobile {
       background: rgba(255, 255, 255, 0.2);
@@ -1535,15 +1553,19 @@ body.dark-mode .chip { background: #2a2a2a; }
     </div>
   </div>
   <div class="topics-dropdown" id="topicsDropdown">
-    <a href="#cultura" class="topics-link" onclick="closeTopics()">🌱 Nossa Cultura</a>
-    <a href="#valores-principais" class="topics-link" onclick="closeTopics()">⭐ Valores Principais</a>
-    <a href="#principios" class="topics-link" onclick="closeTopics()">🎯 Nossos Princípios</a>
+    <a href="#conexao" class="topics-link" onclick="closeTopics()">🔗 Conexão que Transforma</a>
+    <a href="#como-surgiu" class="topics-link" onclick="closeTopics()">📖 Como a Nexus Surgiu</a>
+    <a href="#nossa-equipe" class="topics-link" onclick="closeTopics()">👥 Nossa Equipe</a>
+    <a href="#diferencial" class="topics-link" onclick="closeTopics()">⭐ O que nos Diferencia</a>
   </div>
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
-    <a href="#cultura" class="topics-link-mobile" onclick="closeTopicsMobile()">🌱 Nossa Cultura</a>
-    <a href="#valores-principais" class="topics-link-mobile" onclick="closeTopicsMobile()">⭐ Valores Principais</a>
-    <a href="#principios" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Nossos Princípios</a>
+    <a href="#conexao" class="topics-link-mobile" onclick="closeTopicsMobile()">🔗 Conexão que Transforma</a>
+    <a href="#como-surgiu" class="topics-link-mobile" onclick="closeTopicsMobile()">📖 Como a Nexus Surgiu</a>
+    <a href="#nossa-equipe" class="topics-link-mobile" onclick="closeTopicsMobile()">👥 Nossa Equipe</a>
+    <a href="#diferencial" class="topics-link-mobile" onclick="closeTopicsMobile()">⭐ O que nos Diferencia</a>
   </div>
+
+  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile()"></div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -2638,18 +2660,26 @@ Tente novamente em instantes.`));
 
   
     function toggleTopics() {
-      document.getElementById('topicsDropdown').classList.toggle('open');
+      const dropdown = document.getElementById('topicsDropdown');
+      const overlay = document.getElementById('topicsOverlay');
+      dropdown.classList.toggle('open');
+      overlay.classList.toggle('open');
     }
     function closeTopics() {
       document.getElementById('topicsDropdown').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
     }
     function toggleTopicsMobile() {
       const dropdown = document.getElementById('topicsDropdownMobile');
+      const overlay = document.getElementById('topicsOverlay');
       dropdown.classList.toggle('open');
+      overlay.classList.toggle('open');
     }
     function closeTopicsMobile() {
       const dropdown = document.getElementById('topicsDropdownMobile');
+      const overlay = document.getElementById('topicsOverlay');
       dropdown.classList.remove('open');
+      overlay.classList.remove('open');
     }
     document.addEventListener('click', (e) => {
       const toggle = document.getElementById('topicsToggle');
