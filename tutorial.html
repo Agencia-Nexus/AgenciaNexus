@@ -1235,11 +1235,18 @@ body.dark-mode .chip { background: #2a2a2a; }
       z-index: 97;
     }
 
-    @media (max-width: 768px) {
+@media (max-width: 768px) {
   .menu-content {
-    padding-top: 5rem;
+    padding-top: 5rem !important;
   }
 }
+
+@media (max-width: 468px) {
+  .menu-content {
+    padding-top: 5rem !important;
+  }
+}
+
 
     body.dark-mode .menu-content {
       background: var(--bg-dark);
