@@ -1502,6 +1502,13 @@ body.dark-mode .chip { background: #2a2a2a; }
       box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     }
 
+    .topics-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 999;
+    }
+    .topics-overlay.open { display: block; }
     .topics-dropdown.open { display: flex; }
 
     @keyframes topicsDropIn {
@@ -1632,16 +1639,33 @@ body.dark-mode .chip { background: #2a2a2a; }
       <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
     </div>
   </div>
+  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics();closeTopicsMobile();"></div>
   <div class="topics-dropdown" id="topicsDropdown">
-    <a href="#sobre-nexus" class="topics-link" onclick="closeTopics()">🏢 Sobre a Nexus</a>
-    <a href="#como-surgiu" class="topics-link" onclick="closeTopics()">🌱 Como Surgiu</a>
-    <a href="#nossa-equipe" class="topics-link" onclick="closeTopics()">🤝 Nossa Equipe</a>
+    <a href="#conexao" class="topics-link" onclick="closeTopics()">🔗 Nexus — A Conexão que Transforma</a>
+    <a href="#atuacao" class="topics-link" onclick="closeTopics()">🗺️ Nossa Atuação no Brasil</a>
+    <a href="#como-surgiu" class="topics-link" onclick="closeTopics()">🌱 Como a Nexus Surgiu</a>
+    <a href="#nome-nexus" class="topics-link" onclick="closeTopics()">❓ Por Que o Nome Nexus?</a>
+    <a href="#impacto" class="topics-link" onclick="closeTopics()">📊 Nosso Impacto em Números</a>
+    <a href="#tecnologia" class="topics-link" onclick="closeTopics()">⚙️ Nossa Estrutura Tecnológica</a>
+    <a href="#contato" class="topics-link" onclick="closeTopics()">📞 Fale com a Nexus</a>
+    <a href="#equipe" class="topics-link" onclick="closeTopics()">🤝 Nossa Equipe</a>
+    <a href="#diferencial" class="topics-link" onclick="closeTopics()">⭐ O que nos Diferencia</a>
+    <a href="#compromisso" class="topics-link" onclick="closeTopics()">🤲 Nosso Compromisso com Cada Parte</a>
+    <a href="#conformidade" class="topics-link" onclick="closeTopics()">📋 Conformidade e Responsabilidade</a>
     <a href="#onde-chegar" class="topics-link" onclick="closeTopics()">🎯 Onde Queremos Chegar</a>
   </div>
   <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
-    <a href="#sobre-nexus" class="topics-link-mobile" onclick="closeTopicsMobile()">🏢 Sobre a Nexus</a>
-    <a href="#como-surgiu" class="topics-link-mobile" onclick="closeTopicsMobile()">🌱 Como Surgiu</a>
-    <a href="#nossa-equipe" class="topics-link-mobile" onclick="closeTopicsMobile()">🤝 Nossa Equipe</a>
+    <a href="#conexao" class="topics-link-mobile" onclick="closeTopicsMobile()">🔗 Nexus — A Conexão que Transforma</a>
+    <a href="#atuacao" class="topics-link-mobile" onclick="closeTopicsMobile()">🗺️ Nossa Atuação no Brasil</a>
+    <a href="#como-surgiu" class="topics-link-mobile" onclick="closeTopicsMobile()">🌱 Como a Nexus Surgiu</a>
+    <a href="#nome-nexus" class="topics-link-mobile" onclick="closeTopicsMobile()">❓ Por Que o Nome Nexus?</a>
+    <a href="#impacto" class="topics-link-mobile" onclick="closeTopicsMobile()">📊 Nosso Impacto em Números</a>
+    <a href="#tecnologia" class="topics-link-mobile" onclick="closeTopicsMobile()">⚙️ Nossa Estrutura Tecnológica</a>
+    <a href="#contato" class="topics-link-mobile" onclick="closeTopicsMobile()">📞 Fale com a Nexus</a>
+    <a href="#equipe" class="topics-link-mobile" onclick="closeTopicsMobile()">🤝 Nossa Equipe</a>
+    <a href="#diferencial" class="topics-link-mobile" onclick="closeTopicsMobile()">⭐ O que nos Diferencia</a>
+    <a href="#compromisso" class="topics-link-mobile" onclick="closeTopicsMobile()">🤲 Nosso Compromisso com Cada Parte</a>
+    <a href="#conformidade" class="topics-link-mobile" onclick="closeTopicsMobile()">📋 Conformidade e Responsabilidade</a>
     <a href="#onde-chegar" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Onde Queremos Chegar</a>
   </div>
 
@@ -1692,7 +1716,7 @@ body.dark-mode .chip { background: #2a2a2a; }
   <section class="content-section" id="sobre-nexus">
     <div class="content-container">
       
-      <h2>Nexus — A Conexão que Transforma</h2>
+      <h2 id="conexao">Nexus — A Conexão que Transforma</h2>
       <p>
         Nexus vem do latim e significa conexão — e é exatamente isso que nos define. Somos uma central de soluções que une pessoas e empresas, integra tecnologia e estratégia, e constrói pontes reais para resultados concretos. Somos uma rede inteligente que nasceu da vivência humana, da escuta ativa da comunidade e da convicção de que o mercado de trabalho pode — e deve — ser mais transparente, mais justo e mais humano.
       </p>
@@ -1702,7 +1726,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       </div>
 
 
-<h2>Nossa Atuação no Brasil</h2>
+<h2 id="atuacao">Nossa Atuação no Brasil</h2>
 <p>Nascemos no Rio Grande do Sul, mas nosso alcance vai além das fronteiras regionais. Atendemos empresas e profissionais em todo o país. Explore o mapa abaixo:</p>
 
 <!-- ===== GLOBO INTERATIVO – INÍCIO ===== -->
@@ -1951,12 +1975,12 @@ body.dark-mode .chip { background: #2a2a2a; }
         Atuando posteriormente na agência Êxitos em Guaíba, acumulamos experiência prática no mercado de recrutamento e seleção. Com o tempo, a convicção cresceu: era hora de dar um passo a mais e fundar algo próprio — algo que traduzisse tudo aquilo em que acreditávamos. E assim, em 2025, nasceu oficialmente a <strong>Agência Nexus</strong>.
       </p>
 
-      <h2>Por Que o Nome Nexus?</h2>
+      <h2 id="nome-nexus">Por Que o Nome Nexus?</h2>
       <p>
         Nexus, do latim, significa conexão. E esse nome carrega tudo que somos: a conexão entre pessoas e empresas, a integração com a tecnologia e a estratégia, uma central de soluções, uma rede inteligente — a ponte para o resultado. O nome não é apenas uma marca; é uma declaração de propósito. Ele engloba a tecnologia e a humanização, o processo e a pessoa, o resultado e o caminho.
       </p>
 
-      <h2>Nosso Impacto em Números</h2>
+      <h2 id="impacto">Nosso Impacto em Números</h2>
       <p>
         A trajetória que construímos antes da Nexus já fala por si:
       </p>
@@ -1990,12 +2014,12 @@ body.dark-mode .chip { background: #2a2a2a; }
         </div>
       </div>
 
-      <h2>Nossa Estrutura Tecnológica</h2>
+      <h2 id="tecnologia">Nossa Estrutura Tecnológica</h2>
       <p>
         A Nexus pega o melhor daquilo que construímos ao longo dos anos e amplifica isso a um nível mais alto. Temos sistemas próprios desenvolvidos em Python, JavaScript e inteligência artificial — incluindo um painel administrativo completo com ATC, área de departamento pessoal, painel financeiro, cartas de recomendação, termos de compromisso de estágio, ficha de abertura de vaga, cartas para abertura de conta bancária e criação de imagens totalmente personalizadas. Banco de dados integrado, estados de candidatura e automações que tornam o processo mais ágil, preciso e humano.
       </p>
 
-      <h2>Fale com a Nexus</h2>
+      <h2 id="contato">Fale com a Nexus</h2>
       <p>
         Estamos prontos para conectar sua empresa aos melhores talentos — ou para ajudar você a encontrar sua próxima oportunidade. Entre em contato diretamente pelo nosso WhatsApp:
       </p>
@@ -2031,7 +2055,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li><strong>Especialistas em Tecnologia:</strong> Profundos conhecimentos em ferramentas e plataformas</li>
       </ul>
 
-      <h2>O que nos Diferencia</h2>
+      <h2 id="diferencial">O que nos Diferencia</h2>
       <p>
         A Nexus não é mais uma agência de RH. O que nos distingue é a origem genuína:
       </p>
@@ -2044,7 +2068,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li><strong>Rede Consolidada:</strong> Mais de 22 mil pessoas e 2,7 milhões de alcance trimestral já conectados</li>
       </ul>
 
-      <h2>Nosso Compromisso com Cada Parte</h2>
+      <h2 id="compromisso">Nosso Compromisso com Cada Parte</h2>
       <p>
         A Nexus se compromete com todos que fazem parte dessa rede:
       </p>
@@ -2073,7 +2097,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li>Respeito aos direitos humanos e diversidade</li>
       </ul>
 
-      <h2>Conformidade e Responsabilidade</h2>
+      <h2 id="conformidade">Conformidade e Responsabilidade</h2>
       <p>
         A Agência Nexus opera com rigor legal e responsabilidade social:
       </p>
@@ -2626,7 +2650,6 @@ const CHIP_ACOES = {
     });
 
     document.getElementById('chatbotWindow').addEventListener('click', (e) => {
-      e.stopPropagation();
     });
 
     document.addEventListener('click', (e) => {
@@ -2724,17 +2747,19 @@ setInterval(nextSlide, 2000);
 updateCarousel();
     function toggleTopics() {
       document.getElementById('topicsDropdown').classList.toggle('open');
+      document.getElementById('topicsOverlay').classList.toggle('open');
     }
     function closeTopics() {
       document.getElementById('topicsDropdown').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
     }
     function toggleTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.toggle('open');
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
+      document.getElementById('topicsOverlay').classList.toggle('open');
     }
     function closeTopicsMobile() {
-      const dropdown = document.getElementById('topicsDropdownMobile');
-      dropdown.classList.remove('open');
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
     }
     document.addEventListener('click', (e) => {
       const toggle = document.getElementById('topicsToggle');
@@ -2747,7 +2772,7 @@ updateCarousel();
       if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
         closeTopicsMobile();
       }
-    });
+    }, true);
 </script>
 
 </body>
