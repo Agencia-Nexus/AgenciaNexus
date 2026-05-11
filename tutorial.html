@@ -2091,8 +2091,13 @@ function closeMenu() {
     // Funções para o dropdown de Topics
     function toggleTopics() {
       const dropdown = document.getElementById('topicsDropdown');
+      const dropdownMobile = document.getElementById('topicsDropdownMobile');
       const overlay = document.getElementById('topicsOverlay');
-      if (dropdown) dropdown.classList.toggle('open');
+      if (window.innerWidth <= 768) {
+        if (dropdownMobile) dropdownMobile.classList.toggle('open');
+      } else {
+        if (dropdown) dropdown.classList.toggle('open');
+      }
       if (overlay) overlay.classList.toggle('open');
     }
 
