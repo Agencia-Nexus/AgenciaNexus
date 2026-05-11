@@ -1366,6 +1366,15 @@ body.dark-mode .chip { background: #2a2a2a; }
 
     .topics-dropdown.open { display: flex; }
 
+    .topics-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: transparent;
+    }
+    .topics-overlay.open { display: block; }
+
     @keyframes topicsDropIn {
       from { opacity: 0; transform: translateY(-10px) scale(0.97); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -1471,6 +1480,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
     </div>
   </div>
+  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile();"></div>
   <div class="topics-dropdown" id="topicsDropdown">
     <a href="#nossa-missao" class="topics-link" onclick="closeTopics()">🎯 Nossa Missão</a>
     <a href="#como-vivemos" class="topics-link" onclick="closeTopics()">🌱 Como Vivemos Nossa Missão</a>
@@ -2473,25 +2483,25 @@ setInterval(nextSlide, 4000);
 
   
     function toggleTopics() {
-      document.getElementById('topicsDropdown').classList.toggle('open');
+      const d = document.getElementById('topicsDropdown');
+      const o = document.getElementById('topicsOverlay');
+      d.classList.toggle('open');
+      o.classList.toggle('open');
     }
     function closeTopics() {
       document.getElementById('topicsDropdown').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
     }
     function toggleTopicsMobile() {
-      document.getElementById('topicsDropdownMobile').classList.toggle('open');
+      const dm = document.getElementById('topicsDropdownMobile');
+      const o = document.getElementById('topicsOverlay');
+      dm.classList.toggle('open');
+      o.classList.toggle('open');
     }
     function closeTopicsMobile() {
       document.getElementById('topicsDropdownMobile').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
     }
-    document.addEventListener('click', (e) => {
-      const t = document.getElementById('topicsToggle');
-      const d = document.getElementById('topicsDropdown');
-      const tm = document.getElementById('topicsToggleMobile');
-      const dm = document.getElementById('topicsDropdownMobile');
-      if (d && d.classList.contains('open') && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
-      if (dm && dm.classList.contains('open') && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
-    });
 </script>
 </body>
 </html>
