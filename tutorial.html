@@ -418,16 +418,25 @@ body.dark-mode {
         right: 1rem !important;
         top: 1rem !important;
         width: calc(100vw - 2rem) !important;
+        justify-content: space-between !important;
       }
       .top-row {
-        width: 100% !important;
+        width: auto !important;
         flex-wrap: nowrap !important;
+        flex: 1 !important;
       }
       .topics-toggle { display: none !important; }
       .topics-toggle-mobile {
         display: inline-flex !important;
         position: static !important;
         margin-left: 0 !important;
+      }
+      .theme-toggle {
+        position: static !important;
+        top: auto !important;
+        right: auto !important;
+        flex-shrink: 0 !important;
+        margin-left: 8px !important;
       }
     }
 
@@ -499,17 +508,17 @@ body.dark-mode {
     }
   </style>
 
-  <button class="theme-toggle" onclick="toggleTheme()">
-    <span id="themeIcon">🌙</span>
-  </button>
-
-  <!-- Voltar | Menu | Topics -->
+  <!-- Voltar | Menu | Topics | Theme -->
   <div class="top-left-buttons" id="topLeftButtons">
     <div class="top-row">
       <a href="index.html" class="back-button">Voltar</a>
       <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
       <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
-<button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>    </div>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span>
+    </button>
   </div>
   <div class="topics-dropdown" id="topicsDropdown">
     <a href="#video-contato" class="topics-link" onclick="closeTopics()">📞 Informações de Contato</a>
