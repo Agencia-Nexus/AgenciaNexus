@@ -1316,31 +1316,30 @@ body.dark-mode .benefits-calc-header {
       position: fixed;
       bottom: calc(2rem + 60px + 1.4rem);
       right: 1.15rem;
-      width: 28px; height: 28px;
+      width: 36px; height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      background: #1d4ed8;
       border: none;
-      color: white;
-      font-size: 0.55rem;
+      color: #ffffff;
+      font-size: 0.85rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: none;
+      box-shadow: 0 2px 8px rgba(29,78,216,0.45);
       z-index: 99;
       opacity: 0; pointer-events: none;
       transform: translateY(6px);
-      transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, background 0.3s ease;
-      backdrop-filter: blur(4px);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
     }
     body.dark-mode .scroll-top-btn {
-      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      background: #2563eb;
       color: #ffffff;
     }
     .scroll-top-btn.visible {
       opacity: 1; pointer-events: auto; transform: translateY(0);
     }
     .scroll-top-btn:hover {
-      background: rgba(30,64,175,0.15);
-      color: var(--primary);
+      background: #1e40af;
+      color: #ffffff;
       transform: translateY(-2px);
     }
     .chatbot-button.active { animation: none; }
