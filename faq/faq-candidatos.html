@@ -243,9 +243,82 @@
       --ft-copy: rgba(255,255,255,0.3); --ft-copy-strong: rgba(255,255,255,0.5);
       --ft-badge: rgba(255,255,255,0.25); --ft-accent: #38bdf8; --ft-title: #38bdf8;
     }
+    
+    @media (max-width: 860px) {  }
+    @media (max-width: 560px) {  }
+    
+    
+    .footer-brand-name span { color: var(--ft-accent); }
+    
+    
+    
+    .footer-social-link:hover { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.35); color: var(--ft-accent); transform: translateY(-2px); }
+    .footer-social-link svg { width: 18px; height: 18px; fill: currentColor; }
+    
+    
+    .footer-col-links a { text-decoration: none; font-size: 0.85rem; color: var(--ft-link-color); transition: color 0.2s ease; }
+    .footer-col-links a:hover { color: var(--ft-accent); }
+    
+    .footer-contact-item:hover { color: var(--ft-accent); }
+    .footer-contact-item svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+    
+    
+    .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
+    
+    .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.2); } }
+
+    
+    }
+    
+    }
+  
+    /* ===== FOOTER ===== */
+    footer {
+      --ft-bg:            #ffffff;
+      --ft-border:        rgba(0,0,0,0.08);
+      --ft-text:          #1a1a1a;
+      --ft-muted:         rgba(0,0,0,0.45);
+      --ft-social-bg:     rgba(0,0,0,0.04);
+      --ft-social-border: rgba(0,0,0,0.08);
+      --ft-link-color:    rgba(0,0,0,0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.03);
+      --ft-bottom-border: rgba(0,0,0,0.08);
+      --ft-copy:          rgba(0,0,0,0.4);
+      --ft-copy-strong:   rgba(0,0,0,0.6);
+      --ft-badge:         rgba(0,0,0,0.3);
+      --ft-accent:        #3b82f6;
+      --ft-title:         #3b82f6;
+      background: var(--ft-bg);
+      color: var(--ft-text);
+      padding: 0;
+      border-top: 1px solid var(--ft-border);
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+    body.dark-mode footer {
+      --ft-bg:            #0d0d0d;
+      --ft-border:        rgba(59,130,246,0.15);
+      --ft-text:          #e0e0e0;
+      --ft-muted:         rgba(255,255,255,0.45);
+      --ft-social-bg:     rgba(255,255,255,0.06);
+      --ft-social-border: rgba(255,255,255,0.09);
+      --ft-link-color:    rgba(255,255,255,0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.25);
+      --ft-bottom-border: rgba(255,255,255,0.07);
+      --ft-copy:          rgba(255,255,255,0.3);
+      --ft-copy-strong:   rgba(255,255,255,0.5);
+      --ft-badge:         rgba(255,255,255,0.25);
+      --ft-accent:        #60a5fa;
+      --ft-title:         #60a5fa;
+    }
     .footer-top {
-      max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 2rem;
-      display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 2.5rem; align-items: start;
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 2.5rem; align-items: start;
     }
     @media (max-width: 860px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; } }
     @media (max-width: 560px) { .footer-top { grid-template-columns: 1fr; gap: 1.6rem; padding: 2rem 1.2rem 1.5rem; } }
@@ -262,109 +335,53 @@
     }
     .footer-social-link:hover { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.35); color: var(--ft-accent); transform: translateY(-2px); }
     .footer-social-link svg { width: 18px; height: 18px; fill: currentColor; }
-    .footer-col-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ft-title); margin-bottom: 1rem; }
+    .footer-col-title { font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ft-title); margin-bottom: 1rem; }
     .footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
-    .footer-col-links a { text-decoration: none; font-size: 0.85rem; color: var(--ft-link-color); transition: color 0.2s ease; }
+    .footer-col-links a { text-decoration: none; color: var(--ft-link-color); font-size: 0.83rem; transition: color 0.18s; }
     .footer-col-links a:hover { color: var(--ft-accent); }
-    .footer-contact-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--ft-link-color); text-decoration: none; margin-bottom: 0.7rem; transition: color 0.2s ease; }
+    .footer-contact-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--ft-link-color); margin-bottom: 0.55rem; text-decoration: none; transition: color 0.18s; }
     .footer-contact-item:hover { color: var(--ft-accent); }
-    .footer-contact-item svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
-    .footer-bottom { background: var(--ft-bottom-bg); border-top: 1px solid var(--ft-bottom-border); padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .footer-contact-item svg { width: 15px; height: 15px; fill: var(--ft-accent); flex-shrink: 0; }
+    .footer-bottom {
+      border-top: 1px solid var(--ft-bottom-border); background: var(--ft-bottom-bg, transparent);
+      padding: 1.1rem 2rem; max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    @media (max-width: 560px) { .footer-bottom { flex-direction: column; text-align: center; padding: 1rem 1.2rem; } }
     .footer-copy { font-size: 0.75rem; color: var(--ft-copy); }
     .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
     .footer-badge { font-size: 0.68rem; color: var(--ft-badge); display: flex; align-items: center; gap: 0.35rem; }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+    /* ===== /FOOTER ===== */
 
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.2); } }
-
-    @media (max-width: 768px) {
-      .header h1 { font-size: 2rem; }
-      .faq-section { padding: 0 1.2rem; }
-    }
-    @media (max-width: 480px) {
-      .header h1 { font-size: 1.8rem; }
-      .back-button, .menu-toggle { padding: 0.8rem 1rem; font-size: 0.9rem; }
-    }
-  
     /* ===== MOBILE FIX ===== */
     @media (max-width: 768px) {
       .theme-toggle {
-        top: 1rem; right: 1rem;
-        padding: 0.6rem 1rem;
-        height: 42px; min-width: 42px;
-        font-size: 0.9rem;
+        top: 0.8rem; right: 0.8rem;
+        padding: 0.55rem 0.9rem;
+        height: 40px; min-width: 40px; font-size: 0.85rem;
       }
-
-      .top-left-buttons {
-        top: 1rem; left: 1rem;
-      }
-
+      .top-left-buttons { top: 0.8rem; left: 0.8rem; }
       .back-button, .menu-toggle {
-        padding: 0.6rem 1rem;
-        height: 42px;
-        font-size: 0.85rem;
+        padding: 0.55rem 0.9rem;
+        height: 40px; font-size: 0.82rem;
       }
-
       .header {
-        padding: 5.5rem 1.2rem 2rem !important;
+        padding: 5rem 1.2rem 2rem !important;
       }
-
-      .header h1 {
-        font-size: 1.7rem !important;
-        line-height: 1.2;
-      }
-
-      .header p {
-        font-size: 0.95rem !important;
-      }
-
-      .faq-section {
-        padding: 0 1rem;
-        margin: 1.5rem auto;
-      }
-
-      .faq-category-title {
-        font-size: 1.1rem;
-      }
-
-      .faq-question {
-        font-size: 0.9rem;
-        padding: 1rem 1.1rem;
-      }
-
-      .faq-answer {
-        font-size: 0.88rem;
-        padding: 0 1.1rem;
-      }
-      .faq-answer.open {
-        padding: 0 1.1rem 1rem;
-      }
-
-      .btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 0.9rem;
-        margin-right: 0.5rem;
-      }
-
-      .footer-top {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 2rem 1.2rem;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-        padding: 1rem 1.2rem;
-      }
+      .header h1 { font-size: 1.6rem !important; line-height: 1.25; }
+      .header p { font-size: 0.93rem !important; }
+      .faq-section { padding: 0 1rem; margin: 1.5rem auto; }
+      .faq-category-title { font-size: 1.05rem; }
+      .faq-question { font-size: 0.88rem; padding: 0.95rem 1rem; }
+      .faq-answer { font-size: 0.86rem; padding: 0 1rem; }
+      .faq-answer.open { padding: 0 1rem 1rem; }
     }
-
     @media (max-width: 400px) {
-      .header h1 { font-size: 1.4rem !important; }
-      .back-button, .menu-toggle { font-size: 0.78rem; padding: 0.5rem 0.8rem; height: 38px; }
-      .theme-toggle { height: 38px; min-width: 38px; padding: 0.5rem 0.8rem; }
+      .header h1 { font-size: 1.3rem !important; }
+      .back-button, .menu-toggle { font-size: 0.76rem; padding: 0.5rem 0.75rem; height: 36px; }
+      .theme-toggle { height: 36px; min-width: 36px; padding: 0.5rem 0.75rem; }
+      .header { padding: 4.5rem 1rem 1.5rem !important; }
     }
     /* ===== /MOBILE FIX ===== */
 
@@ -564,7 +581,7 @@
 
   <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">▲</button>
 
-  <footer>
+     <footer>
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-brand-logo">
@@ -572,23 +589,35 @@
         </div>
         <p class="footer-tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
         <div class="footer-social">
-          <a class="footer-social-link" href="https://www.instagram.com/exittuscarreiras/" target="_blank" rel="noopener" title="Instagram">
+          <a class="footer-social-link" href="https://www.instagram.com/nexuscarreiras/" target="_blank" rel="noopener" title="Instagram">
             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a class="footer-social-link" href="https://www.facebook.com/profile.php?id=61576066286585" target="_blank" rel="noopener" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a class="footer-social-link" href="https://www.linkedin.com/company/107064981/admin/dashboard/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </a>
           <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
             <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a class="footer-social-link" href="https://www.youtube.com/@AgenciaNexusRS" target="_blank" rel="noopener" title="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a2.96 2.96 0 0 0-2.085-2.094C19.63 3.5 12 3.5 12 3.5s-7.63 0-9.413.592A2.96 2.96 0 0 0 .502 6.186 30.2 30.2 0 0 0 0 12a30.2 30.2 0 0 0 .502 5.814 2.96 2.96 0 0 0 2.085 2.094C4.37 20.5 12 20.5 12 20.5s7.63 0 9.413-.592a2.96 2.96 0 0 0 2.085-2.094A30.2 30.2 0 0 0 24 12a30.2 30.2 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+          </a>
+          <a class="footer-social-link" href="https://br.pinterest.com/anexus/" target="_blank" rel="noopener" title="Pinterest">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
           </a>
         </div>
       </div>
       <div>
         <div class="footer-col-title">Navegação</div>
-        <ul class="footer-col-links">
-          <li><a href="../vagas.html">Vagas disponíveis</a></li>
-          <li><a href="../contato.html">Contato</a></li>
-          <li><a href="../servicos.html">Serviços</a></li>
-          <li><a href="../sobre.html">Sobre nós</a></li>
-          <li><a href="../candidato.html">Candidatos</a></li>
-        </ul>
+        <div class="footer-col-links">
+          <div><a href="../candidato.html">Candidatos</a></div>
+          <div><a href="../vagas.html">Vagas</a></div>
+          <div><a href="../contato.html">Contato</a></div>
+          <div><a href="../servicos.html">Serviços</a></div>
+          <div><a href="../privacidade.html">Privacidade & LGPD</a></div>
+        </div>
       </div>
       <div>
         <div class="footer-col-title">Contato</div>
