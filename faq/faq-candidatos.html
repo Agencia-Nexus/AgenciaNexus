@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <script>
+    if (localStorage.getItem('theme') !== 'light') {
+      document.documentElement.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('dark-mode');
+      });
+    }
+    document.documentElement.style.transition = 'none';
+    window.addEventListener('load', () => {
+      document.documentElement.style.transition = '';
+    });
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>FAQ Candidatos | Agência Nexus – Perguntas Frequentes</title>
+  <meta name="description" content="Tire suas dúvidas sobre como se candidatar, enviar currículo e participar dos processos seletivos da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html.dark-mode body { background: #0a0a0a !important; color: #f0f0f0 !important; }
+
+    :root {
+      --primary: #3b82f6;
+      --accent: #60a5fa;
+      --bg-light: #ffffff;
+      --text-light: #1a1a1a;
+      --bg-dark: #0a0a0a;
+      --text-dark: #f0f0f0;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-mode { background: var(--bg-dark); color: var(--text-dark); }
+
+    /* BOTÕES TOPO */
+    .back-button, .menu-toggle, .theme-toggle {
+      background: rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.4);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .back-button:hover, .menu-toggle:hover, .theme-toggle:hover {
+      background: rgba(30,64,175,0.4);
+      transform: scale(1.05);
+    }
+    body:not(.dark-mode) .back-button,
+    body:not(.dark-mode) .menu-toggle,
+    body:not(.dark-mode) .theme-toggle {
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(0,0,0,0.4);
+      color: rgb(27,27,27);
+    }
+    body:not(.dark-mode) .back-button:hover,
+    body:not(.dark-mode) .menu-toggle:hover,
+    body:not(.dark-mode) .theme-toggle:hover { color: white; background: rgba(30,64,175,0.4); }
+
+    body.menu-open .back-button,
+    body.menu-open .menu-toggle,
+    body.menu-open .theme-toggle,
+    body.menu-open .topics-toggle,
+    body.menu-open .top-left-buttons { display: none !important; }
+
+    body.scrolling .theme-toggle,
+    body.scrolling .back-button,
+    body.scrolling .menu-toggle,
+    body.scrolling .top-left-buttons { opacity: 0; pointer-events: none; }
+
+    .theme-toggle {
+      position: fixed; top: 2rem; right: 2rem; z-index: 1000;
+      background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+      cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+      height: 50px; display: flex; align-items: center; justify-content: center; min-width: 50px;
+    }
+
+    .top-left-buttons {
+      position: fixed; top: 2rem; left: 2rem; z-index: 1000;
+      display: flex; flex-direction: column; gap: 8px; align-items: flex-start;
+    }
+    .top-row { display: flex; flex-direction: row; gap: 8px; align-items: center; }
+
+    .back-button, .menu-toggle {
+      background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+      cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+      height: 50px; display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; white-space: nowrap; transition: all 0.3s ease;
+    }
+
+    /* MENU OVERLAY */
+    .menu-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); z-index: 95; display: none; opacity: 0; transition: opacity 0.3s ease;
+    }
+    .menu-overlay.active { display: block; opacity: 1; }
+
+    .menu-content {
+      position: fixed; top: 0; left: -100%; width: 300px; height: 100vh;
+      background: var(--bg-light); backdrop-filter: blur(20px);
+      padding: 1.6rem 1.4rem 1.2rem; z-index: 100; transition: left 0.3s ease;
+      overflow-y: auto; box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    body.dark-mode .menu-content { background: #111; }
+    .menu-content.active { left: 0; }
+    .menu-section { margin-bottom: 1.5rem; }
+    .menu-section h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.5; margin-bottom: 0.5rem; }
+    .menu-link {
+      display: block; padding: 0.6rem 0.8rem; border-radius: 8px;
+      text-decoration: none; color: var(--text-light); font-weight: 500; font-size: 0.95rem;
+      transition: all 0.2s ease; margin-bottom: 2px;
+    }
+    body.dark-mode .menu-link { color: var(--text-dark); }
+    .menu-link:hover { background: rgba(59,130,246,0.1); color: var(--primary); padding-left: 1.2rem; }
+    .menu-link.active-page { background: rgba(59,130,246,0.12); color: var(--primary); font-weight: 700; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      padding: 3rem 2rem; text-align: center; color: white;
+      position: relative; overflow: hidden;
+    }
+    .header::before {
+      content: ''; position: absolute; top: -50%; right: -50%;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 15s ease-in-out infinite;
+    }
+    .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+    .header h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); animation: fadeInDown 1s ease-out; }
+    .header p { font-size: 1.2rem; opacity: 0.95; animation: fadeInUp 1s ease-out 0.3s both; }
+
+    /* SEÇÃO FAQ */
+    .faq-section { max-width: 860px; margin: 3rem auto; padding: 0 2rem; }
+
+    .faq-category-title {
+      font-size: 1.5rem; font-weight: 800; color: #1e40af;
+      text-align: center; margin: 2.5rem 0 1.5rem;
+    }
+    body.dark-mode .faq-category-title { color: var(--accent); }
+
+    .faq-item {
+      border: 1px solid rgba(0,0,0,0.1); border-radius: 14px;
+      margin-bottom: 0.8rem; overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+    body.dark-mode .faq-item { border-color: rgba(255,255,255,0.1); }
+    .faq-item:hover { box-shadow: 0 4px 20px rgba(30,64,175,0.1); }
+
+    .faq-question {
+      width: 100%; background: none; border: none; padding: 1.2rem 1.5rem;
+      font-size: 1rem; font-weight: 700; color: var(--text-light);
+      cursor: pointer; text-align: left; display: flex; justify-content: space-between;
+      align-items: center; gap: 1rem; transition: background 0.2s ease;
+      font-family: inherit;
+    }
+    body.dark-mode .faq-question { color: var(--text-dark); }
+    .faq-question:hover { background: rgba(59,130,246,0.06); }
+    .faq-question.open { color: #1e40af; }
+    body.dark-mode .faq-question.open { color: var(--accent); }
+
+    .faq-icon {
+      font-size: 1.2rem; font-weight: 700; flex-shrink: 0;
+      transition: transform 0.3s ease; line-height: 1;
+    }
+    .faq-question.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      padding: 0 1.5rem;
+      font-size: 0.95rem; line-height: 1.7; color: rgba(26,26,26,0.8);
+    }
+    body.dark-mode .faq-answer { color: rgba(240,240,240,0.8); }
+    .faq-answer.open { max-height: 400px; padding: 0 1.5rem 1.2rem; }
+
+    /* BOTÕES */
+    .btn {
+      padding: 1rem 2.5rem; border: none; border-radius: 50px;
+      font-weight: 700; font-size: 1rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: inherit;
+      display: inline-block; text-decoration: none; margin-right: 1rem; margin-bottom: 1rem;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(30,64,175,0.3); }
+    .btn-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+    body.dark-mode .btn-secondary { color: var(--accent); border-color: var(--accent); }
+    .btn-secondary:hover { background: var(--primary); color: white; }
+
+    .cta-box {
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      border-radius: 20px; padding: 2.5rem 2rem; text-align: center;
+      color: white; margin: 3rem 0;
+    }
+    .cta-box h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.6rem; }
+    .cta-box p { opacity: 0.9; margin-bottom: 1.5rem; }
+
+    /* SCROLL TOP */
+    .scroll-top-btn {
+      position: fixed; bottom: calc(2rem + 60px + 1.4rem); right: 1.15rem;
+      width: 28px; height: 28px; border-radius: 50%; background: #1e40af;
+      border: none; color: #fff; font-size: 0.55rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 10px rgba(30,64,175,0.5); z-index: 99;
+      opacity: 0; pointer-events: none; transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .scroll-top-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .scroll-top-btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      --ft-bg: #f2f5ee; --ft-border: rgba(30,64,175,0.18); --ft-text: #1a1a1a;
+      --ft-muted: rgba(0,0,0,0.45); --ft-social-bg: rgba(0,0,0,0.06);
+      --ft-social-border: rgba(0,0,0,0.11); --ft-link-color: rgba(0,0,0,0.5);
+      --ft-bottom-bg: rgba(0,0,0,0.05); --ft-bottom-border: rgba(0,0,0,0.09);
+      --ft-copy: rgba(0,0,0,0.38); --ft-copy-strong: rgba(0,0,0,0.58);
+      --ft-badge: rgba(0,0,0,0.3); --ft-accent: #1e40af; --ft-title: #1e40af;
+      background: var(--ft-bg); color: var(--ft-text); padding: 0;
+      border-top: 1px solid var(--ft-border); transition: background 0.5s ease, color 0.5s ease;
+    }
+    body.dark-mode footer {
+      --ft-bg: #0d0d0d; --ft-border: rgba(30,64,175,0.15); --ft-text: #e0e0e0;
+      --ft-muted: rgba(255,255,255,0.45); --ft-social-bg: rgba(255,255,255,0.06);
+      --ft-social-border: rgba(255,255,255,0.09); --ft-link-color: rgba(255,255,255,0.5);
+      --ft-bottom-bg: rgba(0,0,0,0.25); --ft-bottom-border: rgba(255,255,255,0.07);
+      --ft-copy: rgba(255,255,255,0.3); --ft-copy-strong: rgba(255,255,255,0.5);
+      --ft-badge: rgba(255,255,255,0.25); --ft-accent: #38bdf8; --ft-title: #38bdf8;
+    }
+    .footer-top {
+      max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 2rem;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 2.5rem; align-items: start;
+    }
+    @media (max-width: 860px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 560px) { .footer-top { grid-template-columns: 1fr; gap: 1.6rem; padding: 2rem 1.2rem 1.5rem; } }
+    .footer-brand-logo { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.9rem; }
+    .footer-brand-name { font-size: 1.15rem; font-weight: 800; color: var(--ft-text); letter-spacing: -0.3px; }
+    .footer-brand-name span { color: var(--ft-accent); }
+    .footer-tagline { font-size: 0.82rem; color: var(--ft-muted); line-height: 1.6; max-width: 280px; margin-bottom: 1.4rem; }
+    .footer-social { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .footer-social-link {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--ft-social-bg); border: 1px solid var(--ft-social-border);
+      transition: all 0.2s ease; text-decoration: none; color: var(--ft-muted);
+    }
+    .footer-social-link:hover { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.35); color: var(--ft-accent); transform: translateY(-2px); }
+    .footer-social-link svg { width: 18px; height: 18px; fill: currentColor; }
+    .footer-col-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ft-title); margin-bottom: 1rem; }
+    .footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .footer-col-links a { text-decoration: none; font-size: 0.85rem; color: var(--ft-link-color); transition: color 0.2s ease; }
+    .footer-col-links a:hover { color: var(--ft-accent); }
+    .footer-contact-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--ft-link-color); text-decoration: none; margin-bottom: 0.7rem; transition: color 0.2s ease; }
+    .footer-contact-item:hover { color: var(--ft-accent); }
+    .footer-contact-item svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+    .footer-bottom { background: var(--ft-bottom-bg); border-top: 1px solid var(--ft-bottom-border); padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .footer-copy { font-size: 0.75rem; color: var(--ft-copy); }
+    .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
+    .footer-badge { font-size: 0.68rem; color: var(--ft-badge); display: flex; align-items: center; gap: 0.35rem; }
+    .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.2); } }
+
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2rem; }
+      .faq-section { padding: 0 1.2rem; }
+    }
+    @media (max-width: 480px) {
+      .header h1 { font-size: 1.8rem; }
+      .back-button, .menu-toggle { padding: 0.8rem 1rem; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
+
+  <div class="top-left-buttons" id="topLeftButtons">
+    <div class="top-row">
+      <a href="../candidato.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()">Menu</button>
+    </div>
+  </div>
+
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+  <div class="menu-content" id="menuContent">
+    <div class="menu-section">
+      <h3>Bem-Vindo</h3>
+      <a href="../sobre.html" class="menu-link">Sobre</a>
+      <a href="../missao.html" class="menu-link">Missão</a>
+      <a href="../visao.html" class="menu-link">Visão</a>
+      <a href="../valores.html" class="menu-link">Valores</a>
+    </div>
+    <div class="menu-section">
+      <h3>Carreira</h3>
+      <a href="../candidato.html" class="menu-link">Candidatos</a>
+      <a href="../tutorial.html" class="menu-link">Vídeos</a>
+      <a href="../vagas.html" class="menu-link">Vagas</a>
+      <a href="../ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
+      <a href="../utilidades.html" class="menu-link">Utilidades</a>
+    </div>
+    <div class="menu-section">
+      <h3>Atendimento</h3>
+      <a href="../servicos.html" class="menu-link">Serviços</a>
+      <a href="../contato.html" class="menu-link">Contato</a>
+    </div>
+    <div class="menu-section">
+      <h3>ℹ Informações</h3>
+      <a href="../lgbt.html" class="menu-link">LGBT+</a>
+      <a href="../privacidade.html" class="menu-link">Privacidade & LGPD</a>
+      <a href="../indexcookies.html" class="menu-link">Cookies</a>
+    </div>
+    <div class="menu-section">
+      <h3>FAQ</h3>
+      <a href="faq-candidatos.html" class="menu-link active-page">FAQ Candidatos</a>
+      <a href="faq-empresas.html" class="menu-link">FAQ Empresas</a>
+      <a href="faq-vagas.html" class="menu-link">FAQ Vagas</a>
+      <a href="faq-privacidade.html" class="menu-link">FAQ Privacidade</a>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <h1>❓ FAQ — Candidatos</h1>
+      <p>Perguntas frequentes de quem está buscando uma oportunidade</p>
+    </div>
+  </header>
+
+  <div class="faq-section">
+
+    <div class="faq-category-title">📄 Currículo e Cadastro</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Como envio meu currículo para a Agência Nexus?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Você pode enviar seu currículo por WhatsApp, e-mail ou pelo formulário disponível na página de Candidatos. Recomendamos o formato PDF com nome completo no arquivo (ex: João_Silva_Currículo.pdf).
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Meu currículo precisa ter foto?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Não é obrigatório. Não coloque dados pessoais desnecessários como CPF, RG ou endereço completo. Inclua apenas nome, e-mail, telefone e LinkedIn (opcional).
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Preciso ter experiência para me candidatar?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Depende da vaga. Temos oportunidades para todos os níveis — desde jovem aprendiz e primeiro emprego até posições sênior. Consulte as vagas disponíveis e candidate-se à que melhor se encaixa no seu perfil.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Posso me candidatar para mais de uma vaga ao mesmo tempo?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Sim! Se seu perfil se enquadra em mais de uma vaga, envie seu currículo informando quais posições lhe interessam. Nossos recrutadores analisarão cada oportunidade separadamente.
+      </div>
+    </div>
+
+    <div class="faq-category-title">📞 Processo Seletivo</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Quanto tempo leva para receber um retorno?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        O prazo de retorno varia conforme a vaga e o volume de candidaturas. Em geral, entramos em contato em até 5 dias úteis. Se não houver retorno nesse período, você pode nos contatar pelo WhatsApp para verificar o status.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Como funciona o processo seletivo?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Nosso processo geralmente segue as etapas: triagem de currículo → contato inicial → entrevista → encaminhamento à empresa contratante. Algumas vagas podem incluir testes práticos ou dinâmicas de grupo.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        A agência cobra alguma taxa dos candidatos?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Não. Nossos serviços para candidatos são 100% gratuitos. Nunca cobramos taxas para cadastro, envio de currículo ou participação em processos seletivos. Desconfie de qualquer solicitação de pagamento.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Fui chamado para entrevista. O que devo fazer?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Confirme sua presença o quanto antes. Pesquise sobre a empresa, chegue com pontualidade, vista-se adequadamente e leve uma cópia do currículo se for presencial. Demonstre interesse genuíno e seja honesto sobre suas experiências.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Não fui selecionado. Posso tentar novamente?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Com certeza! Seu currículo permanece em nosso banco de talentos. Novas vagas surgem constantemente e seu perfil poderá ser considerado futuramente. Você também pode nos contatar para verificar novas oportunidades.
+      </div>
+    </div>
+
+    <div class="faq-category-title">📱 Comunicação e Contato</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Por qual canal devo enviar meu currículo?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Você pode usar WhatsApp (51) 99697-6579, e-mail bancodetalentosexittus@gmail.com ou curriculos.nexus@gmail.com, ou ainda o formulário da nossa página de Candidatos. Escolha o canal mais conveniente para você.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Em quanto tempo a equipe responde pelo WhatsApp?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Nossa equipe atende de segunda a sexta, das 8h às 18h. Mensagens enviadas fora desse horário serão respondidas no próximo dia útil.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Posso atualizar meu currículo depois de enviado?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Sim! Basta nos enviar a versão atualizada pelo mesmo canal que usou anteriormente, informando que é uma atualização. Recomendamos manter o currículo sempre em dia.
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <h3>Ainda tem dúvidas?</h3>
+      <p>Nossa equipe está pronta para te atender e ajudar no que precisar.</p>
+      <a href="https://wa.me/5551996976579" target="_blank" class="btn btn-primary" style="background:white;color:#1e40af;">💬 Falar pelo WhatsApp</a>
+      <a href="../candidato.html" class="btn" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.4);">Ver página de Candidatos</a>
+    </div>
+
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">▲</button>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <div class="footer-brand-name">Agência <span>Nexus</span></div>
+        </div>
+        <p class="footer-tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
+        <div class="footer-social">
+          <a class="footer-social-link" href="https://www.instagram.com/exittuscarreiras/" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <ul class="footer-col-links">
+          <li><a href="../vagas.html">Vagas disponíveis</a></li>
+          <li><a href="../contato.html">Contato</a></li>
+          <li><a href="../servicos.html">Serviços</a></li>
+          <li><a href="../sobre.html">Sobre nós</a></li>
+          <li><a href="../candidato.html">Candidatos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contato</div>
+        <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          (51) 99697-6579
+        </a>
+        <a class="footer-contact-item" href="mailto:adm.agencianexus@outlook.com">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          adm.agencianexus@outlook.com
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.faq-question.open').forEach(q => {
+        q.classList.remove('open');
+        q.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+    }
+
+    const menuContent = document.getElementById('menuContent');
+    const menuOverlay = document.getElementById('menuOverlay');
+    function toggleMenu() {
+      menuContent.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+      menuContent.style.left = menuContent.classList.contains('active') ? '0' : '-100%';
+    }
+    function closeMenu() {
+      menuContent.classList.remove('active');
+      menuOverlay.classList.remove('active');
+      menuContent.style.left = '-100%';
+      setTimeout(() => document.body.classList.remove('menu-open'), 300);
+    }
+    document.querySelectorAll('.menu-link').forEach(l => l.addEventListener('click', closeMenu));
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      document.documentElement.classList.toggle('dark-mode');
+      const dark = document.body.classList.contains('dark-mode');
+      document.getElementById('themeIcon').textContent = dark ? '☀️' : '🌙';
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+    function loadSavedTheme() {
+      const t = localStorage.getItem('theme');
+      if (t !== 'light') {
+        document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
+        document.getElementById('themeIcon').textContent = '☀️';
+      } else {
+        document.getElementById('themeIcon').textContent = '🌙';
+      }
+    }
+    loadSavedTheme();
+
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scrollTopBtn');
+      if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+      document.body.classList.add('scrolling');
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => document.body.classList.remove('scrolling'), 250);
+    });
+  </script>
+</body>
+</html>
