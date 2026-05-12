@@ -82,7 +82,7 @@ html.dark-mode body {
 .back-button,
 .menu-toggle,
 .theme-toggle {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa); /* fundo leve escuro */
+  background: rgba(0, 0, 0, 0.2); /* fundo leve escuro */
   border: 2px solid rgba(255, 255, 255, 0.4); /* borda clara */
   color: white; /* texto branco */
   transition: all 0.3s ease;
@@ -91,7 +91,7 @@ html.dark-mode body {
 .back-button:hover,
 .menu-toggle:hover,
 .theme-toggle:hover {
-  background: linear-gradient(135deg, #2563eb, #3b82f6); /* hover verde escuro */
+  background: rgba(30, 64, 175, 0.4); /* hover verde escuro */
   transform: scale(1.05);
 }
 
@@ -101,7 +101,7 @@ html.dark-mode body {
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
 body:not(.dark-mode) .theme-toggle {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa); /* fundo leve claro */
+  background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
   border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
   color: rgb(27, 27, 27); /* texto vermelho escuro */
 }

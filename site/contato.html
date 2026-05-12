@@ -85,7 +85,7 @@ html.dark-mode body {
   /* DESKTOP - 1024px ou mais */
   @media (min-width: 1024px) {
     .header {
-      min-height: 220px;
+      min-height: 220px !important;
     }
 
     .header-bg-img {
@@ -164,16 +164,14 @@ html.dark-mode body {
   body.scrolling .menu-toggle { opacity: 0; pointer-events: none; }
 
   .back-button,
-.menu-toggle,
-.theme-toggle {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa); border: 2px solid rgba(255,255,255,0.4); color: white; transition: all 0.3s ease; }
+  .menu-toggle,
+  .theme-toggle { background: rgba(0,0,0,0.2); border: 2px solid rgba(255,255,255,0.4); color: white; transition: all 0.3s ease; }
 
   .back-button:hover, .menu-toggle:hover, .theme-toggle:hover { background: rgba(79,114,20,0.4); transform: scale(1.05); }
 
   body:not(.dark-mode) .back-button,
-body:not(.dark-mode) .menu-toggle,
-body:not(.dark-mode) .theme-toggle {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+  body:not(.dark-mode) .menu-toggle,
+  body:not(.dark-mode) .theme-toggle { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
 
   body:not(.dark-mode) .back-button:hover,
   body:not(.dark-mode) .menu-toggle:hover,
@@ -1411,7 +1409,6 @@ body.dark-mode .chip { background: #2a2a2a; }
     }
     .scroll-top-btn:hover {
       background: rgba(59,130,246,0.15);
-      box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
       color: var(--primary);
       transform: translateY(-2px);
     }

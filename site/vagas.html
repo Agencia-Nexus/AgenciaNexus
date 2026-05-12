@@ -53,10 +53,8 @@
     /* ======================================== */
     /* BOTOES DO TOPO - MODO PADRÃO (ESCURO)    */
     /* ======================================== */
-    .back-button,
-.menu-toggle,
-.theme-toggle {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    .back-button, .menu-toggle, .theme-toggle {
+      background: rgba(0,0,0,0.2);
       border: 2px solid rgba(255,255,255,0.4);
       color: white;
       transition: all 0.3s ease;
@@ -69,9 +67,9 @@ html.dark-mode body {
 
     
     body:not(.dark-mode) .back-button,
-body:not(.dark-mode) .menu-toggle,
-body:not(.dark-mode) .theme-toggle {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    body:not(.dark-mode) .menu-toggle,
+    body:not(.dark-mode) .theme-toggle {
+      background: rgba(255,255,255,0.2);
       border: 2px solid rgba(0,0,0,0.4);
       color: rgb(27,27,27);
     }
@@ -1342,7 +1340,6 @@ body.dark-mode .benefits-calc-header {
     }
     .scroll-top-btn:hover {
       background: rgba(30,64,175,0.15);
-      box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
       color: var(--primary);
       transform: translateY(-2px);
     }
