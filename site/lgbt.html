@@ -67,45 +67,6 @@
     }
 
 /* ======================================== */
-/* BOTOES DO TOPO - MODO PADRÃO (ESCURO) */
-/* ======================================== */
-.back-button,
-.menu-toggle,
-.theme-toggle {
-  background: rgba(0, 0, 0, 0.2); /* fundo leve escuro */
-  border: 2px solid rgba(255, 255, 255, 0.4); /* borda clara */
-  color: white; /* texto branco */
-  transition: all 0.3s ease;
-}
-html.dark-mode body {
-  background: #0a0a0a !important;
-  color: #f0f0f0 !important;
-}
-    
-.back-button:hover,
-.menu-toggle:hover,
-.theme-toggle:hover {
-  background: rgba(30, 64, 175, 0.5); /* hover verde escuro */
-  transform: scale(1.05);
-}
-
-/* ======================================== */
-/* BOTOES DO TOPO - MODO CLARO */
-/* ======================================== */
-body:not(.dark-mode) .back-button,
-body:not(.dark-mode) .menu-toggle,
-body:not(.dark-mode) .theme-toggle {
-  background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
-  border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
-  color: rgb(27, 27, 27); /* texto vermelho escuro */
-}
-
-body:not(.dark-mode) .back-button:hover,
-body:not(.dark-mode) .menu-toggle:hover,
-body:not(.dark-mode) .theme-toggle:hover {
-  color: white;
-}
-
 /* confg bulets chatbot*/
 /* Espaço interno para listas dentro do chatbot */
 .chatbot-messages ul,
@@ -128,8 +89,8 @@ body.dark-mode .chatbot-messages ol {
 /* confg bulets chatbot*/
 
     :root {
-      --primary: #4F7214;
-      --accent: #647C01;
+      --primary: #3b82f6;
+      --accent: #1e40af;
       --bg-light: #ffffff;
       --text-light: #1a1a1a;
       --bg-dark: #0a0a0a;
@@ -169,6 +130,180 @@ body.dark-mode .chatbot-messages ol {
       pointer-events: none;
     }
 
+    /* ================================================================= */
+    /* TOPICS BUTTON                                                      */
+    /* ================================================================= */
+    .top-left-buttons {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      pointer-events: none;
+    }
+    .top-left-buttons * {
+      pointer-events: auto;
+    }
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+    .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    .topics-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    body:not(.dark-mode) .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+    body:not(.dark-mode) .topics-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons {
+      display: none !important;
+    }
+    body.scrolling .top-left-buttons {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .topics-dropdown {
+      position: fixed;
+      top: calc(2rem + 58px);
+      left: 2rem;
+      z-index: 1001;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0;
+      min-width: 210px;
+      display: none;
+      flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    body.dark-mode .topics-dropdown {
+      background: #1a1a1a;
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .topics-dropdown.open { display: flex; }
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .topics-link {
+      display: block;
+      padding: 0.65rem 1.1rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.18s ease;
+    }
+    body.dark-mode .topics-link { color: #f0f0f0; }
+    .topics-link:hover {
+      background: rgba(30, 64, 175, 0.1);
+      color: #1e40af;
+      padding-left: 1.4rem;
+    }
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown { display: none !important; }
+
+    .topics-toggle-mobile {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    .topics-dropdown-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
+      body:not(.dark-mode) .topics-toggle-mobile {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(0, 0, 0, 0.4);
+        color: rgb(27, 27, 27);
+      }
+      body:not(.dark-mode) .topics-toggle-mobile:hover {
+        color: white;
+        background: rgba(30, 64, 175, 0.4);
+      }
+      .topics-dropdown-mobile {
+        position: fixed;
+        top: calc(2rem + 116px);
+        left: 2rem;
+        z-index: 1001;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0;
+        min-width: 210px;
+        flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+      body.dark-mode .topics-dropdown-mobile {
+        background: #1a1a1a;
+        border-color: rgba(255,255,255,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      }
+      .topics-dropdown-mobile.open { display: flex; }
+      .topics-link-mobile {
+        display: block;
+        padding: 0.65rem 1.1rem;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: all 0.18s ease;
+      }
+      body.dark-mode .topics-link-mobile { color: #f0f0f0; }
+      .topics-link-mobile:hover {
+        background: rgba(30, 64, 175, 0.1);
+        color: #1e40af;
+        padding-left: 1.4rem;
+      }
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile { display: none !important; }
+    }
+
     body.dark-mode {
       background: var(--bg-dark);
       color: var(--text-dark);
@@ -195,7 +330,7 @@ body.dark-mode .chatbot-messages ol {
 
     /* Header */
     .header {
-      background: linear-gradient(135deg, #FF006E, #FB5607, #FFBE0B, #8338EC);
+      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
       padding: 3rem 2rem;
       text-align: center;
       color: white;
@@ -307,7 +442,7 @@ body.dark-mode .btn-secondary:hover {
 }
 
 body.dark-mode .btn-primary {
-  background: linear-gradient(135deg, #90EE90, #7CFC00);
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
   color: #000000;
 }
 
@@ -339,10 +474,6 @@ body.dark-mode .btn-primary:hover {
 
     /* Back Button */
     .back-button {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -356,22 +487,29 @@ body.dark-mode .btn-primary:hover {
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
       height: 50px;
       justify-content: center;
+      white-space: nowrap;
     }
 
     .back-button:hover {
       background: rgba(255, 255, 255, 0.3);
-      transform: translateX(-5px);
+      transform: scale(1.05);
+    }
+
+    body:not(.dark-mode) .back-button {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+
+    body:not(.dark-mode) .back-button:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
     }
 
     /* Menu Toggle */
     .menu-toggle {
-      position: fixed;
-      top: 2rem;
-      left: calc(2rem + 105px);
-      z-index: 1000;
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -386,7 +524,18 @@ body.dark-mode .btn-primary:hover {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 80px;
+      white-space: nowrap;
+    }
+
+    body:not(.dark-mode) .menu-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+
+    body:not(.dark-mode) .menu-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
     }
 
     .menu-toggle:hover {
@@ -489,7 +638,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     .content-container h2 {
-      color: #FF006E;
+      color: #1e40af;
       margin-top: 2.5rem;
       margin-bottom: 1rem;
       font-size: 1.8rem;
@@ -508,12 +657,12 @@ body.dark-mode .btn-primary:hover {
       left: 0;
       width: 60px;
       height: 4px;
-      background: linear-gradient(90deg, #FF006E, #FB5607);
+      background: linear-gradient(90deg, #1e40af, #3b82f6);
       border-radius: 2px;
     }
 
     .content-container h3 {
-      color: #FB5607;
+      color: #3b82f6;
       margin-top: 1.5rem;
       margin-bottom: 0.8rem;
       font-size: 1.2rem;
@@ -550,21 +699,21 @@ body.dark-mode .btn-primary:hover {
       content: '✓';
       position: absolute;
       left: 0;
-      color: #FF006E;
+      color: #1e40af;
       font-weight: bold;
       font-size: 1.2rem;
     }
 
     .highlight-box {
-      background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(251, 86, 7, 0.05));
-      border-left: 4px solid #FF006E;
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.08), rgba(59, 130, 246, 0.04));
+      border-left: 4px solid #1e40af;
       padding: 1.5rem;
       margin: 1.5rem 0;
       border-radius: 8px;
     }
 
     body.dark-mode .highlight-box {
-      background: linear-gradient(135deg, rgba(79, 114, 20, 0.15), rgba(100, 124, 1, 0.1));
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.12), rgba(59, 130, 246, 0.06));
     }
 
     .values-grid {
@@ -575,7 +724,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     .value-card {
-      background: linear-gradient(135deg, rgba(255, 0, 110, 0.05), rgba(251, 86, 7, 0.05));
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(59, 130, 246, 0.03));
       border: 2px solid rgba(255, 0, 110, 0.2);
       border-radius: 15px;
       padding: 1.5rem;
@@ -583,7 +732,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     body.dark-mode .value-card {
-      background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(251, 86, 7, 0.1));
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(59, 130, 246, 0.07));
       border-color: rgba(255, 0, 110, 0.3);
     }
 
@@ -593,7 +742,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     .value-card h4 {
-      color: #FF006E;
+      color: #1e40af;
       margin-bottom: 0.8rem;
       font-size: 1.1rem;
       display: flex;
@@ -615,7 +764,7 @@ body.dark-mode .btn-primary:hover {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #FF006E, #FB5607);
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
       border: none;
       cursor: pointer;
       display: flex;
@@ -670,7 +819,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     .chatbot-header {
-      background: linear-gradient(135deg, #FF006E, #FB5607);
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
       color: white;
       padding: 1rem;
       border-radius: 15px 15px 0 0;
@@ -832,7 +981,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     .message.user .message-content {
-      background: linear-gradient(135deg, #FF006E, #FB5607);
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
       color: white;
     }
 
@@ -849,13 +998,13 @@ body.dark-mode .btn-primary:hover {
 
     .quick-btn {
       background: white;
-      border: 2px solid #FF006E;
-      color: #FF006E;
+      border: 2px solid #1e40af;
+      color: #1e40af;
       padding: 0.8rem 1.2rem;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.55rem;
       transition: all 0.3s ease;
       text-align: left;
       word-wrap: break-word;
@@ -868,11 +1017,11 @@ body.dark-mode .btn-primary:hover {
 
     body.dark-mode .quick-btn {
       background: #2a2a2a;
-      border-color: #FF006E;
+      border-color: #1e40af;
     }
 
     .quick-btn:hover {
-      background: #FF006E;
+      background: #1e40af;
       color: white;
       transform: translateX(5px);
     }
@@ -905,11 +1054,11 @@ body.dark-mode .btn-primary:hover {
 
     .chatbot-input:focus {
       outline: none;
-      border-color: #FF006E;
+      border-color: #1e40af;
     }
 
     .chatbot-send-btn {
-      background: linear-gradient(135deg, #FF006E, #FB5607);
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
       color: white;
       border: none;
       border-radius: 8px;
@@ -967,12 +1116,8 @@ body.dark-mode .btn-primary:hover {
       }
 
       .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 85px);
         padding: 0.8rem 1rem;
         font-size: 0.9rem;
-        min-width: auto;
         height: 50px;
       }
 
@@ -1133,11 +1278,11 @@ body.dark-mode .btn-primary:hover {
   max-height: 300px;
   overflow-y: auto;
   margin-bottom: 1rem;
-  border: 2px solid #FF006E;
+  border: 2px solid #1e40af;
 }
 
 body.dark-mode .chat-box {
-  border: 2px solid #FB5607;
+  border: 2px solid #3b82f6;
 }
 
 @media (max-width: 480px) {
@@ -1197,7 +1342,7 @@ body.dark-mode .chat-message.bot {
 }
 
 .chat-message.user {
-  background: #4F7214;
+  background: #3b82f6;
   color: white;
   margin-left: auto;
 }
@@ -1209,7 +1354,7 @@ body.dark-mode .chat-message.bot {
 }
 
 .chat-options button {
-  background: linear-gradient(135deg, #FF006E, #FB5607);
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
   color: white;
   font-weight: 600;
   border: none;
@@ -1220,7 +1365,7 @@ body.dark-mode .chat-message.bot {
 
 .chat-options button:hover {
   transform: scale(1.05);
-  background: linear-gradient(135deg, #FB5607, #FF006E);
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
 }
 
 body.dark-mode .chat-options button {
@@ -1244,37 +1389,35 @@ body.dark-mode .chip { background: #2a2a2a; }
 
 
     .scroll-top-btn {
-    position: fixed;
-    bottom: calc(2rem + 60px + 1.4rem);
-    right: 1.15rem;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: #1e40af;
-    border: none;
-    color: #ffffff;
-    font-size: 0.55rem;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 10px rgba(30,64,175,0.5);
-    z-index: 99;
-    opacity: 0; pointer-events: none;
-    transform: translateY(6px);
-    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, background 0.3s ease;
-    backdrop-filter: blur(4px);
-  }
-  body.dark-mode .scroll-top-btn {
-    background: #1e40af;
-    color: #ffffff;
-  }
-  .scroll-top-btn.visible {
-    opacity: 1; pointer-events: auto; transform: translateY(0);
-  }
-  .scroll-top-btn:hover {
-    background: #1d4ed8;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(30,64,175,0.7);
-  }
+      position: fixed;
+      bottom: calc(2rem + 60px + 1.4rem);
+      right: 1.15rem;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #1d4ed8;
+      border: none;
+      color: #ffffff;
+      font-size: 0.55rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(29,78,216,0.45);
+      z-index: 99;
+      opacity: 0; pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+    }
+    body.dark-mode .scroll-top-btn {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .scroll-top-btn.visible {
+      opacity: 1; pointer-events: auto; transform: translateY(0);
+    }
+    .scroll-top-btn:hover {
+      background: #1e40af;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
   
     /* ══ FOOTER PROFISSIONAL ══ */
     footer {
@@ -1290,8 +1433,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       --ft-copy:          rgba(0, 0, 0, 0.38);
       --ft-copy-strong:   rgba(0, 0, 0, 0.58);
       --ft-badge:         rgba(0, 0, 0, 0.3);
-      --ft-accent:        #FF006E;
-      --ft-title:         #FF006E;
+      --ft-accent:        #1e40af;
+      --ft-title:         #1e40af;
 
       background: var(--ft-bg);
       color: var(--ft-text);
@@ -1472,9 +1615,37 @@ body.dark-mode .chip { background: #2a2a2a; }
     <span id="themeIcon">🌙</span>
   </button>
 
-  <a href="../index.html" class="back-button">Voltar</a>
+  <div class="top-left-buttons" id="topLeftButtons">
+    <div class="top-row">
+      <a href="../index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
+    </div>
+  </div>
 
-  <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#posicao" class="topics-link" onclick="closeTopics()">🏳️‍🌈 Nossa Posição</a>
+    <a href="#chat-safe" class="topics-link" onclick="closeTopics()">💬 Tire suas Dúvidas</a>
+    <a href="#compromissos" class="topics-link" onclick="closeTopics()">✅ Compromissos</a>
+    <a href="#politicas" class="topics-link" onclick="closeTopics()">📋 Políticas de Inclusão</a>
+    <a href="#direitos" class="topics-link" onclick="closeTopics()">⚖️ Direitos LGBT+</a>
+    <a href="#linguagem" class="topics-link" onclick="closeTopics()">🗣️ Linguagem Inclusiva</a>
+    <a href="#denuncia" class="topics-link" onclick="closeTopics()">🚨 Denúncia</a>
+    <a href="#eventos" class="topics-link" onclick="closeTopics()">🎉 Eventos</a>
+    <a href="#contato" class="topics-link" onclick="closeTopics()">📞 Contato e Suporte</a>
+  </div>
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#posicao" class="topics-link-mobile" onclick="closeTopicsMobile()">🏳️‍🌈 Nossa Posição</a>
+    <a href="#chat-safe" class="topics-link-mobile" onclick="closeTopicsMobile()">💬 Tire suas Dúvidas</a>
+    <a href="#compromissos" class="topics-link-mobile" onclick="closeTopicsMobile()">✅ Compromissos</a>
+    <a href="#politicas" class="topics-link-mobile" onclick="closeTopicsMobile()">📋 Políticas de Inclusão</a>
+    <a href="#direitos" class="topics-link-mobile" onclick="closeTopicsMobile()">⚖️ Direitos LGBT+</a>
+    <a href="#linguagem" class="topics-link-mobile" onclick="closeTopicsMobile()">🗣️ Linguagem Inclusiva</a>
+    <a href="#denuncia" class="topics-link-mobile" onclick="closeTopicsMobile()">🚨 Denúncia</a>
+    <a href="#eventos" class="topics-link-mobile" onclick="closeTopicsMobile()">🎉 Eventos</a>
+    <a href="#contato" class="topics-link-mobile" onclick="closeTopicsMobile()">📞 Contato e Suporte</a>
+  </div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
@@ -1520,7 +1691,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     </div>
   </header>
 
-  <section class="content-section">
+  <section class="content-section" id="posicao">
     <div class="content-container">
       
       <h2>Nossa Posição sobre Inclusão LGBT+</h2>
@@ -1563,7 +1734,7 @@ body.dark-mode .chip { background: #2a2a2a; }
 </section>
 
       
-      <h2>Compromissos com a Comunidade LGBT+</h2>
+      <h2 id="compromissos">Compromissos com a Comunidade LGBT+</h2>
       <p>
         Assumimos os seguintes compromissos em relação à inclusão e proteção de direitos LGBT+:
       </p>
@@ -1595,7 +1766,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         </div>
       </div>
 
-      <h2>Políticas de Inclusão LGBT+</h2>
+      <h2 id="politicas">Políticas de Inclusão LGBT+</h2>
       <p>
         A Agência Nexus implementou as seguintes políticas para garantir um ambiente inclusivo:
       </p>
@@ -1617,7 +1788,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       </ul>
 
 
-      <h2>Direitos LGBT+ que Apoiamos</h2>
+      <h2 id="direitos">Direitos LGBT+ que Apoiamos</h2>
       <p>
         A Agência Nexus apoia e defende os seguintes direitos humanos:
       </p>
@@ -1633,7 +1804,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li><strong>Direito ao Trabalho:</strong> Igualdade de oportunidades profissionais</li>
       </ul>
 
-      <h2>Linguagem Inclusiva</h2>
+      <h2 id="linguagem">Linguagem Inclusiva</h2>
       <p>
         Nos comprometemos a utilizar linguagem inclusiva e respeitosa em todas as comunicações:
       </p>
@@ -1650,7 +1821,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       </ul>
 
     
-      <h2>Denúncia de Discriminação</h2>
+      <h2 id="denuncia">Denúncia de Discriminação</h2>
       <p>
         Se você sofreu discriminação ou assédio baseado em orientação sexual ou identidade de gênero:
       </p>
@@ -1669,7 +1840,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         • Este espaço tem caráter informativo e orientativo
       </div>
 
-      <h2>Eventos e Celebrações</h2>
+      <h2 id="eventos">Eventos e Celebrações</h2>
       <p>
         A Agência Nexus celebra e apoia os seguintes dias LGBT+:
       </p>
@@ -1682,7 +1853,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li>🤎 <strong>Dia do Orgulho Assexual:</strong> 6 de abril</li>
       </ul>
 
-      <h2>Contato e Suporte</h2>
+      <h2 id="contato">Contato e Suporte</h2>
       <p>
         Se você tiver dúvidas sobre nossa política LGBT+ ou precisar de apoio:
       </p>
@@ -1695,7 +1866,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <strong>🔐 Confidencialidade Garantida</strong>
       </div>
 
-      <p style="margin-top: 2rem; text-align: center; font-weight: 600; color: #FF006E;">
+      <p style="margin-top: 2rem; text-align: center; font-weight: 600; color: #1e40af;">
         Todos são bem-vindos. Todos são respeitados. Todos importam! 🏳️‍🌈
       </p>
 
@@ -2334,6 +2505,32 @@ function responder(tipo) {
     chatBox.scrollTop = chatBox.scrollHeight;
   }, 400);
 }
+    function toggleTopics() {
+      document.getElementById('topicsDropdown').classList.toggle('open');
+    }
+    function closeTopics() {
+      document.getElementById('topicsDropdown').classList.remove('open');
+    }
+    function toggleTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.toggle('open');
+    }
+    function closeTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.remove('open');
+    }
+    document.addEventListener('click', (e) => {
+      const toggle = document.getElementById('topicsToggle');
+      const dropdown = document.getElementById('topicsDropdown');
+      const toggleM = document.getElementById('topicsToggleMobile');
+      const dropdownM = document.getElementById('topicsDropdownMobile');
+      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
+        closeTopics();
+      }
+      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
+        closeTopicsMobile();
+      }
+    });
 </script>
 
   </script>
