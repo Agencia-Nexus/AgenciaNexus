@@ -686,6 +686,38 @@
       background: #764ba2;
       transform: translateY(-2px);
     }
+  .scroll-top-btn {
+    position: fixed;
+    bottom: calc(2rem + 60px + 1.4rem);
+    right: 1.15rem;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #1e40af;
+    border: none;
+    color: #ffffff;
+    font-size: 0.55rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(30,64,175,0.5);
+    z-index: 99;
+    opacity: 0; pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  body.dark-mode .scroll-top-btn {
+    background: #1e40af;
+    color: #ffffff;
+  }
+  .scroll-top-btn.visible {
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+  }
+  .scroll-top-btn:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(30,64,175,0.7);
+  }
   </style>
 </head>
 <body>
@@ -851,6 +883,12 @@
         fecharPersonalizacao();
       }
     });
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
+  <script>
+    (function(){
+      const b = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', function(){ b.classList.toggle('visible', window.scrollY > 200); });
+    })();
   </script>
 </body>
 </html>
