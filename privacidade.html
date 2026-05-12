@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<script>
+    if (localStorage.getItem('theme') !== 'light') {
+      document.documentElement.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('dark-mode');
+      });
+    }
+    document.documentElement.style.transition = 'none';
+    window.addEventListener('load', () => {
+      document.documentElement.style.transition = '';
+    });
+  </script>
+  
+  <!-- Meta Tags Essenciais -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <!-- Título e Descrição -->
+  <title>Privacidade & LGPD | Agência Nexus – Soluções em Recrutamento</title>
+  <meta name="description" content="Conheça a Política de Privacidade e a conformidade com a LGPD da Agência Nexus. Proteção de dados pessoais de candidatos e clientes em processos de recrutamento e seleção." />
+  <meta name="keywords" content="privacidade, LGPD, proteção de dados, política de privacidade, segurança, agência de empregos, recrutamento, seleção, compliance" />
+
+  <!-- Meta Tags de Rastreamento -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Agência Nexus" />
+  <meta name="publisher" content="Agência Nexus" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="language" content="Portuguese" />
+
+  <!-- Open Graph (Redes Sociais) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Privacidade & LGPD | Agência Nexus" />
+  <meta property="og:description" content="Saiba como a Agência Nexus protege seus dados pessoais e cumpre as normas da LGPD." />
+  <meta property="og:url" content="https://agencianexus.github.io/agencianexus/privacidade.html" />
+  <meta property="og:image" content="https://agencianexus.github.io/agencianexus/og-image-privacidade.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Agência Nexus" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Privacidade & LGPD | Agência Nexus" />
+  <meta name="twitter:description" content="Entenda como a Agência Nexus protege seus dados pessoais e garante segurança conforme a LGPD." />
+  <meta name="twitter:image" content="https://agencianexus.github.io/agencianexus/og-image-privacidade.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://agencianexus.github.io/agencianexus/privacidade.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+</head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html.dark-mode body {
+  background: #0a0a0a !important;
+  color: #f0f0f0 !important;
+}
+.back-button,
+.menu-toggle,
+.theme-toggle {
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover,
+.menu-toggle:hover,
+.theme-toggle:hover {
+  background: rgba(30, 64, 175, 0.5);
+  transform: scale(1.05);
+}
+
+body:not(.dark-mode) .back-button,
+body:not(.dark-mode) .menu-toggle,
+body:not(.dark-mode) .theme-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  color: rgb(27, 27, 27);
+}
+
+body:not(.dark-mode) .back-button:hover,
+body:not(.dark-mode) .menu-toggle:hover,
+body:not(.dark-mode) .theme-toggle:hover {
+  color: white;
+}
+
+.chatbot-messages ul,
+.chatbot-messages ol {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.chatbot-messages li {
+  margin-bottom: 0.4rem;
+  line-height: 1.5;
+}
+
+body.dark-mode .chatbot-messages ul,
+body.dark-mode .chatbot-messages ol {
+  color: #f0f0f0;
+}
+
+    :root {
+      --primary: #3b82f6;
+      --accent: #60a5fa;
+      --bg-light: #ffffff;
+      --text-light: #1a1a1a;
+      --bg-dark: #0a0a0a;
+      --text-dark: #f0f0f0;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.chat-open .theme-toggle,
+    body.chat-open .back-button,
+    body.chat-open .menu-toggle {
+      display: none !important;
+    }
+
+    body.menu-open .back-button,
+    body.menu-open .menu-toggle,
+    body.menu-open .theme-toggle {
+      display: none !important;
+          pointer-events: none !important;
+
+    }
+
+    body.scrolling .theme-toggle,
+    body.scrolling .back-button,
+    body.scrolling .menu-toggle {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    /* OVERLAY MENU */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 95;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .menu-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        min-height: 290px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        min-height: 250px;
+      }
+
+      .back-button,
+      .menu-toggle,
+      .topics-toggle-mobile {
+        padding: 0.8rem 1rem !important;
+        font-size: 0.9rem;
+        height: 50px;
+        width: fit-content !important;
+        min-width: 0 !important;
+      }
+
+      .btn {
+        min-width: auto;
+      }
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: pulse 15s ease-in-out infinite;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+   .header-bg-img {
+        position: absolute;
+        left: -5.5%;
+        top: 77%;
+        transform: translateY(-50%);
+        width: 250px;
+        height: 250px;
+        z-index: 0;
+        opacity: 0.9;
+      }
+
+  @media (min-width: 1024px) {
+    .header { min-height: 220px; }
+    .header-bg-img {
+      position: absolute;
+      left: -1.5%;
+      top: 77%;
+      transform: translateY(-50%);
+      width: 250px;
+      height: 250px;
+      z-index: 0;
+      opacity: 0.9;
+    }
+    
+      .header-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+      }
+    }
+    @media (max-width: 768px) {
+      .header { min-height: 290px; }
+         .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+      }
+    }
+    @media (max-width: 480px) {
+      .header { min-height: 250px; }
+      .header-bg-img {
+        position: absolute;
+        left: 50%;
+        top: -100%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: auto;
+        z-index: 0;
+        opacity: 0.9;
+      }
+      .header-content {
+        position: relative;
+        z-index: 1;
+        margin-top: 125px;
+        text-align: center;
+      }
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Back Button */
+    .back-button,
+    .topics-toggle-mobile {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      height: 50px;
+      justify-content: center;
+      white-space: nowrap;
+      margin: 0;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(-5px);
+    }
+
+    /* Menu Toggle */
+    .menu-toggle,
+    .topics-toggle-mobile {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      margin: 0;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* ================================================ */
+    /* MENU CONTENT — COMPACTO PARA CABER SEM SCROLL    */
+    /* ================================================ */
+    .menu-content {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 300px;
+      height: 100vh;
+      background: var(--bg-light);
+      backdrop-filter: blur(20px);
+      padding: 1.6rem 1.4rem 1.2rem;
+      transition: left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      z-index: 97;
+    }
+
+    body.dark-mode .menu-content {
+      background: var(--bg-dark);
+    }
+
+    .menu-content.active {
+      left: 0;
+    }
+
+    .menu-section {
+      margin-bottom: 1.1rem;
+    }
+
+    .menu-section h3 {
+      color: var(--accent);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+    }
+
+    .menu-link {
+      display: block;
+      padding: 0.6rem 0.8rem;
+      color: var(--text-light);
+      text-decoration: none;
+      border-radius: 7px;
+      margin-bottom: 0.28rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    body.dark-mode .menu-link {
+      color: var(--text-dark);
+    }
+
+    .menu-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateX(8px);
+    }
+
+    .menu-link.active-page {
+      background: rgba(59, 130, 246, 0.12);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    body.dark-mode .menu-link.active-page {
+      color: #38bdf8;
+      background: rgba(59, 130, 246, 0.2);
+    }
+
+
+
+    /* Separador de seções */
+    .section-divider {
+      border: none;
+      border-top: 3px dashed rgba(59, 130, 246, 0.25);
+      margin: 3rem 0;
+      position: relative;
+    }
+
+    .section-divider::after {
+      content: '⚖️ LGPD';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      border: 2px solid rgba(59, 130, 246, 0.25);
+      white-space: nowrap;
+    }
+
+    body.dark-mode .section-divider::after {
+      background: #1a1a1a;
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    /* Content Section */
+    .content-section {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .content-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1s ease-out 0.5s both;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      line-height: 1.8;
+    }
+
+    body.dark-mode .content-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .content-container h2 {
+      color: var(--primary);
+      font-size: 1.7rem;
+      margin-top: 2.2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+
+    .content-container h2:first-child {
+      margin-top: 0;
+    }
+
+    .content-container h3 {
+      color: var(--accent);
+      font-size: 1.15rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .content-container p {
+      color: var(--text-light);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      word-spacing: -0.03em;
+      overflow-wrap: break-word;
+    }
+
+    body.dark-mode .content-container p {
+      color: var(--text-dark);
+    }
+
+    .content-container ul,
+    .content-container ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .content-container li {
+      margin-bottom: 0.5rem;
+      color: var(--text-light);
+    }
+
+    body.dark-mode .content-container li {
+      color: var(--text-dark);
+    }
+
+    .highlight,
+    .highlight-box {
+      background: rgba(59, 130, 246, 0.08);
+      padding: 1.5rem;
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+
+    body.dark-mode .highlight,
+    body.dark-mode .highlight-box {
+      background: rgba(59, 130, 246, 0.15);
+    }
+
+    .contact-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .highlight-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-list li {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .highlight-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .value-card {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(96, 165, 250, 0.05));
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      border-radius: 15px;
+      padding: 1.3rem;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .value-card {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.1));
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+    }
+
+    .value-card h4 {
+      color: var(--primary);
+      margin-bottom: 0.7rem;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .value-card p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-bottom: 0;
+    }
+
+    /* Botões */
+    .btn {
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      display: inline-block;
+      text-decoration: none;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+    body.dark-mode .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    body.dark-mode .btn-secondary {
+      color: #ffffff;
+      border-color: #ffffff;
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* CHATBOT */
+    .chatbot-button {
+      position: fixed;
+      bottom: 2rem;
+      right: 1rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+      transition: all 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+      z-index: 100;
+    }
+
+    .chatbot-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+    }
+
+    .chatbot-button.active {
+      animation: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .chatbot-window {
+      display: none;
+      position: fixed;
+      bottom: 2.0rem;
+      right: 1rem;
+      width: 380px;
+      height: 550px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+      flex-direction: column;
+      z-index: 99;
+    }
+
+    #chatbotBtn.active {
+      display: none;
+    }
+
+    body.dark-mode .chatbot-window {
+      bottom: 1.5rem;
+      background: #1e1e1e;
+    }
+
+    .chatbot-window.active {
+      display: flex;
+    }
+
+    .chatbot-header {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 1rem;
+      border-radius: 15px 15px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbot-header h3 {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .chatbot-header p {
+      margin: 0.3rem 0 0 0;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .close-chatbot {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .close-chatbot:hover {
+      transform: rotate(90deg);
+    }
+
+    .ai-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px 4px 6px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: all 0.25s;
+      user-select: none;
+    }
+    .ai-toggle-wrap:hover { background: rgba(255,255,255,0.25); }
+    .ai-toggle-wrap.ai-on {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.6);
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+    .ai-toggle-switch {
+      position: relative;
+      width: 30px;
+      height: 16px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      transition: background 0.25s;
+      flex-shrink: 0;
+    }
+    .ai-toggle-wrap.ai-on .ai-toggle-switch { background: rgba(255,255,255,0.5); }
+    .ai-toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 12px; height: 12px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .ai-toggle-wrap.ai-on .ai-toggle-switch::after { transform: translateX(14px); }
+    .ai-toggle-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .ai-mode-badge {
+      display: none;
+      font-size: 0.65rem;
+      background: rgba(255,255,255,0.25);
+      color: white;
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      animation: pulseBadge 2s infinite;
+    }
+    .ai-on .ai-mode-badge { display: inline-block; }
+    @keyframes pulseBadge {
+      0%,100% { opacity:1; } 50% { opacity:0.6; }
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      scroll-behavior: smooth;
+    }
+
+    body.dark-mode .chatbot-messages {
+      background: #0a0a0a;
+    }
+
+    .message {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+      word-wrap: break-word;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.bot  { justify-content: flex-start; }
+    .message.user { justify-content: flex-end; }
+
+    .message-content {
+      max-width: 75%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .message.bot .message-content {
+      background: white;
+      color: #333;
+      border: 1px solid #e0e0e0;
+    }
+
+    body.dark-mode .message.bot .message-content {
+      background: #2a2a2a;
+      color: #f0f0f0;
+      border: 1px solid #444;
+    }
+
+    .message.user .message-content {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+    .chatbot-input-area {
+      padding: 1rem;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    body.dark-mode .chatbot-input-area {
+      border-top: 1px solid #444;
+    }
+
+    .chatbot-input {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+    }
+
+    body.dark-mode .chatbot-input {
+      background: #2a2a2a;
+      border-color: #444;
+      color: #f0f0f0;
+    }
+
+    .chatbot-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .chatbot-send-btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: transform 0.2s;
+    }
+
+    .chatbot-send-btn:hover { transform: scale(1.05); }
+
+    /* Scroll top button */
+    .scroll-top-btn {
+    position: fixed;
+    bottom: calc(2rem + 60px + 1.4rem);
+    right: 1.15rem;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #1e40af;
+    border: none;
+    color: #ffffff;
+    font-size: 0.55rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(30,64,175,0.5);
+    z-index: 99;
+    opacity: 0; pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  body.dark-mode .scroll-top-btn {
+    background: #1e40af;
+    color: #ffffff;
+  }
+  .scroll-top-btn.visible {
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+  }
+  .scroll-top-btn:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(30,64,175,0.7);
+  }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2rem; }
+      .header p  { font-size: 1rem; }
+
+
+
+      .chatbot-window {
+        width: 90vw;
+        height: 60vh;
+        bottom: 2rem;
+        right: 0.5rem;
+      }
+
+      .content-container h2 { font-size: 1.4rem; }
+      .content-container p {
+        word-spacing: -0.05em;
+        hyphens: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 { font-size: 1.8rem; }
+
+      .back-button {
+        margin-right: 0.3rem;
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .menu-toggle { padding: 0.8rem 1rem; font-size: 0.9rem; }
+
+      .btn {
+        min-width: auto;
+      }
+
+      .theme-toggle {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        min-width: 45px;
+      }
+
+      .chatbot-button { bottom: 2rem; right: 1rem; }
+
+      .chatbot-window {
+        bottom: 2rem;
+        right: 0.5rem;
+        left: 0.5rem;
+        width: calc(100% - 1rem);
+        height: 70vh;
+        max-height: 70vh;
+      }
+
+      .content-container { padding: 1.5rem; }
+      .content-container h2 { font-size: 1.3rem; }
+      .content-container h3 { font-size: 1rem; }
+
+      .btn {
+        width: 100%;
+        margin-right: 0;
+        padding: 0.9rem 1.5rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50%       { transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    .message-content p { margin: 0 0 0.55rem 0; line-height: 1.55; }
+    .message-content p:last-child { margin-bottom: 0; }
+    .message-content strong { font-weight: 700; }
+    .message-content ul { padding-left: 1.2rem; margin: 0.3rem 0 0.6rem; }
+    .message-content li { margin-bottom: 0.25rem; line-height: 1.5; }
+    .typing-dots { display: flex; gap: 4px; align-items: center; padding: 2px 0; }
+    .typing-dots span { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: dotBounce 1.2s infinite; }
+    .typing-dots span:nth-child(2) { animation-delay: .2s; }
+    .typing-dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes dotBounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-5px);opacity:1} }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; padding-left: 4px; }
+    .chip { background: white; border: 1.5px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; white-space: nowrap; }
+    body.dark-mode .chip { background: #2a2a2a; }
+    .chip:hover { background: var(--primary); color: white; transform: translateY(-1px); }
+
+  
+    /* ══ FOOTER PROFISSIONAL ══ */
+    footer {
+      --ft-bg:            #f0f4ff;
+      --ft-border:        rgba(59, 130, 246, 0.18);
+      --ft-text:          #1a1a1a;
+      --ft-muted:         rgba(0, 0, 0, 0.45);
+      --ft-social-bg:     rgba(0, 0, 0, 0.06);
+      --ft-social-border: rgba(0, 0, 0, 0.11);
+      --ft-link-color:    rgba(0, 0, 0, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.05);
+      --ft-bottom-border: rgba(0, 0, 0, 0.09);
+      --ft-copy:          rgba(0, 0, 0, 0.38);
+      --ft-copy-strong:   rgba(0, 0, 0, 0.58);
+      --ft-badge:         rgba(0, 0, 0, 0.3);
+      --ft-accent:        #1e40af;
+      --ft-title:         #1e40af;
+
+      background: var(--ft-bg);
+      color: var(--ft-text);
+      padding: 0;
+      border-top: 1px solid var(--ft-border);
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-mode footer {
+      --ft-bg:            #0d0d0d;
+      --ft-border:        rgba(56, 189, 248, 0.15);
+      --ft-text:          #e0e0e0;
+      --ft-muted:         rgba(255, 255, 255, 0.45);
+      --ft-social-bg:     rgba(255, 255, 255, 0.06);
+      --ft-social-border: rgba(255, 255, 255, 0.09);
+      --ft-link-color:    rgba(255, 255, 255, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.25);
+      --ft-bottom-border: rgba(255, 255, 255, 0.07);
+      --ft-copy:          rgba(255, 255, 255, 0.3);
+      --ft-copy-strong:   rgba(255, 255, 255, 0.5);
+      --ft-badge:         rgba(255, 255, 255, 0.25);
+      --ft-accent:        #38bdf8;
+      --ft-title:         #38bdf8;
+    }
+
+    .footer-top {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 560px) {
+      .footer-top { grid-template-columns: 1fr; gap: 1.6rem; padding: 2rem 1.2rem 1.5rem; }
+    }
+
+    .footer-brand {}
+    .footer-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.9rem;
+    }
+    .footer-brand-logo img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .footer-brand-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ft-text);
+      letter-spacing: -0.3px;
+    }
+    .footer-brand-name span { color: var(--ft-accent); }
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--ft-muted);
+      line-height: 1.6;
+      max-width: 280px;
+      margin-bottom: 1.4rem;
+    }
+
+    /* Redes sociais */
+    .footer-social {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .footer-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--ft-social-bg);
+      border: 1px solid var(--ft-social-border);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: var(--ft-muted);
+    }
+    .footer-social-link:hover {
+      background: rgba(56,189,248,0.12);
+      border-color: rgba(56,189,248,0.35);
+      color: var(--ft-accent);
+      transform: translateY(-2px);
+    }
+    .footer-social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Colunas de links */
+    .footer-col-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ft-title);
+      margin-bottom: 1rem;
+    }
+    .footer-col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .footer-col-links a {
+      text-decoration: none;
+      color: var(--ft-link-color);
+      font-size: 0.83rem;
+      transition: color 0.18s;
+    }
+    .footer-col-links a:hover { color: var(--ft-accent); }
+
+    /* Contato */
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--ft-link-color);
+      margin-bottom: 0.55rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .footer-contact-item:hover { color: var(--ft-accent); }
+    .footer-contact-item svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--ft-accent);
+      flex-shrink: 0;
+    }
+
+    /* Linha inferior */
+    .footer-bottom {
+      border-top: 1px solid var(--ft-bottom-border);
+      background: var(--ft-bottom-bg, transparent);
+      padding: 1.1rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 560px) {
+      .footer-bottom { flex-direction: column; text-align: center; padding: 1rem 1.2rem; }
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--ft-copy);
+    }
+    .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
+    .footer-badge {
+      font-size: 0.68rem;
+      color: var(--ft-badge);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+  
+    /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
+    .top-left-buttons {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .topics-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    body:not(.dark-mode) .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+
+    body:not(.dark-mode) .topics-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons {
+      display: none !important;
+    }
+
+    body.scrolling .top-left-buttons {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .topics-dropdown {
+      position: fixed;
+      top: calc(2rem + 58px);
+      left: 2rem;
+      z-index: 1001;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0;
+      min-width: 210px;
+      display: none;
+      flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+
+    body.dark-mode .topics-dropdown {
+      background: #1a1a1a;
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .topics-dropdown.open { display: flex; }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block;
+      padding: 0.65rem 1.1rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.18s ease;
+    }
+
+    body.dark-mode .topics-link { color: #f0f0f0; }
+
+    .topics-link:hover {
+      background: rgba(30, 64, 175, 0.1);
+      color: #1e40af;
+      padding-left: 1.4rem;
+    }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown { display: none !important; }
+
+    .topics-toggle-mobile { display: none; }
+    .topics-dropdown-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
+
+      body:not(.dark-mode) .topics-toggle-mobile {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(0, 0, 0, 0.4);
+        color: rgb(27, 27, 27);
+      }
+
+      body:not(.dark-mode) .topics-toggle-mobile:hover {
+        color: white;
+        background: rgba(30, 64, 175, 0.4);
+      }
+
+      .topics-dropdown-mobile {
+        position: fixed;
+        top: calc(2rem + 116px);
+        left: 2rem;
+        z-index: 1001;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0;
+        min-width: 210px;
+        flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+
+      body.dark-mode .topics-dropdown-mobile {
+        background: #1a1a1a;
+        border-color: rgba(255,255,255,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      }
+
+      .topics-dropdown-mobile.open { display: flex; }
+
+      .topics-link-mobile {
+        display: block;
+        padding: 0.65rem 1.1rem;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: all 0.18s ease;
+      }
+
+      body.dark-mode .topics-link-mobile { color: #f0f0f0; }
+
+      .topics-link-mobile:hover {
+        background: rgba(30, 64, 175, 0.1);
+        color: #1e40af;
+        padding-left: 1.4rem;
+      }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile { display: none !important; }
+    }
+</style>
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span id="themeIcon">🌙</span>
+  </button>
+
+  <!-- Voltar | Menu | Topics -->
+  <div class="top-left-buttons" id="topLeftButtons">
+    <div class="top-row">
+      <a href="../index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
+    </div>
+  </div>
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#section-intro" class="topics-link" onclick="closeTopics()">📖 Introdução</a>
+    <a href="#section-info" class="topics-link" onclick="closeTopics()">📋 Informações Coletadas</a>
+    <a href="#section-uso" class="topics-link" onclick="closeTopics()">🔒 Como Usamos</a>
+    <a href="#section-direitos" class="topics-link" onclick="closeTopics()">⚖️ Seus Direitos (LGPD)</a>
+    <a href="#section-seguranca" class="topics-link" onclick="closeTopics()">🛡️ Segurança dos Dados</a>
+    <a href="#section-cookies" class="topics-link" onclick="closeTopics()">🍪 Cookies</a>
+    <a href="#section-obrigacoes" class="topics-link" onclick="closeTopics()">📜 Obrigações da Nexus</a>
+  </div>
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#section-intro" class="topics-link-mobile" onclick="closeTopicsMobile()">📖 Introdução</a>
+    <a href="#section-direitos" class="topics-link-mobile" onclick="closeTopicsMobile()">⚖️ Seus Direitos (LGPD)</a>
+    <a href="#section-seguranca" class="topics-link-mobile" onclick="closeTopicsMobile()">🛡️ Segurança dos Dados</a>
+    <a href="#section-cookies" class="topics-link-mobile" onclick="closeTopicsMobile()">🍪 Cookies</a>
+    <a href="#section-obrigacoes" class="topics-link-mobile" onclick="closeTopicsMobile()">📜 Obrigações da Nexus</a>
+  </div>
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+  <div class="menu-content" id="menuContent">
+    <div class="menu-section">
+      <h3>Bem-Vindo</h3>
+      <a href="sobre.html" class="menu-link">Sobre</a>
+      <a href="missao.html" class="menu-link">Missão</a>
+      <a href="visao.html" class="menu-link">Visão</a>
+      <a href="valores.html" class="menu-link active-page">Valores</a>
+    </div>
+    <div class="menu-section">
+      <h3>Carreira</h3>
+      <a href="candidato.html" class="menu-link">Candidatos</a>
+      <a href="tutorial.html" class="menu-link">Vídeos</a>
+      <a href="vagas.html" class="menu-link">Vagas</a>
+      <a href="ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
+      <a href="utilidades.html" class="menu-link">Utilidades</a>
+    </div>
+    <div class="menu-section">
+      <h3>Atendimento</h3>
+      <a href="servicos.html" class="menu-link">Serviços</a>
+      <a href="contato.html" class="menu-link">Contato</a>
+    </div>
+    <div class="menu-section">
+      <h3>Informações</h3>
+      <a href="lgbt.html" class="menu-link">LGBT+</a>
+      <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
+      <a href="indexcookies.html" class="menu-link">Cookies</a>
+    </div>
+    <div class="menu-section">
+      <h3>FAQ</h3>
+      <a href="../faq/faq-candidatos.html" class="menu-link">FAQ Candidatos</a>
+      <a href="../faq/faq-empresas.html" class="menu-link">FAQ Empresas</a>
+      <a href="../faq/faq-vagas.html" class="menu-link">FAQ Vagas</a>
+      <a href="../faq/faq-privacidade.html" class="menu-link">FAQ Privacidade</a>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+        <img src="../imagens/fundo.png" alt="Privacidade e LGPD" class="header-bg-img">
+        <div>
+          <h1 style="margin: 0 0 0.5rem 0;">Privacidade & LGPD</h1>
+          <p style="margin: 0;">Transparência, segurança e conformidade com a legislação brasileira de proteção de dados</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <section class="content-section">
+    <div class="content-container">
+
+      <!-- ================================================ -->
+      <!-- POLÍTICA DE PRIVACIDADE                          -->
+      <!-- ================================================ -->
+
+      <h2 id="section-intro">1. Introdução</h2>
+      <p>
+        A Agência Nexus ("nós", "nosso" ou "nossa") opera o website e aplicativos da Agência Nexus. Esta página informa você sobre nossas políticas sobre a coleta, uso e divulgação de dados pessoais quando você usa nossos serviços e as escolhas que você tem associadas com esses dados.
+      </p>
+      <p>
+        Estamos comprometidos em proteger sua privacidade e garantir que você tenha uma experiência positiva em nossa plataforma. Esta Política de Privacidade explica como coletamos, usamos, compartilhamos e protegemos suas informações pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD).
+      </p>
+
+      <h2 id="section-info">2. Informações que Coletamos</h2>
+      <p>Coletamos diferentes tipos de informações para fornecer e melhorar nossos serviços:</p>
+      
+      <h3>2.1 Informações Fornecidas Diretamente por Você</h3>
+      <ul>
+        <li><strong>Dados de Cadastro:</strong> Nome completo, e-mail, telefone, endereço</li>
+        <li><strong>Informações Profissionais:</strong> Currículo, experiência, qualificações, habilidades</li>
+        <li><strong>Dados Bancários:</strong> Informações para pagamento (apenas em casos de contrato)</li>
+        <li><strong>Mensagens e Comunicações:</strong> Mensagens enviadas através de formulários e chat</li>
+      </ul>
+
+      <h3>2.2 Informações Coletadas Automaticamente</h3>
+      <ul>
+        <li><strong>Dados de Navegação:</strong> Tipo de navegador, endereço IP, páginas visitadas</li>
+        <li><strong>Cookies:</strong> Informações armazenadas para melhorar sua experiência</li>
+        <li><strong>Analytics:</strong> Dados sobre como você interage com nosso site</li>
+        <li><strong>Dispositivo:</strong> Tipo de dispositivo, sistema operacional, identificadores únicos</li>
+      </ul>
+
+      <h2 id="section-uso">3. Como Usamos Suas Informações</h2>
+      <p>Utilizamos as informações coletadas para diversos fins:</p>
+      <ul>
+        <li>Fornecer, manter e melhorar nossos serviços de recrutamento</li>
+        <li>Processar suas solicitações e responder aos seus questionamentos</li>
+        <li>Enviar notificações sobre vagas de emprego relevantes</li>
+        <li>Conduzir entrevistas, testes e processos seletivos</li>
+        <li>Realizar análises e pesquisas para melhorar nossos serviços</li>
+        <li>Cumprir obrigações legais e regulatórias</li>
+        <li>Detectar e prevenir fraudes</li>
+        <li>Personalizar sua experiência em nossa plataforma</li>
+      </ul>
+
+      <div class="highlight">
+        <strong>⚠️ Importante:</strong> Nunca usaremos suas informações para fins não autorizados ou as venderemos a terceiros sem seu consentimento explícito.
+      </div>
+
+      <h2>4. Compartilhamento de Informações</h2>
+      <p>
+        Podemos compartilhar suas informações pessoais apenas quando necessário e apropriado:
+      </p>
+      <ul>
+        <li><strong>Com Empresas Clientes:</strong> Apenas seu currículo e informações profissionais relevantes para processos seletivos</li>
+        <li><strong>Com Fornecedores de Serviços:</strong> Plataformas de análise, hospedagem e comunicação</li>
+        <li><strong>Por Requisição Legal:</strong> Quando exigido por lei ou autoridades competentes</li>
+        <li><strong>Proteção de Direitos:</strong> Para proteger nossos direitos, privacidade, segurança ou propriedade</li>
+      </ul>
+
+      <h2 id="section-direitos">5. Seus Direitos sob a LGPD</h2>
+      <p>
+        A Agência Nexus está em total conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018). Seus direitos incluem:
+      </p>
+      <ul>
+        <li><strong>Direito de Acesso:</strong> Solicitar acesso aos seus dados pessoais armazenados</li>
+        <li><strong>Direito de Retificação:</strong> Corrigir dados inexatos ou incompletos</li>
+        <li><strong>Direito de Exclusão:</strong> Solicitar a exclusão de seus dados (direito ao esquecimento)</li>
+        <li><strong>Direito de Portabilidade:</strong> Receber seus dados em formato estruturado</li>
+        <li><strong>Direito de Revogação:</strong> Retirar seu consentimento a qualquer momento</li>
+        <li><strong>Direito de Oposição:</strong> Se opor ao processamento de seus dados</li>
+      </ul>
+
+      <h2 id="section-seguranca">6. Segurança dos Dados</h2>
+      <p>
+        Implementamos medidas técnicas e organizacionais apropriadas para proteger suas informações pessoais contra acesso não autorizado, alteração, divulgação ou destruição. Essas medidas incluem:
+      </p>
+      <ul>
+        <li>Criptografia de dados em trânsito (SSL/TLS)</li>
+        <li>Senhas criptografadas em nossos sistemas</li>
+        <li>Acesso restrito aos dados pessoais (apenas pessoal autorizado)</li>
+        <li>Auditorias de segurança regulares</li>
+        <li>Manutenção de backups seguros</li>
+      </ul>
+      <p>
+        <strong>Observação:</strong> Nenhum método de transmissão pela internet ou armazenamento eletrônico é 100% seguro. Embora façamos nossos melhores esforços para proteger suas informações, não podemos garantir segurança absoluta.
+      </p>
+
+      <h2>7. Retenção de Dados</h2>
+      <p>
+        Reteremos suas informações pessoais apenas pelo tempo necessário para:
+      </p>
+      <ul>
+        <li>Fornecer nossos serviços</li>
+        <li>Cumprir obrigações legais</li>
+        <li>Resolver disputas</li>
+        <li>Estabelecer, exercer ou defender direitos legais</li>
+      </ul>
+      <p>
+        Você pode solicitar a exclusão de seus dados a qualquer momento através de nossos canais de contato. Após sua exclusão, seus dados não serão mais usados, exceto quando exigido por lei.
+      </p>
+
+      <h2 id="section-cookies">8. Cookies e Tecnologias de Rastreamento</h2>
+      <p>
+        Usamos cookies e tecnologias similares para aprimorar sua experiência:
+      </p>
+      <ul>
+        <li><strong>Cookies Essenciais:</strong> Necessários para o funcionamento básico do site</li>
+        <li><strong>Cookies de Preferência:</strong> Lembram suas escolhas e preferências</li>
+        <li><strong>Cookies de Analytics:</strong> Ajudam a entender como você usa nossos serviços</li>
+        <li><strong>Cookies de Marketing:</strong> Usados em publicidade direcionada (com seu consentimento)</li>
+      </ul>
+      <p>
+        Você pode controlar cookies através das configurações do seu navegador. Desabilitar cookies pode afetar a funcionalidade de nosso site.
+      </p>
+
+      <h2>9. Direitos de Crianças</h2>
+      <p>
+        Nossos serviços não são direcionados a menores de 18 anos. Não coletamos intencionalmente informações pessoais de menores. Se descobrirmos que coletamos informações de um menor sem consentimento parental apropriado, tomaremos medidas para deletar essas informações prontamente.
+      </p>
+
+      <h2>10. Links para Terceiros</h2>
+      <p>
+        Nosso website pode conter links para sites de terceiros. Esta Política de Privacidade se aplica apenas aos nossos serviços. Recomendamos revisar a política de privacidade de qualquer site de terceiro antes de fornecer suas informações pessoais.
+      </p>
+
+      <h2>11. Alterações nesta Política</h2>
+      <p>
+        Podemos atualizar nossa Política de Privacidade periodicamente para refletir mudanças em nossas práticas, tecnologia, requisitos legais ou outros fatores. Notificaremos você sobre quaisquer alterações materiais publicando a política atualizada em nosso website e atualizando a data de "Última Atualização" abaixo.
+      </p>
+      <p>
+        Seu uso continuado de nossos serviços após notificação de alterações constitui aceitação da Política de Privacidade revisada.
+      </p>
+
+
+      <h2>13. Responsável pela Proteção de Dados</h2>
+      <p>
+        A Agência Nexus designou um responsável pela proteção de dados para supervisionar nossas práticas de privacidade. Para questões relacionadas à privacidade, você pode entrar em contato através dos canais acima.
+      </p>
+
+      <div class="highlight">
+        <strong>✅ Compromisso:</strong> Estamos comprometidos em proteger seus direitos de privacidade e operar com transparência em todas as nossas práticas de dados.
+      </div>
+
+      <p style="margin-top: 2rem; text-align: center; opacity: 0.7; font-size: 0.9rem;">
+        <strong>Última Atualização:</strong> Janeiro de 2026
+      </p>
+
+
+      <!-- ================================================ -->
+      <!-- DIVISOR VISUAL — INÍCIO DA SEÇÃO LGPD            -->
+      <!-- ================================================ -->
+      <hr class="section-divider">
+
+
+      <!-- ================================================ -->
+      <!-- LEI GERAL DE PROTEÇÃO DE DADOS (LGPD)            -->
+      <!-- ================================================ -->
+
+      <h2>O que é a LGPD?</h2>
+      <p>
+        A Lei Geral de Proteção de Dados (LGPD) é a legislação brasileira que regulamenta o tratamento de dados pessoais por pessoas físicas ou jurídicas de direito público ou privado. Entrou em vigor em 18 de setembro de 2020 e estabelece direitos, deveres e obrigações para todas as organizações que processam dados.
+      </p>
+
+      <!-- GIF 1 -->
+      <section class="topico-gif" style="margin-top: 2rem; text-align: center;">
+        <img src="gif1.gif" alt="Explicação LGPD" style="width: 80%; max-width: 400px; height: auto;">
+      </section>
+
+
+      <h2>Direitos dos Titulares de Dados</h2>
+      <p>
+        A LGPD garante diversos direitos aos titulares de dados pessoais:
+      </p>
+
+      <!-- GIF 2 -->
+      <section class="topico-gif" style="margin-top: 2rem; text-align: center;">
+        <img src="gif2.gif" alt="Direitos do titular" style="width: 80%; max-width: 400px; height: auto;">
+      </section>
+
+      <h3>📌 Direito de Acesso</h3>
+      <ul class="highlight-list">
+        <li>Obter confirmação de que seus dados estão sendo processados</li>
+        <li>Acessar dados em formato claro e legível</li>
+        <li>Conhecer a origem, uso e destinação dos dados</li>
+      </ul>
+
+      <h3>✏️ Direito de Retificação</h3>
+      <ul class="highlight-list">
+        <li>Corrigir dados incompletos ou inexatos</li>
+        <li>Atualizar informações desatualizadas</li>
+        <li>Solicitar complementação de dados</li>
+      </ul>
+
+      <h3>🗑️ Direito de Exclusão</h3>
+      <ul class="highlight-list">
+        <li>Solicitar apagamento de dados pessoais</li>
+        <li>Direito ao esquecimento em certas circunstâncias</li>
+        <li>Solicitação sem necessidade de justificativa</li>
+      </ul>
+
+      <h3>📤 Direito à Portabilidade</h3>
+      <ul class="highlight-list">
+        <li>Receber dados em formato estruturado e portável</li>
+        <li>Transferência entre controladores</li>
+        <li>Facilita mudanças de serviços</li>
+      </ul>
+
+      <h3>🚫 Direito de Oposição</h3>
+      <ul class="highlight-list">
+        <li>Opor-se ao tratamento por motivos legítimos</li>
+        <li>Recusar marketing direto</li>
+        <li>Contestar decisões automatizadas</li>
+      </ul>
+
+      <h3>🔍 Direito de Revisão</h3>
+      <ul class="highlight-list">
+        <li>Contestar decisões tomadas automaticamente</li>
+        <li>Solicitar revisão manual de decisões</li>
+        <li>Explicações sobre raciocínio lógico</li>
+      </ul>
+
+      <h2 id="section-obrigacoes">Obrigações da Agência Nexus</h2>
+      <p>
+        Como controladora de dados, a Agência Nexus assume as seguintes obrigações:
+      </p>
+
+      <h3>✅ Consentimento e Legitimidade</h3>
+      <ul class="highlight-list">
+        <li>Obter consentimento prévio para coleta de dados</li>
+        <li>Baseado em fundamento legal legítimo</li>
+        <li>Clareza e transparência nas políticas</li>
+      </ul>
+
+      <h3>✅ Segurança de Dados</h3>
+      <ul class="highlight-list">
+        <li>Implementar medidas técnicas e organizacionais de segurança</li>
+        <li>Proteger contra acessos não autorizados</li>
+        <li>Manter atualização de sistemas</li>
+      </ul>
+
+      <h3>✅ Notificação de Incidentes</h3>
+      <ul class="highlight-list">
+        <li>Notificar ANPD em caso de vazamento</li>
+        <li>Informar titulares em até 72 horas</li>
+        <li>Documentar todos os incidentes</li>
+      </ul>
+
+      <h3>✅ Avaliação de Impacto</h3>
+      <ul class="highlight-list">
+        <li>Realizar Avaliação de Impacto à Proteção de Dados (AIPD)</li>
+        <li>Identificar riscos antes de tratamento</li>
+        <li>Implementar mitigações necessárias</li>
+      </ul>
+
+      <h3>✅ Processadores de Dados</h3>
+      <ul class="highlight-list">
+        <li>Contratos claros com processadores</li>
+        <li>Responsabilidade compartilhada</li>
+        <li>Auditoria periódica</li>
+      </ul>
+
+      <h2>Consentimento na LGPD</h2>
+      <p>
+        O consentimento é um dos fundamentos legais principais para tratamento de dados:
+      </p>
+
+      <!-- GIF 3 -->
+      <section class="topico-gif" style="margin-top: 2rem; text-align: center;">
+        <img src="gif3.gif" alt="Tratamento de dados" style="width: 80%; max-width: 400px; height: auto;">
+      </section>
+
+      <div class="highlight-box">
+        <strong>🔑 Características do Consentimento Válido:</strong><br>
+        ✅ Livre: Sem coerção ou pressão<br>
+        ✅ Informado: Baseia-se em informações completas<br>
+        ✅ Inequívoco: Claramente fornecido (não tácito)<br>
+        ✅ Granular: Separado por finalidade<br>
+        ✅ Específico: Para cada tipo de tratamento<br>
+        ✅ Revogável: Pode ser retirado a qualquer tempo
+      </div>
+
+      <h2>Fundamentos Legais para Tratamento</h2>
+      <p>
+        Além do consentimento, existem outros fundamentos legais válidos para processar dados:
+      </p>
+
+      <ul class="highlight-list">
+        <li><strong>Cumprimento de Obrigações Legais:</strong> Processar para cumprir lei ou ordem judicial</li>
+        <li><strong>Execução de Contrato:</strong> Necessário para prestar serviços contratados</li>
+        <li><strong>Interesses Legítimos:</strong> Processamento que não prejudica direitos do titular</li>
+        <li><strong>Proteção da Vida:</strong> Situações de emergência ou risco</li>
+        <li><strong>Políticas Públicas:</strong> Execução de políticas públicas</li>
+        <li><strong>Pesquisa Científica:</strong> Pesquisa com garantias de anonimização</li>
+      </ul>
+
+      <h2>ANPD — Autoridade Nacional de Proteção de Dados</h2>
+      <p>
+        A ANPD é o órgão responsável por fiscalizar e garantir o cumprimento da LGPD:
+      </p>
+
+      <h3>📋 Atribuições da ANPD</h3>
+      <ul class="highlight-list">
+        <li>Fiscalizar e aplicar sanções em caso de infrações</li>
+        <li>Orientar e esclarecer dúvidas sobre LGPD</li>
+        <li>Receber denúncias de violações</li>
+        <li>Emitir normativas complementares</li>
+        <li>Realizar auditorias em organizações</li>
+      </ul>
+
+      <h2>Penalidades por Não Conformidade</h2>
+      <p>
+        O não cumprimento da LGPD pode resultar em penalidades significativas:
+      </p>
+
+      <div class="highlight-box">
+        <strong>⚠️ Penalidades Administrativas:</strong><br>
+        • Multa de até 2% do faturamento anual (máx R$ 50 milhões) por infração<br>
+        • Multa de até 4% do faturamento anual (máx R$ 100 milhões) por infração grave<br>
+        • Publicação da infração em mídia de grande circulação<br>
+        • Bloqueio ou eliminação de dados<br>
+        • Suspensão de processamento de dados
+      </div>
+
+      <h2>Conformidade da Agência Nexus com a LGPD</h2>
+      <p>
+        A Agência Nexus está totalmente em conformidade com a LGPD:
+      </p>
+
+      <!-- GIF 4 -->
+      <section class="topico-gif" style="margin-top: 2rem; text-align: center;">
+        <img src="gif4.gif" alt="Segurança de dados" style="width: 80%; max-width: 400px; height: auto;">
+      </section>
+
+      <h3>✅ Medidas Implementadas</h3>
+      <ul class="highlight-list">
+        <li>Política de privacidade clara e acessível</li>
+        <li>Coleta de dados baseada em consentimento explícito</li>
+        <li>Criptografia de dados em trânsito e em repouso</li>
+        <li>Acesso controlado e baseado em funções</li>
+        <li>Auditoria periódica de segurança</li>
+        <li>Notificação rápida de incidentes</li>
+        <li>Designação de DPO (Encarregado de Proteção de Dados)</li>
+        <li>Contratos com processadores em conformidade</li>
+        <li>Registro de atividades de processamento</li>
+        <li>Avaliação de impacto para tratamentos de risco</li>
+      </ul>
+
+      <h2>Recursos Adicionais</h2>
+      <p>
+        Para mais informações sobre a LGPD, você pode consultar:
+      </p>
+
+      <ul class="highlight-list">
+        <li><strong>Site da ANPD:</strong> www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd</li>
+        <li><strong>Legislação Completa:</strong> Lei nº 13.709, de 14 de agosto de 2018</li>
+        <li><strong>Orientações Técnicas:</strong> Guias publicados pela ANPD</li>
+        <li><strong>Jurisprudência:</strong> Decisões e precedentes relacionados</li>
+      </ul>
+
+      <p style="margin-top: 2rem; text-align: center; font-weight: 600; color: var(--primary);">
+        Sua privacidade é um direito fundamental. Estamos comprometidos com a LGPD! 🔐
+      </p>
+
+      <div style="text-align: center; margin-top: 2.5rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="../index.html" class="btn btn-primary">Voltar</a>
+        <a href="contato.html" class="btn btn-secondary">Fale Conosco</a>
+      </div>
+
+    </div>
+  </section>
+
+   
+
+   
+<!-- Banner FAQ -->
+<section style="
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f2340 100%);
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(59,130,246,0.25);
+  border-bottom: 1px solid rgba(59,130,246,0.25);
+">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">❓</div>
+    <h2 style="font-size: 1.6rem; font-weight: 700; color: #f0f0f0; margin-bottom: 0.6rem;">Ficou com alguma dúvida?</h2>
+    <p style="color: #94a3b8; font-size: 1rem; margin-bottom: 1.8rem; line-height: 1.6;">
+      Confira nossas perguntas frequentes — respondemos as dúvidas mais comuns sobre candidaturas, vagas, empresas e privacidade.
+    </p>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;">
+      <a href="../faq/faq-candidatos.html" style="
+        background: #3b82f6; color: #fff; text-decoration: none;
+        padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        👤 FAQ Candidatos
+      </a>
+      <a href="../faq/faq-vagas.html" style="
+        background: #3b82f6; color: #fff; text-decoration: none;
+        padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        💼 FAQ Vagas
+      </a>
+      <a href="../faq/faq-empresas.html" style="
+        background: #3b82f6; color: #fff; text-decoration: none;
+        padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        🏢 FAQ Empresas
+      </a>
+      <a href="../faq/faq-privacidade.html" style="
+        background: #3b82f6; color: #fff; text-decoration: none;
+        padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        🔒 FAQ Privacidade
+      </a>
+    </div>
+  </div>
+</section>
+<!-- /Banner FAQ -->
+
+   <footer>
+    <div class="footer-top">
+
+      <!-- Coluna 1: Marca + Redes Sociais -->
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <div class="footer-brand-name">Agência <span>Nexus</span></div>
+        </div>
+        <p class="footer-tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
+        <div class="footer-social">
+
+          <!-- Instagram -->
+          <a class="footer-social-link" href="https://www.instagram.com/nexuscarreiras/" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+
+          <!-- Facebook -->
+          <a class="footer-social-link" href="https://www.facebook.com/profile.php?id=61576066286585" target="_blank" rel="noopener" title="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a class="footer-social-link" href="https://www.linkedin.com/company/107064981/admin/dashboard/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+
+          <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+           <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+          <!-- YouTube -->
+<a class="footer-social-link" href="https://www.youtube.com/@AgenciaNexusRS" target="_blank" rel="noopener" title="YouTube">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M23.498 6.186a2.96 2.96 0 0 0-2.085-2.094C19.63 3.5 12 3.5 12 3.5s-7.63 0-9.413.592A2.96 2.96 0 0 0 .502 6.186 30.2 30.2 0 0 0 0 12a30.2 30.2 0 0 0 .502 5.814 2.96 2.96 0 0 0 2.085 2.094C4.37 20.5 12 20.5 12 20.5s7.63 0 9.413-.592a2.96 2.96 0 0 0 2.085-2.094A30.2 30.2 0 0 0 24 12a30.2 30.2 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+  </svg>
+</a>
+
+            
+        <!-- Pinterest -->
+<a class="footer-social-link" href="https://br.pinterest.com/anexus/" target="_blank" rel="noopener" title="Pinterest">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+  </svg>
+</a>
+
+
+        </div>
+      </div>
+
+         <!-- Coluna 2: Links rápidos -->
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <ul class="footer-col-links">
+          <li><a href="vagas.html">Vagas disponíveis</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="tutorial.html">Vídeos</a></li>
+          <li><a href="servicos.html">Serviços</a></li>
+          <li><a href="sobre.html">Sobre nós</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Contato -->
+      <div>
+        <div class="footer-col-title">Contato</div>
+
+        <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          (51) 99697-6579
+        </a>
+
+      <a class="footer-contact-item" href="mailto:adm.agencianexus@outlook.com">
+  <svg viewBox="0 0 24 24">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+  <span>adm.agencianexus@outlook.com</span>
+</a>
+
+
+      </div>
+
+    </div><!-- /footer-top -->
+
+
+
+       
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
+    </div>
+
+  </footer>
+
+
+  <!-- Botão Voltar ao Topo -->
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
+
+  <!-- Chatbot -->
+  <button class="chatbot-button" id="chatbotBtn" onclick="toggleChatbot()">
+    <img src="../imagens/chatbot.png" alt="Chatbot" style="width:32px; height:32px;">
+  </button>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <div>
+        <h3>Agência Nexus</h3>
+        <p id="chatbotStatusText">● Assistente virtual</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ai-toggle-wrap" id="aiToggleWrap" onclick="toggleModoIA()" title="Ligar/desligar Modo IA (Llama via Groq)">
+          <div class="ai-toggle-switch"></div>
+          <span class="ai-toggle-label">Modo IA</span>
+          <span class="ai-mode-badge">ON</span>
+        </div>
+        <button class="close-chatbot" onclick="toggleChatbot()">✕</button>
+      </div>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages"></div>
+    <div class="chatbot-input-area">
+      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagem()" autocomplete="off">
+      <button class="chatbot-send-btn" onclick="enviarMensagem()">➤</button>
+    </div>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const menuContent = document.getElementById('menuContent');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    function toggleMenu() {
+      menuContent.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+      if (!menuContent.classList.contains('active')) {
+        menuContent.style.left = '-100%';
+      } else {
+        menuContent.style.left = '0';
+      }
+    }
+
+  function closeMenu() {
+  menuContent.classList.remove('active');
+  menuOverlay.classList.remove('active');
+  menuContent.style.left = '-100%';
+  setTimeout(() => {
+    document.body.classList.remove('menu-open');
+  }, 300);
+}
+
+    document.querySelectorAll('.menu-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // THEME TOGGLE
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  document.documentElement.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const icon = document.getElementById('themeIcon');
+  if (icon) icon.textContent = isDarkMode ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+}
+
+function loadSavedTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const icon = document.getElementById('themeIcon');
+  if (savedTheme !== 'light') {
+    document.body.classList.add('dark-mode');
+    document.documentElement.classList.add('dark-mode');
+    if (icon) icon.textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.documentElement.classList.remove('dark-mode');
+    if (icon) icon.textContent = '🌙';
+  }
+}
+
+loadSavedTheme();
+
+    // CHATBOT KB
+    const KB = {
+      vagas: {
+        gatilhos: ['vaga','emprego','trabalho','oportunidade','cargo','posição','processo seletivo'],
+        respostas: [
+          'Temos diversas vagas disponíveis! 🎯\n\n- Acesse nossa página de vagas para ver as oportunidades\n- As vagas são atualizadas frequentemente\n- É gratuito para candidatos!',
+        ],
+        chips: ['🔍 Ver vagas','👤 Quero me candidatar','📋 Como funciona o processo','↩️ Início']
+      },
+      candidatar: {
+        gatilhos: ['candidatar','currículo','cv','enviar','cadastrar','inscrever','participar'],
+        respostas: [
+          'Para se candidatar é simples e gratuito! 😊\n\n**1.** Acesse a página de vagas\n**2.** Escolha a vaga de interesse\n**3.** Envie seu currículo\n**4.** Aguarde nosso contato!\n\nNosso processo é totalmente gratuito para candidatos.',
+        ],
+        chips: ['🔍 Ver vagas','📋 Como funciona o processo','💡 Dicas de currículo','↩️ Início']
+      },
+      processo: {
+        gatilhos: ['como funciona','processo','etapas','seleção','entrevista','teste','fase'],
+        respostas: [
+          'Nosso processo seletivo é eficiente e humano! 🌟\n\n**Etapas:**\n- Triagem de currículos\n- Entrevista com nossa equipe\n- Apresentação à empresa cliente\n- Entrevista final\n- Contratação!\n\nCuidamos de cada etapa com atenção.',
+        ],
+        chips: ['👤 Quero me candidatar','🔍 Ver vagas','⏱️ Quanto tempo leva?','↩️ Início']
+      },
+      contato: {
+        gatilhos: ['contato','telefone','email','whatsapp','falar','ligar','mensagem','dúvida','ajuda'],
+        respostas: [
+          'Estamos aqui para ajudar! 📞\n\n**📱 WhatsApp:** (51) 99697-6579\n**📧 E-mail:** adm.agencianexus@outlook.com\n**📍 Endereço:** R. São José, 584 - Guaíba, RS\n\nResponde em horário comercial!',
+        ],
+        chips: ['📞 Falar agora','📧 Enviar e-mail','↩️ Início']
+      },
+      empresa: {
+        gatilhos: ['empresa','contratar','funcionário','recrutamento','seleção','terceirizar','rh','recurso humano'],
+        respostas: [
+          'Ótimo! Ajudamos empresas a encontrar os melhores talentos! 🏢\n\n**Nossos serviços:**\n- Recrutamento especializado\n- Seleção por competências\n- Processos ágeis e eficientes\n- Candidatos qualificados\n\nEntre em contato para um orçamento personalizado!',
+        ],
+        chips: ['📞 Falar com especialista','📧 Enviar e-mail','📊 Nossos números','↩️ Início']
+      },
+      gratuito: {
+        gatilhos: ['gratuito','grátis','custo','preço','valor','taxa','pagar','cobrar'],
+        respostas: [
+          'Para candidatos é **100% gratuito**! 🎉\n\nNunca cobramos nada de candidatos. Nossa remuneração vem das empresas clientes quando realizamos uma contratação bem-sucedida.\n\n**Você não paga nada!** ✅',
+        ],
+        chips: ['👤 Quero me candidatar','🔍 Ver vagas','↩️ Início']
+      },
+      tempo: {
+        gatilhos: ['quanto tempo','prazo','demora','dias','semanas','rápido','urgente'],
+        respostas: [
+          'O tempo varia conforme a vaga e empresa! ⏱️\n\n**Em média:**\n- Triagem: 2-5 dias\n- Entrevistas: 1-2 semanas\n- Processo completo: 2-4 semanas\n\nProcessos urgentes podem ser mais rápidos!',
+        ],
+        chips: ['📋 Como funciona o processo','👤 Quero me candidatar','↩️ Início']
+      },
+      resultados: {
+        gatilhos: ['resultado','taxa','sucesso','número','estatística','case','histórico'],
+        respostas: [
+          'Nossos resultados falam por si! 📊\n\n**Destaques:**\n- Alta taxa de satisfação\n- Candidatos e empresas satisfeitos\n- Processos rápidos e eficientes\n- Atuação em diversas áreas\n\nConfie em quem tem experiência!',
+        ],
+        chips: ['📞 Falar com especialista','🏢 Quero contratar','↩️ Início']
+      },
+      curriculo: {
+        gatilhos: ['currículo','dica','melhorar','linkedin','perfil','foto','objetivo'],
+        respostas: [
+          'Dicas para um currículo de sucesso! 💡\n\n- **Objetivo claro** e direto\n- **Experiências relevantes** em destaque\n- **Palavras-chave** da área\n- **Sem erros** de português\n- **Formato limpo** e legível\n- **LinkedIn** atualizado\n\nSua apresentação faz toda diferença!',
+        ],
+        chips: ['👤 Quero me candidatar','🔍 Ver vagas','💬 Quero orientação personalizada','↩️ Início']
+      },
+      fallback: {
+        respostas: [
+          'Boa pergunta! 😊 Não tenho essa informação específica, mas posso te conectar com nossa equipe!\n\nO que posso ajudar agora?',
+        ],
+        chips: ['🔍 Ver vagas','👤 Sou candidato','🏢 Sou empresa','📞 Contato']
+      }
+    };
+
+    const CHIP_ACOES = {
+      '💬 Quero orientação personalizada': () => window.open('https://wa.me/5551996976579','_blank'),
+      '🏢 Sou empresa, quero orçamento':   () => processarTexto('quero contratar profissionais'),
+      '🏢 Quero contratar':                () => processarTexto('quero contratar profissionais'),
+      '🏢 Sou empresa':                    () => processarTexto('sou empresa'),
+      '📞 Contato':                        () => processarTexto('contato'),
+      '📞 Falar agora':                    () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com especialista':         () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com a equipe':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '📧 Enviar e-mail':                  () => window.location.href='mailto:adm.agencianexus@outlook.com',
+      '🔍 Ver vagas':                      () => processarTexto('vagas disponíveis'),
+      '👤 Sou candidato':                  () => processarTexto('quero me candidatar'),
+      '👤 Quero me candidatar':            () => processarTexto('quero me candidatar'),
+      '📋 Como funciona':                  () => processarTexto('como funciona o processo'),
+      '📋 Como me candidatar':             () => processarTexto('como funciona o processo'),
+      '📋 Como funciona o processo':       () => processarTexto('como funciona o processo'),
+      '💡 Dicas de currículo':             () => processarTexto('dicas curriculo'),
+      '💰 É gratuito?':                    () => processarTexto('é gratuito'),
+      '💰 Como funciona a cobrança':       () => processarTexto('custo taxa'),
+      '⏱️ Quanto tempo leva?':             () => processarTexto('quanto tempo demora'),
+      '📊 Nossos números':                 () => processarTexto('resultados taxa de sucesso'),
+      '📊 Cases de sucesso':               () => processarTexto('resultados taxa de sucesso'),
+      '↩️ Início':                         () => mostrarBemVindo(),
+      '↩️ Voltar ao início':               () => mostrarBemVindo(),
+    };
+
+    let aberto = false;
+    let digitando = false;
+
+    function toggleChatbot() {
+      aberto = !aberto;
+      document.getElementById('chatbotBtn').classList.toggle('active', aberto);
+      document.getElementById('chatbotWindow').classList.toggle('active', aberto);
+      document.body.classList.toggle('chat-open', aberto);
+      if (aberto && !document.getElementById('chatbotMessages').children.length) {
+        setTimeout(() => mostrarBemVindo(), 300);
+      }
+    }
+
+    function mostrarBemVindo() {
+      document.getElementById('chatbotMessages').innerHTML = '';
+      mostrarSequencia([
+        'Olá! 👋 Sou o assistente virtual da **Agência Nexus**!',
+        'Pode me perguntar qualquer coisa — vagas, processo seletivo, dicas, contato... Estou aqui pra ajudar! 😊'
+      ], ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato'], 0);
+    }
+
+    function mostrarSequencia(textos, chips, index) {
+      if (index >= textos.length) { adicionarChips(chips); return; }
+      mostrarTyping(() => {
+        adicionarBubbleBot(markdownParaHTML(textos[index]));
+        setTimeout(() => mostrarSequencia(textos, chips, index + 1), 400);
+      }, index === 0 ? 800 : 600);
+    }
+
+    function enviarMensagem() {
+      const input = document.getElementById('chatbotInput');
+      const texto = input.value.trim();
+      if (!texto || digitando) return;
+      input.value = '';
+      adicionarBubbleUser(texto);
+      if (modoIA) {
+        responderComIA(texto);
+      } else {
+        setTimeout(() => processarTexto(texto), 300);
+      }
+    }
+
+    function processarTexto(texto) {
+      const lower = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      let melhorCategoria = null, melhorPontuacao = 0;
+      for (const [cat, dados] of Object.entries(KB)) {
+        if (cat === 'fallback' || !dados.gatilhos) continue;
+        let pts = 0;
+        for (const g of dados.gatilhos) {
+          const gn = g.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+          if (lower.includes(gn)) pts += gn.split(' ').length;
+        }
+        if (pts > melhorPontuacao) { melhorPontuacao = pts; melhorCategoria = cat; }
+      }
+      const dados = melhorPontuacao > 0 ? KB[melhorCategoria] : KB.fallback;
+      const resposta = dados.respostas[Math.floor(Math.random() * dados.respostas.length)];
+      mostrarTyping(() => {
+        adicionarBubbleBot(markdownParaHTML(resposta));
+        setTimeout(() => adicionarChips(dados.chips || KB.fallback.chips), 300);
+      }, 800);
+    }
+
+    function mostrarTyping(callback, delay) {
+      digitando = true;
+      const msgs = document.getElementById('chatbotMessages');
+      const el = document.createElement('div');
+      el.className = 'message bot'; el.id = 'typing-indicator';
+      el.innerHTML = '<div class="message-content"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+      msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight;
+      setTimeout(() => {
+        document.getElementById('typing-indicator')?.remove();
+        digitando = false;
+        callback();
+      }, delay);
+    }
+
+    function adicionarChips(chips) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.innerHTML = '<div class="chip-row">' +
+        chips.map(c => `<button class="chip" onclick="clicarChip('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('') +
+      '</div>';
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function clicarChip(chip) {
+      adicionarBubbleUser(chip);
+      const acao = CHIP_ACOES[chip];
+      if (acao) { setTimeout(acao, 200); } else { setTimeout(() => processarTexto(chip), 300); }
+    }
+
+    function adicionarBubbleBot(html) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.className = 'message bot';
+      div.innerHTML = `<div class="message-content">${html}</div>`;
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function adicionarBubbleUser(texto) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.className = 'message user';
+      div.innerHTML = `<div class="message-content">${escapeHtml(texto)}</div>`;
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function markdownParaHTML(texto) {
+      function processarInline(str) {
+        return str
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#8dc63f;text-decoration:underline;">$1</a>');
+      }
+      const linhas = texto.split('\n');
+      const blocos = []; let listaAtual = [];
+      function fecharLista() {
+        if (listaAtual.length) { blocos.push('<ul>'+listaAtual.map(i=>`<li>${i}</li>`).join('')+'</ul>'); listaAtual = []; }
+      }
+      for (let linha of linhas) {
+        linha = linha.trim();
+        if (/^[-\*] (.+)/.test(linha)) {
+          listaAtual.push(processarInline(linha.replace(/^[-\*] /,'')));
+          continue;
+        }
+        fecharLista();
+        if (!linha) continue;
+        blocos.push(`<p>${processarInline(linha)}</p>`);
+      }
+      fecharLista();
+      return blocos.join('');
+    }
+
+    function escapeHtml(t) {
+      return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // ============= MODO IA (Llama via Edge Function Supabase) =============
+    let modoIA = false;
+    const EDGE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co/functions/v1/chatbot-groq';
+
+    function toggleModoIA() {
+      modoIA = !modoIA;
+      const wrap = document.getElementById('aiToggleWrap');
+      const statusText = document.getElementById('chatbotStatusText');
+      wrap.classList.toggle('ai-on', modoIA);
+      if (modoIA) {
+        statusText.textContent = '🤖 Modo IA ativo (Llama)';
+        adicionarBubbleBot(markdownParaHTML('🤖 **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
+      } else {
+        statusText.textContent = '● Assistente virtual';
+        adicionarBubbleBot(markdownParaHTML('💬 Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
+        setTimeout(() => adicionarChips(['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']), 300);
+      }
+    }
+
+    async function responderComIA(texto) {
+      mostrarTyping(async () => {
+        try {
+          const resp = await fetch(EDGE_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4'
+            },
+            body: JSON.stringify({ mensagem: texto })
+          });
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.erro || `Erro ${resp.status}`);
+          }
+          const data = await resp.json();
+          const resposta = data.resposta || 'Não consegui gerar uma resposta.';
+          adicionarBubbleBot(markdownParaHTML(resposta));
+          setTimeout(() => adicionarChips(['💬 Continuar','📞 Falar com humano','↩️ Voltar ao início']), 300);
+        } catch (e) {
+          adicionarBubbleBot(markdownParaHTML(`❌ **Erro na IA:** ${e.message}\n\nTente novamente em instantes.`));
+        }
+      }, 1000);
+    }
+
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('menuContent');
+      const menuOverlay = document.getElementById('menuOverlay');
+      const menuToggle = document.querySelector('.menu-toggle');
+      if (menu.classList.contains('active') && 
+          !menu.contains(e.target) && 
+          !menuOverlay.contains(e.target) &&
+          !menuToggle.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    document.getElementById('chatbotWindow').addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      const chatbotBtn = document.getElementById('chatbotBtn');
+      if (chatbotWindow.classList.contains('active') && 
+          !chatbotWindow.contains(e.target) && 
+          !chatbotBtn.contains(e.target)) {
+        toggleChatbot();
+      }
+    });
+
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      const scrollBtn = document.getElementById("scrollTopBtn");
+      if (scrollBtn) scrollBtn.classList.toggle("visible", window.scrollY > 400);
+      document.body.classList.add('scrolling');
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        document.body.classList.remove('scrolling');
+      }, 250);
+    });
+
+    // Fechar menu com arrasto (touch)
+    let startX = 0, currentX = 0, isDragging = false;
+
+    menuContent.addEventListener('touchstart', (e) => {
+      if (!menuContent.classList.contains('active')) return;
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      menuContent.style.transition = 'none';
+    }, false);
+
+       menuContent.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+      const deltaX = currentX - startX;
+      if (deltaX < 0) menuContent.style.left = `${deltaX}px`;
+    }, false);
+
+    menuContent.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const deltaX = currentX - startX;
+      menuContent.style.transition = 'left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+      if (deltaX < -80) {
+        closeMenu();
+      } else {
+        menuContent.style.left = '0';
+      }
+    }, false);
+
+  
+    function toggleTopics() {
+      document.getElementById('topicsDropdown').classList.toggle('open');
+    }
+    function closeTopics() {
+      document.getElementById('topicsDropdown').classList.remove('open');
+    }
+    function toggleTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
+    }
+    function closeTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
+    }
+    document.addEventListener('click', (e) => {
+      const t = document.getElementById('topicsToggle');
+      const d = document.getElementById('topicsDropdown');
+      const tm = document.getElementById('topicsToggleMobile');
+      const dm = document.getElementById('topicsDropdownMobile');
+      if (d && d.classList.contains('open') && t && !t.contains(e.target) && !d.contains(e.target)) closeTopics();
+      if (dm && dm.classList.contains('open') && tm && !tm.contains(e.target) && !dm.contains(e.target)) closeTopicsMobile();
+    });
+</script>
+</body>
+</html>

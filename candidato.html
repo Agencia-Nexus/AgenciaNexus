@@ -1,0 +1,3352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+
+    <script>
+    if (localStorage.getItem('theme') !== 'light') {
+      document.documentElement.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('dark-mode');
+      });
+    }
+    document.documentElement.style.transition = 'none';
+    window.addEventListener('load', () => {
+      document.documentElement.style.transition = '';
+    });
+  </script>
+    
+  <!-- Meta Tags Essenciais -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <!-- Título e Descrição -->
+  <title>Candidatos | Agência Nexus – Envie seu Currículo</title>
+  <meta name="description" content="A Agência Nexus conecta candidatos a vagas de emprego reais. Cadastre seu currículo no banco de talentos e encontre novas oportunidades profissionais." />
+  <meta name="keywords" content="vagas de emprego, banco de talentos, agência de empregos, recrutamento e seleção, enviar currículo, oportunidades de trabalho, carreira" />
+
+  <!-- Meta Tags de Rastreamento -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Agência Nexus" />
+  <meta name="publisher" content="Agência Nexus" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="language" content="Portuguese" />
+
+  <!-- Open Graph (Redes Sociais) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Candidatos | Agência Nexus" />
+  <meta property="og:description" content="Envie seu currículo e encontre vagas de emprego com a Agência Nexus. Conectamos profissionais a oportunidades reais." />
+  <meta property="og:url" content="https://agenciaexittus.github.io/agenciaexittus/candidatos.html" />
+  <meta property="og:image" content="https://agenciaexittus.github.io/agenciaexittus/og-image-candidatos.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Agência Nexus" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Candidatos | Agência Nexus" />
+  <meta name="twitter:description" content="Cadastre seu currículo no banco de talentos da Agência Nexus e encontre oportunidades de emprego reais." />
+  <meta name="twitter:image" content="https://agenciaexittus.github.io/agenciaexittus/og-image-candidatos.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://agenciaexittus.github.io/agenciaexittus/candidatos.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+</head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+html.dark-mode body {
+  background: #0a0a0a !important;
+  color: #f0f0f0 !important;
+}
+    
+/* ==============vagsa================== */
+
+/* ======================================== */
+
+
+
+/* ======================================== */
+/* BOTOES DO TOPO - MODO PADRÃO (ESCURO) */
+/* ======================================== */
+.back-button,
+.menu-toggle,
+.theme-toggle {
+  background: rgba(0, 0, 0, 0.2); /* fundo leve escuro */
+  border: 2px solid rgba(255, 255, 255, 0.4); /* borda clara */
+  color: white; /* texto branco */
+  transition: all 0.3s ease;
+}
+
+.back-button:hover,
+.menu-toggle:hover,
+.theme-toggle:hover {
+  background: rgba(30, 64, 175, 0.4); /* hover verde escuro */
+  transform: scale(1.05);
+}
+
+/* ======================================== */
+/* BOTOES DO TOPO - MODO CLARO */
+/* ======================================== */
+body:not(.dark-mode) .back-button,
+body:not(.dark-mode) .menu-toggle,
+body:not(.dark-mode) .theme-toggle {
+  background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
+  border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
+  color: rgb(27, 27, 27); /* texto vermelho escuro */
+}
+
+body:not(.dark-mode) .back-button:hover,
+body:not(.dark-mode) .menu-toggle:hover,
+body:not(.dark-mode) .theme-toggle:hover {
+  color: white;
+}
+
+    
+
+
+/* confg bulets chatbot*/
+/* Espaço interno para listas dentro do chatbot */
+.chatbot-messages ul,
+.chatbot-messages ol {
+  padding-left: 1.2rem;  /* distancia os bullets da borda */
+  margin-bottom: 1rem;   /* separa da próxima mensagem */
+  color: var(--text-light);
+}
+
+.chatbot-messages li {
+  margin-bottom: 0.4rem; /* espaço entre itens da lista */
+  line-height: 1.5;
+}
+
+body.dark-mode .chatbot-messages ul,
+body.dark-mode .chatbot-messages ol {
+  color: #f0f0f0;
+}
+
+/* confg bulets chatbot*/
+
+    :root {
+      --primary: #3b82f6;
+      --accent: #60a5fa;
+      --bg-light: #ffffff;
+      --text-light: #1a1a1a;
+      --bg-dark: #0a0a0a;
+      --text-dark: #f0f0f0;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.chat-open .theme-toggle,
+    body.chat-open .back-button,
+    body.chat-open .menu-toggle {
+      display: none !important;
+    }
+
+    /* ================================================================= */
+    /* ESCONDER BOTÕES QUANDO MENU ESTÁ ABERTO                         */
+    /* ================================================================= */
+    body.menu-open .back-button,
+    body.menu-open .menu-toggle,
+    body.menu-open .theme-toggle,
+    body.menu-open .topics-toggle,
+    body.menu-open .topics-toggle-mobile,
+    body.menu-open .topics-dropdown,
+    body.menu-open .topics-dropdown-mobile {
+      display: none !important;
+          pointer-events: none !important;
+
+    }
+    /* ================================================================= */
+
+    body.scrolling .theme-toggle,
+    body.scrolling .back-button,
+    body.scrolling .menu-toggle,
+    body.scrolling .topics-toggle,
+    body.scrolling .topics-toggle-mobile {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    /* OVERLAY MENU */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 95;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .menu-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: pulse 15s ease-in-out infinite;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .btn-secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+body.dark-mode .btn-secondary {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+}
+
+.btn {
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  display: inline-block;
+  text-decoration: none;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+    /* Back Button */
+    .back-button,
+    .topics-toggle-mobile {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      height: 50px;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(-5px);
+    }
+
+    /* Menu Toggle */
+    .menu-toggle,
+    .topics-toggle-mobile {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* ======================================== */
+    /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
+    /* ======================================== */
+    .top-left-buttons {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* ======================================== */
+    /* TOPICS BUTTON — mesmo estilo dos outros  */
+    /* ======================================== */
+    .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .topics-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Modo claro — todos os botões do topo */
+    body:not(.dark-mode) .back-button,
+    body:not(.dark-mode) .menu-toggle,
+    body:not(.dark-mode) .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+
+    body:not(.dark-mode) .back-button:hover,
+    body:not(.dark-mode) .menu-toggle:hover,
+    body:not(.dark-mode) .topics-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+
+    /* Esconder quando menu/chat aberto ou scrolling */
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons {
+      display: none !important;
+    }
+
+    body.scrolling .top-left-buttons {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Topics Dropdown - Desktop */
+    .topics-dropdown {
+      position: fixed;
+      top: calc(2rem + 58px);
+      left: 2rem;
+      z-index: 1001;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0;
+      min-width: 210px;
+      display: none;
+      flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+
+    body.dark-mode .topics-dropdown {
+      background: #1a1a1a;
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .topics-dropdown.open {
+      display: flex;
+    }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block;
+      padding: 0.65rem 1.1rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.18s ease;
+    }
+
+    body.dark-mode .topics-link {
+      color: #f0f0f0;
+    }
+
+    .topics-link:hover {
+      background: rgba(30, 64, 175, 0.1);
+      color: #1e40af;
+      padding-left: 1.4rem;
+    }
+
+    body.dark-mode .topics-link:hover {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+    }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown {
+      display: none !important;
+    }
+
+    /* ======================================================= */
+    /* TOPICS MOBILE — abaixo do Voltar, oculto no desktop      */
+    /* ======================================================= */
+    .topics-toggle-mobile {
+      display: none;
+    }
+
+    .topics-dropdown-mobile {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      /* No mobile: top-row mostra só Voltar e Menu */
+      .topics-toggle {
+        display: none !important;
+      }
+
+      .topics-toggle-mobile {
+        display: inline-flex !important;
+      }
+
+      
+
+      body:not(.dark-mode) .topics-toggle-mobile {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(0, 0, 0, 0.4);
+        color: rgb(27, 27, 27);
+      }
+
+      body:not(.dark-mode) .topics-toggle-mobile:hover {
+        color: white;
+        background: rgba(30, 64, 175, 0.4);
+      }
+
+      /* Dropdown mobile: logo abaixo do botão Topics mobile */
+      .topics-dropdown-mobile {
+        position: fixed;
+        top: calc(2rem + 116px);
+        left: 2rem;
+        z-index: 1001;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0;
+        min-width: 210px;
+        flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+
+      body.dark-mode .topics-dropdown-mobile {
+        background: #1a1a1a;
+        border-color: rgba(255,255,255,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      }
+
+      .topics-dropdown-mobile.open {
+        display: flex;
+      }
+
+      .topics-link-mobile {
+        display: block;
+        padding: 0.65rem 1.1rem;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: all 0.18s ease;
+      }
+
+      body.dark-mode .topics-link-mobile {
+        color: #f0f0f0;
+      }
+
+      .topics-link-mobile:hover {
+        background: rgba(30, 64, 175, 0.1);
+        color: #1e40af;
+        padding-left: 1.4rem;
+      }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      
+      .topics-dropdown-mobile {
+        top: calc(2rem + 116px);
+      }
+    }
+
+    /* Menu Content */
+    .menu-content {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 300px;
+      height: 100vh;
+      background: var(--bg-light);
+      backdrop-filter: blur(20px);
+      padding: 1.6rem 1.4rem 1.2rem;
+      transition: left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      z-index: 97;
+    }
+
+    body.dark-mode .menu-content {
+      background: var(--bg-dark);
+    }
+
+    .menu-content.active {
+      left: 0;
+    }
+
+    .menu-section {
+      margin-bottom: 1.1rem;
+    }
+
+    .menu-section h3 {
+      color: var(--accent);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+    }
+
+    .menu-link {
+      display: block;
+      padding: 0.6rem 0.8rem;
+      color: var(--text-light);
+      text-decoration: none;
+      border-radius: 7px;
+      margin-bottom: 0.28rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    body.dark-mode .menu-link {
+      color: var(--text-dark);
+    }
+
+    .menu-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateX(8px);
+    }
+
+    .menu-link.active-page {
+      background: rgba(30, 64, 175, 0.12);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    body.dark-mode .menu-link.active-page {
+      color: #38bdf8;
+      background: rgba(30, 64, 175, 0.2);
+    }
+
+    /* Contact Section */
+    .contact-section {
+      max-width: 1600px;
+      width: 100%;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .contact-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1s ease-out 0.5s both;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      width: 100%;
+    }
+
+    body.dark-mode .contact-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .contact-section {
+    padding: 0 0.75rem;
+  }
+  .contact-container {
+    padding: 1.25rem 1rem;
+    border-radius: 14px;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 1rem;
+  }
+  .contact-card {
+    padding: 1.25rem 1rem;
+  }
+}
+
+    .contact-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    body.dark-mode .contact-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    body.dark-mode .contact-card:hover {
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .contact-card h3 {
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .contact-card p {
+      color: var(--text-light);
+      line-height: 1.6;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 1rem;
+    }
+
+    body.dark-mode .contact-card p {
+      color: var(--text-dark);
+    }
+
+    .contact-link {
+      display: inline-block;
+      margin: 0.5rem 0;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* Links de vídeo (tutorial.html) — cor distinta e sem tracejado */
+    .tutorial-button {
+      display: inline-block;
+      margin: 0.5rem 0;
+      color: #1565C0;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .tutorial-button:hover {
+      color: #0D47A1;
+      text-decoration: underline;
+    }
+
+    body.dark-mode .tutorial-button {
+      color: #64B5F6;
+    }
+
+    body.dark-mode .tutorial-button:hover {
+      color: #90CAF9;
+    }
+
+    /* Contador de downloads */
+    .download-counter {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: #888;
+      font-weight: 500;
+    }
+
+    body.dark-mode .download-counter {
+      color: #aaa;
+    }
+
+    /* Form Section */
+    .form-section {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .form-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1s ease-out 0.5s both;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark-mode .form-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-field label {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-field input,
+    .form-field textarea {
+      padding: 0.9rem 1.2rem;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    body.dark-mode .form-field input,
+    body.dark-mode .form-field textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-dark);
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    }
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .form-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    body.dark-mode .btn-secondary {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Info Bar */
+    .info-bar {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    /* Map Section */
+    .map-section {
+      padding: 4rem 2rem;
+      background: white;
+    }
+
+    body.dark-mode .map-section {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .map-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .map-subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      color: var(--text-light);
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    body.dark-mode .map-subtitle {
+      color: var(--text-dark);
+    }
+
+    .map-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    body.dark-mode .map-container {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+    }
+
+    /* Social Media Section */
+    .social-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(13, 71, 161, 0.05));
+      text-align: center;
+    }
+
+    body.dark-mode .social-section {
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(13, 71, 161, 0.1));
+    }
+
+    .social-section h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 3rem;
+      font-weight: 800;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .social-card {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeInUp 1s ease-out;
+      animation-fill-mode: both;
+    }
+
+    .social-card:nth-child(1) { animation-delay: 0.1s; }
+    .social-card:nth-child(2) { animation-delay: 0.2s; }
+    .social-card:nth-child(3) { animation-delay: 0.3s; }
+    .social-card:nth-child(4) { animation-delay: 0.4s; }
+
+    body.dark-mode .social-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .social-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      border-color: var(--primary);
+    }
+
+    body.dark-mode .social-card:hover {
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .social-icon {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      filter: brightness(1);
+      transition: all 0.3s ease;
+    }
+
+    .social-card:hover .social-icon {
+      filter: brightness(1.2);
+      transform: scale(1.1);
+    }
+
+    .social-card span {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    /* CHATBOT */
+    .chatbot-button {
+      position: fixed;
+      bottom: 2rem;
+      right: 1rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
+      transition: all 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+      z-index: 100;
+    }
+
+     .content-container p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  word-spacing: -0.03em;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .content-container p {
+    word-spacing: -0.05em;
+    hyphens: auto;
+  }
+}
+
+    .chatbot-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(30, 64, 175, 0.6);
+    }
+
+    .chatbot-button.active {
+      animation: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .chatbot-window {
+      display: none;
+      position: fixed;
+      bottom: 2.0rem;
+      right: 1rem;
+      width: 380px;
+      height: 550px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+      flex-direction: column;
+      z-index: 99;
+    }
+
+    #chatbotBtn.active {
+      display: none;
+    }
+
+    body.dark-mode .chatbot-window {
+      bottom: 1.5rem;
+      background: #1e1e1e;
+    }
+
+    .chatbot-window.active {
+      display: flex;
+    }
+
+    .chatbot-header {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 1rem;
+      border-radius: 15px 15px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbot-header h3 {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .chatbot-header p {
+      margin: 0.3rem 0 0 0;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .close-chatbot {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .close-chatbot:hover {
+      transform: rotate(90deg);
+    }
+
+    .ai-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px 4px 6px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: all 0.25s;
+      user-select: none;
+    }
+    .ai-toggle-wrap:hover { background: rgba(255,255,255,0.25); }
+    .ai-toggle-wrap.ai-on {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.6);
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+    .ai-toggle-switch {
+      position: relative;
+      width: 30px;
+      height: 16px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      transition: background 0.25s;
+      flex-shrink: 0;
+    }
+    .ai-toggle-wrap.ai-on .ai-toggle-switch { background: rgba(255,255,255,0.5); }
+    .ai-toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 12px; height: 12px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .ai-toggle-wrap.ai-on .ai-toggle-switch::after { transform: translateX(14px); }
+    .ai-toggle-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .ai-mode-badge {
+      display: none;
+      font-size: 0.65rem;
+      background: rgba(255,255,255,0.25);
+      color: white;
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      animation: pulseBadge 2s infinite;
+    }
+    .ai-on .ai-mode-badge { display: inline-block; }
+    @keyframes pulseBadge {
+      0%,100% { opacity:1; } 50% { opacity:0.6; }
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      scroll-behavior: smooth;
+    }
+
+    body.dark-mode .chatbot-messages {
+      background: #0a0a0a;
+    }
+
+    .message {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+      word-wrap: break-word;
+    }
+
+    /* Form Section - FORA DO GRID */
+    .form-section {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+
+    .form-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1s ease-out 0.5s both;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark-mode .form-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    body.chat-open .theme-toggle,
+    body.chat-open .back-button,
+    body.chat-open .menu-toggle,
+    body.chat-open .topics-toggle {
+  display: none !important;
+}
+
+/* BULET  */
+.quick-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  width: 100%;
+  padding-left: 0.8rem; /* 👈 adiciona espaço interno à esquerda */
+  padding-right: 0.8rem; /* opcional: espaço à direita */
+  box-sizing: border-box; /* garante que o padding não estoure o container */
+}
+
+
+.quick-btn {
+  background: white;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+body.dark-mode .quick-btn {
+  background: #2a2a2a;
+  border-color: var(--primary);
+}
+
+.quick-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateX(5px);
+}
+
+ .chatbot-input-area {
+      padding: 1rem;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 0.7rem;
+    }
+
+
+    
+/* BULET  */
+
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.bot {
+      justify-content: flex-start;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message-content {
+      max-width: 75%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .message.bot .message-content {
+      background: white;
+      color: #333;
+      border: 1px solid #e0e0e0;
+    }
+
+    body.dark-mode .message.bot .message-content {
+      background: #2a2a2a;
+      color: #f0f0f0;
+      border: 1px solid #444;
+    }
+
+    .message.user .message-content {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+
+
+ .quick-btn {
+  background: white;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 0.8rem 1.2rem; /* já tem, mantém */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+    body.dark-mode .quick-btn {
+      background: #2a2a2a;
+      border-color: var(--primary);
+    }
+
+    .quick-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .chatbot-input-area {
+      padding: 1rem;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    body.dark-mode .chatbot-input-area {
+      border-top: 1px solid #444;
+    }
+
+    .chatbot-input {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+    }
+
+    body.dark-mode .chatbot-input {
+      background: #2a2a2a;
+      border-color: #444;
+      color: #f0f0f0;
+    }
+
+    .chatbot-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .chatbot-send-btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: transform 0.2s;
+    }
+
+    .chatbot-send-btn:hover {
+      transform: scale(1.05);
+    }
+
+     /* IMAGEM FUNDO.PNG */
+  /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+  .header-bg-img {
+    position: absolute;
+    left: -7.9%;
+    top: 90%;
+    transform: translateY(-50%);
+    width: 350px;
+    height: 350px;
+    z-index: 0;
+    opacity: 0.9;
+  }
+
+  /* DESKTOP - 1024px ou mais */
+  @media (min-width: 1024px) {
+    .header {
+      min-height: 220px;
+    }
+
+    .header-bg-img {
+      position: absolute;
+      left: -1.5%;
+      top: 90%;
+      transform: translateY(-50%);
+      width: 250px;
+      height: 250px;
+      z-index: 0;
+      opacity: 0.9;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* MOBILE - 768px ou menos */
+  @media (max-width: 768px) {
+    .header {
+      min-height: 290px;
+    }
+
+     .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+    }
+  }
+
+  /* MOBILE PEQUENO - 480px ou menos */
+  @media (max-width: 480px) {
+      .header-bg-img {
+        position: absolute;
+        left: 50%;
+        top: -100%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: auto;
+        z-index: 0;
+        opacity: 0.9;
+      }
+      
+    .header-content {
+      position: relative;
+      z-index: 1;
+      margin-top: 150px;
+      text-align: center;
+    }
+  }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .header p {
+        font-size: 1rem;
+      }
+
+      .menu-toggle,
+    .topics-toggle-mobile {
+        /* posição controlada pelo wrapper .top-left-buttons */
+      }
+
+      .chatbot-window {
+        width: 90vw;
+        height: 60vh;
+        bottom: 2rem;
+        right: 0.5rem;
+      }
+
+
+      .form-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        min-width: auto;
+      }
+
+      .map-section h2,
+      .social-section h2 {
+        font-size: 1.5rem;
+      }
+
+      .map-container iframe {
+        height: 350px;
+      }
+
+      .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+
+    /* MOBILE - Botão "Menu" colado ao "Voltar" */
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+
+      .back-button,
+      .menu-toggle,
+      .topics-toggle-mobile {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        height: 50px;
+      }
+
+      .theme-toggle {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        min-width: 45px;
+      }
+
+      .chatbot-button {
+        bottom: 2rem;
+        right: 1rem;
+      }
+
+      .chatbot-window {
+        bottom: 2rem;
+        right: 0.5rem;
+        left: 0.5rem;
+        width: calc(100% - 1rem);
+        height: 70vh;
+        max-height: 70vh;
+      }
+
+      .form-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .map-container iframe {
+        height: 280px;
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .social-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+
+.message-content p { margin: 0 0 0.55rem 0; line-height: 1.55; }
+.message-content p:last-child { margin-bottom: 0; }
+.message-content strong { font-weight: 700; }
+.message-content ul { padding-left: 1.2rem; margin: 0.3rem 0 0.6rem; }
+.message-content li { margin-bottom: 0.25rem; line-height: 1.5; }
+.typing-dots { display: flex; gap: 4px; align-items: center; padding: 2px 0; }
+.typing-dots span { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: dotBounce 1.2s infinite; }
+.typing-dots span:nth-child(2) { animation-delay: .2s; }
+.typing-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes dotBounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-5px);opacity:1} }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; padding-left: 4px; }
+.chip { background: white; border: 1.5px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; white-space: nowrap; }
+body.dark-mode .chip { background: #2a2a2a; }
+.chip:hover { background: var(--primary); color: white; transform: translateY(-1px); }
+
+
+
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: calc(2rem + 60px + 1.4rem);
+    right: 1.15rem;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #1e40af;
+    border: none;
+    color: #ffffff;
+    font-size: 0.55rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(30,64,175,0.5);
+    z-index: 99;
+    opacity: 0; pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  body.dark-mode .scroll-top-btn {
+    background: #1e40af;
+    color: #ffffff;
+  }
+  .scroll-top-btn.visible {
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+  }
+  .scroll-top-btn:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(30,64,175,0.7);
+  }
+
+
+    
+
+  
+    /* ══ FOOTER PROFISSIONAL ══ */
+    footer {
+      --ft-bg:            #f2f5ee;
+      --ft-border:        rgba(30, 64, 175, 0.18);
+      --ft-text:          #1a1a1a;
+      --ft-muted:         rgba(0, 0, 0, 0.45);
+      --ft-social-bg:     rgba(0, 0, 0, 0.06);
+      --ft-social-border: rgba(0, 0, 0, 0.11);
+      --ft-link-color:    rgba(0, 0, 0, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.05);
+      --ft-bottom-border: rgba(0, 0, 0, 0.09);
+      --ft-copy:          rgba(0, 0, 0, 0.38);
+      --ft-copy-strong:   rgba(0, 0, 0, 0.58);
+      --ft-badge:         rgba(0, 0, 0, 0.3);
+      --ft-accent:        #1e40af;
+      --ft-title:         #1e40af;
+
+      background: var(--ft-bg);
+      color: var(--ft-text);
+      padding: 0;
+      border-top: 1px solid var(--ft-border);
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-mode footer {
+      --ft-bg:            #0d0d0d;
+      --ft-border:        rgba(30, 64, 175, 0.15);
+      --ft-text:          #e0e0e0;
+      --ft-muted:         rgba(255, 255, 255, 0.45);
+      --ft-social-bg:     rgba(255, 255, 255, 0.06);
+      --ft-social-border: rgba(255, 255, 255, 0.09);
+      --ft-link-color:    rgba(255, 255, 255, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.25);
+      --ft-bottom-border: rgba(255, 255, 255, 0.07);
+      --ft-copy:          rgba(255, 255, 255, 0.3);
+      --ft-copy-strong:   rgba(255, 255, 255, 0.5);
+      --ft-badge:         rgba(255, 255, 255, 0.25);
+      --ft-accent:        #38bdf8;
+      --ft-title:         #38bdf8;
+    }
+
+    .footer-top {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 560px) {
+      .footer-top { grid-template-columns: 1fr; gap: 1.6rem; padding: 2rem 1.2rem 1.5rem; }
+    }
+
+    
+    .footer-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.9rem;
+    }
+    .footer-brand-logo img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .footer-brand-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ft-text);
+      letter-spacing: -0.3px;
+    }
+    .footer-brand-name span { color: var(--ft-accent); }
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--ft-muted);
+      line-height: 1.6;
+      max-width: 280px;
+      margin-bottom: 1.4rem;
+    }
+
+    /* Redes sociais */
+    .footer-social {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .footer-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--ft-social-bg);
+      border: 1px solid var(--ft-social-border);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: var(--ft-muted);
+    }
+    .footer-social-link:hover {
+      background: rgba(141,198,63,0.12);
+      border-color: rgba(141,198,63,0.35);
+      color: var(--ft-accent);
+      transform: translateY(-2px);
+    }
+    .footer-social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Colunas de links */
+    .footer-col-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ft-title);
+      margin-bottom: 1rem;
+    }
+    .footer-col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .footer-col-links a {
+      text-decoration: none;
+      color: var(--ft-link-color);
+      font-size: 0.83rem;
+      transition: color 0.18s;
+    }
+    .footer-col-links a:hover { color: var(--ft-accent); }
+
+    /* Contato */
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--ft-link-color);
+      margin-bottom: 0.55rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .footer-contact-item:hover { color: var(--ft-accent); }
+    .footer-contact-item svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--ft-accent);
+      flex-shrink: 0;
+    }
+
+    /* Linha inferior */
+    .footer-bottom {
+      border-top: 1px solid var(--ft-bottom-border);
+      background: var(--ft-bottom-bg, transparent);
+      padding: 1.1rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 560px) {
+      .footer-bottom { flex-direction: column; text-align: center; padding: 1rem 1.2rem; }
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--ft-copy);
+    }
+    .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
+    .footer-badge {
+      font-size: 0.68rem;
+      color: var(--ft-badge);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span id="themeIcon">🌙</span>
+  </button>
+
+  <!-- Wrapper flex: Voltar | Menu | Topics — espaçamento automático igual -->
+  <div class="top-left-buttons" id="topLeftButtons">
+
+    <div class="top-row">
+      <a href="../index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics">Topics</button>
+    </div>
+
+  </div>
+
+  <!-- Topics Dropdown Desktop -->
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#section-conectar" class="topics-link" onclick="closeTopics()">🔗 Conectar Conosco</a>
+    <a href="#section-dicas" class="topics-link" onclick="closeTopics()">🎯 Dicas para Candidatos</a>
+    <a href="#section-comportamento" class="topics-link" onclick="closeTopics()">💡 Comportamento</a>
+    <a href="#section-baixar" class="topics-link" onclick="closeTopics()">📄 Baixe seu Currículo</a>
+    <a href="#section-gerador" class="topics-link" onclick="closeTopics()">🚀 Gere seu Currículo</a>
+    <a href="#section-envio" class="topics-link" onclick="closeTopics()">📧 Envio de Currículo</a>
+  </div>
+
+  <!-- Topics Dropdown Mobile -->
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#section-conectar" class="topics-link-mobile" onclick="closeTopicsMobile()">🔗 Conectar Conosco</a>
+    <a href="#section-dicas" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Dicas para Candidatos</a>
+    <a href="#section-comportamento" class="topics-link-mobile" onclick="closeTopicsMobile()">💡 Comportamento</a>
+    <a href="#section-baixar" class="topics-link-mobile" onclick="closeTopicsMobile()">📄 Baixe seu Currículo</a>
+    <a href="#section-gerador" class="topics-link-mobile" onclick="closeTopicsMobile()">🚀 Gere seu Currículo</a>
+    <a href="#section-envio" class="topics-link-mobile" onclick="closeTopicsMobile()">📧 Envio de Currículo</a>
+  </div>
+
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+  <div class="menu-content" id="menuContent">
+    <div class="menu-section">
+      <h3>Bem-Vindo</h3>
+      <a href="sobre.html" class="menu-link">Sobre</a>
+      <a href="missao.html" class="menu-link">Missão</a>
+      <a href="visao.html" class="menu-link">Visão</a>
+      <a href="valores.html" class="menu-link">Valores</a>
+    </div>
+    <div class="menu-section">
+      <h3>Carreira</h3>
+      <a href="candidato.html" class="menu-link active-page">Candidatos</a>
+      <a href="tutorial.html" class="menu-link">Vídeos</a>
+      <a href="vagas.html" class="menu-link">Vagas</a>
+      <a href="ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
+      <a href="utilidades.html" class="menu-link">Utilidades</a>
+    </div>
+    <div class="menu-section">
+      <h3>Atendimento</h3>
+      <a href="servicos.html" class="menu-link">Serviços</a>
+      <a href="contato.html" class="menu-link">Contato</a>
+    </div>
+    <div class="menu-section">
+      <h3>ℹInformações</h3>
+      <a href="lgbt.html" class="menu-link">LGBT+</a>
+      <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
+      <a href="indexcookies.html" class="menu-link">Cookies</a>
+    </div>
+    <div class="menu-section">
+      <h3>FAQ</h3>
+      <a href="../faq/faq-candidatos.html" class="menu-link">FAQ Candidatos</a>
+      <a href="../faq/faq-empresas.html" class="menu-link">FAQ Empresas</a>
+      <a href="../faq/faq-vagas.html" class="menu-link">FAQ Vagas</a>
+      <a href="../faq/faq-privacidade.html" class="menu-link">FAQ Privacidade</a>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+        <img src="../imagens/fundo.png" alt="Mural de Vagas" class="header-bg-img">
+        <div>
+          <h1 style="margin: 0 0 0.5rem 0;">Candidatos</h1>
+          <p style="margin: 0;">Conheça nossos canais e dicas para se candidatar com sucesso</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <div id="section-conectar" class="info-bar" style="
+  display: block;          /* garante que o div ocupe o espaço completo */
+  width: 100%;             /* ocupa 100% da largura disponível */
+  max-width: 100%;         /* garante que não seja limitado por container externo */
+  margin: 2rem auto;       /* centraliza horizontalmente */
+  font-size: 1.5rem;       /* tamanho do texto */
+  font-weight: 800;        /* negrito */
+  color: #1e40af;          /* cor verde do tema */
+  text-align: center;      /* centraliza o conteúdo dentro do div */
+  padding: 1rem 0;         /* espaçamento interno */
+">
+     ⬇️ Escolha o melhor canal para se conectar conosco!
+  </div>
+
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-grid">
+
+        <!-- CARD 1 -->
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/wpps.png" alt="WhatsApp" style="width:60px; height:60px;">
+          </div>
+          <h3>WhatsApp</h3>
+          <p>Canal rápido para enviar seu currículo e tirar dúvidas. Nossa equipe responde com agilidade.</p>
+          <a href="https://wa.me/5551996976579" target="_blank" class="contact-link">(51) 99338-1495</a><br>
+          <a href="https://wa.me/5551996976579" target="_blank" class="contact-link">(51) 99697-6579</a>
+          <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">Segunda a sexta, 8h-18h</p>
+        </div>
+
+   
+   <!-- CARD 2 -->
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/gmail.png" alt="E-mail" style="width:60px; height:60px;">
+          </div>
+          <h3>E-mail</h3>
+          <p>Envie seu currículo em PDF para análise cuidadosa. Responderemos assim que possível.</p>
+          <a href="mailto:adm@agenciaexittus.com" class="contact-link">adm@agenciaexittus.com</a><br>
+          <a href="mailto:bancodetalentosexittus@gmail.com" class="contact-link">bancodetalentosexittus@gmail.com</a><br>
+          <a href="mailto:curriculos.nexus@gmail.com" class="contact-link">curriculos.nexus@gmail.com</a>
+          <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">Resposta o mais breve possível</p>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/ia.png" alt="Sistema ATS" style="width:60px; height:60px;">
+          </div>
+          <h3>Nexus Recruiter</h3>
+          <p>Nosso sistema de IA analisa seu perfil automaticamente e conecta com vagas compatíveis.</p>
+          <a href="como-funciona-ats.html" class="contact-link">Como funciona?</a>
+          <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">Triagem automática e eficiente</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="section-dicas" class="info-bar" style="
+  display: block;          /* garante que o div ocupe o espaço completo */
+  width: 100%;             /* ocupa 100% da largura disponível */
+  max-width: 100%;         /* garante que não seja limitado por container externo */
+  margin: 2rem auto;       /* centraliza horizontalmente */
+  font-size: 1.5rem;       /* tamanho do texto */
+  font-weight: 800;        /* negrito */
+  color: #1e40af;          /* cor verde do tema */
+  text-align: center;      /* centraliza o conteúdo dentro do div */
+  padding: 1rem 0;         /* espaçamento interno */
+">
+    🎯 Dicas para Candidatos!
+  </div>
+
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-grid">
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/cvi.png" alt="Currículo" style="width:60px; height:60px;">
+          </div>
+          <h3>Currículo Impecável</h3>
+          <p>Seu currículo é seu primeiro contato. Mantenha-o sempre atualizado, com informações claras e bem organizadas. Use formato PDF, evite cores excessivas e fontes estranhas. Destaque suas principais competências, certificações e experiências relevantes. Seja objetivo: recrutadores gastam segundos na leitura inicial.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/imgp.png" alt="Imagem Profissional" style="width:60px; height:60px;">
+          </div>
+          <h3>Imagem Profissional</h3>
+          <p>Vista-se adequadamente para entrevistas, pesquise sobre a cultura da empresa. Use linguagem profissional em todas as comunicações, mesmo em WhatsApp. Sua primeira impressão importa e pode abrir ou fechar portas. Não é necessário colocar dados pessoais no currículo, apenas E-mail, telefone, Linkedin (opcional) e demais dados de contato.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/in.png" alt="LinkedIn" style="width:60px; height:60px;">
+          </div>
+          <h3>LinkedIn Otimizado</h3>
+          <p>Complete totalmente seu perfil do LinkedIn com foto, headline, descrição detalhada, experiências e habilidades. Mantenha-o sincronizado com seu currículo. Networking é ouro: conecte-se com profissionais da sua área. LinkedIn é a vitrine moderna do profissional.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/urgente.png" alt="Urgência" style="width:60px; height:60px;">
+          </div>
+          <h3>Responda com Urgência</h3>
+          <p>Quando entrarmos em contato, responda dentro de 24 horas. Demonstre interesse genuíno e entusiasmo pela oportunidade. Atrasos em respostas podem significar perda de chances. Cumpra prazos e compromissos durante todo o processo seletivo.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/disponibilidade.png" alt="Disponibilidade total" style="width:60px; height:60px;">
+          </div>
+          <h3>Disponibilidade Total</h3>
+          <p>Certifique-se de que seus dados de contato (WhatsApp, email, telefone) estão corretos e atualizados. Verifique regularmente suas mensagens. Não perca oportunidades por falta de comunicação. Deixe um voicemail profissional em seu telefone.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/confiante.png" alt="Autenticidade e honestidade" style="width:60px; height:60px;">
+          </div>
+          <h3>Autenticidade e Honestidade</h3>
+          <p>Apresente suas verdadeiras habilidades e experiências. Nunca minta sobre qualificações, isso será descoberto. Demonstre entusiasmo genuíno pela oportunidade e pela empresa. Pesquise sobre a empresa antes de se candidatar.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/estude.png" alt="Estudo contínuo" style="width:60px; height:60px;">
+          </div>
+          <h3>Estude Continuamente</h3>
+          <p>O mercado muda constantemente. Invista em sua formação com cursos, certificações e aprendizado. Mencione seus estudos recentes no currículo. Empresas valorizam profissionais que nunca param de aprender e se atualizar.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <img src="../imagens/equipe.png" alt="Trabalho em equipe" style="width:60px; height:60px;">
+          </div>
+          <h3>Trabalho em Equipe</h3>
+          <p>Destaque suas habilidades de comunicação e colaboração. Mencione projetos onde trabalhou em equipe. Mostre que sabe lidar com feedback e críticas construtivas. Equipes modernas valorizam comunicação clara e colaboração efetiva.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .social-section {
+      padding: 4rem 2rem;
+      background: black; /* modo claro */
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .social-section {
+        background: white; /* modo escuro */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .contact-section ul {
+        text-align: left !important;
+      }
+    }
+  </style>
+
+  <div id="section-comportamento" class="info-bar" style="
+  display: block;          /* garante que o div ocupe o espaço completo */
+  width: 100%;             /* ocupa 100% da largura disponível */
+  max-width: 100%;         /* garante que não seja limitado por container externo */
+  margin: 2rem auto;       /* centraliza horizontalmente */
+  font-size: 1.5rem;       /* tamanho do texto */
+  font-weight: 800;        /* negrito */
+  color: #1e40af;          /* cor verde do tema */
+  text-align: center;      /* centraliza o conteúdo dentro do div */
+  padding: 1rem 0;         /* espaçamento interno */
+">
+    💡 Comportamento!
+  </div>
+
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-grid">
+
+        <div class="contact-card">
+          <div class="contact-icon">✅</div>
+          <h3>Comportamentos Esperados</h3>
+          <ul style="list-style: none; padding-left: 0; line-height: 1.8;text-align: left; ">
+            <li>✅ Ser proativo, demonstrar interesse real e entusiasmo</li>
+            <li>✅ Estar sempre aprendendo, se atualizando e melhorando</li>
+            <li>✅ Assumir desafios com confiança e disposição</li>
+            <li>✅ Colaborar bem, respeitar opiniões e trabalhar em equipe</li>
+            <li>✅ Ser comunicativo, claro e objetivo nas mensagens</li>
+            <li>✅ Ser pontual, confiável e cumprir prazos</li>
+            <li>✅ Ouvir feedback com abertura e agir para melhorar</li>
+            <li>✅ Demonstrar comprometimento com a empresa e seu crescimento</li>
+          </ul>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">❌</div>
+          <h3>Comportamentos a Evitar</h3>
+          <ul style="list-style: none; padding-left: 0; line-height: 1.8; text-align: left; ">
+            <li>❌ Mentiras sobre qualificações, experiências ou certificados</li>
+            <li>❌ Ignorar mensagens, não responder por dias ou desaparecer</li>
+            <li>❌ Ser agressivo, grosseiro ou desrespeitoso</li>
+            <li>❌ Atrasos frequentes ou falta de pontualidade</li>
+            <li>❌ Negligência nas tarefas ou falta de atenção aos detalhes</li>
+            <li>❌ Mau comportamento nas entrevistas ou redes sociais</li>
+            <li>❌ Falta de empatia ou dificuldade em trabalhar em equipe</li>
+            <li>❌ Falar coisas negativas de empresas nas redes sociais</li>
+          </ul>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">💡</div>
+          <h3>Lembre-se</h3>
+          <ul style="list-style: none; padding-left: 0; line-height: 1.8;text-align: left; ">
+            <li>💡 Revise sempre suas mensagens antes de enviar</li>
+            <li>💡 Organize seu tempo e cumpra os prazos</li>
+            <li>💡 Mantenha boa comunicação e colaboração com a equipe</li>
+            <li>💡 Demonstre interesse e comprometimento em tudo que faz</li>
+            <li>💡 Continue aprendendo e evoluindo constantemente</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="section-baixar" class="info-bar" style="
+  display: block;          /* garante que o div ocupe o espaço completo */
+  width: 100%;             /* ocupa 100% da largura disponível */
+  max-width: 100%;         /* garante que não seja limitado por container externo */
+  margin: 2rem auto;       /* centraliza horizontalmente */
+  font-size: 1.5rem;       /* tamanho do texto */
+  font-weight: 800;        /* negrito */
+  color: #1e40af;          /* cor verde do tema */
+  text-align: center;      /* centraliza o conteúdo dentro do div */
+  padding: 1rem 0;         /* espaçamento interno */
+">
+    📄 Baixe seu Currículo!
+  </div>
+
+<!-- SEÇÃO DE DOWNLOAD DOS MODELOS DE CURRÍCULO -->
+<section class="contact-section">
+  <div class="contact-container">
+    <div class="contact-grid">
+
+<div class="contact-card">
+  <div class="contact-icon">
+    <img src="../imagens/cv1.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
+  </div>
+  <h3>Modelo de Currículo </h3>
+  <p>Baixe este modelo de currículo clássico no Word, feito para plataforma ATS ou recrutador</p>
+<a href="https://github.com/AgenciaNexus/agenciaexittus/raw/main/curriculo1.docx" 
+   download 
+   class="contact-link"
+   onclick="incrementDownload('cv1')">
+   ⬇️ Baixar Currículo
+</a>
+<br>
+<span class="download-counter" id="counter-cv1">⬇️ <span id="count-cv1">0</span> downloads</span>
+<br>
+
+<a href="tutorial.html" class="tutorial-button">
+   🎥 Ver como editar este modelo
+</a>
+  <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">
+    Após editar transforme em PDF para o envio
+  </p>
+</div>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <img src="../imagens/cv2.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
+        </div>
+        <h3>Modelo de Currículo</h3>
+        <p>Baixe este modelo de currículo para aprendiz.</p>
+   <a href="https://github.com/AgenciaNexus/agenciaexittus/raw/main/Aprendiz.docx" 
+   download 
+   class="contact-link"
+   onclick="incrementDownload('cv2')">
+   ⬇️ Baixar Currículo
+</a>
+<br>
+<span class="download-counter" id="counter-cv2">⬇️ <span id="count-cv2">0</span> downloads</span>
+<br>
+
+<a href="tutorial.html" class="tutorial-button">
+   🎥 Ver como editar este modelo
+</a>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">
+          Inclui seções de habilidades e idioma
+        </p>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <img src="../imagens/cv3.png" alt="Modelo de Currículo" style="width:60px; height:60px;">
+        </div>
+        <h3>Modelo de Currículo</h3>
+        <p>Baixe este modelo de currículo pronto, voltado para conteúdo.</p>
+      <a href="https://github.com/AgenciaNexus/agenciaexittus/raw/main/Estágio.docx" 
+   download 
+     class="contact-link"
+     onclick="incrementDownload('cv3')">
+   ⬇️ Baixar Currículo
+</a>
+<br>
+<span class="download-counter" id="counter-cv3">⬇️ <span id="count-cv3">0</span> downloads</span>
+<br>
+
+<a href="tutorial.html" class="tutorial-button">
+   🎥 Ver como editar este modelo
+</a>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">
+          Pronto para personalizar e enviar
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO GERADOR DE CURRÍCULO                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section style="padding:1rem 1.2rem 0.2rem;max-width:860px;margin:0 auto;">
+    
+  <!-- Cabeçalho -->
+  <div style="text-align:center;margin-bottom:2.5rem;">
+    <span style="display:inline-block;background:rgba(79,114,20,0.12);border:1px solid rgba(79,114,20,0.35);border-radius:99px;padding:0.3rem 1rem;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1e40af;margin-bottom:0.9rem;">✦ Novidade</span>
+    <h2 id="section-gerador" style="font-size:1.7rem;font-weight:900;margin-bottom:0.6rem;line-height:1.2;">Gere seu Currículo em PDF na hora</h2>
+    <p style="font-size:0.95rem;opacity:0.65;max-width:520px;margin:0 auto;line-height:1.65;">Sem Word, sem complicação. Preencha uma vez e baixe 3 versões prontas — para e-mail, WhatsApp e sistemas ATS.</p>
+  </div>
+
+  <!-- Card verde do gerador com animações -->
+  <style>
+    @keyframes floatRocket {
+      0%,100% { transform: translateY(0) rotate(-5deg); }
+      50%      { transform: translateY(-12px) rotate(5deg); }
+    }
+    @keyframes pulseRing {
+      0%   { transform: scale(1);   opacity: 0.5; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes rotateSlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes orb1 {
+      0%,100% { transform:translate(0,0) scale(1); }
+      33%     { transform:translate(20px,-15px) scale(1.1); }
+      66%     { transform:translate(-10px,10px) scale(0.95); }
+    }
+    @keyframes orb2 {
+      0%,100% { transform:translate(0,0) scale(1); }
+      33%     { transform:translate(-15px,10px) scale(0.9); }
+      66%     { transform:translate(10px,-20px) scale(1.05); }
+    }
+    .gerador-card-btn {
+      display:inline-block;background:#fff;color:#1e40af;text-decoration:none;
+      border-radius:14px;padding:0.95rem 2.4rem;font-size:1rem;font-weight:800;
+      box-shadow:0 4px 16px rgba(0,0,0,0.15);transition:all 0.25s;
+      position:relative;overflow:hidden;
+    }
+    .gerador-card-btn::before {
+      content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(79,114,20,0.12),transparent);
+      animation:shimmer 2.5s infinite;
+    }
+    .gerador-card-btn:hover {
+      transform:translateY(-3px) scale(1.03);
+      box-shadow:0 8px 28px rgba(0,0,0,0.22);
+    }
+  </style>
+
+  <div style="background:linear-gradient(135deg,#1e40af,#6a9a1f);border-radius:22px;padding:2.5rem 2rem;text-align:center;margin-bottom:2rem;box-shadow:0 8px 32px rgba(79,114,20,0.35);position:relative;overflow:hidden;animation:fadeInUp 0.7s ease both;">
+
+    <!-- Orbs de fundo animados -->
+    <div style="position:absolute;top:-50px;right:-50px;width:220px;height:220px;background:rgba(255,255,255,0.07);border-radius:50%;animation:orb1 8s ease-in-out infinite;pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-40px;left:-40px;width:180px;height:180px;background:rgba(255,255,255,0.05);border-radius:50%;animation:orb2 10s ease-in-out infinite;pointer-events:none;"></div>
+    <div style="position:absolute;top:50%;left:50%;width:300px;height:300px;margin:-150px 0 0 -150px;background:rgba(255,255,255,0.03);border-radius:50%;animation:rotateSlow 20s linear infinite;pointer-events:none;"></div>
+
+    <div style="position:relative;z-index:1;">
+
+      <!-- Foguete com pulso -->
+      <div style="position:relative;display:inline-block;margin-bottom:1rem;">
+        <div style="position:absolute;top:50%;left:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,255,255,0.2);animation:pulseRing 2s ease-out infinite;"></div>
+        <div style="position:absolute;top:50%;left:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,255,255,0.1);animation:pulseRing 2s ease-out infinite 0.6s;"></div>
+        <div style="font-size:2.8rem;animation:floatRocket 3s ease-in-out infinite;display:inline-block;">🚀</div>
+      </div>
+
+      <h3 style="font-size:1.3rem;font-weight:900;color:#fff;margin-bottom:0.5rem;">Gerador de Currículo Estratégico</h3>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:1.5rem;max-width:450px;margin-left:auto;margin-right:auto;">Preencha seus dados, experiências e habilidades. O sistema monta o currículo profissional e você baixa o PDF direto no celular.</p>
+
+      <!-- Tags -->
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;margin-bottom:1.8rem;">
+        <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:99px;padding:0.28rem 0.85rem;font-size:0.76rem;font-weight:600;color:#fff;backdrop-filter:blur(4px);">✅ 100% gratuito</span>
+        <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:99px;padding:0.28rem 0.85rem;font-size:0.76rem;font-weight:600;color:#fff;backdrop-filter:blur(4px);">📱 Funciona no celular</span>
+        <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:99px;padding:0.28rem 0.85rem;font-size:0.76rem;font-weight:600;color:#fff;backdrop-filter:blur(4px);">⬇️ Baixa em PDF</span>
+        <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:99px;padding:0.28rem 0.85rem;font-size:0.76rem;font-weight:600;color:#fff;backdrop-filter:blur(4px);">🤖 Otimizado para ATS</span>
+      </div>
+
+      <!-- Botão com shimmer -->
+      <a href="curriculo-gerador.html" target="_blank" rel="noopener" class="gerador-card-btn">✨ Criar meu currículo agora</a>
+
+    </div>
+  </div>
+
+  <!-- Dicas 3x2 -->
+  
+  <!-- Banner de vídeos -->
+  <div style="background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.1);border-radius:18px;padding:1.5rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <div style="width:48px;height:48px;background:rgba(79,114,20,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🎥</div>
+      <div>
+        <div style="font-size:0.95rem;font-weight:800;margin-bottom:0.2rem;">Vídeos tutoriais</div>
+        <div style="font-size:0.8rem;opacity:0.6;line-height:1.5;">Aprenda a editar os modelos e se destacar em processos seletivos.</div>
+      </div>
+    </div>
+    <a href="tutorial.html" style="display:inline-block;background:rgba(79,114,20,0.1);border:1px solid rgba(79,114,20,0.3);color:#1e40af;text-decoration:none;border-radius:11px;padding:0.7rem 1.4rem;font-size:0.88rem;font-weight:700;white-space:nowrap;flex-shrink:0;">▶ Assistir agora</a>
+  </div>
+
+  <!-- Responsividade mobile -->
+  <style>
+    @media(max-width:600px){
+      section[style*="max-width:860px"] div[style*="grid-template-columns:repeat(3"]{
+        grid-template-columns:1fr 1fr !important;
+      }
+    }
+    @media(max-width:380px){
+      section[style*="max-width:860px"] div[style*="grid-template-columns:repeat(3"]{
+        grid-template-columns:1fr !important;
+      }
+    }
+  </style>
+
+</section>
+<!-- FIM SEÇÃO GERADOR -->
+
+
+<!-- FORMULÁRIO DE CADASTRO - PASSO 1 -->
+<section class="contact-section" style="margin-top: 4rem;">
+  <div class="contact-container" style="padding: 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 100%;">
+
+    <div style="max-width: 700px; width: 100%;">
+    <div class="contact-icon" style="text-align: center;">
+      <img src="../imagens/gmail.png" alt="Envio de currículo" width="40" height="40">
+    </div>
+    <h3 id="section-envio" style="text-align: center;">Envio de Currículo</h3>
+    <p style="text-align: center;">PASSO 1: Preencha seus dados pessoais. Após isso, você poderá enviar seu currículo.</p>
+
+    <form id="formCadastro" style="display: flex; flex-direction: column; gap: 1.5rem;">
+      
+      <!-- NOME E EMAIL -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label for="nome" style="font-weight: 700; color: #1e40af; font-size: 0.9rem;">Nome completo *</label>
+          <input type="text" id="nome" name="nome" placeholder="João da Silva" required style="padding: 0.9rem; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem;">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label for="email" style="font-weight: 700; color: #1e40af; font-size: 0.9rem;">E-mail *</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required style="padding: 0.9rem; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem;">
+        </div>
+      </div>
+
+      <!-- TELEFONE E ÁREA -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label for="telefone" style="font-weight: 700; color: #1e40af; font-size: 0.9rem;">Telefone *</label>
+          <input type="tel" id="telefone" name="telefone" placeholder="(51) 9999-9999" required style="padding: 0.9rem; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem;">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label for="area" style="font-weight: 700; color: #1e40af; font-size: 0.9rem;">Área de interesse</label>
+          <select id="area" name="area" style="padding: 0.9rem; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem;">
+            <option value="">Selecione</option>
+            <option value="administrativo">Administrativo</option>
+            <option value="tecnologia">Tecnologia</option>
+            <option value="marketing">Marketing</option>
+            <option value="vendas">Vendas</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- MENSAGEM -->
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="mensagem" style="font-weight: 700; color: #1e40af; font-size: 0.9rem;">Mensagem (opcional)</label>
+        <textarea id="mensagem" name="mensagem" placeholder="Conte-nos sobre você..." rows="3" style="padding: 0.9rem; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem; resize: vertical;"></textarea>
+      </div>
+
+      <!-- BOTÃO -->
+      <button type="submit" style="padding: 1rem; background: linear-gradient(135deg, #1e40af, #0d47a1); color: white; border: none; border-radius: 6px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s; width: 100%;">
+        ✓ Prosseguir para Upload do Currículo
+      </button>
+    </form>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.getElementById('formCadastro').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const area = document.getElementById('area').value || 'Não informado';
+      const mensagem = document.getElementById('mensagem').value || 'Nenhuma';
+
+      if (!nome || !email || !telefone) {
+        alert('❌ Preencha todos os campos obrigatórios!');
+        return;
+      }
+
+      // Enviar como objeto JSON via Formspree
+      const dados = {
+        nome: nome,
+        email: email,
+        telefone: telefone,
+        area: area,
+        mensagem: mensagem,
+        data: new Date().toLocaleString('pt-BR')
+      };
+
+      try {
+        const response = await fetch('https://formspree.io/f/mlgzplyw', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(dados)
+        });
+
+        if (response.ok) {
+          alert('✅ Cadastro realizado com sucesso!\n\nAgora você será redirecionado para enviar seu currículo.');
+          setTimeout(() => {
+            window.location.href = 'https://form.jotform.com/261278143817057';
+          }, 1500);
+        } else {
+          alert('❌ Erro ao enviar formulário. Tente novamente.');
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('❌ Erro de conexão. Verifique sua internet e tente novamente.');
+      }
+    });
+    </script>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="../index.html" class="btn btn-primary">Voltar</a>
+      <a href="contato.html" class="btn btn-secondary">Fale Conosco</a>
+    </div>
+    </div><!-- /max-width wrapper -->
+
+  </div>
+</section>
+
+
+
+
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">▲</button>
+
+
+  <!-- Chatbot -->
+<!-- NOVO -->
+  <button class="chatbot-button" id="chatbotBtn" onclick="toggleChatbot()">
+    <img src="../imagens/chatbot.png" alt="Chatbot" style="width:32px; height:32px;">
+  </button>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <div>
+        <h3>Agência Nexus</h3>
+        <p id="chatbotStatusText">● Assistente virtual</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ai-toggle-wrap" id="aiToggleWrap" onclick="toggleModoIA()" title="Ligar/desligar Modo IA (Llama via Groq)">
+          <div class="ai-toggle-switch"></div>
+          <span class="ai-toggle-label">Modo IA</span>
+          <span class="ai-mode-badge">ON</span>
+        </div>
+        <button class="close-chatbot" onclick="toggleChatbot()">✕</button>
+      </div>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages"></div>
+    <div class="chatbot-input-area">
+      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagem()" autocomplete="off">
+      <button class="chatbot-send-btn" onclick="enviarMensagem()">➤</button>
+    </div>
+  </div>
+
+  <!-- Chatbot -->
+<!-- NOVO -->
+
+
+   
+<!-- Banner FAQ -->
+<section style="
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f2340 100%);
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(59,130,246,0.25);
+  border-bottom: 1px solid rgba(59,130,246,0.25);
+">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">❓</div>
+    <h2 style="font-size: 1.6rem; font-weight: 700; color: #f0f0f0; margin-bottom: 0.6rem;">Ficou com alguma dúvida?</h2>
+    <p style="color: #94a3b8; font-size: 1rem; margin-bottom: 1.8rem; line-height: 1.6;">
+      Confira nossas perguntas frequentes — respondemos as dúvidas mais comuns sobre candidaturas, vagas, empresas e privacidade.
+    </p>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;">
+      <a href="../faq/faq-candidatos.html" style="
+        background: #3b82f6; color: #fff; text-decoration: none;
+        padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        👤 FAQ Candidatos
+      </a>
+      <a href="../faq/faq-vagas.html" style="
+        background: #3b82f6; color: #fff; text-decoration: none;
+        padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        💼 FAQ Vagas
+      </a>
+      <a href="../faq/faq-empresas.html" style="
+        background: #3b82f6; color: #fff; text-decoration: none;
+        padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        🏢 FAQ Empresas
+      </a>
+      <a href="../faq/faq-privacidade.html" style="
+        background: #3b82f6; color: #fff; text-decoration: none;
+        padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        🔒 FAQ Privacidade
+      </a>
+    </div>
+  </div>
+</section>
+<!-- /Banner FAQ -->
+
+   <footer>
+    <div class="footer-top">
+
+      <!-- Coluna 1: Marca + Redes Sociais -->
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <div class="footer-brand-name">Agência <span>Nexus</span></div>
+        </div>
+        <p class="footer-tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
+        <div class="footer-social">
+
+          <!-- Instagram -->
+          <a class="footer-social-link" href="https://www.instagram.com/exittuscarreiras/" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+
+          <!-- Facebook -->
+          <a class="footer-social-link" href="https://www.facebook.com/profile.php?id=61576066286585" target="_blank" rel="noopener" title="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a class="footer-social-link" href="https://www.linkedin.com/company/107064981/admin/dashboard/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+
+          <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/555198503183" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+           <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+          <!-- YouTube -->
+<a class="footer-social-link" href="https://www.youtube.com/@SEUCANAL" target="_blank" rel="noopener" title="YouTube">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M23.498 6.186a2.96 2.96 0 0 0-2.085-2.094C19.63 3.5 12 3.5 12 3.5s-7.63 0-9.413.592A2.96 2.96 0 0 0 .502 6.186 30.2 30.2 0 0 0 0 12a30.2 30.2 0 0 0 .502 5.814 2.96 2.96 0 0 0 2.085 2.094C4.37 20.5 12 20.5 12 20.5s7.63 0 9.413-.592a2.96 2.96 0 0 0 2.085-2.094A30.2 30.2 0 0 0 24 12a30.2 30.2 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+  </svg>
+</a>
+
+            
+        <!-- Pinterest -->
+<a class="footer-social-link" href="https://br.pinterest.com/aexittus/" target="_blank" rel="noopener" title="Pinterest">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+  </svg>
+</a>
+
+
+        </div>
+      </div>
+
+         <!-- Coluna 2: Links rápidos -->
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <ul class="footer-col-links">
+          <li><a href="vagas.html">Vagas disponíveis</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="tutorial.html">Vídeos</a></li>
+          <li><a href="servicos.html">Serviços</a></li>
+          <li><a href="sobre.html">Sobre nós</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Contato -->
+      <div>
+        <div class="footer-col-title">Contato</div>
+
+        <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          (51) 99697-6579
+        </a>
+
+            <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          (51) 99697-6579
+        </a>
+
+      <a class="footer-contact-item" href="mailto:adm.agencianexus@outlook.com">
+  <svg viewBox="0 0 24 24">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+  <span>adm.agencianexus@outlook.com</span>
+</a>
+
+
+      </div>
+
+    </div><!-- /footer-top -->
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
+    </div>
+
+  </footer>
+
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Enviar formulário
+    function enviarFormulario(event) {
+      event.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const telefone = document.getElementById('telefone').value;
+      const assunto = document.getElementById('assunto').value;
+      const mensagem = document.getElementById('mensagem').value;
+
+      const mensagemWhatsApp = `Olá! Meu nome é ${nome}.\n\n📧 E-mail: ${email}\n📱 Telefone: ${telefone}\n\n📝 Tipo de Vaga: ${assunto}\n\n💬 Experiência:\n${mensagem}`;
+      const urlWhatsApp = `https://wa.me/5551993381495?text=${encodeURIComponent(mensagemWhatsApp)}`;
+
+      window.open(urlWhatsApp, '_blank');
+      document.getElementById('contatoForm').reset();
+      alert('✅ Redirecionando para WhatsApp...');
+    }
+
+    /* ================================================================= */
+    /* MENU FUNCTIONS - CONTROLE DE ABERTURA E FECHAMENTO DO MENU     */
+    /* ================================================================= */
+    const menuContent = document.getElementById('menuContent');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    function toggleMenu() {
+      menuContent.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+      
+      if (!menuContent.classList.contains('active')) {
+        menuContent.style.left = '-100%';
+      } else {
+        menuContent.style.left = '0';
+      }
+    }
+
+function closeMenu() {
+  menuContent.classList.remove('active');
+  menuOverlay.classList.remove('active');
+  menuContent.style.left = '-100%';
+  setTimeout(() => {
+    document.body.classList.remove('menu-open');
+  }, 300);
+}
+
+
+    /* ================================================================= */
+
+    document.querySelectorAll('.menu-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    
+function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      document.documentElement.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      document.getElementById('themeIcon').textContent = isDarkMode ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    }
+
+function loadSavedTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme !== 'light') {
+        document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
+        document.getElementById('themeIcon').textContent = '☀️';
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.documentElement.classList.remove('dark-mode');
+        document.getElementById('themeIcon').textContent = '🌙';
+      }
+    }
+      
+    loadSavedTheme();
+
+    // CHATBOT CONFIG
+
+
+
+
+
+    // iNICIO CHATBOT INTELIGENTE
+    const KB = {
+      saudacoes: {
+        gatilhos: ['oi','olá','ola','hey','bom dia','boa tarde','boa noite','hello','e aí','e ai','tudo bem'],
+        respostas: [
+          'Olá! 😊 Que bom ter você aqui! Sou o assistente da **Agência Nexus**.\n\nPosso te ajudar com vagas, processo seletivo, serviços ou qualquer dúvida. Por onde quer começar?',
+          'Oi! 👋 Bem-vindo à **Nexus**! Você é candidato buscando oportunidade ou empresa buscando talentos?'
+        ],
+        chips: ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato','↩️ Voltar ao início'] 
+      },
+      vagas: {
+        gatilhos: ['vaga','vagas','emprego','trabalho','oportunidade','oportunidades','contratando','procuro emprego','quero trabalhar','busco','aberta','disponível','disponíveis','oferta'],
+        respostas: [
+          'Ótimo! 🎯 Temos vagas abertas para diversos perfis — **CLT, PJ e Estágio** em empresas parceiras.\n\nPara candidatos o serviço é **100% gratuito**. Quer ver o que temos disponível?'
+        ],
+        chips: ['🌐 Ver vagas online','💬 WhatsApp','📋 Como me candidatar','💰 É gratuito?','↩️ Voltar ao início'] 
+      },
+      candidato: {
+        gatilhos: ['candidato','me candidatar','candidatura','currículo','curriculo','cadastrar','inscr','participar','processo seletivo','seleção','entrevista','como funciona','quero participar','primeiro passo'],
+        respostas: [
+          'Perfeito! 😊 Nosso processo é simples e **100% gratuito** para candidatos:\n\n- Inscrição e análise do seu perfil\n- Entrevista preliminar conosco\n- Testes técnicos ou comportamentais\n- Dinâmica com a empresa\n- Proposta e contratação\n\nO prazo médio é de **7 a 30 dias**. Quer começar?'
+        ],
+        chips: ['💬 Quero me cadastrar','💡 Dicas de currículo','⏱️ Quanto tempo leva?','🌐 Ver vagas','↩️ Voltar ao início'] 
+      },
+      gratuito: {
+        gatilhos: ['gratuito','grátis','gratis','pago','custa','custo','preço','preco','valor','cobrar','cobrança','taxa'],
+        respostas: [
+          'Boa pergunta! 💚\n\n**Para candidatos:** totalmente **GRATUITO** em todas as etapas.\n\n**Para empresas:** taxa de sucesso — **só cobramos se a contratação acontecer**. Valores variam conforme Estágio, CLT ou PJ.'
+        ],
+        chips: ['💬 Quero me cadastrar grátis','🏢 Sou empresa, quero orçamento','📞 Falar com especialista']
+      },
+      empresa: {
+        gatilhos: ['empresa','contratar','funcionário','funcionario','colaborador','equipe','rh','recursos humanos','recrutamento','headhunter','busco profissional','preciso de'],
+        respostas: [
+          'Excelente! 🏢 Ajudamos empresas a encontrar os profissionais certos com agilidade:\n\n- Recrutamento e Seleção completo\n- Testes técnicos e comportamentais\n- Background Check\n- Consultoria em RH\n- Treinamentos corporativos\n\n**95% de taxa de sucesso** e preenchimento médio em **7 dias**!'
+        ],
+        chips: ['📊 Nossos números','💰 Como funciona a cobrança','💬 Solicitar orçamento','📞 Falar agora','↩️ Voltar ao início'] 
+      },
+  contato: {
+        gatilhos: ['contato','telefone','whatsapp','zap','ligar','email','e-mail','endereço','endereco','onde fica','localização','agendar','reunião','conversar','falar'],
+        respostas: [
+          'Claro! 📞 Estamos sempre disponíveis:\n\n- **WhatsApp:** (51) 99697-6579\n- **E-mail:** adm.agencianexus@outlook.com\n- **Endereço:** Atuação em toda a Região Sul do Brasil (100% Digital)\n\nO jeito mais rápido é pelo WhatsApp — respondemos em minutos!'
+        ],
+        chips: ['💬 Abrir WhatsApp agora','📧 Enviar e-mail','↩️ Voltar ao início']
+      },
+      numeros: {
+        gatilhos: ['resultados','números','numeros','taxa','sucesso','aproveitamento','quantos','colocados','cases','estatística','comprovado'],
+        respostas: [
+          'Nossos números falam por si! 📊\n\n- **+500** profissionais colocados\n- **95%** de taxa de sucesso\n- Preenchimento médio em **7 dias**\n- Empresas de **diversos segmentos**\n- **Satisfação garantida** em todas as etapas'
+        ],
+        chips: ['🏢 Quero contratar','👤 Quero me candidatar','💬 Falar com especialista','↩️ Voltar ao início'] 
+      },
+      tempo: {
+        gatilhos: ['quanto tempo','prazo','demora','rápido','rapido','urgente','dias','semana','quando'],
+        respostas: [
+          'Boa pergunta! ⏱️\n\n- Preenchimento médio: **7 dias**\n- Prazo máximo: até **30 dias**\n\nDepende do perfil e da vaga, mas trabalhamos com agilidade!'
+        ],
+        chips: ['💬 Quero começar logo','📋 Como funciona o processo','📞 Falar agora','↩️ Voltar ao início'] 
+      },
+      dicas: {
+        gatilhos: ['dica','dicas','como melhorar','linkedin','foto','entrevista bem','preparar','ajuda','orientação'],
+        respostas: [
+          'Adoro essa pergunta! 💡 Dicas de ouro da Nexus:\n\n- **Currículo:** objetivo, atualizado, com foto profissional\n- **LinkedIn:** perfil completo com experiências e recomendações\n- **Carta de apresentação:** personalize pra cada vaga\n- **Resposta rápida:** quando entrarmos em contato, responda logo!\n- **Foco:** candidate-se a vagas que combinam com seu perfil'
+        ],
+        chips: ['💬 Quero orientação personalizada','🌐 Ver vagas disponíveis','📋 Como funciona o processo','↩️ Voltar ao início'] 
+      },
+      agradecimento: {
+        gatilhos: ['obrigado','obrigada','valeu','vlw','thanks','grato','grata','ótimo','otimo','perfeito','excelente','show','massa'],
+        respostas: [
+          'Fico feliz em ajudar! 😊 Qualquer dúvida é só chamar. Boa sorte na sua jornada com a Nexus! 🚀',
+          'Que bom! 💚 Sucesso pra você! 🌟'
+        ],
+        chips: ['🌐 Ver vagas','📞 Falar com equipe','↩️ Início']
+      },
+      fallback: {
+        respostas: [
+          'Hmm, não entendi muito bem. 🤔 Mas posso te ajudar com essas opções:',
+          'Deixa eu entender melhor! 😊 Sobre qual desses assuntos você quer saber?'
+        ],
+        chips: ['🔍 Ver vagas','👤 Sou candidato','🏢 Sou empresa','📞 Falar com a equipe','↩️ Voltar ao início'] 
+      }
+    };
+
+const CHIP_ACOES = {
+      '🌐 Ver vagas online':               () => window.open('vagas.html','_blank'),
+      '🌐 Ver vagas':                      () => window.open('vagas.html','_blank'),
+      '🌐 Ver vagas disponíveis':          () => window.open('vagas.html','_blank'),
+      '💬 WhatsApp':                       () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Abrir WhatsApp agora':           () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Falar agora':                    () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Falar com especialista':         () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Falar com a equipe':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Solicitar orçamento':            () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Quero me cadastrar':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Quero me cadastrar grátis':      () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Quero começar logo':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '💬 Quero orientação personalizada': () => window.open('https://wa.me/5551996976579','_blank'),
+      '🏢 Sou empresa, quero orçamento':   () => processarTexto('quero contratar profissionais'),
+      '🏢 Quero contratar':                () => processarTexto('quero contratar profissionais'),
+      '🏢 Sou empresa':                    () => processarTexto('sou empresa'),
+      '📞 Contato':                        () => processarTexto('contato'),
+      '📞 Falar agora':                    () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com especialista':         () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com a equipe':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '📧 Enviar e-mail':                  () => window.location.href='mailto:adm.agencianexus@outlook.com',
+      '🔍 Ver vagas':                      () => processarTexto('vagas disponíveis'),
+      '👤 Sou candidato':                  () => processarTexto('quero me candidatar'),
+      '👤 Quero me candidatar':            () => processarTexto('quero me candidatar'),
+      '📋 Como funciona':                  () => processarTexto('como funciona o processo'),
+      '📋 Como me candidatar':             () => processarTexto('como funciona o processo'),
+      '📋 Como funciona o processo':       () => processarTexto('como funciona o processo'),
+      '💡 Dicas de currículo':             () => processarTexto('dicas curriculo'),
+      '💰 É gratuito?':                    () => processarTexto('é gratuito'),
+      '💰 Como funciona a cobrança':       () => processarTexto('custo taxa'),
+      '⏱️ Quanto tempo leva?':             () => processarTexto('quanto tempo demora'),
+      '📊 Nossos números':                 () => processarTexto('resultados taxa de sucesso'),
+      '📊 Cases de sucesso':               () => processarTexto('resultados taxa de sucesso'),
+      '↩️ Início':                         () => mostrarBemVindo(),
+      '↩️ Voltar ao início':               () => mostrarBemVindo(),
+    };
+    
+    let aberto = false;
+    let digitando = false;
+
+    function toggleChatbot() {
+      aberto = !aberto;
+      document.getElementById('chatbotBtn').classList.toggle('active', aberto);
+      document.getElementById('chatbotWindow').classList.toggle('active', aberto);
+      document.body.classList.toggle('chat-open', aberto);
+      if (aberto && !document.getElementById('chatbotMessages').children.length) {
+        setTimeout(() => mostrarBemVindo(), 300);
+      }
+    }
+
+    function mostrarBemVindo() {
+      document.getElementById('chatbotMessages').innerHTML = '';
+      mostrarSequencia([
+        'Olá! 👋 Sou o assistente virtual da **Agência Nexus**!',
+        'Pode me perguntar qualquer coisa — vagas, processo seletivo, dicas, contato... Estou aqui pra ajudar! 😊'
+      ], ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato'], 0);
+    }
+
+    function mostrarSequencia(textos, chips, index) {
+      if (index >= textos.length) { adicionarChips(chips); return; }
+      mostrarTyping(() => {
+        adicionarBubbleBot(markdownParaHTML(textos[index]));
+        setTimeout(() => mostrarSequencia(textos, chips, index + 1), 400);
+      }, index === 0 ? 800 : 600);
+    }
+
+    function enviarMensagem() {
+      const input = document.getElementById('chatbotInput');
+      const texto = input.value.trim();
+      if (!texto || digitando) return;
+      input.value = '';
+      adicionarBubbleUser(texto);
+      if (modoIA) {
+        responderComIA(texto);
+      } else {
+        setTimeout(() => processarTexto(texto), 300);
+      }
+    }
+
+    function processarTexto(texto) {
+      const lower = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      let melhorCategoria = null, melhorPontuacao = 0;
+      for (const [cat, dados] of Object.entries(KB)) {
+        if (cat === 'fallback' || !dados.gatilhos) continue;
+        let pts = 0;
+        for (const g of dados.gatilhos) {
+          const gn = g.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+          if (lower.includes(gn)) pts += gn.split(' ').length;
+        }
+        if (pts > melhorPontuacao) { melhorPontuacao = pts; melhorCategoria = cat; }
+      }
+      const dados = melhorPontuacao > 0 ? KB[melhorCategoria] : KB.fallback;
+      const resposta = dados.respostas[Math.floor(Math.random() * dados.respostas.length)];
+      mostrarTyping(() => {
+        adicionarBubbleBot(markdownParaHTML(resposta));
+        setTimeout(() => adicionarChips(dados.chips || KB.fallback.chips), 300);
+      }, 800);
+    }
+
+    function mostrarTyping(callback, delay) {
+      digitando = true;
+      const msgs = document.getElementById('chatbotMessages');
+      const el = document.createElement('div');
+      el.className = 'message bot'; el.id = 'typing-indicator';
+      el.innerHTML = '<div class="message-content"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+      msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight;
+      setTimeout(() => {
+        document.getElementById('typing-indicator')?.remove();
+        digitando = false;
+        callback();
+      }, delay);
+    }
+
+    function adicionarChips(chips) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.innerHTML = '<div class="chip-row">' +
+        chips.map(c => `<button class="chip" onclick="clicarChip('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('') +
+      '</div>';
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function clicarChip(chip) {
+      adicionarBubbleUser(chip);
+      const acao = CHIP_ACOES[chip];
+      if (acao) { setTimeout(acao, 200); } else { setTimeout(() => processarTexto(chip), 300); }
+    }
+
+    function adicionarBubbleBot(html) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.className = 'message bot';
+      div.innerHTML = `<div class="message-content">${html}</div>`;
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function adicionarBubbleUser(texto) {
+      const msgs = document.getElementById('chatbotMessages');
+      const div = document.createElement('div');
+      div.className = 'message user';
+      div.innerHTML = `<div class="message-content">${escapeHtml(texto)}</div>`;
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+    }
+
+  function markdownParaHTML(texto) {
+  function processarInline(str) {
+    return str
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#38bdf8;text-decoration:underline;">$1</a>');
+  }
+
+  // Dividimos por quebra de linha simples
+  const linhas = texto.split('\n');
+  const blocos = []; 
+  let listaAtual = [];
+
+  function fecharLista() {
+    if (listaAtual.length > 0) {
+      blocos.push('<ul class="list-disc ml-5 mb-4">' + listaAtual.map(i => `<li>${i}</li>`).join('') + '</ul>');
+      listaAtual = [];
+    }
+  }
+
+  for (let i = 0; i < linhas.length; i++) {
+    let linha = linhas[i];
+    const linhaTrim = linha.trim();
+
+    // 1. Detecção de Listas
+    const matchLista = linhaTrim.match(/^[-\*]\s+(.+)/);
+    if (matchLista) {
+      listaAtual.push(processarInline(matchLista[1]));
+      continue;
+    }
+
+    // Se a linha não é lista, fecha a lista aberta
+    fecharLista();
+
+    // 2. Ignorar linhas vazias sucessivas
+    if (linhaTrim === '') continue;
+
+    // 3. Títulos (Headers) - Comum em respostas de IA
+    const matchHeader = linhaTrim.match(/^(#{1,3})\s+(.+)/);
+    if (matchHeader) {
+      const nivel = matchHeader[1].length;
+      blocos.push(`<h${nivel} class="font-bold text-lg">${processarInline(matchHeader[2])}</h${nivel}>`);
+      continue;
+    }
+
+    // 4. Parágrafos
+    // Processamos a linha e a envolvemos em <p>
+    blocos.push(`<p class="mb-4">${processarInline(linhaTrim)}</p>`);
+  }
+
+  fecharLista();
+  return blocos.join('');
+}
+
+function escapeHtml(t) {
+  return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+    let modoIA = false;
+    const EDGE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co/functions/v1/chatbot-groq';
+
+    function toggleModoIA() {
+      modoIA = !modoIA;
+      const wrap = document.getElementById('aiToggleWrap');
+      const statusText = document.getElementById('chatbotStatusText');
+      wrap.classList.toggle('ai-on', modoIA);
+      if (modoIA) {
+        statusText.textContent = '🤖 Modo IA ativo (Llama)';
+        adicionarBubbleBot(markdownParaHTML('🤖 **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
+      } else {
+        statusText.textContent = '● Assistente virtual';
+        adicionarBubbleBot(markdownParaHTML('💬 Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
+        setTimeout(() => adicionarChips(['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']), 300);
+      }
+    }
+
+    async function responderComIA(texto) {
+      mostrarTyping(async () => {
+        try {
+          const resp = await fetch(EDGE_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4'
+            },
+            body: JSON.stringify({ mensagem: texto })
+          });
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.erro || `Erro ${resp.status}`);
+          }
+          const data = await resp.json();
+          const resposta = data.resposta || 'Não consegui gerar uma resposta.';
+          adicionarBubbleBot(markdownParaHTML(resposta));
+          setTimeout(() => adicionarChips(['💬 Continuar','📞 Falar com humano','↩️ Voltar ao início']), 300);
+        } catch (e) {
+          adicionarBubbleBot(markdownParaHTML(`❌ **Erro na IA:** ${e.message}
+
+Tente novamente em instantes.`));
+        }
+      }, 1000);
+    }
+    // FIM CHATBOT INTELIGENTE
+
+
+
+// TOPICS DROPDOWN - DESKTOP
+    function toggleTopics() {
+      const dropdown = document.getElementById('topicsDropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    function closeTopics() {
+      const dropdown = document.getElementById('topicsDropdown');
+      dropdown.classList.remove('open');
+    }
+
+    // TOPICS DROPDOWN - MOBILE
+    function toggleTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.toggle('open');
+    }
+
+    function closeTopicsMobile() {
+      const dropdown = document.getElementById('topicsDropdownMobile');
+      dropdown.classList.remove('open');
+    }
+
+    // Close topics when clicking outside
+    document.addEventListener('click', (e) => {
+      const toggle = document.getElementById('topicsToggle');
+      const dropdown = document.getElementById('topicsDropdown');
+      const toggleM = document.getElementById('topicsToggleMobile');
+      const dropdownM = document.getElementById('topicsDropdownMobile');
+      if (dropdown && toggle && !toggle.contains(e.target) && !dropdown.contains(e.target)) {
+        closeTopics();
+      }
+      if (dropdownM && toggleM && !toggleM.contains(e.target) && !dropdownM.contains(e.target)) {
+        closeTopicsMobile();
+      }
+    });
+
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('menuContent');
+      const menuOverlay = document.getElementById('menuOverlay');
+      const menuToggle = document.querySelector('.menu-toggle');
+      if (menu.classList.contains('active') && 
+          !menu.contains(e.target) && 
+          !menuOverlay.contains(e.target) &&
+          !menuToggle.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Fechar chatbot ao clicar fora
+    document.getElementById('chatbotWindow').addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      const chatbotBtn = document.getElementById('chatbotBtn');
+      if (chatbotWindow.classList.contains('active') && 
+          !chatbotWindow.contains(e.target) && 
+          !chatbotBtn.contains(e.target)) {
+        toggleChatbot();
+      }
+    });
+    
+    // ===== CONTADORES DE DOWNLOAD DOS CURRÍCULOS (Firebase) =====
+    // A função incrementDownload é definida no bloco type="module" abaixo
+    // e exposta globalmente via window.incrementDownload
+    // ===== FIM CONTADORES =====
+
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      const scrollBtn = document.getElementById("scrollTopBtn");
+      if (scrollBtn) scrollBtn.classList.toggle("visible", window.scrollY > 400);
+
+      document.body.classList.add('scrolling');
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        document.body.classList.remove('scrolling');
+      }, 250);
+    });
+
+// FECHAMENTO DO MENU COM ARRASTO (Touch)
+let touchStartX = 0;
+
+document.getElementById('menuContent').addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+document.getElementById('menuContent').addEventListener('touchend', (e) => {
+  const touchEndX = e.changedTouches[0].clientX;
+  if (touchStartX - touchEndX > 50) closeMenu();
+});
+
+  </script>
+
+  <!-- FIREBASE: Contador Global de Downloads -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+
+ const firebaseConfig = {
+      apiKey: "AIzaSyD142DL8w-lsVhATnFykmLd7bUPbdK4ceU",
+      authDomain: "contador-de-baixadas.firebaseapp.com",
+      databaseURL: "https://contador-de-baixadas-default-rtdb.firebaseio.com",
+      projectId: "contador-de-baixadas",
+      storageBucket: "contador-de-baixadas.firebasestorage.app",
+      messagingSenderId: "92324244509",
+      appId: "1:92324244509:web:3e3cabbd64de25eb16eaf4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Expor globalmente para o onclick dos botões
+    window.incrementDownload = function(key) {
+      const countRef = ref(db, 'downloads/' + key);
+      runTransaction(countRef, (current) => (current || 0) + 1);
+    };
+
+    // Carregar e escutar contadores em tempo real
+    ['cv1', 'cv2', 'cv3'].forEach(key => {
+      const countRef = ref(db, 'downloads/' + key);
+      onValue(countRef, (snapshot) => {
+        const el = document.getElementById('count-' + key);
+        if (el) el.textContent = snapshot.val() || 0;
+      });
+    });
+  </script>
+
+</body>
+</html>

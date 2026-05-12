@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>🍪 Consentimento de Cookies | Agência Exittus</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ELEMENTOS FLUTUANTES DECORATIVOS */
+    .floating-element {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      font-size: 3rem;
+      opacity: 0.15;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-30px) rotate(90deg); }
+      50% { transform: translateY(0) rotate(180deg); }
+      75% { transform: translateY(-30px) rotate(270deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    .cookie1 { top: 5%; left: 5%; animation-delay: 0s; }
+    .cookie2 { top: 20%; right: 8%; animation-delay: 2s; font-size: 2.5rem; }
+    .cookie3 { bottom: 15%; left: 10%; animation-delay: 4s; }
+    .cookie4 { bottom: 10%; right: 5%; animation-delay: 6s; font-size: 2rem; }
+    .heart { top: 30%; left: 15%; animation-delay: 1s; }
+    .star { top: 50%; right: 10%; animation-delay: 3s; }
+    .smile { bottom: 30%; left: 50%; animation-delay: 5s; }
+
+    /* CONTAINER PRINCIPAL */
+.main-container {
+  position: relative;
+  z-index: 100;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: auto; /* em vez de 100% */
+  min-height: auto; /* remove a altura mínima */
+}
+
+.cookie-card {
+  background: white;
+  border-radius: 30px;
+  padding: 30px 20px;
+  max-width: 520px;
+  width: 100%;
+  overflow: hidden; 
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  backdrop-filter: blur(10px);
+  
+  /* NOVO */
+  transform: scale(0.8); /* diminui 80% do tamanho original */
+  transform-origin: top center; /* mantém centralizado no topo */
+    margin-top: 100px; /* aumenta ou diminui conforme quiser */
+
+}
+
+
+    @keyframes cardBounce {
+      0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(100px);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* HEADER COM ARTE */
+    .cookie-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .cookie-art {
+      display: inline-block;
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: cookieRotate 3s ease-in-out infinite;
+      filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.4));
+    }
+
+    @keyframes cookieRotate {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(10deg) scale(1.1); }
+    }
+
+    .cookie-card h1 {
+      color: #667eea;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      margin-bottom: 0.5rem;
+      font-weight: 800;
+      text-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+    }
+
+    .cookie-card .subtitle {
+      color: #666;
+      font-size: clamp(0.85rem, 3vw, 1rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* DESCRIPTION BOX COM ARTE */
+    .description-box {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.08));
+      border-left: 5px solid #667eea;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      animation: slideInLeft 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .description-box p {
+      color: #333;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .description-box strong {
+      color: #667eea;
+      font-weight: 700;
+    }
+
+    /* BOTÕES */
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      animation: slideInUp 0.8s ease-out 0.4s both;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn {
+      padding: clamp(0.9rem, 3vw, 1.2rem) clamp(1rem, 3vw, 2rem);
+      border: none;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      white-space: nowrap;
+    }
+
+    /* BOTÃO ACEITAR */
+    .btn-accept {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-accept::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-accept:hover::before {
+      left: 100%;
+    }
+
+    .btn-accept:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn-accept:active {
+      transform: translateY(-2px);
+    }
+
+    /* BOTÃO PERSONALIZAR */
+    .btn-customize {
+      background: rgba(102, 126, 234, 0.15);
+      color: #667eea;
+      border: 2.5px solid #667eea;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-customize::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(102, 126, 234, 0.1);
+      transition: left 0.3s ease;
+    }
+
+    .btn-customize:hover::before {
+      left: 100%;
+    }
+
+    .btn-customize:hover {
+      transform: translateY(-4px);
+      background: rgba(102, 126, 234, 0.25);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    /* BOTÃO REJEITAR */
+    .btn-reject {
+      background: rgba(200, 200, 200, 0.3);
+      color: #333;
+      border: 2px solid rgba(150, 150, 150, 0.5);
+      font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    }
+
+    .btn-reject:hover {
+      background: rgba(150, 150, 150, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* INFO BOX */
+    .info-box {
+      background: linear-gradient(135deg, #f8f9ff, #f0f7ff);
+      padding: 1.2rem;
+      border-radius: 15px;
+      border-top: 4px solid #667eea;
+      font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+      color: #555;
+      animation: slideInUp 0.8s ease-out 0.6s both;
+      line-height: 1.6;
+    }
+
+    .info-box strong {
+      color: #667eea;
+      display: block;
+      margin-bottom: 0.8rem;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 0.6rem 0;
+    }
+
+    .benefit::before {
+      content: '✓';
+      color: #667eea;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .info-box a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: 1rem;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .info-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* MODAL DE PERSONALIZAÇÃO */
+    .customize-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeInCustom 0.3s ease;
+    }
+
+    @keyframes fadeInCustom {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .customize-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 25px;
+      padding: clamp(1.5rem, 5vw, 2.5rem);
+      max-width: 550px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes modalSlide {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-content h2 {
+      color: #667eea;
+      margin-bottom: 1.5rem;
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      text-align: center;
+    }
+
+    /* TOGGLE SWITCH */
+    .cookie-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: #f8f9ff;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+    }
+
+    .cookie-toggle:hover {
+      background: #eef2ff;
+      transform: translateX(5px);
+    }
+
+    .toggle-info h3 {
+      color: #667eea;
+      margin-bottom: 0.3rem;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      font-weight: 700;
+    }
+
+    .toggle-info p {
+      color: #999;
+      font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+      margin: 0;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #667eea;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* BOTÕES DO MODAL */
+    .modal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-save {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-save:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-close-modal {
+      background: #f0f0f0;
+      color: #333;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-close-modal:hover {
+      background: #e0e0e0;
+      transform: translateY(-2px);
+    }
+
+    /* MENSAGEM DE SUCESSO */
+    .success-message {
+      display: none;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.2rem 1.8rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      z-index: 300;
+      animation: slideUpSuccess 0.5s ease-out;
+      max-width: 300px;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      text-align: center;
+    }
+
+    @keyframes slideUpSuccess {
+      from {
+        opacity: 0;
+        transform: translateY(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 600px) {
+      .cookie-card {
+        padding: 25px 20px;
+        border-radius: 20px;
+      }
+
+      .cookie-art {
+        font-size: 3.5rem;
+      }
+
+      .buttons-container {
+        gap: 0.8rem;
+      }
+
+      .btn {
+        min-height: 45px;
+        padding: 0.9rem 1.2rem;
+      }
+
+      .floating-element {
+        font-size: 2rem;
+      }
+
+      .success-message {
+        bottom: 1.5rem;
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+      }
+
+      .modal-content {
+        max-height: 90vh;
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cookie-card {
+        padding: 20px 15px;
+      }
+
+      .cookie-art {
+        font-size: 3rem;
+      }
+
+      .cookie-card h1 {
+        font-size: 1.3rem;
+      }
+
+      .cookie-card .subtitle {
+        font-size: 0.8rem;
+      }
+
+      .btn {
+        font-size: 0.8rem;
+        min-height: 44px;
+        padding: 0.8rem 1rem;
+      }
+
+      .description-box {
+        padding: 1.2rem;
+      }
+    }
+
+    /* SCROLLBAR ESTILIZADO */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #667eea;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #764ba2;
+    }
+
+    /* PÁGINA DE CONTEÚDO (quando aceitar cookies) */
+    #contentPage {
+      display: none;
+      width: 100%;
+      height: 100%;
+      background: white;
+      color: #333;
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+
+    #contentPage h1 {
+      color: #667eea;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #contentPage.show {
+      display: block;
+    }
+
+    .content-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .content-inner h2 {
+      color: #667eea;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+
+    .content-inner p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    .btn-back {
+      background: #667eea;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background: #764ba2;
+      transform: translateY(-2px);
+    }
+  .scroll-top-btn {
+    position: fixed;
+    bottom: calc(2rem + 60px + 1.4rem);
+    right: 1.15rem;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #1e40af;
+    border: none;
+    color: #ffffff;
+    font-size: 0.55rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(30,64,175,0.5);
+    z-index: 99;
+    opacity: 0; pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  body.dark-mode .scroll-top-btn {
+    background: #1e40af;
+    color: #ffffff;
+  }
+  .scroll-top-btn.visible {
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+  }
+  .scroll-top-btn:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(30,64,175,0.7);
+  }
+  </style>
+</head>
+<body>
+  <!-- ELEMENTOS FLUTUANTES -->
+  <div class="floating-element cookie1">🍪</div>
+  <div class="floating-element cookie2">🍪</div>
+  <div class="floating-element cookie3">🍪</div>
+  <div class="floating-element cookie4">🍪</div>
+  <div class="floating-element heart">❤️</div>
+  <div class="floating-element star">⭐</div>
+  <div class="floating-element smile">😊</div>
+
+  <!-- CONTAINER DE COOKIES -->
+  <div class="main-container">
+    <div class="cookie-card">
+      <div class="cookie-header">
+        <div class="cookie-art">🍪</div>
+        <h1>Deliciosos Cookies!</h1>
+        <p class="subtitle">Queremos oferecer uma experiência incrível pra você! 🎉</p>
+      </div>
+
+      <div class="description-box">
+        <p>
+          <strong>Nós amamos cookies!</strong> 🥰
+          Usamos cookies para melhorar sua experiência, lembrar suas preferências e entender melhor como você nos usa. Tudo com <strong>máximo respeito à sua privacidade</strong>! 🔒
+        </p>
+      </div>
+
+      <div class="buttons-container">
+        <button class="btn btn-accept" onclick="aceitarTodos()">
+          ✓ SIM! QUERO COOKIES DELICIOSOS
+        </button>
+        <button class="btn btn-customize" onclick="abrirPersonalizacao()">
+          ⚙️ PERSONALIZAR MINHAS PREFERÊNCIAS
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE PERSONALIZAÇÃO -->
+  <div class="customize-modal" id="customizeModal">
+    <div class="modal-content">
+      <h2>⚙️ Personalize seus Cookies</h2>
+
+      <div class="cookie-toggle">
+        <div class="toggle-info">
+          <h3>🔐 Cookies Essenciais</h3>
+          <p>Necessários para o site funcionar</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" checked disabled>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="cookie-toggle">
+        <div class="toggle-info">
+          <h3>📊 Cookies de Desempenho</h3>
+          <p>Análise anônima de navegação</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="performanceCookie" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="cookie-toggle">
+        <div class="toggle-info">
+          <h3>⚙️ Cookies de Funcionalidade</h3>
+          <p>Lembra suas preferências</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="functionalityCookie" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="cookie-toggle">
+        <div class="toggle-info">
+          <h3>📢 Cookies de Marketing</h3>
+          <p>Anúncios personalizados</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="marketingCookie" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="modal-buttons">
+        <button class="btn-save" onclick="salvarPreferencias()">💾 SALVAR PREFERÊNCIAS</button>
+        <button class="btn-close-modal" onclick="fecharPersonalizacao()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Aceitar todos os cookies e redirecionar
+    function aceitarTodos() {
+      try {
+        localStorage.setItem('cookiesAceitos', 'true');
+        localStorage.setItem('cookiePreferencias', JSON.stringify({
+          essential: true,
+          performance: true,
+          functionality: true,
+          marketing: true
+        }));
+      } catch (e) {
+        console.log('Erro ao salvar');
+      }
+      // REDIRECIONA DIRETO PARA cookies.html
+      window.location.href = 'cookies.html';
+    }
+
+    // Rejeitar não-essenciais
+    function rejeitar() {
+      try {
+        localStorage.setItem('cookiesAceitos', 'true');
+        localStorage.setItem('cookiePreferencias', JSON.stringify({
+          essential: true,
+          performance: false,
+          functionality: false,
+          marketing: false
+        }));
+      } catch (e) {
+        console.log('Erro ao salvar');
+      }
+      // REDIRECIONA DIRETO PARA cookies.html
+      window.location.href = 'cookies.html';
+    }
+
+    // Abrir personalização
+    function abrirPersonalizacao() {
+      document.getElementById('customizeModal').classList.add('active');
+    }
+
+    // Fechar personalização
+    function fecharPersonalizacao() {
+      document.getElementById('customizeModal').classList.remove('active');
+    }
+
+    // Salvar preferências
+    function salvarPreferencias() {
+      try {
+        const prefs = {
+          essential: true,
+          performance: document.getElementById('performanceCookie').checked,
+          functionality: document.getElementById('functionalityCookie').checked,
+          marketing: document.getElementById('marketingCookie').checked
+        };
+        localStorage.setItem('cookiesAceitos', 'true');
+        localStorage.setItem('cookiePreferencias', JSON.stringify(prefs));
+      } catch (e) {
+        console.log('Erro ao salvar');
+      }
+      // REDIRECIONA DIRETO PARA cookies.html
+      window.location.href = 'cookies.html';
+    }
+
+    // Fechar modal ao clicar fora
+    document.addEventListener('click', function(e) {
+      const modal = document.getElementById('customizeModal');
+      if (e.target === modal) {
+        fecharPersonalizacao();
+      }
+    });
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
+  <script>
+    (function(){
+      const b = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', function(){ b.classList.toggle('visible', window.scrollY > 200); });
+    })();
+  </script>
+</body>
+</html>
