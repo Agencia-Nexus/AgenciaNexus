@@ -71,9 +71,9 @@ body.menu-open .theme-toggle {
 
   /* BOTÕES DO TOPO */
   .back-button,
-  .menu-toggle,
-  .theme-toggle {
-    background: rgba(0, 0, 0, 0.2);
+.menu-toggle,
+.theme-toggle {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
     border: 2px solid rgba(255, 255, 255, 0.4);
     color: white;
     transition: all 0.3s ease;
@@ -87,9 +87,9 @@ body.menu-open .theme-toggle {
   }
 
   body:not(.dark-mode) .back-button,
-  body:not(.dark-mode) .menu-toggle,
-  body:not(.dark-mode) .theme-toggle {
-    background: rgba(255, 255, 255, 0.2);
+body:not(.dark-mode) .menu-toggle,
+body:not(.dark-mode) .theme-toggle {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
     border: 2px solid rgba(0, 0, 0, 0.4);
     color: rgb(27, 27, 27);
   }
@@ -530,10 +530,13 @@ body.menu-open .theme-toggle {
   @keyframes pulse      { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.2)} }
 
   .scroll-top-btn {
-    position: fixed; bottom: calc(2rem + 60px + 1.4rem); right: 1.15rem;
-    width: 28px; height: 28px; border-radius: 50%;
-    background: rgba(255,255,255,0.55); border: none;
-    color: rgba(59,130,246,0.45); font-size: 0.55rem; cursor: pointer;
+      position: fixed;
+      bottom: calc(2rem + 60px + 1.4rem);
+      right: 1.15rem;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #60a5fa); border: none;
+    color: white; font-size: 0.55rem; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     z-index: 99; opacity: 0; pointer-events: none;
     transform: translateY(6px);
@@ -542,7 +545,8 @@ body.menu-open .theme-toggle {
   }
   body.dark-mode .scroll-top-btn { background: rgba(30,30,30,0.45); color: rgba(100,180,0,0.4); }
   .scroll-top-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-  .scroll-top-btn:hover { background: rgba(59,130,246,0.15); color: var(--primary); transform: translateY(-2px); }
+  .scroll-top-btn:hover { background: rgba(59,130,246,0.15); box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
+      color: var(--primary); transform: translateY(-2px); }
 
     /* ══ FOOTER PROFISSIONAL ══ */
     footer {

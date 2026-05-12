@@ -82,7 +82,7 @@ html.dark-mode body {
 .back-button,
 .menu-toggle,
 .theme-toggle {
-  background: rgba(0, 0, 0, 0.2); /* fundo leve escuro */
+  background: linear-gradient(135deg, #3b82f6, #60a5fa); /* fundo leve escuro */
   border: 2px solid rgba(255, 255, 255, 0.4); /* borda clara */
   color: white; /* texto branco */
   transition: all 0.3s ease;
@@ -91,7 +91,7 @@ html.dark-mode body {
 .back-button:hover,
 .menu-toggle:hover,
 .theme-toggle:hover {
-  background: rgba(30, 64, 175, 0.4); /* hover verde escuro */
+  background: linear-gradient(135deg, #2563eb, #3b82f6); /* hover verde escuro */
   transform: scale(1.05);
 }
 
@@ -101,7 +101,7 @@ html.dark-mode body {
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
 body:not(.dark-mode) .theme-toggle {
-  background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
+  background: linear-gradient(135deg, #3b82f6, #60a5fa); /* fundo leve claro */
   border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
   color: rgb(27, 27, 27); /* texto vermelho escuro */
 }
@@ -1504,28 +1504,29 @@ body.dark-mode .quick-btn {
       transform: scale(1.05);
     }
 
-    /* ESTILO BASE */
-    .header-bg-img {
-      position: absolute;
-      left: -5.5%;
-      top: 77%;
-      transform: translateY(-50%);
-      width: 250px;
-      height: 250px;
-      z-index: 0;
-      opacity: 0.9;
-    }
+     /* IMAGEM FUNDO.PNG */
+  /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+  .header-bg-img {
+    position: absolute;
+    left: -7.9%;
+    top: 90%;
+    transform: translateY(-50%);
+    width: 350px;
+    height: 350px;
+    z-index: 0;
+    opacity: 0.9;
+  }
 
-    /* DESKTOP - 1024px ou mais */
-    @media (min-width: 1024px) {
-      .header {
-        min-height: 220px;
-      }
+  /* DESKTOP - 1024px ou mais */
+  @media (min-width: 1024px) {
+    .header {
+      min-height: 220px;
+    }
 
     .header-bg-img {
       position: absolute;
       left: -1.5%;
-      top: 77%;
+      top: 90%;
       transform: translateY(-50%);
       width: 250px;
       height: 250px;
@@ -1533,23 +1534,23 @@ body.dark-mode .quick-btn {
       opacity: 0.9;
     }
 
-      .header-content {
-        position: relative;
-        z-index: 1;
-        max-width: 1200px;
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-      }
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* MOBILE - 768px ou menos */
+  @media (max-width: 768px) {
+    .header {
+      min-height: 290px;
     }
 
-    /* MOBILE - 768px ou menos */
-    @media (max-width: 768px) {
-      .header {
-        min-height: 290px;
-      }
-
-      .header-bg-img {
+     .header-bg-img {
         position: absolute !important;
         width: 200px !important;
         height: 200px !important;
@@ -1558,15 +1559,11 @@ body.dark-mode .quick-btn {
         transform: translateX(-50%) !important;
         z-index: 0 !important;
         opacity: 0.9 !important;
-      }
     }
+  }
 
-    /* MOBILE PEQUENO - 480px ou menos */
-    @media (max-width: 480px) {
-      .header {
-        min-height: 250px;
-      }
-
+  /* MOBILE PEQUENO - 480px ou menos */
+  @media (max-width: 480px) {
       .header-bg-img {
         position: absolute;
         left: 50%;
@@ -1577,14 +1574,14 @@ body.dark-mode .quick-btn {
         z-index: 0;
         opacity: 0.9;
       }
-
-      .header-content {
-        position: relative;
-        z-index: 1;
-        margin-top: 150px;
-        text-align: center;
-      }
+      
+    .header-content {
+      position: relative;
+      z-index: 1;
+      margin-top: 150px;
+      text-align: center;
     }
+  }
 
     /* Responsivo */
     @media (max-width: 768px) {
@@ -1633,11 +1630,6 @@ body.dark-mode .quick-btn {
     }
 
 
-
-
-
-
-    
     /* MOBILE - Botão "Menu" colado ao "Voltar" */
     @media (max-width: 480px) {
       .header h1 {

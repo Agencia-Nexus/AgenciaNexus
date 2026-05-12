@@ -69,19 +69,25 @@ html.dark-mode body {
   background: #0a0a0a !important;
   color: #f0f0f0 !important;
 }
+
   /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
-      .header-bg-img {
-        position: absolute;
-        left: -5.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
-      }
+  .header-bg-img {
+    position: absolute;
+    left: -7.9%;
+    top: 90%;
+    transform: translateY(-50%);
+    width: 350px;
+    height: 350px;
+    z-index: 0;
+    opacity: 0.9;
+  }
+
+  /* DESKTOP - 1024px ou mais */
   @media (min-width: 1024px) {
-    .header { min-height: 220px; }
+    .header {
+      min-height: 220px;
+    }
+
     .header-bg-img {
       position: absolute;
       left: -1.5%;
@@ -92,6 +98,7 @@ html.dark-mode body {
       z-index: 0;
       opacity: 0.9;
     }
+
     .header-content {
       position: relative;
       z-index: 1;
@@ -101,9 +108,14 @@ html.dark-mode body {
       text-align: center;
     }
   }
+
+  /* MOBILE - 768px ou menos */
   @media (max-width: 768px) {
-    .header { min-height: 290px; }
-      .header-bg-img {
+    .header {
+      min-height: 290px;
+    }
+
+     .header-bg-img {
         position: absolute !important;
         width: 200px !important;
         height: 200px !important;
@@ -112,14 +124,11 @@ html.dark-mode body {
         transform: translateX(-50%) !important;
         z-index: 0 !important;
         opacity: 0.9 !important;
-      }
+    }
   }
-    /* MOBILE PEQUENO - 480px ou menos */
-    @media (max-width: 480px) {
-      .header {
-        min-height: 250px;
-      }
-      
+
+  /* MOBILE PEQUENO - 480px ou menos */
+  @media (max-width: 480px) {
       .header-bg-img {
         position: absolute;
         left: 50%;
@@ -131,13 +140,13 @@ html.dark-mode body {
         opacity: 0.9;
       }
       
-   .header-content {
-        position: relative;
-        z-index: 1;
-        margin-top: 160px !important;
-        text-align: center;
-      }
+    .header-content {
+      position: relative;
+      z-index: 1;
+      margin-top: 150px;
+      text-align: center;
     }
+  }
 
 /* ======================================== */
 /* BOTOES DO TOPO - EXATO DO UTILIDADES     */
@@ -155,14 +164,16 @@ html.dark-mode body {
   body.scrolling .menu-toggle { opacity: 0; pointer-events: none; }
 
   .back-button,
-  .menu-toggle,
-  .theme-toggle { background: rgba(0,0,0,0.2); border: 2px solid rgba(255,255,255,0.4); color: white; transition: all 0.3s ease; }
+.menu-toggle,
+.theme-toggle {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa); border: 2px solid rgba(255,255,255,0.4); color: white; transition: all 0.3s ease; }
 
   .back-button:hover, .menu-toggle:hover, .theme-toggle:hover { background: rgba(79,114,20,0.4); transform: scale(1.05); }
 
   body:not(.dark-mode) .back-button,
-  body:not(.dark-mode) .menu-toggle,
-  body:not(.dark-mode) .theme-toggle { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+body:not(.dark-mode) .menu-toggle,
+body:not(.dark-mode) .theme-toggle {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
 
   body:not(.dark-mode) .back-button:hover,
   body:not(.dark-mode) .menu-toggle:hover,
@@ -1378,9 +1389,9 @@ body.dark-mode .chip { background: #2a2a2a; }
       right: 1.15rem;
       width: 28px; height: 28px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.55);
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
       border: none;
-      color: rgba(59,130,246,0.45);
+      color: white;
       font-size: 0.55rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -1400,6 +1411,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     }
     .scroll-top-btn:hover {
       background: rgba(59,130,246,0.15);
+      box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
       color: var(--primary);
       transform: translateY(-2px);
     }

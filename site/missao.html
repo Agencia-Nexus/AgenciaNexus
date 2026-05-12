@@ -73,7 +73,7 @@ html.dark-mode body {
 .back-button,
 .menu-toggle,
 .theme-toggle {
-  background: rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
   border: 2px solid rgba(255, 255, 255, 0.4);
   color: white;
   transition: all 0.3s ease;
@@ -89,7 +89,7 @@ html.dark-mode body {
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
 body:not(.dark-mode) .theme-toggle {
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
   border: 2px solid rgba(0, 0, 0, 0.4);
   color: rgb(27, 27, 27);
 }
@@ -879,23 +879,18 @@ body.dark-mode .chatbot-messages ol {
         opacity: 0.9;
       }
 
-    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
-    /* DESKTOP - 1024px ou mais */
-    @media (min-width: 1024px) {
-      .header {
-        min-height: 220px;
-      }
-
+  @media (min-width: 1024px) {
+    .header { min-height: 220px; }
     .header-bg-img {
-        position: absolute;
-        left: -5.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
-      }
+      position: absolute;
+      left: -1.5%;
+      top: 77%;
+      transform: translateY(-50%);
+      width: 250px;
+      height: 250px;
+      z-index: 0;
+      opacity: 0.9;
+    }
 
 
       .header-content {
@@ -1064,7 +1059,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       right: 1.15rem;
       width: 28px; height: 28px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.55);
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
       border: none;
       color: rgba(30,64,175,0.45);
       font-size: 0.55rem;
@@ -1078,7 +1073,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       backdrop-filter: blur(4px);
     }
     body.dark-mode .scroll-top-btn {
-      background: #2563eb;
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
       color: #ffffff;
     }
     .scroll-top-btn.visible {
@@ -1086,6 +1081,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     }
     .scroll-top-btn:hover {
       background: rgba(30,64,175,0.15);
+      box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
       color: var(--primary);
       transform: translateY(-2px);
     }

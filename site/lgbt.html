@@ -72,7 +72,7 @@
 .back-button,
 .menu-toggle,
 .theme-toggle {
-  background: rgba(0, 0, 0, 0.2); /* fundo leve escuro */
+  background: linear-gradient(135deg, #3b82f6, #60a5fa); /* fundo leve escuro */
   border: 2px solid rgba(255, 255, 255, 0.4); /* borda clara */
   color: white; /* texto branco */
   transition: all 0.3s ease;
@@ -95,7 +95,7 @@ html.dark-mode body {
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
 body:not(.dark-mode) .theme-toggle {
-  background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
+  background: linear-gradient(135deg, #3b82f6, #60a5fa); /* fundo leve claro */
   border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
   color: rgb(27, 27, 27); /* texto vermelho escuro */
 }
@@ -1249,7 +1249,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       right: 1.15rem;
       width: 28px; height: 28px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.55);
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
       border: none;
       color: rgba(79,114,20,0.45);
       font-size: 0.55rem;
@@ -1270,7 +1270,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       opacity: 1; pointer-events: auto; transform: translateY(0);
     }
     .scroll-top-btn:hover {
-      background: rgba(79,114,20,0.15);
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
       color: var(--primary);
       transform: translateY(-2px);
     }
