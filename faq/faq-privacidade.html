@@ -180,6 +180,42 @@
     }
     /* ===== /FORÇAR ESTILO RODAPÉ ===== */
 
+  
+    /* ===== BOTÕES ===== */
+    .btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.4rem !important;
+      padding: 0.85rem 1.8rem !important;
+      border-radius: 50px !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+      cursor: pointer !important;
+      transition: all 0.25s ease !important;
+      font-family: inherit !important;
+      text-decoration: none !important;
+      white-space: nowrap !important;
+      border: none !important;
+      letter-spacing: 0.2px !important;
+    }
+    .btn:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25) !important;
+      text-decoration: none !important;
+    }
+    @media (max-width: 500px) {
+      .btn {
+        display: flex !important;
+        width: 100% !important;
+        padding: 0.9rem 1.2rem !important;
+        font-size: 0.9rem !important;
+        margin-right: 0 !important;
+        margin-bottom: 0.6rem !important;
+      }
+    }
+    /* ===== /BOTÕES ===== */
+
   </style>
 </head>
 <body>
@@ -279,9 +315,9 @@
     <div class="cta-box">
       <h3>Quer ler nossa política completa?</h3>
       <p>Acesse o documento completo de Privacidade & LGPD da Agência Nexus.</p>
-      <a href="../site/privacidade.html" class="btn" style="background:white;color:#1e40af;font-weight:800;">📄 Ver Política de Privacidade</a>
+      <div style="display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;margin-top:1.2rem;"><a href="../site/privacidade.html" class="btn" style="background:white;color:#1e40af;font-weight:800;">📄 Ver Política de Privacidade</a>
       <a href="../site/indexcookies.html" class="btn" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.4);">🍪 Gerenciar Cookies</a>
-    </div>
+    </div></div>
 
   </div>
 
