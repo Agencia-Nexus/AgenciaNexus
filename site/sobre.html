@@ -262,7 +262,7 @@ body.dark-mode .chatbot-messages ol {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
-      padding: 0.8rem 1.5rem;
+      padding: 0;
       border-radius: 50px;
       cursor: pointer;
       font-size: 1rem;
@@ -270,6 +270,7 @@ body.dark-mode .chatbot-messages ol {
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
+      width: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -287,7 +288,7 @@ body.dark-mode .chatbot-messages ol {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
-      padding: 0.8rem 1.5rem;
+      padding: 0;
       border-radius: 50px;
       cursor: pointer;
       font-size: 1rem;
@@ -295,6 +296,7 @@ body.dark-mode .chatbot-messages ol {
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
+      width: 50px;
       min-width: 50px;
       display: flex;
       align-items: center;
@@ -1305,27 +1307,54 @@ body.dark-mode .chatbot-messages ol {
         font-size: 1.8rem;
       }
 
+      /* Alinhar botões esquerda e direita na mesma linha no mobile */
+      .top-left-buttons {
+        top: 1.2rem;
+        left: 1rem;
+      }
+
+      .top-right-buttons {
+        top: 1.2rem;
+        right: 1rem;
+        flex-direction: column;
+      }
+
       .back-button,
       .menu-toggle,
-      .topics-toggle-mobile {
-        padding: 0.8rem 1rem !important;
+      .topics-toggle-mobile,
+      .theme-toggle,
+      .voice-translator-toggle {
+        padding: 0 !important;
         font-size: 0.9rem;
         height: 50px;
-        width: fit-content !important;
-        min-width: 0 !important;
+        width: 50px !important;
+        min-width: 50px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .menu-toggle {
-        padding: 0.8rem 1rem;
+        padding: 0;
         font-size: 0.9rem;
-        min-width: auto;
+        min-width: 50px;
         height: 50px;
+        width: 50px;
       }
 
       .theme-toggle {
         font-size: 0.9rem;
-        padding: 0.6rem 1rem;
-        min-width: 45px;
+        padding: 0;
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
+      }
+
+      .voice-translator-toggle {
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
       }
 
       .chatbot-button {
@@ -2812,16 +2841,76 @@ loadSavedTheme();
     function vtLoadVoices() {
       const sel = document.getElementById('vtVoiceSelect');
       if (!sel) return;
+      
       const fill = () => {
         const voices = window.speechSynthesis.getVoices();
         sel.innerHTML = '';
-        voices.forEach(v => {
-          const o = document.createElement('option');
-          o.value = v.name;
-          o.textContent = `${v.name} (${v.lang})`;
-          sel.appendChild(o);
+        
+        // Mapeamento de idiomas para filtrar vozes
+        const langMap = {
+          'pt-BR': ['pt-BR', 'pt_BR', 'pt', 'Portuguese (Brazil)', 'Portuguese'],
+          'es-ES': ['es-ES', 'es_ES', 'es', 'Spanish', 'Español'],
+          'en-US': ['en-US', 'en_US', 'en', 'English', 'English (US)'],
+          'fr-FR': ['fr-FR', 'fr_FR', 'fr', 'French', 'Français'],
+          'de-DE': ['de-DE', 'de_DE', 'de', 'German', 'Deutsch'],
+          'it-IT': ['it-IT', 'it_IT', 'it', 'Italian', 'Italiano'],
+          'ja-JP': ['ja-JP', 'ja_JP', 'ja', 'Japanese', '日本語'],
+          'zh-CN': ['zh-CN', 'zh_CN', 'zh', 'Chinese', '中文'],
+        };
+        
+        // Encontrar vozes para cada idioma
+        const voicesByLang = {};
+        Object.keys(langMap).forEach(lang => {
+          const patterns = langMap[lang];
+          const matching = voices.filter(v => 
+            patterns.some(p => 
+              v.lang?.includes(p) || 
+              v.name?.toUpperCase().includes(p.toUpperCase()) ||
+              v.lang?.startsWith(p.split('-')[0])
+            )
+          );
+          if (matching.length > 0) {
+            voicesByLang[lang] = matching;
+          }
         });
+        
+        // Adicionar vozes ao select organizadas por idioma
+        Object.keys(langMap).forEach(lang => {
+          const langVoices = voicesByLang[lang] || [];
+          if (langVoices.length > 0) {
+            const optGroup = document.createElement('optgroup');
+            optGroup.label = {
+              'pt-BR': '🇧🇷 Português',
+              'es-ES': '🇪🇸 Espanhol',
+              'en-US': '🇺🇸 Inglês',
+              'fr-FR': '🇫🇷 Francês',
+              'de-DE': '🇩🇪 Alemão',
+              'it-IT': '🇮🇹 Italiano',
+              'ja-JP': '🇯🇵 Japonês',
+              'zh-CN': '🇨🇳 Chinês'
+            }[lang];
+            
+            langVoices.forEach(v => {
+              const o = document.createElement('option');
+              o.value = v.name;
+              o.textContent = v.name;
+              optGroup.appendChild(o);
+            });
+            sel.appendChild(optGroup);
+          }
+        });
+        
+        // Se não encontrou vozes, mostrar todas disponíveis
+        if (sel.options.length === 0) {
+          voices.forEach(v => {
+            const o = document.createElement('option');
+            o.value = v.name;
+            o.textContent = `${v.name} (${v.lang})`;
+            sel.appendChild(o);
+          });
+        }
       };
+      
       fill();
       window.speechSynthesis.onvoiceschanged = fill;
     }
@@ -2830,19 +2919,83 @@ loadSavedTheme();
     function vtNarrateLoadVoices() {
       const sel = document.getElementById('vtNarrateVoice');
       if (!sel) return;
+      
       const fill = () => {
         const voices = window.speechSynthesis.getVoices();
         sel.innerHTML = '';
-        voices.forEach(v => {
-          const o = document.createElement('option');
-          o.value = v.name;
-          o.textContent = `${v.name} (${v.lang})`;
-          sel.appendChild(o);
+        
+        // Mapeamento de idiomas para filtrar vozes
+        const langMap = {
+          'pt-BR': ['pt-BR', 'pt_BR', 'pt', 'Portuguese (Brazil)', 'Portuguese'],
+          'es-ES': ['es-ES', 'es_ES', 'es', 'Spanish', 'Español'],
+          'en-US': ['en-US', 'en_US', 'en', 'English', 'English (US)'],
+          'fr-FR': ['fr-FR', 'fr_FR', 'fr', 'French', 'Français'],
+          'de-DE': ['de-DE', 'de_DE', 'de', 'German', 'Deutsch'],
+          'it-IT': ['it-IT', 'it_IT', 'it', 'Italian', 'Italiano'],
+          'ja-JP': ['ja-JP', 'ja_JP', 'ja', 'Japanese', '日本語'],
+          'zh-CN': ['zh-CN', 'zh_CN', 'zh', 'Chinese', '中文'],
+        };
+        
+        // Encontrar vozes para cada idioma
+        const voicesByLang = {};
+        Object.keys(langMap).forEach(lang => {
+          const patterns = langMap[lang];
+          const matching = voices.filter(v => 
+            patterns.some(p => 
+              v.lang?.includes(p) || 
+              v.name?.toUpperCase().includes(p.toUpperCase()) ||
+              v.lang?.startsWith(p.split('-')[0])
+            )
+          );
+          if (matching.length > 0) {
+            voicesByLang[lang] = matching;
+          }
         });
-        // prefer pt-BR
-        const pt = Array.from(sel.options).find(o => o.textContent.includes('pt-BR') || o.textContent.includes('Portuguese'));
-        if (pt) sel.value = pt.value;
+        
+        // Adicionar vozes ao select organizadas por idioma
+        Object.keys(langMap).forEach(lang => {
+          const langVoices = voicesByLang[lang] || [];
+          if (langVoices.length > 0) {
+            const optGroup = document.createElement('optgroup');
+            optGroup.label = {
+              'pt-BR': '🇧🇷 Português',
+              'es-ES': '🇪🇸 Espanhol',
+              'en-US': '🇺🇸 Inglês',
+              'fr-FR': '🇫🇷 Francês',
+              'de-DE': '🇩🇪 Alemão',
+              'it-IT': '🇮🇹 Italiano',
+              'ja-JP': '🇯🇵 Japonês',
+              'zh-CN': '🇨🇳 Chinês'
+            }[lang];
+            
+            langVoices.forEach(v => {
+              const o = document.createElement('option');
+              o.value = v.name;
+              o.textContent = v.name;
+              optGroup.appendChild(o);
+            });
+            sel.appendChild(optGroup);
+          }
+        });
+        
+        // Se não encontrou vozes, mostrar todas disponíveis
+        if (sel.options.length === 0) {
+          voices.forEach(v => {
+            const o = document.createElement('option');
+            o.value = v.name;
+            o.textContent = `${v.name} (${v.lang})`;
+            sel.appendChild(o);
+          });
+        }
+        
+        // Preferir português
+        const ptOption = Array.from(sel.options).find(o => 
+          o.parentElement?.label?.includes('Português') || 
+          o.textContent.toUpperCase().includes('PORTUGUÊS')
+        );
+        if (ptOption) sel.value = ptOption.value;
       };
+      
       fill();
       window.speechSynthesis.onvoiceschanged = fill;
     }
