@@ -172,6 +172,13 @@ html.dark-mode body {
   body:not(.dark-mode) .back-button,
   body:not(.dark-mode) .menu-toggle,
   body:not(.dark-mode) .theme-toggle { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+body:not(.dark-mode) .theme-toggle {
+  height: 50px;
+  min-width: 50px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  transform: none;
+}
 
   body:not(.dark-mode) .back-button:hover,
   body:not(.dark-mode) .menu-toggle:hover,
@@ -1712,7 +1719,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       body.chat-open .topics-dropdown-mobile,
       body.menu-open .topics-dropdown-mobile { display: none !important; }
     }
-      /* TRADUTOR */
+  
+    /* TRADUTOR */
     .top-right-buttons {
       position: fixed;
       top: 2rem;
@@ -1796,73 +1804,119 @@ body.dark-mode .chip { background: #2a2a2a; }
     }
 
     /* Painel do tradutor */
+        /* === PAINEL TRADUTOR — ESPAÇAMENTO GENEROSO === */
     .voice-translator-panel {
       position: fixed;
-      top: calc(2rem + 116px);
-      right: 2rem;
+      top: calc(2rem + 120px);
+      right: 1.2rem;
       z-index: 1001;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      padding: 1rem 1.1rem;
-      min-width: 260px;
-      max-width: 320px;
-      max-height: calc(100vh - 180px);
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.8rem 1.8rem 2rem;
+      width: min(360px, calc(100vw - 2.4rem));
+      max-height: calc(100vh - 160px);
       overflow-y: auto;
+      overflow-x: hidden;
       display: none;
       flex-direction: column;
-      gap: 10px;
-      border: 1px solid rgba(0,0,0,0.07);
-      animation: dropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      gap: 22px;
+      border: 1px solid rgba(0,0,0,0.06);
+      animation: dropIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
     }
     body.dark-mode .voice-translator-panel {
-      background: #1a1a1a;
-      border-color: rgba(255,255,255,0.1);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 2px 10px rgba(0,0,0,0.3);
       color: #f0f0f0;
     }
     .voice-translator-panel.open { display: flex; }
     @keyframes dropIn {
-      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .vt-label {
-      font-size: 0.78rem;
+
+    /* Abas */
+    .vt-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 5px;
+    }
+    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
+    .vt-tab {
+      flex: 1;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.8rem;
       font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .vt-tab.active {
+      background: #ffffff;
+      color: #3b82f6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .vt-tab.active {
+      background: #2c2c2e;
+      color: #60a5fa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .vt-tab { color: #888; }
+
+    /* Label */
+    .vt-label {
+      font-size: 0.7rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       color: #3b82f6;
       margin-bottom: 2px;
     }
+
+    /* Linha de idiomas */
     .vt-lang-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .vt-lang-row select {
       flex: 1;
-      padding: 6px 10px;
+      padding: 11px 16px;
       border-radius: 50px;
-      border: 2px solid rgba(0,0,0,0.15);
-      font-size: 0.85rem;
+      border: 2px solid rgba(0,0,0,0.12);
+      font-size: 0.84rem;
       font-family: inherit;
-      background: transparent;
+      background: #f5f5f7;
       cursor: pointer;
       color: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
     }
+    .vt-lang-row select:focus { border-color: #3b82f6; }
     body.dark-mode .vt-lang-row select {
-      border-color: rgba(255,255,255,0.2);
-      background: #0a0a0a;
+      border-color: rgba(255,255,255,0.12);
+      background: #2c2c2e;
       color: #f0f0f0;
     }
+
+    /* Botão trocar */
     .vt-swap-btn {
-      background: none;
-      border: 2px solid rgba(59,130,246,0.4);
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
       border-radius: 50%;
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1871,121 +1925,163 @@ body.dark-mode .chip { background: #2a2a2a; }
       color: #3b82f6;
     }
     .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
+
+    /* Áreas de texto */
     .vt-text-area {
       font-size: 0.88rem;
-      line-height: 1.5;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.04);
-      min-height: 48px;
+      line-height: 1.7;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f5f5f7;
+      min-height: 70px;
       word-break: break-word;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
     }
-    body.dark-mode .vt-text-area { background: rgba(255,255,255,0.07); }
-    .vt-text-area.placeholder { color: #999; font-style: italic; }
+    body.dark-mode .vt-text-area { background: #2c2c2e; border-color: rgba(255,255,255,0.05); }
+    .vt-text-area.placeholder { color: #aaa; font-style: italic; }
+
+    /* Botão mic principal */
     .vt-mic-btn {
-      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
       color: white;
       border: none;
       border-radius: 50px;
-      padding: 8px 18px;
-      font-size: 0.9rem;
+      padding: 15px 28px;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.3s;
+      transition: all 0.25s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
     }
-    .vt-mic-btn:hover { transform: scale(1.04); box-shadow: 0 4px 16px rgba(59,130,246,0.4); }
+    .vt-mic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    }
     .vt-mic-btn.active {
-      background: linear-gradient(135deg, #ef4444, #f87171);
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      box-shadow: 0 4px 16px rgba(220,38,38,0.4);
       animation: pulse-mic 1.2s ease-in-out infinite;
     }
+
+    /* Status */
     .vt-status {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       text-align: center;
-      color: #888;
+      color: #999;
+      line-height: 1.5;
     }
+
+    /* Botão falar/parar */
     .vt-speak-btn {
-      background: none;
-      border: 2px solid rgba(59,130,246,0.4);
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.35);
       border-radius: 50px;
-      padding: 5px 14px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      padding: 8px 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
       cursor: pointer;
       font-family: inherit;
       color: #3b82f6;
-      transition: all 0.3s;
+      transition: all 0.25s;
       display: none;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
     .vt-speak-btn:hover { background: #3b82f6; color: white; }
     .vt-speak-btn.show { display: flex; }
 
-    /* Abas */
-    .vt-tabs {
-      display: flex;
-      gap: 4px;
-      background: rgba(0,0,0,0.05);
-      border-radius: 10px;
-      padding: 3px;
-    }
-    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
-    .vt-tab {
-      flex: 1;
-      padding: 5px 8px;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      background: transparent;
-      color: #888;
-      transition: all 0.2s;
-    }
-    .vt-tab.active {
-      background: white;
-      color: #3b82f6;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    body.dark-mode .vt-tab.active {
-      background: #2a2a2a;
-      color: #60a5fa;
-    }
-    body.dark-mode .vt-tab { color: #aaa; }
-
     /* Configurações */
-    .vt-settings {
-      font-size: 0.78rem;
-    }
+    .vt-settings { font-size: 0.8rem; }
     .vt-settings summary {
       cursor: pointer;
-      color: #888;
-      padding: 3px 0;
+      color: #999;
+      padding: 4px 0;
       user-select: none;
+      transition: color 0.2s;
     }
     .vt-settings summary:hover { color: #3b82f6; }
     .vt-settings-body {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      padding: 6px 0 2px;
+      gap: 10px;
+      padding: 10px 0 4px;
     }
     .vt-settings-body label {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.78rem;
+      gap: 10px;
+      font-size: 0.8rem;
       color: inherit;
     }
     .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
 
     /* Narrar progresso */
+    .vt-narrate-progress {
+      height: 6px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.8rem;
+      color: #888;
+      min-height: 40px;
+      padding: 6px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 11px 16px;
+      font-size: 0.84rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 72vh;
+        border-radius: 20px;
+        padding: 1.4rem 1.4rem 1.6rem;
+        gap: 18px;
+      }
+      .vt-tab { padding: 10px 10px; font-size: 0.76rem; }
+      .vt-mic-btn { padding: 14px 22px; font-size: 0.9rem; }
+      .vt-lang-row select { padding: 10px 12px; font-size: 0.8rem; }
+    }
+
+    body.chat-open .top-right-buttons,
+    body.menu-open .top-right-buttons { display: none !important; }
+    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+
+/* Narrar progresso */
     .vt-narrate-progress {
       height: 5px;
       background: rgba(0,0,0,0.08);
@@ -1996,7 +2092,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     .vt-narrate-bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
       border-radius: 50px;
       transition: width 0.3s ease;
     }
@@ -2006,17 +2102,84 @@ body.dark-mode .chip { background: #2a2a2a; }
       min-height: 36px;
       padding: 4px 0;
       font-style: italic;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
-    body.chat-open .top-right-buttons,
-    body.menu-open .top-right-buttons { display: none !important; }
-    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 9px 14px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 70vh;
+        border-radius: 18px;
+        padding: 1.2rem 1.3rem 1.5rem;
+      }
+    }
+
+
+    /* Settings */
+    .vt-settings summary {
+      font-size: 0.75rem;
+      cursor: pointer;
+      color: #888;
+      user-select: none;
+    }
+    .vt-settings-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 6px;
+    }
+    .vt-settings-body label {
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
+
+    /* === Language Selector === */
+    .footer-language-selector {
+      display: flex; align-items: center; gap: 0.8rem; font-size: 0.9rem;
+    }
+    .footer-language-selector label {
+      color: var(--ft-copy); font-weight: 600; white-space: nowrap; margin: 0;
+    }
+    .footer-language-selector select {
+      padding: 0.6rem 1rem; border: 2px solid #ccc; border-radius: 4px;
+      background: white; color: #333; font-family: inherit; font-weight: 500;
+      font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; min-width: 140px;
+    }
+    body.dark-mode .footer-language-selector select {
+      background-color: #2a2a2a; color: #f0f0f0; border-color: #555;
+    }
+    .footer-language-selector select:hover { border-color: var(--primary); }
+    .footer-language-selector select:focus { outline: none; border-color: var(--primary); }
+    @media (max-width: 560px) {
+      .footer-language-selector { flex: 1 0 100%; justify-content: center; order: -1; margin-bottom: 1rem; }
+      .footer-bottom { flex-direction: column; }
+    }
 
     </style>
 </head>
 <body>
-
 <!-- Botões do lado direito: Tema + Tradutor em Voz -->
   <div class="top-right-buttons" id="topRightButtons">
     <button class="theme-toggle" onclick="toggleTheme()">
@@ -2079,8 +2242,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       <details class="vt-settings">
         <summary>⚙️ Configurações de voz</summary>
         <div class="vt-settings-body">
-          <label>Velocidade <input type="range" id="vtRate" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtRateVal').textContent=this.value"> <span id="vtRateVal">1</span>x</label>
-          <label>Tom <input type="range" id="vtPitch" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtPitchVal').textContent=this.value"> <span id="vtPitchVal">1</span></label>
+          <label>Velocidade <input type="range" id="vtRate" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById(\'vtRateVal\').textContent=this.value"> <span id="vtRateVal">1</span>x</label>
+          <label>Tom <input type="range" id="vtPitch" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById(\'vtPitchVal\').textContent=this.value"> <span id="vtPitchVal">1</span></label>
           <label>Voz
             <select id="vtVoiceSelect" style="margin-left:4px;font-size:0.8rem;border-radius:8px;border:1px solid #ccc;padding:2px 6px;"></select>
           </label>
@@ -2164,13 +2327,6 @@ body.dark-mode .chip { background: #2a2a2a; }
     <a href="lgbt.html" class="menu-link">LGBT+</a>
     <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
     <a href="indexcookies.html" class="menu-link">Cookies</a>
-    </div>
-    <div class="menu-section">
-      <h3>FAQ</h3>
-      <a href="../faq/faq-candidatos.html" class="menu-link">FAQ Candidatos</a>
-      <a href="../faq/faq-empresas.html" class="menu-link">FAQ Empresas</a>
-      <a href="../faq/faq-vagas.html" class="menu-link">FAQ Vagas</a>
-      <a href="../faq/faq-privacidade.html" class="menu-link">FAQ Privacidade</a>
     </div>
   </div>
   </div>
@@ -2514,7 +2670,15 @@ body.dark-mode .chip { background: #2a2a2a; }
     </div><!-- /footer-top -->
 
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-copy"><span>© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</span></p>
       <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
     </div>
 
@@ -3063,9 +3227,39 @@ const url = `https://wa.me/5551999747808?text=${encodeURIComponent(texto)}`;
       document.getElementById('topicsOverlay').classList.remove('open');
     }
 
-  
+  </script>
+
+<script>
+
+// THEME TOGGLE
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  document.documentElement.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const icon = document.getElementById('themeIcon');
+  if (icon) icon.textContent = isDarkMode ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+}
+
+function loadSavedTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const icon = document.getElementById('themeIcon');
+  if (savedTheme !== 'light') {
+    document.body.classList.add('dark-mode');
+    document.documentElement.classList.add('dark-mode');
+    if (icon) icon.textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.documentElement.classList.remove('dark-mode');
+    if (icon) icon.textContent = '🌙';
+  }
+}
+
+loadSavedTheme();
+
+
     let vtPanelOpen = false;
-let vtRecognition = null;
+    let vtRecognition = null;
     let vtIsListening = false;
     let vtLastTranslation = '';
     let vtCurrentTab = 'translate';
@@ -3137,7 +3331,6 @@ let vtRecognition = null;
         el.textContent = translation; el.classList.remove('placeholder');
         document.getElementById('vtSpeakBtn').style.display = 'flex';
         status.textContent = '✅ Tradução concluída';
-        // falar automaticamente
         vtSpeak();
       } catch(e) {
         status.textContent = '❌ Erro de tradução. Tente novamente.';
@@ -3273,7 +3466,6 @@ let vtRecognition = null;
           o.textContent = `${v.name} (${v.lang})`;
           sel.appendChild(o);
         });
-        // prefer pt-BR
         const pt = Array.from(sel.options).find(o => o.textContent.includes('pt-BR') || o.textContent.includes('Portuguese'));
         if (pt) sel.value = pt.value;
       };
@@ -3282,23 +3474,37 @@ let vtRecognition = null;
     }
 
     function vtGetPageText() {
-      // pega todo texto visível de parágrafos, h2, h3, li do conteúdo principal
-      const selectors = '.content-container h2, .content-container h3, .content-container p, .content-container li';
-      const nodes = document.querySelectorAll(selectors);
       const chunks = [];
-      nodes.forEach(n => {
-        const t = n.innerText?.trim();
-        if (t && t.length > 3) chunks.push(t);
+      const excluded = [
+        '.top-right-buttons','.top-left-buttons','.menu-content',
+        '.chatbot-window','.voice-translator-panel','.topics-dropdown',
+        '.topics-dropdown-mobile','.modal','.modal-overlay','script','style'
+      ];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const el = node.parentElement;
+          if (!el) return NodeFilter.FILTER_REJECT;
+          const s = window.getComputedStyle(el);
+          if (s.display==='none'||s.visibility==='hidden') return NodeFilter.FILTER_REJECT;
+          for (const sel of excluded) {
+            if (el.closest(sel)) return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
       });
+      let node, cur = '';
+      while ((node = walker.nextNode())) {
+        const t = node.textContent.trim();
+        if (!t) continue;
+        cur += ' ' + t;
+        if (cur.length > 120) { chunks.push(cur.trim()); cur = ''; }
+      }
+      if (cur.trim().length > 3) chunks.push(cur.trim());
       return chunks;
     }
 
     function vtToggleNarrate() {
-      if (vtNarrateActive) {
-        vtStopNarrate();
-      } else {
-        vtStartNarrate();
-      }
+      if (vtNarrateActive) { vtStopNarrate(); } else { vtStartNarrate(); }
     }
 
     function vtStartNarrate() {
@@ -3330,7 +3536,6 @@ let vtRecognition = null;
       document.getElementById('vtNarrateBar').style.width = pct + '%';
       document.getElementById('vtNarrateCurrentText').textContent = text.length > 120 ? text.slice(0,120)+'…' : text;
       document.getElementById('vtNarrateStatus').textContent = `📍 Trecho ${vtNarrateIndex+1} de ${total}`;
-
       const utter = new SpeechSynthesisUtterance(text);
       const voices = window.speechSynthesis.getVoices();
       const voiceSel = document.getElementById('vtNarrateVoice');
@@ -3391,7 +3596,243 @@ let vtRecognition = null;
         if (vtIsListening) vtStopMic();
       }
     });
-    // ============= FIM TRADUTOR EM VOZ =============
+
+</script>
+<script>
+    // === SISTEMA MULTI-IDIOMA — contato.html ===
+    const TRANSLATIONS_CONT = {
+      pt: {
+        'header-h1': 'Fale Conosco',
+        'header-p': 'Estamos aqui para responder suas dúvidas e oferecer suporte',
+        'h3-whatsapp': 'WhatsApp',
+        'p-whatsapp': 'Entre em contato conosco pelo WhatsApp para dúvidas rápidas e atendimento ao candidato.',
+        'p-whatsapp-hrs': 'Segunda a sexta, 8h-18h',
+        'h3-email': 'E-mail',
+        'p-email': 'Envie currículos, dúvidas e sugestões para nossos e-mails.',
+        'p-email-hrs': 'Resposta o mais breve possível',
+        'h3-telefone': 'Telefone',
+        'p-telefone': 'Ligue para a Agência Nexus e fale direto com nossa equipe.',
+        'p-telefone-hrs': 'Segunda a sexta, 8h-18h',
+        'h3-form-email': 'Enviar por E-mail',
+        'p-form-email': 'Resposta o mais breve possível',
+        'h3-form-wpp': 'Enviar pelo WhatsApp',
+        'p-form-wpp': 'Segunda a sexta, 8h–18h',
+        'label-nome': 'Nome Completo',
+        'label-email': 'E-mail',
+        'label-telefone': 'Telefone',
+        'label-assunto': 'Assunto',
+        'label-mensagem': 'Mensagem',
+        'placeholder-nome': 'Seu nome completo',
+        'placeholder-email': 'seu@email.com',
+        'placeholder-telefone': '(51) 99999-9999',
+        'placeholder-assunto': 'Tema da mensagem',
+        'placeholder-mensagem': 'Escreva sua mensagem aqui...',
+        'btn-enviar-email': 'Enviar por E-mail',
+        'btn-enviar-wpp': 'Enviar pelo WhatsApp',
+        'btn-limpar': 'Limpar',
+        'h2-encontre': 'Nos Encontre',
+        'p-encontre': 'Estamos localizados em toda região sul do Brasil, com sede em Guaíba - RS',
+        'h2-redes': 'Siga-nos nas Redes Sociais',
+        'footer-tagline': 'Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.',
+        'lang-label': 'Idioma:'
+      },
+      en: {
+        'header-h1': 'Contact Us',
+        'header-p': 'We are here to answer your questions and offer support',
+        'h3-whatsapp': 'WhatsApp',
+        'p-whatsapp': 'Contact us via WhatsApp for quick questions and candidate support.',
+        'p-whatsapp-hrs': 'Monday to Friday, 8am–6pm',
+        'h3-email': 'E-mail',
+        'p-email': 'Send resumes, questions and suggestions to our emails.',
+        'p-email-hrs': 'Response as soon as possible',
+        'h3-telefone': 'Phone',
+        'p-telefone': 'Call Agência Nexus and speak directly with our team.',
+        'p-telefone-hrs': 'Monday to Friday, 8am–6pm',
+        'h3-form-email': 'Send by E-mail',
+        'p-form-email': 'Response as soon as possible',
+        'h3-form-wpp': 'Send via WhatsApp',
+        'p-form-wpp': 'Monday to Friday, 8am–6pm',
+        'label-nome': 'Full Name',
+        'label-email': 'E-mail',
+        'label-telefone': 'Phone',
+        'label-assunto': 'Subject',
+        'label-mensagem': 'Message',
+        'placeholder-nome': 'Your full name',
+        'placeholder-email': 'your@email.com',
+        'placeholder-telefone': '(51) 99999-9999',
+        'placeholder-assunto': 'Message topic',
+        'placeholder-mensagem': 'Write your message here...',
+        'btn-enviar-email': 'Send by E-mail',
+        'btn-enviar-wpp': 'Send via WhatsApp',
+        'btn-limpar': 'Clear',
+        'h2-encontre': 'Find Us',
+        'p-encontre': 'We are located throughout southern Brazil, headquartered in Guaíba - RS',
+        'h2-redes': 'Follow Us on Social Media',
+        'footer-tagline': 'We connect talent to real opportunities. Human, agile and efficient recruitment.',
+        'lang-label': 'Language:'
+      },
+      es: {
+        'header-h1': 'Contáctenos',
+        'header-p': 'Estamos aquí para responder sus preguntas y ofrecer soporte',
+        'h3-whatsapp': 'WhatsApp',
+        'p-whatsapp': 'Contáctenos por WhatsApp para preguntas rápidas y atención al candidato.',
+        'p-whatsapp-hrs': 'Lunes a viernes, 8h–18h',
+        'h3-email': 'E-mail',
+        'p-email': 'Envíe currículums, preguntas y sugerencias a nuestros correos.',
+        'p-email-hrs': 'Respuesta lo antes posible',
+        'h3-telefone': 'Teléfono',
+        'p-telefone': 'Llame a la Agencia Nexus y hable directamente con nuestro equipo.',
+        'p-telefone-hrs': 'Lunes a viernes, 8h–18h',
+        'h3-form-email': 'Enviar por E-mail',
+        'p-form-email': 'Respuesta lo antes posible',
+        'h3-form-wpp': 'Enviar por WhatsApp',
+        'p-form-wpp': 'Lunes a viernes, 8h–18h',
+        'label-nome': 'Nombre Completo',
+        'label-email': 'E-mail',
+        'label-telefone': 'Teléfono',
+        'label-assunto': 'Asunto',
+        'label-mensagem': 'Mensaje',
+        'placeholder-nome': 'Su nombre completo',
+        'placeholder-email': 'su@email.com',
+        'placeholder-telefone': '(51) 99999-9999',
+        'placeholder-assunto': 'Tema del mensaje',
+        'placeholder-mensagem': 'Escriba su mensaje aquí...',
+        'btn-enviar-email': 'Enviar por E-mail',
+        'btn-enviar-wpp': 'Enviar por WhatsApp',
+        'btn-limpar': 'Limpiar',
+        'h2-encontre': 'Encuéntrenos',
+        'p-encontre': 'Estamos ubicados en toda la región sur de Brasil, con sede en Guaíba - RS',
+        'h2-redes': 'Síguenos en las Redes Sociales',
+        'footer-tagline': 'Conectamos talentos con oportunidades reales. Reclutamiento humano, ágil y eficiente.',
+        'lang-label': 'Idioma:'
+      }
+    };
+
+    function applyTranslations(lang) {
+      const t = TRANSLATIONS_CONT[lang] || TRANSLATIONS_CONT['pt'];
+
+      // Header
+      const h1 = document.querySelector('.header h1');
+      const headerP = document.querySelector('.header p');
+      if (h1) h1.textContent = t['header-h1'];
+      if (headerP) headerP.textContent = t['header-p'];
+
+      // Contact cards (h3 + p)
+      document.querySelectorAll('.contact-card').forEach(card => {
+        const h3 = card.querySelector('h3');
+        if (!h3) return;
+        const txt = h3.textContent.trim();
+        const allP = card.querySelectorAll('p');
+        if (txt === 'WhatsApp' || txt === t['h3-whatsapp']) {
+          h3.textContent = t['h3-whatsapp'];
+          if (allP[0]) allP[0].textContent = t['p-whatsapp'];
+          if (allP[1]) allP[1].textContent = t['p-whatsapp-hrs'];
+        } else if (txt === 'E-mail' || txt === t['h3-email']) {
+          h3.textContent = t['h3-email'];
+          if (allP[0]) allP[0].textContent = t['p-email'];
+          if (allP[1]) allP[1].textContent = t['p-email-hrs'];
+        } else if (txt.includes('Telefone') || txt.includes('Phone') || txt.includes('Teléfono')) {
+          h3.textContent = t['h3-telefone'];
+          if (allP[0]) allP[0].textContent = t['p-telefone'];
+          if (allP[1]) allP[1].textContent = t['p-telefone-hrs'];
+        }
+      });
+
+      // Form cards headers
+      document.querySelectorAll('.form-card').forEach(card => {
+        const h3 = card.querySelector('.form-card-header h3');
+        const pHeader = card.querySelector('.form-card-header p');
+        if (!h3) return;
+        const txt = h3.textContent.trim();
+        if (txt.includes('E-mail') && !txt.includes('WhatsApp')) {
+          h3.textContent = t['h3-form-email'];
+          if (pHeader) pHeader.textContent = t['p-form-email'];
+          // Labels
+          const labels = card.querySelectorAll('label');
+          labels.forEach(label => {
+            const forAttr = label.getAttribute('for') || '';
+            if (forAttr.includes('nome')) label.textContent = t['label-nome'];
+            else if (forAttr.includes('email')) label.textContent = t['label-email'];
+            else if (forAttr.includes('telefone')) label.textContent = t['label-telefone'];
+            else if (forAttr.includes('assunto')) label.textContent = t['label-assunto'];
+            else if (forAttr.includes('mensagem')) label.textContent = t['label-mensagem'];
+          });
+          // Placeholders
+          card.querySelectorAll('input, textarea').forEach(el => {
+            const id = el.id || '';
+            if (id.includes('nome')) el.placeholder = t['placeholder-nome'];
+            else if (id.includes('email')) el.placeholder = t['placeholder-email'];
+            else if (id.includes('telefone')) el.placeholder = t['placeholder-telefone'];
+            else if (id.includes('assunto')) el.placeholder = t['placeholder-assunto'];
+            else if (id.includes('mensagem')) el.placeholder = t['placeholder-mensagem'];
+          });
+          // Buttons
+          card.querySelectorAll('.btn').forEach(btn => {
+            if (btn.type === 'submit') {
+              const img = btn.querySelector('img');
+              btn.textContent = t['btn-enviar-email'];
+              if (img) btn.insertBefore(img, btn.firstChild);
+            } else if (btn.type === 'reset') btn.textContent = t['btn-limpar'];
+          });
+        } else if (txt.includes('WhatsApp')) {
+          h3.textContent = t['h3-form-wpp'];
+          if (pHeader) pHeader.textContent = t['p-form-wpp'];
+          const labels = card.querySelectorAll('label');
+          labels.forEach(label => {
+            const forAttr = label.getAttribute('for') || '';
+            if (forAttr.includes('nome')) label.textContent = t['label-nome'];
+            else if (forAttr.includes('email')) label.textContent = t['label-email'];
+            else if (forAttr.includes('telefone')) label.textContent = t['label-telefone'];
+            else if (forAttr.includes('assunto')) label.textContent = t['label-assunto'];
+            else if (forAttr.includes('mensagem')) label.textContent = t['label-mensagem'];
+          });
+          card.querySelectorAll('input, textarea').forEach(el => {
+            const id = el.id || '';
+            if (id.includes('nome')) el.placeholder = t['placeholder-nome'];
+            else if (id.includes('email')) el.placeholder = t['placeholder-email'];
+            else if (id.includes('telefone')) el.placeholder = t['placeholder-telefone'];
+            else if (id.includes('assunto')) el.placeholder = t['placeholder-assunto'];
+            else if (id.includes('mensagem')) el.placeholder = t['placeholder-mensagem'];
+          });
+          card.querySelectorAll('.btn').forEach(btn => {
+            if (btn.type === 'submit') {
+              const img = btn.querySelector('img');
+              btn.textContent = t['btn-enviar-wpp'];
+              if (img) btn.insertBefore(img, btn.firstChild);
+            } else if (btn.type === 'reset') btn.textContent = t['btn-limpar'];
+          });
+        }
+      });
+
+      // Map section
+      document.querySelectorAll('.map-section h2').forEach(el => { el.textContent = t['h2-encontre']; });
+      document.querySelectorAll('.map-subtitle').forEach(el => { el.textContent = t['p-encontre']; });
+
+      // Social section
+      document.querySelectorAll('.social-section h2').forEach(el => { el.textContent = t['h2-redes']; });
+
+      // Footer
+      const tagline = document.querySelector('.footer-tagline');
+      if (tagline) tagline.textContent = t['footer-tagline'];
+      const langLabel = document.querySelector('[data-i18n="lang-label"]');
+      if (langLabel) langLabel.textContent = t['lang-label'];
+
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) selector.value = savedLang;
+      applyTranslations(savedLang);
+    }
+
+    function changeLanguage(lang) {
+      localStorage.setItem('siteLanguage', lang);
+      applyTranslations(lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
 </script>
 </body>
 </html>

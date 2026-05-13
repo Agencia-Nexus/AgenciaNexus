@@ -93,6 +93,13 @@ body.menu-open .theme-toggle {
     border: 2px solid rgba(0, 0, 0, 0.4);
     color: rgb(27, 27, 27);
   }
+body:not(.dark-mode) .theme-toggle {
+  height: 50px;
+  min-width: 50px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  transform: none;
+}
 
   body:not(.dark-mode) .back-button:hover,
   body:not(.dark-mode) .menu-toggle:hover,
@@ -934,10 +941,564 @@ body.menu-open .theme-toggle {
       body.menu-open .topics-dropdown-mobile { display: none !important; }
     }
 
-  </style>
-<body>
+  
+    /* TRADUTOR */
+    .top-right-buttons {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+    .top-right-buttons * {
+      pointer-events: auto;
+    }
 
-  <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+      position: static;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Botão Tradutor em Voz */
+    .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      white-space: nowrap;
+    }
+    .voice-translator-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    body:not(.dark-mode) .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+    body:not(.dark-mode) .voice-translator-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+    .voice-translator-toggle.listening {
+      background: rgba(239, 68, 68, 0.35) !important;
+      border-color: rgba(239, 68, 68, 0.8) !important;
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-mic {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+    }
+
+    /* Painel do tradutor */
+        /* === PAINEL TRADUTOR — ESPAÇAMENTO GENEROSO === */
+    .voice-translator-panel {
+      position: fixed;
+      top: calc(2rem + 120px);
+      right: 1.2rem;
+      z-index: 1001;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.8rem 1.8rem 2rem;
+      width: min(360px, calc(100vw - 2.4rem));
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: none;
+      flex-direction: column;
+      gap: 22px;
+      border: 1px solid rgba(0,0,0,0.06);
+      animation: dropIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    body.dark-mode .voice-translator-panel {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 2px 10px rgba(0,0,0,0.3);
+      color: #f0f0f0;
+    }
+    .voice-translator-panel.open { display: flex; }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Abas */
+    .vt-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 5px;
+    }
+    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
+    .vt-tab {
+      flex: 1;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .vt-tab.active {
+      background: #ffffff;
+      color: #3b82f6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .vt-tab.active {
+      background: #2c2c2e;
+      color: #60a5fa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .vt-tab { color: #888; }
+
+    /* Label */
+    .vt-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #3b82f6;
+      margin-bottom: 2px;
+    }
+
+    /* Linha de idiomas */
+    .vt-lang-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vt-lang-row select {
+      flex: 1;
+      padding: 11px 16px;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      font-size: 0.84rem;
+      font-family: inherit;
+      background: #f5f5f7;
+      cursor: pointer;
+      color: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
+    }
+    .vt-lang-row select:focus { border-color: #3b82f6; }
+    body.dark-mode .vt-lang-row select {
+      border-color: rgba(255,255,255,0.12);
+      background: #2c2c2e;
+      color: #f0f0f0;
+    }
+
+    /* Botão trocar */
+    .vt-swap-btn {
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      color: #3b82f6;
+    }
+    .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
+
+    /* Áreas de texto */
+    .vt-text-area {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f5f5f7;
+      min-height: 70px;
+      word-break: break-word;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
+    }
+    body.dark-mode .vt-text-area { background: #2c2c2e; border-color: rgba(255,255,255,0.05); }
+    .vt-text-area.placeholder { color: #aaa; font-style: italic; }
+
+    /* Botão mic principal */
+    .vt-mic-btn {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+    }
+    .vt-mic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    }
+    .vt-mic-btn.active {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      box-shadow: 0 4px 16px rgba(220,38,38,0.4);
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+
+    /* Status */
+    .vt-status {
+      font-size: 0.74rem;
+      text-align: center;
+      color: #999;
+      line-height: 1.5;
+    }
+
+    /* Botão falar/parar */
+    .vt-speak-btn {
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.35);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      color: #3b82f6;
+      transition: all 0.25s;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .vt-speak-btn:hover { background: #3b82f6; color: white; }
+    .vt-speak-btn.show { display: flex; }
+
+    /* Configurações */
+    .vt-settings { font-size: 0.8rem; }
+    .vt-settings summary {
+      cursor: pointer;
+      color: #999;
+      padding: 4px 0;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .vt-settings summary:hover { color: #3b82f6; }
+    .vt-settings-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0 4px;
+    }
+    .vt-settings-body label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: inherit;
+    }
+    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
+
+    /* Narrar progresso */
+    .vt-narrate-progress {
+      height: 6px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.8rem;
+      color: #888;
+      min-height: 40px;
+      padding: 6px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 11px 16px;
+      font-size: 0.84rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 72vh;
+        border-radius: 20px;
+        padding: 1.4rem 1.4rem 1.6rem;
+        gap: 18px;
+      }
+      .vt-tab { padding: 10px 10px; font-size: 0.76rem; }
+      .vt-mic-btn { padding: 14px 22px; font-size: 0.9rem; }
+      .vt-lang-row select { padding: 10px 12px; font-size: 0.8rem; }
+    }
+
+    body.chat-open .top-right-buttons,
+    body.menu-open .top-right-buttons { display: none !important; }
+    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+
+/* Narrar progresso */
+    .vt-narrate-progress {
+      height: 5px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.78rem;
+      color: #888;
+      min-height: 36px;
+      padding: 4px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 9px 14px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 70vh;
+        border-radius: 18px;
+        padding: 1.2rem 1.3rem 1.5rem;
+      }
+    }
+
+
+    /* Settings */
+    .vt-settings summary {
+      font-size: 0.75rem;
+      cursor: pointer;
+      color: #888;
+      user-select: none;
+    }
+    .vt-settings-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 6px;
+    }
+    .vt-settings-body label {
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
+
+    /* === Language Selector === */
+    .footer-language-selector {
+      display: flex; align-items: center; gap: 0.8rem; font-size: 0.9rem;
+    }
+    .footer-language-selector label {
+      color: var(--ft-copy); font-weight: 600; white-space: nowrap; margin: 0;
+    }
+    .footer-language-selector select {
+      padding: 0.6rem 1rem; border: 2px solid #ccc; border-radius: 4px;
+      background: white; color: #333; font-family: inherit; font-weight: 500;
+      font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; min-width: 140px;
+    }
+    body.dark-mode .footer-language-selector select {
+      background-color: #2a2a2a; color: #f0f0f0; border-color: #555;
+    }
+    .footer-language-selector select:hover { border-color: var(--primary); }
+    .footer-language-selector select:focus { outline: none; border-color: var(--primary); }
+    @media (max-width: 560px) {
+      .footer-language-selector { flex: 1 0 100%; justify-content: center; order: -1; margin-bottom: 1rem; }
+      .footer-bottom { flex-direction: column; }
+    }
+
+    </style>
+<body>
+<!-- Botões do lado direito: Tema + Tradutor em Voz -->
+  <div class="top-right-buttons" id="topRightButtons">
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span>
+    </button>
+    <button class="voice-translator-toggle" id="voiceTranslatorToggle" onclick="toggleVoiceTranslator()" title="Tradutor em Voz">
+      <span id="vtIcon">🌐</span>
+    </button>
+  </div>
+
+  <!-- Painel do Tradutor em Voz -->
+  <div class="voice-translator-panel" id="voiceTranslatorPanel">
+    <!-- Abas -->
+    <div class="vt-tabs">
+      <button class="vt-tab active" id="vtTabTranslate" onclick="vtSwitchTab('translate')">🌐 Traduzir</button>
+      <button class="vt-tab" id="vtTabNarrate" onclick="vtSwitchTab('narrate')">📢 Narrar Site</button>
+    </div>
+
+    <!-- ABA TRADUZIR -->
+    <div id="vtTabContentTranslate">
+      <div class="vt-label">Idioma de origem → destino</div>
+      <div class="vt-lang-row">
+        <select id="vtLangFrom" title="Idioma de origem">
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+        <button class="vt-swap-btn" onclick="vtSwapLangs()" title="Trocar idiomas">⇄</button>
+        <select id="vtLangTo" title="Idioma de destino">
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+      </div>
+      <div class="vt-text-area placeholder" id="vtOriginalText">Pressione o mic e fale…</div>
+      <div class="vt-text-area placeholder" id="vtTranslatedText">Tradução aparecerá aqui…</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="vt-mic-btn" id="vtMicBtn" onclick="vtToggleMic()" style="flex:1;">
+          <span id="vtMicIcon">🎤</span> <span id="vtMicText">Falar</span>
+        </button>
+        <button class="vt-speak-btn" id="vtSpeakBtn" onclick="vtSpeak()" title="Ouvir tradução">🔊</button>
+        <button class="vt-speak-btn" id="vtStopSpeakBtn" onclick="vtStopSpeak()" title="Parar voz" style="display:none;">⏹</button>
+      </div>
+      <div class="vt-status" id="vtStatus">Selecione os idiomas e pressione Falar</div>
+      <!-- Configurações de voz -->
+      <details class="vt-settings">
+        <summary>⚙️ Configurações de voz</summary>
+        <div class="vt-settings-body">
+          <label>Velocidade <input type="range" id="vtRate" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById(\'vtRateVal\').textContent=this.value"> <span id="vtRateVal">1</span>x</label>
+          <label>Tom <input type="range" id="vtPitch" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById(\'vtPitchVal\').textContent=this.value"> <span id="vtPitchVal">1</span></label>
+          <label>Voz
+            <select id="vtVoiceSelect" style="margin-left:4px;font-size:0.8rem;border-radius:8px;border:1px solid #ccc;padding:2px 6px;"></select>
+          </label>
+        </div>
+      </details>
+    </div>
+
+    <!-- ABA NARRAR SITE -->
+    <div id="vtTabContentNarrate" style="display:none;">
+      <div class="vt-label">Narração do conteúdo da página</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <select id="vtNarrateVoice" style="flex:1;padding:6px 10px;border-radius:50px;border:2px solid rgba(0,0,0,0.15);font-size:0.82rem;font-family:inherit;background:transparent;color:inherit;"></select>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <label style="font-size:0.78rem;display:flex;align-items:center;gap:6px;flex:1;">Vel.
+          <input type="range" id="vtNarrateRate" min="0.5" max="2" step="0.1" value="1" style="flex:1;accent-color:#3b82f6;">
+          <span id="vtNarrateRateVal">1</span>x
+        </label>
+      </div>
+      <div class="vt-narrate-progress" id="vtNarrateProgress">
+        <div class="vt-narrate-bar" id="vtNarrateBar"></div>
+      </div>
+      <div class="vt-narrate-text" id="vtNarrateCurrentText">—</div>
+      <div style="display:flex;gap:8px;">
+        <button class="vt-mic-btn" id="vtNarrateBtn" onclick="vtToggleNarrate()" style="flex:1;">
+          <span id="vtNarrateIcon">📢</span> <span id="vtNarrateText">Narrar página</span>
+        </button>
+        <button class="vt-speak-btn" id="vtNarratePauseBtn" onclick="vtPauseNarrate()" title="Pausar" style="display:none;">⏸</button>
+      </div>
+      <div class="vt-status" id="vtNarrateStatus">Pressione para ouvir o conteúdo desta página</div>
+    </div>
+  </div>
+
+
   <div class="top-left-buttons" id="topLeftButtons">
     <div class="top-row">
       <a href="../index.html" class="back-button">Voltar</a>
@@ -1216,7 +1777,15 @@ body.menu-open .theme-toggle {
 
        
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-copy"><span>© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</span></p>
       <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
     </div>
 
@@ -1269,31 +1838,7 @@ function closeMenu() {
     
     document.querySelectorAll('.menu-link').forEach(l => l.addEventListener('click', closeMenu));
 
-       // THEME TOGGLE
-function toggleTheme() {
-  document.body.classList.toggle('dark-mode');
-  document.documentElement.classList.toggle('dark-mode');
-  const isDarkMode = document.body.classList.contains('dark-mode');
-  const icon = document.getElementById('themeIcon');
-  if (icon) icon.textContent = isDarkMode ? '☀️' : '🌙';
-  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-}
-
-function loadSavedTheme() {
-  const savedTheme = localStorage.getItem('theme');
-  const icon = document.getElementById('themeIcon');
-  if (savedTheme !== 'light') {
-    document.body.classList.add('dark-mode');
-    document.documentElement.classList.add('dark-mode');
-    if (icon) icon.textContent = '☀️';
-  } else {
-    document.body.classList.remove('dark-mode');
-    document.documentElement.classList.remove('dark-mode');
-    if (icon) icon.textContent = '🌙';
-  }
-}
-
-loadSavedTheme();
+       
     
     let scrollTimeout;
     window.addEventListener('scroll', () => {
@@ -1552,6 +2097,598 @@ loadSavedTheme();
       document.getElementById('topicsDropdownMobile').classList.remove('open');
       document.getElementById('topicsOverlay').classList.remove('open');
     }
+</script>
+
+<script>
+
+// THEME TOGGLE
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  document.documentElement.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const icon = document.getElementById('themeIcon');
+  if (icon) icon.textContent = isDarkMode ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+}
+
+function loadSavedTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const icon = document.getElementById('themeIcon');
+  if (savedTheme !== 'light') {
+    document.body.classList.add('dark-mode');
+    document.documentElement.classList.add('dark-mode');
+    if (icon) icon.textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.documentElement.classList.remove('dark-mode');
+    if (icon) icon.textContent = '🌙';
+  }
+}
+
+loadSavedTheme();
+
+
+    let vtPanelOpen = false;
+    let vtRecognition = null;
+    let vtIsListening = false;
+    let vtLastTranslation = '';
+    let vtCurrentTab = 'translate';
+
+    // --- Narrador ---
+    let vtNarrateChunks = [];
+    let vtNarrateIndex = 0;
+    let vtNarrateActive = false;
+    let vtNarratePaused = false;
+    let vtNarrateUtter = null;
+
+    function toggleVoiceTranslator() {
+      vtPanelOpen = !vtPanelOpen;
+      const panel = document.getElementById('voiceTranslatorPanel');
+      panel.classList.toggle('open', vtPanelOpen);
+      if (!vtPanelOpen) {
+        if (vtIsListening) vtStopMic();
+        if (vtNarrateActive) vtStopNarrate();
+      }
+      if (vtPanelOpen) { vtLoadVoices(); vtNarrateLoadVoices(); }
+    }
+
+    function vtSwitchTab(tab) {
+      vtCurrentTab = tab;
+      document.getElementById('vtTabContentTranslate').style.display = tab === 'translate' ? '' : 'none';
+      document.getElementById('vtTabContentNarrate').style.display   = tab === 'narrate'   ? '' : 'none';
+      document.getElementById('vtTabTranslate').classList.toggle('active', tab === 'translate');
+      document.getElementById('vtTabNarrate').classList.toggle('active', tab === 'narrate');
+    }
+
+    // === TRADUZIR ===
+    function vtSwapLangs() {
+      const from = document.getElementById('vtLangFrom');
+      const to   = document.getElementById('vtLangTo');
+      const tmp  = from.value; from.value = to.value; to.value = tmp;
+      const orig  = document.getElementById('vtOriginalText');
+      const trans = document.getElementById('vtTranslatedText');
+      const tmpText = orig.textContent, tmpClass = orig.className;
+      orig.textContent = trans.textContent; orig.className = trans.className;
+      trans.textContent = tmpText; trans.className = tmpClass;
+      vtLastTranslation = trans.textContent;
+    }
+
+    const VT_LANG_CODE = {
+      'pt-BR':'pt','en-US':'en','es-ES':'es','fr-FR':'fr',
+      'de-DE':'de','it-IT':'it','ja-JP':'ja','zh-CN':'zh','ar-SA':'ar','ru-RU':'ru'
+    };
+
+    async function vtTranslateText(text, fromLang, toLang) {
+      const status = document.getElementById('vtStatus');
+      if (fromLang === toLang) {
+        vtLastTranslation = text;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = text; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Mesmo idioma — texto copiado';
+        return;
+      }
+      status.textContent = '🔄 Traduzindo…';
+      const from = VT_LANG_CODE[fromLang] || 'pt';
+      const to   = VT_LANG_CODE[toLang]   || 'en';
+      try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
+        const r   = await fetch(url);
+        const d   = await r.json();
+        const translation = d.responseData?.translatedText || text;
+        vtLastTranslation = translation;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = translation; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Tradução concluída';
+        vtSpeak();
+      } catch(e) {
+        status.textContent = '❌ Erro de tradução. Tente novamente.';
+      }
+    }
+
+    function vtToggleMic() {
+      if (vtIsListening) { vtStopMic(); return; }
+      vtStartMic();
+    }
+
+    function vtStartMic() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        document.getElementById('vtStatus').textContent = '❌ Microfone não suportado neste navegador (use Chrome).';
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const fromLang = document.getElementById('vtLangFrom').value;
+      vtRecognition = new SR();
+      vtRecognition.lang = fromLang;
+      vtRecognition.continuous = true;
+      vtRecognition.interimResults = true;
+
+      vtRecognition.onstart = () => {
+        vtIsListening = true;
+        document.getElementById('vtMicBtn').classList.add('active');
+        document.getElementById('vtMicIcon').textContent = '⏹';
+        document.getElementById('vtMicText').textContent = 'Parar';
+        document.getElementById('vtStatus').textContent = '🎙️ Ouvindo… fale agora';
+        document.getElementById('voiceTranslatorToggle').classList.add('listening');
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = ''; el.classList.remove('placeholder');
+        document.getElementById('vtTranslatedText').textContent = '';
+        document.getElementById('vtTranslatedText').classList.add('placeholder');
+        document.getElementById('vtTranslatedText').textContent = 'Tradução aparecerá aqui…';
+        document.getElementById('vtSpeakBtn').style.display = 'none';
+        vtLastTranslation = '';
+      };
+
+      let finalBuffer = '';
+      vtRecognition.onresult = (e) => {
+        let interim = '';
+        let finalNew = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) finalNew += e.results[i][0].transcript + ' ';
+          else interim += e.results[i][0].transcript;
+        }
+        if (finalNew) finalBuffer += finalNew;
+        const display = finalBuffer + interim;
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = display; el.classList.remove('placeholder');
+      };
+
+      vtRecognition.onerror = (e) => {
+        if (e.error !== 'no-speech') {
+          document.getElementById('vtStatus').textContent = '❌ Erro: ' + e.error;
+        }
+      };
+
+      vtRecognition.onend = () => {
+        vtIsListening = false;
+        document.getElementById('vtMicBtn').classList.remove('active');
+        document.getElementById('vtMicIcon').textContent = '🎤';
+        document.getElementById('vtMicText').textContent = 'Falar';
+        document.getElementById('voiceTranslatorToggle').classList.remove('listening');
+        if (finalBuffer.trim()) {
+          const toLang = document.getElementById('vtLangTo').value;
+          vtTranslateText(finalBuffer.trim(), fromLang, toLang);
+        } else {
+          document.getElementById('vtStatus').textContent = 'Nenhuma fala detectada. Tente novamente.';
+        }
+        finalBuffer = '';
+        vtRecognition = null;
+      };
+      vtRecognition.start();
+    }
+
+    function vtStopMic() {
+      vtIsListening = false;
+      if (vtRecognition) { try { vtRecognition.stop(); } catch(e) {} }
+    }
+
+    function vtSpeak() {
+      if (!vtLastTranslation) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(vtLastTranslation);
+      utter.lang  = document.getElementById('vtLangTo').value;
+      utter.rate  = parseFloat(document.getElementById('vtRate').value);
+      utter.pitch = parseFloat(document.getElementById('vtPitch').value);
+      const voiceSel = document.getElementById('vtVoiceSelect');
+      const voices = window.speechSynthesis.getVoices();
+      const chosen = voices.find(v => v.name === voiceSel.value);
+      if (chosen) utter.voice = chosen;
+      const stopBtn = document.getElementById('vtStopSpeakBtn');
+      stopBtn.style.display = 'flex';
+      utter.onend = () => { stopBtn.style.display = 'none'; };
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtStopSpeak() {
+      window.speechSynthesis.cancel();
+      document.getElementById('vtStopSpeakBtn').style.display = 'none';
+    }
+
+    function vtLoadVoices() {
+      const sel = document.getElementById('vtVoiceSelect');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+      };
+      fill();
+      window.speechSynthesis.onvoiceschanged = fill;
+    }
+
+    // === NARRADOR DE SITE ===
+    function vtNarrateLoadVoices() {
+      const sel = document.getElementById('vtNarrateVoice');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+        const pt = Array.from(sel.options).find(o => o.textContent.includes('pt-BR') || o.textContent.includes('Portuguese'));
+        if (pt) sel.value = pt.value;
+      };
+      fill();
+      window.speechSynthesis.onvoiceschanged = fill;
+    }
+
+    function vtGetPageText() {
+      const chunks = [];
+      const excluded = [
+        '.top-right-buttons','.top-left-buttons','.menu-content',
+        '.chatbot-window','.voice-translator-panel','.topics-dropdown',
+        '.topics-dropdown-mobile','.modal','.modal-overlay','script','style'
+      ];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const el = node.parentElement;
+          if (!el) return NodeFilter.FILTER_REJECT;
+          const s = window.getComputedStyle(el);
+          if (s.display==='none'||s.visibility==='hidden') return NodeFilter.FILTER_REJECT;
+          for (const sel of excluded) {
+            if (el.closest(sel)) return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      let node, cur = '';
+      while ((node = walker.nextNode())) {
+        const t = node.textContent.trim();
+        if (!t) continue;
+        cur += ' ' + t;
+        if (cur.length > 120) { chunks.push(cur.trim()); cur = ''; }
+      }
+      if (cur.trim().length > 3) chunks.push(cur.trim());
+      return chunks;
+    }
+
+    function vtToggleNarrate() {
+      if (vtNarrateActive) { vtStopNarrate(); } else { vtStartNarrate(); }
+    }
+
+    function vtStartNarrate() {
+      vtNarrateChunks = vtGetPageText();
+      if (!vtNarrateChunks.length) {
+        document.getElementById('vtNarrateStatus').textContent = '❌ Nenhum conteúdo encontrado para narrar.';
+        return;
+      }
+      vtNarrateIndex = 0;
+      vtNarrateActive = true;
+      vtNarratePaused = false;
+      document.getElementById('vtNarrateBtn').classList.add('active');
+      document.getElementById('vtNarrateIcon').textContent = '⏹';
+      document.getElementById('vtNarrateText').textContent = 'Parar narração';
+      document.getElementById('vtNarratePauseBtn').style.display = 'flex';
+      document.getElementById('vtNarratePauseBtn').textContent = '⏸';
+      vtNarrateNext();
+    }
+
+    function vtNarrateNext() {
+      if (!vtNarrateActive || vtNarrateIndex >= vtNarrateChunks.length) {
+        vtStopNarrate();
+        document.getElementById('vtNarrateStatus').textContent = '✅ Narração concluída!';
+        return;
+      }
+      const text  = vtNarrateChunks[vtNarrateIndex];
+      const total = vtNarrateChunks.length;
+      const pct   = Math.round((vtNarrateIndex / total) * 100);
+      document.getElementById('vtNarrateBar').style.width = pct + '%';
+      document.getElementById('vtNarrateCurrentText').textContent = text.length > 120 ? text.slice(0,120)+'…' : text;
+      document.getElementById('vtNarrateStatus').textContent = `📍 Trecho ${vtNarrateIndex+1} de ${total}`;
+      const utter = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      const voiceSel = document.getElementById('vtNarrateVoice');
+      const chosen = voices.find(v => v.name === voiceSel?.value);
+      if (chosen) utter.voice = chosen;
+      utter.lang  = chosen?.lang || 'pt-BR';
+      utter.rate  = parseFloat(document.getElementById('vtNarrateRate').value);
+      utter.onend = () => {
+        if (!vtNarrateActive || vtNarratePaused) return;
+        vtNarrateIndex++;
+        setTimeout(vtNarrateNext, 300);
+      };
+      vtNarrateUtter = utter;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtPauseNarrate() {
+      const btn = document.getElementById('vtNarratePauseBtn');
+      if (!vtNarratePaused) {
+        window.speechSynthesis.pause();
+        vtNarratePaused = true;
+        btn.textContent = '▶';
+        document.getElementById('vtNarrateStatus').textContent = '⏸ Pausado';
+      } else {
+        window.speechSynthesis.resume();
+        vtNarratePaused = false;
+        btn.textContent = '⏸';
+      }
+    }
+
+    function vtStopNarrate() {
+      vtNarrateActive = false;
+      vtNarratePaused = false;
+      window.speechSynthesis.cancel();
+      document.getElementById('vtNarrateBtn').classList.remove('active');
+      document.getElementById('vtNarrateIcon').textContent = '📢';
+      document.getElementById('vtNarrateText').textContent = 'Narrar página';
+      document.getElementById('vtNarratePauseBtn').style.display = 'none';
+      document.getElementById('vtNarrateBar').style.width = '0%';
+      document.getElementById('vtNarrateCurrentText').textContent = '—';
+      if (!document.getElementById('vtNarrateStatus').textContent.startsWith('✅')) {
+        document.getElementById('vtNarrateStatus').textContent = 'Pressione para ouvir o conteúdo desta página';
+      }
+    }
+
+    document.getElementById('vtNarrateRate').addEventListener('input', function() {
+      document.getElementById('vtNarrateRateVal').textContent = this.value;
+    });
+
+    // Fechar painel ao clicar fora
+    document.addEventListener('click', (e) => {
+      const panel  = document.getElementById('voiceTranslatorPanel');
+      const toggle = document.getElementById('voiceTranslatorToggle');
+      if (vtPanelOpen && panel && !panel.contains(e.target) && !toggle.contains(e.target)) {
+        vtPanelOpen = false;
+        panel.classList.remove('open');
+        if (vtIsListening) vtStopMic();
+      }
+    });
+
+</script>
+<script>
+    // === SISTEMA MULTI-IDIOMA — ferramentas-ia.html ===
+    const TRANSLATIONS_FIA = {
+      pt: {
+        'header-h1': 'Ferramentas de IA',
+        'header-p': 'Use a Inteligência Artificial para turbinar seu currículo, entrevistas e carreira',
+        'infobar-ia': '🤖 Inteligência Artificial',
+        'infobar-edicao': '✍️ Edição para Currículo',
+        'tip-ia': 'Dica Nexus: Use IA para revisar seu currículo antes de enviar. Cole o texto da vaga e peça para a IA comparar com seu currículo, sugerindo melhorias. Isso aumenta muito suas chances de passar pela triagem automática (ATS). Sempre revise: não deixe tudo no modo automático.',
+        'tip-edicao': 'Dica Nexus: Sempre faça seus currículos no Word e converta para PDF. Evite outras ferramentas de criação de currículos: o importante não é a estética, mas sim que o conteúdo chame a atenção.',
+        'h3-chatgpt': 'ChatGPT (OpenAI)',
+        'p-chatgpt': 'O mais famoso. Peça para ele revisar seu currículo, escrever uma carta de apresentação personalizada ou simular uma entrevista. Basta colar o texto da vaga e pedir ajuda, use o GPT para ter ideias, mas sempre revise seu currículo para não ficar robótico.',
+        'link-chatgpt': '→ Acessar ChatGPT',
+        'h3-gemini': 'Google Gemini',
+        'p-gemini': 'Alternativa do Google ao ChatGPT. Ótimo para pesquisar informações sobre empresas antes de entrevistas e para reescrever trechos do currículo de forma mais profissional.',
+        'link-gemini': '→ Acessar Gemini',
+        'h3-claude': 'Claude (Anthropic)',
+        'p-claude': 'Excelente para análises detalhadas de texto. Peça para ele comparar seu currículo com a descrição da vaga e listar lacunas, pontos fortes e sugestões de melhoria.',
+        'link-claude': '→ Acessar Claude',
+        'h3-copilot': 'Microsoft Copilot',
+        'p-copilot': 'O Copilot é a IA do Windows e Office que ajuda a gerar textos, planilhas, apresentações e muito mais de forma inteligente, integrando IA diretamente nas suas ferramentas do dia a dia.',
+        'link-copilot': '→ Saiba mais sobre o Copilot',
+        'h3-linkedin': 'LinkedIn',
+        'p-linkedin': 'Embora o LinkedIn não seja uma IA por si só, ele integra recursos de inteligência artificial para sugerir melhorias no seu perfil, recomendar habilidades e ajudar a escrever o resumo profissional de forma mais atrativa.',
+        'link-linkedin': '→ Acessar LinkedIn',
+        'h3-gamma': 'Gamma AI',
+        'p-gamma': 'O Gamma AI é uma plataforma de criação de apresentações de slides inteligentes. Ela utiliza IA para gerar layouts, textos e ideias visuais automaticamente, transformando informações em apresentações profissionais de forma rápida e criativa.',
+        'link-gamma': '→ Acessar Gamma AI',
+        'h3-canva': 'Canva',
+        'p-canva': 'O Canva é ótimo para design, edição de imagens e vídeos, e até permite criar currículos visualmente atrativos. Porém, ele não é o ideal para fazer currículos profissionais, o Word é mais recomendado, pois mantém o formato adequado e é compatível com sistemas de triagem automática (ATS).',
+        'link-canva': '→ Acessar Canva',
+        'h3-word': 'Microsoft Word',
+        'p-word': 'Clássico e amplamente usado, o Word permite criar currículos com formatação profissional. Use modelos prontos ou construa o seu do zero. Fácil de editar e compatível com ATS.',
+        'link-word': '→ Acessar Word',
+        'h3-pdf': 'PDF',
+        'p-pdf': 'Formato padrão para envio de currículos. Mantém a formatação e garante que seu currículo seja visualizado corretamente em qualquer dispositivo. Sempre converta seu arquivo final para PDF antes de enviar.',
+        'link-pdf': '→ Salvar como PDF',
+        'btn-candidatos': 'Voltar para Candidatos',
+        'btn-utilidades': 'Ver Utilidades',
+        'footer-tagline': 'Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.',
+        'lang-label': 'Idioma:',
+        'tag-free': 'Gratuito',
+        'tag-freemium': 'Freemium',
+        'tag-free-office': 'Gratuito/Office'
+      },
+      en: {
+        'header-h1': 'AI Tools',
+        'header-p': 'Use Artificial Intelligence to boost your resume, interviews and career',
+        'infobar-ia': '🤖 Artificial Intelligence',
+        'infobar-edicao': '✍️ Resume Editing',
+        'tip-ia': 'Nexus Tip: Use AI to review your resume before sending. Paste the job description and ask the AI to compare it with your resume, suggesting improvements. This greatly increases your chances of passing automatic screening (ATS). Always review: do not leave everything on automatic mode.',
+        'tip-edicao': 'Nexus Tip: Always make your resumes in Word and convert to PDF. Avoid other resume creation tools: what matters is not aesthetics, but that the content grabs attention.',
+        'h3-chatgpt': 'ChatGPT (OpenAI)',
+        'p-chatgpt': 'The most famous. Ask it to review your resume, write a personalized cover letter or simulate an interview. Just paste the job description and ask for help. Use GPT for ideas, but always review your resume so it does not sound robotic.',
+        'link-chatgpt': '→ Access ChatGPT',
+        'h3-gemini': 'Google Gemini',
+        'p-gemini': 'Google\'s alternative to ChatGPT. Great for researching companies before interviews and for rewriting resume sections in a more professional way.',
+        'link-gemini': '→ Access Gemini',
+        'h3-claude': 'Claude (Anthropic)',
+        'p-claude': 'Excellent for detailed text analysis. Ask it to compare your resume with the job description and list gaps, strengths and improvement suggestions.',
+        'link-claude': '→ Access Claude',
+        'h3-copilot': 'Microsoft Copilot',
+        'p-copilot': 'Copilot is the AI of Windows and Office that helps generate texts, spreadsheets, presentations and much more intelligently, integrating AI directly into your everyday tools.',
+        'link-copilot': '→ Learn more about Copilot',
+        'h3-linkedin': 'LinkedIn',
+        'p-linkedin': 'Although LinkedIn is not an AI itself, it integrates artificial intelligence features to suggest profile improvements, recommend skills and help write your professional summary in a more attractive way.',
+        'link-linkedin': '→ Access LinkedIn',
+        'h3-gamma': 'Gamma AI',
+        'p-gamma': 'Gamma AI is an intelligent slide presentation creation platform. It uses AI to automatically generate layouts, texts and visual ideas, transforming information into professional presentations quickly and creatively.',
+        'link-gamma': '→ Access Gamma AI',
+        'h3-canva': 'Canva',
+        'p-canva': 'Canva is great for design, image and video editing, and even allows you to create visually attractive resumes. However, it is not ideal for professional resumes — Word is more recommended as it maintains proper formatting and is compatible with automatic screening systems (ATS).',
+        'link-canva': '→ Access Canva',
+        'h3-word': 'Microsoft Word',
+        'p-word': 'Classic and widely used, Word allows you to create resumes with professional formatting. Use ready-made templates or build your own from scratch. Easy to edit and ATS compatible.',
+        'link-word': '→ Access Word',
+        'h3-pdf': 'PDF',
+        'p-pdf': 'Standard format for sending resumes. Maintains formatting and ensures your resume is viewed correctly on any device. Always convert your final file to PDF before sending.',
+        'link-pdf': '→ Save as PDF',
+        'btn-candidatos': 'Back to Candidates',
+        'btn-utilidades': 'View Utilities',
+        'footer-tagline': 'We connect talent to real opportunities. Human, agile and efficient recruitment.',
+        'lang-label': 'Language:',
+        'tag-free': 'Free',
+        'tag-freemium': 'Freemium',
+        'tag-free-office': 'Free/Office'
+      },
+      es: {
+        'header-h1': 'Herramientas de IA',
+        'header-p': 'Usa la Inteligencia Artificial para potenciar tu currículum, entrevistas y carrera',
+        'infobar-ia': '🤖 Inteligencia Artificial',
+        'infobar-edicao': '✍️ Edición para Currículum',
+        'tip-ia': 'Consejo Nexus: Usa IA para revisar tu currículum antes de enviarlo. Pega el texto de la vacante y pide a la IA que lo compare con tu currículum, sugiriendo mejoras. Esto aumenta mucho tus posibilidades de pasar el cribado automático (ATS). Siempre revisa: no dejes todo en modo automático.',
+        'tip-edicao': 'Consejo Nexus: Siempre haz tus currículums en Word y conviértelos a PDF. Evita otras herramientas de creación de currículums: lo importante no es la estética, sino que el contenido llame la atención.',
+        'h3-chatgpt': 'ChatGPT (OpenAI)',
+        'p-chatgpt': 'El más famoso. Pídele que revise tu currículum, escriba una carta de presentación personalizada o simule una entrevista. Simplemente pega el texto de la vacante y pide ayuda. Usa GPT para ideas, pero siempre revisa tu currículum para que no suene robótico.',
+        'link-chatgpt': '→ Acceder a ChatGPT',
+        'h3-gemini': 'Google Gemini',
+        'p-gemini': 'Alternativa de Google a ChatGPT. Excelente para investigar empresas antes de entrevistas y para reescribir secciones del currículum de forma más profesional.',
+        'link-gemini': '→ Acceder a Gemini',
+        'h3-claude': 'Claude (Anthropic)',
+        'p-claude': 'Excelente para análisis detallados de texto. Pídele que compare tu currículum con la descripción del puesto y liste brechas, fortalezas y sugerencias de mejora.',
+        'link-claude': '→ Acceder a Claude',
+        'h3-copilot': 'Microsoft Copilot',
+        'p-copilot': 'Copilot es la IA de Windows y Office que ayuda a generar textos, hojas de cálculo, presentaciones y mucho más de forma inteligente, integrando IA directamente en tus herramientas del día a día.',
+        'link-copilot': '→ Conoce más sobre Copilot',
+        'h3-linkedin': 'LinkedIn',
+        'p-linkedin': 'Aunque LinkedIn no es una IA en sí mismo, integra recursos de inteligencia artificial para sugerir mejoras en tu perfil, recomendar habilidades y ayudarte a escribir el resumen profesional de forma más atractiva.',
+        'link-linkedin': '→ Acceder a LinkedIn',
+        'h3-gamma': 'Gamma AI',
+        'p-gamma': 'Gamma AI es una plataforma de creación de presentaciones de diapositivas inteligentes. Utiliza IA para generar automáticamente diseños, textos e ideas visuales, transformando información en presentaciones profesionales de forma rápida y creativa.',
+        'link-gamma': '→ Acceder a Gamma AI',
+        'h3-canva': 'Canva',
+        'p-canva': 'Canva es excelente para diseño, edición de imágenes y vídeos, e incluso permite crear currículums visualmente atractivos. Sin embargo, no es ideal para currículums profesionales — Word es más recomendado ya que mantiene el formato adecuado y es compatible con los sistemas de cribado automático (ATS).',
+        'link-canva': '→ Acceder a Canva',
+        'h3-word': 'Microsoft Word',
+        'p-word': 'Clásico y ampliamente utilizado, Word permite crear currículums con formato profesional. Use plantillas listas o construya el suyo desde cero. Fácil de editar y compatible con ATS.',
+        'link-word': '→ Acceder a Word',
+        'h3-pdf': 'PDF',
+        'p-pdf': 'Formato estándar para enviar currículums. Mantiene el formato y garantiza que su currículum se visualice correctamente en cualquier dispositivo. Siempre convierta su archivo final a PDF antes de enviar.',
+        'link-pdf': '→ Guardar como PDF',
+        'btn-candidatos': 'Volver a Candidatos',
+        'btn-utilidades': 'Ver Utilidades',
+        'footer-tagline': 'Conectamos talentos con oportunidades reales. Reclutamiento humano, ágil y eficiente.',
+        'lang-label': 'Idioma:',
+        'tag-free': 'Gratuito',
+        'tag-freemium': 'Freemium',
+        'tag-free-office': 'Gratuito/Office'
+      }
+    };
+
+    // Map h3 text → translation key
+    const H3_MAP = {
+      'ChatGPT (OpenAI)': 'chatgpt',
+      'Google Gemini': 'gemini',
+      'Claude (Anthropic)': 'claude',
+      'Microsoft Copilot': 'copilot',
+      'LinkedIn': 'linkedin',
+      'Gamma AI': 'gamma',
+      'Canva': 'canva',
+      'Microsoft Word': 'word',
+      'PDF': 'pdf',
+    };
+
+    function applyTranslations(lang) {
+      const t = TRANSLATIONS_FIA[lang] || TRANSLATIONS_FIA['pt'];
+
+      // Header
+      const h1 = document.querySelector('.header h1');
+      const headerP = document.querySelector('.header p');
+      if (h1) h1.textContent = t['header-h1'];
+      if (headerP) headerP.textContent = t['header-p'];
+
+      // Info bars
+      document.querySelectorAll('.info-bar').forEach(bar => {
+        const txt = bar.textContent.trim();
+        if (txt.includes('Inteligência') || txt.includes('Artificial Intelligence') || txt.includes('Inteligencia')) bar.textContent = t['infobar-ia'];
+        else if (txt.includes('Edição') || txt.includes('Editing') || txt.includes('Edición')) bar.textContent = t['infobar-edicao'];
+      });
+
+      // Tip boxes
+      document.querySelectorAll('.tip-box').forEach((box, i) => {
+        const strong = box.querySelector('strong');
+        const strongText = strong ? strong.textContent : '';
+        // Rebuild content preserving the strong tag
+        if (i === 0) {
+          box.innerHTML = `💡 <strong>${strongText}</strong> ${t['tip-ia']}`;
+        } else if (i === 1) {
+          box.innerHTML = `💡 <strong>${strongText}</strong> ${t['tip-edicao']}`;
+        }
+      });
+
+      // Cards: h3 → p → link
+      document.querySelectorAll('.card').forEach(card => {
+        const h3 = card.querySelector('h3');
+        if (!h3) return;
+        const txt = h3.textContent.trim();
+        const key = H3_MAP[txt];
+        if (!key) return;
+        const p = card.querySelector('p');
+        const link = card.querySelector('.card-link');
+        h3.textContent = t[`h3-${key}`];
+        if (p) p.textContent = t[`p-${key}`];
+        if (link) link.textContent = t[`link-${key}`];
+      });
+
+      // Tags
+      document.querySelectorAll('.card-tag.tag-free').forEach(tag => {
+        if (!tag.classList.contains('tag-freemium')) tag.textContent = t['tag-free'];
+      });
+      document.querySelectorAll('.card-tag.tag-freemium').forEach(tag => { tag.textContent = t['tag-freemium']; });
+
+      // Buttons
+      document.querySelectorAll('.btn').forEach(btn => {
+        const txt = btn.textContent.trim();
+        if (txt.match(/Candidatos|Candidates/)) btn.textContent = t['btn-candidatos'];
+        else if (txt.match(/Utilidades|Utilities|Utilidades/)) btn.textContent = t['btn-utilidades'];
+      });
+
+      // Footer
+      const tagline = document.querySelector('.footer-tagline');
+      if (tagline) tagline.textContent = t['footer-tagline'];
+      const langLabel = document.querySelector('[data-i18n="lang-label"]');
+      if (langLabel) langLabel.textContent = t['lang-label'];
+
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) selector.value = savedLang;
+      applyTranslations(savedLang);
+    }
+
+    function changeLanguage(lang) {
+      localStorage.setItem('siteLanguage', lang);
+      applyTranslations(lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
 </script>
 </body>
 </html>

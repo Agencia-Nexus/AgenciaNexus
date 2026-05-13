@@ -100,6 +100,13 @@ body:not(.dark-mode) .theme-toggle {
   border: 2px solid rgba(0, 0, 0, 0.4);
   color: rgb(27, 27, 27);
 }
+body:not(.dark-mode) .theme-toggle {
+  height: 50px;
+  min-width: 50px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  transform: none;
+}
 
 body:not(.dark-mode) .back-button:hover,
 body:not(.dark-mode) .menu-toggle:hover,
@@ -1562,13 +1569,498 @@ body.dark-mode .chip { background: #2a2a2a; }
       gap: 0.35rem;
     }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
-  </style>
+  
+    .top-right-buttons {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+    .top-right-buttons * {
+      pointer-events: auto;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+      position: static;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Botão Tradutor em Voz */
+    .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      white-space: nowrap;
+    }
+    .voice-translator-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    body:not(.dark-mode) .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+    body:not(.dark-mode) .voice-translator-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+    .voice-translator-toggle.listening {
+      background: rgba(239, 68, 68, 0.35) !important;
+      border-color: rgba(239, 68, 68, 0.8) !important;
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-mic {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+    }
+
+    /* Painel do tradutor */
+        /* === PAINEL TRADUTOR — ESPAÇAMENTO GENEROSO === */
+    .voice-translator-panel {
+      position: fixed;
+      top: calc(2rem + 120px);
+      right: 1.2rem;
+      z-index: 1001;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.8rem 1.8rem 2rem;
+      width: min(360px, calc(100vw - 2.4rem));
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: none;
+      flex-direction: column;
+      gap: 22px;
+      border: 1px solid rgba(0,0,0,0.06);
+      animation: dropIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    body.dark-mode .voice-translator-panel {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 2px 10px rgba(0,0,0,0.3);
+      color: #f0f0f0;
+    }
+    .voice-translator-panel.open { display: flex; }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Abas */
+    .vt-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 5px;
+    }
+    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
+    .vt-tab {
+      flex: 1;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .vt-tab.active {
+      background: #ffffff;
+      color: #3b82f6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .vt-tab.active {
+      background: #2c2c2e;
+      color: #60a5fa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .vt-tab { color: #888; }
+
+    /* Label */
+    .vt-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #3b82f6;
+      margin-bottom: 2px;
+    }
+
+    /* Linha de idiomas */
+    .vt-lang-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vt-lang-row select {
+      flex: 1;
+      padding: 11px 16px;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      font-size: 0.84rem;
+      font-family: inherit;
+      background: #f5f5f7;
+      cursor: pointer;
+      color: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
+    }
+    .vt-lang-row select:focus { border-color: #3b82f6; }
+    body.dark-mode .vt-lang-row select {
+      border-color: rgba(255,255,255,0.12);
+      background: #2c2c2e;
+      color: #f0f0f0;
+    }
+
+    /* Botão trocar */
+    .vt-swap-btn {
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      color: #3b82f6;
+    }
+    .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
+
+    /* Áreas de texto */
+    .vt-text-area {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f5f5f7;
+      min-height: 70px;
+      word-break: break-word;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
+    }
+    body.dark-mode .vt-text-area { background: #2c2c2e; border-color: rgba(255,255,255,0.05); }
+    .vt-text-area.placeholder { color: #aaa; font-style: italic; }
+
+    /* Botão mic principal */
+    .vt-mic-btn {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+    }
+    .vt-mic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    }
+    .vt-mic-btn.active {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      box-shadow: 0 4px 16px rgba(220,38,38,0.4);
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+
+    /* Status */
+    .vt-status {
+      font-size: 0.74rem;
+      text-align: center;
+      color: #999;
+      line-height: 1.5;
+    }
+
+    /* Botão falar/parar */
+    .vt-speak-btn {
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.35);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      color: #3b82f6;
+      transition: all 0.25s;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .vt-speak-btn:hover { background: #3b82f6; color: white; }
+    .vt-speak-btn.show { display: flex; }
+
+    /* Configurações */
+    .vt-settings { font-size: 0.8rem; }
+    .vt-settings summary {
+      cursor: pointer;
+      color: #999;
+      padding: 4px 0;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .vt-settings summary:hover { color: #3b82f6; }
+    .vt-settings-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0 4px;
+    }
+    .vt-settings-body label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: inherit;
+    }
+    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
+
+    /* Narrar progresso */
+    .vt-narrate-progress {
+      height: 6px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.8rem;
+      color: #888;
+      min-height: 40px;
+      padding: 6px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 11px 16px;
+      font-size: 0.84rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 72vh;
+        border-radius: 20px;
+        padding: 1.4rem 1.4rem 1.6rem;
+        gap: 18px;
+      }
+      .vt-tab { padding: 10px 10px; font-size: 0.76rem; }
+      .vt-mic-btn { padding: 14px 22px; font-size: 0.9rem; }
+      .vt-lang-row select { padding: 10px 12px; font-size: 0.8rem; }
+    }
+
+    body.chat-open .top-right-buttons,
+    body.menu-open .top-right-buttons { display: none !important; }
+    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+/* FIX selects tradutor */
+    .voice-translator-panel select {
+      background: #ffffff !important;
+      color: #1a1a1a !important;
+    }
+    body.dark-mode .voice-translator-panel select {
+      background: #1e1e2e !important;
+      color: #f0f0f0 !important;
+      border-color: rgba(255,255,255,0.25) !important;
+    }
+    .footer-language-selector {
+      display: flex; align-items: center; gap: 0.8rem; font-size: 0.9rem;
+    }
+    .footer-language-selector label {
+      color: var(--ft-copy); font-weight: 600; white-space: nowrap; margin: 0;
+    }
+    .footer-language-selector select {
+      padding: 0.6rem 1rem; border: 2px solid #ccc; border-radius: 4px;
+      background: white; color: #333; font-family: inherit; font-weight: 500;
+      font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; min-width: 140px;
+    }
+    .footer-language-selector select option { padding: 0.5rem; color: #333; background: white; }
+    body.dark-mode .footer-language-selector select { background-color: #2a2a2a; color: #f0f0f0; border-color: #555; }
+    body.dark-mode .footer-language-selector select option { color: #f0f0f0; background: #2a2a2a; }
+    .footer-language-selector select:hover { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+    body.dark-mode .footer-language-selector select:hover { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,0.15); }
+    .footer-language-selector select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
+    body.dark-mode .footer-language-selector select:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,0.25); }
+    @media (max-width: 560px) {
+      .footer-language-selector { font-size: 0.85rem; gap: 0.6rem; flex: 1 0 100%; justify-content: center; order: -1; margin-bottom: 1rem; }
+      .footer-language-selector select { font-size: 0.85rem; padding: 0.5rem 0.8rem; min-width: 130px; }
+      .footer-bottom { flex-direction: column; }
+    }
+    </style>
 </head>
 <body>
-
-  <button class="theme-toggle" onclick="toggleTheme()">
+  <div class="top-right-buttons" id="topRightButtons">
+    <button class="theme-toggle" onclick="toggleTheme()">
     <span id="themeIcon">🌙</span>
   </button>
+    <button class="voice-translator-toggle" id="voiceTranslatorToggle" onclick="toggleVoiceTranslator()" title="Tradutor em Voz">
+      <span id="vtIcon">🌐</span>
+    </button>
+  </div>
+
+  <!-- Painel do Tradutor em Voz -->
+  <div class="voice-translator-panel" id="voiceTranslatorPanel">
+    <!-- Abas -->
+    <div class="vt-tabs">
+      <button class="vt-tab active" id="vtTabTranslate" onclick="vtSwitchTab('translate')">🌐 Traduzir</button>
+      <button class="vt-tab" id="vtTabNarrate" onclick="vtSwitchTab('narrate')">📢 Narrar Site</button>
+    </div>
+
+    <!-- ABA TRADUZIR -->
+    <div id="vtTabContentTranslate">
+      <div class="vt-label">Idioma de origem → destino</div>
+      <div class="vt-lang-row">
+        <select id="vtLangFrom" title="Idioma de origem">
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+        <button class="vt-swap-btn" onclick="vtSwapLangs()" title="Trocar idiomas">⇄</button>
+        <select id="vtLangTo" title="Idioma de destino">
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+      </div>
+      <div class="vt-text-area placeholder" id="vtOriginalText">Pressione o mic e fale…</div>
+      <div class="vt-text-area placeholder" id="vtTranslatedText">Tradução aparecerá aqui…</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="vt-mic-btn" id="vtMicBtn" onclick="vtToggleMic()" style="flex:1;">
+          <span id="vtMicIcon">🎤</span> <span id="vtMicText">Falar</span>
+        </button>
+        <button class="vt-speak-btn" id="vtSpeakBtn" onclick="vtSpeak()" title="Ouvir tradução">🔊</button>
+        <button class="vt-speak-btn" id="vtStopSpeakBtn" onclick="vtStopSpeak()" title="Parar voz" style="display:none;">⏹</button>
+      </div>
+      <div class="vt-status" id="vtStatus">Selecione os idiomas e pressione Falar</div>
+      <!-- Configurações de voz -->
+      <details class="vt-settings">
+        <summary>⚙️ Configurações de voz</summary>
+        <div class="vt-settings-body">
+          <label>Velocidade <input type="range" id="vtRate" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtRateVal').textContent=this.value"> <span id="vtRateVal">1</span>x</label>
+          <label>Tom <input type="range" id="vtPitch" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtPitchVal').textContent=this.value"> <span id="vtPitchVal">1</span></label>
+          <label>Voz
+            <select id="vtVoiceSelect" style="margin-left:4px;font-size:0.8rem;border-radius:8px;border:1px solid #ccc;padding:2px 6px;"></select>
+          </label>
+        </div>
+      </details>
+    </div>
+
+    <!-- ABA NARRAR SITE -->
+    <div id="vtTabContentNarrate" style="display:none;">
+      <div class="vt-label">Narração do conteúdo da página</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <select id="vtNarrateVoice" style="flex:1;padding:6px 10px;border-radius:50px;border:2px solid rgba(0,0,0,0.15);font-size:0.82rem;font-family:inherit;background:transparent;color:inherit;"></select>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <label style="font-size:0.78rem;display:flex;align-items:center;gap:6px;flex:1;">Vel.
+          <input type="range" id="vtNarrateRate" min="0.5" max="2" step="0.1" value="1" style="flex:1;accent-color:#3b82f6;">
+          <span id="vtNarrateRateVal">1</span>x
+        </label>
+      </div>
+      <div class="vt-narrate-progress" id="vtNarrateProgress">
+        <div class="vt-narrate-bar" id="vtNarrateBar"></div>
+      </div>
+      <div class="vt-narrate-text" id="vtNarrateCurrentText">—</div>
+      <div style="display:flex;gap:8px;">
+        <button class="vt-mic-btn" id="vtNarrateBtn" onclick="vtToggleNarrate()" style="flex:1;">
+          <span id="vtNarrateIcon">📢</span> <span id="vtNarrateText">Narrar página</span>
+        </button>
+        <button class="vt-speak-btn" id="vtNarratePauseBtn" onclick="vtPauseNarrate()" title="Pausar" style="display:none;">⏸</button>
+      </div>
+      <div class="vt-status" id="vtNarrateStatus">Pressione para ouvir o conteúdo desta página</div>
+    </div>
+  </div>
+
 
   <!-- Voltar | Menu | Topics -->
   <div class="top-left-buttons" id="topLeftButtons">
@@ -1632,8 +2124,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
         <img src="../imagens/fundo.png" alt="Cookies" class="header-bg-img">
         <div>
-          <h1 style="margin: 0 0 0.5rem 0;">Política de Cookies</h1>
-          <p>Entenda como utilizamos cookies e tecnologias similares</p>
+          <h1 data-i18n="ck-title" style="margin: 0 0 0.5rem 0;">Política de Cookies</h1>
+          <p><span data-i18n="ck-subtitle">Entenda como utilizamos cookies e tecnologias similares</span></p>
         </div>
       </div>
     </div>
@@ -1645,7 +2137,7 @@ body.dark-mode .chip { background: #2a2a2a; }
   <section class="content-section">
     <div class="content-container">
       
-      <h2 id="section-cookies">O que são Cookies?</h2>
+      <h2 id="section-cookies" data-i18n="ck-h2-1">O que são Cookies?</h2>
       <p>
         Cookies são pequenos arquivos de texto armazenados no seu navegador que permitem que um site se lembre de informações sobre suas visitas. Eles são uma tecnologia padrão usada por praticamente todos os websites modernos para melhorar a experiência do usuário e fornecer funcionalidades essenciais.
       </p>
@@ -1654,7 +2146,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <strong>🍪 Tecnologia Padrão:</strong> Cookies são completamente seguros e não contêm vírus. Eles simplesmente armazenam informações em formato de texto que você forneceu ou que foi observado durante sua navegação.
       </div>
 
-<h2 id="section-tipos">Tipos de Cookies que Utilizamos</h2>
+<h2 id="section-tipos" data-i18n="ck-h2-2">Tipos de Cookies que Utilizamos</h2>
 <p>
   A Agência Nexus não utiliza cookies próprios para rastreamento, apenas aqueles essenciais para navegação normal do site. Caso haja necessidade futura de utilização de cookies adicionais, esta política será atualizada.
 </p>
@@ -1678,7 +2170,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         </div>
       </div>
 
-      <h2 id="section-essenciais">Cookies Essenciais</h2>
+      <h2 id="section-essenciais" data-i18n="ck-h2-3">Cookies Essenciais</h2>
       <p>
         Os cookies essenciais são ativados automaticamente pois são necessários para o funcionamento correto do site:
       </p>
@@ -1691,7 +2183,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li><strong>Navegação:</strong> Permite que o site funcione corretamente</li>
       </ul>
 
-      <h2>Cookies de Desempenho e Análise</h2>
+      <h2 data-i18n="ck-h2-4">Cookies de Desempenho e Análise</h2>
       <p>
         Utilizamos ferramentas de análise para entender como você interage com nosso site:
       </p>
@@ -1709,7 +2201,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <strong>📊 Dados Anônimos:</strong> Todos os dados são completamente anônimos e agregados. Nós nunca identificamos você pessoalmente através deles.
       </div>
 
-      <h2>Cookies de Funcionalidade</h2>
+      <h2 data-i18n="ck-h2-5">Cookies de Funcionalidade</h2>
       <p>
         Esses cookies melhoram sua experiência ao lembrar suas preferências:
       </p>
@@ -1722,7 +2214,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li>Items no seu carrinho (se aplicável)</li>
       </ul>
 
-      <h2>Cookies de Marketing</h2>
+      <h2 data-i18n="ck-h2-6">Cookies de Marketing</h2>
       <p>
         Utilizamos cookies de marketing apenas com seu consentimento explícito:
       </p>
@@ -1764,7 +2256,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li><strong>Cookies de Análise:</strong> Normalmente 12 a 24 meses</li>
       </ul>
 
-      <h2 id="section-direitos">Seus Direitos sobre Cookies</h2>
+      <h2 id="section-direitos" data-i18n="ck-h2-7">Seus Direitos sobre Cookies</h2>
       <p>
         Você tem controle total sobre os cookies do seu navegador:
       </p>
@@ -1833,7 +2325,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li>Você pode rejeitar cookies de terceiros em seu navegador</li>
       </ul>
 
-      <h2>Mudanças na Política de Cookies</h2>
+      <h2 data-i18n="ck-h2-8">Mudanças na Política de Cookies</h2>
       <p>
         Esta política pode ser atualizada ocasionalmente:
       </p>
@@ -1844,7 +2336,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <li>Você pode revisar a versão atual a qualquer momento</li>
       </ul>
 
-      <h2 id="section-contato">Contato Sobre Cookies</h2>
+      <h2 id="section-contato" data-i18n="ck-h2-9">Contato Sobre Cookies</h2>
       <p>
         Se tiver perguntas sobre nossa política de cookies:
       </p>
@@ -1970,7 +2462,15 @@ body.dark-mode .chip { background: #2a2a2a; }
 
     
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-copy"><span data-i18n="footer-text">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</span></p>
       <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
     </div>
 
@@ -2504,6 +3004,430 @@ const counters = document.querySelectorAll('.counter');
       updateCount();
     });
   </script>
+
+<script>
+// ============= TRADUTOR EM VOZ =============
+let vtPanelOpen = false;
+let vtRecognition = null;
+    let vtIsListening = false;
+    let vtLastTranslation = '';
+    let vtCurrentTab = 'translate';
+
+    // --- Narrador ---
+    let vtNarrateChunks = [];
+    let vtNarrateIndex = 0;
+    let vtNarrateActive = false;
+    let vtNarratePaused = false;
+    let vtNarrateUtter = null;
+
+    function toggleVoiceTranslator() {
+      vtPanelOpen = !vtPanelOpen;
+      const panel = document.getElementById('voiceTranslatorPanel');
+      panel.classList.toggle('open', vtPanelOpen);
+      if (!vtPanelOpen) {
+        if (vtIsListening) vtStopMic();
+        if (vtNarrateActive) vtStopNarrate();
+      }
+      if (vtPanelOpen) { vtSwitchTab('translate'); vtLoadVoices(); vtNarrateLoadVoices(); }
+    }
+
+    function vtSwitchTab(tab) {
+      vtCurrentTab = tab;
+      document.getElementById('vtTabContentTranslate').style.display = tab === 'translate' ? '' : 'none';
+      document.getElementById('vtTabContentNarrate').style.display   = tab === 'narrate'   ? '' : 'none';
+      document.getElementById('vtTabTranslate').classList.toggle('active', tab === 'translate');
+      document.getElementById('vtTabNarrate').classList.toggle('active', tab === 'narrate');
+    }
+
+    // === TRADUZIR ===
+    function vtSwapLangs() {
+      const from = document.getElementById('vtLangFrom');
+      const to   = document.getElementById('vtLangTo');
+      const tmp  = from.value; from.value = to.value; to.value = tmp;
+      const orig  = document.getElementById('vtOriginalText');
+      const trans = document.getElementById('vtTranslatedText');
+      const tmpText = orig.textContent, tmpClass = orig.className;
+      orig.textContent = trans.textContent; orig.className = trans.className;
+      trans.textContent = tmpText; trans.className = tmpClass;
+      vtLastTranslation = trans.textContent;
+    }
+
+    const VT_LANG_CODE = {
+      'pt-BR':'pt','en-US':'en','es-ES':'es','fr-FR':'fr',
+      'de-DE':'de','it-IT':'it','ja-JP':'ja','zh-CN':'zh','ar-SA':'ar','ru-RU':'ru'
+    };
+
+    async function vtTranslateText(text, fromLang, toLang) {
+      const status = document.getElementById('vtStatus');
+      if (fromLang === toLang) {
+        vtLastTranslation = text;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = text; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Mesmo idioma — texto copiado';
+        return;
+      }
+      status.textContent = '🔄 Traduzindo…';
+      const from = VT_LANG_CODE[fromLang] || 'pt';
+      const to   = VT_LANG_CODE[toLang]   || 'en';
+      try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
+        const r   = await fetch(url);
+        const d   = await r.json();
+        const translation = d.responseData?.translatedText || text;
+        vtLastTranslation = translation;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = translation; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Tradução concluída';
+        // falar automaticamente
+        vtSpeak();
+      } catch(e) {
+        status.textContent = '❌ Erro de tradução. Tente novamente.';
+      }
+    }
+
+    function vtToggleMic() {
+      if (vtIsListening) { vtStopMic(); return; }
+      vtStartMic();
+    }
+
+    function vtStartMic() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        document.getElementById('vtStatus').textContent = '❌ Microfone não suportado neste navegador (use Chrome).';
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const fromLang = document.getElementById('vtLangFrom').value;
+      vtRecognition = new SR();
+      vtRecognition.lang = fromLang;
+      vtRecognition.continuous = true;
+      vtRecognition.interimResults = true;
+
+      vtRecognition.onstart = () => {
+        vtIsListening = true;
+        document.getElementById('vtMicBtn').classList.add('active');
+        document.getElementById('vtMicIcon').textContent = '⏹';
+        document.getElementById('vtMicText').textContent = 'Parar';
+        document.getElementById('vtStatus').textContent = '🎙️ Ouvindo… fale agora';
+        document.getElementById('voiceTranslatorToggle').classList.add('listening');
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = ''; el.classList.remove('placeholder');
+        document.getElementById('vtTranslatedText').textContent = '';
+        document.getElementById('vtTranslatedText').classList.add('placeholder');
+        document.getElementById('vtTranslatedText').textContent = 'Tradução aparecerá aqui…';
+        document.getElementById('vtSpeakBtn').style.display = 'none';
+        vtLastTranslation = '';
+      };
+
+      let finalBuffer = '';
+      vtRecognition.onresult = (e) => {
+        let interim = '';
+        let finalNew = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) finalNew += e.results[i][0].transcript + ' ';
+          else interim += e.results[i][0].transcript;
+        }
+        if (finalNew) finalBuffer += finalNew;
+        const display = finalBuffer + interim;
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = display; el.classList.remove('placeholder');
+      };
+
+      vtRecognition.onerror = (e) => {
+        if (e.error !== 'no-speech') {
+          document.getElementById('vtStatus').textContent = '❌ Erro: ' + e.error;
+        }
+      };
+
+      vtRecognition.onend = () => {
+        vtIsListening = false;
+        document.getElementById('vtMicBtn').classList.remove('active');
+        document.getElementById('vtMicIcon').textContent = '🎤';
+        document.getElementById('vtMicText').textContent = 'Falar';
+        document.getElementById('voiceTranslatorToggle').classList.remove('listening');
+        if (finalBuffer.trim()) {
+          const toLang = document.getElementById('vtLangTo').value;
+          vtTranslateText(finalBuffer.trim(), fromLang, toLang);
+        } else {
+          document.getElementById('vtStatus').textContent = 'Nenhuma fala detectada. Tente novamente.';
+        }
+        finalBuffer = '';
+        vtRecognition = null;
+      };
+      vtRecognition.start();
+    }
+
+    function vtStopMic() {
+      vtIsListening = false;
+      if (vtRecognition) { try { vtRecognition.stop(); } catch(e) {} }
+    }
+
+    function vtSpeak() {
+      if (!vtLastTranslation) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(vtLastTranslation);
+      utter.lang  = document.getElementById('vtLangTo').value;
+      utter.rate  = parseFloat(document.getElementById('vtRate').value);
+      utter.pitch = parseFloat(document.getElementById('vtPitch').value);
+      const voiceSel = document.getElementById('vtVoiceSelect');
+      const voices = window.speechSynthesis.getVoices();
+      const chosen = voices.find(v => v.name === voiceSel.value);
+      if (chosen) utter.voice = chosen;
+      const stopBtn = document.getElementById('vtStopSpeakBtn');
+      stopBtn.style.display = 'flex';
+      utter.onend = () => { stopBtn.style.display = 'none'; };
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtStopSpeak() {
+      window.speechSynthesis.cancel();
+      document.getElementById('vtStopSpeakBtn').style.display = 'none';
+    }
+
+    function vtLoadVoices() {
+      const sel = document.getElementById('vtVoiceSelect');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+      };
+      fill();
+      window.speechSynthesis.onvoiceschanged = fill;
+    }
+
+    // === NARRADOR DE SITE ===
+    function vtNarrateLoadVoices() {
+      const sel = document.getElementById('vtNarrateVoice');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+        // prefer pt-BR
+        const pt = Array.from(sel.options).find(o => o.textContent.includes('pt-BR') || o.textContent.includes('Portuguese'));
+        if (pt) sel.value = pt.value;
+      };
+      fill();
+      window.speechSynthesis.onvoiceschanged = fill;
+    }
+
+    function vtGetPageText() {
+      // pega todo texto visível de parágrafos, h2, h3, li do conteúdo principal
+      const selectors = '.content-container h2, .content-container h3, .content-container p, .content-container li';
+      const nodes = document.querySelectorAll(selectors);
+      const chunks = [];
+      nodes.forEach(n => {
+        const t = n.innerText?.trim();
+        if (t && t.length > 3) chunks.push(t);
+      });
+      return chunks;
+    }
+
+    function vtToggleNarrate() {
+      if (vtNarrateActive) {
+        vtStopNarrate();
+      } else {
+        vtStartNarrate();
+      }
+    }
+
+    function vtStartNarrate() {
+      vtNarrateChunks = vtGetPageText();
+      if (!vtNarrateChunks.length) {
+        document.getElementById('vtNarrateStatus').textContent = '❌ Nenhum conteúdo encontrado para narrar.';
+        return;
+      }
+      vtNarrateIndex = 0;
+      vtNarrateActive = true;
+      vtNarratePaused = false;
+      document.getElementById('vtNarrateBtn').classList.add('active');
+      document.getElementById('vtNarrateIcon').textContent = '⏹';
+      document.getElementById('vtNarrateText').textContent = 'Parar narração';
+      document.getElementById('vtNarratePauseBtn').style.display = 'flex';
+      document.getElementById('vtNarratePauseBtn').textContent = '⏸';
+      vtNarrateNext();
+    }
+
+    function vtNarrateNext() {
+      if (!vtNarrateActive || vtNarrateIndex >= vtNarrateChunks.length) {
+        vtStopNarrate();
+        document.getElementById('vtNarrateStatus').textContent = '✅ Narração concluída!';
+        return;
+      }
+      const text  = vtNarrateChunks[vtNarrateIndex];
+      const total = vtNarrateChunks.length;
+      const pct   = Math.round((vtNarrateIndex / total) * 100);
+      document.getElementById('vtNarrateBar').style.width = pct + '%';
+      document.getElementById('vtNarrateCurrentText').textContent = text.length > 120 ? text.slice(0,120)+'…' : text;
+      document.getElementById('vtNarrateStatus').textContent = `📍 Trecho ${vtNarrateIndex+1} de ${total}`;
+
+      const utter = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      const voiceSel = document.getElementById('vtNarrateVoice');
+      const chosen = voices.find(v => v.name === voiceSel?.value);
+      if (chosen) utter.voice = chosen;
+      utter.lang  = chosen?.lang || 'pt-BR';
+      utter.rate  = parseFloat(document.getElementById('vtNarrateRate').value);
+      utter.onend = () => {
+        if (!vtNarrateActive || vtNarratePaused) return;
+        vtNarrateIndex++;
+        setTimeout(vtNarrateNext, 300);
+      };
+      vtNarrateUtter = utter;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtPauseNarrate() {
+      const btn = document.getElementById('vtNarratePauseBtn');
+      if (!vtNarratePaused) {
+        window.speechSynthesis.pause();
+        vtNarratePaused = true;
+        btn.textContent = '▶';
+        document.getElementById('vtNarrateStatus').textContent = '⏸ Pausado';
+      } else {
+        window.speechSynthesis.resume();
+        vtNarratePaused = false;
+        btn.textContent = '⏸';
+      }
+    }
+
+    function vtStopNarrate() {
+      vtNarrateActive = false;
+      vtNarratePaused = false;
+      window.speechSynthesis.cancel();
+      document.getElementById('vtNarrateBtn').classList.remove('active');
+      document.getElementById('vtNarrateIcon').textContent = '📢';
+      document.getElementById('vtNarrateText').textContent = 'Narrar página';
+      document.getElementById('vtNarratePauseBtn').style.display = 'none';
+      document.getElementById('vtNarrateBar').style.width = '0%';
+      document.getElementById('vtNarrateCurrentText').textContent = '—';
+      if (!document.getElementById('vtNarrateStatus').textContent.startsWith('✅')) {
+        document.getElementById('vtNarrateStatus').textContent = 'Pressione para ouvir o conteúdo desta página';
+      }
+    }
+
+    document.getElementById('vtNarrateRate').addEventListener('input', function() {
+      document.getElementById('vtNarrateRateVal').textContent = this.value;
+    });
+
+    // Fechar painel ao clicar fora
+    document.addEventListener('click', (e) => {
+      const panel  = document.getElementById('voiceTranslatorPanel');
+      const toggle = document.getElementById('voiceTranslatorToggle');
+      if (vtPanelOpen && panel && !panel.contains(e.target) && !toggle.contains(e.target)) {
+        vtPanelOpen = false;
+        panel.classList.remove('open');
+        if (vtIsListening) vtStopMic();
+      }
+    });
+    // ============= FIM TRADUTOR EM VOZ =============
+// ============= FIM TRADUTOR EM VOZ =============
+
+    const translations = {
+      pt: {
+        'lang-label': 'Idioma:',
+        'footer-text': '© 2026 Agência Nexus. Todos os direitos reservados.',
+        'ck-title': 'Política de Cookies',
+        'ck-subtitle': 'Entenda como utilizamos cookies e tecnologias similares',
+        'ck-h2-1': 'O que são Cookies?',
+        'ck-p-1': 'Cookies são pequenos arquivos de texto armazenados no seu navegador que permitem ao site lembrar suas preferências e melhorar sua experiência.',
+        'ck-h2-2': 'Tipos de Cookies que Utilizamos',
+        'ck-p-2': 'A Agência Nexus não utiliza cookies próprios para rastreamento, apenas aqueles essenciais para o funcionamento do site.',
+        'ck-h2-3': 'Cookies Essenciais',
+        'ck-p-3': 'Os cookies essenciais são ativados automaticamente pois são necessários para o funcionamento básico do site.',
+        'ck-h2-4': 'Cookies de Desempenho e Análise',
+        'ck-p-4': 'Utilizamos ferramentas de análise para entender como você interage com nosso site.',
+        'ck-h2-5': 'Cookies de Funcionalidade',
+        'ck-p-5': 'Esses cookies melhoram sua experiência ao lembrar suas preferências.',
+        'ck-h2-6': 'Cookies de Marketing',
+        'ck-p-6': 'Utilizamos cookies de marketing apenas com seu consentimento explícito.',
+        'ck-h2-7': 'Seus Direitos sobre Cookies',
+        'ck-p-7': 'Você tem controle total sobre os cookies do seu navegador.',
+        'ck-h2-8': 'Mudanças na Política de Cookies',
+        'ck-p-8': 'Esta política pode ser atualizada ocasionalmente.',
+        'ck-h2-9': 'Contato Sobre Cookies',
+        'ck-p-9': 'Se tiver perguntas sobre nossa política de cookies:'
+      },
+      en: {
+        'lang-label': 'Language:',
+        'footer-text': '© 2026 Nexus Agency. All rights reserved.',
+        'ck-title': 'Cookie Policy',
+        'ck-subtitle': 'Understand how we use cookies and similar technologies',
+        'ck-h2-1': 'What are Cookies?',
+        'ck-p-1': 'Cookies are small text files stored in your browser that allow the site to remember your preferences and improve your experience.',
+        'ck-h2-2': 'Types of Cookies We Use',
+        'ck-p-2': 'Nexus Agency does not use its own tracking cookies, only those essential for the site to function.',
+        'ck-h2-3': 'Essential Cookies',
+        'ck-p-3': 'Essential cookies are automatically enabled as they are necessary for the basic functioning of the site.',
+        'ck-h2-4': 'Performance and Analytics Cookies',
+        'ck-p-4': 'We use analytics tools to understand how you interact with our site.',
+        'ck-h2-5': 'Functionality Cookies',
+        'ck-p-5': 'These cookies improve your experience by remembering your preferences.',
+        'ck-h2-6': 'Marketing Cookies',
+        'ck-p-6': 'We use marketing cookies only with your explicit consent.',
+        'ck-h2-7': 'Your Rights on Cookies',
+        'ck-p-7': 'You have full control over your browser cookies.',
+        'ck-h2-8': 'Changes to the Cookie Policy',
+        'ck-p-8': 'This policy may be updated occasionally.',
+        'ck-h2-9': 'Contact About Cookies',
+        'ck-p-9': 'If you have questions about our cookie policy:'
+      },
+      es: {
+        'lang-label': 'Idioma:',
+        'footer-text': '© 2026 Agencia Nexus. Todos los derechos reservados.',
+        'ck-title': 'Política de Cookies',
+        'ck-subtitle': 'Entienda cómo utilizamos cookies y tecnologías similares',
+        'ck-h2-1': '¿Qué son las Cookies?',
+        'ck-p-1': 'Las cookies son pequeños archivos de texto almacenados en su navegador que permiten al sitio recordar sus preferencias y mejorar su experiencia.',
+        'ck-h2-2': 'Tipos de Cookies que Utilizamos',
+        'ck-p-2': 'Agencia Nexus no utiliza cookies propias de seguimiento, solo las esenciales para el funcionamiento del sitio.',
+        'ck-h2-3': 'Cookies Esenciales',
+        'ck-p-3': 'Las cookies esenciales se activan automáticamente ya que son necesarias para el funcionamiento básico del sitio.',
+        'ck-h2-4': 'Cookies de Rendimiento y Análisis',
+        'ck-p-4': 'Utilizamos herramientas de análisis para entender cómo interactúa con nuestro sitio.',
+        'ck-h2-5': 'Cookies de Funcionalidad',
+        'ck-p-5': 'Estas cookies mejoran su experiencia al recordar sus preferencias.',
+        'ck-h2-6': 'Cookies de Marketing',
+        'ck-p-6': 'Utilizamos cookies de marketing solo con su consentimiento explícito.',
+        'ck-h2-7': 'Sus Derechos sobre Cookies',
+        'ck-p-7': 'Usted tiene control total sobre las cookies de su navegador.',
+        'ck-h2-8': 'Cambios en la Política de Cookies',
+        'ck-p-8': 'Esta política puede actualizarse ocasionalmente.',
+        'ck-h2-9': 'Contacto Sobre Cookies',
+        'ck-p-9': 'Si tiene preguntas sobre nuestra política de cookies:'
+      }
+    };
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) selector.value = savedLang;
+      changeLanguage(savedLang);
+    }
+    function changeLanguage(lang) {
+      if (!translations[lang]) lang = 'pt';
+      localStorage.setItem('siteLanguage', lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+    document.addEventListener('DOMContentLoaded', initLanguage);
+    </script>
 
 </body>
 </html>

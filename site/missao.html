@@ -93,6 +93,13 @@ body:not(.dark-mode) .theme-toggle {
   border: 2px solid rgba(0, 0, 0, 0.4);
   color: rgb(27, 27, 27);
 }
+body:not(.dark-mode) .theme-toggle {
+  height: 50px;
+  min-width: 50px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  transform: none;
+}
 
 body:not(.dark-mode) .back-button:hover,
 body:not(.dark-mode) .menu-toggle:hover,
@@ -1467,13 +1474,532 @@ body.dark-mode .chip { background: #2a2a2a; }
       body.chat-open .topics-dropdown-mobile,
       body.menu-open .topics-dropdown-mobile { display: none !important; }
     }
+
+        /* TRADUTOR */
+    .top-right-buttons {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+    .top-right-buttons * {
+      pointer-events: auto;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+      position: static;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Botão Tradutor em Voz */
+    .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      white-space: nowrap;
+    }
+    .voice-translator-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    body:not(.dark-mode) .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+    body:not(.dark-mode) .voice-translator-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+    .voice-translator-toggle.listening {
+      background: rgba(239, 68, 68, 0.35) !important;
+      border-color: rgba(239, 68, 68, 0.8) !important;
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-mic {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+    }
+
+        /* === PAINEL TRADUTOR — ESPAÇAMENTO GENEROSO === */
+    .voice-translator-panel {
+      position: fixed;
+      top: calc(2rem + 120px);
+      right: 1.2rem;
+      z-index: 1001;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.8rem 1.8rem 2rem;
+      width: min(360px, calc(100vw - 2.4rem));
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: none;
+      flex-direction: column;
+      gap: 22px;
+      border: 1px solid rgba(0,0,0,0.06);
+      animation: dropIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    body.dark-mode .voice-translator-panel {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 2px 10px rgba(0,0,0,0.3);
+      color: #f0f0f0;
+    }
+    .voice-translator-panel.open { display: flex; }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Abas */
+    .vt-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 5px;
+    }
+    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
+    .vt-tab {
+      flex: 1;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .vt-tab.active {
+      background: #ffffff;
+      color: #3b82f6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .vt-tab.active {
+      background: #2c2c2e;
+      color: #60a5fa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .vt-tab { color: #888; }
+
+    /* Label */
+    .vt-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #3b82f6;
+      margin-bottom: 2px;
+    }
+
+    /* Linha de idiomas */
+    .vt-lang-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vt-lang-row select {
+      flex: 1;
+      padding: 11px 16px;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      font-size: 0.84rem;
+      font-family: inherit;
+      background: #f5f5f7;
+      cursor: pointer;
+      color: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
+    }
+    .vt-lang-row select:focus { border-color: #3b82f6; }
+    body.dark-mode .vt-lang-row select {
+      border-color: rgba(255,255,255,0.12);
+      background: #2c2c2e;
+      color: #f0f0f0;
+    }
+
+    /* Botão trocar */
+    .vt-swap-btn {
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      color: #3b82f6;
+    }
+    .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
+
+    /* Áreas de texto */
+    .vt-text-area {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f5f5f7;
+      min-height: 70px;
+      word-break: break-word;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
+    }
+    body.dark-mode .vt-text-area { background: #2c2c2e; border-color: rgba(255,255,255,0.05); }
+    .vt-text-area.placeholder { color: #aaa; font-style: italic; }
+
+    /* Botão mic principal */
+    .vt-mic-btn {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+    }
+    .vt-mic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    }
+    .vt-mic-btn.active {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      box-shadow: 0 4px 16px rgba(220,38,38,0.4);
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+
+    /* Status */
+    .vt-status {
+      font-size: 0.74rem;
+      text-align: center;
+      color: #999;
+      line-height: 1.5;
+    }
+
+    /* Botão falar/parar */
+    .vt-speak-btn {
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.35);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      color: #3b82f6;
+      transition: all 0.25s;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .vt-speak-btn:hover { background: #3b82f6; color: white; }
+    .vt-speak-btn.show { display: flex; }
+
+    /* Configurações */
+    .vt-settings { font-size: 0.8rem; }
+    .vt-settings summary {
+      cursor: pointer;
+      color: #999;
+      padding: 4px 0;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .vt-settings summary:hover { color: #3b82f6; }
+    .vt-settings-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0 4px;
+    }
+    .vt-settings-body label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: inherit;
+    }
+    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
+
+    /* Narrar progresso */
+    .vt-narrate-progress {
+      height: 6px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.8rem;
+      color: #888;
+      min-height: 40px;
+      padding: 6px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 11px 16px;
+      font-size: 0.84rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 72vh;
+        border-radius: 20px;
+        padding: 1.4rem 1.4rem 1.6rem;
+        gap: 18px;
+      }
+      .vt-tab { padding: 10px 10px; font-size: 0.76rem; }
+      .vt-mic-btn { padding: 14px 22px; font-size: 0.9rem; }
+      .vt-lang-row select { padding: 10px 12px; font-size: 0.8rem; }
+    }
+
+    body.chat-open .top-right-buttons,
+    body.menu-open .top-right-buttons { display: none !important; }
+    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+    .footer-language-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+    .footer-language-selector label {
+      color: var(--ft-copy);
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .footer-language-selector select {
+      padding: 0.6rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      color: #333;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 140px;
+    }
+    .footer-language-selector select option {
+      padding: 0.5rem;
+      color: #333;
+      background: white;
+    }
+    body.dark-mode .footer-language-selector select {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border-color: #555;
+    }
+    body.dark-mode .footer-language-selector select option {
+      color: #f0f0f0;
+      background: #2a2a2a;
+    }
+    .footer-language-selector select:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    body.dark-mode .footer-language-selector select:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+    .footer-language-selector select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    body.dark-mode .footer-language-selector select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+    @media (max-width: 560px) {
+      .footer-language-selector {
+        font-size: 0.85rem;
+        gap: 0.6rem;
+        flex: 1 0 100%;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 1rem;
+      }
+      .footer-language-selector select {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+        min-width: 130px;
+      }
+      .footer-bottom { flex-direction: column; }
+    }
 </style>
 </head>
 <body>
 
-  <button class="theme-toggle" onclick="toggleTheme()">
-    <span id="themeIcon">🌙</span>
-  </button>
+<!-- Botões do lado direito: Tema + Tradutor em Voz -->
+  <div class="top-right-buttons" id="topRightButtons">
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span>
+    </button>
+    <button class="voice-translator-toggle" id="voiceTranslatorToggle" onclick="toggleVoiceTranslator()" title="Tradutor em Voz">
+      <span id="vtIcon">🌐</span>
+    </button>
+  </div>
+
+  <!-- Painel do Tradutor em Voz -->
+  <div class="voice-translator-panel" id="voiceTranslatorPanel">
+    <div class="vt-tabs">
+      <button class="vt-tab active" id="vtTabTranslate" onclick="vtSwitchTab('translate')">🌐 Traduzir</button>
+      <button class="vt-tab" id="vtTabNarrate" onclick="vtSwitchTab('narrate')">📢 Narrar Site</button>
+    </div>
+    <div id="vtTabContentTranslate">
+      <div class="vt-label">Idioma de origem → destino</div>
+      <div class="vt-lang-row">
+        <select id="vtLangFrom" title="Idioma de origem">
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+        <button class="vt-swap-btn" onclick="vtSwapLangs()" title="Trocar idiomas">⇄</button>
+        <select id="vtLangTo" title="Idioma de destino">
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+      </div>
+      <div class="vt-text-area placeholder" id="vtOriginalText">Pressione o mic e fale…</div>
+      <div class="vt-text-area placeholder" id="vtTranslatedText">Tradução aparecerá aqui…</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="vt-mic-btn" id="vtMicBtn" onclick="vtToggleMic()" style="flex:1;">
+          <span id="vtMicIcon">🎤</span> <span id="vtMicText">Falar</span>
+        </button>
+        <button class="vt-speak-btn" id="vtSpeakBtn" onclick="vtSpeak()" title="Ouvir tradução">🔊</button>
+        <button class="vt-speak-btn" id="vtStopSpeakBtn" onclick="vtStopSpeak()" title="Parar voz" style="display:none;">⏹</button>
+      </div>
+      <div class="vt-status" id="vtStatus">Selecione os idiomas e pressione Falar</div>
+      <details class="vt-settings">
+        <summary>⚙️ Configurações de voz</summary>
+        <div class="vt-settings-body">
+          <label>Velocidade <input type="range" id="vtRate" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtRateVal').textContent=this.value"> <span id="vtRateVal">1</span>x</label>
+          <label>Tom <input type="range" id="vtPitch" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtPitchVal').textContent=this.value"> <span id="vtPitchVal">1</span></label>
+          <label>Voz
+            <select id="vtVoiceSelect" style="margin-left:4px;font-size:0.8rem;border-radius:8px;border:1px solid #ccc;padding:2px 6px;"></select>
+          </label>
+        </div>
+      </details>
+    </div>
+    <div id="vtTabContentNarrate" style="display:none;">
+      <div class="vt-label">Narração do conteúdo da página</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <select id="vtNarrateVoice" style="flex:1;padding:6px 10px;border-radius:50px;border:2px solid rgba(0,0,0,0.15);font-size:0.82rem;font-family:inherit;background:transparent;color:inherit;"></select>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <label style="font-size:0.78rem;display:flex;align-items:center;gap:6px;flex:1;">Vel.
+          <input type="range" id="vtNarrateRate" min="0.5" max="2" step="0.1" value="1" style="flex:1;accent-color:#3b82f6;">
+          <span id="vtNarrateRateVal">1</span>x
+        </label>
+      </div>
+      <div class="vt-narrate-progress" id="vtNarrateProgress">
+        <div class="vt-narrate-bar" id="vtNarrateBar"></div>
+      </div>
+      <div class="vt-narrate-text" id="vtNarrateCurrentText">—</div>
+      <div style="display:flex;gap:8px;">
+        <button class="vt-mic-btn" id="vtNarrateBtn" onclick="vtToggleNarrate()" style="flex:1;">
+          <span id="vtNarrateIcon">📢</span> <span id="vtNarrateText">Narrar página</span>
+        </button>
+        <button class="vt-speak-btn" id="vtNarratePauseBtn" onclick="vtPauseNarrate()" title="Pausar" style="display:none;">⏸</button>
+      </div>
+      <div class="vt-status" id="vtNarrateStatus">Pressione para ouvir o conteúdo desta página</div>
+    </div>
+  </div>
 
   <!-- Voltar | Menu | Topics -->
   <div class="top-left-buttons" id="topLeftButtons">
@@ -1980,7 +2506,15 @@ body.dark-mode .chip { background: #2a2a2a; }
 
 
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-copy"><span data-i18n="footer-text">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</span></p>
       <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
     </div>
 
@@ -2506,6 +3040,628 @@ setInterval(nextSlide, 4000);
       document.getElementById('topicsDropdownMobile').classList.remove('open');
       document.getElementById('topicsOverlay').classList.remove('open');
     }
+</script>
+<script>
+    let vtPanelOpen = false;
+    let vtRecognition = null;
+    let vtIsListening = false;
+    let vtLastTranslation = '';
+    let vtCurrentTab = 'translate';
+    let vtNarrateChunks = [];
+    let vtNarrateIndex = 0;
+    let vtNarrateActive = false;
+    let vtNarratePaused = false;
+    let vtNarrateUtter = null;
+
+    function toggleVoiceTranslator() {
+      vtPanelOpen = !vtPanelOpen;
+      const panel = document.getElementById('voiceTranslatorPanel');
+      panel.classList.toggle('open', vtPanelOpen);
+      if (!vtPanelOpen) {
+        if (vtIsListening) vtStopMic();
+        if (vtNarrateActive) vtStopNarrate();
+      }
+      if (vtPanelOpen) { vtLoadVoices(); vtNarrateLoadVoices(); }
+    }
+
+    function vtSwitchTab(tab) {
+      vtCurrentTab = tab;
+      document.getElementById('vtTabContentTranslate').style.display = tab === 'translate' ? '' : 'none';
+      document.getElementById('vtTabContentNarrate').style.display   = tab === 'narrate'   ? '' : 'none';
+      document.getElementById('vtTabTranslate').classList.toggle('active', tab === 'translate');
+      document.getElementById('vtTabNarrate').classList.toggle('active', tab === 'narrate');
+    }
+
+    function vtSwapLangs() {
+      const from = document.getElementById('vtLangFrom');
+      const to   = document.getElementById('vtLangTo');
+      const tmp  = from.value; from.value = to.value; to.value = tmp;
+      const orig  = document.getElementById('vtOriginalText');
+      const trans = document.getElementById('vtTranslatedText');
+      const tmpText = orig.textContent, tmpClass = orig.className;
+      orig.textContent = trans.textContent; orig.className = trans.className;
+      trans.textContent = tmpText; trans.className = tmpClass;
+      vtLastTranslation = trans.textContent;
+    }
+
+    const VT_LANG_CODE = {
+      'pt-BR':'pt','en-US':'en','es-ES':'es','fr-FR':'fr',
+      'de-DE':'de','it-IT':'it','ja-JP':'ja','zh-CN':'zh','ar-SA':'ar','ru-RU':'ru'
+    };
+
+    async function vtTranslateText(text, fromLang, toLang) {
+      const status = document.getElementById('vtStatus');
+      if (fromLang === toLang) {
+        vtLastTranslation = text;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = text; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Mesmo idioma — texto copiado';
+        return;
+      }
+      status.textContent = '🔄 Traduzindo…';
+      const from = VT_LANG_CODE[fromLang] || 'pt';
+      const to   = VT_LANG_CODE[toLang]   || 'en';
+      try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
+        const r   = await fetch(url);
+        const d   = await r.json();
+        const translation = d.responseData?.translatedText || text;
+        vtLastTranslation = translation;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = translation; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Tradução concluída';
+        vtSpeak();
+      } catch(e) {
+        status.textContent = '❌ Erro de tradução. Tente novamente.';
+      }
+    }
+
+    function vtToggleMic() {
+      if (vtIsListening) { vtStopMic(); return; }
+      vtStartMic();
+    }
+
+    function vtStartMic() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        document.getElementById('vtStatus').textContent = '❌ Microfone não suportado neste navegador (use Chrome).';
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const fromLang = document.getElementById('vtLangFrom').value;
+      vtRecognition = new SR();
+      vtRecognition.lang = fromLang;
+      vtRecognition.continuous = true;
+      vtRecognition.interimResults = true;
+
+      vtRecognition.onstart = () => {
+        vtIsListening = true;
+        document.getElementById('vtMicBtn').classList.add('active');
+        document.getElementById('vtMicIcon').textContent = '⏹';
+        document.getElementById('vtMicText').textContent = 'Parar';
+        document.getElementById('vtStatus').textContent = '🎙️ Ouvindo… fale agora';
+        document.getElementById('voiceTranslatorToggle').classList.add('listening');
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = ''; el.classList.remove('placeholder');
+        document.getElementById('vtTranslatedText').textContent = '';
+        document.getElementById('vtTranslatedText').classList.add('placeholder');
+        document.getElementById('vtTranslatedText').textContent = 'Tradução aparecerá aqui…';
+        document.getElementById('vtSpeakBtn').style.display = 'none';
+        vtLastTranslation = '';
+      };
+
+      let finalBuffer = '';
+      vtRecognition.onresult = (e) => {
+        let interim = '';
+        let finalNew = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) finalNew += e.results[i][0].transcript + ' ';
+          else interim += e.results[i][0].transcript;
+        }
+        if (finalNew) finalBuffer += finalNew;
+        const display = finalBuffer + interim;
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = display; el.classList.remove('placeholder');
+      };
+
+      vtRecognition.onerror = (e) => {
+        if (e.error !== 'no-speech') {
+          document.getElementById('vtStatus').textContent = '❌ Erro: ' + e.error;
+        }
+      };
+
+      vtRecognition.onend = () => {
+        vtIsListening = false;
+        document.getElementById('vtMicBtn').classList.remove('active');
+        document.getElementById('vtMicIcon').textContent = '🎤';
+        document.getElementById('vtMicText').textContent = 'Falar';
+        document.getElementById('voiceTranslatorToggle').classList.remove('listening');
+        if (finalBuffer.trim()) {
+          const toLang = document.getElementById('vtLangTo').value;
+          vtTranslateText(finalBuffer.trim(), fromLang, toLang);
+        } else {
+          document.getElementById('vtStatus').textContent = 'Nenhuma fala detectada. Tente novamente.';
+        }
+        finalBuffer = '';
+        vtRecognition = null;
+      };
+      vtRecognition.start();
+    }
+
+    function vtStopMic() {
+      vtIsListening = false;
+      if (vtRecognition) { try { vtRecognition.stop(); } catch(e) {} }
+    }
+
+    function vtSpeak() {
+      if (!vtLastTranslation) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(vtLastTranslation);
+      utter.lang  = document.getElementById('vtLangTo').value;
+      utter.rate  = parseFloat(document.getElementById('vtRate').value);
+      utter.pitch = parseFloat(document.getElementById('vtPitch').value);
+      const voiceSel = document.getElementById('vtVoiceSelect');
+      const voices = window.speechSynthesis.getVoices();
+      const chosen = voices.find(v => v.name === voiceSel.value);
+      if (chosen) utter.voice = chosen;
+      const stopBtn = document.getElementById('vtStopSpeakBtn');
+      stopBtn.style.display = 'flex';
+      utter.onend = () => { stopBtn.style.display = 'none'; };
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtStopSpeak() {
+      window.speechSynthesis.cancel();
+      document.getElementById('vtStopSpeakBtn').style.display = 'none';
+    }
+
+    function vtLoadVoices() {
+      const sel = document.getElementById('vtVoiceSelect');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+      };
+      fill();
+      window.speechSynthesis.onvoiceschanged = fill;
+    }
+
+    function vtNarrateLoadVoices() {
+      const sel = document.getElementById('vtNarrateVoice');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+        const pt = Array.from(sel.options).find(o => o.textContent.includes('pt-BR') || o.textContent.includes('Portuguese'));
+        if (pt) sel.value = pt.value;
+      };
+      fill();
+      window.speechSynthesis.onvoiceschanged = fill;
+    }
+
+    function vtGetPageText() {
+      const chunks = [];
+      const excluded = [
+        '.top-right-buttons','.top-left-buttons','.menu-content',
+        '.chatbot-window','.voice-translator-panel','.topics-dropdown',
+        '.topics-dropdown-mobile','.modal','.modal-overlay','script','style'
+      ];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const el = node.parentElement;
+          if (!el) return NodeFilter.FILTER_REJECT;
+          const s = window.getComputedStyle(el);
+          if (s.display==='none'||s.visibility==='hidden') return NodeFilter.FILTER_REJECT;
+          for (const sel of excluded) {
+            if (el.closest(sel)) return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      let node, cur = '';
+      while ((node = walker.nextNode())) {
+        const t = node.textContent.trim();
+        if (!t) continue;
+        cur += ' ' + t;
+        if (cur.length > 120) { chunks.push(cur.trim()); cur = ''; }
+      }
+      if (cur.trim().length > 3) chunks.push(cur.trim());
+      return chunks;
+    }
+
+    function vtToggleNarrate() {
+      if (vtNarrateActive) { vtStopNarrate(); } else { vtStartNarrate(); }
+    }
+
+    function vtStartNarrate() {
+      vtNarrateChunks = vtGetPageText();
+      if (!vtNarrateChunks.length) {
+        document.getElementById('vtNarrateStatus').textContent = '❌ Nenhum conteúdo encontrado para narrar.';
+        return;
+      }
+      vtNarrateIndex = 0;
+      vtNarrateActive = true;
+      vtNarratePaused = false;
+      document.getElementById('vtNarrateBtn').classList.add('active');
+      document.getElementById('vtNarrateIcon').textContent = '⏹';
+      document.getElementById('vtNarrateText').textContent = 'Parar narração';
+      document.getElementById('vtNarratePauseBtn').style.display = 'flex';
+      document.getElementById('vtNarratePauseBtn').textContent = '⏸';
+      vtNarrateNext();
+    }
+
+    function vtNarrateNext() {
+      if (!vtNarrateActive || vtNarrateIndex >= vtNarrateChunks.length) {
+        vtStopNarrate();
+        document.getElementById('vtNarrateStatus').textContent = '✅ Narração concluída!';
+        return;
+      }
+      const text  = vtNarrateChunks[vtNarrateIndex];
+      const total = vtNarrateChunks.length;
+      const pct   = Math.round((vtNarrateIndex / total) * 100);
+      document.getElementById('vtNarrateBar').style.width = pct + '%';
+      document.getElementById('vtNarrateCurrentText').textContent = text.length > 120 ? text.slice(0,120)+'…' : text;
+      document.getElementById('vtNarrateStatus').textContent = `📍 Trecho ${vtNarrateIndex+1} de ${total}`;
+      const utter = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      const voiceSel = document.getElementById('vtNarrateVoice');
+      const chosen = voices.find(v => v.name === voiceSel?.value);
+      if (chosen) utter.voice = chosen;
+      utter.lang  = chosen?.lang || 'pt-BR';
+      utter.rate  = parseFloat(document.getElementById('vtNarrateRate').value);
+      utter.onend = () => {
+        if (!vtNarrateActive || vtNarratePaused) return;
+        vtNarrateIndex++;
+        setTimeout(vtNarrateNext, 300);
+      };
+      vtNarrateUtter = utter;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtPauseNarrate() {
+      const btn = document.getElementById('vtNarratePauseBtn');
+      if (!vtNarratePaused) {
+        window.speechSynthesis.pause();
+        vtNarratePaused = true;
+        btn.textContent = '▶';
+        document.getElementById('vtNarrateStatus').textContent = '⏸ Pausado';
+      } else {
+        window.speechSynthesis.resume();
+        vtNarratePaused = false;
+        btn.textContent = '⏸';
+      }
+    }
+
+    function vtStopNarrate() {
+      vtNarrateActive = false;
+      vtNarratePaused = false;
+      window.speechSynthesis.cancel();
+      document.getElementById('vtNarrateBtn').classList.remove('active');
+      document.getElementById('vtNarrateIcon').textContent = '📢';
+      document.getElementById('vtNarrateText').textContent = 'Narrar página';
+      document.getElementById('vtNarratePauseBtn').style.display = 'none';
+      document.getElementById('vtNarrateBar').style.width = '0%';
+      document.getElementById('vtNarrateCurrentText').textContent = '—';
+      if (!document.getElementById('vtNarrateStatus').textContent.startsWith('✅')) {
+        document.getElementById('vtNarrateStatus').textContent = 'Pressione para ouvir o conteúdo desta página';
+      }
+    }
+
+    document.getElementById('vtNarrateRate').addEventListener('input', function() {
+      document.getElementById('vtNarrateRateVal').textContent = this.value;
+    });
+
+    document.addEventListener('click', (e) => {
+      const panel  = document.getElementById('voiceTranslatorPanel');
+      const toggle = document.getElementById('voiceTranslatorToggle');
+      if (vtPanelOpen && panel && !panel.contains(e.target) && !toggle.contains(e.target)) {
+        vtPanelOpen = false;
+        panel.classList.remove('open');
+        if (vtIsListening) vtStopMic();
+      }
+    });
+    </script>
+
+
+<script>
+    const TRANSLATIONS_MISSAO = {
+      pt: {
+        'header-h1': 'Nossa Missão',
+        'header-p': 'O propósito que nos guia todos os dias',
+        'h2-missao': 'Nossa Missão',
+        'p-missao1': 'O mundo está em constante transformação — e o recrutamento junto com ele. O processo seletivo de 2022 já era diferente do de 2023, que era diferente do de 2024, e assim seguirá. Assim como o Fordismo teve que se reinventar, o RH também. Metodologias envelhecem, novas realidades surgem, e quem não acompanha fica para trás.',
+        'p-missao2': 'Nossa missão vai além de fechar vagas ou conectar candidatos a empresas — embora isso também faça parte da nossa essência. A missão da Nexus é mais ampla: é instruir, é preparar, é moldar uma comunidade mais consciente sobre o mundo que já chegou. A inteligência artificial não é tendência, é realidade. Quem não entender como ela funciona e por que ela existe ficará ultrapassado. E não estamos falando apenas de criar imagens ou usar o ChatGPT — a IA abrange todo o contexto empresarial como um todo.',
+        'p-missao3': 'Nossa missão é conectar pessoas com potencial e qualificação ao mercado de trabalho, sem jamais abrir mão do fator humano. Somos feitos do povo para o povo. Acreditamos na trajetória, nas capacidades, na vontade, na determinação e na empatia como forças reais que movem qualquer carreira. O mundo é digital — e precisamos adentrar essa realidade. Mas sem perder a essência humana. Fazer o que é certo, praticar o bem, com respeito e com empatia.',
+        'em-sintese': '🎯 Em síntese:',
+        'p-sintese': 'Conectar talentos a oportunidades reais, preparar a comunidade para o mercado em constante evolução e construir pontes genuínas entre pessoas, empresas e tecnologia — com ética, escuta e propósito.',
+        'h2-como': 'Como Vivemos Nossa Missão',
+        'h3-candidatos': 'Para Candidatos',
+        'escuta-title': 'Escuta Ativa:',
+        'escuta-desc': 'Não existe pergunta certa ou errada conosco. Nervosismo não elimina ninguém. Ouvimos a narrativa de cada pessoa com técnica, metodologia e, acima de tudo, humanidade',
+        'opreal-title': 'Oportunidades Reais:',
+        'opreal-desc': 'Conectamos você apenas com vagas que de fato combinam com seu perfil — sem promessas vazias e sem vagas falsas',
+        'suporte-title': 'Suporte Contínuo:',
+        'suporte-desc': 'Estamos ao seu lado desde a inscrição até os primeiros dias na empresa. O nosso network vai além das fronteiras entre agência, empresa e candidato — é uma conexão de companheirismo contínuo',
+        'honestidade-title': 'Honestidade:',
+        'honestidade-desc': 'Feedback sempre sincero e construtivo, mesmo quando a resposta é negativa. Agimos como seres humanos, porque ali existe uma pessoa com sonhos que precisam ser respeitados',
+        'acesso-title': 'Acesso Gratuito:',
+        'acesso-desc': 'Nenhum custo para o candidato. Nenhuma informação pessoal coletada além do necessário. Você não paga por oportunidade',
+        'h3-empresas': 'Para Empresas',
+        'analise-title': 'Análise Profunda:',
+        'analise-desc': 'Entendemos sua cultura, seus desafios e seus objetivos estratégicos antes de qualquer indicação',
+        'prequalif-title': 'Candidatos Pré-Qualificados:',
+        'prequalif-desc': 'Você recebe apenas profissionais que passaram por análise comportamental e técnica alinhada ao seu perfil de vaga',
+        'acomppos-title': 'Acompanhamento Pós-Contratação:',
+        'acomppos-desc': 'Acompanhamos a integração do novo colaborador para garantir uma chegada bem-sucedida',
+        'consultoria-title': 'Consultoria:',
+        'consultoria-desc': 'Não apenas preenchemos vagas — ajudamos a pensar e estruturar suas equipes com visão estratégica',
+        'h3-comunidade': 'Para a Comunidade',
+        'optodos-title': 'Oportunidades para Todos:',
+        'optodos-desc': 'Estagiários em desenvolvimento, CLTs em carreira consolidada e PJs especializados — abrimos portas para todos os perfis',
+        'resp-title': 'Responsabilidade Social:',
+        'resp-desc': 'Inclusão de pessoas com deficiência, LGBTQ+ e minorias étnicas como compromisso real, não como protocolo',
+        'local-title': 'Desenvolvimento Local:',
+        'local-desc': 'Investimento na economia regional do sul do Brasil e no fortalecimento da comunidade onde nascemos',
+        'educ-title': 'Educação:',
+        'educ-desc': 'Compartilhamos conhecimento sobre mercado de trabalho, inteligência artificial e tendências profissionais — porque uma comunidade mais sábia é uma comunidade mais forte',
+        'h2-promessa': 'Nossa Promessa',
+        'transp-title': '✅ Transparência Total:',
+        'transp-desc': 'Você saberá exatamente o que esperar, quando esperar, e por quê',
+        'profis-title': '✅ Profissionalismo:',
+        'profis-desc': 'Cada interação será respeitosa, ética e competente',
+        'human-title': '✅ Humanidade:',
+        'human-desc': 'Nunca esqueceremos que por trás de cada vaga há uma empresa com sonhos, e por trás de cada candidato há uma pessoa com aspirações',
+        'inov-title': '✅ Inovação Contínua:',
+        'inov-desc': 'Sempre evoluindo, sempre aprendendo, sempre melhorando — porque o mercado não para e nós também não',
+        'p-frase': 'Conectar talentos, transformar vidas, impulsionar empresas — essa é a missão da Nexus. 🚀',
+        'btn-voltar': 'Voltar',
+        'btn-contato': 'Fale Conosco',
+        'footer-tagline': 'Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.',
+        'lang-label': 'Idioma:',
+        'footer-copy': '© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.'
+      },
+      en: {
+        'header-h1': 'Our Mission',
+        'header-p': 'The purpose that guides us every day',
+        'h2-missao': 'Our Mission',
+        'p-missao1': 'The world is constantly changing — and recruitment along with it. The selection process of 2022 was already different from 2023, which was different from 2024, and so it will continue. Just as Fordism had to reinvent itself, HR has too. Methodologies age, new realities emerge, and those who do not keep up fall behind.',
+        'p-missao2': 'Our mission goes beyond closing vacancies or connecting candidates to companies — although that is also part of our essence. Nexus\'s mission is broader: to instruct, to prepare, to shape a community more aware of the world that has already arrived. Artificial intelligence is not a trend, it is reality. Those who do not understand how it works and why it exists will become outdated. And we are not just talking about creating images or using ChatGPT — AI encompasses the entire business context as a whole.',
+        'p-missao3': 'Our mission is to connect people with potential and qualifications to the job market, without ever giving up the human factor. We are made of the people, for the people. We believe in the journey, capabilities, will, determination and empathy as real forces that drive any career. The world is digital — and we need to enter this reality. But without losing the human essence. Doing what is right, practicing good, with respect and empathy.',
+        'em-sintese': '🎯 In summary:',
+        'p-sintese': 'Connecting talent to real opportunities, preparing the community for a constantly evolving market and building genuine bridges between people, companies and technology — with ethics, listening and purpose.',
+        'h2-como': 'How We Live Our Mission',
+        'h3-candidatos': 'For Candidates',
+        'escuta-title': 'Active Listening:',
+        'escuta-desc': 'There is no right or wrong question with us. Nervousness does not eliminate anyone. We listen to each person\'s story with technique, methodology and, above all, humanity',
+        'opreal-title': 'Real Opportunities:',
+        'opreal-desc': 'We connect you only with positions that truly match your profile — no empty promises and no fake vacancies',
+        'suporte-title': 'Ongoing Support:',
+        'suporte-desc': 'We are by your side from registration to your first days at the company. Our network goes beyond the boundaries between agency, company and candidate — it is a continuous companionship connection',
+        'honestidade-title': 'Honesty:',
+        'honestidade-desc': 'Feedback always sincere and constructive, even when the answer is negative. We act as human beings, because there is a person with dreams that need to be respected',
+        'acesso-title': 'Free Access:',
+        'acesso-desc': 'No cost to the candidate. No personal information collected beyond what is necessary. You do not pay for opportunity',
+        'h3-empresas': 'For Companies',
+        'analise-title': 'Deep Analysis:',
+        'analise-desc': 'We understand your culture, your challenges and your strategic objectives before any indication',
+        'prequalif-title': 'Pre-Qualified Candidates:',
+        'prequalif-desc': 'You receive only professionals who have passed behavioral and technical analysis aligned with your vacancy profile',
+        'acomppos-title': 'Post-Hiring Follow-up:',
+        'acomppos-desc': 'We monitor the integration of the new employee to ensure a successful arrival',
+        'consultoria-title': 'Consulting:',
+        'consultoria-desc': 'We do not just fill vacancies — we help think and structure your teams with strategic vision',
+        'h3-comunidade': 'For the Community',
+        'optodos-title': 'Opportunities for All:',
+        'optodos-desc': 'Interns in development, CLTs in consolidated careers and specialized freelancers — we open doors for all profiles',
+        'resp-title': 'Social Responsibility:',
+        'resp-desc': 'Inclusion of people with disabilities, LGBTQ+ and ethnic minorities as a real commitment, not as protocol',
+        'local-title': 'Local Development:',
+        'local-desc': 'Investment in the regional economy of southern Brazil and in strengthening the community where we were born',
+        'educ-title': 'Education:',
+        'educ-desc': 'We share knowledge about the job market, artificial intelligence and professional trends — because a wiser community is a stronger community',
+        'h2-promessa': 'Our Promise',
+        'transp-title': '✅ Full Transparency:',
+        'transp-desc': 'You will know exactly what to expect, when to expect it, and why',
+        'profis-title': '✅ Professionalism:',
+        'profis-desc': 'Every interaction will be respectful, ethical and competent',
+        'human-title': '✅ Humanity:',
+        'human-desc': 'We will never forget that behind every vacancy there is a company with dreams, and behind every candidate there is a person with aspirations',
+        'inov-title': '✅ Continuous Innovation:',
+        'inov-desc': 'Always evolving, always learning, always improving — because the market does not stop and neither do we',
+        'p-frase': 'Connecting talent, transforming lives, driving companies — that is the Nexus mission. 🚀',
+        'btn-voltar': 'Back',
+        'btn-contato': 'Contact Us',
+        'footer-tagline': 'We connect talent to real opportunities. Human, agile and efficient recruitment.',
+        'lang-label': 'Language:',
+        'footer-copy': '© 2026 <strong>Nexus Agency</strong>. All rights reserved.'
+      },
+      es: {
+        'header-h1': 'Nuestra Misión',
+        'header-p': 'El propósito que nos guía todos los días',
+        'h2-missao': 'Nuestra Misión',
+        'p-missao1': 'El mundo está en constante transformación — y el reclutamiento junto con él. El proceso selectivo de 2022 ya era diferente al de 2023, que era diferente al de 2024, y así seguirá. Así como el Fordismo tuvo que reinventarse, los RRHH también. Las metodologías envejecen, surgen nuevas realidades, y quien no se adapta se queda atrás.',
+        'p-missao2': 'Nuestra misión va más allá de cerrar vacantes o conectar candidatos con empresas — aunque eso también forma parte de nuestra esencia. La misión de Nexus es más amplia: instruir, preparar, moldear una comunidad más consciente del mundo que ya llegó. La inteligencia artificial no es tendencia, es realidad. Quien no entienda cómo funciona y por qué existe quedará desactualizado. Y no estamos hablando solo de crear imágenes o usar ChatGPT — la IA abarca todo el contexto empresarial en su conjunto.',
+        'p-missao3': 'Nuestra misión es conectar personas con potencial y calificación al mercado laboral, sin jamás renunciar al factor humano. Somos del pueblo para el pueblo. Creemos en la trayectoria, las capacidades, la voluntad, la determinación y la empatía como fuerzas reales que mueven cualquier carrera. El mundo es digital — y necesitamos adentrarnos en esa realidad. Pero sin perder la esencia humana. Hacer lo correcto, practicar el bien, con respeto y empatía.',
+        'em-sintese': '🎯 En síntesis:',
+        'p-sintese': 'Conectar talentos con oportunidades reales, preparar a la comunidad para un mercado en constante evolución y construir puentes genuinos entre personas, empresas y tecnología — con ética, escucha y propósito.',
+        'h2-como': 'Cómo Vivimos Nuestra Misión',
+        'h3-candidatos': 'Para Candidatos',
+        'escuta-title': 'Escucha Activa:',
+        'escuta-desc': 'No existe pregunta correcta o incorrecta con nosotros. Los nervios no eliminan a nadie. Escuchamos la historia de cada persona con técnica, metodología y, sobre todo, humanidad',
+        'opreal-title': 'Oportunidades Reales:',
+        'opreal-desc': 'Te conectamos solo con vacantes que realmente coinciden con tu perfil — sin promesas vacías y sin vacantes falsas',
+        'suporte-title': 'Apoyo Continuo:',
+        'suporte-desc': 'Estamos a tu lado desde la inscripción hasta los primeros días en la empresa. Nuestra red va más allá de las fronteras entre agencia, empresa y candidato — es una conexión de compañerismo continuo',
+        'honestidade-title': 'Honestidad:',
+        'honestidade-desc': 'Retroalimentación siempre sincera y constructiva, incluso cuando la respuesta es negativa. Actuamos como seres humanos, porque allí hay una persona con sueños que deben ser respetados',
+        'acesso-title': 'Acceso Gratuito:',
+        'acesso-desc': 'Sin costo para el candidato. Sin información personal recopilada más allá de lo necesario. No pagas por oportunidad',
+        'h3-empresas': 'Para Empresas',
+        'analise-title': 'Análisis Profundo:',
+        'analise-desc': 'Entendemos tu cultura, tus desafíos y tus objetivos estratégicos antes de cualquier indicación',
+        'prequalif-title': 'Candidatos Pre-Calificados:',
+        'prequalif-desc': 'Recibes solo profesionales que han pasado por análisis conductual y técnico alineado con tu perfil de vacante',
+        'acomppos-title': 'Seguimiento Post-Contratación:',
+        'acomppos-desc': 'Acompañamos la integración del nuevo colaborador para garantizar una llegada exitosa',
+        'consultoria-title': 'Consultoría:',
+        'consultoria-desc': 'No solo llenamos vacantes — ayudamos a pensar y estructurar tus equipos con visión estratégica',
+        'h3-comunidade': 'Para la Comunidad',
+        'optodos-title': 'Oportunidades para Todos:',
+        'optodos-desc': 'Pasantes en desarrollo, empleados en carrera consolidada y freelancers especializados — abrimos puertas para todos los perfiles',
+        'resp-title': 'Responsabilidad Social:',
+        'resp-desc': 'Inclusión de personas con discapacidad, LGBTQ+ y minorías étnicas como compromiso real, no como protocolo',
+        'local-title': 'Desarrollo Local:',
+        'local-desc': 'Inversión en la economía regional del sur de Brasil y en el fortalecimiento de la comunidad donde nacimos',
+        'educ-title': 'Educación:',
+        'educ-desc': 'Compartimos conocimiento sobre el mercado laboral, inteligencia artificial y tendencias profesionales — porque una comunidad más sabia es una comunidad más fuerte',
+        'h2-promessa': 'Nuestra Promesa',
+        'transp-title': '✅ Transparencia Total:',
+        'transp-desc': 'Sabrás exactamente qué esperar, cuándo esperarlo y por qué',
+        'profis-title': '✅ Profesionalismo:',
+        'profis-desc': 'Cada interacción será respetuosa, ética y competente',
+        'human-title': '✅ Humanidad:',
+        'human-desc': 'Nunca olvidaremos que detrás de cada vacante hay una empresa con sueños, y detrás de cada candidato hay una persona con aspiraciones',
+        'inov-title': '✅ Innovación Continua:',
+        'inov-desc': 'Siempre evolucionando, siempre aprendiendo, siempre mejorando — porque el mercado no se detiene y nosotros tampoco',
+        'p-frase': 'Conectar talentos, transformar vidas, impulsar empresas — esa es la misión de Nexus. 🚀',
+        'btn-voltar': 'Volver',
+        'btn-contato': 'Contáctenos',
+        'footer-tagline': 'Conectamos talentos con oportunidades reales. Reclutamiento humano, ágil y eficiente.',
+        'lang-label': 'Idioma:',
+        'footer-copy': '© 2026 <strong>Agencia Nexus</strong>. Todos los derechos reservados.'
+      }
+    };
+
+    function applyTranslationsMissao(lang) {
+      const t = TRANSLATIONS_MISSAO[lang] || TRANSLATIONS_MISSAO['pt'];
+
+      // Header — estrutura real: .header h1 e .header p
+      const h1 = document.querySelector('.header h1');
+      if (h1) h1.textContent = t['header-h1'];
+      const headerP = document.querySelector('.header p');
+      if (headerP) headerP.textContent = t['header-p'];
+
+      // H2 por ID (estrutura real do HTML)
+      const h2Missao = document.getElementById('nossa-missao');
+      if (h2Missao) h2Missao.textContent = t['h2-missao'];
+      const h2Como = document.getElementById('como-vivemos');
+      if (h2Como) h2Como.textContent = t['h2-como'];
+      const h2Promessa = document.getElementById('nossa-promessa');
+      if (h2Promessa) h2Promessa.textContent = t['h2-promessa'];
+
+      // H3 por texto
+      document.querySelectorAll('.content-section h3').forEach(el => {
+        const txt = el.textContent.trim();
+        if (txt.match(/Para Candidatos|For Candidates|Para Candidatos/i)) el.textContent = t['h3-candidatos'];
+        else if (txt.match(/Para Empresas|For Companies|Para Empresas/i)) el.textContent = t['h3-empresas'];
+        else if (txt.match(/Para a Comunidade|For the Community|Para la Comunidad/i)) el.textContent = t['h3-comunidade'];
+      });
+
+      // Parágrafos principais (dentro de .content-section > .content-container > p direto)
+      const contentPs = document.querySelectorAll('.content-container > p');
+      contentPs.forEach(el => {
+        const txt = el.textContent.trim();
+        if (txt.match(/Fordismo|Fordism|fordismo/i)) el.textContent = t['p-missao1'];
+        else if (txt.match(/fechar vagas|closing vacancies|cerrar vacantes/i)) el.textContent = t['p-missao2'];
+        else if (txt.match(/fator humano|human factor|factor humano/i)) el.textContent = t['p-missao3'];
+      });
+
+      // highlight-box: Em síntese + texto da promessa
+      // A página tem 2 .highlight-box: 1a = Em síntese, 2a = Promessa
+      const highlightBoxes = document.querySelectorAll('.highlight-box');
+      if (highlightBoxes[0]) {
+        // "Em síntese: texto..."
+        highlightBoxes[0].innerHTML = '<strong>' + t['em-sintese'] + '</strong> ' + t['p-sintese'];
+      }
+      if (highlightBoxes[1]) {
+        highlightBoxes[1].innerHTML =
+          '<strong>' + t['transp-title'] + '</strong> ' + t['transp-desc'] + '<br><br>' +
+          '<strong>' + t['profis-title'] + '</strong> ' + t['profis-desc'] + '<br><br>' +
+          '<strong>' + t['human-title'] + '</strong> ' + t['human-desc'] + '<br><br>' +
+          '<strong>' + t['inov-title'] + '</strong> ' + t['inov-desc'];
+      }
+
+      // Frase final (p com font-weight: 600 e strong dentro)
+      document.querySelectorAll('.content-container p').forEach(el => {
+        if (el.textContent.trim().match(/Conectar talentos, transformar vidas|Connecting talent, transforming|Conectar talentos, transformar vidas/i)) {
+          el.innerHTML = '<strong>' + t['p-frase'] + '</strong>';
+        }
+      });
+
+      // Lists: .highlight-list li — cada <li> tem <strong>Título:</strong> texto
+      const listItems = document.querySelectorAll('.highlight-list li');
+      const liMap = [
+        ['escuta', /Escuta Ativa|Active Listening|Escucha Activa/i],
+        ['opreal', /Oportunidades Reais|Real Opportunities|Oportunidades Reales/i],
+        ['suporte', /Suporte Contínuo|Ongoing Support|Apoyo Continuo/i],
+        ['honestidade', /Honestidade|Honesty/i],
+        ['acesso', /Acesso Gratuito|Free Access|Acceso Gratuito/i],
+        ['analise', /Análise Profunda|Deep Analysis|Análisis Profundo/i],
+        ['prequalif', /Candidatos Pré-Qualificados|Pre-Qualified|Pre-Calificados/i],
+        ['acomppos', /Acompanhamento Pós|Post-Hiring|Seguimiento Post/i],
+        ['consultoria', /Consultoria|Consulting|Consultoría/i],
+        ['optodos', /Oportunidades para Todos|Opportunities for All/i],
+        ['resp', /Responsabilidade Social|Social Responsibility/i],
+        ['local', /Desenvolvimento Local|Local Development|Desarrollo Local/i],
+        ['educ', /Educação|Education|Educación/i],
+      ];
+      listItems.forEach(li => {
+        const strong = li.querySelector('strong');
+        if (!strong) return;
+        const txt = strong.textContent.trim();
+        liMap.forEach(([key, re]) => {
+          if (re.test(txt)) {
+            li.innerHTML = '<strong>' + t[key+'-title'] + '</strong> ' + t[key+'-desc'];
+          }
+        });
+      });
+
+      // Buttons
+      document.querySelectorAll('a.btn').forEach(btn => {
+        const txt = btn.textContent.trim();
+        if (txt.match(/^(Voltar|Back|Volver)$/)) btn.textContent = t['btn-voltar'];
+        if (txt.match(/^(Fale Conosco|Contact Us|Contáctenos)$/)) btn.textContent = t['btn-contato'];
+      });
+
+      // Footer
+      const tagline = document.querySelector('.footer-tagline');
+      if (tagline) tagline.textContent = t['footer-tagline'];
+      const langLabel = document.querySelector('[data-i18n="lang-label"]');
+      if (langLabel) langLabel.textContent = t['lang-label'];
+      const footerCopy = document.querySelector('.footer-copy');
+      if (footerCopy) footerCopy.innerHTML = t['footer-copy'];
+
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) selector.value = savedLang;
+      applyTranslationsMissao(savedLang);
+    }
+
+    function changeLanguage(lang) {
+      localStorage.setItem('siteLanguage', lang);
+      applyTranslationsMissao(lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
 </script>
 </body>
 </html>

@@ -21,9 +21,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
   <!-- Título e Descrição -->
-  <title>Serviços | Agência Nexus – Soluções em Recrutamento</title>
-  <meta name="description" content="Descubra os serviços completos da Agência Nexus: recrutamento, seleção, testes comportamentais, consultoria RH e soluções personalizadas para empresas e candidatos." />
-  <meta name="keywords" content="serviços, recrutamento, seleção, consultoria RH, testes comportamentais, candidatos, empresas, processos seletivos" />
+  <title>LGBT+ | Agência Nexus – Inclusão e Diversidade</title>
+  <meta name="description" content="Conheça a missão da Agência Nexus: conectar profissionais a oportunidades de emprego reais, promovendo processos seletivos eficientes e desenvolvimento de carreira." />
+  <meta name="keywords" content="missão, recrutamento, seleção, consultoria RH, desenvolvimento profissional, oportunidades de emprego" />
 
   <!-- Meta Tags de Rastreamento -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -34,10 +34,10 @@
 
   <!-- Open Graph (Redes Sociais) -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Serviços | Agência Nexus" />
-  <meta property="og:description" content="Oferecemos soluções completas em recrutamento, seleção, testes comportamentais e consultoria RH para candidatos e empresas." />
-  <meta property="og:url" content="https://agencianexus.github.io/agencianexus/servicos.html" />
-  <meta property="og:image" content="https://agencianexus.github.io/agencianexus/og-image-servicos.png" />
+  <meta property="og:title" content="Missão | Agência Nexus" />
+  <meta property="og:description" content="Descubra a missão da Agência Nexus em conectar talentos a oportunidades reais e promover processos seletivos eficientes." />
+  <meta property="og:url" content="https://agencia-nexus.github.io/AgenciaNexus/missao.html" />
+  <meta property="og:image" content="https://agencia-nexus.github.io/AgenciaNexus/og-image-missao.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="pt_BR" />
@@ -45,59 +45,60 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Serviços | Agência Nexus" />
-  <meta name="twitter:description" content="Conheça todos os serviços da Agência Nexus em recrutamento, seleção, consultoria RH e testes comportamentais." />
-  <meta name="twitter:image" content="https://agencianexus.github.io/agencianexus/og-image-servicos.png" />
+  <meta name="twitter:title" content="Missão | Agência Nexus" />
+  <meta name="twitter:description" content="Saiba como a Agência Nexus conecta profissionais a oportunidades de emprego reais e promove processos seletivos eficientes." />
+  <meta name="twitter:image" content="https://agencia-nexus.github.io/AgenciaNexus/og-image-missao.png" />
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://agencianexus.github.io/agencianexus/servicos.html" />
+  <link rel="canonical" href="https://agencia-nexus.github.io/AgenciaNexus/missao.html" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
   <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
-  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
   <link rel="apple-touch-icon" href="../imagens/icone.png" />
 </head>
+
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
-/* ======================================== */
-/* BOTOES DO TOPO - MODO PADRÃO (ESCURO) */
-/* ======================================== */
+html.dark-mode body {
+  background: #0a0a0a;
+  color: #f0f0f0;
+}
+    
 .back-button,
 .menu-toggle,
 .theme-toggle {
-  background: rgba(0, 0, 0, 0.2); /* fundo leve escuro */
-  border: 2px solid rgba(255, 255, 255, 0.4); /* borda clara */
-  color: white; /* texto branco */
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: white;
   transition: all 0.3s ease;
 }
-html.dark-mode body {
-  background: #0a0a0a !important;
-  color: #f0f0f0 !important;
-}
-    
+
 .back-button:hover,
 .menu-toggle:hover,
 .theme-toggle:hover {
-  background: rgba(30, 64, 175, 0.5); /* hover verde escuro */
+  background: rgba(79, 114, 20, 0.4);
   transform: scale(1.05);
 }
 
-/* ======================================== */
-/* BOTOES DO TOPO - MODO CLARO */
-/* ======================================== */
 body:not(.dark-mode) .back-button,
 body:not(.dark-mode) .menu-toggle,
 body:not(.dark-mode) .theme-toggle {
-  background: rgba(255, 255, 255, 0.2); /* fundo leve claro */
-  border: 2px solid rgba(0, 0, 0, 0.4); /* borda escura */
-  color: rgb(27, 27, 27); /* texto vermelho escuro */
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  color: rgb(27, 27, 27);
+}
+body:not(.dark-mode) .theme-toggle {
+  height: 50px;
+  min-width: 50px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  transform: none;
 }
 
 body:not(.dark-mode) .back-button:hover,
@@ -106,17 +107,23 @@ body:not(.dark-mode) .theme-toggle:hover {
   color: white;
 }
 
-/* confg bulets chatbot*/
-/* Espaço interno para listas dentro do chatbot */
+body.chat-open .chatbot-button {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+  transition: 0.3s ease;
+}
+    
+
 .chatbot-messages ul,
 .chatbot-messages ol {
-  padding-left: 1.2rem;  /* distancia os bullets da borda */
-  margin-bottom: 1rem;   /* separa da próxima mensagem */
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
   color: var(--text-light);
 }
 
 .chatbot-messages li {
-  margin-bottom: 0.4rem; /* espaço entre itens da lista */
+  margin-bottom: 0.4rem;
   line-height: 1.5;
 }
 
@@ -125,11 +132,9 @@ body.dark-mode .chatbot-messages ol {
   color: #f0f0f0;
 }
 
-/* confg bulets chatbot*/
-
     :root {
-      --primary: #4F7214;
-      --accent: #647C01;
+      --primary: #3b82f6;
+      --accent: #60a5fa;
       --bg-light: #ffffff;
       --text-light: #1a1a1a;
       --bg-dark: #0a0a0a;
@@ -150,17 +155,13 @@ body.dark-mode .chatbot-messages ol {
       display: none !important;
     }
 
-    /* ================================================================= */
-    /* ESCONDER BOTÕES QUANDO MENU ESTÁ ABERTO                         */
-    /* ================================================================= */
     body.menu-open .back-button,
     body.menu-open .menu-toggle,
     body.menu-open .theme-toggle {
       display: none !important;
-          pointer-events: none !important;
+        pointer-events: none !important;
 
     }
-    /* ================================================================= */
 
     body.scrolling .theme-toggle,
     body.scrolling .back-button,
@@ -174,7 +175,6 @@ body.dark-mode .chatbot-messages ol {
       color: var(--text-dark);
     }
 
-    /* OVERLAY MENU */
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -193,9 +193,8 @@ body.dark-mode .chatbot-messages ol {
       opacity: 1;
     }
 
-    /* Header */
     .header {
-      background: linear-gradient(135deg, #FF006E, #FB5607, #FFBE0B, #8338EC);
+      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
       padding: 3rem 2rem;
       text-align: center;
       color: white;
@@ -216,6 +215,20 @@ body.dark-mode .chatbot-messages ol {
     @media (max-width: 480px) {
       .header {
         min-height: 250px;
+      }
+
+      .back-button,
+      .menu-toggle,
+      .topics-toggle-mobile {
+        padding: 0.8rem 1rem !important;
+        font-size: 0.9rem;
+        height: 50px;
+        width: fit-content !important;
+        min-width: 0 !important;
+      }
+
+      .btn {
+        min-width: auto;
       }
     }
 
@@ -251,7 +264,6 @@ body.dark-mode .chatbot-messages ol {
       animation: fadeInUp 1s ease-out 0.3s both;
     }
 
-    /* Theme Toggle */
     .theme-toggle {
       position: fixed;
       top: 2rem;
@@ -280,69 +292,64 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .btn-secondary {
-  background: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-}
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
 
-body.dark-mode .btn-secondary {
-  color: #ffffff;
-  border-color: #ffffff;
-  background: transparent;
-}
+    body.dark-mode .btn-secondary {
+      color: #ffffff;
+      border-color: #ffffff;
+      background: transparent;
+    }
 
-.btn-secondary:hover {
-  background: var(--primary);
-  color: white;
-}
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
 
-body.dark-mode .btn-secondary:hover {
-  background: #ffffff;
-  color: var(--primary);
-}
+    body.dark-mode .btn-secondary:hover {
+      background: #ffffff;
+      color: var(--primary);
+    }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: white;
-}
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
 
-body.dark-mode .btn-primary {
-  background: linear-gradient(135deg, #90EE90, #7CFC00);
-  color: #000000;
-}
+    body.dark-mode .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      color: #000000;
+    }
 
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(79, 114, 20, 0.3);
-}
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+    }
 
-body.dark-mode .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(144, 238, 144, 0.4);
-}
+    body.dark-mode .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+    }
 
-.btn {
-  padding: 1rem 2.5rem;
-  border: none;
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  display: inline-block;
-  text-decoration: none;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-}
+    .btn {
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      display: inline-block;
+      text-decoration: none;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+    }
 
-
-    /* Back Button */
-    .back-button {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      z-index: 1000;
+    .back-button,
+    .topics-toggle-mobile {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -356,9 +363,10 @@ body.dark-mode .btn-primary:hover {
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
       height: 50px;
       justify-content: center;
+      white-space: nowrap;
+      margin: 0;
     }
 
     .back-button:hover {
@@ -367,11 +375,8 @@ body.dark-mode .btn-primary:hover {
     }
 
     /* Menu Toggle */
-    .menu-toggle {
-      position: fixed;
-      top: 2rem;
-      left: calc(2rem + 105px);
-      z-index: 1000;
+    .menu-toggle,
+    .topics-toggle-mobile {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
@@ -383,10 +388,11 @@ body.dark-mode .btn-primary:hover {
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 80px;
+      white-space: nowrap;
+      margin: 0;
     }
 
     .menu-toggle:hover {
@@ -394,7 +400,6 @@ body.dark-mode .btn-primary:hover {
       transform: scale(1.05);
     }
 
-    /* Menu Content */
     .menu-content {
       position: fixed;
       top: 0;
@@ -464,7 +469,6 @@ body.dark-mode .btn-primary:hover {
       background: rgba(79, 114, 20, 0.2);
     }
 
-    /* Content Section */
     .content-section {
       max-width: 1000px;
       margin: 3rem auto;
@@ -489,7 +493,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     .content-container h2 {
-      color: #FF006E;
+      color: var(--primary);
       margin-top: 2.5rem;
       margin-bottom: 1rem;
       font-size: 1.8rem;
@@ -508,12 +512,12 @@ body.dark-mode .btn-primary:hover {
       left: 0;
       width: 60px;
       height: 4px;
-      background: linear-gradient(90deg, #FF006E, #FB5607);
+      background: linear-gradient(90deg, var(--primary), var(--accent));
       border-radius: 2px;
     }
 
     .content-container h3 {
-      color: #FB5607;
+      color: var(--accent);
       margin-top: 1.5rem;
       margin-bottom: 0.8rem;
       font-size: 1.2rem;
@@ -522,8 +526,8 @@ body.dark-mode .btn-primary:hover {
     .content-container p {
       color: var(--text-light);
       margin-bottom: 1rem;
-      text-align: justify;
-      text-justify: inter-word;
+      
+      
       hyphens: auto;
       -webkit-hyphens: auto;
       -ms-hyphens: auto;
@@ -550,21 +554,21 @@ body.dark-mode .btn-primary:hover {
       content: '✓';
       position: absolute;
       left: 0;
-      color: #FF006E;
+      color: var(--primary);
       font-weight: bold;
       font-size: 1.2rem;
     }
 
     .highlight-box {
-      background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(251, 86, 7, 0.05));
-      border-left: 4px solid #FF006E;
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.1), rgba(59, 130, 246, 0.05));
+      border-left: 4px solid var(--primary);
       padding: 1.5rem;
       margin: 1.5rem 0;
       border-radius: 8px;
     }
 
     body.dark-mode .highlight-box {
-      background: linear-gradient(135deg, rgba(79, 114, 20, 0.15), rgba(100, 124, 1, 0.1));
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.15), rgba(59, 130, 246, 0.1));
     }
 
     .values-grid {
@@ -575,25 +579,25 @@ body.dark-mode .btn-primary:hover {
     }
 
     .value-card {
-      background: linear-gradient(135deg, rgba(255, 0, 110, 0.05), rgba(251, 86, 7, 0.05));
-      border: 2px solid rgba(255, 0, 110, 0.2);
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.05), rgba(59, 130, 246, 0.05));
+      border: 2px solid rgba(79, 114, 20, 0.2);
       border-radius: 15px;
       padding: 1.5rem;
       transition: all 0.3s ease;
     }
 
     body.dark-mode .value-card {
-      background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(251, 86, 7, 0.1));
-      border-color: rgba(255, 0, 110, 0.3);
+      background: linear-gradient(135deg, rgba(79, 114, 20, 0.1), rgba(59, 130, 246, 0.1));
+      border-color: rgba(79, 114, 20, 0.3);
     }
 
     .value-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(255, 0, 110, 0.15);
+      box-shadow: 0 10px 30px rgba(79, 114, 20, 0.15);
     }
 
     .value-card h4 {
-      color: #FF006E;
+      color: var(--primary);
       margin-bottom: 0.8rem;
       font-size: 1.1rem;
       display: flex;
@@ -607,7 +611,6 @@ body.dark-mode .btn-primary:hover {
       margin-bottom: 0;
     }
 
-    /* CHATBOT */
     .chatbot-button {
       position: fixed;
       bottom: 2rem;
@@ -615,14 +618,14 @@ body.dark-mode .btn-primary:hover {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #FF006E, #FB5607);
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2rem;
-      box-shadow: 0 4px 20px rgba(255, 0, 110, 0.4);
+      box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
       transition: all 0.3s ease;
       animation: float 3s ease-in-out infinite;
       z-index: 100;
@@ -630,7 +633,7 @@ body.dark-mode .btn-primary:hover {
 
     .chatbot-button:hover {
       transform: scale(1.1);
-      box-shadow: 0 6px 30px rgba(255, 0, 110, 0.6);
+      box-shadow: 0 6px 30px rgba(79, 114, 20, 0.6);
     }
 
     .chatbot-button.active {
@@ -656,12 +659,7 @@ body.dark-mode .btn-primary:hover {
       z-index: 99;
     }
 
-    #chatbotBtn.active {
-      display: none;
-    }
-
     body.dark-mode .chatbot-window {
-      bottom: 1.5rem;
       background: #1e1e1e;
     }
 
@@ -670,7 +668,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     .chatbot-header {
-      background: linear-gradient(135deg, #FF006E, #FB5607);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       padding: 1rem;
       border-radius: 15px 15px 0 0;
@@ -702,86 +700,35 @@ body.dark-mode .btn-primary:hover {
     .close-chatbot:hover {
       transform: rotate(90deg);
     }
-
     .ai-toggle-wrap {
-      display: flex;
-      align-items: center;
-      gap: 7px;
+      display: flex; align-items: center; gap: 7px;
       padding: 4px 10px 4px 6px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 20px;
-      cursor: pointer;
-      border: 1.5px solid rgba(255,255,255,0.3);
-      transition: all 0.25s;
-      user-select: none;
+      background: rgba(255,255,255,0.15); border-radius: 20px;
+      cursor: pointer; border: 1.5px solid rgba(255,255,255,0.3);
+      transition: all 0.25s; user-select: none;
     }
     .ai-toggle-wrap:hover { background: rgba(255,255,255,0.25); }
-    .ai-toggle-wrap.ai-on {
-      background: rgba(255,255,255,0.25);
-      border-color: rgba(255,255,255,0.6);
-      box-shadow: 0 0 10px rgba(255,255,255,0.2);
-    }
-    .ai-toggle-switch {
-      position: relative;
-      width: 30px;
-      height: 16px;
-      background: rgba(0,0,0,0.25);
-      border-radius: 8px;
-      transition: background 0.25s;
-      flex-shrink: 0;
-    }
+    .ai-toggle-wrap.ai-on { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+    .ai-toggle-switch { position: relative; width: 30px; height: 16px; background: rgba(0,0,0,0.25); border-radius: 8px; transition: background 0.25s; flex-shrink: 0; }
     .ai-toggle-wrap.ai-on .ai-toggle-switch { background: rgba(255,255,255,0.5); }
-    .ai-toggle-switch::after {
-      content: '';
-      position: absolute;
-      top: 2px; left: 2px;
-      width: 12px; height: 12px;
-      background: white;
-      border-radius: 50%;
-      transition: transform 0.25s;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
+    .ai-toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; background: white; border-radius: 50%; transition: transform 0.25s; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
     .ai-toggle-wrap.ai-on .ai-toggle-switch::after { transform: translateX(14px); }
-    .ai-toggle-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: white;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-    }
-    .ai-mode-badge {
-      display: none;
-      font-size: 0.65rem;
-      background: rgba(255,255,255,0.25);
-      color: white;
-      border-radius: 10px;
-      padding: 1px 7px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      animation: pulseBadge 2s infinite;
-    }
-/* Badge da IA */
-.ai-on .ai-mode-badge { 
-    display: inline-block; 
-}
+    .ai-toggle-label { font-size: 0.7rem; font-weight: 700; color: white; letter-spacing: 0.3px; white-space: nowrap; }
+    .ai-mode-badge { display: none; font-size: 0.65rem; background: rgba(255,255,255,0.25); color: white; border-radius: 10px; padding: 1px 7px; font-weight: 700; letter-spacing: 0.5px; animation: pulseBadge 2s infinite; }
+    .ai-on .ai-mode-badge { display: inline-block; }
+    @keyframes pulseBadge { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
 
-/* Animação de pulsação */
-@keyframes pulseBadge {
-    0%, 100% { opacity: 1; } 
-    50% { opacity: 0.6; }
-} /* <-- Faltava fechar essa chave */
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      scroll-behavior: smooth;
+    }
 
-/* Seletor do container (provavelmente o chat-container ou wrapper) */
-.chat-container { 
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.5rem;
-    background: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    scroll-behavior: smooth;
-}
     body.dark-mode .chatbot-messages {
       background: #0a0a0a;
     }
@@ -832,7 +779,7 @@ body.dark-mode .btn-primary:hover {
     }
 
     .message.user .message-content {
-      background: linear-gradient(135deg, #FF006E, #FB5607);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
     }
 
@@ -849,8 +796,8 @@ body.dark-mode .btn-primary:hover {
 
     .quick-btn {
       background: white;
-      border: 2px solid #FF006E;
-      color: #FF006E;
+      border: 2px solid var(--primary);
+      color: var(--primary);
       padding: 0.8rem 1.2rem;
       border-radius: 8px;
       cursor: pointer;
@@ -868,11 +815,11 @@ body.dark-mode .btn-primary:hover {
 
     body.dark-mode .quick-btn {
       background: #2a2a2a;
-      border-color: #FF006E;
+      border-color: var(--primary);
     }
 
     .quick-btn:hover {
-      background: #FF006E;
+      background: var(--primary);
       color: white;
       transform: translateX(5px);
     }
@@ -905,11 +852,11 @@ body.dark-mode .btn-primary:hover {
 
     .chatbot-input:focus {
       outline: none;
-      border-color: #FF006E;
+      border-color: var(--primary);
     }
 
     .chatbot-send-btn {
-      background: linear-gradient(135deg, #FF006E, #FB5607);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       border: none;
       border-radius: 8px;
@@ -927,7 +874,77 @@ body.dark-mode .btn-primary:hover {
       transform: scale(1.05);
     }
 
-    /* Responsivo */
+    /* ESTILO BASE - garante que a imagem sempre aparece */
+   .header-bg-img {
+        position: absolute;
+        left: -5.5%;
+        top: 77%;
+        transform: translateY(-50%);
+        width: 250px;
+        height: 250px;
+        z-index: 0;
+        opacity: 0.9;
+      }
+
+  @media (min-width: 1024px) {
+    .header { min-height: 220px; }
+    .header-bg-img {
+      position: absolute;
+      left: -1.5%;
+      top: 77%;
+      transform: translateY(-50%);
+      width: 250px;
+      height: 250px;
+      z-index: 0;
+      opacity: 0.9;
+    }
+
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* MOBILE - 768px ou menos */
+    @media (max-width: 768px) {
+     .header-bg-img {
+        position: absolute !important;
+        width: 200px !important;
+        height: 200px !important;
+        top: -160px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 0 !important;
+        opacity: 0.9 !important;
+      }
+    }
+
+    /* MOBILE PEQUENO - 480px ou menos */
+    @media (max-width: 480px) {
+      .header-bg-img {
+        position: absolute;
+        left: 50%;
+        top: -100%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: auto;
+        z-index: 0;
+        opacity: 0.9;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+        margin-top: 150px;
+        text-align: center;
+      }
+    }
+
     @media (max-width: 768px) {
       .header h1 {
         font-size: 2rem;
@@ -937,11 +954,7 @@ body.dark-mode .btn-primary:hover {
         font-size: 1rem;
       }
 
-      .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 90px);
-      }
+
 
       .chatbot-window {
         width: 90vw;
@@ -966,14 +979,10 @@ body.dark-mode .btn-primary:hover {
         font-size: 0.9rem;
       }
 
-      .menu-toggle {
-        position: fixed;
-        top: 2rem;
-        left: calc(2rem + 85px);
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
+      .menu-toggle { padding: 0.8rem 1rem; font-size: 0.9rem; }
+
+      .btn {
         min-width: auto;
-        height: 50px;
       }
 
       .theme-toggle {
@@ -1002,82 +1011,6 @@ body.dark-mode .btn-primary:hover {
         padding: 0.9rem 1.5rem;
         font-size: 0.95rem;
         margin-bottom: 0.5rem;
-      }
-    }
-
-    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
-    /* DESKTOP - 1024px ou mais */
-    /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
-    .header-bg-img {
-        position: absolute;
-        left: -5.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
-      }
-
-    @media (min-width: 1024px) {
-      .header { min-height: 220px; }
-    .header-bg-img {
-        position: absolute;
-        left: -5.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
-      }
-
-      .header-content {
-        position: relative;
-        z-index: 1;
-        max-width: 1200px;
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-      }
-    }
-    @media (max-width: 768px) {
-      .header { min-height: 290px; }
-      .header-bg-img {
-        position: absolute !important;
-        width: 200px !important;
-        height: 200px !important;
-        top: -160px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 0 !important;
-        opacity: 0.9 !important;
-      }
-    }
-    @media (max-width: 480px) {
-      .header { min-height: 250px; }
-      .header-bg-img {
-        position: absolute;
-        left: 50%;
-        top: -100%;
-        transform: translateX(-50%);
-        width: 120px;
-        height: auto;
-        z-index: 0;
-        opacity: 0.9;
-      }
-      .header-content {
-        position: relative;
-        z-index: 1;
-        margin-top: 125px;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .content-container p {
-        word-spacing: -0.05em;
-        hyphens: auto;
       }
     }
 
@@ -1112,122 +1045,7 @@ body.dark-mode .btn-primary:hover {
       }
     }
 
-.chat-safe {
-  max-width: 700px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: rgba(255,255,255,0.05);
-  border-radius: 16px;
-}
-
-.chat-subtitle {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  opacity: 0.8;
-}
-
-.chat-box {
-  background: #f9f9f9;
-  border-radius: 12px;
-  padding: 1rem;
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  border: 2px solid #FF006E;
-}
-
-body.dark-mode .chat-box {
-  border: 2px solid #FB5607;
-}
-
-@media (max-width: 480px) {
-  .chat-safe h2 {
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .chat-safe h2 {
-    text-align: center;
-  }
-
-  .chat-subtitle {
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .chat-box {
-    max-height: 60vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .chat-box {
-    max-height: 50vh;
-    padding: 0.8rem;
-  }
-
-  .chat-options {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .chat-options button {
-    flex: 1 1 100%;
-    font-size: 0.9rem;
-    padding: 0.6rem;
-  }
-}
-
-.chat-message {
-  padding: 0.6rem 0.8rem;
-  margin-bottom: 0.6rem;
-  border-radius: 10px;
-  max-width: 85%;
-  font-size: 0.95rem;
-}
-
-.chat-message.bot {
-  background: #e6e6e6;
-}
-
-body.dark-mode .chat-message.bot {
-  background: #2a2a2a;
-}
-
-.chat-message.user {
-  background: #4F7214;
-  color: white;
-  margin-left: auto;
-}
-
-.chat-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.chat-options button {
-  background: linear-gradient(135deg, #FF006E, #FB5607);
-  color: white;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  padding: 0.7rem;
-  transition: transform 0.2s, background 0.3s;
-}
-
-.chat-options button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #FB5607, #FF006E);
-}
-
-body.dark-mode .chat-options button {
-  background: linear-gradient(135deg, #FF8FB1, #FF6F00);
-  color: #fff;
-}
-    .message-content p { margin: 0 0 0.55rem 0; line-height: 1.55; }
+.message-content p { margin: 0 0 0.55rem 0; line-height: 1.55; }
 .message-content p:last-child { margin-bottom: 0; }
 .message-content strong { font-weight: 700; }
 .message-content ul { padding-left: 1.2rem; margin: 0.3rem 0 0.6rem; }
@@ -1241,7 +1059,6 @@ body.dark-mode .chat-options button {
 .chip { background: white; border: 1.5px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; white-space: nowrap; }
 body.dark-mode .chip { background: #2a2a2a; }
 .chip:hover { background: var(--primary); color: white; transform: translateY(-1px); }
-
 
     .scroll-top-btn {
     position: fixed;
@@ -1275,7 +1092,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(30,64,175,0.7);
   }
-  
+
     /* ══ FOOTER PROFISSIONAL ══ */
     footer {
       --ft-bg:            #f2f5ee;
@@ -1290,8 +1107,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       --ft-copy:          rgba(0, 0, 0, 0.38);
       --ft-copy-strong:   rgba(0, 0, 0, 0.58);
       --ft-badge:         rgba(0, 0, 0, 0.3);
-      --ft-accent:        #FF006E;
-      --ft-title:         #FF006E;
+      --ft-accent:        #1e40af;
+      --ft-title:         #1e40af;
 
       background: var(--ft-bg);
       color: var(--ft-text);
@@ -1313,8 +1130,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       --ft-copy:          rgba(255, 255, 255, 0.3);
       --ft-copy-strong:   rgba(255, 255, 255, 0.5);
       --ft-badge:         rgba(255, 255, 255, 0.25);
-      --ft-accent:        #FF8FB1;
-      --ft-title:         #FF8FB1;
+      --ft-accent:        #3b82f6;
+      --ft-title:         #3b82f6;
     }
 
     .footer-top {
@@ -1382,8 +1199,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       color: var(--ft-muted);
     }
     .footer-social-link:hover {
-      background: rgba(255,0,110,0.12);
-      border-color: rgba(255,0,110,0.35);
+      background: rgba(96,165,250,0.12);
+      border-color: rgba(96,165,250,0.35);
       color: var(--ft-accent);
       transform: translateY(-2px);
     }
@@ -1464,46 +1281,774 @@ body.dark-mode .chip { background: #2a2a2a; }
       gap: 0.35rem;
     }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
-  </style>
+  
+    /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
+    .top-left-buttons {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .topics-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    body:not(.dark-mode) .topics-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+
+    body:not(.dark-mode) .topics-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons {
+      display: none !important;
+    }
+
+    body.scrolling .top-left-buttons {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .topics-dropdown {
+      position: fixed;
+      top: calc(2rem + 58px);
+      left: 2rem;
+      z-index: 1001;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0;
+      min-width: 210px;
+      display: none;
+      flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+
+    body.dark-mode .topics-dropdown {
+      background: #1a1a1a;
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .topics-dropdown.open { display: flex; }
+
+    .topics-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: transparent;
+    }
+    .topics-overlay.open { display: block; }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block;
+      padding: 0.65rem 1.1rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.18s ease;
+    }
+
+    body.dark-mode .topics-link { color: #f0f0f0; }
+
+    .topics-link:hover {
+      background: rgba(30, 64, 175, 0.1);
+      color: #1e40af;
+      padding-left: 1.4rem;
+    }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown { display: none !important; }
+
+    .topics-toggle-mobile { display: none; }
+    .topics-dropdown-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
+
+           @media (max-width: 768px) {
+  .topics-toggle { display: none !important; }
+  .topics-toggle-mobile { display: inline-flex !important; }
+
+  .menu-toggle { margin-left: -3px; }
+  .topics-toggle-mobile { margin-left: 0px; }
+}
+
+      body:not(.dark-mode) .topics-toggle-mobile {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(0, 0, 0, 0.4);
+        color: rgb(27, 27, 27);
+      }
+
+      body:not(.dark-mode) .topics-toggle-mobile:hover {
+        color: white;
+        background: rgba(30, 64, 175, 0.4);
+      }
+
+      .topics-dropdown-mobile {
+        position: fixed;
+        top: calc(2rem + 116px);
+        left: 2rem;
+        z-index: 1001;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0;
+        min-width: 210px;
+        flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+
+      body.dark-mode .topics-dropdown-mobile {
+        background: #1a1a1a;
+        border-color: rgba(255,255,255,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      }
+
+      .topics-dropdown-mobile.open { display: flex; }
+
+      .topics-link-mobile {
+        display: block;
+        padding: 0.65rem 1.1rem;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: all 0.18s ease;
+      }
+
+      body.dark-mode .topics-link-mobile { color: #f0f0f0; }
+
+      .topics-link-mobile:hover {
+        background: rgba(30, 64, 175, 0.1);
+        color: #1e40af;
+        padding-left: 1.4rem;
+      }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile { display: none !important; }
+    }
+
+    /* TRADUTOR */
+    .top-right-buttons {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+    .top-right-buttons * {
+      pointer-events: auto;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+      position: static;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Botão Tradutor em Voz */
+    .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      white-space: nowrap;
+    }
+    .voice-translator-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    body:not(.dark-mode) .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+    body:not(.dark-mode) .voice-translator-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+    .voice-translator-toggle.listening {
+      background: rgba(239, 68, 68, 0.35) !important;
+      border-color: rgba(239, 68, 68, 0.8) !important;
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-mic {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+    }
+
+    /* Painel do tradutor */
+    /* === PAINEL TRADUTOR — REDESIGN === */
+    .voice-translator-panel {
+      position: fixed;
+      top: calc(2rem + 120px);
+      right: 1.2rem;
+      z-index: 1001;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+      padding: 1.4rem 1.5rem 1.6rem;
+      width: min(340px, calc(100vw - 2.4rem));
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+      border: 1px solid rgba(0,0,0,0.06);
+      animation: dropIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    body.dark-mode .voice-translator-panel {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3);
+      color: #f0f0f0;
+    }
+    .voice-translator-panel.open { display: flex; }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Abas */
+    .vt-tabs {
+      display: flex;
+      gap: 5px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 4px;
+    }
+    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
+    .vt-tab {
+      flex: 1;
+      padding: 9px 12px;
+      border: none;
+      border-radius: 9px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .vt-tab.active {
+      background: #ffffff;
+      color: #3b82f6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .vt-tab.active {
+      background: #2c2c2e;
+      color: #60a5fa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .vt-tab { color: #888; }
+
+    /* Label */
+    .vt-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #3b82f6;
+      margin-bottom: 0px;
+    }
+
+    /* Linha de idiomas */
+    .vt-lang-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .vt-lang-row select {
+      flex: 1;
+      padding: 9px 14px;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      font-size: 0.82rem;
+      font-family: inherit;
+      background: #f5f5f7;
+      cursor: pointer;
+      color: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
+    }
+    .vt-lang-row select:focus { border-color: #3b82f6; }
+    body.dark-mode .vt-lang-row select {
+      border-color: rgba(255,255,255,0.12);
+      background: #2c2c2e;
+      color: #f0f0f0;
+    }
+
+    /* Botão trocar */
+    .vt-swap-btn {
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      color: #3b82f6;
+    }
+    .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
+
+    /* Áreas de texto */
+    .vt-text-area {
+      font-size: 0.87rem;
+      line-height: 1.6;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f5f5f7;
+      min-height: 60px;
+      word-break: break-word;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
+    }
+    body.dark-mode .vt-text-area { background: #2c2c2e; border-color: rgba(255,255,255,0.05); }
+    .vt-text-area.placeholder { color: #aaa; font-style: italic; }
+
+    /* Botão mic principal */
+    .vt-mic-btn {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 13px 24px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+    }
+    .vt-mic-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37,99,235,0.45);
+    }
+    .vt-mic-btn.active {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      box-shadow: 0 4px 14px rgba(220,38,38,0.4);
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+
+    /* Status */
+    .vt-status {
+      font-size: 0.73rem;
+      text-align: center;
+      color: #999;
+      line-height: 1.4;
+    }
+
+    /* Botão falar/parar */
+    .vt-speak-btn {
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.35);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      color: #3b82f6;
+      transition: all 0.25s;
+      display: none;
+      align-items: center;
+      gap: 5px;
+    }
+    .vt-speak-btn:hover { background: #3b82f6; color: white; }
+    .vt-speak-btn.show { display: flex; }
+
+    /* Configurações */
+    .vt-settings { font-size: 0.78rem; }
+    .vt-settings summary {
+      cursor: pointer;
+      color: #999;
+      padding: 3px 0;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .vt-settings summary:hover { color: #3b82f6; }
+    .vt-settings-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px 0 2px;
+    }
+    .vt-settings-body label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: inherit;
+    }
+    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
+
+    /* Narrar progresso */
+    .vt-narrate-progress {
+      height: 5px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.78rem;
+      color: #888;
+      min-height: 36px;
+      padding: 4px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 9px 14px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 70vh;
+        border-radius: 18px;
+        padding: 1.2rem 1.3rem 1.5rem;
+      }
+    }
+
+    body.chat-open .top-right-buttons,
+    body.menu-open .top-right-buttons { display: none !important; }
+    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+    /* Select voz narrador */
+
+    /* ── SELETOR DE IDIOMA ── */
+    .footer-language-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+    .footer-language-selector label {
+      color: var(--ft-copy);
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .footer-language-selector select {
+      padding: 0.6rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      color: #333;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 140px;
+    }
+    .footer-language-selector select option {
+      padding: 0.5rem;
+      color: #333;
+      background: white;
+    }
+    body.dark-mode .footer-language-selector select {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border-color: #555;
+    }
+    body.dark-mode .footer-language-selector select option {
+      color: #f0f0f0;
+      background: #2a2a2a;
+    }
+    .footer-language-selector select:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    body.dark-mode .footer-language-selector select:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+    .footer-language-selector select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    body.dark-mode .footer-language-selector select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+    @media (max-width: 560px) {
+      .footer-language-selector {
+        font-size: 0.85rem;
+        gap: 0.6rem;
+        flex: 1 0 100%;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 1rem;
+      }
+      .footer-language-selector select {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+        min-width: 130px;
+      }
+      .footer-bottom { flex-direction: column; }
+    }
+</style>
 </head>
 <body>
 
-  <button class="theme-toggle" onclick="toggleTheme()">
-    <span id="themeIcon">🌙</span>
-  </button>
+<!-- Botões do lado direito: Tema + Tradutor em Voz -->
+  <div class="top-right-buttons" id="topRightButtons">
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span>
+    </button>
+    <button class="voice-translator-toggle" id="voiceTranslatorToggle" onclick="toggleVoiceTranslator()" title="Tradutor em Voz">
+      <span id="vtIcon">🌐</span>
+    </button>
+  </div>
 
-  <a href="../index.html" class="back-button">Voltar</a>
+  <!-- Painel do Tradutor em Voz -->
+  <div class="voice-translator-panel" id="voiceTranslatorPanel">
+    <div class="vt-tabs">
+      <button class="vt-tab active" id="vtTabTranslate" onclick="vtSwitchTab('translate')">🌐 Traduzir</button>
+      <button class="vt-tab" id="vtTabNarrate" onclick="vtSwitchTab('narrate')">📢 Narrar Site</button>
+    </div>
+    <div id="vtTabContentTranslate">
+      <div class="vt-label">Idioma de origem → destino</div>
+      <div class="vt-lang-row">
+        <select id="vtLangFrom" title="Idioma de origem">
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+        <button class="vt-swap-btn" onclick="vtSwapLangs()" title="Trocar idiomas">⇄</button>
+        <select id="vtLangTo" title="Idioma de destino">
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+      </div>
+      <div class="vt-text-area placeholder" id="vtOriginalText">Pressione o mic e fale…</div>
+      <div class="vt-text-area placeholder" id="vtTranslatedText">Tradução aparecerá aqui…</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="vt-mic-btn" id="vtMicBtn" onclick="vtToggleMic()" style="flex:1;">
+          <span id="vtMicIcon">🎤</span> <span id="vtMicText">Falar</span>
+        </button>
+        <button class="vt-speak-btn" id="vtSpeakBtn" onclick="vtSpeak()" title="Ouvir tradução">🔊</button>
+        <button class="vt-speak-btn" id="vtStopSpeakBtn" onclick="vtStopSpeak()" title="Parar voz" style="display:none;">⏹</button>
+      </div>
+      <div class="vt-status" id="vtStatus">Selecione os idiomas e pressione Falar</div>
+      <details class="vt-settings">
+        <summary>⚙️ Configurações de voz</summary>
+        <div class="vt-settings-body">
+          <label>Velocidade <input type="range" id="vtRate" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtRateVal').textContent=this.value"> <span id="vtRateVal">1</span>x</label>
+          <label>Tom <input type="range" id="vtPitch" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtPitchVal').textContent=this.value"> <span id="vtPitchVal">1</span></label>
+          <label>Voz
+            <select id="vtVoiceSelect" style="margin-left:4px;font-size:0.8rem;border-radius:8px;border:1px solid #ccc;padding:2px 6px;"></select>
+          </label>
+        </div>
+      </details>
+    </div>
+    <div id="vtTabContentNarrate" style="display:none;">
+      <div class="vt-label">Narração do conteúdo da página</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <select id="vtNarrateVoice" style="flex:1;padding:6px 10px;border-radius:50px;border:2px solid rgba(0,0,0,0.15);font-size:0.82rem;font-family:inherit;background:transparent;color:inherit;"></select>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <label style="font-size:0.78rem;display:flex;align-items:center;gap:6px;flex:1;">Vel.
+          <input type="range" id="vtNarrateRate" min="0.5" max="2" step="0.1" value="1" style="flex:1;accent-color:#3b82f6;">
+          <span id="vtNarrateRateVal">1</span>x
+        </label>
+      </div>
+      <div class="vt-narrate-progress" id="vtNarrateProgress">
+        <div class="vt-narrate-bar" id="vtNarrateBar"></div>
+      </div>
+      <div class="vt-narrate-text" id="vtNarrateCurrentText">—</div>
+      <div style="display:flex;gap:8px;">
+        <button class="vt-mic-btn" id="vtNarrateBtn" onclick="vtToggleNarrate()" style="flex:1;">
+          <span id="vtNarrateIcon">📢</span> <span id="vtNarrateText">Narrar página</span>
+        </button>
+        <button class="vt-speak-btn" id="vtNarratePauseBtn" onclick="vtPauseNarrate()" title="Pausar" style="display:none;">⏸</button>
+      </div>
+      <div class="vt-status" id="vtNarrateStatus">Pressione para ouvir o conteúdo desta página</div>
+    </div>
+  </div>
 
-  <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
-
+  <!-- Voltar | Menu | Topics -->
+  <div class="top-left-buttons" id="topLeftButtons">
+    <div class="top-row">
+      <a href="../index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
+    </div>
+  </div>
+  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile();"></div>
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#nossa-missao" class="topics-link" onclick="closeTopics()">🎯 Nossa Missão</a>
+    <a href="#como-vivemos" class="topics-link" onclick="closeTopics()">🌱 Como Vivemos Nossa Missão</a>
+    <a href="#nossa-promessa" class="topics-link" onclick="closeTopics()">💎 Nossa Promessa</a>
+  </div>
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#nossa-missao" class="topics-link-mobile" onclick="closeTopicsMobile()">🎯 Nossa Missão</a>
+    <a href="#como-vivemos" class="topics-link-mobile" onclick="closeTopicsMobile()">🌱 Como Vivemos Nossa Missão</a>
+    <a href="#nossa-promessa" class="topics-link-mobile" onclick="closeTopicsMobile()">💎 Nossa Promessa</a>
+  </div>
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
   <div class="menu-content" id="menuContent">
     <div class="menu-section">
       <h3>Bem-Vindo</h3>
-      <a href="sobre.html" class="menu-link">Sobre</a>
-      <a href="missao.html" class="menu-link">Missão</a>
-      <a href="visao.html" class="menu-link">Visão</a>
-      <a href="valores.html" class="menu-link">Valores</a>
+    <a href="sobre.html" class="menu-link">Sobre</a>
+    <a href="missao.html" class="menu-link">Missão</a>
+    <a href="visao.html" class="menu-link">Visão</a>
+    <a href="valores.html" class="menu-link">Valores</a>
     </div>
     <div class="menu-section">
       <h3>Carreira</h3>
-      <a href="candidato.html" class="menu-link">Candidatos</a>
-      <a href="tutorial.html" class="menu-link">Vídeos</a>
-      <a href="vagas.html" class="menu-link">Vagas</a>
-      <a href="ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
-      <a href="utilidades.html" class="menu-link">Utilidades</a>
+    <a href="candidato.html" class="menu-link">Candidatos</a>
+    <a href="tutorial.html" class="menu-link">Vídeos</a>
+    <a href="vagas.html" class="menu-link">Vagas</a>
+    <a href="ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
+    <a href="utilidades.html" class="menu-link">Utilidades</a>
     </div>
     <div class="menu-section">
       <h3>Atendimento</h3>
-      <a href="servicos.html" class="menu-link">Serviços</a>
-      <a href="contato.html" class="menu-link">Contato</a>
+    <a href="servicos.html" class="menu-link">Serviços</a>
+    <a href="contato.html" class="menu-link">Contato</a>
     </div>
     <div class="menu-section">
       <h3>ℹInformações</h3>
-      <a href="lgbt.html" class="menu-link active-page">LGBT+</a>
-      <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
-      <a href="indexcookies.html" class="menu-link">Cookies</a>
+    <a href="lgbt.html" class="menu-link active-page">LGBT+</a>
+    <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
+    <a href="indexcookies.html" class="menu-link">Cookies</a>
     </div>
   </div>
   </div>
@@ -1511,7 +2056,7 @@ body.dark-mode .chip { background: #2a2a2a; }
   <header class="header">
     <div class="header-content">
       <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-        <img src="../imagens/fundo.png" alt="Serviços" class="header-bg-img">
+        <img src="../imagens/fundo.png" alt="Nossa Missão" class="header-bg-img">
         <div>
           <h1 style="margin: 0 0 0.5rem 0;">Inclusão e Diversidade LGBT+</h1>
           <p>Compromisso da Agência Nexus com respeito, igualdade e inclusão</p>
@@ -1522,192 +2067,452 @@ body.dark-mode .chip { background: #2a2a2a; }
 
   <section class="content-section">
     <div class="content-container">
+      <h2 id="nossa-missao">Nossa Posição sobre Inclusão LGBT+</h2>
       
-      <h2>Nossa Posição sobre Inclusão LGBT+</h2>
       <p>
         A Agência Nexus é profundamente comprometida com a inclusão, diversidade e igualdade de direitos para todas as pessoas, independentemente de sua identidade de gênero ou orientação sexual. Acreditamos que a diversidade enriquece nossas equipes, nossas empresas parceiras e a sociedade como um todo.
+      </p>
+
+      <p>
+        Ser uma agência inclusiva não é protocolo — é convicção. Entendemos que o mercado de trabalho ainda apresenta barreiras reais para a comunidade LGBT+, e nossa missão é ser um ponto de acesso seguro, respeitoso e igualitário para todas as pessoas que buscam oportunidades profissionais.
+      </p>
+
+      <p>
+        Cada candidato, independentemente de quem é ou de como se identifica, merece ser avaliado pelo seu potencial, suas habilidades e sua vontade de crescer. Não toleramos discriminação de nenhuma forma — nem nas nossas práticas, nem nas empresas com quem trabalhamos.
       </p>
 
       <div class="highlight-box">
         <strong>🏳️‍🌈 Nossa Declaração:</strong> Todas as pessoas LGBT+ são bem-vindas, respeitadas e valorizadas em nossa agência. Não toleramos discriminação de qualquer forma.
       </div>
 
+      <!-- ANIMAÇÃO: Pride LGBT+ -->
+      <style>
+        #lgbtAnimWrap { border-radius: 16px; overflow: hidden; margin: 0 0 16px 0; }
+        #lgbtCanvas { display: block; width: 100%; border-radius: 16px; background: #0a0a12; }
+        .lgbt-info-bar {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+          margin-top: 12px;
+        }
+        .lgbt-info-card {
+          background: var(--color-background-secondary, #f5f5f5);
+          border: 0.5px solid var(--color-border-tertiary, #ddd);
+          border-radius: 8px;
+          padding: 10px 14px;
+          text-align: center;
+        }
+        .lgbt-info-card .num {
+          font-size: 22px;
+          font-weight: 500;
+          color: var(--color-text-primary, #111);
+        }
+        .lgbt-info-card .lbl {
+          font-size: 12px;
+          color: var(--color-text-secondary, #555);
+          margin-top: 2px;
+        }
+        .lgbt-controls {
+          display: flex;
+          gap: 8px;
+          margin-top: 10px;
+          flex-wrap: wrap;
+        }
+        .lgbt-ctrl-btn {
+          padding: 6px 16px;
+          border-radius: 20px;
+          font-size: 13px;
+          cursor: pointer;
+          font-family: inherit;
+          background: var(--color-background-secondary, #f0f0f0);
+          border: 0.5px solid var(--color-border-secondary, #ccc);
+          color: var(--color-text-primary, #111);
+          transition: background 0.2s;
+        }
+        .lgbt-ctrl-btn:hover { background: var(--color-background-tertiary, #e0e0e0); }
+        .lgbt-ctrl-btn.active { background: #444; color: #fff; }
+      </style>
 
-<div class="highlight-box">
-  <strong>🏳️‍🌈 Nossa Declaração:</strong>
-  Todas as pessoas LGBT+ são bem-vindas, respeitadas e valorizadas em nossa agência.
-  Não toleramos discriminação de qualquer forma.
-</div>
+      <h2 class="sr-only">Animação interativa para a comunidade LGBT+ — corações e partículas com as cores do arco-íris se movendo em uníssono</h2>
 
-<!-- BLOCO INTERATIVO -->
-<section class="chat-safe">
-  <h2>💬 Tire suas dúvidas com segurança</h2>
-  <p class="chat-subtitle">
-    Este espaço é informativo e não exige identificação.
-  </p>
+      <div id="lgbtAnimWrap">
+        <canvas id="lgbtCanvas" height="420"></canvas>
+      </div>
 
-  
-
-  <div class="chat-box" id="chatBox">
-    <div class="chat-message bot">
-      Olá! Você pode escolher uma das opções abaixo 👇
-    </div>
-  </div>
-
-  <div class="chat-options">
-    <button onclick="responder('privacidade')">🔒 Privacidade</button>
-    <button onclick="responder('nome')">🪪 Nome social</button>
-    <button onclick="responder('processo')">📋 Processo seletivo</button>
-    <button onclick="responder('contato')">💬 Falar com a equipe</button>
-  </div>
-</section>
-
-      
-      <h2>Compromissos com a Comunidade LGBT+</h2>
-      <p>
-        Assumimos os seguintes compromissos em relação à inclusão e proteção de direitos LGBT+:
-      </p>
-
-      <div class="values-grid">
-        <div class="value-card">
-          <h4>🤝 Respeito Total</h4>
-          <p>Respeitar a identidade de gênero e orientação sexual de cada pessoa, usando pronomes corretos.</p>
+      <div class="lgbt-info-bar">
+        <div class="lgbt-info-card">
+          <div class="num" id="statHearts">0</div>
+          <div class="lbl">Corações</div>
         </div>
-        <div class="value-card">
-          <h4>🚫 Zero Tolerância</h4>
-          <p>Política de intolerância zero para discriminação, assédio ou violência baseada em orientação sexual ou identidade de gênero.</p>
+        <div class="lgbt-info-card">
+          <div class="num" id="statWaves">0</div>
+          <div class="lbl">Ondas de amor</div>
         </div>
-        <div class="value-card">
-          <h4>⚖️ Igualdade Salarial</h4>
-          <p>Igualdade de remuneração e benefícios para todos, independentemente da orientação sexual ou identidade de gênero.</p>
-        </div>
-        <div class="value-card">
-          <h4>📋 Oportunidades Iguais</h4>
-          <p>Garantir que pessoas LGBT+ tenham as mesmas oportunidades de carreira e desenvolvimento profissional.</p>
-        </div>
-        <div class="value-card">
-          <h4>🏥 Benefícios Inclusivos</h4>
-          <p>Benefícios de saúde que cobrem parceiros do mesmo sexo.</p>
-        </div>
-        <div class="value-card">
-          <h4>📚 Educação Contínua</h4>
-          <p>Treinamento regular em inclusão, diversidade e sensibilidade para toda a equipe.</p>
+        <div class="lgbt-info-card">
+          <div class="num" id="statColors">11</div>
+          <div class="lbl">Cores do orgulho</div>
         </div>
       </div>
 
-      <h2>Políticas de Inclusão LGBT+</h2>
-      <p>
-        A Agência Nexus implementou as seguintes políticas para garantir um ambiente inclusivo:
-      </p>
+      <div class="lgbt-controls">
+        <button class="lgbt-ctrl-btn active" id="btnHeart" onclick="lgbtSetMode('hearts')">💜 Corações</button>
+        <button class="lgbt-ctrl-btn" id="btnWave" onclick="lgbtSetMode('wave')">🌈 Onda arco-íris</button>
+        <button class="lgbt-ctrl-btn" id="btnFirework" onclick="lgbtSetMode('fireworks')">🎆 Celebração</button>
+        <button class="lgbt-ctrl-btn" id="btnTrans" onclick="lgbtSetMode('trans')">🏳️‍⚧️ Trans</button>
+        <button class="lgbt-ctrl-btn" id="btnBi" onclick="lgbtSetMode('bi')">💗 Bi & Pan</button>
+      </div>
 
-      <h3>📋 Não Discriminação</h3>
+      <script>
+      (function() {
+        const canvas = document.getElementById('lgbtCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // All pride flag palettes
+        const PRIDE    = ['#FF0018','#FFA52C','#FFFF41','#008018','#0000F9','#86007D'];
+        const TRANS    = ['#55CDFC','#F7A8B8','#FFFFFF','#F7A8B8','#55CDFC'];
+        const BI       = ['#D60270','#D60270','#9B4F96','#0038A8','#0038A8'];
+        const PAN      = ['#FF218C','#FFD800','#21B1FF'];
+        const NB       = ['#FCF434','#FFFFFF','#9C59D1','#2D2D2D'];
+        const LESBIAN  = ['#D52D00','#EF7627','#FF9A56','#FFFFFF','#D162A4','#B55690','#A50062'];
+        const ALL_COLORS = [...new Set([...PRIDE, ...TRANS, ...BI, ...PAN, ...NB, ...LESBIAN])];
+
+        let W, H, mode = 'hearts', frame = 0;
+        let hearts = [], particles = [], waveOffset = 0;
+        let totalHearts = 0, totalWaves = 0;
+
+        function resize() {
+          const rect = canvas.parentElement.getBoundingClientRect();
+          W = rect.width || 680;
+          H = 420;
+          canvas.width = W * devicePixelRatio;
+          canvas.height = H * devicePixelRatio;
+          canvas.style.width = W + 'px';
+          canvas.style.height = H + 'px';
+          ctx.setTransform(1,0,0,1,0,0);
+          ctx.scale(devicePixelRatio, devicePixelRatio);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        window.lgbtSetMode = function(m) {
+          mode = m;
+          ['btnHeart','btnWave','btnFirework','btnTrans','btnBi'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('active');
+          });
+          const map = { hearts:'btnHeart', wave:'btnWave', fireworks:'btnFirework', trans:'btnTrans', bi:'btnBi' };
+          const btn = document.getElementById(map[m]);
+          if (btn) btn.classList.add('active');
+          particles = [];
+          hearts = [];
+          waveOffset = 0;
+        };
+
+        function heartPath(cx, cy, size) {
+          ctx.beginPath();
+          ctx.moveTo(cx, cy + size * 0.3);
+          ctx.bezierCurveTo(cx, cy, cx - size, cy, cx - size, cy - size * 0.4);
+          ctx.bezierCurveTo(cx - size, cy - size, cx, cy - size * 0.9, cx, cy - size * 0.4);
+          ctx.bezierCurveTo(cx, cy - size * 0.9, cx + size, cy - size, cx + size, cy - size * 0.4);
+          ctx.bezierCurveTo(cx + size, cy, cx, cy, cx, cy + size * 0.3);
+          ctx.closePath();
+        }
+
+        function getPalette() {
+          if (mode === 'trans') return TRANS;
+          if (mode === 'bi') return [...BI, ...PAN];
+          if (mode === 'wave') return PRIDE;
+          return ALL_COLORS;
+        }
+
+        class Heart {
+          constructor() { this.reset(); }
+          reset() {
+            const pal = getPalette();
+            this.x = Math.random() * W;
+            this.y = H + 30;
+            this.size = 10 + Math.random() * 18;
+            this.speed = 0.6 + Math.random() * 1.2;
+            this.color = pal[Math.floor(Math.random() * pal.length)];
+            this.alpha = 0;
+            this.swayAmp = 20 + Math.random() * 30;
+            this.swayFreq = 0.02 + Math.random() * 0.02;
+            this.ox = this.x;
+            this.age = 0;
+          }
+          update() {
+            this.y -= this.speed;
+            this.age++;
+            this.x = this.ox + Math.sin(this.age * this.swayFreq) * this.swayAmp;
+            if (this.y < H * 0.3) this.alpha = Math.max(0, this.alpha - 0.012);
+            else this.alpha = Math.min(0.9, this.alpha + 0.04);
+            return this.y > -40 && this.alpha > 0.01;
+          }
+          draw() {
+            ctx.save();
+            ctx.globalAlpha = this.alpha;
+            ctx.fillStyle = this.color;
+            ctx.shadowColor = this.color;
+            ctx.shadowBlur = 10;
+            heartPath(this.x, this.y, this.size);
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+
+        class Particle {
+          constructor(x, y, color) {
+            this.x = x; this.y = y;
+            this.color = color;
+            this.vx = (Math.random() - 0.5) * 7;
+            this.vy = -4 - Math.random() * 5;
+            this.gravity = 0.15;
+            this.alpha = 1;
+            this.size = 3 + Math.random() * 5;
+            this.shape = Math.random() > 0.5 ? 'circle' : 'heart';
+          }
+          update() {
+            this.vx *= 0.98;
+            this.vy += this.gravity;
+            this.x += this.vx;
+            this.y += this.vy;
+            this.alpha -= 0.016;
+            return this.alpha > 0;
+          }
+          draw() {
+            ctx.save();
+            ctx.globalAlpha = this.alpha;
+            ctx.fillStyle = this.color;
+            if (this.shape === 'heart') {
+              heartPath(this.x, this.y, this.size * 0.7);
+              ctx.fill();
+            } else {
+              ctx.beginPath();
+              ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+            ctx.restore();
+          }
+        }
+
+        function spawnFirework() {
+          const x = W * 0.15 + Math.random() * W * 0.7;
+          const y = H * 0.08 + Math.random() * H * 0.55;
+          const pal = getPalette();
+          const color = pal[Math.floor(Math.random() * pal.length)];
+          for (let i = 0; i < 32; i++) particles.push(new Particle(x, y, color));
+          totalWaves++;
+        }
+
+        function drawStars() {
+          for (let i = 0; i < 70; i++) {
+            const x = (Math.sin(i * 127.3 + frame * 0.002) * 0.5 + 0.5) * W;
+            const y = (Math.cos(i * 87.1 + frame * 0.001) * 0.5 + 0.5) * H;
+            const r = 0.5 + Math.sin(i + frame * 0.05) * 0.4;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,255,255,' + (0.2 + Math.sin(i * 3.3 + frame * 0.04) * 0.15) + ')';
+            ctx.fill();
+          }
+        }
+
+        function drawRainbowWave() {
+          const pal = mode === 'trans' ? TRANS : mode === 'bi' ? [...BI, ...PAN, ...NB] : PRIDE;
+          const stripeH = H / pal.length;
+          pal.forEach((col, i) => {
+            const y = i * stripeH;
+            const grd = ctx.createLinearGradient(0, y, 0, y + stripeH);
+            grd.addColorStop(0, col + '44');
+            grd.addColorStop(1, col + '11');
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, y, W, stripeH);
+          });
+          for (let b = 0; b < pal.length; b++) {
+            ctx.beginPath();
+            ctx.strokeStyle = pal[b];
+            ctx.lineWidth = 3;
+            ctx.globalAlpha = 0.75;
+            const baseY = (b / pal.length) * H + stripeH / 2;
+            for (let x = 0; x <= W; x += 3) {
+              const y = baseY + Math.sin((x + waveOffset + b * 40) * 0.025) * 24;
+              x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+          waveOffset += 2;
+          totalWaves = Math.floor(waveOffset / 60);
+        }
+
+        function drawTransFlag() {
+          const stripeH = H / TRANS.length;
+          TRANS.forEach((col, i) => {
+            ctx.fillStyle = col + 'aa';
+            ctx.fillRect(0, i * stripeH, W, stripeH);
+          });
+          // Animated stripe shimmer
+          const shimmerX = (frame * 2) % (W + 200) - 100;
+          const grd = ctx.createLinearGradient(shimmerX - 60, 0, shimmerX + 60, 0);
+          grd.addColorStop(0, 'rgba(255,255,255,0)');
+          grd.addColorStop(0.5, 'rgba(255,255,255,0.18)');
+          grd.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.fillStyle = grd;
+          ctx.fillRect(0, 0, W, H);
+        }
+
+        function drawCenterMessage() {
+          const msgs = {
+            hearts:    ['Amor é amor', 'Respeito sempre', 'Todos bem-vindos', 'Orgulho e alegria'],
+            wave:      ['🌈 Arco-íris de esperança', '💜 Unidos somos mais fortes', '✨ Cor e diversidade', '🏳️‍🌈 Orgulho LGBT+'],
+            fireworks: ['🎆 Celebre quem você é!', '🎉 Festa do orgulho!', '🌟 Brilhe sempre!', '💫 Você é incrível!'],
+            trans:     ['🏳️‍⚧️ Trans é lindo', '💙 Identidade importa', '🤍 Respeito & dignidade', '💗 Trans lives matter'],
+            bi:        ['💗 Bi é real', '💛 Pan & orgulho', '💙 Amor sem fronteiras', '🌈 Todas as cores'],
+          };
+          const list = msgs[mode] || msgs.hearts;
+          const idx = Math.floor(frame / 200) % list.length;
+          const prog = (frame % 200) / 200;
+          const alpha = prog < 0.1 ? prog * 10 : prog > 0.85 ? (1 - prog) * 6.67 : 1;
+          ctx.save();
+          ctx.globalAlpha = alpha * 0.9;
+          ctx.font = '500 22px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          const pal = getPalette();
+          const grad = ctx.createLinearGradient(W * 0.25, 0, W * 0.75, 0);
+          pal.slice(0, 6).forEach((c, i) => grad.addColorStop(i / (Math.min(pal.length, 6) - 1), c));
+          ctx.fillStyle = grad;
+          ctx.shadowColor = 'rgba(255,255,255,0.35)';
+          ctx.shadowBlur = 14;
+          ctx.fillText(list[idx], W / 2, H * 0.88);
+          ctx.restore();
+        }
+
+        function drawBiPanMode() {
+          // Background diagonal stripes
+          const stripes = [...BI, ...PAN, ...NB];
+          const sw = W / stripes.length;
+          stripes.forEach((col, i) => {
+            ctx.fillStyle = col + '55';
+            ctx.fillRect(i * sw, 0, sw + 1, H);
+          });
+          // Animated diagonal sweep
+          const sweep = (frame * 1.5) % (W + 300) - 150;
+          const g = ctx.createLinearGradient(sweep - 80, 0, sweep + 80, 0);
+          g.addColorStop(0, 'rgba(255,255,255,0)');
+          g.addColorStop(0.5, 'rgba(255,255,255,0.15)');
+          g.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, W, H);
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, W, H);
+          ctx.fillStyle = '#0a0a12';
+          ctx.fillRect(0, 0, W, H);
+
+          drawStars();
+
+          if (mode === 'hearts') {
+            if (frame % 8 === 0) { hearts.push(new Heart()); totalHearts++; }
+            hearts = hearts.filter(h => h.update());
+            hearts.forEach(h => h.draw());
+            hearts = hearts.filter(h => h.y > -40);
+            drawCenterMessage();
+          }
+
+          if (mode === 'wave') {
+            drawRainbowWave();
+            drawCenterMessage();
+          }
+
+          if (mode === 'fireworks') {
+            if (frame % 32 === 0) spawnFirework();
+            particles = particles.filter(p => { const alive = p.update(); p.draw(); return alive; });
+            drawCenterMessage();
+          }
+
+          if (mode === 'trans') {
+            drawTransFlag();
+            if (frame % 10 === 0) { hearts.push(new Heart()); totalHearts++; }
+            hearts = hearts.filter(h => h.update());
+            hearts.forEach(h => h.draw());
+            hearts = hearts.filter(h => h.y > -40);
+            drawCenterMessage();
+          }
+
+          if (mode === 'bi') {
+            drawBiPanMode();
+            if (frame % 10 === 0) { hearts.push(new Heart()); totalHearts++; }
+            hearts = hearts.filter(h => h.update());
+            hearts.forEach(h => h.draw());
+            hearts = hearts.filter(h => h.y > -40);
+            drawCenterMessage();
+          }
+
+          const hEl = document.getElementById('statHearts');
+          const wEl = document.getElementById('statWaves');
+          if (hEl) hEl.textContent = (mode === 'hearts' || mode === 'trans' || mode === 'bi') ? Math.min(totalHearts, 999) : '-';
+          if (wEl) wEl.textContent = (mode === 'wave' || mode === 'fireworks') ? totalWaves : '-';
+
+          frame++;
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+      })();
+      </script>
+      <!-- FIM ANIMAÇÃO -->
+      <!-- FIM ANIMAÇÃO -->
+
+      <h2 id="como-vivemos">Nossos Compromissos com a Comunidade LGBT+</h2>
+
+      <h3>Respeito e Identidade</h3>
       <ul class="highlight-list">
-        <li>Nenhuma discriminação em recrutamento, seleção ou promoção</li>
-        <li>Oportunidades iguais para todos os candidatos LGBT+</li>
-        <li>Processos seletivos justos e imparciais</li>
-        <li>Respeito à privacidade e confidencialidade</li>
+        <li><strong>Respeito Total:</strong> Respeitamos a identidade de gênero e orientação sexual de cada pessoa, usando pronomes corretos em todas as interações</li>
+        <li><strong>Nome Social:</strong> Utilizamos o nome social em todos os documentos e comunicações internas, sem questionamentos</li>
+        <li><strong>Zero Discriminação:</strong> Nenhuma pessoa LGBT+ será preterida em processos seletivos por causa de quem é — avaliamos competências e potencial</li>
+        <li><strong>Confidencialidade:</strong> Informações sensíveis sobre identidade de gênero e orientação sexual são tratadas com total sigilo</li>
+        <li><strong>Ambiente Seguro:</strong> Garantimos que todo contato com nossa agência seja um espaço acolhedor, livre de julgamentos</li>
       </ul>
 
-      <h3>👤 Documentação e Identidade</h3>
+      <h3>Políticas de Inclusão</h3>
       <ul class="highlight-list">
-        <li>Respeito ao nome social em documentos internos</li>
-        <li>Uso de pronomes corretos em comunicações</li>
-        <li>Acesso facilitado a mudanças de dados quando necessário</li>
-        <li>Confidencialidade de informações sensíveis</li>
+        <li><strong>Não Discriminação:</strong> Nenhuma discriminação em recrutamento, seleção ou promoção baseada em orientação sexual ou identidade de gênero</li>
+        <li><strong>Oportunidades Iguais:</strong> Pessoas LGBT+ têm as mesmas oportunidades de carreira e desenvolvimento profissional que qualquer outro candidato</li>
+        <li><strong>Processos Justos:</strong> Processos seletivos imparciais, focados em habilidades, experiência e potencial</li>
+        <li><strong>Parceiros Comprometidos:</strong> Priorizamos empresas parceiras que também adotam práticas inclusivas e respeitosas</li>
       </ul>
 
-
-      <h2>Direitos LGBT+ que Apoiamos</h2>
-      <p>
-        A Agência Nexus apoia e defende os seguintes direitos humanos:
-      </p>
-
+      <h3>Direitos que Apoiamos</h3>
       <ul class="highlight-list">
-        <li><strong>Direito à Vida:</strong> Segurança e proteção contra violência</li>
-        <li><strong>Direito à Identidade:</strong> Reconhecimento legal de gênero e nome</li>
-        <li><strong>Direito à Igualdade:</strong> Tratamento igualitário em todos os aspectos</li>
-        <li><strong>Direito à Dignidade:</strong> Respeito e valorização da pessoa</li>
-        <li><strong>Direito à Privacidade:</strong> Liberdade de viver vida pessoal sem interferência</li>
-        <li><strong>Direito ao Casamento:</strong> Reconhecimento de relacionamentos entre pessoas do mesmo sexo</li>
-        <li><strong>Direito à Adoção:</strong> Possibilidade de formar famílias</li>
-        <li><strong>Direito ao Trabalho:</strong> Igualdade de oportunidades profissionais</li>
+        <li><strong>Direito à Identidade:</strong> Reconhecimento legal de gênero e nome como direito fundamental de toda pessoa</li>
+        <li><strong>Direito à Igualdade:</strong> Tratamento igualitário em todos os aspectos da vida profissional e pessoal</li>
+        <li><strong>Direito ao Trabalho:</strong> Igualdade de oportunidades profissionais independentemente de orientação sexual ou identidade de gênero</li>
+        <li><strong>Direito à Dignidade:</strong> Respeito e valorização de cada pessoa como ela é, sem exigir explicações ou justificativas</li>
       </ul>
 
-      <h2>Linguagem Inclusiva</h2>
-      <p>
-        Nos comprometemos a utilizar linguagem inclusiva e respeitosa em todas as comunicações:
-      </p>
-
-      <h3>Princípios de Linguagem Inclusiva</h3>
-      <ul class="highlight-list">
-        <li>Usar pronomes corretos: ele, ela, eles/elas (quando preferência é clara)</li>
-        <li>Usar linguagem neutra quando pronome não é conhecido</li>
-        <li>Aceitar corrigir pronomes sem defensividade</li>
-        <li>Evitar assumir gênero baseado em aparência</li>
-        <li>Respeitar identidades fluidas e em transição</li>
-        <li>Usar "parceiro/a" ou "companheiro/a" quando apropriado</li>
-        <li>Incluir pessoas LGBT+ em campanhas e materiais</li>
-      </ul>
-
-    
-      <h2>Denúncia de Discriminação</h2>
-      <p>
-        Se você sofreu discriminação ou assédio baseado em orientação sexual ou identidade de gênero:
-      </p>
+      <h2 id="nossa-promessa">Contato e Suporte</h2>
 
       <div class="highlight-box">
-        <strong>📢 Como proceder em casos de discriminação:</strong><br>
-        1. Procure o gestor direto ou o setor de RH da empresa envolvida<br>
-        2. Registre a situação nos canais oficiais de proteção ao trabalhador<br>
-        3. Busque apoio do sindicato da categoria, se houver<br>
-        4. Em casos graves, utilize os canais públicos como o Disque 100 ou o Ministério Público do Trabalho<br><br>
-
-        <strong>ℹ️ Importante:</strong><br>
-        • A Agência Nexus não recebe denúncias formais<br>
-        • Não realizamos investigações ou apurações internas<br>
-        • Atuamos exclusivamente com recrutamento e seleção<br>
-        • Este espaço tem caráter informativo e orientativo
+        <strong>✅ Privacidade Garantida:</strong> Suas informações são tratadas com total confidencialidade<br><br>
+        <strong>✅ Atendimento Respeitoso:</strong> Nossa equipe está preparada para acolher você como você é<br><br>
+        <strong>✅ Dúvidas sobre o processo:</strong> Fale conosco pelo WhatsApp: (51) 99697-6579<br><br>
+        <strong>✅ E-mail:</strong> adm.agencianexus@outlook.com
       </div>
 
-      <h2>Eventos e Celebrações</h2>
-      <p>
-        A Agência Nexus celebra e apoia os seguintes dias LGBT+:
-      </p>
-
-      <ul class="highlight-list">
-        <li>🏳️‍🌈 <strong>Dia Internacional do Orgulho LGBT+:</strong> 28 de junho</li>
-        <li>🎉 <strong>Dia da Visibilidade Trans:</strong> 29 de janeiro</li>
-        <li>💜 <strong>Dia da Visibilidade Lésbica:</strong> 8 de abril</li>
-        <li>🏳️‍⚧️ <strong>Dia Internacional da Mulher Trans:</strong> 31 de março</li>
-        <li>🤎 <strong>Dia do Orgulho Assexual:</strong> 6 de abril</li>
-      </ul>
-
-      <h2>Contato e Suporte</h2>
-      <p>
-        Se você tiver dúvidas sobre nossa política LGBT+ ou precisar de apoio:
-      </p>
-
-    <div class="highlight-box">
-        <strong>📞 Entre em Contato:</strong><br>
-        📧 Email: <a href="mailto:adm.agencianexus@outlook.com">adm.agencianexus@outlook.com</a><br>
-        📱 WhatsApp: (51) 99697-6579<br>
-        📍 Endereço: R. São José, 584 - Guaíba, RS<br><br>
-        <strong>🔐 Confidencialidade Garantida</strong>
-      </div>
-
-      <p style="margin-top: 2rem; text-align: center; font-weight: 600; color: #FF006E;">
-        Todos são bem-vindos. Todos são respeitados. Todos importam! 🏳️‍🌈
+      <p style="margin-top: 2rem; text-align: center; font-weight: 600; color: var(--primary); font-size: 1.1rem;">
+        <strong>Todos são bem-vindos. Todos são respeitados. Todos importam! 🏳️‍🌈</strong>
       </p>
 
       <div style="text-align: center; margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
         <a href="../index.html" class="btn btn-primary" style="text-align: center;">Voltar</a>
         <a href="contato.html" class="btn btn-secondary" style="text-align: center;">Fale Conosco</a>
       </div>
-
     </div>
   </section>
 
   
+ 
   
    <footer>
     <div class="footer-top">
@@ -1721,7 +2526,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <div class="footer-social">
 
           <!-- Instagram -->
-          <a class="footer-social-link" href="https://www.instagram.com/nexuscarreiras/" target="_blank" rel="noopener" title="Instagram">
+          <a class="footer-social-link" href="https://www.instagram.com/exittuscarreiras/" target="_blank" rel="noopener" title="Instagram">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
 
@@ -1736,7 +2541,7 @@ body.dark-mode .chip { background: #2a2a2a; }
           </a>
 
           <!-- WhatsApp -->
-          <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
+          <a class="footer-social-link" href="https://wa.me/555198503183" target="_blank" rel="noopener" title="WhatsApp">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </a>
 
@@ -1754,12 +2559,11 @@ body.dark-mode .chip { background: #2a2a2a; }
 
 
         <!-- Pinterest -->
-<a class="footer-social-link" href="https://br.pinterest.com/anexus/" target="_blank" rel="noopener" title="Pinterest">
+<a class="footer-social-link" href="https://br.pinterest.com/aexittus/" target="_blank" rel="noopener" title="Pinterest">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
   </svg>
 </a>
-
 
             
         </div>
@@ -1781,9 +2585,9 @@ body.dark-mode .chip { background: #2a2a2a; }
       <div>
         <div class="footer-col-title">Contato</div>
 
-        <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
+        <a class="footer-contact-item" href="https://wa.me/5551999747808" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          (51) 99697-6579
+          (51) 99974-7808
         </a>
 
             <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
@@ -1791,11 +2595,18 @@ body.dark-mode .chip { background: #2a2a2a; }
           (51) 99697-6579
         </a>
 
-      <a class="footer-contact-item" href="mailto:adm.agencianexus@outlook.com">
+  <a class="footer-contact-item" href="mailto:adm.agencianexus@outlook.com">
   <svg viewBox="0 0 24 24">
     <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
   </svg>
   <span>adm.agencianexus@outlook.com</span>
+</a>
+
+<a class="footer-contact-item" href="mailto:curriculos.nexus@gmail.com">
+  <svg viewBox="0 0 24 24">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+  <span>curriculos.nexus@gmail.com</span>
 </a>
 
 
@@ -1803,15 +2614,26 @@ body.dark-mode .chip { background: #2a2a2a; }
 
     </div><!-- /footer-top -->
 
+
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-copy"><span data-i18n="footer-text">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</span></p>
       <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
     </div>
 
   </footer>
 
+  
+  <!-- Botão Voltar ao Topo -->
   <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
- 
+
   <!-- Chatbot -->
 <!-- NOVO -->
   <button class="chatbot-button" id="chatbotBtn" onclick="toggleChatbot()">
@@ -1824,7 +2646,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <p id="chatbotStatusText">● Assistente virtual</p>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
-        <div class="ai-toggle-wrap" id="aiToggleWrap" onclick="toggleModoIA()" title="Ligar/desligar Modo IA (Llama via Groq)">
+        <div class="ai-toggle-wrap" id="aiToggleWrap" onclick="toggleModoIA()" title="Ligar/desligar Modo IA">
           <div class="ai-toggle-switch"></div>
           <span class="ai-toggle-label">Modo IA</span>
           <span class="ai-mode-badge">ON</span>
@@ -1839,14 +2661,13 @@ body.dark-mode .chip { background: #2a2a2a; }
     </div>
   </div>
 
+  <!-- Botão Voltar ao Topo -->
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
+
   <!-- Chatbot -->
 <!-- NOVO -->
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    /* ================================================================= */
-    /* MENU FUNCTIONS - CONTROLE DE ABERTURA E FECHAMENTO DO MENU     */
-    /* ================================================================= */
-    
     const menuContent = document.getElementById('menuContent');
     const menuOverlay = document.getElementById('menuOverlay');
     
@@ -1862,7 +2683,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       }
     }
 
-function closeMenu() {
+ function closeMenu() {
   menuContent.classList.remove('active');
   menuOverlay.classList.remove('active');
   menuContent.style.left = '-100%';
@@ -1870,40 +2691,34 @@ function closeMenu() {
     document.body.classList.remove('menu-open');
   }, 300);
 }
-    /* ================================================================= */
 
     document.querySelectorAll('.menu-link').forEach(link => {
       link.addEventListener('click', closeMenu);
     });
 
-    // THEME TOGGLE
+    
 function toggleTheme() {
-  document.body.classList.toggle('dark-mode');
-  document.documentElement.classList.toggle('dark-mode');
-  const isDarkMode = document.body.classList.contains('dark-mode');
-  const icon = document.getElementById('themeIcon');
-  if (icon) icon.textContent = isDarkMode ? '☀️' : '🌙';
-  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-}
+      document.body.classList.toggle('dark-mode');
+      document.documentElement.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      document.getElementById('themeIcon').textContent = isDarkMode ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    }
 
 function loadSavedTheme() {
-  const savedTheme = localStorage.getItem('theme');
-  const icon = document.getElementById('themeIcon');
-  if (savedTheme !== 'light') {
-    document.body.classList.add('dark-mode');
-    document.documentElement.classList.add('dark-mode');
-    if (icon) icon.textContent = '☀️';
-  } else {
-    document.body.classList.remove('dark-mode');
-    document.documentElement.classList.remove('dark-mode');
-    if (icon) icon.textContent = '🌙';
-  }
-}
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme !== 'light') {
+        document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
+        document.getElementById('themeIcon').textContent = '☀️';
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.documentElement.classList.remove('dark-mode');
+        document.getElementById('themeIcon').textContent = '🌙';
+      }
+    }
 
 loadSavedTheme();
-    // CHATBOT CONFIG
-  
-
 
     // iNICIO CHATBOT INTELIGENTE
     const KB = {
@@ -1946,7 +2761,7 @@ loadSavedTheme();
   contato: {
         gatilhos: ['contato','telefone','whatsapp','zap','ligar','email','e-mail','endereço','endereco','onde fica','localização','agendar','reunião','conversar','falar'],
         respostas: [
-          'Claro! 📞 Estamos sempre disponíveis:\n\n- **WhatsApp:** (51) 99697-6579\n- **E-mail:** adm.agencianexus@outlook.com\n- **Endereço:** R. São José, 584 - sala 204, Guaíba - RS\n\nO jeito mais rápido é pelo WhatsApp — respondemos em minutos!'
+          'Claro! 📞 Estamos sempre disponíveis:\n\n- **WhatsApp:** (51) 99697-6579\n- **E-mail:** adm.agencianexus@outlook.com\n- **Endereço:** Atuação em toda a Região Sul do Brasil (100% Digital)\n\nO jeito mais rápido é pelo WhatsApp — respondemos em minutos!'
         ],
         chips: ['💬 Abrir WhatsApp agora','📧 Enviar e-mail','↩️ Voltar ao início']
       },
@@ -2025,7 +2840,6 @@ const CHIP_ACOES = {
       '↩️ Início':                         () => mostrarBemVindo(),
       '↩️ Voltar ao início':               () => mostrarBemVindo(),
     };
-
     let aberto = false;
     let digitando = false;
 
@@ -2067,6 +2881,50 @@ const CHIP_ACOES = {
         setTimeout(() => processarTexto(texto), 300);
       }
     }
+    // ============= MODO IA (Llama via Edge Function Supabase) =============
+    let modoIA = false;
+    const EDGE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co/functions/v1/chatbot-groq';
+
+    function toggleModoIA() {
+      modoIA = !modoIA;
+      const wrap = document.getElementById('aiToggleWrap');
+      const statusText = document.getElementById('chatbotStatusText');
+      wrap.classList.toggle('ai-on', modoIA);
+      if (modoIA) {
+        statusText.textContent = '🤖 Modo IA ativo (Llama)';
+        adicionarBubbleBot(markdownParaHTML('🤖 **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
+      } else {
+        statusText.textContent = '● Assistente virtual';
+        adicionarBubbleBot(markdownParaHTML('💬 Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
+        setTimeout(() => adicionarChips(['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']), 300);
+      }
+    }
+
+    async function responderComIA(texto) {
+      mostrarTyping(async () => {
+        try {
+          const resp = await fetch(EDGE_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4'
+            },
+            body: JSON.stringify({ mensagem: texto })
+          });
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.erro || `Erro ${resp.status}`);
+          }
+          const data = await resp.json();
+          const resposta = data.resposta || 'Não consegui gerar uma resposta.';
+          adicionarBubbleBot(markdownParaHTML(resposta));
+          setTimeout(() => adicionarChips(['💬 Continuar','📞 Falar com humano','↩️ Voltar ao início']), 300);
+        } catch (e) {
+          adicionarBubbleBot(markdownParaHTML(`❌ **Erro na IA:** ${e.message}\n\nTente novamente em instantes.`));
+        }
+      }, 1000);
+    }
+    // FIM MODO IA
 
     function processarTexto(texto) {
       const lower = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -2133,11 +2991,11 @@ const CHIP_ACOES = {
       msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
     }
 
-    function markdownParaHTML(texto) {
+            function markdownParaHTML(texto) {
       function processarInline(str) {
         return str
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#8dc63f;text-decoration:underline;">$1</a>');
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#3b82f6;text-decoration:underline;">$1</a>');
       }
       const linhas = texto.split('\n');
       const blocos = []; let listaAtual = [];
@@ -2161,57 +3019,10 @@ const CHIP_ACOES = {
     function escapeHtml(t) {
       return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
-
-    // ============= MODO IA (Llama via Edge Function Supabase) =============
-    let modoIA = false;
-    const EDGE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co/functions/v1/chatbot-groq';
-
-    function toggleModoIA() {
-      modoIA = !modoIA;
-      const wrap = document.getElementById('aiToggleWrap');
-      const statusText = document.getElementById('chatbotStatusText');
-      wrap.classList.toggle('ai-on', modoIA);
-      if (modoIA) {
-        statusText.textContent = '🤖 Modo IA ativo (Llama)';
-        adicionarBubbleBot(markdownParaHTML('🤖 **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
-      } else {
-        statusText.textContent = '● Assistente virtual';
-        adicionarBubbleBot(markdownParaHTML('💬 Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
-        setTimeout(() => adicionarChips(['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']), 300);
-      }
-    }
-
-    async function responderComIA(texto) {
-      mostrarTyping(async () => {
-        try {
-          const resp = await fetch(EDGE_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4'
-            },
-            body: JSON.stringify({ mensagem: texto })
-          });
-          if (!resp.ok) {
-            const err = await resp.json().catch(() => ({}));
-            throw new Error(err.erro || `Erro ${resp.status}`);
-          }
-          const data = await resp.json();
-          const resposta = data.resposta || 'Não consegui gerar uma resposta.';
-          adicionarBubbleBot(markdownParaHTML(resposta));
-          setTimeout(() => adicionarChips(['💬 Continuar','📞 Falar com humano','↩️ Voltar ao início']), 300);
-        } catch (e) {
-          adicionarBubbleBot(markdownParaHTML(`❌ **Erro na IA:** ${e.message}\n\nTente novamente em instantes.`));
-        }
-      }, 1000);
-    }
     // FIM CHATBOT INTELIGENTE
 
+    
 
-
-
-
-    // Fechar menu ao clicar fora
     document.addEventListener('click', (e) => {
       const menu = document.getElementById('menuContent');
       const menuOverlay = document.getElementById('menuOverlay');
@@ -2224,7 +3035,6 @@ const CHIP_ACOES = {
       }
     });
 
-    // Fechar chatbot ao clicar fora
     document.getElementById('chatbotWindow').addEventListener('click', (e) => {
       e.stopPropagation();
     });
@@ -2251,7 +3061,6 @@ const CHIP_ACOES = {
       }, 250);
     });
 
-    // FECHAMENTO DO MENU COM ARRASTO (Touch)
     let startX = 0;
     let currentX = 0;
     let isDragging = false;
@@ -2267,19 +3076,17 @@ const CHIP_ACOES = {
       if (!isDragging) return;
       currentX = e.touches[0].clientX;
       const deltaX = currentX - startX;
-
       if (deltaX < 0) {
         menuContent.style.left = `${deltaX}px`;
       }
     }, false);
 
+
     menuContent.addEventListener('touchend', () => {
       if (!isDragging) return;
       isDragging = false;
       const deltaX = currentX - startX;
-
       menuContent.style.transition = 'left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-
       if (deltaX < -50) {
         closeMenu();
       } else {
@@ -2291,51 +3098,686 @@ const CHIP_ACOES = {
       closeMenu();
     });
 
-   
-function responder(tipo) {
-  const chatBox = document.getElementById('chatBox');
 
-  const respostas = {
-    privacidade: {
-      pergunta: 'Quero saber sobre privacidade.',
-      resposta: 'Todas as informações dos candidatos são tratadas com confidencialidade e utilizadas apenas para fins de recrutamento.'
-    },
-    nome: {
-      pergunta: 'O nome social é respeitado?',
-      resposta: 'Respeitamos a individualidade de cada candidato e seguimos as informações fornecidas no cadastro.'
-    },
-    processo: {
-      pergunta: 'Como funciona o processo seletivo?',
-      resposta: 'O processo envolve análise de perfil, encaminhamento às empresas parceiras e contato direto quando há compatibilidade.'
-    },
-    contato: {
-      pergunta: 'Quero falar com um atendente.',
-      resposta: 'Se preferir, você pode falar diretamente com nossa equipe pelo WhatsApp.'
-    }
-  };
+    
+const carousel = document.getElementById('carousel');
+const slides = carousel ? carousel.querySelectorAll('img') : [];
+let currentIndex = 0;
 
- // Mensagem do bot
-  setTimeout(() => {
-    const botMsg = document.createElement('div');
-    botMsg.className = 'chat-message bot';
-    botMsg.textContent = respostas[tipo].resposta;
-    chatBox.appendChild(botMsg);
-
-    // Se for contato, mostra botão do WhatsApp
-    if (tipo === 'contato') {
-      const btn = document.createElement('a');
-      btn.href = 'https://wa.me/5551996976579';
-      btn.target = '_blank';
-      btn.className = 'chat-message bot';
-      btn.textContent = '👉 Falar no WhatsApp';
-      chatBox.appendChild(btn);
-    }
-
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }, 400);
+// Função para atualizar a posição do carrossel
+function updateCarousel() {
+  const slideWidth = carousel.clientWidth; // pega a largura atual do container
+  carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 }
-</script>
 
+// Avança para o próximo slide
+function nextSlide() {
+  currentIndex++;
+  if (currentIndex >= slides.length) currentIndex = 0;
+  updateCarousel();
+}
+
+// Volta para o slide anterior
+function prevSlide() {
+  currentIndex--;
+  if (currentIndex < 0) currentIndex = slides.length - 1;
+  updateCarousel();
+}
+
+// Recalcular ao redimensionar window.addEventListener('resize', updateCarousel);
+
+// Auto-play a cada 4 segundos
+setInterval(nextSlide, 4000);
+
+  
+    function toggleTopics() {
+      const d = document.getElementById('topicsDropdown');
+      const o = document.getElementById('topicsOverlay');
+      d.classList.toggle('open');
+      o.classList.toggle('open');
+    }
+    function closeTopics() {
+      document.getElementById('topicsDropdown').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
+    }
+    function toggleTopicsMobile() {
+      const dm = document.getElementById('topicsDropdownMobile');
+      const o = document.getElementById('topicsOverlay');
+      dm.classList.toggle('open');
+      o.classList.toggle('open');
+    }
+    function closeTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
+    }
+</script>
+<script>
+    let vtPanelOpen = false;
+    let vtRecognition = null;
+    let vtIsListening = false;
+    let vtLastTranslation = '';
+    let vtCurrentTab = 'translate';
+    let vtNarrateChunks = [];
+    let vtNarrateIndex = 0;
+    let vtNarrateActive = false;
+    let vtNarratePaused = false;
+    let vtNarrateUtter = null;
+
+    function toggleVoiceTranslator() {
+      vtPanelOpen = !vtPanelOpen;
+      const panel = document.getElementById('voiceTranslatorPanel');
+      panel.classList.toggle('open', vtPanelOpen);
+      if (!vtPanelOpen) {
+        if (vtIsListening) vtStopMic();
+        if (vtNarrateActive) vtStopNarrate();
+      }
+      if (vtPanelOpen) { vtLoadVoices(); vtNarrateLoadVoices(); }
+    }
+
+    function vtSwitchTab(tab) {
+      vtCurrentTab = tab;
+      document.getElementById('vtTabContentTranslate').style.display = tab === 'translate' ? '' : 'none';
+      document.getElementById('vtTabContentNarrate').style.display   = tab === 'narrate'   ? '' : 'none';
+      document.getElementById('vtTabTranslate').classList.toggle('active', tab === 'translate');
+      document.getElementById('vtTabNarrate').classList.toggle('active', tab === 'narrate');
+    }
+
+    function vtSwapLangs() {
+      const from = document.getElementById('vtLangFrom');
+      const to   = document.getElementById('vtLangTo');
+      const tmp  = from.value; from.value = to.value; to.value = tmp;
+      const orig  = document.getElementById('vtOriginalText');
+      const trans = document.getElementById('vtTranslatedText');
+      const tmpText = orig.textContent, tmpClass = orig.className;
+      orig.textContent = trans.textContent; orig.className = trans.className;
+      trans.textContent = tmpText; trans.className = tmpClass;
+      vtLastTranslation = trans.textContent;
+    }
+
+    const VT_LANG_CODE = {
+      'pt-BR':'pt','en-US':'en','es-ES':'es','fr-FR':'fr',
+      'de-DE':'de','it-IT':'it','ja-JP':'ja','zh-CN':'zh','ar-SA':'ar','ru-RU':'ru'
+    };
+
+    async function vtTranslateText(text, fromLang, toLang) {
+      const status = document.getElementById('vtStatus');
+      if (fromLang === toLang) {
+        vtLastTranslation = text;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = text; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Mesmo idioma — texto copiado';
+        return;
+      }
+      status.textContent = '🔄 Traduzindo…';
+      const from = VT_LANG_CODE[fromLang] || 'pt';
+      const to   = VT_LANG_CODE[toLang]   || 'en';
+      try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
+        const r   = await fetch(url);
+        const d   = await r.json();
+        const translation = d.responseData?.translatedText || text;
+        vtLastTranslation = translation;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = translation; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Tradução concluída';
+        vtSpeak();
+      } catch(e) {
+        status.textContent = '❌ Erro de tradução. Tente novamente.';
+      }
+    }
+
+    function vtToggleMic() {
+      if (vtIsListening) { vtStopMic(); return; }
+      vtStartMic();
+    }
+
+    function vtStartMic() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        document.getElementById('vtStatus').textContent = '❌ Microfone não suportado neste navegador (use Chrome).';
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const fromLang = document.getElementById('vtLangFrom').value;
+      vtRecognition = new SR();
+      vtRecognition.lang = fromLang;
+      vtRecognition.continuous = true;
+      vtRecognition.interimResults = true;
+
+      vtRecognition.onstart = () => {
+        vtIsListening = true;
+        document.getElementById('vtMicBtn').classList.add('active');
+        document.getElementById('vtMicIcon').textContent = '⏹';
+        document.getElementById('vtMicText').textContent = 'Parar';
+        document.getElementById('vtStatus').textContent = '🎙️ Ouvindo… fale agora';
+        document.getElementById('voiceTranslatorToggle').classList.add('listening');
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = ''; el.classList.remove('placeholder');
+        document.getElementById('vtTranslatedText').textContent = '';
+        document.getElementById('vtTranslatedText').classList.add('placeholder');
+        document.getElementById('vtTranslatedText').textContent = 'Tradução aparecerá aqui…';
+        document.getElementById('vtSpeakBtn').style.display = 'none';
+        vtLastTranslation = '';
+      };
+
+      let finalBuffer = '';
+      vtRecognition.onresult = (e) => {
+        let interim = '';
+        let finalNew = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) finalNew += e.results[i][0].transcript + ' ';
+          else interim += e.results[i][0].transcript;
+        }
+        if (finalNew) finalBuffer += finalNew;
+        const display = finalBuffer + interim;
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = display; el.classList.remove('placeholder');
+      };
+
+      vtRecognition.onerror = (e) => {
+        if (e.error !== 'no-speech') {
+          document.getElementById('vtStatus').textContent = '❌ Erro: ' + e.error;
+        }
+      };
+
+      vtRecognition.onend = () => {
+        vtIsListening = false;
+        document.getElementById('vtMicBtn').classList.remove('active');
+        document.getElementById('vtMicIcon').textContent = '🎤';
+        document.getElementById('vtMicText').textContent = 'Falar';
+        document.getElementById('voiceTranslatorToggle').classList.remove('listening');
+        if (finalBuffer.trim()) {
+          const toLang = document.getElementById('vtLangTo').value;
+          vtTranslateText(finalBuffer.trim(), fromLang, toLang);
+        } else {
+          document.getElementById('vtStatus').textContent = 'Nenhuma fala detectada. Tente novamente.';
+        }
+        finalBuffer = '';
+        vtRecognition = null;
+      };
+      vtRecognition.start();
+    }
+
+    function vtStopMic() {
+      vtIsListening = false;
+      if (vtRecognition) { try { vtRecognition.stop(); } catch(e) {} }
+    }
+
+    function vtSpeak() {
+      if (!vtLastTranslation) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(vtLastTranslation);
+      utter.lang  = document.getElementById('vtLangTo').value;
+      utter.rate  = parseFloat(document.getElementById('vtRate').value);
+      utter.pitch = parseFloat(document.getElementById('vtPitch').value);
+      const voiceSel = document.getElementById('vtVoiceSelect');
+      const voices = window.speechSynthesis.getVoices();
+      const chosen = voices.find(v => v.name === voiceSel.value);
+      if (chosen) utter.voice = chosen;
+      const stopBtn = document.getElementById('vtStopSpeakBtn');
+      stopBtn.style.display = 'flex';
+      utter.onend = () => { stopBtn.style.display = 'none'; };
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtStopSpeak() {
+      window.speechSynthesis.cancel();
+      document.getElementById('vtStopSpeakBtn').style.display = 'none';
+    }
+
+    function vtLoadVoices() {
+      const sel = document.getElementById('vtVoiceSelect');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+      };
+      fill();
+      window.speechSynthesis.onvoiceschanged = fill;
+    }
+
+    function vtNarrateLoadVoices() {
+      const sel = document.getElementById('vtNarrateVoice');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+        const pt = Array.from(sel.options).find(o => o.textContent.includes('pt-BR') || o.textContent.includes('Portuguese'));
+        if (pt) sel.value = pt.value;
+      };
+      fill();
+      window.speechSynthesis.onvoiceschanged = fill;
+    }
+
+    function vtGetPageText() {
+      const chunks = [];
+      const excluded = [
+        '.top-right-buttons','.top-left-buttons','.menu-content',
+        '.chatbot-window','.voice-translator-panel','.topics-dropdown',
+        '.topics-dropdown-mobile','.modal','.modal-overlay','script','style'
+      ];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const el = node.parentElement;
+          if (!el) return NodeFilter.FILTER_REJECT;
+          const s = window.getComputedStyle(el);
+          if (s.display==='none'||s.visibility==='hidden') return NodeFilter.FILTER_REJECT;
+          for (const sel of excluded) {
+            if (el.closest(sel)) return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      let node, cur = '';
+      while ((node = walker.nextNode())) {
+        const t = node.textContent.trim();
+        if (!t) continue;
+        cur += ' ' + t;
+        if (cur.length > 120) { chunks.push(cur.trim()); cur = ''; }
+      }
+      if (cur.trim().length > 3) chunks.push(cur.trim());
+      return chunks;
+    }
+
+    function vtToggleNarrate() {
+      if (vtNarrateActive) { vtStopNarrate(); } else { vtStartNarrate(); }
+    }
+
+    function vtStartNarrate() {
+      vtNarrateChunks = vtGetPageText();
+      if (!vtNarrateChunks.length) {
+        document.getElementById('vtNarrateStatus').textContent = '❌ Nenhum conteúdo encontrado para narrar.';
+        return;
+      }
+      vtNarrateIndex = 0;
+      vtNarrateActive = true;
+      vtNarratePaused = false;
+      document.getElementById('vtNarrateBtn').classList.add('active');
+      document.getElementById('vtNarrateIcon').textContent = '⏹';
+      document.getElementById('vtNarrateText').textContent = 'Parar narração';
+      document.getElementById('vtNarratePauseBtn').style.display = 'flex';
+      document.getElementById('vtNarratePauseBtn').textContent = '⏸';
+      vtNarrateNext();
+    }
+
+    function vtNarrateNext() {
+      if (!vtNarrateActive || vtNarrateIndex >= vtNarrateChunks.length) {
+        vtStopNarrate();
+        document.getElementById('vtNarrateStatus').textContent = '✅ Narração concluída!';
+        return;
+      }
+      const text  = vtNarrateChunks[vtNarrateIndex];
+      const total = vtNarrateChunks.length;
+      const pct   = Math.round((vtNarrateIndex / total) * 100);
+      document.getElementById('vtNarrateBar').style.width = pct + '%';
+      document.getElementById('vtNarrateCurrentText').textContent = text.length > 120 ? text.slice(0,120)+'…' : text;
+      document.getElementById('vtNarrateStatus').textContent = `📍 Trecho ${vtNarrateIndex+1} de ${total}`;
+      const utter = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      const voiceSel = document.getElementById('vtNarrateVoice');
+      const chosen = voices.find(v => v.name === voiceSel?.value);
+      if (chosen) utter.voice = chosen;
+      utter.lang  = chosen?.lang || 'pt-BR';
+      utter.rate  = parseFloat(document.getElementById('vtNarrateRate').value);
+      utter.onend = () => {
+        if (!vtNarrateActive || vtNarratePaused) return;
+        vtNarrateIndex++;
+        setTimeout(vtNarrateNext, 300);
+      };
+      vtNarrateUtter = utter;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtPauseNarrate() {
+      const btn = document.getElementById('vtNarratePauseBtn');
+      if (!vtNarratePaused) {
+        window.speechSynthesis.pause();
+        vtNarratePaused = true;
+        btn.textContent = '▶';
+        document.getElementById('vtNarrateStatus').textContent = '⏸ Pausado';
+      } else {
+        window.speechSynthesis.resume();
+        vtNarratePaused = false;
+        btn.textContent = '⏸';
+      }
+    }
+
+    function vtStopNarrate() {
+      vtNarrateActive = false;
+      vtNarratePaused = false;
+      window.speechSynthesis.cancel();
+      document.getElementById('vtNarrateBtn').classList.remove('active');
+      document.getElementById('vtNarrateIcon').textContent = '📢';
+      document.getElementById('vtNarrateText').textContent = 'Narrar página';
+      document.getElementById('vtNarratePauseBtn').style.display = 'none';
+      document.getElementById('vtNarrateBar').style.width = '0%';
+      document.getElementById('vtNarrateCurrentText').textContent = '—';
+      if (!document.getElementById('vtNarrateStatus').textContent.startsWith('✅')) {
+        document.getElementById('vtNarrateStatus').textContent = 'Pressione para ouvir o conteúdo desta página';
+      }
+    }
+
+    document.getElementById('vtNarrateRate').addEventListener('input', function() {
+      document.getElementById('vtNarrateRateVal').textContent = this.value;
+    });
+
+    document.addEventListener('click', (e) => {
+      const panel  = document.getElementById('voiceTranslatorPanel');
+      const toggle = document.getElementById('voiceTranslatorToggle');
+      if (vtPanelOpen && panel && !panel.contains(e.target) && !toggle.contains(e.target)) {
+        vtPanelOpen = false;
+        panel.classList.remove('open');
+        if (vtIsListening) vtStopMic();
+      }
+    });
+    </script>
+
+  <!-- Sistema de idiomas local -->
+  <script>
+  // ============= SELETOR DE IDIOMA LOCAL =============
+    const translations = {
+      pt: {
+        'header-title': 'Inclusão e Diversidade LGBT+',
+        'header-sub': 'Compromisso da Agência Nexus com respeito, igualdade e inclusão',
+        'sec1-title': 'Nossa Posição sobre Inclusão LGBT+',
+        'sec1-p1': 'A Agência Nexus é profundamente comprometida com a inclusão, diversidade e igualdade de direitos para todas as pessoas, independentemente de sua identidade de gênero ou orientação sexual. Acreditamos que a diversidade enriquece nossas equipes, nossas empresas parceiras e a sociedade como um todo.',
+        'sec1-p2': 'Ser uma agência inclusiva não é protocolo — é convicção. Entendemos que o mercado de trabalho ainda apresenta barreiras reais para a comunidade LGBT+, e nossa missão é ser um ponto de acesso seguro, respeitoso e igualitário para todas as pessoas que buscam oportunidades profissionais.',
+        'sec1-p3': 'Cada candidato, independentemente de quem é ou de como se identifica, merece ser avaliado pelo seu potencial, suas habilidades e sua vontade de crescer. Não toleramos discriminação de nenhuma forma — nem nas nossas práticas, nem nas empresas com quem trabalhamos.',
+        'declaration-title': '🏳️‍🌈 Nossa Declaração:',
+        'declaration-text': 'Todas as pessoas LGBT+ são bem-vindas, respeitadas e valorizadas em nossa agência. Não toleramos discriminação de qualquer forma.',
+        'commitments-title': 'Nossos Compromissos com a Comunidade LGBT+',
+        'commit-respect-title': 'Respeito e Identidade',
+        'commit-respect-1-label': 'Respeito Total:',
+        'commit-respect-1-text': 'Respeitamos a identidade de gênero e orientação sexual de cada pessoa, usando pronomes corretos em todas as interações',
+        'commit-respect-2-label': 'Nome Social:',
+        'commit-respect-2-text': 'Utilizamos o nome social em todos os documentos e comunicações internas, sem questionamentos',
+        'commit-respect-3-label': 'Zero Discriminação:',
+        'commit-respect-3-text': 'Nenhuma pessoa LGBT+ será preterida em processos seletivos por causa de quem é — avaliamos competências e potencial',
+        'commit-respect-4-label': 'Confidencialidade:',
+        'commit-respect-4-text': 'Informações sensíveis sobre identidade de gênero e orientação sexual são tratadas com total sigilo',
+        'commit-respect-5-label': 'Ambiente Seguro:',
+        'commit-respect-5-text': 'Garantimos que todo contato com nossa agência seja um espaço acolhedor, livre de julgamentos',
+        'commit-policy-title': 'Políticas de Inclusão',
+        'commit-policy-1-label': 'Não Discriminação:',
+        'commit-policy-1-text': 'Nenhuma discriminação em recrutamento, seleção ou promoção baseada em orientação sexual ou identidade de gênero',
+        'commit-policy-2-label': 'Oportunidades Iguais:',
+        'commit-policy-2-text': 'Pessoas LGBT+ têm as mesmas oportunidades de carreira e desenvolvimento profissional que qualquer outro candidato',
+        'commit-policy-3-label': 'Processos Justos:',
+        'commit-policy-3-text': 'Processos seletivos imparciais, focados em habilidades, experiência e potencial',
+        'commit-policy-4-label': 'Parceiros Comprometidos:',
+        'commit-policy-4-text': 'Priorizamos empresas parceiras que também adotam práticas inclusivas e respeitosas',
+        'rights-title': 'Direitos que Apoiamos',
+        'rights-1-label': 'Direito à Identidade:',
+        'rights-1-text': 'Reconhecimento legal de gênero e nome como direito fundamental de toda pessoa',
+        'rights-2-label': 'Direito à Igualdade:',
+        'rights-2-text': 'Tratamento igualitário em todos os aspectos da vida profissional e pessoal',
+        'rights-3-label': 'Direito ao Trabalho:',
+        'rights-3-text': 'Igualdade de oportunidades profissionais independentemente de orientação sexual ou identidade de gênero',
+        'rights-4-label': 'Direito à Dignidade:',
+        'rights-4-text': 'Respeito e valorização de cada pessoa como ela é, sem exigir explicações ou justificativas',
+        'contact-title': 'Contato e Suporte',
+        'contact-1': '✅ Privacidade Garantida: Suas informações são tratadas com total confidencialidade',
+        'contact-2': '✅ Atendimento Respeitoso: Nossa equipe está preparada para acolher você como você é',
+        'contact-3': '✅ Dúvidas sobre o processo: Fale conosco pelo WhatsApp: (51) 99697-6579',
+        'contact-4': '✅ E-mail: adm.agencianexus@outlook.com',
+        'final-text': 'Todos são bem-vindos. Todos são respeitados. Todos importam! 🏳️‍🌈',
+        'btn-back': 'Voltar',
+        'btn-contact': 'Fale Conosco',
+        'footer-desc': 'Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.',
+        'footer-text': '© 2026 Agência Nexus. Todos os direitos reservados.',
+        'lang-label': 'Idioma:'
+      },
+      en: {
+        'header-title': 'LGBT+ Inclusion and Diversity',
+        'header-sub': 'Agência Nexus commitment to respect, equality and inclusion',
+        'sec1-title': 'Our Position on LGBT+ Inclusion',
+        'sec1-p1': 'Agência Nexus is deeply committed to inclusion, diversity and equal rights for all people, regardless of their gender identity or sexual orientation. We believe diversity enriches our teams, our partner companies and society as a whole.',
+        'sec1-p2': 'Being an inclusive agency is not a protocol — it is a conviction. We understand that the job market still presents real barriers for the LGBT+ community, and our mission is to be a safe, respectful and equal access point for all people seeking professional opportunities.',
+        'sec1-p3': 'Every candidate, regardless of who they are or how they identify, deserves to be evaluated by their potential, skills and willingness to grow. We do not tolerate discrimination in any form — neither in our practices nor in the companies we work with.',
+        'declaration-title': '🏳️‍🌈 Our Declaration:',
+        'declaration-text': 'All LGBT+ people are welcome, respected and valued in our agency. We do not tolerate discrimination in any form.',
+        'commitments-title': 'Our Commitments to the LGBT+ Community',
+        'commit-respect-title': 'Respect and Identity',
+        'commit-respect-1-label': 'Total Respect:',
+        'commit-respect-1-text': 'We respect the gender identity and sexual orientation of each person, using correct pronouns in all interactions',
+        'commit-respect-2-label': 'Social Name:',
+        'commit-respect-2-text': 'We use the social name in all documents and internal communications, without questioning',
+        'commit-respect-3-label': 'Zero Discrimination:',
+        'commit-respect-3-text': 'No LGBT+ person will be overlooked in selection processes because of who they are — we evaluate competencies and potential',
+        'commit-respect-4-label': 'Confidentiality:',
+        'commit-respect-4-text': 'Sensitive information about gender identity and sexual orientation is treated with total confidentiality',
+        'commit-respect-5-label': 'Safe Environment:',
+        'commit-respect-5-text': 'We ensure that all contact with our agency is a welcoming space, free of judgment',
+        'commit-policy-title': 'Inclusion Policies',
+        'commit-policy-1-label': 'Non-Discrimination:',
+        'commit-policy-1-text': 'No discrimination in recruitment, selection or promotion based on sexual orientation or gender identity',
+        'commit-policy-2-label': 'Equal Opportunities:',
+        'commit-policy-2-text': 'LGBT+ people have the same career and professional development opportunities as any other candidate',
+        'commit-policy-3-label': 'Fair Processes:',
+        'commit-policy-3-text': 'Impartial selection processes focused on skills, experience and potential',
+        'commit-policy-4-label': 'Committed Partners:',
+        'commit-policy-4-text': 'We prioritize partner companies that also adopt inclusive and respectful practices',
+        'rights-title': 'Rights We Support',
+        'rights-1-label': 'Right to Identity:',
+        'rights-1-text': 'Legal recognition of gender and name as a fundamental right of every person',
+        'rights-2-label': 'Right to Equality:',
+        'rights-2-text': 'Equal treatment in all aspects of professional and personal life',
+        'rights-3-label': 'Right to Work:',
+        'rights-3-text': 'Equal professional opportunities regardless of sexual orientation or gender identity',
+        'rights-4-label': 'Right to Dignity:',
+        'rights-4-text': 'Respect and appreciation for each person as they are, without requiring explanations or justifications',
+        'contact-title': 'Contact and Support',
+        'contact-1': '✅ Guaranteed Privacy: Your information is treated with total confidentiality',
+        'contact-2': '✅ Respectful Service: Our team is prepared to welcome you as you are',
+        'contact-3': '✅ Questions about the process: Contact us via WhatsApp: (51) 99697-6579',
+        'contact-4': '✅ Email: adm.agencianexus@outlook.com',
+        'final-text': 'Everyone is welcome. Everyone is respected. Everyone matters! 🏳️‍🌈',
+        'btn-back': 'Back',
+        'btn-contact': 'Contact Us',
+        'footer-desc': 'We connect talent to real opportunities. Human, agile and efficient recruitment.',
+        'footer-text': '© 2026 Agência Nexus. All rights reserved.',
+        'lang-label': 'Language:'
+      },
+      es: {
+        'header-title': 'Inclusión y Diversidad LGBT+',
+        'header-sub': 'Compromiso de la Agência Nexus con el respeto, la igualdad y la inclusión',
+        'sec1-title': 'Nuestra Posición sobre la Inclusión LGBT+',
+        'sec1-p1': 'La Agência Nexus está profundamente comprometida con la inclusión, la diversidad y la igualdad de derechos para todas las personas, independientemente de su identidad de género u orientación sexual. Creemos que la diversidad enriquece nuestros equipos, nuestras empresas asociadas y la sociedad en su conjunto.',
+        'sec1-p2': 'Ser una agencia inclusiva no es un protocolo — es una convicción. Entendemos que el mercado laboral todavía presenta barreras reales para la comunidad LGBT+, y nuestra misión es ser un punto de acceso seguro, respetuoso e igualitario para todas las personas que buscan oportunidades profesionales.',
+        'sec1-p3': 'Cada candidato, independientemente de quién es o cómo se identifica, merece ser evaluado por su potencial, habilidades y voluntad de crecer. No toleramos la discriminación de ninguna forma — ni en nuestras prácticas ni en las empresas con las que trabajamos.',
+        'declaration-title': '🏳️‍🌈 Nuestra Declaración:',
+        'declaration-text': 'Todas las personas LGBT+ son bienvenidas, respetadas y valoradas en nuestra agencia. No toleramos la discriminación de ninguna forma.',
+        'commitments-title': 'Nuestros Compromisos con la Comunidad LGBT+',
+        'commit-respect-title': 'Respeto e Identidad',
+        'commit-respect-1-label': 'Respeto Total:',
+        'commit-respect-1-text': 'Respetamos la identidad de género y orientación sexual de cada persona, usando pronombres correctos en todas las interacciones',
+        'commit-respect-2-label': 'Nombre Social:',
+        'commit-respect-2-text': 'Usamos el nombre social en todos los documentos y comunicaciones internas, sin cuestionamientos',
+        'commit-respect-3-label': 'Cero Discriminación:',
+        'commit-respect-3-text': 'Ninguna persona LGBT+ será dejada de lado en los procesos de selección por lo que es — evaluamos competencias y potencial',
+        'commit-respect-4-label': 'Confidencialidad:',
+        'commit-respect-4-text': 'La información sensible sobre identidad de género y orientación sexual se trata con total confidencialidad',
+        'commit-respect-5-label': 'Ambiente Seguro:',
+        'commit-respect-5-text': 'Garantizamos que todo contacto con nuestra agencia sea un espacio acogedor, libre de juicios',
+        'commit-policy-title': 'Políticas de Inclusión',
+        'commit-policy-1-label': 'No Discriminación:',
+        'commit-policy-1-text': 'Ninguna discriminación en reclutamiento, selección o promoción basada en orientación sexual o identidad de género',
+        'commit-policy-2-label': 'Igualdad de Oportunidades:',
+        'commit-policy-2-text': 'Las personas LGBT+ tienen las mismas oportunidades de carrera y desarrollo profesional que cualquier otro candidato',
+        'commit-policy-3-label': 'Procesos Justos:',
+        'commit-policy-3-text': 'Procesos de selección imparciales, centrados en habilidades, experiencia y potencial',
+        'commit-policy-4-label': 'Socios Comprometidos:',
+        'commit-policy-4-text': 'Priorizamos empresas asociadas que también adoptan prácticas inclusivas y respetuosas',
+        'rights-title': 'Derechos que Apoyamos',
+        'rights-1-label': 'Derecho a la Identidad:',
+        'rights-1-text': 'Reconocimiento legal de género y nombre como derecho fundamental de toda persona',
+        'rights-2-label': 'Derecho a la Igualdad:',
+        'rights-2-text': 'Trato igualitario en todos los aspectos de la vida profesional y personal',
+        'rights-3-label': 'Derecho al Trabajo:',
+        'rights-3-text': 'Igualdad de oportunidades profesionales independientemente de la orientación sexual o identidad de género',
+        'rights-4-label': 'Derecho a la Dignidad:',
+        'rights-4-text': 'Respeto y valoración de cada persona como es, sin exigir explicaciones o justificaciones',
+        'contact-title': 'Contacto y Soporte',
+        'contact-1': '✅ Privacidad Garantizada: Su información es tratada con total confidencialidad',
+        'contact-2': '✅ Atención Respetuosa: Nuestro equipo está preparado para recibirle como es',
+        'contact-3': '✅ Preguntas sobre el proceso: Contáctenos por WhatsApp: (51) 99697-6579',
+        'contact-4': '✅ Correo electrónico: adm.agencianexus@outlook.com',
+        'final-text': 'Todos son bienvenidos. Todos son respetados. ¡Todos importan! 🏳️‍🌈',
+        'btn-back': 'Volver',
+        'btn-contact': 'Contáctenos',
+        'footer-desc': 'Conectamos talentos a oportunidades reales. Reclutamiento humano, ágil y eficiente.',
+        'footer-text': '© 2026 Agência Nexus. Todos los derechos reservados.',
+        'lang-label': 'Idioma:'
+      }
+    };
+
+    function applyTranslations(lang) {
+      const t = translations[lang] || translations['pt'];
+      const s = (sel) => document.querySelector(sel);
+      const all = (sel) => document.querySelectorAll(sel);
+
+      // Header
+      const h1 = s('.header h1');
+      if (h1) h1.textContent = t['header-title'];
+      const headerP = s('.header p');
+      if (headerP) headerP.textContent = t['header-sub'];
+
+      // Section 1 - Nossa Posição (id="nossa-missao")
+      const sec1h2 = document.getElementById('nossa-missao');
+      if (sec1h2) sec1h2.textContent = t['sec1-title'];
+
+      // Paragraphs in content-section (first 3 <p> before highlight-box)
+      const allParas = all('.content-section .content-container > p');
+      if (allParas[0]) allParas[0].textContent = t['sec1-p1'];
+      if (allParas[1]) allParas[1].textContent = t['sec1-p2'];
+      if (allParas[2]) allParas[2].textContent = t['sec1-p3'];
+
+      // Declaration highlight box
+      const highlightBox = s('.highlight-box');
+      if (highlightBox) {
+        highlightBox.innerHTML = '<strong>' + t['declaration-title'] + '</strong> ' + t['declaration-text'];
+      }
+
+      // Section 2 - Compromissos (id="como-vivemos")
+      const sec2h2 = document.getElementById('como-vivemos');
+      if (sec2h2) sec2h2.textContent = t['commitments-title'];
+
+      // h3 titles
+      const h3s = all('.content-section h3');
+      if (h3s[0]) h3s[0].textContent = t['commit-respect-title'];
+      if (h3s[1]) h3s[1].textContent = t['commit-policy-title'];
+      if (h3s[2]) h3s[2].textContent = t['rights-title'];
+
+      // highlight-list items — map by order
+      const lists = all('.highlight-list');
+      // List 0: Respeito e Identidade (5 items)
+      const respectKeys = [
+        ['commit-respect-1-label','commit-respect-1-text'],
+        ['commit-respect-2-label','commit-respect-2-text'],
+        ['commit-respect-3-label','commit-respect-3-text'],
+        ['commit-respect-4-label','commit-respect-4-text'],
+        ['commit-respect-5-label','commit-respect-5-text'],
+      ];
+      if (lists[0]) {
+        lists[0].querySelectorAll('li').forEach((li, i) => {
+          if (respectKeys[i]) {
+            li.innerHTML = '<strong>' + t[respectKeys[i][0]] + '</strong> ' + t[respectKeys[i][1]];
+          }
+        });
+      }
+      // List 1: Políticas de Inclusão (4 items)
+      const policyKeys = [
+        ['commit-policy-1-label','commit-policy-1-text'],
+        ['commit-policy-2-label','commit-policy-2-text'],
+        ['commit-policy-3-label','commit-policy-3-text'],
+        ['commit-policy-4-label','commit-policy-4-text'],
+      ];
+      if (lists[1]) {
+        lists[1].querySelectorAll('li').forEach((li, i) => {
+          if (policyKeys[i]) {
+            li.innerHTML = '<strong>' + t[policyKeys[i][0]] + '</strong> ' + t[policyKeys[i][1]];
+          }
+        });
+      }
+      // List 2: Direitos (4 items)
+      const rightsKeys = [
+        ['rights-1-label','rights-1-text'],
+        ['rights-2-label','rights-2-text'],
+        ['rights-3-label','rights-3-text'],
+        ['rights-4-label','rights-4-text'],
+      ];
+      if (lists[2]) {
+        lists[2].querySelectorAll('li').forEach((li, i) => {
+          if (rightsKeys[i]) {
+            li.innerHTML = '<strong>' + t[rightsKeys[i][0]] + '</strong> ' + t[rightsKeys[i][1]];
+          }
+        });
+      }
+
+      // Contato e Suporte (id="nossa-promessa")
+      const sec3h2 = document.getElementById('nossa-promessa');
+      if (sec3h2) sec3h2.textContent = t['contact-title'];
+
+      // Contact highlight-box (second one)
+      const highlightBoxes = all('.highlight-box');
+      if (highlightBoxes[1]) {
+        highlightBoxes[1].innerHTML =
+          t['contact-1'] + '<br><br>' +
+          t['contact-2'] + '<br><br>' +
+          t['contact-3'] + '<br><br>' +
+          t['contact-4'];
+      }
+
+      // Final text
+      const finalP = s('p[style*="text-align: center"] strong');
+      if (finalP) finalP.textContent = t['final-text'];
+
+      // Buttons
+      all('a.btn').forEach(btn => {
+        const href = btn.getAttribute('href') || '';
+        if (href.includes('index')) btn.textContent = t['btn-back'];
+        if (href.includes('contato')) btn.textContent = t['btn-contact'];
+      });
+
+      // Footer
+      const footerDesc = s('.footer-desc, .footer-about p');
+      if (footerDesc) footerDesc.textContent = t['footer-desc'];
+      const footerCopy = s('.footer-copy');
+      if (footerCopy) footerCopy.innerHTML = t['footer-text'];
+      const langLabel = s('[data-i18n="lang-label"]');
+      if (langLabel) langLabel.textContent = t['lang-label'];
+
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) selector.value = savedLang;
+      applyTranslations(savedLang);
+    }
+
+    function changeLanguage(lang) {
+      localStorage.setItem('siteLanguage', lang);
+      applyTranslations(lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
   </script>
 
 </body>

@@ -98,6 +98,13 @@ body:not(.dark-mode) .theme-toggle {
   border: 2px solid rgba(0, 0, 0, 0.4);
   color: rgb(27, 27, 27);
 }
+body:not(.dark-mode) .theme-toggle {
+  height: 50px;
+  min-width: 50px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  transform: none;
+}
 
 body:not(.dark-mode) .back-button:hover,
 body:not(.dark-mode) .menu-toggle:hover,
@@ -1730,7 +1737,366 @@ body.dark-mode .chip { background: #2a2a2a; }
       body.menu-open .topics-dropdown-mobile { display: none !important; }
     }
 
-    /* TRADUTOR */
+        /* TRADUTOR */
+    .top-right-buttons {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+    .top-right-buttons * {
+      pointer-events: auto;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+      position: static;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Botão Tradutor em Voz */
+    .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      white-space: nowrap;
+    }
+    .voice-translator-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    body:not(.dark-mode) .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+    body:not(.dark-mode) .voice-translator-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+    .voice-translator-toggle.listening {
+      background: rgba(239, 68, 68, 0.35) !important;
+      border-color: rgba(239, 68, 68, 0.8) !important;
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-mic {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+    }
+
+        /* === PAINEL TRADUTOR — ESPAÇAMENTO GENEROSO === */
+    .voice-translator-panel {
+      position: fixed;
+      top: calc(2rem + 120px);
+      right: 1.2rem;
+      z-index: 1001;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.8rem 1.8rem 2rem;
+      width: min(360px, calc(100vw - 2.4rem));
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: none;
+      flex-direction: column;
+      gap: 22px;
+      border: 1px solid rgba(0,0,0,0.06);
+      animation: dropIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    body.dark-mode .voice-translator-panel {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 2px 10px rgba(0,0,0,0.3);
+      color: #f0f0f0;
+    }
+    .voice-translator-panel.open { display: flex; }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Abas */
+    .vt-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 5px;
+    }
+    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
+    .vt-tab {
+      flex: 1;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .vt-tab.active {
+      background: #ffffff;
+      color: #3b82f6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .vt-tab.active {
+      background: #2c2c2e;
+      color: #60a5fa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .vt-tab { color: #888; }
+
+    /* Label */
+    .vt-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #3b82f6;
+      margin-bottom: 2px;
+    }
+
+    /* Linha de idiomas */
+    .vt-lang-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vt-lang-row select {
+      flex: 1;
+      padding: 11px 16px;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      font-size: 0.84rem;
+      font-family: inherit;
+      background: #f5f5f7;
+      cursor: pointer;
+      color: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
+    }
+    .vt-lang-row select:focus { border-color: #3b82f6; }
+    body.dark-mode .vt-lang-row select {
+      border-color: rgba(255,255,255,0.12);
+      background: #2c2c2e;
+      color: #f0f0f0;
+    }
+
+    /* Botão trocar */
+    .vt-swap-btn {
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      color: #3b82f6;
+    }
+    .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
+
+    /* Áreas de texto */
+    .vt-text-area {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f5f5f7;
+      min-height: 70px;
+      word-break: break-word;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
+    }
+    body.dark-mode .vt-text-area { background: #2c2c2e; border-color: rgba(255,255,255,0.05); }
+    .vt-text-area.placeholder { color: #aaa; font-style: italic; }
+
+    /* Botão mic principal */
+    .vt-mic-btn {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+    }
+    .vt-mic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    }
+    .vt-mic-btn.active {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      box-shadow: 0 4px 16px rgba(220,38,38,0.4);
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+
+    /* Status */
+    .vt-status {
+      font-size: 0.74rem;
+      text-align: center;
+      color: #999;
+      line-height: 1.5;
+    }
+
+    /* Botão falar/parar */
+    .vt-speak-btn {
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.35);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      color: #3b82f6;
+      transition: all 0.25s;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .vt-speak-btn:hover { background: #3b82f6; color: white; }
+    .vt-speak-btn.show { display: flex; }
+
+    /* Configurações */
+    .vt-settings { font-size: 0.8rem; }
+    .vt-settings summary {
+      cursor: pointer;
+      color: #999;
+      padding: 4px 0;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .vt-settings summary:hover { color: #3b82f6; }
+    .vt-settings-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0 4px;
+    }
+    .vt-settings-body label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: inherit;
+    }
+    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
+
+    /* Narrar progresso */
+    .vt-narrate-progress {
+      height: 6px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.8rem;
+      color: #888;
+      min-height: 40px;
+      padding: 6px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 11px 16px;
+      font-size: 0.84rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 72vh;
+        border-radius: 20px;
+        padding: 1.4rem 1.4rem 1.6rem;
+        gap: 18px;
+      }
+      .vt-tab { padding: 10px 10px; font-size: 0.76rem; }
+      .vt-mic-btn { padding: 14px 22px; font-size: 0.9rem; }
+      .vt-lang-row select { padding: 10px 12px; font-size: 0.8rem; }
+    }
+
+    body.chat-open .top-right-buttons,
+    body.menu-open .top-right-buttons { display: none !important; }
+    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+/* TRADUTOR */
     .top-right-buttons {
       position: fixed;
       top: 2rem;
@@ -2031,315 +2397,6 @@ body.dark-mode .chip { background: #2a2a2a; }
     body.menu-open .top-right-buttons { display: none !important; }
     body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
     /* Select voz narrador */
-    #vtNarrateVoice { background:#fff; color:#111; }
-    body.dark-mode #vtNarrateVoice { background:#2a2a2a; color:#f0f0f0; }
-    #vtNarrateVoice option { background:#fff; color:#111; }
-    body.dark-mode #vtNarrateVoice option { background:#2a2a2a; color:#f0f0f0; }
-    /* TRADUTOR */
-    .top-right-buttons {
-      position: fixed;
-      top: 2rem;
-      right: 2rem;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-end;
-      pointer-events: none;
-    }
-    .top-right-buttons * {
-      pointer-events: auto;
-    }
-
-    .theme-toggle {
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(10px);
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 1rem;
-      color: white;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 50px;
-      position: static;
-    }
-
-    .theme-toggle:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
-    }
-
-    /* Botão Tradutor em Voz */
-    .voice-translator-toggle {
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(10px);
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 1rem;
-      color: white;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      height: 50px;
-      min-width: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      white-space: nowrap;
-    }
-    .voice-translator-toggle:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
-    }
-    body:not(.dark-mode) .voice-translator-toggle {
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(0, 0, 0, 0.4);
-      color: rgb(27, 27, 27);
-    }
-    body:not(.dark-mode) .voice-translator-toggle:hover {
-      color: white;
-      background: rgba(30, 64, 175, 0.4);
-    }
-    .voice-translator-toggle.listening {
-      background: rgba(239, 68, 68, 0.35) !important;
-      border-color: rgba(239, 68, 68, 0.8) !important;
-      animation: pulse-mic 1.2s ease-in-out infinite;
-    }
-    @keyframes pulse-mic {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
-      50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
-    }
-
-    /* Painel do tradutor */
-    .voice-translator-panel {
-      position: fixed;
-      top: calc(2rem + 116px);
-      right: 2rem;
-      z-index: 1001;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      padding: 1rem 1.1rem;
-      min-width: 260px;
-      max-width: 320px;
-      max-height: calc(100vh - 180px);
-      overflow-y: auto;
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-      border: 1px solid rgba(0,0,0,0.07);
-      animation: dropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
-    }
-    body.dark-mode .voice-translator-panel {
-      background: #1a1a1a;
-      border-color: rgba(255,255,255,0.1);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      color: #f0f0f0;
-    }
-    .voice-translator-panel.open { display: flex; }
-    @keyframes dropIn {
-      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .vt-label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #3b82f6;
-      margin-bottom: 2px;
-    }
-    .vt-lang-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .vt-lang-row select {
-      flex: 1;
-      padding: 6px 10px;
-      border-radius: 50px;
-      border: 2px solid rgba(0,0,0,0.15);
-      font-size: 0.85rem;
-      font-family: inherit;
-      background: transparent;
-      cursor: pointer;
-      color: inherit;
-    }
-    body.dark-mode .vt-lang-row select {
-      border-color: rgba(255,255,255,0.2);
-      background: #0a0a0a;
-      color: #f0f0f0;
-    }
-    .vt-swap-btn {
-      background: none;
-      border: 2px solid rgba(59,130,246,0.4);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-      flex-shrink: 0;
-      color: #3b82f6;
-    }
-    .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
-    .vt-text-area {
-      font-size: 0.88rem;
-      line-height: 1.5;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.04);
-      min-height: 48px;
-      word-break: break-word;
-    }
-    body.dark-mode .vt-text-area { background: rgba(255,255,255,0.07); }
-    .vt-text-area.placeholder { color: #999; font-style: italic; }
-    .vt-mic-btn {
-      background: linear-gradient(135deg, #3b82f6, #60a5fa);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 8px 18px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .vt-mic-btn:hover { transform: scale(1.04); box-shadow: 0 4px 16px rgba(59,130,246,0.4); }
-    .vt-mic-btn.active {
-      background: linear-gradient(135deg, #ef4444, #f87171);
-      animation: pulse-mic 1.2s ease-in-out infinite;
-    }
-    .vt-status {
-      font-size: 0.75rem;
-      text-align: center;
-      color: #888;
-    }
-    .vt-speak-btn {
-      background: none;
-      border: 2px solid rgba(59,130,246,0.4);
-      border-radius: 50px;
-      padding: 5px 14px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      color: #3b82f6;
-      transition: all 0.3s;
-      display: none;
-      align-items: center;
-      gap: 5px;
-    }
-    .vt-speak-btn:hover { background: #3b82f6; color: white; }
-    .vt-speak-btn.show { display: flex; }
-
-    /* Abas */
-    .vt-tabs {
-      display: flex;
-      gap: 4px;
-      background: rgba(0,0,0,0.05);
-      border-radius: 10px;
-      padding: 3px;
-    }
-    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
-    .vt-tab {
-      flex: 1;
-      padding: 5px 8px;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      background: transparent;
-      color: #888;
-      transition: all 0.2s;
-    }
-    .vt-tab.active {
-      background: white;
-      color: #3b82f6;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    body.dark-mode .vt-tab.active {
-      background: #2a2a2a;
-      color: #60a5fa;
-    }
-    body.dark-mode .vt-tab { color: #aaa; }
-
-    /* Configurações */
-    .vt-settings {
-      font-size: 0.78rem;
-    }
-    .vt-settings summary {
-      cursor: pointer;
-      color: #888;
-      padding: 3px 0;
-      user-select: none;
-    }
-    .vt-settings summary:hover { color: #3b82f6; }
-    .vt-settings-body {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 6px 0 2px;
-    }
-    .vt-settings-body label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.78rem;
-      color: inherit;
-    }
-    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
-
-    /* Narrar progresso */
-    .vt-narrate-progress {
-      height: 5px;
-      background: rgba(0,0,0,0.08);
-      border-radius: 50px;
-      overflow: hidden;
-    }
-    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
-    .vt-narrate-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
-      border-radius: 50px;
-      transition: width 0.3s ease;
-    }
-    .vt-narrate-text {
-      font-size: 0.78rem;
-      color: #888;
-      min-height: 36px;
-      padding: 4px 0;
-      font-style: italic;
-      line-height: 1.4;
-    }
-
-    body.chat-open .top-right-buttons,
-    body.menu-open .top-right-buttons { display: none !important; }
-    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
-    /* Select voz narrador */
-    #vtNarrateVoice { background:#fff; color:#111; }
-    body.dark-mode #vtNarrateVoice { background:#2a2a2a; color:#f0f0f0; }
-    #vtNarrateVoice option { background:#fff; color:#111; }
-    body.dark-mode #vtNarrateVoice option { background:#2a2a2a; color:#f0f0f0; }
     </style>
 </head>
 <body>
@@ -2503,7 +2560,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
         <img src="../imagens/fundo.png" alt="Nossos Serviços" class="header-bg-img">
         <div>
-          <h1 style="margin: 0 0 0.5rem 0;">Nossos Serviços</h1>
+          <h1 style="margin: 0 0 0.5rem 0;" data-i18n="serv-titulo">Nossos Serviços</h1>
           <p>Soluções completas e estratégicas em recrutamento, seleção e consultoria de RH</p>
         </div>
       </div>
@@ -2512,7 +2569,7 @@ body.dark-mode .chip { background: #2a2a2a; }
 
   <section class="content-section">
     <div class="content-container">
-      <h2 id="section-resultados" style="text-align:center; margin-bottom:2rem;">Nossos Resultados no RS</h2>
+      <h2 id="section-resultados" style="text-align:center; margin-bottom:2rem;" data-i18n="serv-h2-resultados">Nossos Resultados no RS</h2>
 
       <div class="stats-grid">
         <div class="stat-card">
@@ -2604,7 +2661,7 @@ body.dark-mode .chip { background: #2a2a2a; }
 
   <section class="content-section">
     <div class="content-container">
-      <h2 id="section-especialistas">Somos Especialistas em Recrutamento</h2>
+      <h2 id="section-especialistas" data-i18n="serv-h2-especialistas">Somos Especialistas em Recrutamento</h2>
       <p>
         A Agência Nexus é uma agência de RH de que combina tecnologia, criatividade e expertise humana para conectar as melhores empresas com os profissionais ideais. Atuamos em todo o processo seletivo, desde a identificação de necessidades até a integração do novo colaborador, com abordagens personalizadas para cada tipo de contratação.
       </p>
@@ -2613,7 +2670,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <strong>💼 Nossa Força:</strong> Combinamos análise de dados, inteligência artificial, busca ativa e conhecimento profundo de mercado para entregar resultados excepcionais em todas as nossas operações.
       </div>
 
-      <h2 id="section-contratacao">Tipos de Contratação</h2>
+      <h2 id="section-contratacao" data-i18n="serv-h2-contratacao">Tipos de Contratação</h2>
       <p>
         Trabalhamos com diversos formatos de contratação, adequando nossa estratégia a cada necessidade:
       </p>
@@ -2637,7 +2694,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         </div>
       </div>
 
-      <h2 id="section-multicanal">Multi-Canal com Alcance de 1.6M de Pessoas</h2>
+      <h2 id="section-multicanal" data-i18n="serv-h2-multicanal">Multi-Canal com Alcance de 1.6M de Pessoas</h2>
       <p>
         Utilizamos uma abordagem omnichannel inteligente que combina o poder das redes sociais, sistemas de IA e publicidade segmentada para alcançar os melhores candidatos. Nossa estratégia de divulgação é baseada em nichos específicos, garantindo que cada vaga chegue ao público-alvo certo.
       </p>
@@ -2657,7 +2714,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         Com um alcance combinado de <strong>1.6 milhão de pessoas</strong> em nossa rede, conseguimos atingir diferentes nichos de mercado: tecnologia, saúde, comércio, manufatura, serviços, administração e muito mais. Cada campanha é customizada para o tipo de profissional que você procura.
       </p>
 
-      <h2 id="section-servicos">Serviços da Nexus</h2>
+      <h2 id="section-servicos" data-i18n="serv-h2-servicos">Serviços da Nexus</h2>
       <p>
         Nossa gama completa de serviços cobre toda a jornada de recrutamento e desenvolvimento de pessoas:
       </p>
@@ -2707,7 +2764,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       </ul>
 
       
-      <h2 id="section-compromissos">Nossos Compromissos</h2>
+      <h2 id="section-compromissos" data-i18n="serv-h2-compromissos">Nossos Compromissos</h2>
       <p>
         Atuamos com rigor, ética e responsabilidade em todas as nossas operações:
       </p>
@@ -3236,6 +3293,77 @@ body.dark-mode .chip { background: #2a2a2a; }
         input[type=text].fv-fs,input[type=email].fv-fs,input[type=tel].fv-fs,
         input[type=number].fv-fs,input[type=date].fv-fs,select.fv-fs,textarea.fv-fs { font-size: 16px; }
       }
+    .footer-language-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+    .footer-language-selector label {
+      color: var(--ft-copy);
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .footer-language-selector select {
+      padding: 0.6rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      color: #333;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 140px;
+    }
+    .footer-language-selector select option {
+      padding: 0.5rem;
+      color: #333;
+      background: white;
+    }
+    body.dark-mode .footer-language-selector select {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border-color: #555;
+    }
+    body.dark-mode .footer-language-selector select option {
+      color: #f0f0f0;
+      background: #2a2a2a;
+    }
+    .footer-language-selector select:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    body.dark-mode .footer-language-selector select:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+    .footer-language-selector select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    body.dark-mode .footer-language-selector select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+    @media (max-width: 560px) {
+      .footer-language-selector {
+        font-size: 0.85rem;
+        gap: 0.6rem;
+        flex: 1 0 100%;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 1rem;
+      }
+      .footer-language-selector select {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+        min-width: 130px;
+      }
+    }
     </style>
 
     <!-- Título da seção -->
@@ -4102,7 +4230,15 @@ adm.agencianexus@outlook.com</textarea>
 
        
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-copy"><span data-i18n="footer-text">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</span></p>
       <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
     </div>
 
@@ -4966,6 +5102,65 @@ let vtRecognition = null;
         if (vtIsListening) vtStopMic();
       }
     });
+
+
+    // === SISTEMA MULTI-IDIOMA ===
+    const translations = {
+      pt: {
+        'serv-titulo': 'Nossos Serviços',
+        'serv-h2-resultados': 'Nossos Resultados no RS',
+        'serv-h2-especialistas': 'Somos Especialistas em Recrutamento',
+        'serv-h2-contratacao': 'Tipos de Contratação',
+        'serv-h2-multicanal': 'Multi-Canal com Alcance de 1.6M de Pessoas',
+        'serv-h2-servicos': 'Serviços da Nexus',
+        'serv-h2-compromissos': 'Nossos Compromissos',
+        'lang-label': 'Idioma:',
+        'footer-text': '© 2026 Agência Nexus. Todos os direitos reservados.'
+      },
+      en: {
+        'serv-titulo': 'Our Services',
+        'serv-h2-resultados': 'Our Results in RS',
+        'serv-h2-especialistas': 'We Are Recruitment Specialists',
+        'serv-h2-contratacao': 'Types of Hiring',
+        'serv-h2-multicanal': 'Multi-Channel Reaching 1.6M People',
+        'serv-h2-servicos': 'Nexus Services',
+        'serv-h2-compromissos': 'Our Commitments',
+        'lang-label': 'Language:',
+        'footer-text': '© 2026 Nexus Agency. All rights reserved.'
+      },
+      es: {
+        'serv-titulo': 'Nuestros Servicios',
+        'serv-h2-resultados': 'Nuestros Resultados en RS',
+        'serv-h2-especialistas': 'Somos Especialistas en Reclutamiento',
+        'serv-h2-contratacao': 'Tipos de Contratación',
+        'serv-h2-multicanal': 'Multi-Canal con Alcance de 1.6M de Personas',
+        'serv-h2-servicos': 'Servicios de Nexus',
+        'serv-h2-compromissos': 'Nuestros Compromisos',
+        'lang-label': 'Idioma:',
+        'footer-text': '© 2026 Agencia Nexus. Todos los derechos reservados.'
+      }
+    };
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) { selector.value = savedLang; }
+      changeLanguage(savedLang);
+    }
+
+    function changeLanguage(lang) {
+      if (!translations[lang]) lang = 'pt';
+      localStorage.setItem('siteLanguage', lang);
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
 
     </script>
 

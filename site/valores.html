@@ -81,13 +81,6 @@ html.dark-mode .content-container {
   color: white;
   transition: all 0.3s ease;
 }
-.theme-toggle:focus,
-.theme-toggle:active,
-.theme-toggle:focus-visible {
-  outline: none;
-  transform: none;
-  box-shadow: none;
-}
 
 
 body.chat-open .chatbot-button {
@@ -111,13 +104,6 @@ body:not(.dark-mode) .theme-toggle {
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(0, 0, 0, 0.4);
   color: rgb(27, 27, 27);
-}
-body:not(.dark-mode) .theme-toggle {
-  height: 50px;
-  min-width: 50px;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  transform: none;
 }
 
 body:not(.dark-mode) .back-button:hover,
@@ -1634,73 +1620,120 @@ body.dark-mode .chip { background: #2a2a2a; }
     }
 
     /* Painel do tradutor */
+
+        /* === PAINEL TRADUTOR — ESPAÇAMENTO GENEROSO === */
     .voice-translator-panel {
       position: fixed;
-      top: calc(2rem + 116px);
-      right: 2rem;
+      top: calc(2rem + 120px);
+      right: 1.2rem;
       z-index: 1001;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      padding: 1rem 1.1rem;
-      min-width: 260px;
-      max-width: 320px;
-      max-height: calc(100vh - 180px);
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.8rem 1.8rem 2rem;
+      width: min(360px, calc(100vw - 2.4rem));
+      max-height: calc(100vh - 160px);
       overflow-y: auto;
+      overflow-x: hidden;
       display: none;
       flex-direction: column;
-      gap: 10px;
-      border: 1px solid rgba(0,0,0,0.07);
-      animation: dropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      gap: 22px;
+      border: 1px solid rgba(0,0,0,0.06);
+      animation: dropIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
     }
     body.dark-mode .voice-translator-panel {
-      background: #1a1a1a;
-      border-color: rgba(255,255,255,0.1);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 2px 10px rgba(0,0,0,0.3);
       color: #f0f0f0;
     }
     .voice-translator-panel.open { display: flex; }
     @keyframes dropIn {
-      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .vt-label {
-      font-size: 0.78rem;
+
+    /* Abas */
+    .vt-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 5px;
+    }
+    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
+    .vt-tab {
+      flex: 1;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.8rem;
       font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .vt-tab.active {
+      background: #ffffff;
+      color: #3b82f6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .vt-tab.active {
+      background: #2c2c2e;
+      color: #60a5fa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .vt-tab { color: #888; }
+
+    /* Label */
+    .vt-label {
+      font-size: 0.7rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       color: #3b82f6;
       margin-bottom: 2px;
     }
+
+    /* Linha de idiomas */
     .vt-lang-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .vt-lang-row select {
       flex: 1;
-      padding: 6px 10px;
+      padding: 11px 16px;
       border-radius: 50px;
-      border: 2px solid rgba(0,0,0,0.15);
-      font-size: 0.85rem;
+      border: 2px solid rgba(0,0,0,0.12);
+      font-size: 0.84rem;
       font-family: inherit;
-      background: transparent;
+      background: #f5f5f7;
       cursor: pointer;
       color: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
     }
+    .vt-lang-row select:focus { border-color: #3b82f6; }
     body.dark-mode .vt-lang-row select {
-      border-color: rgba(255,255,255,0.2);
-      background: #0a0a0a;
+      border-color: rgba(255,255,255,0.12);
+      background: #2c2c2e;
       color: #f0f0f0;
     }
+
+    /* Botão trocar */
     .vt-swap-btn {
-      background: none;
-      border: 2px solid rgba(59,130,246,0.4);
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
       border-radius: 50%;
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1709,121 +1742,163 @@ body.dark-mode .chip { background: #2a2a2a; }
       color: #3b82f6;
     }
     .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
+
+    /* Áreas de texto */
     .vt-text-area {
       font-size: 0.88rem;
-      line-height: 1.5;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.04);
-      min-height: 48px;
+      line-height: 1.7;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f5f5f7;
+      min-height: 70px;
       word-break: break-word;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
     }
-    body.dark-mode .vt-text-area { background: rgba(255,255,255,0.07); }
-    .vt-text-area.placeholder { color: #999; font-style: italic; }
+    body.dark-mode .vt-text-area { background: #2c2c2e; border-color: rgba(255,255,255,0.05); }
+    .vt-text-area.placeholder { color: #aaa; font-style: italic; }
+
+    /* Botão mic principal */
     .vt-mic-btn {
-      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
       color: white;
       border: none;
       border-radius: 50px;
-      padding: 8px 18px;
-      font-size: 0.9rem;
+      padding: 15px 28px;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.3s;
+      transition: all 0.25s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
     }
-    .vt-mic-btn:hover { transform: scale(1.04); box-shadow: 0 4px 16px rgba(59,130,246,0.4); }
+    .vt-mic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    }
     .vt-mic-btn.active {
-      background: linear-gradient(135deg, #ef4444, #f87171);
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      box-shadow: 0 4px 16px rgba(220,38,38,0.4);
       animation: pulse-mic 1.2s ease-in-out infinite;
     }
+
+    /* Status */
     .vt-status {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       text-align: center;
-      color: #888;
+      color: #999;
+      line-height: 1.5;
     }
+
+    /* Botão falar/parar */
     .vt-speak-btn {
-      background: none;
-      border: 2px solid rgba(59,130,246,0.4);
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.35);
       border-radius: 50px;
-      padding: 5px 14px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      padding: 8px 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
       cursor: pointer;
       font-family: inherit;
       color: #3b82f6;
-      transition: all 0.3s;
+      transition: all 0.25s;
       display: none;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
     .vt-speak-btn:hover { background: #3b82f6; color: white; }
     .vt-speak-btn.show { display: flex; }
 
-    /* Abas */
-    .vt-tabs {
-      display: flex;
-      gap: 4px;
-      background: rgba(0,0,0,0.05);
-      border-radius: 10px;
-      padding: 3px;
-    }
-    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
-    .vt-tab {
-      flex: 1;
-      padding: 5px 8px;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      background: transparent;
-      color: #888;
-      transition: all 0.2s;
-    }
-    .vt-tab.active {
-      background: white;
-      color: #3b82f6;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    body.dark-mode .vt-tab.active {
-      background: #2a2a2a;
-      color: #60a5fa;
-    }
-    body.dark-mode .vt-tab { color: #aaa; }
-
     /* Configurações */
-    .vt-settings {
-      font-size: 0.78rem;
-    }
+    .vt-settings { font-size: 0.8rem; }
     .vt-settings summary {
       cursor: pointer;
-      color: #888;
-      padding: 3px 0;
+      color: #999;
+      padding: 4px 0;
       user-select: none;
+      transition: color 0.2s;
     }
     .vt-settings summary:hover { color: #3b82f6; }
     .vt-settings-body {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      padding: 6px 0 2px;
+      gap: 10px;
+      padding: 10px 0 4px;
     }
     .vt-settings-body label {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.78rem;
+      gap: 10px;
+      font-size: 0.8rem;
       color: inherit;
     }
     .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
 
     /* Narrar progresso */
+    .vt-narrate-progress {
+      height: 6px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.8rem;
+      color: #888;
+      min-height: 40px;
+      padding: 6px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 11px 16px;
+      font-size: 0.84rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 72vh;
+        border-radius: 20px;
+        padding: 1.4rem 1.4rem 1.6rem;
+        gap: 18px;
+      }
+      .vt-tab { padding: 10px 10px; font-size: 0.76rem; }
+      .vt-mic-btn { padding: 14px 22px; font-size: 0.9rem; }
+      .vt-lang-row select { padding: 10px 12px; font-size: 0.8rem; }
+    }
+
+    body.chat-open .top-right-buttons,
+    body.menu-open .top-right-buttons { display: none !important; }
+    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+
+/* Narrar progresso */
     .vt-narrate-progress {
       height: 5px;
       background: rgba(0,0,0,0.08);
@@ -1834,7 +1909,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     .vt-narrate-bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
       border-radius: 50px;
       transition: width 0.3s ease;
     }
@@ -1844,21 +1919,116 @@ body.dark-mode .chip { background: #2a2a2a; }
       min-height: 36px;
       padding: 4px 0;
       font-style: italic;
-      line-height: 1.4;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 9px 14px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 70vh;
+        border-radius: 18px;
+        padding: 1.2rem 1.3rem 1.5rem;
+      }
     }
 
     body.chat-open .top-right-buttons,
     body.menu-open .top-right-buttons { display: none !important; }
-    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
-    /* Select voz narrador */
-    #vtNarrateVoice { background:#fff; color:#111; }
-    body.dark-mode #vtNarrateVoice { background:#2a2a2a; color:#f0f0f0; }
-    #vtNarrateVoice option { background:#fff; color:#111; }
-    body.dark-mode #vtNarrateVoice option { background:#2a2a2a; color:#f0f0f0; }
+
+    /* === Language Selector === */
+    .footer-language-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+    .footer-language-selector label {
+      color: var(--ft-copy);
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .footer-language-selector select {
+      padding: 0.6rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      color: #333;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 140px;
+    }
+    .footer-language-selector select option {
+      padding: 0.5rem;
+      color: #333;
+      background: white;
+    }
+    body.dark-mode .footer-language-selector select {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border-color: #555;
+    }
+    body.dark-mode .footer-language-selector select option {
+      color: #f0f0f0;
+      background: #2a2a2a;
+    }
+    .footer-language-selector select:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    body.dark-mode .footer-language-selector select:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+    .footer-language-selector select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    body.dark-mode .footer-language-selector select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+    @media (max-width: 560px) {
+      .footer-language-selector {
+        font-size: 0.85rem;
+        gap: 0.6rem;
+        flex: 1 0 100%;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 1rem;
+      }
+      .footer-language-selector select {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+        min-width: 130px;
+      }
+      .footer-bottom { flex-direction: column; }
+    }
 </style>
 </head>
 <body>
-
 <!-- Botões do lado direito: Tema + Tradutor em Voz -->
   <div class="top-right-buttons" id="topRightButtons">
     <button class="theme-toggle" onclick="toggleTheme()">
@@ -1871,10 +2041,13 @@ body.dark-mode .chip { background: #2a2a2a; }
 
   <!-- Painel do Tradutor em Voz -->
   <div class="voice-translator-panel" id="voiceTranslatorPanel">
+    <!-- Abas -->
     <div class="vt-tabs">
       <button class="vt-tab active" id="vtTabTranslate" onclick="vtSwitchTab('translate')">🌐 Traduzir</button>
       <button class="vt-tab" id="vtTabNarrate" onclick="vtSwitchTab('narrate')">📢 Narrar Site</button>
     </div>
+
+    <!-- ABA TRADUZIR -->
     <div id="vtTabContentTranslate">
       <div class="vt-label">Idioma de origem → destino</div>
       <div class="vt-lang-row">
@@ -1914,6 +2087,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         <button class="vt-speak-btn" id="vtStopSpeakBtn" onclick="vtStopSpeak()" title="Parar voz" style="display:none;">⏹</button>
       </div>
       <div class="vt-status" id="vtStatus">Selecione os idiomas e pressione Falar</div>
+      <!-- Configurações de voz -->
       <details class="vt-settings">
         <summary>⚙️ Configurações de voz</summary>
         <div class="vt-settings-body">
@@ -1925,6 +2099,8 @@ body.dark-mode .chip { background: #2a2a2a; }
         </div>
       </details>
     </div>
+
+    <!-- ABA NARRAR SITE -->
     <div id="vtTabContentNarrate" style="display:none;">
       <div class="vt-label">Narração do conteúdo da página</div>
       <div style="display:flex;gap:8px;margin-bottom:6px;">
@@ -1949,6 +2125,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       <div class="vt-status" id="vtNarrateStatus">Pressione para ouvir o conteúdo desta página</div>
     </div>
   </div>
+
+
 
   <!-- Voltar | Menu | Topics -->
   <div class="top-left-buttons" id="topLeftButtons">
@@ -2011,8 +2189,8 @@ body.dark-mode .chip { background: #2a2a2a; }
       <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
         <img src="../imagens/fundo.png" alt="Nossos Valores" class="header-bg-img">
         <div>
-          <h1 style="margin: 0 0 0.5rem 0;">Nossos Valores</h1>
-          <p>Os princípios que guiam nossas ações e decisões</p>
+          <h1 style="margin: 0 0 0.5rem 0;" data-i18n="val-header-title">Nossos Valores</h1>
+          <p data-i18n="val-header-subtitle">Os princípios que guiam nossas ações e decisões</p>
         </div>
       </div>
     </div>
@@ -2321,7 +2499,15 @@ body.dark-mode .game-promo-container p {
 
 
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-copy"><span data-i18n="footer-text">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</span></p>
       <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
     </div>
 
@@ -2892,12 +3078,15 @@ Tente novamente em instantes.`));
     });
 </script>
 
+
 <script>
     let vtPanelOpen = false;
-    let vtRecognition = null;
+let vtRecognition = null;
     let vtIsListening = false;
     let vtLastTranslation = '';
     let vtCurrentTab = 'translate';
+
+    // --- Narrador ---
     let vtNarrateChunks = [];
     let vtNarrateIndex = 0;
     let vtNarrateActive = false;
@@ -2923,6 +3112,7 @@ Tente novamente em instantes.`));
       document.getElementById('vtTabNarrate').classList.toggle('active', tab === 'narrate');
     }
 
+    // === TRADUZIR ===
     function vtSwapLangs() {
       const from = document.getElementById('vtLangFrom');
       const to   = document.getElementById('vtLangTo');
@@ -2963,6 +3153,7 @@ Tente novamente em instantes.`));
         el.textContent = translation; el.classList.remove('placeholder');
         document.getElementById('vtSpeakBtn').style.display = 'flex';
         status.textContent = '✅ Tradução concluída';
+        // falar automaticamente
         vtSpeak();
       } catch(e) {
         status.textContent = '❌ Erro de tradução. Tente novamente.';
@@ -3085,6 +3276,7 @@ Tente novamente em instantes.`));
       window.speechSynthesis.onvoiceschanged = fill;
     }
 
+    // === NARRADOR DE SITE ===
     function vtNarrateLoadVoices() {
       const sel = document.getElementById('vtNarrateVoice');
       if (!sel) return;
@@ -3097,6 +3289,7 @@ Tente novamente em instantes.`));
           o.textContent = `${v.name} (${v.lang})`;
           sel.appendChild(o);
         });
+        // prefer pt-BR
         const pt = Array.from(sel.options).find(o => o.textContent.includes('pt-BR') || o.textContent.includes('Portuguese'));
         if (pt) sel.value = pt.value;
       };
@@ -3106,36 +3299,65 @@ Tente novamente em instantes.`));
 
     function vtGetPageText() {
       const chunks = [];
-      const excluded = [
-        '.top-right-buttons','.top-left-buttons','.menu-content',
-        '.chatbot-window','.voice-translator-panel','.topics-dropdown',
-        '.topics-dropdown-mobile','.modal','.modal-overlay','script','style'
-      ];
-      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-        acceptNode(node) {
-          const el = node.parentElement;
-          if (!el) return NodeFilter.FILTER_REJECT;
-          const s = window.getComputedStyle(el);
-          if (s.display==='none'||s.visibility==='hidden') return NodeFilter.FILTER_REJECT;
-          for (const sel of excluded) {
-            if (el.closest(sel)) return NodeFilter.FILTER_REJECT;
-          }
-          return NodeFilter.FILTER_ACCEPT;
-        }
-      });
-      let node, cur = '';
-      while ((node = walker.nextNode())) {
-        const t = node.textContent.trim();
-        if (!t) continue;
-        cur += ' ' + t;
-        if (cur.length > 120) { chunks.push(cur.trim()); cur = ''; }
+
+      // Header
+      const header = document.querySelector('.header-content');
+      if (header) {
+        const t = header.innerText?.trim();
+        if (t) chunks.push(t);
       }
-      if (cur.trim().length > 3) chunks.push(cur.trim());
+
+      // Cards de vagas visíveis
+      document.querySelectorAll('.vaga-card').forEach(card => {
+        const title   = card.querySelector('.vaga-title')?.innerText?.trim();
+        const company = card.querySelector('.vaga-company')?.innerText?.trim();
+        const panels  = card.querySelectorAll('.accordion-panel');
+        if (title)   chunks.push(title);
+        if (company) chunks.push(company);
+        panels.forEach(p => {
+          const t = p.innerText?.trim();
+          if (t && t.length > 3) chunks.push(t);
+        });
+      });
+
+      // Fallback: todo texto visível da página excluindo UI
+      if (!chunks.length) {
+        const excluded = [
+          '.top-right-buttons','.top-left-buttons','.menu-content',
+          '.chatbot-window','.voice-translator-panel','.topics-dropdown',
+          '.topics-dropdown-mobile','.modal','.modal-overlay','script','style'
+        ];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            const el = node.parentElement;
+            if (!el) return NodeFilter.FILTER_REJECT;
+            const s = window.getComputedStyle(el);
+            if (s.display==='none'||s.visibility==='hidden') return NodeFilter.FILTER_REJECT;
+            for (const sel of excluded) {
+              if (el.closest(sel)) return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        let node, cur = '';
+        while ((node = walker.nextNode())) {
+          const t = node.textContent.trim();
+          if (!t) continue;
+          cur += ' ' + t;
+          if (cur.length > 120) { chunks.push(cur.trim()); cur = ''; }
+        }
+        if (cur.trim().length > 3) chunks.push(cur.trim());
+      }
+
       return chunks;
     }
 
     function vtToggleNarrate() {
-      if (vtNarrateActive) { vtStopNarrate(); } else { vtStartNarrate(); }
+      if (vtNarrateActive) {
+        vtStopNarrate();
+      } else {
+        vtStartNarrate();
+      }
     }
 
     function vtStartNarrate() {
@@ -3167,6 +3389,7 @@ Tente novamente em instantes.`));
       document.getElementById('vtNarrateBar').style.width = pct + '%';
       document.getElementById('vtNarrateCurrentText').textContent = text.length > 120 ? text.slice(0,120)+'…' : text;
       document.getElementById('vtNarrateStatus').textContent = `📍 Trecho ${vtNarrateIndex+1} de ${total}`;
+
       const utter = new SpeechSynthesisUtterance(text);
       const voices = window.speechSynthesis.getVoices();
       const voiceSel = document.getElementById('vtNarrateVoice');
@@ -3217,6 +3440,7 @@ Tente novamente em instantes.`));
       document.getElementById('vtNarrateRateVal').textContent = this.value;
     });
 
+    // Fechar painel ao clicar fora
     document.addEventListener('click', (e) => {
       const panel  = document.getElementById('voiceTranslatorPanel');
       const toggle = document.getElementById('voiceTranslatorToggle');
@@ -3226,6 +3450,322 @@ Tente novamente em instantes.`));
         if (vtIsListening) vtStopMic();
       }
     });
+
+    // === SISTEMA MULTI-IDIOMA COMPLETO ===
+    const TRANSLATIONS = {
+      pt: {
+        'header-h1': 'Nossos Valores',
+        'header-p': 'Os princípios que guiam nossas ações e decisões',
+        'h2-cultura': 'Nossa Cultura',
+        'p-cultura': 'Os valores da Agência Nexus são o fundamento de tudo o que fazemos. Eles guiam nossas decisões, moldam nossa cultura e definem como nos relacionamos com clientes, candidatos e parceiros. Acreditamos que sucesso genuíno só é possível quando construído sobre princípios sólidos e humanistas.',
+        'h2-valores': 'Nossos Valores Principais',
+        'h4-humanidade': 'Humanidade',
+        'p-humanidade': 'Colocamos pessoas em primeiro lugar, entendendo que por trás de cada currículo existe um ser humano com sonhos, muitas histórias e potencial único.',
+        'h4-inovacao': 'Inovação',
+        'p-inovacao': 'Utilizamos tecnologia atuais no recrutamento, combinada com análise estratégica para oferecer soluções criativas e eficientes.',
+        'h4-transparencia': 'Transparência',
+        'p-transparencia': 'Agimos com honestidade e clareza em todas as comunicações, garantindo confiança e integridade em nossas relações.',
+        'h4-excelencia': 'Excelência',
+        'p-excelencia': 'Buscamos sempre o melhor resultado, com dedicação, profissionalismo e compromisso com a qualidade.',
+        'h4-empatia': 'Empatia',
+        'p-empatia': 'Escutamos ativamente, compreendemos necessidades e desenvolvemos soluções personalizadas com sensibilidade.',
+        'h4-crescimento': 'Crescimento',
+        'p-crescimento': 'Investimos continuamente no desenvolvimento de pessoas, empresas e no aperfeiçoamento de nossas práticas.',
+        'h2-game': 'Teste suas habilidades!',
+        'p-game': 'Coloque sua criatividade e competências à prova com nosso joguinho interativo de empregabilidade. Clique e comece a jogar!',
+        'btn-game-desktop': '🕹️ Jogar Agora no Desktop',
+        'btn-game-mobile': '🕹️ Jogar Agora no Mobile',
+        'h2-define': 'O Que nos Define',
+        'h3-povo': 'Agência do Povo, Para o Povo',
+        'p-povo1': 'Somos uma agência que nasce da comunidade e cresce com ela. Conectamos talentos através da empatia, dedicação e humanidade, levando tudo que é tecnológico sem deixar o fator humano de fora.',
+        'p-povo2': 'Cada candidato é uma pessoa com história, habilidades únicas e potencial para transformar o mercado. Por isso, tratamos todos com respeito, dignidade e comprometimento.',
+        'h3-tech': 'Tecnologia com Coração',
+        'p-tech': 'Combinamos as ferramentas tecnológicas com atendimento personalizado. Usamos inteligência digital para potencializar conexões humanas, nunca para substituir a escuta ativa e o entendimento profundo de necessidades.',
+        'h3-compromisso': 'Compromisso com Resultados Duradouros',
+        'p-compromisso': 'Não buscamos apenas soluções rápidas. Nossas parcerias são construídas para crescimento mútuo, desenvolvimento sustentável e relacionamentos que transcendem o momento da contratação.',
+        'h2-principios': 'Nossos Princípios de Ação',
+        'h4-foco': 'Foco em Pessoas',
+        'p-foco': 'Cada candidato merece atenção personalizada e respeito genuíno em todo processo.',
+        'h4-etica': 'Ética Profissional',
+        'p-etica': 'Agimos sempre com integridade, respeitando normas e valores em todas as transações.',
+        'h4-excelop': 'Excelência Operacional',
+        'p-excelop': 'Buscamos constantemente melhorar processos e entregar resultados de alta qualidade.',
+        'h4-inovcon': 'Inovação Contínua',
+        'p-inovcon': 'Investimos em novas tecnologias e metodologias para oferecer soluções atualizadas.',
+        'h4-social': 'Responsabilidade Social',
+        'p-social': 'Contribuímos para o desenvolvimento profissional e transformação positiva do mercado.',
+        'h4-acesso': 'Acessibilidade',
+        'p-acesso': 'Garantimos que oportunidades sejam alcançáveis para todos, sem barreiras desnecessárias.',
+        'p-frase': 'Valores não são promessas vazias, são ações concretas. 🚀',
+        'btn-voltar': 'Voltar',
+        'btn-contato': 'Fale Conosco',
+        'footer-tagline': 'Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.',
+        'footer-nav-title': 'Navegação',
+        'footer-contact-title': 'Contato',
+        'lang-label': 'Idioma:',
+        'footer-copy': '© 2026 Agência Nexus. Todos os direitos reservados.'
+      },
+      en: {
+        'header-h1': 'Our Values',
+        'header-p': 'The principles that guide our actions and decisions',
+        'h2-cultura': 'Our Culture',
+        'p-cultura': 'The values of Agência Nexus are the foundation of everything we do. They guide our decisions, shape our culture and define how we relate to clients, candidates and partners. We believe that genuine success is only possible when built on solid and humanistic principles.',
+        'h2-valores': 'Our Core Values',
+        'h4-humanidade': 'Humanity',
+        'p-humanidade': 'We put people first, understanding that behind every resume there is a human being with dreams, many stories and unique potential.',
+        'h4-inovacao': 'Innovation',
+        'p-inovacao': 'We use current technology in recruitment, combined with strategic analysis to offer creative and efficient solutions.',
+        'h4-transparencia': 'Transparency',
+        'p-transparencia': 'We act with honesty and clarity in all communications, ensuring trust and integrity in our relationships.',
+        'h4-excelencia': 'Excellence',
+        'p-excelencia': 'We always seek the best result, with dedication, professionalism and commitment to quality.',
+        'h4-empatia': 'Empathy',
+        'p-empatia': 'We actively listen, understand needs and develop personalized solutions with sensitivity.',
+        'h4-crescimento': 'Growth',
+        'p-crescimento': 'We continuously invest in the development of people, companies and in the improvement of our practices.',
+        'h2-game': 'Test your skills!',
+        'p-game': 'Put your creativity and skills to the test with our interactive employability game. Click and start playing!',
+        'btn-game-desktop': '🕹️ Play Now on Desktop',
+        'btn-game-mobile': '🕹️ Play Now on Mobile',
+        'h2-define': 'What Defines Us',
+        'h3-povo': 'Agency of the People, For the People',
+        'p-povo1': 'We are an agency born from the community and growing with it. We connect talent through empathy, dedication and humanity, bringing everything technological without leaving the human factor behind.',
+        'p-povo2': 'Each candidate is a person with a story, unique skills and potential to transform the market. That is why we treat everyone with respect, dignity and commitment.',
+        'h3-tech': 'Technology with Heart',
+        'p-tech': 'We combine technological tools with personalized service. We use digital intelligence to enhance human connections, never to replace active listening and deep understanding of needs.',
+        'h3-compromisso': 'Commitment to Lasting Results',
+        'p-compromisso': 'We do not just seek quick solutions. Our partnerships are built for mutual growth, sustainable development and relationships that transcend the moment of hiring.',
+        'h2-principios': 'Our Action Principles',
+        'h4-foco': 'People Focus',
+        'p-foco': 'Each candidate deserves personalized attention and genuine respect throughout the process.',
+        'h4-etica': 'Professional Ethics',
+        'p-etica': 'We always act with integrity, respecting norms and values in all transactions.',
+        'h4-excelop': 'Operational Excellence',
+        'p-excelop': 'We constantly seek to improve processes and deliver high quality results.',
+        'h4-inovcon': 'Continuous Innovation',
+        'p-inovcon': 'We invest in new technologies and methodologies to offer updated solutions.',
+        'h4-social': 'Social Responsibility',
+        'p-social': 'We contribute to professional development and positive transformation of the market.',
+        'h4-acesso': 'Accessibility',
+        'p-acesso': 'We ensure that opportunities are achievable for everyone, without unnecessary barriers.',
+        'p-frase': 'Values are not empty promises, they are concrete actions. 🚀',
+        'btn-voltar': 'Back',
+        'btn-contato': 'Contact Us',
+        'footer-tagline': 'We connect talent to real opportunities. Human, agile and efficient recruitment.',
+        'footer-nav-title': 'Navigation',
+        'footer-contact-title': 'Contact',
+        'lang-label': 'Language:',
+        'footer-copy': '© 2026 Nexus Agency. All rights reserved.'
+      },
+      es: {
+        'header-h1': 'Nuestros Valores',
+        'header-p': 'Los principios que guían nuestras acciones y decisiones',
+        'h2-cultura': 'Nuestra Cultura',
+        'p-cultura': 'Los valores de la Agencia Nexus son la base de todo lo que hacemos. Guían nuestras decisiones, moldean nuestra cultura y definen cómo nos relacionamos con clientes, candidatos y socios. Creemos que el éxito genuino solo es posible cuando se construye sobre principios sólidos y humanistas.',
+        'h2-valores': 'Nuestros Valores Principales',
+        'h4-humanidade': 'Humanidad',
+        'p-humanidade': 'Ponemos a las personas primero, entendiendo que detrás de cada currículum hay un ser humano con sueños, muchas historias y potencial único.',
+        'h4-inovacao': 'Innovación',
+        'p-inovacao': 'Utilizamos tecnología actual en el reclutamiento, combinada con análisis estratégico para ofrecer soluciones creativas y eficientes.',
+        'h4-transparencia': 'Transparencia',
+        'p-transparencia': 'Actuamos con honestidad y claridad en todas las comunicaciones, garantizando confianza e integridad en nuestras relaciones.',
+        'h4-excelencia': 'Excelencia',
+        'p-excelencia': 'Siempre buscamos el mejor resultado, con dedicación, profesionalismo y compromiso con la calidad.',
+        'h4-empatia': 'Empatía',
+        'p-empatia': 'Escuchamos activamente, comprendemos necesidades y desarrollamos soluciones personalizadas con sensibilidad.',
+        'h4-crescimento': 'Crecimiento',
+        'p-crescimento': 'Invertimos continuamente en el desarrollo de personas, empresas y en el perfeccionamiento de nuestras prácticas.',
+        'h2-game': '¡Pon a prueba tus habilidades!',
+        'p-game': 'Pon tu creatividad y competencias a prueba con nuestro jueguito interactivo de empleabilidad. ¡Haz clic y comienza a jugar!',
+        'btn-game-desktop': '🕹️ Jugar Ahora en Desktop',
+        'btn-game-mobile': '🕹️ Jugar Ahora en Móvil',
+        'h2-define': 'Lo Que Nos Define',
+        'h3-povo': 'Agencia del Pueblo, Para el Pueblo',
+        'p-povo1': 'Somos una agencia que nace de la comunidad y crece con ella. Conectamos talentos a través de la empatía, dedicación y humanidad, llevando todo lo tecnológico sin dejar el factor humano de lado.',
+        'p-povo2': 'Cada candidato es una persona con historia, habilidades únicas y potencial para transformar el mercado. Por eso, tratamos a todos con respeto, dignidad y compromiso.',
+        'h3-tech': 'Tecnología con Corazón',
+        'p-tech': 'Combinamos herramientas tecnológicas con atención personalizada. Usamos inteligencia digital para potenciar conexiones humanas, nunca para reemplazar la escucha activa y la comprensión profunda de necesidades.',
+        'h3-compromisso': 'Compromiso con Resultados Duraderos',
+        'p-compromisso': 'No buscamos solo soluciones rápidas. Nuestras alianzas se construyen para el crecimiento mutuo, desarrollo sostenible y relaciones que trascienden el momento de la contratación.',
+        'h2-principios': 'Nuestros Principios de Acción',
+        'h4-foco': 'Enfoque en Personas',
+        'p-foco': 'Cada candidato merece atención personalizada y respeto genuino en todo el proceso.',
+        'h4-etica': 'Ética Profesional',
+        'p-etica': 'Siempre actuamos con integridad, respetando normas y valores en todas las transacciones.',
+        'h4-excelop': 'Excelencia Operacional',
+        'p-excelop': 'Buscamos constantemente mejorar procesos y entregar resultados de alta calidad.',
+        'h4-inovcon': 'Innovación Continua',
+        'p-inovcon': 'Invertimos en nuevas tecnologías y metodologías para ofrecer soluciones actualizadas.',
+        'h4-social': 'Responsabilidad Social',
+        'p-social': 'Contribuimos al desarrollo profesional y la transformación positiva del mercado.',
+        'h4-acesso': 'Accesibilidad',
+        'p-acesso': 'Garantizamos que las oportunidades sean alcanzables para todos, sin barreras innecesarias.',
+        'p-frase': 'Los valores no son promesas vacías, son acciones concretas. 🚀',
+        'btn-voltar': 'Volver',
+        'btn-contato': 'Contáctenos',
+        'footer-tagline': 'Conectamos talentos con oportunidades reales. Reclutamiento humano, ágil y eficiente.',
+        'footer-nav-title': 'Navegación',
+        'footer-contact-title': 'Contacto',
+        'lang-label': 'Idioma:',
+        'footer-copy': '© 2026 Agencia Nexus. Todos los derechos reservados.'
+      }
+    };
+
+    function applyTranslations(lang) {
+      const t = TRANSLATIONS[lang] || TRANSLATIONS['pt'];
+
+      // Header
+      const h1 = document.querySelector('.header h1');
+      const headerP = document.querySelector('.header p');
+      if (h1) h1.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = t['header-h1']; });
+      if (h1 && !h1.childNodes.length) h1.textContent = t['header-h1'];
+      if (headerP) headerP.textContent = t['header-p'];
+
+      // H2s por ID
+      const ids = {
+        'cultura': 'h2-cultura',
+        'valores-principais': 'h2-valores',
+        'define': 'h2-define',
+        'principios': 'h2-principios'
+      };
+      Object.entries(ids).forEach(([id, key]) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = t[key];
+      });
+
+      // Parágrafo cultura
+      const allH2s = document.querySelectorAll('.content-section h2');
+      allH2s.forEach(h2 => {
+        if (h2.id === 'cultura') {
+          const p = h2.nextElementSibling;
+          if (p && p.tagName === 'P') p.textContent = t['p-cultura'];
+        }
+      });
+
+      // Value cards - mapear por ordem
+      const valueCards = document.querySelectorAll('.values-grid:first-of-type .value-card');
+      const valKeys = [
+        ['h4-humanidade','p-humanidade'],
+        ['h4-inovacao','p-inovacao'],
+        ['h4-transparencia','p-transparencia'],
+        ['h4-excelencia','p-excelencia'],
+        ['h4-empatia','p-empatia'],
+        ['h4-crescimento','p-crescimento'],
+      ];
+      valueCards.forEach((card, i) => {
+        if (!valKeys[i]) return;
+        const h4 = card.querySelector('h4');
+        const p = card.querySelector('p');
+        if (h4) {
+          // preserve img
+          const img = h4.querySelector('img');
+          h4.textContent = ' ' + t[valKeys[i][0]];
+          if (img) h4.insertBefore(img, h4.firstChild);
+        }
+        if (p) p.textContent = t[valKeys[i][1]];
+      });
+
+      // Game sections
+      const gameSections = document.querySelectorAll('.game-promo-section');
+      gameSections.forEach(sec => {
+        const h2 = sec.querySelector('h2');
+        const p = sec.querySelector('p');
+        const btnDesktop = sec.querySelector('a[href*="desktop"]');
+        const btnMobile = sec.querySelector('a[href*="mobile"]');
+        if (h2) {
+          const img = h2.querySelector('img');
+          h2.textContent = ' ' + t['h2-game'];
+          if (img) h2.insertBefore(img, h2.firstChild);
+        }
+        if (p) p.textContent = t['p-game'];
+        if (btnDesktop) btnDesktop.textContent = t['btn-game-desktop'];
+        if (btnMobile) btnMobile.textContent = t['btn-game-mobile'];
+      });
+
+      // Define section — H3s e parágrafos
+      const contentContainer = document.querySelector('.content-container');
+      if (contentContainer) {
+        const allH3 = contentContainer.querySelectorAll('h3');
+        const h3Map = [
+          ['h3-povo', 'p-povo1', 'p-povo2'],
+          ['h3-tech', 'p-tech'],
+          ['h3-compromisso', 'p-compromisso'],
+        ];
+        allH3.forEach((h3, i) => {
+          if (!h3Map[i]) return;
+          h3.textContent = t[h3Map[i][0]];
+          let sib = h3.nextElementSibling;
+          let pIdx = 1;
+          while (sib && sib.tagName === 'P' && pIdx < h3Map[i].length) {
+            sib.textContent = t[h3Map[i][pIdx]];
+            sib = sib.nextElementSibling;
+            pIdx++;
+          }
+        });
+      }
+
+      // Principles grid (second .values-grid)
+      const allGrids = document.querySelectorAll('.values-grid');
+      const principlesGrid = allGrids[allGrids.length - 1];
+      const princKeys = [
+        ['h4-foco','p-foco'],
+        ['h4-etica','p-etica'],
+        ['h4-excelop','p-excelop'],
+        ['h4-inovcon','p-inovcon'],
+        ['h4-social','p-social'],
+        ['h4-acesso','p-acesso'],
+      ];
+      if (principlesGrid) {
+        principlesGrid.querySelectorAll('.value-card').forEach((card, i) => {
+          if (!princKeys[i]) return;
+          const h4 = card.querySelector('h4');
+          const p = card.querySelector('p');
+          if (h4) {
+            const img = h4.querySelector('img');
+            h4.textContent = ' ' + t[princKeys[i][0]];
+            if (img) h4.insertBefore(img, h4.firstChild);
+          }
+          if (p) p.textContent = t[princKeys[i][1]];
+        });
+      }
+
+      // Frase final
+      const fraseEl = document.querySelector('.content-section p[style*="font-weight: 600"]') ||
+                      document.querySelector('.content-section p[style*="font-weight:600"]');
+      if (fraseEl) fraseEl.textContent = t['p-frase'];
+
+      // Botões Voltar / Fale Conosco
+      document.querySelectorAll('.btn.btn-primary').forEach(btn => {
+        if (btn.textContent.trim().match(/^(Voltar|Back|Volver)$/)) btn.textContent = t['btn-voltar'];
+      });
+      document.querySelectorAll('.btn.btn-secondary').forEach(btn => {
+        if (btn.textContent.trim().match(/^(Fale Conosco|Contact Us|Contáctenos)$/)) btn.textContent = t['btn-contato'];
+      });
+
+      // Footer
+      const tagline = document.querySelector('.footer-tagline');
+      if (tagline) tagline.textContent = t['footer-tagline'];
+      const langLabel = document.querySelector('[data-i18n="lang-label"]');
+      if (langLabel) langLabel.textContent = t['lang-label'];
+      const footerCopy = document.querySelector('.footer-copy');
+      if (footerCopy) footerCopy.innerHTML = t['footer-copy'];
+
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) selector.value = savedLang;
+      applyTranslations(savedLang);
+    }
+
+    function changeLanguage(lang) {
+      localStorage.setItem('siteLanguage', lang);
+      applyTranslations(lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
     </script>
 
 </body>
