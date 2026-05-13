@@ -1581,7 +1581,7 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
       flex-wrap: wrap;
     }
     @media (max-width: 560px) {
-      .footer-bottom { flex-direction: column; text-align: center; padding: 1rem 1.2rem; }
+      .footer-bottom { flex-direction: column; align-items: center; text-align: center; padding: 1rem 1.2rem; gap: 0.75rem; }
     }
     .footer-copy {
       font-size: 0.75rem;
@@ -1596,7 +1596,81 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
       gap: 0.35rem;
     }
     .footer-badge span { color: var(--ft-accent); font-weight: 700; }
-    
+
+    /* === SELETOR DE IDIOMA === */
+    .footer-language-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+    .footer-language-selector label {
+      color: var(--ft-copy);
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .footer-language-selector select {
+      padding: 0.6rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      color: #333;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 140px;
+    }
+    .footer-language-selector select option {
+      padding: 0.5rem;
+      color: #333;
+      background: white;
+    }
+    body.dark-mode .footer-language-selector select {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border-color: #555;
+    }
+    body.dark-mode .footer-language-selector select option {
+      color: #f0f0f0;
+      background: #2a2a2a;
+    }
+    .footer-language-selector select:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    body.dark-mode .footer-language-selector select:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+    .footer-language-selector select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    body.dark-mode .footer-language-selector select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+    @media (max-width: 560px) {
+      .footer-language-selector {
+        font-size: 0.85rem;
+        gap: 0.6rem;
+        flex: 1 0 100%;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 1rem;
+      }
+      .footer-language-selector select {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+        min-width: 130px;
+      }
+      .footer-bottom { flex-direction: column; }
+    }
+
   </style>
 </head>
 <body>
@@ -1756,7 +1830,7 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
         </div>
       </div>
       <h1 class="hero-title">Agência Nexus</h1>
-      <p class="hero-subtitle">Conectando Talentos ao Futuro com Estratégia e Empatia</p>
+      <p class="hero-subtitle" data-i18n="hero_subtitle">Conectando Talentos ao Futuro com Estratégia e Empatia</p>
     </div>
     <div class="scroll-indicator">
       <div class="scroll-arrow"></div>
@@ -1770,14 +1844,14 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
         <div class="stat-number" id="visitasCounter">
           <span class="loading-spinner"></span>
         </div>
-        <p class="stat-label">Profissionais que visitaram a plataforma</p>
+        <p class="stat-label" data-i18n="stat_label">Profissionais que visitaram a plataforma</p>
       </div>
     </div>
-    <p class="stats-subtitle">E você, será o próximo a transformar sua carreira conosco? ✨</p>
+    <p class="stats-subtitle" data-i18n="stats_subtitle">E você, será o próximo a transformar sua carreira conosco? ✨</p>
   </section>
 
 <section class="content-section">
-  <h2 class="section-title">Nossa Expertise</h2>
+  <h2 class="section-title" data-i18n="section_expertise">Nossa Expertise</h2>
 
   <div class="feature-grid">
 
@@ -1785,8 +1859,8 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
       <div class="feature-icon">
         <img src="imagens/iconsrecrutamento.png" alt="Recrutamento Estratégico">
       </div>
-      <h3 class="feature-title">Recrutamento Estratégico</h3>
-      <p class="feature-text">
+      <h3 class="feature-title" data-i18n="feat1_title">Recrutamento Estratégico</h3>
+      <p class="feature-text" data-i18n="feat1_text">
         Processos seletivos personalizados com foco em assertividade e agilidade,
         utilizando metodologias inovadoras e testes comportamentais.
       </p>
@@ -1796,8 +1870,8 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
       <div class="feature-icon">
         <img src="imagens/iconsolharhumano.png" alt="Olhar Humano">
       </div>
-      <h3 class="feature-title">Olhar Humano</h3>
-      <p class="feature-text">
+      <h3 class="feature-title" data-i18n="feat2_title">Olhar Humano</h3>
+      <p class="feature-text" data-i18n="feat2_text">
         Atuamos com empatia e ética, valorizando a escuta e o acolhimento
         em cada etapa da jornada profissional.
       </p>
@@ -1807,8 +1881,8 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
       <div class="feature-icon">
         <img src="imagens/inovacao.png" alt="Tecnologia e Inovação">
       </div>
-      <h3 class="feature-title">Tecnologia e Inovação</h3>
-      <p class="feature-text">
+      <h3 class="feature-title" data-i18n="feat3_title">Tecnologia e Inovação</h3>
+      <p class="feature-text" data-i18n="feat3_text">
         Equipe multidisciplinar que une expertise em RH com ferramentas
         tecnológicas para resultados excepcionais.
       </p>
@@ -1818,8 +1892,8 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
       <div class="feature-icon">
         <img src="imagens/desenvolvimento.png" alt="Desenvolvimento">
       </div>
-      <h3 class="feature-title">Desenvolvimento</h3>
-      <p class="feature-text">
+      <h3 class="feature-title" data-i18n="feat4_title">Desenvolvimento</h3>
+      <p class="feature-text" data-i18n="feat4_text">
         Apoiamos o crescimento de carreiras e contribuímos para o
         desenvolvimento sustentável das organizações.
       </p>
@@ -1829,8 +1903,8 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
       <div class="feature-icon">
         <img src="imagens/excelencia.png" alt="Excelência">
       </div>
-      <h3 class="feature-title">Excelência</h3>
-      <p class="feature-text">
+      <h3 class="feature-title" data-i18n="feat5_title">Excelência</h3>
+      <p class="feature-text" data-i18n="feat5_text">
         Compromisso com qualidade em cada detalhe, criando pontes
         sólidas entre profissionais e empresas.
       </p>
@@ -1840,8 +1914,8 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
       <div class="feature-icon">
         <img src="imagens/povo.png" alt="Agência do Povo">
       </div>
-      <h3 class="feature-title">Do Povo, Para o Povo</h3>
-      <p class="feature-text">
+      <h3 class="feature-title" data-i18n="feat6_title">Do Povo, Para o Povo</h3>
+      <p class="feature-text" data-i18n="feat6_text">
         Uma agência feita por pessoas e para pessoas, com linguagem acessível,
         respeito à diversidade e compromisso real com quem busca oportunidades.
       </p>
@@ -1851,11 +1925,11 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
 </section>
 
   <section class="cta-section">
-    <h2 class="cta-title">Pronto para Transformar sua Carreira?</h2>
-    <p style="margin-bottom: 2rem; font-size: 1.2rem; text-align: center;">
+    <h2 class="cta-title" data-i18n="cta_title">Pronto para Transformar sua Carreira?</h2>
+    <p style="margin-bottom: 2rem; font-size: 1.2rem; text-align: center;" data-i18n="cta_sub">
       Entre em contato e descubra como podemos ajudar
     </p>
-    <a href="#contato" class="cta-button">Fale Conosco</a>
+    <a href="#contato" class="cta-button" data-i18n="cta_btn">Fale Conosco</a>
   </section>
   
 
@@ -1867,7 +1941,7 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
         <div class="footer-brand-logo">
           <div class="footer-brand-name">Agência <span>Nexus</span></div>
         </div>
-        <p class="footer-tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
+        <p class="footer-tagline" data-i18n="footer_tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
         <div class="footer-social">
 
           <!-- Instagram -->
@@ -1907,19 +1981,19 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
 
          <!-- Coluna 2: Links rápidos -->
       <div>
-        <div class="footer-col-title">Navegação</div>
+        <div class="footer-col-title" data-i18n="footer_nav">Navegação</div>
         <ul class="footer-col-links">
-          <li><a href="site/vagas.html">Vagas disponíveis</a></li>
-          <li><a href="site/contato.html">Contato</a></li>
-          <li><a href="site/tutorial.html">Vídeos</a></li>
-          <li><a href="site/servicos.html">Serviços</a></li>
-          <li><a href="site/sobre.html">Sobre nós</a></li>
+          <li><a href="site/vagas.html" data-i18n="nav_vagas">Vagas disponíveis</a></li>
+          <li><a href="site/contato.html" data-i18n="nav_contato">Contato</a></li>
+          <li><a href="site/tutorial.html" data-i18n="nav_videos">Vídeos</a></li>
+          <li><a href="site/servicos.html" data-i18n="nav_servicos">Serviços</a></li>
+          <li><a href="site/sobre.html" data-i18n="nav_sobre">Sobre nós</a></li>
         </ul>
       </div>
 
       <!-- Coluna 3: Contato -->
       <div>
-        <div class="footer-col-title">Contato</div>
+        <div class="footer-col-title" data-i18n="footer_contact_title">Contato</div>
 
         <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -1944,8 +2018,16 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
     </div><!-- /footer-top -->
 
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</p>
-      <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
+      <p class="footer-copy">© 2026 <strong>Agência Nexus</strong>. <span data-i18n="footer_rights">Todos os direitos reservados.</span></p>
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-badge"><span>♥</span> <span data-i18n="footer_made">Feito com propósito</span> — Guaíba, RS</p>
     </div>
 
   </footer>
@@ -2518,7 +2600,114 @@ document.addEventListener('click', function(event) {
   }
 }, false);
 
-  </script>
+  // ============= SELETOR DE IDIOMA LOCAL =============
+    const translations = {
+      pt: {
+        'hero_subtitle': 'Conectando Talentos ao Futuro com Estratégia e Empatia',
+        'stat_label': 'Profissionais que visitaram a plataforma',
+        'stats_subtitle': 'E você, será o próximo a transformar sua carreira conosco? ✨',
+        'section_expertise': 'Nossa Expertise',
+        'feat1_title': 'Recrutamento Estratégico',
+        'feat1_text': 'Processos seletivos personalizados com foco em assertividade e agilidade, utilizando metodologias inovadoras e testes comportamentais.',
+        'feat2_title': 'Olhar Humano',
+        'feat2_text': 'Atuamos com empatia e ética, valorizando a escuta e o acolhimento em cada etapa da jornada profissional.',
+        'feat3_title': 'Tecnologia e Inovação',
+        'feat3_text': 'Equipe multidisciplinar que une expertise em RH com ferramentas tecnológicas para resultados excepcionais.',
+        'feat4_title': 'Desenvolvimento',
+        'feat4_text': 'Apoiamos o crescimento de carreiras e contribuímos para o desenvolvimento sustentável das organizações.',
+        'feat5_title': 'Excelência',
+        'feat5_text': 'Compromisso com qualidade em cada detalhe, criando pontes sólidas entre profissionais e empresas.',
+        'feat6_title': 'Do Povo, Para o Povo',
+        'feat6_text': 'Uma agência feita por pessoas e para pessoas, com linguagem acessível, respeito à diversidade e compromisso real com quem busca oportunidades.',
+        'cta_title': 'Pronto para Transformar sua Carreira?',
+        'cta_sub': 'Entre em contato e descubra como podemos ajudar',
+        'cta_btn': 'Fale Conosco',
+        'footer_rights': 'Todos os direitos reservados.',
+        'footer_made': 'Feito com propósito',
+        'lang-label': 'Idioma:'
+      },
+      en: {
+        'hero_subtitle': 'Connecting Talent to the Future with Strategy and Empathy',
+        'stat_label': 'Professionals who visited the platform',
+        'stats_subtitle': 'And you, will you be the next to transform your career with us? ✨',
+        'section_expertise': 'Our Expertise',
+        'feat1_title': 'Strategic Recruitment',
+        'feat1_text': 'Personalized selection processes focused on assertiveness and agility, using innovative methodologies and behavioral tests.',
+        'feat2_title': 'Human Approach',
+        'feat2_text': 'We act with empathy and ethics, valuing listening and welcoming at every stage of the professional journey.',
+        'feat3_title': 'Technology and Innovation',
+        'feat3_text': 'Multidisciplinary team combining HR expertise with technological tools for exceptional results.',
+        'feat4_title': 'Development',
+        'feat4_text': 'We support career growth and contribute to the sustainable development of organizations.',
+        'feat5_title': 'Excellence',
+        'feat5_text': 'Commitment to quality in every detail, creating solid bridges between professionals and companies.',
+        'feat6_title': 'By the People, For the People',
+        'feat6_text': 'An agency made by people and for people, with accessible language, respect for diversity and real commitment to those seeking opportunities.',
+        'cta_title': 'Ready to Transform Your Career?',
+        'cta_sub': 'Get in touch and discover how we can help',
+        'cta_btn': 'Contact Us',
+        'footer_rights': 'All rights reserved.',
+        'footer_made': 'Made with purpose',
+        'lang-label': 'Language:'
+      },
+      es: {
+        'hero_subtitle': 'Conectando Talentos al Futuro con Estrategia y Empatía',
+        'stat_label': 'Profesionales que visitaron la plataforma',
+        'stats_subtitle': '¿Y tú, serás el próximo en transformar tu carrera con nosotros? ✨',
+        'section_expertise': 'Nuestra Experiencia',
+        'feat1_title': 'Reclutamiento Estratégico',
+        'feat1_text': 'Procesos de selección personalizados con foco en asertividad y agilidad, utilizando metodologías innovadoras y pruebas de comportamiento.',
+        'feat2_title': 'Mirada Humana',
+        'feat2_text': 'Actuamos con empatía y ética, valorando la escucha y el acogimiento en cada etapa del camino profesional.',
+        'feat3_title': 'Tecnología e Innovación',
+        'feat3_text': 'Equipo multidisciplinar que combina experiencia en RRHH con herramientas tecnológicas para resultados excepcionales.',
+        'feat4_title': 'Desarrollo',
+        'feat4_text': 'Apoyamos el crecimiento de carreras y contribuimos al desarrollo sostenible de las organizaciones.',
+        'feat5_title': 'Excelencia',
+        'feat5_text': 'Compromiso con la calidad en cada detalle, creando puentes sólidos entre profesionales y empresas.',
+        'feat6_title': 'Del Pueblo, Para el Pueblo',
+        'feat6_text': 'Una agencia hecha por personas y para personas, con lenguaje accesible, respeto a la diversidad y compromiso real con quienes buscan oportunidades.',
+        'cta_title': '¿Listo para Transformar tu Carrera?',
+        'cta_sub': 'Ponte en contacto y descubre cómo podemos ayudar',
+        'cta_btn': 'Contáctenos',
+        'footer_rights': 'Todos los derechos reservados.',
+        'footer_made': 'Hecho con propósito',
+        'lang-label': 'Idioma:'
+      }
+    };
 
-</body>
+    function applyTranslations(lang) {
+      const t = translations[lang] || translations['pt'];
+
+      // Apply all data-i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      // Footer copy
+      const footerCopy = document.querySelector('.footer-copy');
+      if (footerCopy) {
+        const rights = t['footer_rights'] || 'Todos os direitos reservados.';
+        footerCopy.innerHTML = '© 2026 <strong>Agência Nexus</strong>. ' + rights;
+      }
+
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) selector.value = savedLang;
+      applyTranslations(savedLang);
+    }
+
+    function changeLanguage(lang) {
+      localStorage.setItem('siteLanguage', lang);
+      applyTranslations(lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
+
+  </script>
 </html>
