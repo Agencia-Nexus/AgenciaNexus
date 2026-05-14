@@ -7,8 +7,8 @@
     window.addEventListener('load', () => { document.documentElement.style.transition = ''; });
   </script>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FAQ Privacidade | Agência Nexus – Perguntas sobre LGPD e Dados</title>
-  <meta name="description" content="Tire suas dúvidas sobre privacidade, proteção de dados pessoais, LGPD e cookies na Agência Nexus." />
+  <title>FAQ Privacidade | Agência Nexus – LGPD e Proteção de Dados</title>
+  <meta name="description" content="Entenda seus direitos pela LGPD, como tratamos seus dados pessoais e como exercer sua privacidade na Agência Nexus." />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
   <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
@@ -24,198 +24,95 @@
     .menu-section{margin-bottom:1.5rem;}.menu-section h3{font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;opacity:0.5;margin-bottom:0.5rem;}
     .menu-link{display:block;padding:0.6rem 0.8rem;border-radius:8px;text-decoration:none;color:var(--text-light);font-weight:500;font-size:0.95rem;transition:all 0.2s ease;margin-bottom:2px;}body.dark-mode .menu-link{color:var(--text-dark);}.menu-link:hover{background:rgba(59,130,246,0.1);color:var(--primary);padding-left:1.2rem;}.menu-link.active-page{background:rgba(59,130,246,0.12);color:var(--primary);font-weight:700;}
     .header{background:linear-gradient(to right,#0d47a1,#1e40af,#3b82f6,#bfdbfe);padding:3rem 2rem;text-align:center;color:white;position:relative;overflow:hidden;}.header::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);animation:pulse 15s ease-in-out infinite;}.header-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;}.header h1{font-size:3rem;font-weight:800;margin-bottom:0.5rem;text-shadow:2px 2px 10px rgba(0,0,0,0.3);animation:fadeInDown 1s ease-out;}.header p{font-size:1.2rem;opacity:0.95;animation:fadeInUp 1s ease-out 0.3s both;}
+
+    /* ===== CARDS DE DADOS ===== */
+    .info-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;max-width:860px;margin:2.5rem auto 0;padding:0 2rem;}
+    .info-card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:14px;padding:1.2rem 1rem;text-align:center;backdrop-filter:blur(8px);}
+    .info-card-value{font-size:1.8rem;font-weight:900;color:#fff;line-height:1.1;}
+    .info-card-label{font-size:0.72rem;color:rgba(255,255,255,0.85);margin-top:0.3rem;line-height:1.4;}
+    /* ===== /CARDS DE DADOS ===== */
+
+    /* ===== DESTAQUE LGPD ===== */
+    .lgpd-banner{max-width:860px;margin:2rem auto 0;padding:0 2rem;}
+    .lgpd-banner-inner{background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(99,102,241,0.06));border:1px solid rgba(59,130,246,0.2);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;}
+    body.dark-mode .lgpd-banner-inner{background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(99,102,241,0.08));border-color:rgba(96,165,250,0.25);}
+    .lgpd-banner-icon{font-size:1.8rem;flex-shrink:0;line-height:1;}
+    .lgpd-banner-text{font-size:0.88rem;line-height:1.65;color:rgba(26,26,26,0.75);}
+    body.dark-mode .lgpd-banner-text{color:rgba(240,240,240,0.75);}
+    .lgpd-banner-text strong{color:#1e40af;font-weight:700;}
+    body.dark-mode .lgpd-banner-text strong{color:#60a5fa;}
+    /* ===== /DESTAQUE LGPD ===== */
+
+    /* ===== DIREITOS GRID ===== */
+    .direitos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;max-width:860px;margin:1.5rem auto;padding:0 2rem;}
+    .direito-card{background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:0.75rem;}
+    body.dark-mode .direito-card{background:rgba(96,165,250,0.07);border-color:rgba(96,165,250,0.2);}
+    .direito-card-icon{font-size:1.3rem;flex-shrink:0;line-height:1;}
+    .direito-card-text{font-size:0.82rem;line-height:1.5;color:rgba(26,26,26,0.75);}
+    body.dark-mode .direito-card-text{color:rgba(240,240,240,0.75);}
+    .direito-card-text strong{display:block;font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:0.2rem;}
+    body.dark-mode .direito-card-text strong{color:#f0f0f0;}
+    /* ===== /DIREITOS GRID ===== */
+
+    /* ===== PRAZO BADGE ===== */
+    .prazo-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:50px;padding:0.3rem 0.8rem;font-size:0.78rem;font-weight:700;color:#15803d;margin-top:0.6rem;}
+    body.dark-mode .prazo-badge{background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.25);color:#4ade80;}
+    /* ===== /PRAZO BADGE ===== */
+
     .faq-section{max-width:860px;margin:3rem auto;padding:0 2rem;}.faq-category-title{font-size:1.5rem;font-weight:800;color:#1e40af;text-align:center;margin:2.5rem 0 1.5rem;}body.dark-mode .faq-category-title{color:var(--accent);}
     .faq-item{border:1px solid rgba(0,0,0,0.1);border-radius:14px;margin-bottom:0.8rem;overflow:hidden;transition:box-shadow 0.2s ease;}body.dark-mode .faq-item{border-color:rgba(255,255,255,0.1);}.faq-item:hover{box-shadow:0 4px 20px rgba(30,64,175,0.1);}
     .faq-question{width:100%;background:none;border:none;padding:1.2rem 1.5rem;font-size:1rem;font-weight:700;color:var(--text-light);cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.2s ease;font-family:inherit;}body.dark-mode .faq-question{color:var(--text-dark);}.faq-question:hover{background:rgba(59,130,246,0.06);}.faq-question.open{color:#1e40af;}body.dark-mode .faq-question.open{color:var(--accent);}
     .faq-icon{font-size:1.2rem;font-weight:700;flex-shrink:0;transition:transform 0.3s ease;line-height:1;}.faq-question.open .faq-icon{transform:rotate(45deg);}
-    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s ease;padding:0 1.5rem;font-size:0.95rem;line-height:1.7;color:rgba(26,26,26,0.8);}body.dark-mode .faq-answer{color:rgba(240,240,240,0.8);}.faq-answer.open{max-height:500px;padding:0 1.5rem 1.2rem;}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s ease;padding:0 1.5rem;font-size:0.95rem;line-height:1.7;color:rgba(26,26,26,0.8);}body.dark-mode .faq-answer{color:rgba(240,240,240,0.8);}.faq-answer.open{max-height:800px;padding:0 1.5rem 1.2rem;}
+    .faq-answer ul{margin:0.6rem 0 0.6rem 1.2rem;}.faq-answer ul li{margin-bottom:0.3rem;}
+    .faq-answer a{color:#1e40af;font-weight:600;}body.dark-mode .faq-answer a{color:#60a5fa;}
+
     .cta-box{background:linear-gradient(135deg,#1e40af,#3b82f6);border-radius:20px;padding:2.5rem 2rem;text-align:center;color:white;margin:3rem 0;}.cta-box h3{font-size:1.4rem;font-weight:800;margin-bottom:0.6rem;}.cta-box p{opacity:0.9;margin-bottom:1.5rem;}
     .scroll-top-btn{position:fixed;bottom:calc(2rem + 60px + 1.4rem);right:1.15rem;width:28px;height:28px;border-radius:50%;background:#1e40af;border:none;color:#fff;font-size:0.55rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(30,64,175,0.5);z-index:99;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity 0.3s ease,transform 0.3s ease;}.scroll-top-btn.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
-    footer{--ft-bg:#f2f5ee;--ft-border:rgba(30,64,175,0.18);--ft-text:#1a1a1a;--ft-muted:rgba(0,0,0,0.45);--ft-social-bg:rgba(0,0,0,0.06);--ft-social-border:rgba(0,0,0,0.11);--ft-link-color:rgba(0,0,0,0.5);--ft-bottom-bg:rgba(0,0,0,0.05);--ft-bottom-border:rgba(0,0,0,0.09);--ft-copy:rgba(0,0,0,0.38);--ft-copy-strong:rgba(0,0,0,0.58);--ft-badge:rgba(0,0,0,0.3);--ft-accent:#1e40af;--ft-title:#1e40af;background:var(--ft-bg);color:var(--ft-text);padding:0;border-top:1px solid var(--ft-border);transition:background 0.5s ease,color 0.5s ease;}body.dark-mode footer{--ft-bg:#0d0d0d;--ft-border:rgba(30,64,175,0.15);--ft-text:#e0e0e0;--ft-muted:rgba(255,255,255,0.45);--ft-social-bg:rgba(255,255,255,0.06);--ft-social-border:rgba(255,255,255,0.09);--ft-link-color:rgba(255,255,255,0.5);--ft-bottom-bg:rgba(0,0,0,0.25);--ft-bottom-border:rgba(255,255,255,0.07);--ft-copy:rgba(255,255,255,0.3);--ft-copy-strong:rgba(255,255,255,0.5);--ft-badge:rgba(255,255,255,0.25);--ft-accent:#38bdf8;--ft-title:#38bdf8;}
-    @media(max-width:860px){}@media(max-width:560px){}
-    .footer-brand-name span{color:var(--ft-accent);}.footer-col-links a{text-decoration:none;font-size:0.85rem;color:var(--ft-link-color);transition:color 0.2s ease;}.footer-col-links a:hover{color:var(--ft-accent);}.footer-contact-item:hover{color:var(--ft-accent);}.footer-contact-item svg{width:16px;height:16px;fill:currentColor;flex-shrink:0;}.footer-copy strong{color:var(--ft-copy-strong);font-weight:600;}.footer-badge span{color:var(--ft-accent);font-weight:700;}
-    @keyframes fadeInDown{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}@keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.2);}}
-    @media(max-width:768px){.header h1{font-size:2rem;}.faq-section{padding:0 1.2rem;}}@media(max-width:480px){.header h1{font-size:1.8rem;}.back-button,.menu-toggle{padding:0.8rem 1rem;font-size:0.9rem;}}
-  
+
     /* ===== FOOTER ===== */
-    footer {
-      --ft-bg:            #ffffff;
-      --ft-border:        rgba(0,0,0,0.08);
-      --ft-text:          #1a1a1a;
-      --ft-muted:         rgba(0,0,0,0.45);
-      --ft-social-bg:     rgba(0,0,0,0.04);
-      --ft-social-border: rgba(0,0,0,0.08);
-      --ft-link-color:    rgba(0,0,0,0.5);
-      --ft-bottom-bg:     rgba(0,0,0,0.03);
-      --ft-bottom-border: rgba(0,0,0,0.08);
-      --ft-copy:          rgba(0,0,0,0.4);
-      --ft-copy-strong:   rgba(0,0,0,0.6);
-      --ft-badge:         rgba(0,0,0,0.3);
-      --ft-accent:        #3b82f6;
-      --ft-title:         #3b82f6;
-      background: var(--ft-bg);
-      color: var(--ft-text);
-      padding: 0;
-      border-top: 1px solid var(--ft-border);
-      transition: background 0.5s ease, color 0.5s ease;
-    }
-    body.dark-mode footer {
-      --ft-bg:            #0d0d0d;
-      --ft-border:        rgba(59,130,246,0.15);
-      --ft-text:          #e0e0e0;
-      --ft-muted:         rgba(255,255,255,0.45);
-      --ft-social-bg:     rgba(255,255,255,0.06);
-      --ft-social-border: rgba(255,255,255,0.09);
-      --ft-link-color:    rgba(255,255,255,0.5);
-      --ft-bottom-bg:     rgba(0,0,0,0.25);
-      --ft-bottom-border: rgba(255,255,255,0.07);
-      --ft-copy:          rgba(255,255,255,0.3);
-      --ft-copy-strong:   rgba(255,255,255,0.5);
-      --ft-badge:         rgba(255,255,255,0.25);
-      --ft-accent:        #60a5fa;
-      --ft-title:         #60a5fa;
-    }
-    .footer-top {
-      max-width: 1100px; margin: 0 auto;
-      padding: 3rem 2rem 2rem;
-      display: grid; grid-template-columns: 1.6fr 1fr 1fr;
-      gap: 2.5rem; align-items: start;
-    }
-    @media (max-width: 860px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-    @media (max-width: 560px) { .footer-top { grid-template-columns: 1fr; gap: 1.6rem; padding: 2rem 1.2rem 1.5rem; } }
-    .footer-brand-logo { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.9rem; }
-    .footer-brand-name { font-size: 1.15rem; font-weight: 800; color: var(--ft-text); letter-spacing: -0.3px; }
-    .footer-brand-name span { color: var(--ft-accent); }
-    .footer-tagline { font-size: 0.82rem; color: var(--ft-muted); line-height: 1.6; max-width: 280px; margin-bottom: 1.4rem; }
-    .footer-social { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-    .footer-social-link {
-      display: flex; align-items: center; justify-content: center;
-      width: 40px; height: 40px; border-radius: 10px;
-      background: var(--ft-social-bg); border: 1px solid var(--ft-social-border);
-      transition: all 0.2s ease; text-decoration: none; color: var(--ft-muted);
-    }
-    .footer-social-link:hover { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.35); color: var(--ft-accent); transform: translateY(-2px); }
-    .footer-social-link svg { width: 18px; height: 18px; fill: currentColor; }
-    .footer-col-title { font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ft-title); margin-bottom: 1rem; }
-    .footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
-    .footer-col-links a { text-decoration: none; color: var(--ft-link-color); font-size: 0.83rem; transition: color 0.18s; }
-    .footer-col-links a:hover { color: var(--ft-accent); }
-    .footer-contact-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--ft-link-color); margin-bottom: 0.55rem; text-decoration: none; transition: color 0.18s; }
-    .footer-contact-item:hover { color: var(--ft-accent); }
-    .footer-contact-item svg { width: 15px; height: 15px; fill: var(--ft-accent); flex-shrink: 0; }
-    .footer-bottom {
-      border-top: 1px solid var(--ft-bottom-border); background: var(--ft-bottom-bg, transparent);
-      padding: 1.1rem 2rem; max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-    }
-    @media (max-width: 560px) { .footer-bottom { flex-direction: column; text-align: center; padding: 1rem 1.2rem; } }
-    .footer-copy { font-size: 0.75rem; color: var(--ft-copy); }
-    .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
-    .footer-badge { font-size: 0.68rem; color: var(--ft-badge); display: flex; align-items: center; gap: 0.35rem; }
-    .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+    footer{--ft-bg:#ffffff;--ft-border:rgba(0,0,0,0.08);--ft-text:#1a1a1a;--ft-muted:rgba(0,0,0,0.45);--ft-social-bg:rgba(0,0,0,0.04);--ft-social-border:rgba(0,0,0,0.08);--ft-link-color:rgba(0,0,0,0.5);--ft-bottom-bg:rgba(0,0,0,0.03);--ft-bottom-border:rgba(0,0,0,0.08);--ft-copy:rgba(0,0,0,0.4);--ft-copy-strong:rgba(0,0,0,0.6);--ft-badge:rgba(0,0,0,0.3);--ft-accent:#3b82f6;--ft-title:#3b82f6;background:var(--ft-bg);color:var(--ft-text);padding:0;border-top:1px solid var(--ft-border);transition:background 0.5s ease,color 0.5s ease;}
+    body.dark-mode footer{--ft-bg:#0d0d0d;--ft-border:rgba(59,130,246,0.15);--ft-text:#e0e0e0;--ft-muted:rgba(255,255,255,0.45);--ft-social-bg:rgba(255,255,255,0.06);--ft-social-border:rgba(255,255,255,0.09);--ft-link-color:rgba(255,255,255,0.5);--ft-bottom-bg:rgba(0,0,0,0.25);--ft-bottom-border:rgba(255,255,255,0.07);--ft-copy:rgba(255,255,255,0.3);--ft-copy-strong:rgba(255,255,255,0.5);--ft-badge:rgba(255,255,255,0.25);--ft-accent:#60a5fa;--ft-title:#60a5fa;}
+    .footer-top{max-width:1100px;margin:0 auto;padding:3rem 2rem 2rem;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:2.5rem;align-items:start;}
+    @media(max-width:860px){.footer-top{grid-template-columns:1fr 1fr;gap:2rem;}}@media(max-width:560px){.footer-top{grid-template-columns:1fr;gap:1.6rem;padding:2rem 1.2rem 1.5rem;}}
+    .footer-brand-logo{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.9rem;}.footer-brand-name{font-size:1.15rem;font-weight:800;color:var(--ft-text);letter-spacing:-0.3px;}.footer-brand-name span{color:var(--ft-accent);}
+    .footer-tagline{font-size:0.82rem;color:var(--ft-muted);line-height:1.6;max-width:280px;margin-bottom:1.4rem;}
+    .footer-social{display:flex;gap:0.6rem;flex-wrap:wrap;}.footer-social-link{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:var(--ft-social-bg);border:1px solid var(--ft-social-border);transition:all 0.2s ease;text-decoration:none;color:var(--ft-muted);}.footer-social-link:hover{background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.35);color:var(--ft-accent);transform:translateY(-2px);}.footer-social-link svg{width:18px;height:18px;fill:currentColor;}
+    .footer-col-title{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ft-title);margin-bottom:1rem;}
+    .footer-col-links{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}.footer-col-links a{text-decoration:none;color:var(--ft-link-color);font-size:0.83rem;transition:color 0.18s;}.footer-col-links a:hover{color:var(--ft-accent);}
+    .footer-contact-item{display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--ft-link-color);margin-bottom:0.55rem;text-decoration:none;transition:color 0.18s;}.footer-contact-item:hover{color:var(--ft-accent);}.footer-contact-item svg{width:15px;height:15px;fill:var(--ft-accent);flex-shrink:0;}
+    .footer-bottom{border-top:1px solid var(--ft-bottom-border);background:var(--ft-bottom-bg,transparent);padding:1.1rem 2rem;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+    @media(max-width:560px){.footer-bottom{flex-direction:column;text-align:center;padding:1rem 1.2rem;}}
+    .footer-copy{font-size:0.75rem;color:var(--ft-copy);}.footer-copy strong{color:var(--ft-copy-strong);font-weight:600;}
+    .footer-badge{font-size:0.68rem;color:var(--ft-badge);display:flex;align-items:center;gap:0.35rem;}.footer-badge span{color:var(--ft-accent);font-weight:700;}
+    footer a{text-decoration:none!important;}
+    footer .footer-col-links div a{color:rgba(255,255,255,0.45)!important;font-size:0.83rem;transition:color 0.18s;}
+    body:not(.dark-mode) footer .footer-col-links div a{color:rgba(0,0,0,0.45)!important;}
+    footer .footer-col-links div a:hover{color:#60a5fa!important;}
+    body:not(.dark-mode) footer .footer-col-links div a:hover{color:#3b82f6!important;}
+    footer .footer-contact-item{color:rgba(255,255,255,0.45)!important;text-decoration:none!important;}
+    body:not(.dark-mode) footer .footer-contact-item{color:rgba(0,0,0,0.45)!important;}
+    footer .footer-contact-item:hover{color:#60a5fa!important;}
+    body:not(.dark-mode) footer .footer-contact-item:hover{color:#3b82f6!important;}
     /* ===== /FOOTER ===== */
 
-    /* ===== MOBILE FIX ===== */
-    @media (max-width: 768px) {
-      .theme-toggle {
-        top: 0.8rem; right: 0.8rem;
-        padding: 0.55rem 0.9rem;
-        height: 40px; min-width: 40px; font-size: 0.85rem;
-      }
-      .top-left-buttons { top: 0.8rem; left: 0.8rem; }
-      .back-button, .menu-toggle {
-        padding: 0.55rem 0.9rem;
-        height: 40px; font-size: 0.82rem;
-      }
-      .header {
-        padding: 5rem 1.2rem 2rem !important;
-      }
-      .header h1 { font-size: 1.6rem !important; line-height: 1.25; }
-      .header p { font-size: 0.93rem !important; }
-      .faq-section { padding: 0 1rem; margin: 1.5rem auto; }
-      .faq-category-title { font-size: 1.05rem; }
-      .faq-question { font-size: 0.88rem; padding: 0.95rem 1rem; }
-      .faq-answer { font-size: 0.86rem; padding: 0 1rem; }
-      .faq-answer.open { padding: 0 1rem 1rem; }
-    }
-    @media (max-width: 400px) {
-      .header h1 { font-size: 1.3rem !important; }
-      .back-button, .menu-toggle { font-size: 0.76rem; padding: 0.5rem 0.75rem; height: 36px; }
-      .theme-toggle { height: 36px; min-width: 36px; padding: 0.5rem 0.75rem; }
-      .header { padding: 4.5rem 1rem 1.5rem !important; }
-    }
-    /* ===== /MOBILE FIX ===== */
-
-  
-    /* ===== FORÇAR ESTILO RODAPÉ ===== */
-    footer a {
-      text-decoration: none !important;
-    }
-    footer .footer-col-links div a {
-      color: rgba(255,255,255,0.45) !important;
-      font-size: 0.83rem;
-      transition: color 0.18s;
-    }
-    body:not(.dark-mode) footer .footer-col-links div a {
-      color: rgba(0,0,0,0.45) !important;
-    }
-    footer .footer-col-links div a:hover {
-      color: #60a5fa !important;
-    }
-    body:not(.dark-mode) footer .footer-col-links div a:hover {
-      color: #3b82f6 !important;
-    }
-    footer .footer-contact-item {
-      color: rgba(255,255,255,0.45) !important;
-      text-decoration: none !important;
-    }
-    body:not(.dark-mode) footer .footer-contact-item {
-      color: rgba(0,0,0,0.45) !important;
-    }
-    footer .footer-contact-item:hover {
-      color: #60a5fa !important;
-    }
-    body:not(.dark-mode) footer .footer-contact-item:hover {
-      color: #3b82f6 !important;
-    }
-    /* ===== /FORÇAR ESTILO RODAPÉ ===== */
-
-  
     /* ===== BOTÕES ===== */
-    .btn {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 0.4rem !important;
-      padding: 0.85rem 1.8rem !important;
-      border-radius: 50px !important;
-      font-weight: 700 !important;
-      font-size: 0.95rem !important;
-      cursor: pointer !important;
-      transition: all 0.25s ease !important;
-      font-family: inherit !important;
-      text-decoration: none !important;
-      white-space: nowrap !important;
-      border: none !important;
-      letter-spacing: 0.2px !important;
-    }
-    .btn:hover {
-      transform: translateY(-2px) !important;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25) !important;
-      text-decoration: none !important;
-    }
-    @media (max-width: 500px) {
-      .btn {
-        display: flex !important;
-        width: 100% !important;
-        padding: 0.9rem 1.2rem !important;
-        font-size: 0.9rem !important;
-        margin-right: 0 !important;
-        margin-bottom: 0.6rem !important;
-      }
-    }
+    .btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:0.4rem!important;padding:0.85rem 1.8rem!important;border-radius:50px!important;font-weight:700!important;font-size:0.95rem!important;cursor:pointer!important;transition:all 0.25s ease!important;font-family:inherit!important;text-decoration:none!important;white-space:nowrap!important;border:none!important;letter-spacing:0.2px!important;}
+    .btn:hover{transform:translateY(-2px)!important;box-shadow:0 6px 20px rgba(0,0,0,0.25)!important;text-decoration:none!important;}
+    @media(max-width:500px){.btn{display:flex!important;width:100%!important;padding:0.9rem 1.2rem!important;font-size:0.9rem!important;margin-right:0!important;margin-bottom:0.6rem!important;}}
     /* ===== /BOTÕES ===== */
 
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}@keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.2);}}
+
+    @media(max-width:768px){
+      .theme-toggle{top:0.8rem;right:0.8rem;padding:0.55rem 0.9rem;height:40px;min-width:40px;font-size:0.85rem;}
+      .top-left-buttons{top:0.8rem;left:0.8rem;}.back-button,.menu-toggle{padding:0.55rem 0.9rem;height:40px;font-size:0.82rem;}
+      .header{padding:5rem 1.2rem 2rem!important;}.header h1{font-size:1.6rem!important;line-height:1.25;}.header p{font-size:0.93rem!important;}
+      .faq-section{padding:0 1rem;margin:1.5rem auto;}.faq-category-title{font-size:1.05rem;}
+      .faq-question{font-size:0.88rem;padding:0.95rem 1rem;}.faq-answer{font-size:0.86rem;padding:0 1rem;}.faq-answer.open{padding:0 1rem 1rem;}
+      .info-cards{padding:0 1rem;}.lgpd-banner{padding:0 1rem;}.direitos-grid{padding:0 1rem;}
+    }
+    @media(max-width:400px){.header h1{font-size:1.3rem!important;}.back-button,.menu-toggle{font-size:0.76rem;padding:0.5rem 0.75rem;height:36px;}.theme-toggle{height:36px;min-width:36px;padding:0.5rem 0.75rem;}.header{padding:4.5rem 1rem 1.5rem!important;}}
   </style>
 </head>
 <body>
@@ -238,92 +135,249 @@
   <header class="header">
     <div class="header-content">
       <h1>🔒 FAQ — Privacidade & LGPD</h1>
-      <p>Entenda como tratamos seus dados e protegemos sua privacidade</p>
+      <p>Seus dados têm valor. Entenda como os protegemos e quais são seus direitos.</p>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-card-value">9</div>
+        <div class="info-card-label">Direitos garantidos pela LGPD ao titular dos dados</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-value">15 dias</div>
+        <div class="info-card-label">Prazo legal para resposta a solicitações de dados (LGPD, Art. 18)</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-value">6 meses</div>
+        <div class="info-card-label">Período máximo de retenção do currículo após último contato</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-value">ANPD</div>
+        <div class="info-card-label">Autoridade Nacional de Proteção de Dados — órgão fiscalizador da LGPD</div>
+      </div>
     </div>
   </header>
 
+  <!-- Banner informativo LGPD -->
+  <div class="lgpd-banner">
+    <div class="lgpd-banner-inner">
+      <div class="lgpd-banner-icon">⚖️</div>
+      <div class="lgpd-banner-text">
+        A <strong>Lei Geral de Proteção de Dados (Lei nº 13.709/2018)</strong> entrou em vigor em setembro de 2020 e regulamenta o tratamento de dados pessoais no Brasil. Ela garante a você o direito de saber quais dados são coletados, para que são usados e como solicitar correção, exclusão ou portabilidade a qualquer momento — sem custo.
+      </div>
+    </div>
+  </div>
+
+  <!-- Seus 9 Direitos LGPD -->
+  <div style="max-width:860px;margin:2rem auto 0;padding:0 2rem;">
+    <div class="faq-category-title" style="margin-top:0;">🛡️ Seus 9 Direitos pela LGPD</div>
+  </div>
+  <div class="direitos-grid">
+    <div class="direito-card">
+      <div class="direito-card-icon">✅</div>
+      <div class="direito-card-text"><strong>Confirmação</strong>Saber se tratamos seus dados pessoais.</div>
+    </div>
+    <div class="direito-card">
+      <div class="direito-card-icon">👁️</div>
+      <div class="direito-card-text"><strong>Acesso</strong>Receber uma cópia de todos os seus dados conosco.</div>
+    </div>
+    <div class="direito-card">
+      <div class="direito-card-icon">✏️</div>
+      <div class="direito-card-text"><strong>Correção</strong>Atualizar dados incompletos, inexatos ou desatualizados.</div>
+    </div>
+    <div class="direito-card">
+      <div class="direito-card-icon">🗑️</div>
+      <div class="direito-card-text"><strong>Exclusão</strong>Pedir a eliminação dos dados tratados com base em consentimento.</div>
+    </div>
+    <div class="direito-card">
+      <div class="direito-card-icon">🔒</div>
+      <div class="direito-card-text"><strong>Anonimização</strong>Solicitar que seus dados sejam tornados anônimos.</div>
+    </div>
+    <div class="direito-card">
+      <div class="direito-card-icon">📦</div>
+      <div class="direito-card-text"><strong>Portabilidade</strong>Transferir seus dados para outro serviço ou fornecedor.</div>
+    </div>
+    <div class="direito-card">
+      <div class="direito-card-icon">🚫</div>
+      <div class="direito-card-text"><strong>Oposição</strong>Se opor ao tratamento realizado sem seu consentimento.</div>
+    </div>
+    <div class="direito-card">
+      <div class="direito-card-icon">↩️</div>
+      <div class="direito-card-text"><strong>Revogação</strong>Retirar o consentimento dado a qualquer momento.</div>
+    </div>
+    <div class="direito-card">
+      <div class="direito-card-icon">ℹ️</div>
+      <div class="direito-card-text"><strong>Informação</strong>Saber com quais entidades seus dados foram compartilhados.</div>
+    </div>
+  </div>
+
   <div class="faq-section">
 
-    <div class="faq-category-title">🗂 Dados Pessoais</div>
+    <div class="faq-category-title">🗂️ Dados Pessoais — O que Coletamos e Por Quê</div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)">Quais dados pessoais a Agência Nexus coleta?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Coletamos apenas os dados necessários para prestação dos nossos serviços, como nome, e-mail, telefone e informações profissionais contidas no currículo (experiência, formação, habilidades). Não coletamos dados sensíveis como CPF, RG ou dados financeiros sem necessidade e consentimento explícito.</div>
+      <div class="faq-answer">
+        <p>Coletamos apenas os dados estritamente necessários para conectar profissionais a oportunidades de emprego. São eles:</p>
+        <ul>
+          <li><strong>Dados de identificação:</strong> nome completo, e-mail e telefone para contato.</li>
+          <li><strong>Dados profissionais:</strong> experiências, formação acadêmica e habilidades presentes no currículo.</li>
+          <li><strong>Dados de navegação:</strong> preferências de tema (claro/escuro) e dados anônimos de uso do site via cookies.</li>
+        </ul>
+        <p style="margin-top:0.6rem;">Não coletamos CPF, RG, dados financeiros, informações de saúde ou qualquer dado sensível sem necessidade justificada e consentimento explícito, conforme exige a LGPD (Art. 11).</p>
+      </div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">Para que meus dados são usados?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Seus dados são utilizados exclusivamente para: avaliação de perfil para vagas disponíveis, contato sobre oportunidades compatíveis, comunicação sobre processos seletivos em andamento e manutenção do nosso banco de talentos. Não utilizamos seus dados para fins publicitários ou comerciais não relacionados ao recrutamento.</div>
+      <button class="faq-question" onclick="toggleFaq(this)">Para que meus dados são utilizados?<span class="faq-icon">+</span></button>
+      <div class="faq-answer">
+        <p>Seus dados têm uma finalidade única e específica: facilitar sua recolocação profissional. Utilizamos para:</p>
+        <ul>
+          <li>Avaliar seu perfil e compatibilidade com vagas disponíveis.</li>
+          <li>Entrar em contato sobre oportunidades alinhadas à sua área de atuação e pretensão salarial.</li>
+          <li>Acompanhar e comunicar as etapas dos processos seletivos em andamento.</li>
+          <li>Manter seu perfil ativo em nosso banco de talentos para futuras oportunidades.</li>
+        </ul>
+        <p style="margin-top:0.6rem;">Não utilizamos seus dados para fins publicitários, venda de leads ou qualquer propósito não relacionado ao recrutamento e seleção.</p>
+      </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)">Meus dados são compartilhados com terceiros?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Seus dados podem ser compartilhados com as empresas clientes que estão com vagas abertas, mas somente após seu consentimento e quando seu perfil for compatível com a oportunidade. Não vendemos, alugamos ou compartilhamos seus dados com terceiros para outros fins.</div>
+      <div class="faq-answer">
+        <p>Seus dados podem ser apresentados às empresas contratantes com vagas abertas, mas apenas sob duas condições:</p>
+        <ul>
+          <li>Seu perfil for genuinamente compatível com os requisitos da vaga.</li>
+          <li>Você tiver dado consentimento explícito para essa candidatura.</li>
+        </ul>
+        <p style="margin-top:0.6rem;">Não vendemos, alugamos ou repassamos seus dados a terceiros para nenhum fim que não seja o processo de recrutamento ao qual você se candidatou. As empresas clientes também estão sujeitas às obrigações da LGPD no tratamento de dados que recebem.</p>
+      </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)">Por quanto tempo meus dados ficam armazenados?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Armazenamos seus dados por até 6 meses após o último contato ou candidatura. Após esse período, os dados são excluídos automaticamente, salvo quando houver obrigação legal de retenção. Você pode solicitar a exclusão a qualquer momento.</div>
+      <div class="faq-answer">
+        <p>Adotamos o princípio da necessidade: mantemos seus dados apenas pelo tempo necessário para a finalidade de recrutamento.</p>
+        <ul>
+          <li><strong>Banco de talentos ativo:</strong> até 6 meses após o último contato ou candidatura.</li>
+          <li><strong>Processos encerrados:</strong> dados são excluídos em até 30 dias após o encerramento da vaga, salvo se você solicitar permanência no banco.</li>
+          <li><strong>Obrigação legal:</strong> em casos onde a legislação exige retenção por prazo maior (como registros de contratação), os dados são mantidos pelo tempo mínimo necessário.</li>
+        </ul>
+        <p style="margin-top:0.6rem;">Você pode solicitar a exclusão a qualquer momento, independentemente do prazo — basta nos contatar.</p>
+      </div>
     </div>
 
-    <div class="faq-category-title">⚖️ Seus Direitos (LGPD)</div>
+    <div class="faq-category-title">⚖️ Exercendo Seus Direitos — Como Funciona na Prática</div>
 
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">Quais são meus direitos sobre meus dados pessoais?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Pela Lei Geral de Proteção de Dados (LGPD), você tem direito a: confirmação da existência de tratamento dos seus dados, acesso aos dados, correção de dados incompletos ou desatualizados, anonimização ou exclusão dos dados, portabilidade dos dados, revogação do consentimento e oposição ao tratamento. Para exercer qualquer direito, entre em contato conosco.</div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">Como solicito a exclusão dos meus dados?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Envie uma solicitação pelo e-mail adm.agencianexus@outlook.com ou pelo WhatsApp informando seu nome completo e o pedido de exclusão. Atenderemos em até 15 dias úteis, conforme previsto pela LGPD.</div>
+      <button class="faq-question" onclick="toggleFaq(this)">Como solicito acesso, correção ou exclusão dos meus dados?<span class="faq-icon">+</span></button>
+      <div class="faq-answer">
+        <p>O processo é simples e gratuito. Você pode nos contatar por dois canais:</p>
+        <ul>
+          <li><strong>E-mail:</strong> <a href="mailto:adm.agencianexus@outlook.com">adm.agencianexus@outlook.com</a> — informe seu nome completo e o tipo de solicitação no assunto: <em>"LGPD – [Tipo de Solicitação]"</em>.</li>
+          <li><strong>WhatsApp:</strong> <a href="https://wa.me/5551996976579" target="_blank">(51) 99697-6579</a> — informe seu nome e o que precisa.</li>
+        </ul>
+        <div class="prazo-badge">⏱️ Respondemos em até 15 dias úteis, conforme Art. 18 da LGPD</div>
+      </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)">Posso revogar meu consentimento a qualquer momento?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Sim. Você pode revogar seu consentimento a qualquer momento pelo mesmo canal que o concedeu — WhatsApp ou e-mail. A revogação não prejudica o tratamento já realizado até aquele momento, mas cessa qualquer uso futuro dos seus dados.</div>
+      <div class="faq-answer">
+        <p>Sim, sem restrições. A revogação do consentimento é um direito fundamental previsto no Art. 8º, §5º da LGPD. Ao revogar:</p>
+        <ul>
+          <li>Cessamos imediatamente qualquer uso futuro dos seus dados.</li>
+          <li>O tratamento realizado até aquele momento permanece válido (a lei não tem efeito retroativo).</li>
+          <li>Seus dados são excluídos do nosso banco em até 15 dias úteis.</li>
+        </ul>
+        <p style="margin-top:0.6rem;">A revogação não implica nenhum prejuízo para você e não afeta processos seletivos nos quais você tenha avançado com consentimento prévio.</p>
+      </div>
     </div>
 
-    <div class="faq-category-title">🍪 Cookies</div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">O que faço se sentir que meus direitos não foram respeitados?<span class="faq-icon">+</span></button>
+      <div class="faq-answer">
+        <p>Primeiro, entre em contato diretamente conosco para resolvermos internamente. Caso não fique satisfeito com nossa resposta, você tem o direito de registrar uma reclamação na <strong>ANPD — Autoridade Nacional de Proteção de Dados</strong>, órgão responsável por fiscalizar o cumprimento da LGPD no Brasil.</p>
+        <ul>
+          <li>Site da ANPD: <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">www.gov.br/anpd</a></li>
+          <li>Peticionamento eletrônico disponível diretamente no portal do governo.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-category-title">🍪 Cookies — Transparência Total</div>
 
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">O site da Agência Nexus usa cookies?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Sim. Utilizamos cookies essenciais para o funcionamento do site (como preferência de tema claro/escuro) e cookies analíticos para entender como os visitantes interagem com o site. Você pode gerenciar suas preferências de cookies a qualquer momento.</div>
+      <button class="faq-question" onclick="toggleFaq(this)">O site da Agência Nexus usa cookies? Para quê?<span class="faq-icon">+</span></button>
+      <div class="faq-answer">
+        <p>Sim, utilizamos dois tipos de cookies — e somos transparentes sobre cada um:</p>
+        <ul>
+          <li><strong>Cookies essenciais:</strong> necessários para o funcionamento básico do site, como salvar sua preferência de tema (claro ou escuro). Sem estes, o site não funciona corretamente.</li>
+          <li><strong>Cookies analíticos (anônimos):</strong> nos ajudam a entender como os visitantes navegam pelo site (páginas mais acessadas, tempo de visita) para melhorarmos a experiência. Estes dados são sempre anonimizados — não identificam você pessoalmente.</li>
+        </ul>
+        <p style="margin-top:0.6rem;">Não utilizamos cookies de rastreamento publicitário ou qualquer cookie que venda ou repasse seus dados a terceiros.</p>
+      </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)">Como gerencio ou recuso os cookies?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Você pode gerenciar os cookies pelas configurações do seu navegador ou através do nosso painel de consentimento de cookies. Ao recusar cookies não essenciais, algumas funcionalidades do site podem ser limitadas, mas o acesso ao conteúdo principal não será afetado.</div>
+      <div class="faq-answer">
+        <p>Você tem controle total sobre os cookies:</p>
+        <ul>
+          <li><strong>Painel de cookies do site:</strong> acesse "Gerenciar Cookies" (link no rodapé) para escolher quais tipos aceita.</li>
+          <li><strong>Configurações do navegador:</strong> todos os navegadores modernos (Chrome, Firefox, Safari, Edge) permitem bloquear ou excluir cookies nas configurações de privacidade.</li>
+        </ul>
+        <p style="margin-top:0.6rem;">Ao recusar cookies analíticos, o acesso ao conteúdo do site não será afetado. A única consequência é que sua preferência de tema (claro/escuro) pode não ser salva entre visitas.</p>
+      </div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">Cookies guardam meu currículo ou dados pessoais?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Não. Os cookies do nosso site armazenam apenas preferências de navegação (como tema claro ou escuro) e dados anônimos de uso. Seus dados pessoais e currículo não são armazenados em cookies.</div>
+      <button class="faq-question" onclick="toggleFaq(this)">Cookies armazenam meu currículo ou dados pessoais?<span class="faq-icon">+</span></button>
+      <div class="faq-answer">
+        Não. Os cookies do nosso site armazenam exclusivamente preferências de navegação anônimas (como o tema visual escolhido). Currículos, dados de contato e informações profissionais nunca são armazenados em cookies — eles trafegam de forma segura apenas quando você nos envia diretamente por WhatsApp, e-mail ou formulário de candidatura.
+      </div>
     </div>
 
-    <div class="faq-category-title">📧 Comunicações</div>
+    <div class="faq-category-title">📧 Comunicações e Contato com o DPO</div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)">Posso pedir para parar de receber comunicações?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Sim. A qualquer momento você pode nos pedir para não receber mais contatos sobre vagas ou comunicações da agência. Basta enviar uma mensagem pelo WhatsApp ou e-mail solicitando a exclusão do seu contato da nossa lista de comunicação.</div>
+      <div class="faq-answer">
+        <p>Sim, a qualquer momento e sem necessidade de justificativa. Basta nos enviar uma mensagem informando que não deseja mais receber contatos sobre vagas ou comunicações da agência. Processamos o pedido em até <strong>5 dias úteis</strong>.</p>
+        <ul>
+          <li><strong>WhatsApp:</strong> <a href="https://wa.me/5551996976579" target="_blank">(51) 99697-6579</a> — envie "Não quero mais receber contatos".</li>
+          <li><strong>E-mail:</strong> <a href="mailto:adm.agencianexus@outlook.com">adm.agencianexus@outlook.com</a> — assunto: "Cancelar comunicações".</li>
+        </ul>
+        <p style="margin-top:0.6rem;">Após sua solicitação, removemos seu contato de toda e qualquer lista de comunicação da agência.</p>
+      </div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">Como entro em contato com o DPO (Encarregado de Dados)?<span class="faq-icon">+</span></button>
-      <div class="faq-answer">Para questões relacionadas à proteção de dados e privacidade, entre em contato pelo e-mail adm.agencianexus@outlook.com com o assunto "LGPD – Proteção de Dados". Respondemos em até 15 dias úteis.</div>
+      <button class="faq-question" onclick="toggleFaq(this)">Como entro em contato com o DPO (Encarregado de Proteção de Dados)?<span class="faq-icon">+</span></button>
+      <div class="faq-answer">
+        <p>O <strong>DPO (Data Protection Officer)</strong> é o responsável pela conformidade da empresa com a LGPD e o canal oficial para dúvidas e solicitações sobre privacidade. Na Agência Nexus, o DPO pode ser contatado por:</p>
+        <ul>
+          <li><strong>E-mail:</strong> <a href="mailto:adm.agencianexus@outlook.com">adm.agencianexus@outlook.com</a> — use o assunto <em>"LGPD – Encarregado de Dados"</em>.</li>
+          <li><strong>WhatsApp:</strong> <a href="https://wa.me/5551996976579" target="_blank">(51) 99697-6579</a>.</li>
+        </ul>
+        <div class="prazo-badge">⏱️ Prazo legal de resposta: até 15 dias úteis (LGPD, Art. 18, §5º)</div>
+      </div>
     </div>
 
     <div class="cta-box">
       <h3>Quer ler nossa política completa?</h3>
-      <p>Acesse o documento completo de Privacidade & LGPD da Agência Nexus.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;margin-top:1.2rem;"><a href="../site/privacidade.html" class="btn" style="background:white;color:#1e40af;font-weight:800;">📄 Ver Política de Privacidade</a>
-      <a href="../site/indexcookies.html" class="btn" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.4);">🍪 Gerenciar Cookies</a>
-    </div></div>
+      <p>Acesse o documento completo de Privacidade & LGPD e gerencie suas preferências de cookies.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;margin-top:1.2rem;">
+        <a href="../site/privacidade.html" class="btn" style="background:white;color:#1e40af;font-weight:800;">📄 Ver Política de Privacidade</a>
+        <a href="../site/indexcookies.html" class="btn" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.4);">🍪 Gerenciar Cookies</a>
+      </div>
+    </div>
 
   </div>
 
   <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">▲</button>
 
-     <footer>
+  <footer>
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-brand-logo">
@@ -378,6 +432,8 @@
       <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
     </div>
   </footer>
+
+  <button class="scroll-top-btn" id="scrollTopBtn2" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo" style="display:none;">▲</button>
 
   <script>
     function toggleFaq(btn){const a=btn.nextElementSibling,o=btn.classList.contains('open');document.querySelectorAll('.faq-question.open').forEach(q=>{q.classList.remove('open');q.nextElementSibling.classList.remove('open');});if(!o){btn.classList.add('open');a.classList.add('open');}}
