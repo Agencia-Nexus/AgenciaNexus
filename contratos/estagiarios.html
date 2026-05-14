@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Estagiários — Contratos · Agência Nexus</title>
+<link rel="stylesheet" href="assets/cc-style.css"/>
+<style>.sb-head{padding:1.1rem 0.85rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem;flex-shrink:0;}.sb-logo-ico{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,rgba(30,64,175,0.35),rgba(59,130,246,0.18));border:1px solid rgba(59,130,246,0.28);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;box-shadow:0 2px 10px rgba(59,130,246,0.15);}.sb-logo-ico img{width:32px;height:32px;object-fit:contain;}.sb-logo-txt{overflow:hidden;white-space:nowrap;}.sb-logo-name{font-size:1.18rem;font-weight:900;line-height:1.2;letter-spacing:-0.3px;}.sb-logo-name span{color:var(--accent);}.sb-logo-sub{font-size:0.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:2px;opacity:0.65;margin-top:0.1rem;}.sb-av img{width:100%;height:100%;object-fit:contain;border-radius:inherit;}</style></head>
+<body>
+<div class="app">
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo-ico"><img src="fundo.png" alt="Nexus" style="width:32px;height:32px;object-fit:contain"/></div><div class="sb-logo-txt"><div class="sb-logo-name">Agência <span>Nexus</span></div><div class="sb-logo-sub">Contratos</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <div class="sb-sep">Controles</div>
+    <a class="sb-item active" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">💼</span><span class="lbl">CLTs</span></a>
+    <div class="sb-sep">Gestão</div>
+    <a class="sb-item" href="financeiro-mensal.html"><span class="ico">📅</span><span class="lbl">Financeiro Mensal</span></a>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="balanco-financeiro.html"><span class="ico">💰</span><span class="lbl">Balanço Financeiro</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av"><img src="fundo.png" alt="EX" style="width:18px;height:18px;object-fit:contain"/></div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email">—</div></div><button class="sb-toggle" onclick="if(window.ccLogout)window.ccLogout()" title="Sair" style="margin-right:.2rem;opacity:.4">⏻</button><button class="sb-toggle" id="sb-toggle">◀</button></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html">Dashboard</a><span class="sep"> / </span><span>Estagiários</span></div>
+    <div class="tb-right">
+      <span id="tb-date" class="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarCSV()">📊 CSV</button>
+      <button class="btn btn-ghost btn-sm" onclick="exportarWord()">📄 Word</button>
+      <button class="btn btn-primary btn-sm" onclick="abrirModal()">＋ Novo Estagiário</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-title">🎓 Controle de <span>Estagiários</span></div>
+        <div class="sec-sub">Períodos de 6 meses · Máximo 2 anos · Alertas automáticos de vencimento</div>
+      </div>
+    </div>
+
+    <div class="info-box accent">📌 Cada contrato de estágio tem até <strong>4 períodos de 6 meses</strong> (máximo 2 anos na mesma empresa — Lei 11.788/2008). O sistema alerta automaticamente quando um período está próximo do vencimento.</div>
+
+    <!-- KPIs -->
+    <div class="kpi-row" id="kpiArea"></div>
+    <div class="tbl-wrap" id="recrutadorArea" style="display:none;padding:1rem;margin-top:.8rem"></div>
+
+    <!-- Alertas -->
+    <div id="alertasArea"></div>
+
+    <!-- Filtros + Tabela -->
+    <div class="tbl-wrap" id="tblEstWrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">📋 Lista de Estagiários</span>
+        <div class="tbl-actions">
+          <div class="search-box"><span>🔍</span><input placeholder="Buscar nome ou empresa..." oninput="UI.filtrar('tbodyEst',this.value)"/></div>
+          <select class="fi" id="filtStatus" style="font-size:.72rem;padding:.32rem .6rem" onchange="renderTabela()">
+            <option value="">Todos</option>
+            <option value="ativo">Ativos</option>
+            <option value="alerta">Com Alerta</option>
+            <option value="cancelado">Cancelados</option>
+            <option value="efetivado">Efetivados</option>
+            <option value="concluido">Concluídos</option>
+          </select>
+          <select class="fi" id="filtPeriodo" style="font-size:.72rem;padding:.32rem .6rem" onchange="renderTabela()">
+            <option value="">Todos os períodos</option>
+            <option value="1">1º Período</option>
+            <option value="2">2º Período</option>
+            <option value="3">3º Período</option>
+            <option value="4">4º Período</option>
+          </select>
+        </div>
+      </div>
+      <div class="tbl-scroll" style="-webkit-overflow-scrolling:touch">
+        <table>
+          <thead>
+            <tr>
+              <th>Estagiário</th>
+              <th>Empresa</th>
+              <th>VT / Fretado</th>
+              <th>Bolsa</th>
+              <th>Taxa</th>
+              <th>Receita Agência/mês</th>
+              <th>Recrutador / Comissão</th>
+              <th>Líquido Agência/mês</th>
+              <th>Períodos (6m cada → 2 anos)</th>
+              <th>Fim do Contrato</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyEst"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">TOTAIS</td>
+              <td id="tfBolsa"></td>
+              <td>—</td>
+              <td id="tfReceita" class="c-accent"></td>
+              <td>—</td>
+              <td id="tfLiqEst" class="c-accent fw8" title="Líquido agência após comissões"></td>
+              <td colspan="4"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="modalEst">
+<div class="modal">
+  <div class="modal-hd">
+    <div class="modal-title" id="modalTitulo">＋ Novo Estagiário</div>
+    <button class="modal-close" onclick="UI.closeModal('modalEst')">✕</button>
+  </div>
+  <div class="form-grid">
+    <div class="form-group fg-full"><label class="fl">Nome Completo *</label>
+      <input class="fi" id="mNome" placeholder="Nome completo do estagiário"/></div>
+    <div class="form-group fg-full"><label class="fl">Empresa Cliente *</label>
+      <input class="fi" id="mEmpresa" placeholder="Nome da empresa onde está alocado"/></div>
+    <div class="form-group"><label class="fl">Vale Transporte</label>
+      <select class="fi" id="mVT">
+        <option value="nao">Não</option>
+        <option value="sim">Sim — valor em dinheiro</option>
+        <option value="fretado">Fretado (empresa fornece)</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="fl">Valor VT (R$/mês)</label>
+      <input type="number" class="fi" id="mValorVT" value="0" min="0" step="0.01"/></div>
+    <div class="form-group"><label class="fl">Bolsa Auxílio (R$/mês) *</label>
+      <input type="number" class="fi" id="mBolsa" value="0" min="0" step="0.01" oninput="calcReceita()"/></div>
+    <div class="form-group"><label class="fl">Taxa da Agência (%)</label>
+      <input type="number" class="fi" id="mTaxa" value="15" min="0" max="100" step="0.5" oninput="calcReceita()"/>
+      <span style="font-size:.63rem;color:var(--muted);margin-top:.2rem">Padrão da config: <span id="taxaHint">15</span>%</span>
+    </div>
+    <div class="form-group"><label class="fl">Receita Agência/mês (calculado)</label>
+      <input class="fi fi-calc" id="mReceita" readonly/></div>
+    <div class="form-group" style="grid-column:1/-1;border-top:1px solid var(--border);padding-top:.9rem;margin-top:.2rem">
+      <label class="fl" style="font-size:.7rem;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.05em">👤 Recrutador Externo (opcional)</label>
+    </div>
+    <div class="form-group"><label class="fl">Nome do Recrutador</label>
+      <input class="fi" id="mRecrutador" placeholder="Ex: João Silva"/></div>
+    <div class="form-group"><label class="fl">Tipo de Comissão</label>
+      <select class="fi" id="mTipoComissao" onchange="calcReceita()">
+        <option value="none">Sem recrutador externo</option>
+        <option value="pct">Porcentagem (% da receita)</option>
+        <option value="fixo">Valor fixo (R$/mês)</option>
+      </select>
+    </div>
+    <div class="form-group" id="grpComissaoPct" style="display:none"><label class="fl">Percentual (%)</label>
+      <select class="fi" id="mComissaoPct" onchange="calcReceita()">
+        <option value="20">20%</option>
+        <option value="25">25%</option>
+        <option value="30">30%</option>
+        <option value="35">35%</option>
+        <option value="40">40%</option>
+        <option value="45">45%</option>
+      </select>
+      <span style="font-size:.62rem;color:var(--muted);margin-top:.2rem">% sobre a receita mensal da agência</span>
+    </div>
+    <div class="form-group" id="grpComissaoFixo" style="display:none"><label class="fl">Valor Fixo (R$/mês)</label>
+      <select class="fi" id="mComissaoFixo" onchange="calcReceita()">
+        <option value="20">R$ 20,00/mês</option>
+        <option value="30">R$ 30,00/mês</option>
+        <option value="40">R$ 40,00/mês</option>
+        <option value="50">R$ 50,00/mês</option>
+      </select>
+      <span style="font-size:.62rem;color:var(--muted);margin-top:.2rem">Valor fixo descontado da receita mensal</span>
+    </div>
+    <div class="form-group"><label class="fl">Comissão do Recrutador/mês (calculado)</label>
+      <input class="fi fi-calc" id="mValorRec" readonly/></div>
+    <div class="form-group"><label class="fl">Líquido Agência/mês após Comissão</label>
+      <input class="fi fi-calc" id="mLiqAgencia" readonly style="color:var(--accent);font-weight:700"/></div>
+    <div class="form-group"><label class="fl">Início do 1º Período *</label>
+      <input type="date" class="fi" id="mInicio1" oninput="calcFim()"/></div>
+    <div class="form-group"><label class="fl">Período Atual</label>
+      <select class="fi" id="mPeriodoAtual" onchange="calcFim()">
+        <option value="1">1º Período (0–6 meses)</option>
+        <option value="2">2º Período (6–12 meses)</option>
+        <option value="3">3º Período (12–18 meses)</option>
+        <option value="4">4º Período (18–24 meses)</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="fl">Fim do Período Atual (calculado)</label>
+      <input class="fi fi-calc" id="mFimPeriodo" readonly/></div>
+    <div class="form-group"><label class="fl">Fim do Contrato Total (calculado)</label>
+      <input class="fi fi-calc" id="mFimContrato" readonly/></div>
+    <div class="form-group"><label class="fl">Situação</label>
+      <select class="fi" id="mSituacao">
+        <option value="ativo">Ativo</option>
+        <option value="cancelado">Cancelado</option>
+        <option value="efetivado">Efetivado como CLT</option>
+        <option value="concluido">Concluído (2 anos cumpridos)</option>
+      </select>
+    </div>
+    <div class="form-group fg-full"><label class="fl">Observações</label>
+      <textarea class="fi" id="mObs" placeholder="Ex: NF, contato supervisor, observações do contrato..."></textarea></div>
+  </div>
+  <div class="modal-ft">
+    <button class="btn btn-ghost" onclick="UI.closeModal('modalEst')">Cancelar</button>
+    <button class="btn btn-primary" onclick="salvar()">✓ Salvar</button>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/cc-auth.js"></script>
+<script src="assets/cc-core.js"></script>
+<script>
+// ── Estado global ──
+let contratos = CC.getContratos();
+let cfg       = CC.getConfig();
+let editId    = null;
+
+function estagiarios() {
+  return contratos.filter(c => c.tipo === 'estagiario');
+}
+
+// ── Calcula comissão do recrutador para um contrato ──
+function calcComissaoRec(c) {
+  const rec = Calc.receita(c);
+  if (c.tipoComissao === 'pct')  return rec * ((c.comissaoRec||0)/100);
+  if (c.tipoComissao === 'fixo') return c.comissaoFixo || 0;
+  if (!c.tipoComissao && (c.comissaoRec||0) > 0) return rec * (c.comissaoRec/100);
+  return 0;
+}
+
+function renderKPIs() {
+  const lista  = estagiarios();
+  const ativos = lista.filter(c => c.situacao === 'ativo');
+  const alerts = { w:0, v:0 };
+  ativos.forEach(c => Calc.periodos(c,cfg).forEach(p => {
+    if(p.status==='warn')    alerts.w++;
+    if(p.status==='vencido') alerts.v++;
+  }));
+  const totalBolsa    = ativos.reduce((s,c)=>s+c.bolsa,0);
+  const totalReceita  = ativos.reduce((s,c)=>s+Calc.receita(c),0);
+  const totalComiss   = ativos.reduce((s,c)=>s+calcComissaoRec(c),0);
+  const totalLiq      = totalReceita - totalComiss;
+
+  document.getElementById('kpiArea').innerHTML = [
+    { v:ativos.length,         l:'Estagiários Ativos',                                                  cls:'c-accent' },
+    { v:Fmt.brl(totalBolsa),   l:'Custo Bolsas p/ Clientes/mês',  sub:'Valor pago pelas empresas',     cls:'c-text' },
+    { v:Fmt.brl(totalReceita), l:'Receita Agência/mês (bruto)',    sub:totalComiss>0?`${(totalReceita>0?(totalComiss/totalReceita*100).toFixed(0):0)}% vai p/ recrutadores`:'100% da receita para agência', cls:'c-green' },
+    { v:Fmt.brl(totalLiq),     l:'✔ Líquido Agência/mês',         sub:totalComiss>0?`Comissões: − ${Fmt.brl(totalComiss)}`:'Sem comissões externas', cls:'c-accent' },
+    { v:alerts.w+alerts.v,     l:'Alertas de Período',             cls:alerts.w+alerts.v>0?'c-orange':'c-green' },
+    { v:lista.filter(c=>c.situacao==='efetivado').length, l:'Efetivados CLT', cls:'c-blue' },
+    { v:lista.filter(c=>c.situacao==='concluido').length, l:'Concluídos',     cls:'c-muted' },
+  ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div>${k.sub?`<div class="kpi-sub" style="font-size:.6rem;color:var(--muted);margin-top:.15rem">${k.sub}</div>`:''}</div>`).join('');
+
+  // Breakdown por recrutador
+  const recMap = {};
+  ativos.forEach(c => {
+    if (c.tipoComissao && c.tipoComissao !== 'none') {
+      const nome = (c.recrutador||'').trim() || 'Externo';
+      if (!recMap[nome]) recMap[nome] = { total:0, qtd:0 };
+      recMap[nome].total += calcComissaoRec(c);
+      recMap[nome].qtd++;
+    }
+  });
+  const recEntries = Object.entries(recMap).sort((a,b)=>b[1].total-a[1].total);
+  const recArea = document.getElementById('recrutadorArea');
+  if (!recArea) return;
+  if (recEntries.length === 0) {
+    recArea.style.display = 'none';
+    return;
+  }
+  recArea.style.display = '';
+  recArea.innerHTML = `
+    <div class="tbl-title" style="margin-bottom:.7rem">👤 Comissões por Recrutador Externo</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+      ${recEntries.map(([nome,d])=>`
+        <div style="background:rgba(243,156,18,.07);border:1px solid rgba(243,156,18,.2);border-radius:10px;padding:.7rem 1rem;min-width:160px">
+          <div style="font-size:.78rem;font-weight:800;margin-bottom:.2rem">${nome}</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--orange)">${Fmt.brl(d.total)}</div>
+          <div style="font-size:.6rem;color:var(--muted);margin-top:.1rem">${d.qtd} contrato(s) ativo(s)</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderAlertas() {
+  const items = { warn:[], vencido:[] };
+  estagiarios().filter(c=>c.situacao==='ativo').forEach(c =>
+    Calc.periodos(c,cfg).forEach(p => {
+      if(p.status==='warn')    items.warn.push({c,p});
+      if(p.status==='vencido') items.vencido.push({c,p});
+    })
+  );
+  if (!items.warn.length && !items.vencido.length) { document.getElementById('alertasArea').innerHTML=''; return; }
+  let html = `<div class="alert-box"><div class="alert-title">🔔 Períodos que requerem ação</div>`;
+  items.vencido.forEach(({c,p}) => html+=`<div class="alert-item danger">
+    <span>⛔ <strong>${c.nome}</strong> — ${p.num}º período <strong>VENCIDO</strong> em ${Fmt.dt(p.fim)} · ${c.empresa}</span>
+    <button class="btn btn-orange btn-sm" onclick="abrirModal(${c.id})">Renovar Período</button></div>`);
+  items.warn.forEach(({c,p}) => html+=`<div class="alert-item warn">
+    <span>⚠️ <strong>${c.nome}</strong> — ${p.num}º período vence em <strong>${p.dias} dia(s)</strong> (${Fmt.dt(p.fim)}) · ${c.empresa}</span>
+    <button class="btn btn-orange btn-sm" onclick="abrirModal(${c.id})">Renovar</button></div>`);
+  document.getElementById('alertasArea').innerHTML = html + '</div>';
+}
+
+function renderTabela() {
+  const filtStatus  = document.getElementById('filtStatus').value;
+  const filtPeriodo = document.getElementById('filtPeriodo').value;
+  let lista = estagiarios();
+  if (filtPeriodo) lista = lista.filter(c => String(c.periodoAtual) === filtPeriodo);
+  if (filtStatus === 'alerta') {
+    lista = lista.filter(c => {
+      const ps = Calc.periodos(c,cfg);
+      return ps.some(p=>p.status==='warn'||p.status==='vencido');
+    });
+  } else if (filtStatus) {
+    lista = lista.filter(c => c.situacao === filtStatus);
+  }
+  let totBolsa=0, totRec=0, totLiqEst=0;
+  document.getElementById('tbodyEst').innerHTML = lista.length === 0
+    ? `<tr><td colspan="12"><div class="empty"><span class="ico">🎓</span><p>Nenhum estagiário encontrado</p></div></td></tr>`
+    : lista.map(c => {
+        const rec         = Calc.receita(c);
+        const comissaoRec = calcComissaoRec(c);
+        const liquido     = rec - comissaoRec;
+        const fim = Calc.addMeses(c.inicio1, 4*6);
+        const st  = Calc.statusContrato(c, cfg);
+        totBolsa += c.bolsa; totRec += rec; totLiqEst += liquido;
+        const vtHtml = c.vt==='fretado'?'<span class="tag tag-blue">Fretado</span>'
+          :c.vt==='sim'?`<span class="tag tag-accent">VT ${c.valorVT>0?Fmt.brl(c.valorVT):''}</span>`
+          :'<span class="tag tag-gray">Não</span>';
+        return `<tr>
+          <td><div class="ci"><div class="av ${Fmt.avCls(c.id)}">${Fmt.ini(c.nome)}</div>
+            <div><div class="ci-name">${c.nome}</div>
+            ${c.obs?`<div class="ci-sub">${c.obs}</div>`:''}
+            </div></div></td>
+          <td>${c.empresa}</td>
+          <td>${vtHtml}</td>
+          <td class="fw8">${Fmt.brl(c.bolsa)}</td>
+          <td><span class="tag tag-accent">${c.taxa}%</span></td>
+          <td class="c-accent fw8">${Fmt.brl(rec)}</td>
+          <td style="font-size:.76rem;line-height:1.5">${
+            comissaoRec > 0
+              ? `<div style="font-weight:600">${c.recrutador || 'Externo'}</div><span class="tag tag-orange" style="margin-top:.2rem">${c.tipoComissao==='fixo' ? 'R$ fixo' : (c.comissaoRec||0)+'%'} = ${Fmt.brl(comissaoRec)}/mês</span>`
+              : `<span style="opacity:.35">Sem recrutador</span>`
+          }</td>
+          <td class="fw8" style="color:var(--accent)">${Fmt.brl(liquido)}</td>
+          <td>${renderPeriodos(c)}</td>
+          <td style="font-size:.76rem;color:var(--muted)">${Fmt.dt(fim)}</td>
+          <td><span class="tag ${st.cls}">${st.txt}</span></td>
+          <td><div style="display:flex;gap:.3rem">
+            <button class="btn btn-blue btn-sm" onclick="abrirModal(${c.id})">✏️</button>
+            <button class="btn btn-danger btn-sm" onclick="excluir(${c.id})">✕</button>
+          </div></td>
+        </tr>`;
+      }).join('');
+  document.getElementById('tfBolsa').textContent  = Fmt.brl(totBolsa);
+  document.getElementById('tfReceita').textContent = Fmt.brl(totRec);
+  if(document.getElementById('tfLiqEst')) document.getElementById('tfLiqEst').textContent = Fmt.brl(totLiqEst);
+}
+
+function renderPeriodos(c) {
+  const ps = Calc.periodos(c, cfg);
+  return `<div class="periodos-wrap">${ps.map(p=>`
+    <div class="periodo-bloco ${p.status}" title="${p.num}º: ${Fmt.dt(p.inicio)} → ${Fmt.dt(p.fim)}">
+      <div class="periodo-num">${p.num}º</div>
+      <div>${{ok:'✓ OK',warn:`⚠️ ${p.dias}d`,vencido:'✕ Venc.',ativo:'▶ Ativo',futuro:'···'}[p.status]}</div>
+    </div>`).join('')}</div>`;
+}
+
+function abrirModal(id=null) {
+  editId = id;
+  const c = id ? contratos.find(x=>x.id===id) : null;
+  document.getElementById('modalTitulo').textContent = id ? '✏️ Editar Estagiário' : '＋ Novo Estagiário';
+  cfg = CC.getConfig();
+  document.getElementById('taxaHint').textContent = cfg.taxaEstPadrao;
+  UI.setVal('mNome',        c?.nome        || '');
+  UI.setVal('mEmpresa',     c?.empresa     || '');
+  UI.setVal('mVT',          c?.vt          || 'nao');
+  UI.setVal('mValorVT',     c?.valorVT     || 0);
+  UI.setVal('mBolsa',        c?.bolsa       || 0);
+  UI.setVal('mTaxa',        c?.taxa        || cfg.taxaEstPadrao);
+  UI.setVal('mRecrutador',   c?.recrutador  || '');
+  const tipoC = c?.tipoComissao || 'none';
+  UI.setVal('mTipoComissao', tipoC);
+  UI.setVal('mComissaoPct',  c?.comissaoRec  || 20);
+  UI.setVal('mComissaoFixo', c?.comissaoFixo || 20);
+  UI.setVal('mInicio1',     c?.inicio1     || '');
+  UI.setVal('mPeriodoAtual',c?.periodoAtual|| 1);
+  UI.setVal('mSituacao',    c?.situacao    || 'ativo');
+  UI.setVal('mObs',         c?.obs         || '');
+  calcReceita(); calcFim();
+  UI.openModal('modalEst');
+}
+
+function calcReceita() {
+  const bolsa      = parseFloat(UI.val('mBolsa'))||0;
+  const taxa       = parseFloat(UI.val('mTaxa'))||0;
+  const recAgencia = bolsa*(taxa/100);
+  const tipo       = UI.val('mTipoComissao') || 'none';
+  const grpPct  = document.getElementById('grpComissaoPct');
+  const grpFixo = document.getElementById('grpComissaoFixo');
+  if (grpPct)  grpPct.style.display  = tipo==='pct'  ? '' : 'none';
+  if (grpFixo) grpFixo.style.display = tipo==='fixo' ? '' : 'none';
+  let comissao = 0;
+  if (tipo === 'pct')  comissao = recAgencia * ((parseFloat(UI.val('mComissaoPct'))||0)/100);
+  if (tipo === 'fixo') comissao = parseFloat(UI.val('mComissaoFixo'))||0;
+  const liquido = recAgencia - comissao;
+  UI.setVal('mReceita',    Fmt.brl(recAgencia));
+  UI.setVal('mValorRec',   tipo !== 'none' ? Fmt.brl(comissao) : '—');
+  UI.setVal('mLiqAgencia', Fmt.brl(liquido));
+}
+
+function calcFim() {
+  const ini    = UI.val('mInicio1');
+  const periodo= parseInt(UI.val('mPeriodoAtual'))||1;
+  if (!ini) return;
+  UI.setVal('mFimPeriodo',  Fmt.dt(Calc.addMeses(ini, periodo*6)));
+  UI.setVal('mFimContrato', Fmt.dt(Calc.addMeses(ini, 4*6)));
+}
+
+async function salvar() {
+  const nome = UI.val('mNome').trim();
+  const emp  = UI.val('mEmpresa').trim();
+  const ini  = UI.val('mInicio1');
+  if (!nome || !emp || !ini) { UI.toast('Preencha nome, empresa e início do 1º período','err'); return; }
+  const dados = {
+    tipo:'estagiario', nome, empresa:emp,
+    vt: UI.val('mVT'), valorVT: parseFloat(UI.val('mValorVT'))||0,
+    bolsa: parseFloat(UI.val('mBolsa'))||0,
+    taxa:  parseFloat(UI.val('mTaxa'))||cfg.taxaEstPadrao,
+    recrutador:  UI.val('mRecrutador').trim(),
+    tipoComissao: UI.val('mTipoComissao') || 'none',
+    comissaoRec:  UI.val('mTipoComissao')==='pct'  ? parseFloat(UI.val('mComissaoPct'))||0  : 0,
+    comissaoFixo: UI.val('mTipoComissao')==='fixo' ? parseFloat(UI.val('mComissaoFixo'))||0 : 0,
+    inicio1: ini,
+    periodoAtual: parseInt(UI.val('mPeriodoAtual'))||1,
+    situacao: UI.val('mSituacao'),
+    obs: UI.val('mObs'),
+  };
+  try {
+    if (editId) {
+      await CC.updateContrato(editId, dados);
+      const idx = contratos.findIndex(c=>c.id===editId);
+      if (idx >= 0) contratos[idx] = { ...contratos[idx], ...dados };
+      UI.toast(`${nome} atualizado!`, 'ok');
+    } else {
+      const novo = await CC.insertContrato(dados);
+      contratos.push(novo);
+      UI.toast(`${nome} cadastrado!`, 'ok');
+    }
+  } catch(e) {
+    UI.toast('Erro ao salvar: ' + e.message, 'err');
+    return;
+  }
+  UI.closeModal('modalEst');
+  renderTudo();
+}
+
+async function excluir(id) {
+  const c = contratos.find(x=>x.id===id);
+  if (!confirm(`Excluir contrato de ${c?.nome}?`)) return;
+  try {
+    await CC.deleteContrato(id);
+    contratos = contratos.filter(x=>x.id!==id);
+    renderTudo();
+    UI.toast('Removido','wrn');
+  } catch(e) {
+    UI.toast('Erro ao excluir: ' + e.message, 'err');
+  }
+}
+
+function renderTudo() { renderKPIs(); renderAlertas(); renderTabela(); }
+
+function exportarCSV() {
+  Export.csv(
+    ['Nome','Empresa','VT','Bolsa','Taxa%','Receita/mês','Período','Início','Fim Contrato','Situação','Obs'],
+    estagiarios().map(c=>[c.nome,c.empresa,c.vt,Fmt.brl(c.bolsa),c.taxa+'%',Fmt.brl(Calc.receita(c)),
+      c.periodoAtual+'º',Fmt.dt(c.inicio1),Fmt.dt(Calc.addMeses(c.inicio1,24)),c.situacao,c.obs||'']),
+    'estagiarios.csv'
+  );
+}
+
+function exportarWord() {
+  const total = estagiarios().filter(c=>c.situacao==='ativo').reduce((s,c)=>s+Calc.receita(c),0);
+  const rows  = estagiarios().map(c=>`<tr><td>${c.nome}</td><td>${c.empresa}</td><td>${Fmt.brl(c.bolsa)}</td><td>${c.taxa}%</td><td><b>${Fmt.brl(Calc.receita(c))}</b></td><td>${c.periodoAtual}º</td><td>${Fmt.dt(c.inicio1)}</td><td>${c.situacao}</td></tr>`).join('');
+  Export.word(`<h2>Controle de Estagiários — Agência Nexus</h2>
+    <p>Receita: <b>${Fmt.brl(total)}</b> | ${new Date().toLocaleDateString('pt-BR')}</p>
+    <table><thead><tr><th>Nome</th><th>Empresa</th><th>Bolsa</th><th>Taxa</th><th>Receita</th><th>Período</th><th>Início</th><th>Situação</th></tr></thead>
+    <tbody>${rows}</tbody></table>`, 'estagiarios.doc');
+}
+
+// Inicializa quando DOM estiver pronto
+document.addEventListener('DOMContentLoaded', async () => {
+  cfg = CC.getConfig();
+  document.getElementById('tbodyEst').innerHTML =
+    `<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--muted)">⏳ Carregando dados...</td></tr>`;
+  try {
+    contratos = await CC.getContratosAsync();
+    CC.set('contratos', contratos);
+  } catch(e) {
+    contratos = CC.getContratos();
+    UI.toast('Usando dados locais (sem conexão)', 'wrn');
+  }
+  renderTudo();
+});
+</script>
+</body>
+</html>

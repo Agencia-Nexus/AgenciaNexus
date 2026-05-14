@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Relatórios — Contratos · Agência Nexus</title>
+<link rel="stylesheet" href="assets/cc-style.css"/>
+<style>.sb-head{padding:1.1rem 0.85rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem;flex-shrink:0;}.sb-logo-ico{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,rgba(30,64,175,0.35),rgba(59,130,246,0.18));border:1px solid rgba(59,130,246,0.28);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;box-shadow:0 2px 10px rgba(59,130,246,0.15);}.sb-logo-ico img{width:32px;height:32px;object-fit:contain;}.sb-logo-txt{overflow:hidden;white-space:nowrap;}.sb-logo-name{font-size:1.18rem;font-weight:900;line-height:1.2;letter-spacing:-0.3px;}.sb-logo-name span{color:var(--accent);}.sb-logo-sub{font-size:0.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:2px;opacity:0.65;margin-top:0.1rem;}.sb-av img{width:100%;height:100%;object-fit:contain;border-radius:inherit;}</style></head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo-ico"><img src="fundo.png" alt="Nexus" style="width:32px;height:32px;object-fit:contain"/></div><div class="sb-logo-txt"><div class="sb-logo-name">Agência <span>Nexus</span></div><div class="sb-logo-sub">Contratos</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <div class="sb-sep">Controles</div>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">💼</span><span class="lbl">CLTs</span></a>
+    <div class="sb-sep">Gestão</div>
+    <a class="sb-item" href="financeiro-mensal.html"><span class="ico">📅</span><span class="lbl">Financeiro Mensal</span></a>
+    <a class="sb-item active" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="balanco-financeiro.html"><span class="ico">💰</span><span class="lbl">Balanço Financeiro</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av"><img src="fundo.png" alt="EX" style="width:18px;height:18px;object-fit:contain"/></div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email">—</div></div><button class="sb-toggle" onclick="if(window.ccLogout)window.ccLogout()" title="Sair" style="margin-right:.2rem;opacity:.4">⏻</button><button class="sb-toggle" id="sb-toggle">◀</button></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html">Dashboard</a><span class="sep"> / </span><span>Relatórios</span></div>
+    <div class="tb-right"><span id="tb-date" class="tb-date"></span></div>
+  </div>
+  <div class="content">
+    <div class="sec-hd">
+      <div><div class="sec-title">📈 <span>Relatórios</span></div>
+      <div class="sec-sub">Exportações completas em CSV, Word e visão consolidada</div></div>
+    </div>
+
+    <!-- Cards de relatórios -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.9rem;margin-bottom:1.5rem">
+      <div class="tbl-wrap" style="padding:1.1rem;cursor:pointer" onclick="relConsolidado()">
+        <div style="font-size:1.6rem;margin-bottom:.5rem">📊</div>
+        <div style="font-weight:800;margin-bottom:.2rem">Consolidado Geral</div>
+        <div style="font-size:.72rem;color:var(--muted)">Todos os contratos — CSV + Word</div>
+        <div style="margin-top:.8rem;display:flex;gap:.4rem">
+          <span class="tag tag-green">CSV</span><span class="tag tag-blue">Word</span>
+        </div>
+      </div>
+      <div class="tbl-wrap" style="padding:1.1rem;cursor:pointer" onclick="relEstagiarios()">
+        <div style="font-size:1.6rem;margin-bottom:.5rem">🎓</div>
+        <div style="font-weight:800;margin-bottom:.2rem">Estagiários</div>
+        <div style="font-size:.72rem;color:var(--muted)">Bolsas, taxas, períodos e receitas</div>
+        <div style="margin-top:.8rem;display:flex;gap:.4rem">
+          <span class="tag tag-green">CSV</span><span class="tag tag-blue">Word</span>
+        </div>
+      </div>
+      <div class="tbl-wrap" style="padding:1.1rem;cursor:pointer" onclick="relCLTs()">
+        <div style="font-size:1.6rem;margin-bottom:.5rem">💼</div>
+        <div style="font-weight:800;margin-bottom:.2rem">CLTs</div>
+        <div style="font-size:.72rem;color:var(--muted)">Salários, taxas e receita acumulada</div>
+        <div style="margin-top:.8rem;display:flex;gap:.4rem">
+          <span class="tag tag-green">CSV</span><span class="tag tag-blue">Word</span>
+        </div>
+      </div>
+      <div class="tbl-wrap" style="padding:1.1rem;cursor:pointer" onclick="relReceita()">
+        <div style="font-size:1.6rem;margin-bottom:.5rem">💰</div>
+        <div style="font-weight:800;margin-bottom:.2rem">Receita por Empresa</div>
+        <div style="font-size:.72rem;color:var(--muted)">Ranking de empresas por receita</div>
+        <div style="margin-top:.8rem;display:flex;gap:.4rem">
+          <span class="tag tag-green">CSV</span><span class="tag tag-blue">Word</span>
+        </div>
+      </div>
+      <div class="tbl-wrap" style="padding:1.1rem;cursor:pointer" onclick="relVencimentos()">
+        <div style="font-size:1.6rem;margin-bottom:.5rem">📅</div>
+        <div style="font-weight:800;margin-bottom:.2rem">Vencimentos</div>
+        <div style="font-size:.72rem;color:var(--muted)">Períodos vencendo nos próximos 90 dias</div>
+        <div style="margin-top:.8rem;display:flex;gap:.4rem">
+          <span class="tag tag-green">CSV</span><span class="tag tag-blue">Word</span>
+        </div>
+      </div>
+      <div class="tbl-wrap" style="padding:1.1rem;cursor:pointer" onclick="relAlertas()">
+        <div style="font-size:1.6rem;margin-bottom:.5rem">🔔</div>
+        <div style="font-weight:800;margin-bottom:.2rem">Alertas</div>
+        <div style="font-size:.72rem;color:var(--muted)">Apenas contratos com alerta ativo</div>
+        <div style="margin-top:.8rem;display:flex;gap:.4rem">
+          <span class="tag tag-orange">Urgente</span><span class="tag tag-blue">Word</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview do relatório gerado -->
+    <div id="relPreview" style="display:none">
+      <div class="tbl-wrap" style="padding:1.2rem">
+        <div class="tbl-hd" style="padding:0;padding-bottom:.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--border)">
+          <span class="tbl-title" id="relTitulo">Relatório</span>
+          <div class="tbl-actions" id="relBtns"></div>
+        </div>
+        <div id="relConteudoWrap"><div id="relConteudo" style="overflow-x:scroll;overflow-y:visible;scrollbar-width:auto;scrollbar-color:#3b82f6 #1a1a1a;-webkit-overflow-scrolling:touch"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div id="toast-ct"></div>
+<script src="assets/cc-auth.js"></script>
+<script src="assets/cc-core.js"></script>
+<script>
+// ── Estado global ──
+let contratos = CC.getContratos();
+let cfg       = CC.getConfig();
+
+function showRel(titulo, html, csvFn, wordFn) {
+  document.getElementById('relTitulo').textContent = titulo;
+  document.getElementById('relConteudo').innerHTML = html;
+  document.getElementById('relBtns').innerHTML = `
+    <button class="btn btn-success btn-sm" onclick="window.print()">🖨️ Imprimir</button>
+    <button class="btn btn-ghost btn-sm" onclick="(${csvFn.toString()})()">📊 CSV</button>
+    <button class="btn btn-blue btn-sm" onclick="(${wordFn.toString()})()">📄 Word</button>`;
+  document.getElementById('relPreview').style.display = 'block';
+  document.getElementById('relPreview').scrollIntoView({behavior:'smooth'});
+}
+
+function relConsolidado() {
+  contratos = CC.getContratos();
+  const est = contratos.filter(c=>c.tipo==='estagiario');
+  const clt = contratos.filter(c=>c.tipo==='clt');
+  const recEstMensal = est.filter(c=>c.situacao==='ativo').reduce((s,c)=>s+Calc.receita(c),0);
+  const recCltTotal  = clt.reduce((s,c)=>s+Calc.receita(c),0);
+  const html = `
+    <div style="margin-bottom:.8rem;display:flex;gap:1.5rem;flex-wrap:wrap">
+      <span>Receita mensal estagiários (ativos): <strong class="c-accent">${Fmt.brl(recEstMensal)}/mês</strong></span>
+      <span>Colocações CLT (histórico): <strong class="c-green">${Fmt.brl(recCltTotal)} único</strong></span>
+    </div>
+    <table><thead><tr><th>Nome</th><th>Tipo</th><th>Empresa</th><th>Valor Base</th><th>Taxa</th><th>Receita</th><th>Frequência</th><th>Situação</th></tr></thead>
+    <tbody>
+      ${est.map(c=>`<tr><td>${c.nome}</td><td>Estagiário</td><td>${c.empresa}</td>
+        <td>${Fmt.brl(c.bolsa)}</td><td>${c.taxa}%</td>
+        <td class="c-accent fw8">${Fmt.brl(Calc.receita(c))}</td><td style="font-size:.72rem;color:var(--muted)">mensal</td><td>${c.situacao}</td></tr>`).join('')}
+      ${clt.map(c=>`<tr><td>${c.nome}</td><td>CLT</td><td>${c.empresa}</td>
+        <td>${Fmt.brl(c.salario||0)}</td><td>${c.taxa}%</td>
+        <td class="c-green fw8">${Fmt.brl(Calc.receita(c))}</td><td style="font-size:.72rem;color:var(--muted)">único</td><td>${c.situacao}</td></tr>`).join('')}
+    </tbody>
+    <tfoot><tr><td colspan="5"><b>Receita mensal recorrente (estagiários ativos)</b></td>
+      <td class="c-accent fw8"><b>${Fmt.brl(recEstMensal)}/mês</b></td><td colspan="2"></td></tr>
+    <tr><td colspan="5"><b>Total colocações CLT (histórico)</b></td>
+      <td class="c-green fw8"><b>${Fmt.brl(recCltTotal)}</b></td><td colspan="2"></td></tr></tfoot></table>`;
+  showRel(`Consolidado Geral (${contratos.length} contratos)`, html,
+    function(){Export.csv(
+      ['Nome','Tipo','Empresa','Base','Taxa%','Receita','Frequência','Situação'],
+      [...est.map(c=>[c.nome,'Estagiário',c.empresa,Fmt.brl(c.bolsa),c.taxa+'%',Fmt.brl(Calc.receita(c)),'mensal',c.situacao]),
+       ...clt.map(c=>[c.nome,'CLT',c.empresa,Fmt.brl(c.salario||0),c.taxa+'%',Fmt.brl(Calc.receita(c)),'único',c.situacao])]
+      ,'consolidado.csv')},
+    function(){Export.word(`<h2>Consolidado Geral</h2>${document.getElementById('relConteudo').innerHTML}`,'consolidado.doc')});
+}
+
+function relEstagiarios() {
+  contratos = CC.getContratos();
+  const lista = contratos.filter(c=>c.tipo==='estagiario');
+  const total = lista.filter(c=>c.situacao==='ativo').reduce((s,c)=>s+Calc.receita(c),0);
+  const html = `<p style="margin-bottom:.8rem">Receita mensal total: <strong class="c-accent">${Fmt.brl(total)}</strong></p>
+    <table><thead><tr><th>Nome</th><th>Empresa</th><th>Bolsa</th><th>Taxa</th><th>Receita/mês</th><th>Período</th><th>Início</th><th>Fim Contrato</th><th>Situação</th></tr></thead>
+    <tbody>${lista.map(c=>`<tr><td>${c.nome}</td><td>${c.empresa}</td><td>${Fmt.brl(c.bolsa)}</td><td>${c.taxa}%</td>
+      <td class="c-accent fw8">${Fmt.brl(Calc.receita(c))}</td><td>${c.periodoAtual}º</td>
+      <td>${Fmt.dt(c.inicio1)}</td><td>${Fmt.dt(Calc.addMeses(c.inicio1,24))}</td><td>${c.situacao}</td></tr>`).join('')}
+    </tbody></table>`;
+  showRel(`Estagiários (${lista.length})`, html,
+    function(){Export.csv(['Nome','Empresa','Bolsa','Taxa%','Receita','Período','Início','Fim','Situação'],lista.map(c=>[c.nome,c.empresa,Fmt.brl(c.bolsa),c.taxa+'%',Fmt.brl(Calc.receita(c)),c.periodoAtual+'º',Fmt.dt(c.inicio1),Fmt.dt(Calc.addMeses(c.inicio1,24)),c.situacao]),'estagiarios_rel.csv')},
+    function(){Export.word(`<h2>Estagiários</h2>${document.getElementById('relConteudo').innerHTML}`,'estagiarios_rel.doc')});
+}
+
+function relCLTs() {
+  contratos = CC.getContratos();
+  const lista = contratos.filter(c=>c.tipo==='clt');
+  const hoje = new Date();
+  const mesAtual = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,'0')}`;
+  const colMes  = lista.filter(c=>c.admissao&&c.admissao.slice(0,7)===mesAtual).reduce((s,c)=>s+Calc.receita(c),0);
+  const colTotal = lista.reduce((s,c)=>s+Calc.receita(c),0);
+  const html = `
+    <div style="margin-bottom:.8rem;display:flex;gap:1.5rem;flex-wrap:wrap">
+      <span>Colocações este mês: <strong class="c-accent">${Fmt.brl(colMes)}</strong></span>
+      <span>Total histórico: <strong class="c-green">${Fmt.brl(colTotal)}</strong></span>
+      <span style="font-size:.7rem;color:var(--muted)">⚠️ Taxa paga uma única vez no mês da contratação — sem recorrência mensal</span>
+    </div>
+    <table><thead><tr><th>Nome</th><th>Empresa</th><th>Cargo</th><th>Salário</th><th>Taxa</th><th>Taxa Colocação (único)</th><th>Admissão</th><th>Tempo de Casa</th><th>Situação</th></tr></thead>
+    <tbody>${lista.map(c=>{const m=Calc.mesesTrabalhados(c.admissao);return`<tr><td>${c.nome}</td><td>${c.empresa}</td><td>${c.cargo||'—'}</td><td>${Fmt.brl(c.salario||0)}</td><td>${c.taxa}%</td>
+      <td class="c-accent fw8">${Fmt.brl(Calc.receita(c))}</td><td>${Fmt.dt(c.admissao)}</td><td>${Math.floor(m/12)}a ${m%12}m</td><td>${c.situacao}</td></tr>`}).join('')}
+    </tbody></table>`;
+  showRel(`CLTs (${lista.length})`, html,
+    function(){Export.csv(['Nome','Empresa','Cargo','Salário','Taxa%','Taxa Colocação (único)','Admissão','Situação'],lista.map(c=>[c.nome,c.empresa,c.cargo||'',Fmt.brl(c.salario||0),c.taxa+'%',Fmt.brl(Calc.receita(c)),Fmt.dt(c.admissao),c.situacao]),'clt_rel.csv')},
+    function(){Export.word(`<h2>CLTs — Taxa de Colocação (valor único)</h2>${document.getElementById('relConteudo').innerHTML}`,'clt_rel.doc')});
+}
+
+function relReceita() {
+  contratos = CC.getContratos();
+  // Estagiários: receita mensal recorrente
+  const empEst={};
+  contratos.filter(c=>c.tipo==='estagiario'&&c.situacao==='ativo').forEach(c=>{
+    if(!empEst[c.empresa])empEst[c.empresa]={n:0,val:0};
+    empEst[c.empresa].val+=Calc.receita(c); empEst[c.empresa].n++;
+  });
+  const rowsEst=Object.entries(empEst).sort((a,b)=>b[1].val-a[1].val);
+  // CLTs: taxa única de colocação (histórico)
+  const empClt={};
+  contratos.filter(c=>c.tipo==='clt').forEach(c=>{
+    if(!empClt[c.empresa])empClt[c.empresa]={n:0,val:0};
+    empClt[c.empresa].val+=Calc.receita(c); empClt[c.empresa].n++;
+  });
+  const rowsClt=Object.entries(empClt).sort((a,b)=>b[1].val-a[1].val);
+  const html=`
+    <div style="margin-bottom:1rem;font-weight:700;font-size:.8rem">📅 Receita Mensal Recorrente — Estagiários Ativos</div>
+    <table style="margin-bottom:1.5rem"><thead><tr><th>Empresa</th><th>Estagiários</th><th>Receita/mês</th><th>Receita/ano (proj.)</th></tr></thead>
+    <tbody>${rowsEst.map(([e,v])=>`<tr><td><b>${e}</b></td><td>${v.n}</td>
+      <td class="c-accent fw8">${Fmt.brl(v.val)}/mês</td><td>${Fmt.brl(v.val*12)}/ano</td></tr>`).join('')||'<tr><td colspan="4" style="color:var(--muted)">Nenhum estagiário ativo</td></tr>'}
+    </tbody></table>
+    <div style="margin-bottom:1rem;font-weight:700;font-size:.8rem">💼 Colocações CLT — Taxa Única (Histórico)</div>
+    <table><thead><tr><th>Empresa</th><th>CLTs Colocados</th><th>Total Recebido</th></tr></thead>
+    <tbody>${rowsClt.map(([e,v])=>`<tr><td><b>${e}</b></td><td>${v.n}</td>
+      <td class="c-green fw8">${Fmt.brl(v.val)}</td></tr>`).join('')||'<tr><td colspan="3" style="color:var(--muted)">Nenhum CLT cadastrado</td></tr>'}
+    </tbody></table>`;
+  showRel('Receita por Empresa',html,
+    function(){Export.csv(
+      ['Empresa','Tipo','Qtd','Valor','Frequência'],
+      [...rowsEst.map(([e,v])=>[e,'Estagiários',v.n,Fmt.brl(v.val),'mensal']),
+       ...rowsClt.map(([e,v])=>[e,'CLT',v.n,Fmt.brl(v.val),'único'])]
+      ,'receita_empresa.csv')},
+    function(){Export.word(`<h2>Receita por Empresa</h2>${document.getElementById('relConteudo').innerHTML}`,'receita_empresa.doc')});
+}
+
+function relVencimentos() {
+  contratos = CC.getContratos();
+  cfg = CC.getConfig();
+  const prox=[];
+  contratos.filter(c=>c.tipo==='estagiario'&&c.situacao==='ativo').forEach(c=>{
+    Calc.periodos(c,cfg).forEach(p=>{
+      if((p.status==='ativo'||p.status==='warn')&&p.dias<=90) prox.push({c,p});
+    });
+  });
+  prox.sort((a,b)=>a.p.dias-b.p.dias);
+  const html=`<table><thead><tr><th>Estagiário</th><th>Empresa</th><th>Período</th><th>Fim do Período</th><th>Dias Restantes</th><th>Status</th></tr></thead>
+    <tbody>${prox.map(({c,p})=>`<tr><td>${c.nome}</td><td>${c.empresa}</td><td>${p.num}º</td><td>${Fmt.dt(p.fim)}</td>
+      <td><b style="color:${p.dias<=30?'#f39c12':'#2ecc71'}">${p.dias} dias</b></td>
+      <td><span class="tag ${p.status==='warn'?'tag-orange':'tag-green'}">${p.status==='warn'?'Vencendo':'Ativo'}</span></td></tr>`).join('')}
+    </tbody></table>`;
+  showRel(`Vencimentos nos próximos 90 dias (${prox.length})`,html,
+    function(){Export.csv(['Nome','Empresa','Período','Fim','Dias'],prox.map(({c,p})=>[c.nome,c.empresa,p.num+'º',Fmt.dt(p.fim),p.dias]),'vencimentos.csv')},
+    function(){Export.word(`<h2>Próximos Vencimentos</h2>${document.getElementById('relConteudo').innerHTML}`,'vencimentos.doc')});
+}
+
+function relAlertas() {
+  contratos = CC.getContratos();
+  cfg = CC.getConfig();
+  const items=[];
+  contratos.filter(c=>c.tipo==='estagiario'&&c.situacao==='ativo').forEach(c=>{
+    Calc.periodos(c,cfg).forEach(p=>{if(p.status==='warn'||p.status==='vencido')items.push({c,p});});
+  });
+  const html=items.length===0
+    ?`<div class="empty"><span class="ico">✅</span><p>Nenhum alerta ativo no momento</p></div>`
+    :`<table><thead><tr><th>Estagiário</th><th>Empresa</th><th>Período</th><th>Vencimento</th><th>Dias</th><th>Urgência</th></tr></thead>
+    <tbody>${items.map(({c,p})=>`<tr><td><b>${c.nome}</b></td><td>${c.empresa}</td><td>${p.num}º</td><td>${Fmt.dt(p.fim)}</td>
+      <td class="${p.dias<0?'c-red':'c-orange'} fw8">${p.dias<0?Math.abs(p.dias)+'d atrás':p.dias+'d'}</td>
+      <td><span class="tag ${p.status==='vencido'?'tag-red':'tag-orange'}">${p.status==='vencido'?'VENCIDO':'VENCENDO'}</span></td></tr>`).join('')}
+    </tbody></table>`;
+  showRel(`Alertas Ativos (${items.length})`,html,
+    function(){Export.csv(['Nome','Empresa','Período','Vencimento','Dias','Status'],items.map(({c,p})=>[c.nome,c.empresa,p.num+'º',Fmt.dt(p.fim),p.dias,p.status]),'alertas.csv')},
+    function(){Export.word(`<h2>Alertas Ativos</h2>${document.getElementById('relConteudo').innerHTML}`,'alertas.doc')});
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  cfg = CC.getConfig();
+  try {
+    contratos = await CC.getContratosAsync();
+    CC.set('contratos', contratos);
+  } catch(e) {
+    contratos = CC.getContratos();
+    UI.toast('Usando dados locais (sem conexão)', 'wrn');
+  }
+});
+</script>
+</body>
+</html>
