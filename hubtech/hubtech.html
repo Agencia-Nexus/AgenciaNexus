@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONNECT — Hub de Empregabilidade e Trabalho Voluntário</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00d4ff;
+      --primary-light: #00f5ff;
+      --primary-dark: #0099cc;
+      --accent-1: #00ff88;
+      --accent-2: #ff006e;
+      --accent-3: #ffd700;
+      --dark-bg: #0a0e27;
+      --dark-surface: #141829;
+      --dark-surface-light: #1f2447;
+      --text-primary: #e0e7ff;
+      --text-secondary: #a5b4fc;
+      --text-muted: #6b7280;
+      --border: rgba(0, 212, 255, 0.15);
+      --border-hover: rgba(0, 212, 255, 0.4);
+      --success: #00ff88;
+      --warning: #ffd700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--dark-bg) 0%, #0f1435 100%);
+      color: var(--text-primary);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background effects */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 0%, rgba(0, 255, 136, 0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px;
+      position: relative;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 300px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+    }
+
+    .logo-text h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link:hover::after {
+      width: 60%;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--success);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+    }
+
+    .status-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      margin-bottom: 100px;
+      position: relative;
+      padding: 60px 0;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero-label {
+      font-size: 12px;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--primary-light), var(--text-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 700px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: var(--dark-bg);
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 212, 255, 0.1);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+
+    /* ─── SECTION TITLE ─── */
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      margin-bottom: 24px;
+    }
+
+    /* ─── SOCIAL CHANNELS SECTION ─── */
+    .social-channels {
+      margin-bottom: 100px;
+    }
+
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .channel-card {
+      background: linear-gradient(135deg, var(--dark-surface-light), var(--dark-surface));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .channel-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .channel-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+    }
+
+    .channel-card:hover::before {
+      opacity: 1;
+    }
+
+    .channel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .channel-icon {
+      font-size: 36px;
+    }
+
+    .channel-toggle {
+      font-size: 20px;
+      color: var(--primary);
+      transition: transform 0.3s ease;
+    }
+
+    .channel-card.active .channel-toggle {
+      transform: rotate(180deg);
+    }
+
+    .channel-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .channel-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .channel-groups {
+      display: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .channel-card.active .channel-groups {
+      display: block;
+      max-height: 500px;
+    }
+
+    .group-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .group-link:hover {
+      gap: 12px;
+      color: var(--primary-light);
+    }
+
+    /* ─── OPPORTUNITIES SECTION ─── */
+    .opportunities {
+      margin-bottom: 100px;
+    }
+
+    .opp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .opp-card {
+      background: var(--dark-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .opp-header {
+      padding: 28px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .opp-header:hover {
+      background: rgba(0, 212, 255, 0.05);
+    }
+
+    .opp-header-content {
+      flex: 1;
+    }
+
+    .opp-category {
+      display: inline-block;
+      background: rgba(0, 255, 136, 0.1);
+      color: var(--success);
+      padding: 6px 12px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .opp-card.voluntario .opp-category {
+      background: rgba(255, 215, 0, 0.1);
+      color: var(--warning);
+    }
+
+    .opp-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .opp-preview {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .opp-toggle {
+      font-size: 24px;
+      color: var(--primary);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .opp-card.active .opp-toggle {
+      transform: rotate(180deg);
+    }
+
+    .opp-content {
+      display: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: rgba(0, 212, 255, 0.05);
+      border-top: 1px solid var(--border);
+    }
+
+    .opp-card.active .opp-content {
+      display: block;
+      max-height: 2000px;
+    }
+
+    .opp-body {
+      padding: 28px;
+    }
+
+    .opp-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .opp-section {
+      margin-bottom: 20px;
+    }
+
+    .opp-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .opp-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .opp-list li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 6px 0 6px 20px;
+      position: relative;
+    }
+
+    .opp-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* ─── MISSION SECTION ─── */
+    .mission {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(255, 0, 110, 0.05));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 60px 48px;
+      margin-bottom: 100px;
+      text-align: center;
+    }
+
+    .mission h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .mission p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 700px;
+      margin: 0 auto 24px;
+    }
+
+    .mission-highlight {
+      color: var(--primary-light);
+      font-weight: 700;
+    }
+
+    /* ─── RESOURCES SECTION ─── */
+    .resources {
+      margin-bottom: 100px;
+    }
+
+    .resource-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .resource-card {
+      background: var(--dark-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .resource-header {
+      padding: 28px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .resource-header:hover {
+      background: rgba(0, 212, 255, 0.05);
+    }
+
+    .resource-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .resource-preview {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .resource-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .resource-toggle {
+      font-size: 24px;
+      color: var(--primary);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .resource-card.active .resource-toggle {
+      transform: rotate(180deg);
+    }
+
+    .resource-content {
+      display: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: rgba(0, 212, 255, 0.05);
+      border-top: 1px solid var(--border);
+    }
+
+    .resource-card.active .resource-content {
+      display: block;
+      max-height: 2000px;
+    }
+
+    .resource-body {
+      padding: 28px;
+    }
+
+    .resource-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .resource-tips {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 20px;
+    }
+
+    .resource-tips li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 10px 0 10px 20px;
+      position: relative;
+    }
+
+    .resource-tips li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .resource-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: gap 0.3s ease;
+    }
+
+    .resource-link:hover {
+      gap: 12px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+      margin-top: 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .mission {
+        padding: 40px 24px;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .opp-header, .resource-header {
+        flex-direction: column;
+      }
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero, .section-divider, .channel-card, .opp-card, .resource-card {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .channel-card { animation-delay: 0.1s; }
+    .opp-card:nth-child(2) { animation-delay: 0.2s; }
+    .opp-card:nth-child(3) { animation-delay: 0.3s; }
+    /* Quiz */
+    .quiz-btn {
+      background: rgba(0,212,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.9rem 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .quiz-btn:hover {
+      background: rgba(0,212,255,0.15);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    /* WhatsApp flutuante */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 58px;
+      height: 58px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      z-index: 999;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.12);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+    }
+
+    /* Mobile aprimorado */
+    @media (max-width: 768px) {
+      .hero { padding: 5rem 0 3rem; }
+      .hero h1 { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+      .hero p { font-size: 1rem; }
+      .hero-actions { flex-direction: column; gap: 0.75rem; }
+      .hero-actions .btn { width: 100%; text-align: center; }
+      .channels-grid { grid-template-columns: 1fr; }
+      .opp-grid { grid-template-columns: 1fr; }
+      .opp-header { flex-direction: row; }
+      .resource-list { gap: 0.75rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 0.75rem; }
+      .nav-link { font-size: 0.8rem; }
+      .section-title { font-size: clamp(1.4rem, 5vw, 2rem); }
+      .whatsapp-float { bottom: 1.2rem; right: 1.2rem; width: 52px; height: 52px; font-size: 1.4rem; }
+      .quiz-btn { font-size: 0.88rem; padding: 0.8rem 1rem; }
+      #quiz-container { padding: 0 0.5rem; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .hero { padding: 4rem 0 2rem; }
+      .channel-name { font-size: 1rem; }
+      .opp-title { font-size: 1.05rem; }
+      .resource-title { font-size: 0.95rem; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <div class="logo-section">
+        <div class="logo-icon">💼</div>
+        <div class="logo-text">
+          <h1>CONNECT</h1>
+          <p>Hub de Empregabilidade & Voluntariado</p>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="#canais" class="nav-link">Canais</a>
+        <a href="#oportunidades" class="nav-link">Oportunidades</a>
+        <a href="#recursos" class="nav-link">Recursos</a>
+        <span class="status-badge">Sistema Ativo</span>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-label">Bem-vindo ao CONNECT</div>
+      <h1>Conectando Pessoas a Oportunidades Reais</h1>
+      <p>Uma plataforma aberta e transparente que agrega oportunidades de emprego e trabalho voluntário, mostrando exatamente onde e como você pode crescer profissionalmente enquanto contribui para a sociedade.</p>
+      <div class="hero-cta">
+        <a href="#canais" class="btn btn-primary">Explorar Canais →</a>
+        <a href="#oportunidades" class="btn btn-secondary">Ver Oportunidades</a>
+      </div>
+    </section>
+
+    <!-- SOCIAL CHANNELS -->
+    <section class="social-channels" id="canais">
+      <div class="section-divider"></div>
+      <h2 class="section-title">Canais Sociais & Redes</h2>
+      <p class="section-subtitle">Acompanhe nossas redes sociais para receber atualizações constantes de vagas, oportunidades de trabalho voluntário e dicas de empregabilidade. Clique para ver todos os grupos e comunidades.</p>
+
+      <div class="channels-grid">
+        
+        <!-- Facebook -->
+        <div class="channel-card">
+          <div class="channel-header">
+            <div>
+              <div class="channel-icon">f</div>
+              <div class="channel-name">Facebook</div>
+              <div class="channel-desc">Grupos de emprego, eventos e comunidades</div>
+            </div>
+            <div class="channel-toggle">▼</div>
+          </div>
+          <div class="channel-groups">
+            <a href="#" class="group-link">→ Grupo: Oportunidades de Emprego</a>
+            <a href="#" class="group-link">→ Grupo: Trabalho Voluntário</a>
+            <a href="#" class="group-link">→ Página: Empregabilidade Brasil</a>
+            <a href="#" class="group-link">→ Grupo: Profissionais Conectados</a>
+            <a href="#" class="group-link">→ Página: Vagas Abertas</a>
+          </div>
+        </div>
+
+        <!-- LinkedIn -->
+        <div class="channel-card">
+          <div class="channel-header">
+            <div>
+              <div class="channel-icon">in</div>
+              <div class="channel-name">LinkedIn</div>
+              <div class="channel-desc">Oportunidades e networking profissional</div>
+            </div>
+            <div class="channel-toggle">▼</div>
+          </div>
+          <div class="channel-groups">
+            <a href="#" class="group-link">→ Página: CONNECT Empregabilidade</a>
+            <a href="#" class="group-link">→ Grupo: Profissionais em Desenvolvimento</a>
+            <a href="#" class="group-link">→ Página: Vagas Especializadas</a>
+            <a href="#" class="group-link">→ Grupo: Networking Corporativo</a>
+            <a href="#" class="group-link">→ Página: Mentoria Profissional</a>
+          </div>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="channel-card">
+          <div class="channel-header">
+            <div>
+              <div class="channel-icon">💬</div>
+              <div class="channel-name">WhatsApp</div>
+              <div class="channel-desc">Notificações em tempo real e suporte</div>
+            </div>
+            <div class="channel-toggle">▼</div>
+          </div>
+          <div class="channel-groups">
+            <a href="https://wa.me/556512345678" class="group-link">→ Grupo: Vagas Diárias</a>
+            <a href="https://wa.me/556512345678" class="group-link">→ Grupo: Voluntariado +</a>
+            <a href="https://wa.me/556512345678" class="group-link">→ Canal: Notícias de Emprego</a>
+            <a href="https://wa.me/556512345678" class="group-link">→ Grupo: Suporte CONNECT</a>
+            <a href="https://wa.me/556512345678" class="group-link">→ Grupo: Mentoria Rápida</a>
+          </div>
+        </div>
+
+        <!-- Instagram -->
+        <div class="channel-card">
+          <div class="channel-header">
+            <div>
+              <div class="channel-icon">📱</div>
+              <div class="channel-name">Instagram</div>
+              <div class="channel-desc">Conteúdo visual e dicas de carreira</div>
+            </div>
+            <div class="channel-toggle">▼</div>
+          </div>
+          <div class="channel-groups">
+            <a href="https://instagram.com" class="group-link">→ @connect_empregabilidade</a>
+            <a href="https://instagram.com" class="group-link">→ @vagas_brasil</a>
+            <a href="https://instagram.com" class="group-link">→ @dicas_carreira</a>
+            <a href="https://instagram.com" class="group-link">→ @voluntariado_Brasil</a>
+            <a href="https://instagram.com" class="group-link">→ @historias_sucesso</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- OPPORTUNITIES -->
+    <section class="opportunities" id="oportunidades">
+      <div class="section-divider"></div>
+      <h2 class="section-title">Tipos de Oportunidades</h2>
+      <p class="section-subtitle">Encontre exatamente o que você está procurando. Clique em cada card para conhecer mais detalhes sobre como funciona cada tipo de oportunidade.</p>
+
+      <div class="opp-grid">
+
+        <!-- Emprego Formal -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category">Emprego</span>
+              <h3 class="opp-title">Empregos Formais</h3>
+              <p class="opp-preview">Oportunidades com carteira assinada e benefícios...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">Empregos formais são oportunidades de trabalho em empresas, comércios, indústrias e instituições públicas onde você recebe um contrato de trabalho formalizado e todos os direitos garantidos pela legislação brasileira.</p>
+              
+              <div class="opp-section">
+                <div class="opp-section-title">Como Funciona</div>
+                <p class="opp-text">Você se candidata a uma vaga, passa por um processo seletivo (entrevistas, testes, avaliações), e ao ser aprovado, assina a Carteira de Trabalho Digital ou recebe seu contrato formalizado. A empresa se responsabiliza por registrá-lo como funcionário e recolher todos os impostos e contribuições obrigatórias.</p>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Benefícios e Direitos</div>
+                <ul class="opp-list">
+                  <li>Salário mensal fixo ou comissão combinada</li>
+                  <li>Vale-refeição e vale-transporte</li>
+                  <li>Seguro-desemprego em caso de demissão</li>
+                  <li>Fundo de Garantia do Tempo de Serviço (FGTS)</li>
+                  <li>13º salário (gratificação natalina)</li>
+                  <li>Férias remuneradas (mínimo 30 dias)</li>
+                  <li>Segurança e saúde no trabalho</li>
+                  <li>Progressão de carreira</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Faixa Salarial</div>
+                <p class="opp-text">Os salários variam conforme a função, experiência, localidade e porte da empresa. Podem começar no salário mínimo (atualmente em torno de R$ 1.412) e chegar a valores muito maiores em funções especializadas ou gerenciais. Recomendamos pesquisar em sites como Glassdoor, Linkedin e plataformas de emprego para ter uma ideia do mercado.</p>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Como Procurar</div>
+                <p class="opp-text">Procure nos portais de emprego como LinkedIn, Indeed, Catho, Infojobs, Monster. Também acompanhe nossas redes sociais onde compartilhamos vagas abertas. Customize seu currículo para cada aplicação e não hesite em se candidatar a múltiplas vagas!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trabalho Autônomo -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category">Flexível</span>
+              <h3 class="opp-title">Trabalho Autônomo</h3>
+              <p class="opp-preview">Freelance, projetos pontuais, flexibilidade...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">O trabalho autônomo permite que você seja seu próprio patrão, executando projetos por demanda, vendendo seus serviços ou produtos. Ideal para quem busca flexibilidade, variedade de trabalhos e autonomia para gerenciar seu tempo e carreira.</p>
+              
+              <div class="opp-section">
+                <div class="opp-section-title">Modalidades Disponíveis</div>
+                <ul class="opp-list">
+                  <li>Freelancer (trabalhos pontuais em diversas áreas)</li>
+                  <li>Prestador de serviços (encanador, eletricista, consultor)</li>
+                  <li>Vendedor (produtos, representação comercial)</li>
+                  <li>Consultor especializado</li>
+                  <li>Designer, redator, programador remoto</li>
+                  <li>Tutor ou professor particular</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Vantagens</div>
+                <ul class="opp-list">
+                  <li>Flexibilidade total de horários</li>
+                  <li>Escolha dos projetos e clientes</li>
+                  <li>Potencial de ganhos sem teto</li>
+                  <li>Desenvolvimento de múltiplas habilidades</li>
+                  <li>Crescimento do seu portfólio profissional</li>
+                  <li>Trabalhe de onde quiser (se remoto)</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Questões Importantes</div>
+                <p class="opp-text">Como autônomo, você precisa se registrar na Prefeitura do seu município e contribuir como contribuinte individual ao INSS. Seus ganhos variam muito conforme a demanda e sua especialização. É recomendável manter uma reserva financeira e sempre buscar novos clientes.</p>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Plataformas e Oportunidades</div>
+                <p class="opp-text">Procure em: Upwork, Fiverr, 99designs, Workana, GetNinjas, Alelo Serviços, Facebook Marketplace. Também recomendamos criar um portfólio profissional e uma página no Instagram ou LinkedIn para captar clientes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trabalho Voluntário -->
+        <div class="opp-card voluntario">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category">Voluntariado</span>
+              <h3 class="opp-title">Trabalho Voluntário</h3>
+              <p class="opp-preview">Contribuir para a sociedade, desenvolver skills...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">O trabalho voluntário é uma contribuição desinteressada de seu tempo, conhecimento e habilidades para ajudar organizações, comunidades e pessoas em situação de vulnerabilidade. Não remunerado, mas incalculavelmente valioso para desenvolvimento pessoal e impacto social.</p>
+              
+              <div class="opp-section">
+                <div class="opp-section-title">Como Funciona</div>
+                <p class="opp-text">Você se oferece para ajudar uma organização sem fins lucrativos, ONG, projeto social ou comunidade. As atividades são combinadas conforme suas habilidades e disponibilidade. Muitas organizações formalizam esse trabalho com um termo de voluntariado, garantindo cobertura de seguro e direitos básicos.</p>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Áreas de Atuação</div>
+                <ul class="opp-list">
+                  <li>Educação (reforço escolar, alfabetização)</li>
+                  <li>Saúde (apoio em clínicas, campanhas)</li>
+                  <li>Assistência social (abrigos, creches)</li>
+                  <li>Meio ambiente (reflorestamento, limpeza)</li>
+                  <li>Cultura (eventos, arte-educação)</li>
+                  <li>Tecnologia (ensino de informática)</li>
+                  <li>Esportes e lazer (inclusão social)</li>
+                  <li>Advocacy e direitos humanos</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Benefícios Pessoais e Profissionais</div>
+                <ul class="opp-list">
+                  <li>Desenvolvimento de soft skills (liderança, comunicação)</li>
+                  <li>Experiência profissional valiosa para CV</li>
+                  <li>Rede de contatos significativa</li>
+                  <li>Satisfação pessoal e impacto real</li>
+                  <li>Flexibilidade de tempo e envolvimento</li>
+                  <li>Aprendizado contínuo e crescimento pessoal</li>
+                  <li>Contribuição para mudanças sociais</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Como Começar</div>
+                <p class="opp-text">Procure ONGs, fundações e associações em sua cidade que alinhem com seus valores. Muitas organizações têm processos seletivos simples. Você também pode oferecer suas habilidades específicas: se é programador, ajude na criação de site; se é empresário, oriente pequenos negócios. O voluntariado pode ser tão específico e profissional quanto você quiser!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Capacitação -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category">Desenvolvimento</span>
+              <h3 class="opp-title">Capacitação & Cursos</h3>
+              <p class="opp-preview">Qualifique-se e prepare-se para o mercado...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">Investir em capacitação e aprendizado contínuo é fundamental para sua empregabilidade. Existem inúmeras opções de cursos, treinamentos e certificações que podem abrir portas e aumentar suas chances no mercado de trabalho.</p>
+              
+              <div class="opp-section">
+                <div class="opp-section-title">Tipos de Capacitação</div>
+                <ul class="opp-list">
+                  <li>Cursos técnicos profissionalizantes (2-3 anos)</li>
+                  <li>Cursos livres online (poucas semanas)</li>
+                  <li>Certificações profissionais (Google, Microsoft, AWS)</li>
+                  <li>Bootcamps intensivos (programação, marketing)</li>
+                  <li>Workshops especializados</li>
+                  <li>Mentorias 1-a-1</li>
+                  <li>Programas de trainee</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Plataformas Gratuitas e Pagas</div>
+                <ul class="opp-list">
+                  <li>Coursera, edX, Alura (cursos variados)</li>
+                  <li>Udemy (cursos acessíveis)</li>
+                  <li>Khan Academy (aprendizado fundacional)</li>
+                  <li>Senac, Senai (qualificação profissional)</li>
+                  <li>YouTube (canais especializados)</li>
+                  <li>Google Digital Garage (marketing digital grátis)</li>
+                  <li>SESI, SEBRAE (empreendedorismo)</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Como Escolher um Curso</div>
+                <p class="opp-text">Pesquise em portais de emprego quais skills mais procuradas estão no seu nicho. Escolha cursos com certificado reconhecido e avaliações positivas. Comece com cursos curtos enquanto estuda em paralelo. Equilibre teoria e prática.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empreendedorismo -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category">Inovação</span>
+              <h3 class="opp-title">Empreendedorismo</h3>
+              <p class="opp-preview">Abra seu próprio negócio com apoio...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">Se você tem uma ideia e gostaria de ser dono do seu próprio negócio, o empreendedorismo oferece caminhos para transformar essa visão em realidade. Existem muitos recursos, incubadoras e mentores dispostos a ajudar.</p>
+              
+              <div class="opp-section">
+                <div class="opp-section-title">Modalidades</div>
+                <ul class="opp-list">
+                  <li>Microempreendedor Individual (MEI) - formalização simples</li>
+                  <li>Pequena empresa (LTDA, PJ)</li>
+                  <li>Startup inovadora</li>
+                  <li>Cooperativa</li>
+                  <li>Franquia (modelo pré-estabelecido)</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Recursos Disponíveis</div>
+                <ul class="opp-list">
+                  <li>SEBRAE (consultoria e cursos gratuitos)</li>
+                  <li>Incubadoras de startups</li>
+                  <li>Linhas de crédito especiais (Banco do Brasil, Caixa)</li>
+                  <li>Mentoria com empreendedores experientes</li>
+                  <li>Investidores-anjo e capital semente</li>
+                  <li>Espaços de co-working</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Primeiros Passos</div>
+                <p class="opp-text">Comece com uma ideia clara, faça pesquisa de mercado, valide sua proposta com potenciais clientes, procure o SEBRAE para entender aspectos legais e financeiros, considere começar pequeno (MVP - Produto Mínimo Viável) antes de investir pesadamente.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estágio -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category" style="background:rgba(0,255,136,0.15);color:#00ff88;">Estágio</span>
+              <h3 class="opp-title">Estágio Profissional</h3>
+              <p class="opp-preview">Primeira experiência real no mercado de trabalho...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">O estágio é a porta de entrada para o mercado de trabalho. Regulamentado pela Lei nº 11.788/2008, permite que estudantes apliquem na prática o que aprendem em sala de aula, desenvolvendo experiência profissional ainda durante a formação acadêmica.</p>
+              <div class="opp-section">
+                <div class="opp-section-title">Quem Pode Fazer</div>
+                <ul class="opp-list">
+                  <li>Estudantes do ensino médio (estágio técnico)</li>
+                  <li>Estudantes de ensino superior (graduação)</li>
+                  <li>Estudantes de cursos técnicos e profissionalizantes</li>
+                  <li>Obrigatório: estar matriculado em instituição de ensino</li>
+                </ul>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Direitos do Estagiário</div>
+                <ul class="opp-list">
+                  <li>Bolsa-auxílio (não é salário, mas é obrigatória para estágios não obrigatórios)</li>
+                  <li>Vale-transporte obrigatório</li>
+                  <li>Recesso remunerado de 30 dias a cada 12 meses</li>
+                  <li>Carga horária máxima de 6h/dia e 30h/semana</li>
+                  <li>Seguro contra acidentes pessoais</li>
+                  <li>Supervisão por um profissional da área</li>
+                </ul>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Como Encontrar Estágios</div>
+                <p class="opp-text">Procure em: Ciee, Nube, LinkedIn, Indeed, Indeed, portal de estágios da sua faculdade, site das empresas onde deseja trabalhar. Muitas vagas nunca são publicadas — use o networking para descobrí-las. Dica: crie um LinkedIn e conecte-se com profissionais da área de interesse.</p>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Dicas Para se Destacar</div>
+                <ul class="opp-list">
+                  <li>Personalize o currículo para cada empresa</li>
+                  <li>Demonstre interesse genuíno pela área</li>
+                  <li>Mostre disposição para aprender</li>
+                  <li>Habilidades como Excel, PowerPoint e comunicação fazem diferença</li>
+                  <li>Pontualidade e proatividade são muito valorizadas</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jovem Aprendiz -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category" style="background:rgba(255,215,0,0.15);color:#ffd700;">Aprendiz</span>
+              <h3 class="opp-title">Jovem Aprendiz</h3>
+              <p class="opp-preview">Programa com carteira assinada para jovens de 14 a 24 anos...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">O Programa Jovem Aprendiz (Lei nº 10.097/2000) é uma oportunidade única: você trabalha com carteira assinada enquanto se capacita profissionalmente. É o único programa que garante vínculo empregatício formal para jovens em formação.</p>
+              <div class="opp-section">
+                <div class="opp-section-title">Quem Pode Participar</div>
+                <ul class="opp-list">
+                  <li>Jovens de 14 a 24 anos (pessoas com deficiência sem limite de idade)</li>
+                  <li>Estar matriculado e frequentando escola (ensino fundamental ou médio)</li>
+                  <li>Não é necessário ter experiência anterior</li>
+                  <li>Prioritário para beneficiários do Bolsa Família</li>
+                </ul>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Direitos Garantidos por Lei</div>
+                <ul class="opp-list">
+                  <li>Carteira de Trabalho assinada (CLT)</li>
+                  <li>Salário mínimo hora proporcional à jornada</li>
+                  <li>FGTS com alíquota reduzida (2%)</li>
+                  <li>Vale-transporte</li>
+                  <li>13º salário</li>
+                  <li>Férias coincidentes com recesso escolar</li>
+                  <li>Capacitação teórica em entidades qualificadoras (Senai, Senac, etc.)</li>
+                </ul>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Como se Inscrever</div>
+                <p class="opp-text">Procure diretamente nas empresas de seu interesse, no Senac, Senai, Ciee, ou pelo portal Emprega Brasil. Muitas empresas de médio e grande porte são obrigadas por lei a contratar uma cota de jovens aprendizes. Fique atento às feiras de emprego na sua cidade!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Freelancer -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category" style="background:rgba(168,85,247,0.15);color:#a855f7;">Freelancer</span>
+              <h3 class="opp-title">Freelancer & Projetos</h3>
+              <p class="opp-preview">Trabalhe por projeto, de onde quiser, para quem quiser...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">O trabalho freelancer é ideal para quem tem uma habilidade específica e quer atender múltiplos clientes, projetos variados e total liberdade de horário e localização. É uma das formas de trabalho que mais cresce no Brasil e no mundo.</p>
+              <div class="opp-section">
+                <div class="opp-section-title">Áreas com Alta Demanda</div>
+                <ul class="opp-list">
+                  <li>Design gráfico e identidade visual</li>
+                  <li>Desenvolvimento web e mobile</li>
+                  <li>Produção de conteúdo (texto, vídeo, foto)</li>
+                  <li>Marketing digital e gestão de redes sociais</li>
+                  <li>Tradução e revisão de textos</li>
+                  <li>Consultoria em diversas áreas</li>
+                  <li>Edição de vídeo e produção audiovisual</li>
+                  <li>Programação e ciência de dados</li>
+                </ul>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Plataformas para Começar</div>
+                <ul class="opp-list">
+                  <li>GetNinjas — serviços locais no Brasil</li>
+                  <li>Workana — plataforma brasileira de freelancers</li>
+                  <li>99designs — para designers</li>
+                  <li>Upwork e Fiverr — mercado internacional</li>
+                  <li>LinkedIn ProFinder — projetos profissionais</li>
+                  <li>Instagram e portfólio próprio — captação direta</li>
+                </ul>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Dicas Essenciais</div>
+                <ul class="opp-list">
+                  <li>Construa um portfólio sólido desde o início (mesmo que gratuito)</li>
+                  <li>Defina seu nicho e especialização</li>
+                  <li>Precifique corretamente — pesquise o mercado</li>
+                  <li>Tenha contratos claros com cada cliente</li>
+                  <li>Cuide da sua regularização fiscal (MEI ou RPA)</li>
+                  <li>Mantenha reserva financeira para meses mais fracos</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projetos Escolares -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category" style="background:rgba(239,68,68,0.15);color:#ef4444;">Escolar</span>
+              <h3 class="opp-title">Projetos Escolares & TCC</h3>
+              <p class="opp-preview">Projetos acadêmicos que valem muito para o mercado...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">Muitos subestimam o peso dos projetos escolares no currículo — mas recrutadores valorizam muito quem demonstra iniciativa, capacidade de resolver problemas e trabalho em equipe ainda na escola ou faculdade. Um bom projeto pode abrir mais portas que um estágio!</p>
+              <div class="opp-section">
+                <div class="opp-section-title">Tipos de Projetos Valorizados</div>
+                <ul class="opp-list">
+                  <li>TCC (Trabalho de Conclusão de Curso) com aplicação prática</li>
+                  <li>Projetos de extensão universitária</li>
+                  <li>Feiras de ciências e mostras tecnológicas</li>
+                  <li>Projetos de iniciação científica (IC)</li>
+                  <li>Hackathons e maratonas de programação</li>
+                  <li>Projetos sociais desenvolvidos na escola</li>
+                  <li>Competições estudantis (MUN, Olimpíadas, etc.)</li>
+                </ul>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Como Valorizar no Currículo</div>
+                <ul class="opp-list">
+                  <li>Descreva o problema que o projeto resolveu</li>
+                  <li>Mencione o impacto real e os resultados obtidos</li>
+                  <li>Cite as tecnologias ou metodologias utilizadas</li>
+                  <li>Coloque o link do projeto (GitHub, vídeo, artigo)</li>
+                  <li>Destaque seu papel específico no trabalho em equipe</li>
+                </ul>
+              </div>
+              <div class="opp-section">
+                <div class="opp-section-title">Onde Publicar seus Projetos</div>
+                <p class="opp-text">GitHub para código, Behance para design, Medium para artigos e pesquisas, LinkedIn para projetos profissionais, YouTube para apresentações e demonstrações. Ter um portfólio digital organizado com seus projetos escolares pode ser o diferencial que faltava!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Networking -->
+        <div class="opp-card">
+          <div class="opp-header">
+            <div class="opp-header-content">
+              <span class="opp-category">Conexões</span>
+              <h3 class="opp-title">Eventos & Networking</h3>
+              <p class="opp-preview">Conecte-se, amplie sua rede profissional...</p>
+            </div>
+            <div class="opp-toggle">▼</div>
+          </div>
+          <div class="opp-content">
+            <div class="opp-body">
+              <p class="opp-text">Networking não é apenas trocar cartões - é construir relacionamentos autênticos e duradouros que abrem portas, trazem oportunidades e enriquecem sua vida profissional. Eventos são espaços privilegiados para isso.</p>
+              
+              <div class="opp-section">
+                <div class="opp-section-title">Tipos de Eventos</div>
+                <ul class="opp-list">
+                  <li>Feiras de emprego e career days</li>
+                  <li>Palestras e seminários profissionais</li>
+                  <li>Painéis de discussão de indústria</li>
+                  <li>Meetups de áreas específicas</li>
+                  <li>Conferências e congressos</li>
+                  <li>Eventos de networking puro</li>
+                  <li>Webinars online</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Como Aproveitar Eventos</div>
+                <ul class="opp-list">
+                  <li>Chegue com perguntas preparadas</li>
+                  <li>Ouça mais do que fale</li>
+                  <li>Troque contatos e conecte no LinkedIn depois</li>
+                  <li>Ofereça valor genuíno (dicas, contatos, apoio)</li>
+                  <li>Acompanhe os contatos com mensagens pessoalizadas</li>
+                  <li>Participe de grupos de interesse contínuos</li>
+                </ul>
+              </div>
+
+              <div class="opp-section">
+                <div class="opp-section-title">Encontre Eventos</div>
+                <p class="opp-text">Procure em: LinkedIn (seção de eventos), Meetup.com, Eventick, Lunchbox Sessions, Facebook de associações profissionais, grupos do WhatsApp de sua área. Siga as redes sociais de empresas que você admira - muitas promovem eventos abertos ao público.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="resources" id="faq" style="padding-top:0;">
+      <div class="section-divider"></div>
+      <h2 class="section-title">❓ Perguntas Frequentes</h2>
+      <p class="section-subtitle">Respostas para as dúvidas mais comuns sobre empregabilidade e oportunidades.</p>
+      <div class="resource-list">
+
+        <div class="resource-card">
+          <div class="resource-header">
+            <div><div class="resource-title">Preciso de experiência para conseguir meu primeiro emprego?</div></div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content"><div class="resource-body">
+            <p class="resource-text">Não necessariamente! Muitas empresas oferecem vagas específicas para quem está começando — jovem aprendiz, estágio e trainee são exemplos. O que conta nessa fase é: disposição para aprender, pontualidade, boa comunicação e proatividade. Projetos escolares, trabalho voluntário e cursos também valem como experiência. Monte um currículo que destaque suas habilidades e seu potencial.</p>
+          </div></div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-header">
+            <div><div class="resource-title">Como me preparar para uma entrevista de emprego?</div></div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content"><div class="resource-body">
+            <ul class="resource-tips">
+              <li>Pesquise a empresa: história, produtos, cultura e valores</li>
+              <li>Prepare respostas para perguntas comuns ("Fale sobre você", "Por que quer trabalhar aqui?")</li>
+              <li>Use a técnica STAR: Situação, Tarefa, Ação, Resultado</li>
+              <li>Leve currículo impresso e documentos organizados</li>
+              <li>Vista-se de forma adequada ao ambiente da empresa</li>
+              <li>Chegue com 10-15 minutos de antecedência</li>
+              <li>Tenha perguntas preparadas para fazer ao entrevistador</li>
+              <li>Após a entrevista, envie um e-mail agradecendo a oportunidade</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-header">
+            <div><div class="resource-title">O trabalho voluntário conta no currículo?</div></div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content"><div class="resource-body">
+            <p class="resource-text">Sim, conta muito! O voluntariado demonstra comprometimento social, habilidades interpessoais e iniciativa — qualidades muito valorizadas pelos recrutadores. Inclua no currículo o nome da organização, período de atuação, suas atividades e impactos gerados. Muitos profissionais conseguiram seu primeiro emprego formal justamente pela visibilidade que o voluntariado proporcionou.</p>
+          </div></div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-header">
+            <div><div class="resource-title">Como negociar meu salário?</div></div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content"><div class="resource-body">
+            <ul class="resource-tips">
+              <li>Pesquise antes: use Glassdoor, LinkedIn Salary e Catho para entender a faixa do mercado</li>
+              <li>Espere a empresa fazer a primeira proposta sempre que possível</li>
+              <li>Não revele seu salário atual imediatamente — pergunte a faixa da vaga</li>
+              <li>Negocie com base em valor: experiências, resultados e habilidades específicas</li>
+              <li>Considere o pacote completo (benefícios, plano de carreira, flexibilidade)</li>
+              <li>Seja direto, confiante e respeitoso na negociação</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-header">
+            <div><div class="resource-title">Vale a pena fazer cursos gratuitos online?</div></div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content"><div class="resource-body">
+            <p class="resource-text">Definitivamente sim! Plataformas como Coursera, edX, Alura (com bolsas), Khan Academy, Google Digital Garage e YouTube oferecem conteúdos de altíssima qualidade. O certificado em si tem menos peso que a habilidade desenvolvida — o que importa é demonstrar o que você aprendeu na prática. Combine cursos com projetos pessoais para ter algo concreto para mostrar.</p>
+          </div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="mission" id="quiz" style="text-align:left;">
+      <h2 style="text-align:center;margin-bottom:0.5rem;">🎯 Qual Oportunidade é Para Você?</h2>
+      <p style="text-align:center;color:var(--text-secondary);margin-bottom:2rem;">Responda 3 perguntas rápidas e descubra por onde começar.</p>
+      <div id="quiz-container" style="max-width:600px;margin:0 auto;">
+        <div id="quiz-step-1">
+          <p style="font-weight:600;margin-bottom:1rem;">1. Qual é sua situação atual?</p>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <button class="quiz-btn" onclick="quizAnswer(1,'estudante')">🎓 Estou estudando (escola ou faculdade)</button>
+            <button class="quiz-btn" onclick="quizAnswer(1,'desempregado')">🔍 Estou procurando emprego</button>
+            <button class="quiz-btn" onclick="quizAnswer(1,'empregado')">💼 Estou empregado mas quero mudar</button>
+            <button class="quiz-btn" onclick="quizAnswer(1,'autonomo')">🚀 Quero trabalhar por conta própria</button>
+          </div>
+        </div>
+        <div id="quiz-step-2" style="display:none;">
+          <p style="font-weight:600;margin-bottom:1rem;">2. O que é mais importante para você agora?</p>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <button class="quiz-btn" onclick="quizAnswer(2,'experiencia')">⭐ Ganhar experiência profissional</button>
+            <button class="quiz-btn" onclick="quizAnswer(2,'renda')">💰 Ter uma renda estável</button>
+            <button class="quiz-btn" onclick="quizAnswer(2,'liberdade')">🕊️ Ter liberdade de horário</button>
+            <button class="quiz-btn" onclick="quizAnswer(2,'impacto')">❤️ Causar impacto na sociedade</button>
+          </div>
+        </div>
+        <div id="quiz-step-3" style="display:none;">
+          <p style="font-weight:600;margin-bottom:1rem;">3. Quantas horas por semana você tem disponível?</p>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <button class="quiz-btn" onclick="quizAnswer(3,'poucas')">⏰ Menos de 20 horas</button>
+            <button class="quiz-btn" onclick="quizAnswer(3,'medio')">🕐 De 20 a 30 horas</button>
+            <button class="quiz-btn" onclick="quizAnswer(3,'integral')">📅 Tempo integral (40h+)</button>
+          </div>
+        </div>
+        <div id="quiz-result" style="display:none;background:rgba(0,212,255,0.08);border:1px solid var(--border-hover);border-radius:16px;padding:1.5rem;margin-top:1rem;">
+          <h3 id="quiz-result-title" style="color:var(--primary);margin-bottom:0.75rem;"></h3>
+          <p id="quiz-result-text" style="color:var(--text-secondary);line-height:1.7;"></p>
+          <button onclick="quizReset()" style="margin-top:1rem;background:transparent;border:1px solid var(--primary);color:var(--primary);padding:0.5rem 1.25rem;border-radius:50px;cursor:pointer;font-family:inherit;">↺ Refazer quiz</button>
+        </div>
+      </div>
+    </section>
+      <h2>Nossa Missão</h2>
+      <p>Somos <span class="mission-highlight">abertos por natureza</span>. Nosso objetivo não é ser intermediários ou cobrar por oportunidades. Nós <span class="mission-highlight">conectamos você às fontes</span> – mostrando exatamente onde estão as vagas, onde as oportunidades estão sendo divulgadas, e como você pode alcançá-las.</p>
+      <p>Acreditamos que <span class="mission-highlight">empregabilidade e trabalho voluntário transformam vidas</span>. Queremos que você tenha acesso transparente a todas as oportunidades, capacitações e redes que existem para ajudá-lo a crescer profissionalmente e contribuir para a sociedade.</p>
+    </section>
+
+    <!-- RESOURCES -->
+    <section class="resources" id="recursos">
+      <div class="section-divider"></div>
+      <h2 class="section-title">Recursos & Ferramentas</h2>
+      <p class="section-subtitle">Explore recursos práticos e completos para potencializar sua busca por oportunidades. Clique para ver dicas e links úteis.</p>
+
+      <div class="resource-list">
+
+        <!-- Currículo -->
+        <div class="resource-card">
+          <div class="resource-header">
+            <div>
+              <div class="resource-title">📄 Currículo & Portfólio</div>
+              <div class="resource-preview">Crie um currículo atrativo e portfólio profissional...</div>
+            </div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content">
+            <div class="resource-body">
+              <p class="resource-text">Um currículo bem elaborado é sua porta de entrada. Hoje não basta apenas o CV - você precisa de presença online e portfólio que demonstram suas capacidades.</p>
+              
+              <ul class="resource-tips">
+                <li>Coloque informações claras: nome, telefone, email, LinkedIn</li>
+                <li>Resumo profissional objetivamente focado na vaga</li>
+                <li>Experiências com resultados mensuráveis (números, %, impactos)</li>
+                <li>Habilidades técnicas e comportamentais relevantes</li>
+                <li>Educação e certificações mais recentes acima</li>
+                <li>Uma página só (máximo duas para candidatos sênior)</li>
+                <li>Formatação limpa, sem cores excessivas</li>
+              </ul>
+
+              <div class="resource-links">
+                <strong style="color: var(--primary); margin-bottom: 12px;">Ferramentas e Plataformas:</strong>
+                <a href="#" class="resource-link">→ Canva - Templates de currículo grátis</a>
+                <a href="#" class="resource-link">→ Google Drive - Elabore sua versão</a>
+                <a href="#" class="resource-link">→ Behance - Portfólio para criadores</a>
+                <a href="#" class="resource-link">→ GitHub - Portfólio para programadores</a>
+                <a href="#" class="resource-link">→ LinkedIn - Seu perfil é seu CV online</a>
+                <a href="#" class="resource-link">→ Notion - Organize seu portfólio</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entrevistas -->
+        <div class="resource-card">
+          <div class="resource-header">
+            <div>
+              <div class="resource-title">🎯 Preparação para Entrevistas</div>
+              <div class="resource-preview">Técnicas e dicas para conquistar sua entrevista...</div>
+            </div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content">
+            <div class="resource-body">
+              <p class="resource-text">A entrevista é seu momento de brilhar. Preparação adequada faz toda a diferença. Use a técnica STAR para responder comportamentalmente.</p>
+              
+              <ul class="resource-tips">
+                <li>Pesquise a empresa: missão, valores, produtos, notícias recentes</li>
+                <li>Prepare histórias usando STAR (Situação, Tarefa, Ação, Resultado)</li>
+                <li>Ensaie suas respostas em voz alta antes</li>
+                <li>Prepare perguntas sobre o papel e a empresa</li>
+                <li>Chegue 10-15 minutos antes (presencial ou teste de câmera)</li>
+                <li>Cumprimente educadamente e mantenha contato visual</li>
+                <li>Fale com entusiasmo mas de forma clara e estruturada</li>
+                <li>Envie um email de agradecimento após a entrevista</li>
+              </ul>
+
+              <div class="resource-links">
+                <strong style="color: var(--primary); margin-bottom: 12px;">Recursos para Praticar:</strong>
+                <a href="#" class="resource-link">→ YouTube - Simulações de entrevistas</a>
+                <a href="#" class="resource-link">→ HackerRank - Preparação técnica</a>
+                <a href="#" class="resource-link">→ LeetCode - Questões de programação</a>
+                <a href="#" class="resource-link">→ Mock.ai - IA que faz entrevistas</a>
+                <a href="#" class="resource-link">→ Grupos do LinkedIn - Compartilham dicas</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desenvolvimento -->
+        <div class="resource-card">
+          <div class="resource-header">
+            <div>
+              <div class="resource-title">🚀 Desenvolvimento Profissional</div>
+              <div class="resource-preview">Desenvolva soft skills e competências essenciais...</div>
+            </div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content">
+            <div class="resource-body">
+              <p class="resource-text">Hard skills (técnicas) você aprende nos cursos. Soft skills (comportamentais) você desenvolve através de prática, leitura e autoconhecimento. Ambas são essenciais no mercado.</p>
+              
+              <ul class="resource-tips">
+                <li>Comunicação clara e assertiva - prática diária</li>
+                <li>Liderança - assuma responsabilidades progressivas</li>
+                <li>Pensamento crítico - questione, analise, proponha</li>
+                <li>Resiliência - veja falhas como aprendizado</li>
+                <li>Empatia - ouça e compreenda perspectivas diferentes</li>
+                <li>Gerenciamento de tempo - use Trello, Asana, Notion</li>
+                <li>Criatividade - participe de brainstorms, estude inovação</li>
+                <li>Inteligência emocional - entenda e gerencie suas emoções</li>
+              </ul>
+
+              <div class="resource-links">
+                <strong style="color: var(--primary); margin-bottom: 12px;">Livros e Plataformas Recomendadas:</strong>
+                <a href="#" class="resource-link">→ MasterClass - Cursos com experts</a>
+                <a href="#" class="resource-link">→ Skillshare - Habilidades criativas</a>
+                <a href="#" class="resource-link">→ Audible - Audiobooks sobre desenvolvimento</a>
+                <a href="#" class="resource-link">→ Medium - Artigos sobre carreira</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Negociação Salarial -->
+        <div class="resource-card">
+          <div class="resource-header">
+            <div>
+              <div class="resource-title">💰 Negociação Salarial</div>
+              <div class="resource-preview">Técnicas para negociar melhor salário e benefícios...</div>
+            </div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content">
+            <div class="resource-body">
+              <p class="resource-text">Negociação salarial não é algo que você pede uma única vez - é um diálogo contínuo. A melhor hora é durante a oferta inicial, mas também durante promoções e renovações anuais.</p>
+              
+              <ul class="resource-tips">
+                <li>Pesquise o salário do mercado (Glassdoor, Catho, Salary.com)</li>
+                <li>Documente suas realizações e impacto na empresa</li>
+                <li>Negocie antes de assinar - depois é muito mais difícil</li>
+                <li>Peça uma faixa, não um número fixo</li>
+                <li>Considere pacote completo (salário + benefícios + flexibilidade)</li>
+                <li>Prazo de revisão salarial? Coloque no contrato</li>
+                <li>Negocie educação contínua, home office, bônus</li>
+                <li>Seja profissional mas firme - você merece o justo valor</li>
+              </ul>
+
+              <div class="resource-links">
+                <strong style="color: var(--primary); margin-bottom: 12px;">Ferramentas de Pesquisa Salarial:</strong>
+                <a href="#" class="resource-link">→ Glassdoor - Salários por cargo e empresa</a>
+                <a href="#" class="resource-link">→ Catho - Base brasileira de salários</a>
+                <a href="#" class="resource-link">→ LinkedIn Salary - Dados de mercado</a>
+                <a href="#" class="resource-link">→ PayScale - Calculadora de salários</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Networking -->
+        <div class="resource-card">
+          <div class="resource-header">
+            <div>
+              <div class="resource-title">🤝 Networking Efetivo</div>
+              <div class="resource-preview">Construa relacionamentos profissionais significativos...</div>
+            </div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content">
+            <div class="resource-body">
+              <p class="resource-text">Muitos dizem que 70-80% das oportunidades surgem através de contatos. Networking efetivo é sobre construir relacionamentos autênticos, não apenas coletar cartões de visita.</p>
+              
+              <ul class="resource-tips">
+                <li>Qualidade vs Quantidade - prefira poucos contatos profundos</li>
+                <li>Ofereça valor primeiro - conecte pessoas, compartilhe conhecimento</li>
+                <li>Mantenha contato regularmente (coffee talks, mensagens, LinkedIn)</li>
+                <li>Seja genuíno e autêntico nas conversas</li>
+                <li>Organize ou participe de grupos de interesse</li>
+                <li>Siga pessoas influentes na sua área no LinkedIn e Twitter</li>
+                <li>Participe de comunidades online (Slack, Discord, grupos)</li>
+                <li>Nunca peça algo na primeira conversa - construa relacionamento</li>
+              </ul>
+
+              <div class="resource-links">
+                <strong style="color: var(--primary); margin-bottom: 12px;">Plataformas para Networking:</strong>
+                <a href="#" class="resource-link">→ LinkedIn - Rede profissional principal</a>
+                <a href="#" class="resource-link">→ Meetup.com - Encontros locais por interesse</a>
+                <a href="#" class="resource-link">→ Twitter/X - Comunidades por indústria</a>
+                <a href="#" class="resource-link">→ Slack Communities - Grupos temáticos</a>
+                <a href="#" class="resource-link">→ Discord - Comunidades de desenvolvimento</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Biblioteca -->
+        <div class="resource-card">
+          <div class="resource-header">
+            <div>
+              <div class="resource-title">📚 Biblioteca de Conteúdo</div>
+              <div class="resource-preview">Artigos, guias e estudos sobre carreira...</div>
+            </div>
+            <div class="resource-toggle">▼</div>
+          </div>
+          <div class="resource-content">
+            <div class="resource-body">
+              <p class="resource-text">Conhecimento é poder. Leia, aprenda e fique atualizado sobre tendências do mercado, evolução de carreiras e dicas práticas de profissionais experientes.</p>
+              
+              <ul class="resource-tips">
+                <li>Tendências de mercado - O que está em alta na sua área?</li>
+                <li>Histórias de sucesso - Aprenda com quem já conseguiu</li>
+                <li>Guias práticos - Passo-a-passo para processos comuns</li>
+                <li>Estudos de caso - Veja como empresas recrutam e crescem</li>
+                <li>Entrevistas - Com profissionais e empreendedores</li>
+                <li>Webinars gratuitos - Aprendizado em tempo real</li>
+                <li>Podcasts - Ouça enquanto se desloca</li>
+              </ul>
+
+              <div class="resource-links">
+                <strong style="color: var(--primary); margin-bottom: 12px;">Sites e Publicações Recomendadas:</strong>
+                <a href="#" class="resource-link">→ Medium - Histórias e análises detalhadas</a>
+                <a href="#" class="resource-link">→ HackerNews - Tech e inovação</a>
+                <a href="#" class="resource-link">→ Blogs de Startups - Tendências atuais</a>
+                <a href="#" class="resource-link">→ TED Talks - Insights de líderes mundiais</a>
+                <a href="#" class="resource-link">→ Podcasts: Empreendedor, NerdCast, Carreira</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-section">
+        <h3>Sobre CONNECT</h3>
+        <ul>
+          <li><a href="#mission">Nossa Missão</a></li>
+          <li><a href="#">Como Funciona</a></li>
+          <li><a href="#">Sobre Nós</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Canais Sociais</h3>
+        <ul>
+          <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+          <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+          <li><a href="https://wa.me/556512345678" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Oportunidades</h3>
+        <ul>
+          <li><a href="#oportunidades">Empregos</a></li>
+          <li><a href="#oportunidades">Voluntariado</a></li>
+          <li><a href="#oportunidades">Capacitação</a></li>
+          <li><a href="#oportunidades">Networking</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Recursos</h3>
+        <ul>
+          <li><a href="#recursos">Ferramentas</a></li>
+          <li><a href="#recursos">Guias</a></li>
+          <li><a href="#recursos">Tutoriais</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 CONNECT. Empregabilidade & Voluntariado. Todos os direitos reservados.</span>
+        <div>
+          <a href="#" style="margin-right: 24px;">Privacidade</a>
+          <a href="#">Termos de Uso</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Toggle functionality for channel cards
+    document.querySelectorAll('.channel-card').forEach(card => {
+      card.addEventListener('click', function() {
+        this.classList.toggle('active');
+      });
+    });
+
+    // Toggle functionality for opportunity cards
+    document.querySelectorAll('.opp-card').forEach(card => {
+      const header = card.querySelector('.opp-header');
+      header.addEventListener('click', function() {
+        card.classList.toggle('active');
+      });
+    });
+
+    // Toggle functionality for resource cards
+    document.querySelectorAll('.resource-card').forEach(card => {
+      const header = card.querySelector('.resource-header');
+      header.addEventListener('click', function() {
+        card.classList.toggle('active');
+      });
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && document.querySelector(href)) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
+
+  <script>
+    // Quiz
+    const quizAnswers = {};
+    function quizAnswer(step, val) {
+      quizAnswers[step] = val;
+      if (step < 3) {
+        document.getElementById('quiz-step-' + step).style.display = 'none';
+        document.getElementById('quiz-step-' + (step+1)).style.display = 'block';
+      } else {
+        document.getElementById('quiz-step-3').style.display = 'none';
+        showQuizResult();
+      }
+    }
+    function showQuizResult() {
+      const s1 = quizAnswers[1], s2 = quizAnswers[2], s3 = quizAnswers[3];
+      let title = '', text = '';
+      if (s1 === 'estudante' && s2 === 'experiencia') {
+        title = '🎓 Estágio ou Jovem Aprendiz é para você!';
+        text = 'Como estudante buscando experiência, o estágio e o programa jovem aprendiz são seus melhores caminhos. Comece pelo CIEE, Nube e LinkedIn. Paralelamente, invista em projetos escolares que possam enriquecer seu portfólio.';
+      } else if (s1 === 'estudante' && s2 === 'impacto') {
+        title = '❤️ Trabalho Voluntário vai transformar sua carreira!';
+        text = 'Voluntariado durante os estudos é uma combinação poderosa: você ajuda a sociedade, desenvolve habilidades e constrói um currículo diferenciado. Procure ONGs e projetos sociais na sua cidade ou online.';
+      } else if (s1 === 'autonomo' || s2 === 'liberdade') {
+        title = '🚀 Freelancer ou MEI é o seu caminho!';
+        text = 'Você tem perfil empreendedor e valoriza autonomia. Comece mapeando suas habilidades, crie um portfólio no Behance ou GitHub, abra seu MEI e cadastre-se em plataformas como GetNinjas, Workana e LinkedIn.';
+      } else if (s2 === 'renda' && s3 === 'integral') {
+        title = '💼 Emprego Formal com foco em crescimento!';
+        text = 'Você quer estabilidade e crescimento profissional. Foque em empresas que ofereçam plano de carreira claro. Capriche no currículo, prepare-se para entrevistas e candidate-se a múltiplas vagas por semana.';
+      } else if (s1 === 'desempregado' && s3 === 'poucas') {
+        title = '⚡ Freelancer e Capacitação simultâneos!';
+        text = 'Com poucas horas disponíveis, o ideal é combinar pequenos projetos freelancer com cursos online gratuitos para se qualificar. Assim você gera renda enquanto amplia suas oportunidades no mercado formal.';
+      } else {
+        title = '🌟 Multiplique suas oportunidades!';
+        text = 'Seu perfil é versátil! Recomendamos combinar estratégias: busque emprego formal enquanto faz freelances pontuais e se qualifica com cursos online. Participe de eventos de networking para expandir sua rede de contatos.';
+      }
+      document.getElementById('quiz-result-title').textContent = title;
+      document.getElementById('quiz-result-text').textContent = text;
+      document.getElementById('quiz-result').style.display = 'block';
+    }
+    function quizReset() {
+      for (let i=1; i<=3; i++) {
+        document.getElementById('quiz-step-'+i).style.display = i===1?'block':'none';
+      }
+      document.getElementById('quiz-result').style.display = 'none';
+      Object.keys(quizAnswers).forEach(k => delete quizAnswers[k]);
+    }
+  </script>
+
+</body>
+</html>
