@@ -653,8 +653,8 @@ select.perfil-inp option{background:#1e1e1e;color:#f0f0f0;}
 
 <script>
 // ═══ SUPABASE — via módulo de segurança ═══
-const SUPABASE_URL = "https://yunoxkembhskpnprffoi.supabase.co";
-const SUPABASE_KEY = "sb_publishable_fTW4FWKGvZsNe1o8DR4EOg_EhZ7uHTq";
+const SUPABASE_URL = 'https://yunoxkembhskpnprffoi.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bm94a2VtYmhza3BucHJmZm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5Nzg2MzksImV4cCI6MjA5NDU1NDYzOX0.WhkzrBCHThvJaMuLeo6oVPjrWvc_MvfCoyz9B90-Yms';
 const PIPE_KEY     = 'nexus_pipeline_v1';
 const CARGOS_KEY   = 'nexus_cargos_v1';
 const ASSIGN_KEY   = 'nexus_cargos_assign_v1';
@@ -833,7 +833,7 @@ function getCargosDoCandiato(candId){
 /* ═══ FETCH CANDIDATOS ═══ */
 async function fetchCandidatos(){
   const res = await fetch(`${SUPABASE_URL}/rest/v1/disc_historico?select=*&order=data.desc`,
-    {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+    {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Range':'0-9999'}});
   if(!res.ok) throw new Error('Erro ao buscar candidatos: '+res.status);
   _allCands = await res.json();
 }
@@ -960,7 +960,7 @@ async function init(){
     _cargos = await carregarCargosDB();
     _assign = await carregarAssignDB();
     await fetchCandidatos();
-    fetch(`${SUPABASE_URL}/rest/v1/vagas?order=criado_em.desc`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}})
+    fetch(`${SUPABASE_URL}/rest/v1/vagas?order=criado_em.desc`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Range':'0-9999'}})
       .then(r=>r.json()).then(v=>{ if(Array.isArray(v)) _vagasList=v; }).catch(()=>{});
     renderTudo();
     document.getElementById('statsBar').style.display = 'flex';
@@ -2010,7 +2010,7 @@ function abrirMiniPipeCargo(id, nome){
         _vagasList.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join('');
     } else {
       fetch(`${SUPABASE_URL}/rest/v1/vagas?select=slug,titulo&order=criado_em.desc`,
-        {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}})
+        {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Range':'0-9999'}})
         .then(r=>r.json()).then(vagas=>{
           if(Array.isArray(vagas)&&vagas.length){
             vagaSel.innerHTML = '<option value="">Selecione uma vaga ativa…</option>' +
@@ -2085,7 +2085,7 @@ async function _buscarHashEsperadoCargo(){
   try{
     const res = await fetch(
       `${SUPABASE_URL}/rest/v1/configuracoes_aderencia?vaga_key=eq._sistema&select=pesos`,
-      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Range':'0-9999'}}
     );
     if(!res.ok) return null;
     const rows = await res.json();
