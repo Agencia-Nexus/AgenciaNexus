@@ -758,7 +758,7 @@ async function atualizarSitemap(cfg, slugNovo, dataHoje, remover=false){
       xmlAtual = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${BASE_URL}/vagas.html</loc>\n    <lastmod>${dataHoje}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>`;
     }
 
-    const novaUrl = `${BASE_URL}/${slugNovo}.html`;
+    const novaUrl = `${BASE_URL}/minivagas/${slugNovo}.html`;
 
     if(remover){
       // Remove a entrada do slug excluído
@@ -1071,7 +1071,7 @@ async function publicarVaga(){
     await ghEnsureOgImage(cfg);
     const desc=`Vaga aberta: ${_vagaObj.titulo}. Candidate-se pela Agência Nexus – Guaíba/RS.`;
     const miniHTML=gerarMiniHTML(_vagaObj, _slugAtual, desc);
-    await ghSalvar(cfg,`${_slugAtual}.html`,miniHTML,`🔗 OG: ${_vagaObj.titulo}`);
+    await ghSalvar(cfg,`minivagas/${_slugAtual}.html`,miniHTML,`🔗 OG: ${_vagaObj.titulo}`);
     step(`✅ [4/4] ${_slugAtual}.html criado — Open Graph pronto`,'ok');
 
     // Atualiza sitemap.xml automaticamente
@@ -1269,7 +1269,7 @@ async function confirmarEdit(){
     // Recria página OG
     const desc=`Vaga aberta: ${vagaCompleta.titulo}. Candidate-se pela Agência Nexus – Guaíba/RS.`;
     const miniHTML=gerarMiniHTML(vagaCompleta, slug, desc);
-    await ghSalvar(cfg,`${slug}.html`,miniHTML,`🔗 OG: ${vagaCompleta.titulo}`);
+    await ghSalvar(cfg,`minivagas/${slug}.html`,miniHTML,`🔗 OG: ${vagaCompleta.titulo}`);
 
     step('✅ [3/3] GitHub atualizado!','ok');
     toast('✅ Vaga editada e publicada!');carregarVagas();fecharEdit();
@@ -1437,7 +1437,7 @@ function gerarMiniHTML(v, slug, desc){
       "name": "Agência Nexus",
       "value": slug
     },
-    "url": BASE+'/'+slug+'.html',
+    "url": BASE+'/minivagas/'+slug+'.html',
 
     // Salário
     ...(salarioNum && !isNaN(salarioNum) ? {
@@ -1499,7 +1499,7 @@ function gerarMiniHTML(v, slug, desc){
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="${t} | Agência Nexus"/>
 <meta property="og:description" content="${esc(desc)}"/>
-<meta property="og:url" content="${BASE}/${slug}.html"/>
+<meta property="og:url" content="${BASE}/minivagas/${slug}.html"/>
 <meta property="og:image" content="https://raw.githubusercontent.com/agencianexus/agencianexus/main/og-image-vagas.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
@@ -1509,7 +1509,7 @@ function gerarMiniHTML(v, slug, desc){
 <meta name="twitter:title" content="${t} | Agência Nexus"/>
 <meta name="twitter:description" content="${esc(desc)}"/>
 <meta name="twitter:image" content="https://raw.githubusercontent.com/agencianexus/agencianexus/main/og-image-vagas.png"/>
-<link rel="canonical" href="${BASE}/${slug}.html"/>
+<link rel="canonical" href="${BASE}/minivagas/${slug}.html"/>
 <meta name="author" content="Agência Nexus"/>
 <meta name="publisher" content="Agência Nexus"/>
 <meta name="google-site-verification" content="cME95dO5Qo9L863yOQL-rCcxJRPLwxYhLvh3Ht1rI-I"/>
@@ -1734,7 +1734,7 @@ async function regenerarTodasMiniVagas(){
       try{
         const desc=`Vaga aberta: ${v.titulo||slug}. Candidate-se pela Agência Nexus – Guaíba/RS.`;
         const miniHTML=gerarMiniHTML(v,slug,desc);
-        await ghSalvar(cfg,`${slug}.html`,miniHTML,`♻️ JobPosting: ${v.titulo||slug}`);
+        await ghSalvar(cfg,`minivagas/${slug}.html`,miniHTML,`♻️ JobPosting: ${v.titulo||slug}`);
         log(`✅ ${esc(v.titulo||slug)} → ${slug}.html`,'ok');
         ok++;
         // Pequena pausa para não sobrecarregar a API do GitHub
