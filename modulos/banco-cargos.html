@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="../nexus-security.js"></script>
+
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Banco por Cargo | Agência Nexus ATS</title>
@@ -653,8 +653,8 @@ select.perfil-inp option{background:#1e1e1e;color:#f0f0f0;}
 
 <script>
 // ═══ SUPABASE — via módulo de segurança ═══
-const SUPABASE_URL = NexusSec._url;
-const SUPABASE_KEY = NexusSec._key;
+const SUPABASE_URL = "https://yunoxkembhskpnprffoi.supabase.co";
+const SUPABASE_KEY = "sb_publishable_fTW4FWKGvZsNe1o8DR4EOg_EhZ7uHTq";
 const PIPE_KEY     = 'nexus_pipeline_v1';
 const CARGOS_KEY   = 'nexus_cargos_v1';
 const ASSIGN_KEY   = 'nexus_cargos_assign_v1';
@@ -707,12 +707,7 @@ function mascaraTelCargo(input){
 /* ═══ SUPABASE HELPERS ═══ */
 async function sbGet(table, filter=''){
   const url = `${SUPABASE_URL}/rest/v1/${table}?select=*${filter}&order=criado_em.asc`;
-  const res = await fetch(url,{headers:{
-    'apikey':SUPABASE_KEY,
-    'Authorization':'Bearer '+SUPABASE_KEY,
-    'Range':'0-9999',
-    'Prefer':'count=none'
-  }});
+  const res = await fetch(url,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Range':'0-9999'}});
   if(!res.ok){ const txt = await res.text(); throw new Error('sbGet '+table+' HTTP '+res.status+': '+txt); }
   return res.json();
 }
