@@ -1283,7 +1283,6 @@ function atualizarStatsCands(hist){
   // Mostra apenas candidatos da Entrada (não movidos para outras etapas)
   const soEntrada = hist.filter(h=>!_idsEmEntrevistados.has(String(h.id)) && !_idsEmAreas.has(String(h.id)) && !_idsEmPendencias.has(String(h.id)) && !_idsEmInbox.has(String(h.id)));
   if(s('csTotal')) s('csTotal').textContent = soEntrada.length;
-  try{ window.parent.postMessage({tipo:'nexus_badge_talentos', count: soEntrada.length},'*'); }catch(e){}
   if(s('csFit'))   s('csFit').textContent   = comFit;
   if(s('csD'))     s('csD').textContent     = p.D||0;
   if(s('csI'))     s('csI').textContent     = p.I||0;
@@ -1341,6 +1340,7 @@ function filtrarCands(){
   else if(statusF) lista = lista.filter(h=>h.status_contato===statusF);
   const c = document.getElementById('cCount');
   if(c) c.textContent = lista.length + ' resultado' + (lista.length!==1?'s':'');
+  try{ window.parent.postMessage({tipo:'nexus_badge_talentos', count: lista.length},'*'); }catch(e){}
   _dupIdsCache = new Set(detectarDuplicatas().flatMap(g=>g.map(x=>x.cand?.id||x.id)));
   _multiCache  = detectarMulticandidatos();
   const wrap = document.getElementById('candsListWrap');
