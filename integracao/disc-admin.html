@@ -3132,6 +3132,13 @@ window.addEventListener('message', e => {
   if(!e.data || typeof e.data !== 'object') return;
   const {tipo} = e.data;
   if(tipo === 'nexus_badge_update') carregarKPIs();
+  if(tipo === 'nexus_badge_talentos'){
+    const n = e.data.count;
+    const bt = document.getElementById('badge-talentos');
+    const mb = document.getElementById('mb-badge-talentos');
+    if(bt) bt.textContent = n;
+    if(mb) mb.textContent = n;
+  }
   if(tipo === 'nexus_logout')     fazerLogout();
   if(tipo === 'nexus_navegar'){
     const navEl = document.querySelector(`[data-mod="${e.data.mod}"]`);
