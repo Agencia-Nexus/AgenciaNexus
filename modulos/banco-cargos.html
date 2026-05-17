@@ -707,7 +707,12 @@ function mascaraTelCargo(input){
 /* ═══ SUPABASE HELPERS ═══ */
 async function sbGet(table, filter=''){
   const url = `${SUPABASE_URL}/rest/v1/${table}?select=*${filter}&order=criado_em.asc`;
-  const res = await fetch(url,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+  const res = await fetch(url,{headers:{
+    'apikey':SUPABASE_KEY,
+    'Authorization':'Bearer '+SUPABASE_KEY,
+    'Range':'0-9999',
+    'Prefer':'count=none'
+  }});
   if(!res.ok){ const txt = await res.text(); throw new Error('sbGet '+table+' HTTP '+res.status+': '+txt); }
   return res.json();
 }
