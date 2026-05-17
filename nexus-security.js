@@ -177,7 +177,7 @@
    * ───────────────────────────────────────────────────────────────── */
   async function sbGet(table, filter = '') {
     const url = `${_u}/rest/v1/${table}?select=*${filter}&order=criado_em.asc`;
-    const res = await fetch(url, { headers: { 'apikey': _k, 'Authorization': 'Bearer ' + _k } });
+    const res = await fetch(url, { headers: { 'apikey': _k, 'Authorization': 'Bearer ' + _k, 'Range': '0-9999', 'Prefer': 'count=none' } });
     if (!res.ok) { const txt = await res.text(); throw new Error('sbGet ' + table + ' HTTP ' + res.status + ': ' + txt); }
     return res.json();
   }
