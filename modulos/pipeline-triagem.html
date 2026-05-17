@@ -3,13 +3,13 @@
 <head>
 <script src="../guard.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Triagem | Nexus</title>
+<title>Triagem | Agência Nexus ATS</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --green:#3b82f6;--green-d:#1e40af;--green-glow:rgba(59,130,246,0.15);
+  --green:#3b82f6;--green-d:#1a3a6b;--green-glow:rgba(59,130,246,0.15);
   --bg:#070709;--surface:#0e0f11;--surface2:#141518;--surface3:#1a1b1f;
-  --border:rgba(255,255,255,0.06);--border-a:rgba(141,198,63,0.2);
+  --border:rgba(255,255,255,0.06);--border-a:rgba(59,130,246,0.2);
   --text:#eeeef0;--text-2:#8a8b91;--text-3:#4a4b52;
   --D:#e05252;--I:#e8943a;--S:#4fc87a;--C:#4fa8e8;
   --triagem:#4fa8e8;--pre:#a78bfa;--entrevista:#e8943a;
@@ -90,11 +90,11 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
 .board-scroll{
   flex:1;overflow-x:auto;overflow-y:hidden;
   padding:16px 20px 20px;
-  scrollbar-width:thin;scrollbar-color:rgba(141,198,63,0.25) rgba(255,255,255,0.01);
+  scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.25) rgba(255,255,255,0.01);
 }
 .board-scroll::-webkit-scrollbar{height:5px;}
 .board-scroll::-webkit-scrollbar-track{background:rgba(255,255,255,0.01);}
-.board-scroll::-webkit-scrollbar-thumb{background:rgba(141,198,63,0.25);border-radius:99px;}
+.board-scroll::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.25);border-radius:99px;}
 .pipe-cols{display:flex;gap:10px;height:100%;min-width:max-content;}
 
 /* COLUNA — mais larga já que não há sidebar */
@@ -105,7 +105,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
   border-radius:var(--radius);border:1px solid var(--border);
   background:var(--surface);transition:border-color 0.15s, background 0.15s;overflow:hidden;
 }
-.pipe-col.drag-over{background:rgba(141,198,63,0.04);border-color:var(--border-a);}
+.pipe-col.drag-over{background:rgba(59,130,246,0.04);border-color:var(--border-a);}
 .col-head{padding:11px 13px 9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;position:relative;}
 .col-head::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--radius) var(--radius) 0 0;}
 .col-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
@@ -119,7 +119,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
 
 /* CARD */
 .pipe-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 9px;cursor:grab;transition:border-color 0.13s, box-shadow 0.13s, transform 0.13s;position:relative;}
-.pipe-card:hover{border-color:rgba(141,198,63,0.25);box-shadow:0 4px 16px rgba(0,0,0,0.35);transform:translateY(-1px);}
+.pipe-card:hover{border-color:rgba(59,130,246,0.25);box-shadow:0 4px 16px rgba(0,0,0,0.35);transform:translateY(-1px);}
 .pipe-card:active{cursor:grabbing;}
 .pipe-card.dragging{opacity:0.3;transform:scale(0.97);}
 .card-top{display:flex;align-items:flex-start;gap:6px;margin-bottom:4px;}
@@ -212,6 +212,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
       <button class="btn btn-ghost" id="btnCSV" onclick="exportCSV()">↓ CSV</button>
       <button class="btn btn-danger" id="btnNeg" onclick="abrirNegativaAtiva()">Negativas</button>
       <button class="btn btn-ghost" onclick="abrirNC()">+ Adicionar</button>
+      <button class="btn" onclick="ativarModoMassaPipe()" style="background:rgba(59,130,246,0.12);color:#3b82f6;border:1px solid rgba(59,130,246,0.35);font-weight:700;" title="Mover candidatos em massa para outra etapa">☑️ Mover em Massa</button>
       <button class="btn btn-primary" onclick="navegar('banco-talentos')">Candidatos</button>
     </div>
   </div>
@@ -256,25 +257,49 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
   </div>
 </div>
 
-<!-- MODAL: NOVA CANDIDATURA -->
-<div class="overlay" id="overlayNC">
-  <div class="modal">
-    <button class="modal-close" onclick="fecharNC()">✕</button>
-    <div class="modal-h">Adicionar ao Pipeline</div>
-    <div class="modal-sub">Selecione candidato, vaga e etapa inicial</div>
-    <label class="f-label">Candidato</label>
-    <select class="f-sel" id="ncCand"></select>
-    <label class="f-label">Vaga</label>
-    <select class="f-sel" id="ncVaga"></select>
-    <label class="f-label">Etapa inicial</label>
-    <select class="f-sel" id="ncEtapa">
-      <option value="triagem">Triagem</option>
-      <option value="pre">Pré-seleção</option>
-      <option value="entrevista">Entrevista</option>
-      <option value="finalista">Finalista</option>
-      <option value="aprovado">Aprovado</option>
-    </select>
-    <button class="modal-btn" onclick="confirmarNC()">Adicionar ao Pipeline</button>
+<!-- MODAL: NOVA CANDIDATURA (multi-select) -->
+<div class="overlay" id="overlayNC" style="align-items:center;justify-content:center;">
+  <div class="modal" style="max-width:500px;padding:0;overflow:hidden;max-height:92vh;display:flex;flex-direction:column;">
+    <!-- Header compacto -->
+    <div style="padding:14px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;">
+      <div style="font-size:13px;font-weight:800;">➕ Adicionar ao Pipeline</div>
+      <button class="modal-close" onclick="fecharNC()">✕</button>
+    </div>
+    <!-- Vaga + Etapa em cima -->
+    <div style="padding:10px 16px 8px;display:flex;gap:8px;border-bottom:1px solid var(--border);flex-shrink:0;">
+      <div style="flex:1;">
+        <label class="f-label" style="font-size:10px;margin-bottom:3px;">Vaga</label>
+        <select class="f-sel" id="ncVaga" style="margin-bottom:0;font-size:11.5px;padding:6px 10px;" onchange="ncFiltrar()"></select>
+        <label style="display:flex;align-items:center;gap:5px;margin-top:5px;cursor:pointer;user-select:none;">
+          <input type="checkbox" id="ncFiltroVaga" onchange="ncFiltrar()" style="accent-color:#3b82f6;cursor:pointer;" checked/>
+          <span style="font-size:10.5px;color:var(--text-2);">Só candidatos desta vaga</span>
+        </label>
+      </div>
+      <div style="flex:0 0 130px;">
+        <label class="f-label" style="font-size:10px;margin-bottom:3px;">Etapa inicial</label>
+        <select class="f-sel" id="ncEtapa" style="margin-bottom:0;font-size:11.5px;padding:6px 10px;">
+          <option value="triagem">Triagem</option>
+          <option value="pre">Pré-seleção</option>
+          <option value="entrevista">Entrevista</option>
+          <option value="finalista">Finalista</option>
+          <option value="aprovado">Aprovado</option>
+        </select>
+      </div>
+    </div>
+    <!-- Busca + controles -->
+    <div style="padding:8px 16px 0;display:flex;gap:6px;align-items:center;flex-shrink:0;">
+      <input id="ncBusca" type="search" placeholder="🔍 Buscar candidato…" oninput="ncFiltrar()"
+        style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:11.5px;outline:none;"/>
+      <button onclick="ncSelecionarTodos()" style="font-family:inherit;font-size:10.5px;font-weight:700;background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);border-radius:6px;padding:5px 9px;cursor:pointer;white-space:nowrap;">☑ Todos</button>
+      <button onclick="ncDesmarcarTodos()" style="font-family:inherit;font-size:10.5px;font-weight:700;background:rgba(255,255,255,0.04);color:var(--text-2);border:1px solid var(--border);border-radius:6px;padding:5px 9px;cursor:pointer;white-space:nowrap;">☐ Nenhum</button>
+    </div>
+    <!-- Lista candidatos -->
+    <div id="ncLista" style="flex:1;overflow-y:auto;padding:6px 16px 4px;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.2) transparent;min-height:0;"></div>
+    <!-- Rodapé: contador + botão -->
+    <div style="padding:8px 16px 12px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;">
+      <div id="ncContador" style="flex:1;font-size:11.5px;color:var(--text-2);"></div>
+      <button class="modal-btn" onclick="confirmarNC()" style="margin-top:0;width:auto;padding:9px 20px;font-size:12px;">✅ Adicionar</button>
+    </div>
   </div>
 </div>
 
@@ -317,7 +342,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
       <span style="font-size:0.75rem;color:var(--text-3);">O cadastro do candidato será mantido para futuras oportunidades.</span>
     </div>
     <div style="display:flex;gap:0.6rem;">
-      <button onclick="confirmarDevolver()" style="flex:2;background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(141,198,63,0.35);border-radius:10px;padding:0.7rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">🏦 Devolver ao Banco</button>
+      <button onclick="confirmarDevolver()" style="flex:2;background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.35);border-radius:10px;padding:0.7rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">🏦 Devolver ao Banco</button>
       <button onclick="fecharDB()" style="flex:1;background:rgba(255,255,255,0.05);color:var(--text-2);border:1px solid var(--border);border-radius:10px;padding:0.7rem;font-family:inherit;font-size:0.85rem;cursor:pointer;">Cancelar</button>
     </div>
   </div>
@@ -467,6 +492,25 @@ async function deleteEntry(vagaSlug,candId){
 }
 
 // ── INIT ──
+let _idsEmCategorias = new Set(); // IDs em Áreas, Entrevistados, Pendências, Inbox
+
+async function carregarCategorias(){
+  try{
+    const h = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY};
+    const [r1,r2,r3] = await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/areas_assign?select=cand_id`,{headers:h}),
+      fetch(`${SUPABASE_URL}/rest/v1/inbox_assign?select=cand_id`,{headers:h}),
+      fetch(`${SUPABASE_URL}/rest/v1/cargos_assign?select=cand_id`,{headers:h}),
+    ]);
+    const [a1,a2,a3] = await Promise.all([r1.json(),r2.json(),r3.json()]);
+    _idsEmCategorias = new Set([
+      ...(Array.isArray(a1)?a1:[]).map(r=>String(r.cand_id)),
+      ...(Array.isArray(a2)?a2:[]).map(r=>String(r.cand_id)),
+      ...(Array.isArray(a3)?a3:[]).map(r=>String(r.cand_id)),
+    ]);
+  }catch(e){ _idsEmCategorias = new Set(); }
+}
+
 async function init(){
   const params=new URLSearchParams(window.location.search);
   const vagaParam=params.get('vaga');
@@ -480,6 +524,7 @@ async function init(){
     _vagas=await r2.json(); if(!Array.isArray(_vagas)) _vagas=[];
   }catch(e){_cands=[];_vagas=[];}
   await loadPipe();
+  await carregarCategorias();
   popularSelects();
 
   document.getElementById('stateLoad').style.display='none';
@@ -606,7 +651,7 @@ function renderCard(h,vagaSlug,etapaId,rank,total){
   const parecerUrl=`../disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}`;
   const parecerPdfUrl=`../disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}&acao=pdf`;
   acts+=`<button class="act" onclick="abrirPerfilModal('${id}')" style="background:rgba(167,139,250,0.1);color:#a78bfa;border-color:rgba(167,139,250,0.22);">👤 Perfil</button>`;
-  acts+=`<button class="act" onclick="window.top.open('${esc(parecerUrl)}','_blank')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(141,198,63,0.3);">📋 Parecer</button>`;
+  acts+=`<button class="act" onclick="window.top.open('${esc(parecerUrl)}','_blank')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);">📋 Parecer</button>`;
   if(h.parecer_final_link){
     acts+=`<button class="act" onclick="abrirParecerComSenha('${esc(h.parecer_final_link)}')" style="background:linear-gradient(135deg,rgba(167,139,250,0.18),rgba(139,92,246,0.28));color:#c4b5fd;border-color:rgba(167,139,250,0.45);" title="Parecer Final do Candidato (protegido por senha)">📑 Parecer Final</button>`;
   }
@@ -614,15 +659,20 @@ function renderCard(h,vagaSlug,etapaId,rank,total){
   if(h.curriculo_url) acts+=`<button class="act" onclick="window.top.open('${esc(h.curriculo_url)}','_blank')" style="background:rgba(79,168,232,0.08);color:#4fa8e8;border-color:rgba(79,168,232,0.2);">CV</button>`;
   if(h.tel_externo){const n=h.tel_externo.replace(/\D/g,'');acts+=`<button class="act" onclick="window.top.open('https://wa.me/55${n}','_blank')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.22);">WhatsApp</button>`;}
   if(h.email_externo){const gm='https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(h.email_externo);acts+=`<button class="act" onclick="window.top.open('${gm}','_blank')" style="background:rgba(79,168,232,0.08);color:#4fa8e8;border-color:rgba(79,168,232,0.2);">E-mail</button>`;}
-  acts+=`<button class="act" onclick="window.parent.postMessage({tipo:'nexus_navegar',mod:'perfil-candidatos',abrirPerfil:'${id}'},'*')" style="background:rgba(141,198,63,0.08);color:#3b82f6;border-color:rgba(141,198,63,0.22);">🏦 Banco</button>`;
+  acts+=`<button class="act" onclick="window.parent.postMessage({tipo:'nexus_navegar',mod:'perfil-candidatos',abrirPerfil:'${id}'},'*')" style="background:rgba(59,130,246,0.08);color:#3b82f6;border-color:rgba(59,130,246,0.22);">🏦 Banco</button>`;
   acts+=`<button class="act" onclick="remover('${esc(vagaSlug)}','${id}')" style="background:rgba(224,82,82,0.08);color:#e05252;border-color:rgba(224,82,82,0.22);">🗑️ Remover</button>`;
   const moveBtns=ETAPAS.filter(e=>e.id!==etapaId).map(e=>
     `<button class="mv" onclick="mover('${esc(vagaSlug)}','${id}','${e.id}')" style="color:${ETAPA_COR_HEX[e.id]};border-color:${ETAPA_COR_HEX[e.id]}30;">→ ${e.label.slice(0,6)}</button>`
   ).join('');
   const _fitAttr=fit!=null?fit:(fitDisc_!=null?fitDisc_:-1);
-  return `<div class="pipe-card" draggable="true" data-id="${id}" data-fit="${_fitAttr}"
-      ondragstart="dragStart(event,'${id}','${esc(vagaSlug)}')"
-      ondragend="dragEnd(event)">
+  const _isSel = _pipeMassaAtivo && _pipeMassaSel.has(id);
+  const _massaCheck = _pipeMassaAtivo ? `<div style="position:absolute;top:6px;left:6px;width:20px;height:20px;border-radius:5px;border:2px solid ${_isSel?'#3b82f6':'rgba(255,255,255,0.2)'};background:${_isSel?'rgba(59,130,246,0.3)':'rgba(0,0,0,0.3)'};display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:#3b82f6;pointer-events:none;">${_isSel?'✓':''}</div>` : '';
+  return `<div class="pipe-card" id="pipeCard_${id}" draggable="${!_pipeMassaAtivo}" data-id="${id}" data-fit="${_fitAttr}"
+      ondragstart="${_pipeMassaAtivo?'':` dragStart(event,'${id}','${esc(vagaSlug)}')`}"
+      ondragend="${_pipeMassaAtivo?'':'dragEnd(event)'}"
+      onclick="${_pipeMassaAtivo?`toggleMassaCandPipe('${id}')`:''}"
+      style="position:relative;${_pipeMassaAtivo?'cursor:pointer;':''} ${_isSel?'border-color:rgba(59,130,246,0.7)!important;background:rgba(59,130,246,0.06)!important;':''}">
+    ${_massaCheck}
     ${rankBadge}
     <div class="card-top">
       <div class="card-disc" style="background:${cor}18;color:${cor};">${discLabel}</div>
@@ -630,11 +680,10 @@ function renderCard(h,vagaSlug,etapaId,rank,total){
         <div class="card-name" title="${esc(h.nome||'—')}" style="padding-right:${total>1&&rank<=3?'22px':'0'};">${esc(h.nome||'—')}</div>
         <div class="card-sub">${esc((h.vaga||'').slice(0,36))}</div>
       </div>
-      <button class="card-del" onclick="remover('${esc(vagaSlug)}','${id}')" title="Remover">✕</button>
+      <button class="card-del" onclick="event.stopPropagation();remover('${esc(vagaSlug)}','${id}')" title="Remover">✕</button>
     </div>
     ${scoresHtml}
-    <div class="card-actions">${acts}</div>
-    <div class="card-move">${moveBtns}</div>
+    ${_pipeMassaAtivo ? '' : `<div class="card-actions">${acts}</div><div class="card-move">${moveBtns}</div>`}
   </div>`;
 }
 
@@ -689,24 +738,96 @@ function confirmarRemover(){
 }
 function fecharRM(){document.getElementById('overlayRM').classList.remove('show');}
 
-// ── MODAL NOVA CANDIDATURA ──
+// ── MODAL NOVA CANDIDATURA (multi-select) ──
+let _ncSelecionados = new Set();
+let _ncFiltrados = [];
+
 function popularSelects(){
   document.getElementById('ncVaga').innerHTML='<option value="">Selecione a vaga</option>'+_vagas.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo)}</option>`).join('');
   if(_vagaAtiva) document.getElementById('ncVaga').value=_vagaAtiva;
-  document.getElementById('ncCand').innerHTML='<option value="">Selecione o candidato</option>'+_cands.map(h=>`<option value="${h.id}">${esc(h.nome||'—')} — ${esc(h.vaga||'')}</option>`).join('');
 }
-function abrirNC(){popularSelects();if(_vagaAtiva){document.getElementById('ncVaga').value=_vagaAtiva;}document.getElementById('overlayNC').classList.add('show');}
+
+function ncRenderLista(){
+  const lista = document.getElementById('ncLista');
+  if(!_ncFiltrados.length){
+    lista.innerHTML='<div style="text-align:center;padding:1.5rem;color:var(--text-3);font-size:12px;">Nenhum candidato encontrado</div>';
+    ncAtualizarContador(); return;
+  }
+  lista.innerHTML = _ncFiltrados.map(h=>{
+    const sel = _ncSelecionados.has(String(h.id));
+    const disc = h.dom ? `<span style="font-size:10px;font-weight:700;color:var(--${h.dom.toLowerCase()},#3b82f6);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:99px;padding:1px 7px;">${esc(h.dom)}</span>` : '';
+    return `<div onclick="ncToggle('${String(h.id).replace(/'/g,"\\'")}',this)"
+      style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;cursor:pointer;border:1px solid ${sel?'rgba(59,130,246,0.5)':'transparent'};background:${sel?'rgba(59,130,246,0.08)':'transparent'};margin-bottom:4px;transition:all 0.13s;">
+      <div style="width:20px;height:20px;border-radius:5px;border:2px solid ${sel?'#3b82f6':'rgba(255,255,255,0.18)'};background:${sel?'rgba(59,130,246,0.25)':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#3b82f6;font-weight:900;">${sel?'✓':''}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(h.nome||'—')}</div>
+        <div style="font-size:10.5px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(h.vaga||'')}</div>
+      </div>
+      ${disc}
+    </div>`;
+  }).join('');
+  ncAtualizarContador();
+}
+
+function ncToggle(id, el){
+  if(_ncSelecionados.has(id)) _ncSelecionados.delete(id);
+  else _ncSelecionados.add(id);
+  ncRenderLista();
+}
+
+function ncFiltrar(){
+  const q = (document.getElementById('ncBusca').value||'').toLowerCase();
+  const vagaSel = document.getElementById('ncVaga').value;
+  const soEstaVaga = document.getElementById('ncFiltroVaga') && document.getElementById('ncFiltroVaga').checked;
+  const vagaTitulo = (soEstaVaga && vagaSel) ? ((_vagas.find(v=>v.slug===vagaSel)||{}).titulo||'').toLowerCase() : '';
+  // Exclui candidatos já no pipeline
+  // Exclui candidatos em Banco de Áreas, Caixa de Entrada ou Banco de Cargos
+  _ncFiltrados = _cands.filter(h=>{
+    if(_idsEmCategorias.has(String(h.id))) return false;
+    const nomeOk = !q || (h.nome||'').toLowerCase().includes(q) || (h.vaga||'').toLowerCase().includes(q);
+    const vagaOk = !vagaTitulo || (h.vaga||'').toLowerCase().includes(vagaTitulo);
+    return nomeOk && vagaOk;
+  });
+  ncRenderLista();
+}
+
+function ncSelecionarTodos(){
+  _ncFiltrados.forEach(h=>_ncSelecionados.add(String(h.id)));
+  ncRenderLista();
+}
+
+function ncDesmarcarTodos(){
+  _ncSelecionados.clear();
+  ncRenderLista();
+}
+
+function ncAtualizarContador(){
+  const el = document.getElementById('ncContador');
+  const n = _ncSelecionados.size;
+  el.textContent = n ? `${n} candidato${n>1?'s':''} selecionado${n>1?'s':''}` : 'Nenhum candidato selecionado';
+  el.style.color = n ? '#3b82f6' : 'var(--text-2)';
+}
+
+function abrirNC(){
+  _ncSelecionados.clear();
+  popularSelects();
+  document.getElementById('ncBusca').value='';
+  ncFiltrar();
+  document.getElementById('overlayNC').classList.add('show');
+}
+
 function fecharNC(){document.getElementById('overlayNC').classList.remove('show');}
-function confirmarNC(){
-  const candId=document.getElementById('ncCand').value;
+
+async function confirmarNC(){
   const vagaSlug=document.getElementById('ncVaga').value;
   const etapa=document.getElementById('ncEtapa').value;
-  if(!candId||!vagaSlug){toast('Selecione candidato e vaga',true);return;}
-  saveEntry(vagaSlug,candId,etapa);
+  if(!_ncSelecionados.size){toast('Selecione ao menos um candidato',true);return;}
+  if(!vagaSlug){toast('Selecione a vaga',true);return;}
+  const ids = [..._ncSelecionados];
+  ids.forEach(id=>saveEntry(vagaSlug,id,etapa));
   if(_vagaAtiva===vagaSlug) renderBoard();
   fecharNC();
-  const h=_cands.find(x=>String(x.id)===candId);
-  toast(`${h?.nome||'Candidato'} adicionado!`);
+  toast(`✅ ${ids.length} candidato${ids.length>1?'s':''} adicionado${ids.length>1?'s':''}!`);
 }
 
 // ── CSV ──
@@ -901,6 +1022,102 @@ function fecharSenhaPF(){
   document.getElementById('modalSenhaPF').style.display = 'none';
 }
 
+// ═══ MOVER EM MASSA (Pipeline) ═══
+let _pipeMassaSel = new Set();
+let _pipeMassaAtivo = false;
+
+function ativarModoMassaPipe(){
+  _pipeMassaAtivo = true;
+  _pipeMassaSel = new Set();
+  document.getElementById('barraMassaPipe').style.display = 'flex';
+  renderBoard();
+  toast('☑️ Modo seleção — clique nos cards para selecionar');
+}
+
+function desativarModoMassaPipe(){
+  _pipeMassaAtivo = false;
+  _pipeMassaSel = new Set();
+  document.getElementById('barraMassaPipe').style.display = 'none';
+  renderBoard();
+}
+
+function toggleMassaCandPipe(id){
+  if(!_pipeMassaAtivo) return;
+  if(_pipeMassaSel.has(String(id))) _pipeMassaSel.delete(String(id));
+  else _pipeMassaSel.add(String(id));
+  _atualizarBarraMassaPipe();
+  const el = document.getElementById('pipeCard_'+id);
+  if(el){
+    const sel = _pipeMassaSel.has(String(id));
+    el.style.borderColor = sel ? 'rgba(59,130,246,0.7)' : '';
+    el.style.background  = sel ? 'rgba(59,130,246,0.07)' : '';
+  }
+}
+
+function pipeMassaSelecionarTodos(){
+  document.querySelectorAll('[id^="pipeCard_"]').forEach(el=>{
+    const id = el.id.replace('pipeCard_','');
+    _pipeMassaSel.add(id);
+    el.style.borderColor='rgba(59,130,246,0.7)';
+    el.style.background='rgba(59,130,246,0.07)';
+  });
+  _atualizarBarraMassaPipe();
+}
+
+function pipeMassaDesmarcarTodos(){
+  _pipeMassaSel.clear();
+  document.querySelectorAll('[id^="pipeCard_"]').forEach(el=>{ el.style.borderColor=''; el.style.background=''; });
+  _atualizarBarraMassaPipe();
+}
+
+function _atualizarBarraMassaPipe(){
+  const n = _pipeMassaSel.size;
+  const el = document.getElementById('pipeMassaContador');
+  if(el) el.textContent = n>0 ? `${n} selecionado${n!==1?'s':''}` : 'Nenhum selecionado';
+  const btn = document.getElementById('pipeMassaMoverBtn');
+  if(btn){ btn.disabled=n===0; btn.style.opacity=n===0?'0.4':'1'; }
+}
+
+function abrirModalMoverMassaPipe(){
+  if(!_pipeMassaSel.size){ toast('Selecione ao menos um candidato',true); return; }
+  document.getElementById('pipeMassaQtd').textContent = _pipeMassaSel.size;
+  document.getElementById('modalMoverMassaPipe').style.display='flex';
+}
+
+function fecharModalMoverMassaPipe(){
+  document.getElementById('modalMoverMassaPipe').style.display='none';
+}
+
+async function confirmarMoverMassaPipe(){
+  if(!_vagaAtiva){ toast('Nenhuma vaga ativa',true); return; }
+  const etapa = document.getElementById('pipeMassaEtapaSel').value || 'triagem';
+  const btn = document.getElementById('pipeMassaConfirmarBtn');
+  btn.disabled=true; btn.textContent='⏳ Movendo…';
+  const ids = [..._pipeMassaSel];
+  let ok=0, err=0;
+  const progEl = document.getElementById('pipeMassaProgresso');
+  for(const id of ids){
+    try{
+      const entry = (_pipe[_vagaAtiva]||{})[id]||{};
+      const fitScore = entry.fit_score||0;
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/pipeline?vaga_slug=eq.${encodeURIComponent(_vagaAtiva)}&candidato_id=eq.${encodeURIComponent(id)}`,{
+        method:'PATCH',
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+        body:JSON.stringify({etapa, atualizado_em:new Date().toISOString()})
+      });
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      if(_pipe[_vagaAtiva]) _pipe[_vagaAtiva][id] = {...(_pipe[_vagaAtiva][id]||{}), etapa};
+      ok++;
+    }catch(e){ err++; }
+    if(progEl) progEl.textContent = `${ok+err}/${ids.length}…`;
+  }
+  try{ localStorage.setItem(PIPE_KEY,JSON.stringify(_pipe)); }catch(e){}
+  window.parent.postMessage({tipo:'nexus_kpi'},'*');
+  toast(`✅ ${ok} candidato${ok!==1?'s':''} → ${etapa}${err>0?' · '+err+' erro(s)':''}`);
+  fecharModalMoverMassaPipe();
+  desativarModoMassaPipe();
+}
+
 async function abrirPerfilModal(id){
   document.getElementById('perfilOverlay').style.display = 'flex';
   document.getElementById('perfilConteudo').innerHTML = '<div style="text-align:center;padding:40px;color:#666;">Carregando...</div>';
@@ -931,7 +1148,7 @@ async function abrirPerfilModal(id){
         <div style="background:#141518;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.5px;">Fit Score</div><div style="font-size:13px;font-weight:700;color:${cor};margin-top:3px;">${fit}</div></div>
         <div style="background:#141518;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.5px;">Data</div><div style="font-size:13px;margin-top:3px;">${c.data||'—'}</div></div>
       </div>
-      ${c.parecer_final_link ? `<a href="${c.parecer_final_link}" target="_blank" style="display:block;background:rgba(141,198,63,0.08);border:1px solid rgba(141,198,63,0.25);border-radius:8px;padding:10px 14px;color:#3b82f6;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:10px;">📋 Ver Parecer Final</a>` : ''}
+      ${c.parecer_final_link ? `<a href="${c.parecer_final_link}" target="_blank" style="display:block;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:8px;padding:10px 14px;color:#3b82f6;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:10px;">📋 Ver Parecer Final</a>` : ''}
       ${c.curriculo_url ? `<a href="${c.curriculo_url}" target="_blank" style="display:block;background:rgba(79,168,232,0.08);border:1px solid rgba(79,168,232,0.25);border-radius:8px;padding:10px 14px;color:#4fa8e8;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:10px;">📄 Ver Currículo</a>` : ''}
       ${c.url ? `<a href="${c.url}" target="_blank" style="display:block;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.25);border-radius:8px;padding:10px 14px;color:#a78bfa;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:10px;">🧠 Ver Resultado DISC</a>` : ''}
       ${email!='—' ? `<a href="https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}" target="_blank" style="display:block;background:rgba(232,148,58,0.08);border:1px solid rgba(232,148,58,0.25);border-radius:8px;padding:10px 14px;color:#e8943a;font-size:13px;font-weight:700;text-decoration:none;">✉️ Enviar E-mail</a>` : ''}
@@ -945,6 +1162,45 @@ function fecharPerfilModal(){
 }
 </script>
 
+
+<!-- BARRA FLUTUANTE MOVER EM MASSA PIPE -->
+<div id="barraMassaPipe" style="display:none;position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(7,7,9,0.97);border:1px solid rgba(59,130,246,0.5);border-radius:14px;padding:0.65rem 1.1rem;box-shadow:0 8px 40px rgba(0,0,0,0.8);backdrop-filter:blur(16px);align-items:center;gap:0.8rem;flex-wrap:wrap;min-width:320px;max-width:94vw;font-family:'DM Sans',sans-serif;">
+  <div style="display:flex;align-items:center;gap:0.5rem;flex:1;">
+    <div style="width:8px;height:8px;border-radius:50%;background:#3b82f6;animation:_pulseInd 1s ease infinite;flex-shrink:0;"></div>
+    <span id="pipeMassaContador" style="font-size:0.8rem;font-weight:800;color:#3b82f6;">Nenhum selecionado</span>
+  </div>
+  <div style="display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;">
+    <button onclick="pipeMassaSelecionarTodos()" style="background:rgba(59,130,246,0.12);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);border-radius:7px;padding:0.32rem 0.65rem;font-family:inherit;font-size:0.7rem;font-weight:700;cursor:pointer;">☑️ Todos</button>
+    <button onclick="pipeMassaDesmarcarTodos()" style="background:rgba(255,255,255,0.06);color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:0.32rem 0.65rem;font-family:inherit;font-size:0.7rem;font-weight:700;cursor:pointer;">☐ Nenhum</button>
+    <button id="pipeMassaMoverBtn" onclick="abrirModalMoverMassaPipe()" disabled style="background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:8px;padding:0.38rem 0.9rem;font-family:inherit;font-size:0.76rem;font-weight:800;cursor:pointer;opacity:0.4;">🚀 Mover para Etapa</button>
+    <button onclick="desativarModoMassaPipe()" style="background:rgba(224,82,82,0.1);color:#e05252;border:1px solid rgba(224,82,82,0.25);border-radius:7px;padding:0.32rem 0.65rem;font-family:inherit;font-size:0.7rem;font-weight:700;cursor:pointer;">✕</button>
+  </div>
+</div>
+
+<!-- MODAL MOVER EM MASSA PIPE -->
+<div id="modalMoverMassaPipe" style="display:none;position:fixed;inset:0;z-index:10200;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharModalMoverMassaPipe()">
+  <div style="background:var(--surface);border:1px solid rgba(59,130,246,0.3);border-radius:18px;padding:1.6rem;width:100%;max-width:400px;position:relative;font-family:'DM Sans',sans-serif;">
+    <button onclick="fecharModalMoverMassaPipe()" style="position:absolute;top:1rem;right:1rem;background:var(--surface2);border:1px solid var(--border);border-radius:7px;width:28px;height:28px;cursor:pointer;color:var(--text-2);font-size:13px;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:0.3rem;">Mover em Massa</div>
+    <div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:0.2rem;">🚀 Mudar Etapa</div>
+    <p style="font-size:12px;color:var(--text-2);margin-bottom:1.2rem;">Movendo <strong id="pipeMassaQtd" style="color:var(--green);">0</strong> candidato(s) para nova etapa.</p>
+    <label class="f-label">Etapa de destino</label>
+    <select id="pipeMassaEtapaSel" class="f-sel" style="margin-bottom:1rem;">
+      <option value="triagem">🔵 Triagem</option>
+      <option value="pre">🟣 Pré-seleção</option>
+      <option value="entrevista">🟠 Entrevista</option>
+      <option value="finalista">🟢 Finalista</option>
+      <option value="aprovado">✅ Aprovado</option>
+      <option value="recusado">❌ Rec. Agência</option>
+      <option value="recusado_cliente">🔴 Rec. Cliente</option>
+    </select>
+    <div id="pipeMassaProgresso" style="font-size:11px;color:var(--text-3);margin-bottom:0.7rem;min-height:1rem;text-align:center;"></div>
+    <div style="display:flex;gap:0.5rem;">
+      <button id="pipeMassaConfirmarBtn" onclick="confirmarMoverMassaPipe()" class="modal-btn" style="flex:2;">✅ Confirmar</button>
+      <button onclick="fecharModalMoverMassaPipe()" style="flex:1;background:var(--surface2);color:var(--text-2);border:1px solid var(--border);border-radius:9px;padding:11px;font-family:inherit;font-size:12px;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL PERFIL -->
 <div id="perfilOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;align-items:center;justify-content:center;" onclick="if(event.target===this)fecharPerfilModal()">

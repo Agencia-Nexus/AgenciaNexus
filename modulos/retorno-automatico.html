@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retorno Automático | Nexus</title>
+<title>Retorno Automático | Agência Nexus ATS</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#3b82f6;--green-d:#1e40af;--green-glow:rgba(59,130,246,0.15);
+  --green:#3b82f6;--green-d:#1a3a6b;--green-glow:rgba(59,130,246,0.15);
   --bg:#070709;--surface:#0e0f11;--surface2:#141518;--surface3:#1a1b1f;
-  --border:rgba(255,255,255,0.06);--border-a:rgba(141,198,63,0.2);
+  --border:rgba(255,255,255,0.06);--border-a:rgba(59,130,246,0.2);
   --text:#eeeef0;--text-2:#8a8b91;--text-3:#4a4b52;
   --triagem:#4fa8e8;--pre:#a78bfa;--entrevista:#e8943a;
   --finalista:#4fc87a;--aprovado:#3b82f6;--recusado:#e05252;--recusado-cli:#c0392b;
@@ -39,7 +39,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .cand-list::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:99px;}
 .cand-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s;}
 .cand-item:hover{background:var(--surface2);}
-.cand-item.sel{background:rgba(141,198,63,0.06);border-left:2px solid var(--green);}
+.cand-item.sel{background:rgba(59,130,246,0.06);border-left:2px solid var(--green);}
 .ci-chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border-a);background:var(--surface3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all 0.15s;}
 .cand-item.sel .ci-chk{background:var(--green);border-color:var(--green);color:#fff;}
 .ci-info{flex:1;min-width:0;}
@@ -87,7 +87,7 @@ textarea.fi{resize:vertical;min-height:150px;line-height:1.6;}
 .btn-danger{background:rgba(224,82,82,0.08);color:#e05252;border-color:rgba(224,82,82,0.2);}
 #toast{position:fixed;bottom:20px;right:20px;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;background:var(--surface2);color:var(--text);border:1px solid var(--border);transform:translateY(60px);opacity:0;transition:all 0.22s;z-index:9999;pointer-events:none;}
 #toast.show{transform:translateY(0);opacity:1;}
-#toast.ok{border-color:rgba(141,198,63,0.4);color:var(--green);}
+#toast.ok{border-color:rgba(59,130,246,0.4);color:var(--green);}
 #toast.err{border-color:rgba(224,82,82,0.4);color:#e05252;}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;display:none;align-items:center;justify-content:center;}
 .overlay.open{display:flex;}
@@ -95,7 +95,7 @@ textarea.fi{resize:vertical;min-height:150px;line-height:1.6;}
 .modal h3{font-size:15px;font-weight:700;margin-bottom:8px;}
 .modal p{font-size:13px;color:var(--text-2);margin-bottom:16px;line-height:1.5;}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end;}
-.account-badge{background:rgba(141,198,63,0.1);border:1px solid rgba(141,198,63,0.3);border-radius:8px;padding:10px 14px;font-weight:700;color:var(--green);font-size:13px;text-align:center;margin-bottom:16px;}
+.account-badge{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 14px;font-weight:700;color:var(--green);font-size:13px;text-align:center;margin-bottom:16px;}
 .template-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 13px;display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;}
 .ti-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:3px;}
 .ti-info{flex:1;min-width:0;}
@@ -118,6 +118,11 @@ textarea.fi{resize:vertical;min-height:150px;line-height:1.6;}
   <div class="panel-left">
     <div class="ph">
       <h3>Candidatos</h3>
+      <div style="margin-bottom:8px;">
+        <select id="filtro-vaga" onchange="renderLista()" style="width:100%;background:var(--surface2);border:1px solid var(--border-a);border-radius:8px;padding:7px 10px;color:var(--text);font-family:inherit;font-size:12px;outline:none;cursor:pointer;">
+          <option value="">Todas as vagas</option>
+        </select>
+      </div>
       <div class="filters">
         <button class="fb active" data-e="all" onclick="setFiltro(this,'all')">Todos</button>
         <button class="fb" data-e="triagem" onclick="setFiltro(this,'triagem')">Triagem</button>
@@ -202,8 +207,8 @@ textarea.fi{resize:vertical;min-height:150px;line-height:1.6;}
   <div class="modal">
     <h3>✉️ Antes de enviar</h3>
     <p>Certifique-se de estar usando a conta correta no Gmail:</p>
-    <div class="account-badge">bancodetalentosnexus@gmail.com</div>
-    <p style="font-size:11.5px;color:var(--text-3);margin-bottom:20px;">Se abrir com outra conta, troque para a conta da Nexus no Gmail antes de enviar.</p>
+    <div class="account-badge">bancotalentosnexus@gmail.com</div>
+    <p style="font-size:11.5px;color:var(--text-3);margin-bottom:20px;">Se abrir com outra conta, troque para a conta da Nexus ATS no Gmail antes de enviar.</p>
     <div class="modal-actions">
       <button class="btn" onclick="fecharModal()">Cancelar</button>
       <button class="btn btn-primary" id="btn-gmail-ok">✉️ Abrir Gmail</button>
@@ -225,23 +230,23 @@ let filtro='all';
 const TEMPLATES = {
   aprovado:{
     assunto:'🎉 Parabéns! Você foi aprovado(a) — {{vaga}}',
-    msg:`Olá, {{nome}}!\n\nTemos ótimas notícias! Após análise cuidadosa do seu perfil, temos o prazer de informar que você foi aprovado(a) no processo seletivo para a vaga de {{vaga}}.\n\nNossa equipe entrará em contato em breve com os próximos passos.\n\nParabéns e seja muito bem-vindo(a)!\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+    msg:`Olá, {{nome}}!\n\nTemos ótimas notícias! Após análise cuidadosa do seu perfil, temos o prazer de informar que você foi aprovado(a) no processo seletivo para a vaga de {{vaga}}.\n\nNossa equipe entrará em contato em breve com os próximos passos.\n\nParabéns e seja muito bem-vindo(a)!\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus ATS`
   },
   entrevista:{
     assunto:'📅 Convite para Entrevista — {{vaga}}',
-    msg:`Olá, {{nome}}!\n\nGostaríamos de convidá-lo(a) para uma entrevista referente à vaga de {{vaga}}.\n\nAguarde nosso contato com data, horário e formato da entrevista.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+    msg:`Olá, {{nome}}!\n\nGostaríamos de convidá-lo(a) para uma entrevista referente à vaga de {{vaga}}.\n\nAguarde nosso contato com data, horário e formato da entrevista.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus ATS`
   },
   finalista:{
     assunto:'🏆 Você é finalista! — {{vaga}}',
-    msg:`Olá, {{nome}}!\n\nInformamos que você avançou para a etapa final do processo seletivo para a vaga de {{vaga}}.\n\nEm breve entraremos em contato com as próximas etapas.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+    msg:`Olá, {{nome}}!\n\nInformamos que você avançou para a etapa final do processo seletivo para a vaga de {{vaga}}.\n\nEm breve entraremos em contato com as próximas etapas.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus ATS`
   },
   reprovado_agencia:{
     assunto:'Retorno — Processo Seletivo {{vaga}}',
-    msg:`Olá, {{nome}},\n\nAgradecemos imensamente o seu interesse e o tempo dedicado ao processo seletivo para a vaga de {{vaga}}.\n\nApós análise cuidadosa do seu perfil, informamos que neste momento optamos por seguir com outros candidatos cujas qualificações se mostraram mais alinhadas às necessidades específicas da posição.\n\nEsta decisão não reflete uma avaliação negativa do seu potencial. Manteremos seu currículo em nosso banco de talentos para futuras oportunidades.\n\nDesejamos muito sucesso na sua trajetória!\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+    msg:`Olá, {{nome}},\n\nAgradecemos imensamente o seu interesse e o tempo dedicado ao processo seletivo para a vaga de {{vaga}}.\n\nApós análise cuidadosa do seu perfil, informamos que neste momento optamos por seguir com outros candidatos cujas qualificações se mostraram mais alinhadas às necessidades específicas da posição.\n\nEsta decisão não reflete uma avaliação negativa do seu potencial. Manteremos seu currículo em nosso banco de talentos para futuras oportunidades.\n\nDesejamos muito sucesso na sua trajetória!\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus ATS`
   },
   reprovado_cliente:{
     assunto:'Retorno — Processo Seletivo {{vaga}}',
-    msg:`Olá, {{nome}},\n\nAgradecemos sua participação no processo seletivo para a vaga de {{vaga}}.\n\nApós análise junto ao cliente, informamos que optaram por seguir com outro perfil neste momento.\n\nSeu currículo permanecerá em nosso banco de talentos para oportunidades futuras.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus`
+    msg:`Olá, {{nome}},\n\nAgradecemos sua participação no processo seletivo para a vaga de {{vaga}}.\n\nApós análise junto ao cliente, informamos que optaram por seguir com outro perfil neste momento.\n\nSeu currículo permanecerá em nosso banco de talentos para oportunidades futuras.\n\nAtenciosamente,\nEquipe de Recrutamento — Nexus ATS`
   }
 };
 
@@ -269,7 +274,14 @@ async function carregar(){
   document.getElementById('status-txt').textContent=`${candidates.length} candidatos · ${pipeline.length} no pipeline`;
   const vsel=document.getElementById('vaga-sel');
   vsel.innerHTML='<option value="">Todas as vagas / Livre</option>';
-  vagas.forEach(v=>{const o=document.createElement('option');o.value=v.slug||v.id;o.textContent=v.titulo+(v.empresa?` — ${v.empresa}`:'');vsel.appendChild(o);});
+  const slugsNoPipe=new Set(pipeline.map(p=>p.vaga_slug));
+  const vagasAtivas=vagas.filter(v=>slugsNoPipe.has(v.slug||String(v.id)));
+  vagasAtivas.forEach(v=>{const o=document.createElement('option');o.value=v.slug||v.id;o.textContent=v.titulo+(v.empresa?` — ${v.empresa}`:'');vsel.appendChild(o);});
+
+  const fvsel=document.getElementById('filtro-vaga');
+  fvsel.innerHTML='<option value="">Todas as vagas</option>';
+  vagasAtivas.forEach(v=>{const o=document.createElement('option');o.value=v.slug||v.id;o.textContent=v.titulo;fvsel.appendChild(o);});
+
   renderLista();
 }
 
@@ -279,11 +291,20 @@ function getEmail(c){return c.email_externo||c.email||'';}
 
 function renderLista(){
   const q=(document.getElementById('s-cand').value||'').toLowerCase();
+  const vagaFiltro=document.getElementById('filtro-vaga').value;
   const list=document.getElementById('cand-list');
   let items=candidates.filter(c=>{
     const e=getEtapa(c.id);
     if(filtro!=='all'&&e!==filtro)return false;
     if(q&&!(c.nome||'').toLowerCase().includes(q))return false;
+    if(vagaFiltro){
+      const p=pipeline.find(x=>String(x.candidato_id)===String(c.id));
+      if(!p||p.vaga_slug!==vagaFiltro)return false;
+    } else {
+      // Sem filtro de vaga: só mostra quem está em alguma vaga do pipeline
+      const p=pipeline.find(x=>String(x.candidato_id)===String(c.id));
+      if(!p)return false;
+    }
     return true;
   });
   if(!items.length){list.innerHTML='<div class="empty">Nenhum candidato encontrado.</div>';return;}
@@ -371,7 +392,7 @@ function abrirGmail(){
   const bccs=comEmail.map(c=>getEmail(c)).join(',');
   const subj=interp(assunto,first,vaga);
   const body=interp(msg,first,vaga);
-  _gmailUrl=`https://mail.google.com/mail/u/bancodetalentosnexus@gmail.com/?view=cm&to=bancodetalentosnexus@gmail.com&bcc=${encodeURIComponent(bccs)}&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+  _gmailUrl=`https://mail.google.com/mail/u/bancotalentosnexus@gmail.com/?view=cm&to=bancotalentosnexus@gmail.com&bcc=${encodeURIComponent(bccs)}&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
   document.getElementById('modal-gmail').classList.add('open');
   document.getElementById('btn-gmail-ok').onclick=async()=>{
     fecharModal();

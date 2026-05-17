@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --primary:#1e40af;--accent:#3b82f6;
+  --primary:#1a3a6b;--accent:#3b82f6;
   --bg:#0a0a0a;--card:#131313;
   --border:rgba(59,130,246,0.15);--border2:rgba(59,130,246,0.3);
   --text:#f0f0f0;--muted:#777;--muted2:#444;
@@ -36,7 +36,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
 /* TIMER ETAPAS */
 .etapa-timer-wrap{display:flex;align-items:center;gap:0.3rem;}
 .etapa-timer-clock{font-size:0.62rem;font-weight:800;letter-spacing:0.3px;padding:0.12rem 0.5rem;border-radius:99px;white-space:nowrap;border:1px solid;}
-.etapa-timer-clock.t-ok{color:#2ecc71;background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);}
+.etapa-timer-clock.t-ok{color:#2ecc71;background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.3);}
 .etapa-timer-clock.t-warn{color:#f39c12;background:rgba(243,156,18,0.1);border-color:rgba(243,156,18,0.3);animation:pendPls 2s ease infinite;}
 .etapa-timer-clock.t-over{color:#e74c3c;background:rgba(231,76,60,0.1);border-color:rgba(231,76,60,0.3);animation:pendPls 1.2s ease infinite;}
 .etapa-timer-clock.t-done{color:#3b82f6;background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);}
@@ -57,7 +57,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
 .status-dot:hover{transform:scale(1.18);}
 .status-dot.disc{background:#3498db;box-shadow:0 0 7px rgba(52,152,219,0.6);}.status-dot.disc.off{background:rgba(52,152,219,0.1);border-color:rgba(52,152,219,0.25);}
 .status-dot.entrevista{background:#f39c12;box-shadow:0 0 7px rgba(243,156,18,0.6);}.status-dot.entrevista.off{background:rgba(243,156,18,0.1);border-color:rgba(243,156,18,0.25);}
-.status-dot.curriculo{background:#2ecc71;box-shadow:0 0 7px rgba(59,130,246,0.6);}.status-dot.curriculo.off{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.25);}
+.status-dot.curriculo{background:#2ecc71;box-shadow:0 0 7px rgba(46,204,113,0.6);}.status-dot.curriculo.off{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.25);}
 .status-dot.parecer{background:#a78bfa;box-shadow:0 0 7px rgba(167,139,250,0.6);}.status-dot.parecer.off{background:rgba(167,139,250,0.1);border-color:rgba(167,139,250,0.25);}
 .status-dot-count{font-size:0.55rem;font-weight:800;color:#555;}
 .status-pend-lbl{font-size:0.5rem;font-weight:800;color:#e74c3c;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:99px;padding:0.05rem 0.38rem;animation:pendPls 2s ease infinite;}
@@ -123,11 +123,11 @@ select.perfil-inp{background-color:#1a1a1a;background-image:url("data:image/svg+
 select.perfil-inp option{background:#1e1e1e;color:#f0f0f0;}
 select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
 .perfil-lbl{font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;}
-.perfil-save-btn{background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border:none;border-radius:9px;padding:0.6rem 1.2rem;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;width:100%;}
+.perfil-save-btn{background:linear-gradient(135deg,#1a3a6b,#3b82f6);color:#fff;border:none;border-radius:9px;padding:0.6rem 1.2rem;font-family:inherit;font-size:0.82rem;font-weight:800;cursor:pointer;transition:all 0.2s;width:100%;}
 .perfil-save-btn:hover{opacity:0.88;}
 .perfil-save-btn:disabled{opacity:0.4;cursor:not-allowed;}
 .import-preview{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 0.85rem;font-size:0.72rem;line-height:1.7;margin-top:0.55rem;display:none;}
-.tag-ok{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.22);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#2ecc71;}
+.tag-ok{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.22);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#2ecc71;}
 .tag-warn{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(243,156,18,0.1);border:1px solid rgba(243,156,18,0.22);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#f39c12;}
 .tag-miss{display:inline-flex;align-items:center;gap:0.2rem;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);border-radius:99px;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;color:#e74c3c;}
 /* BADGE CANDIDATO DESTAQUE */
@@ -156,11 +156,11 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
 /* DOC CHECKBOX */
 .doc-check-wrap{position:absolute;top:0.62rem;right:2.4rem;display:flex;align-items:center;gap:0.32rem;cursor:pointer;user-select:none;}
 .doc-check-box{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;transition:all 0.18s;flex-shrink:0;}
-.doc-check-box.checked{background:rgba(59,130,246,0.2);border-color:rgba(59,130,246,0.6);}
+.doc-check-box.checked{background:rgba(46,204,113,0.2);border-color:rgba(46,204,113,0.6);}
 .doc-check-box.checked::after{content:'✓';font-size:0.7rem;color:#2ecc71;font-weight:900;line-height:1;}
 .doc-check-lbl{font-size:0.56rem;font-weight:700;color:#555;white-space:nowrap;}
-.doc-check-wrap:hover .doc-check-box{border-color:rgba(59,130,246,0.4);}
-.chip-docs{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:#2ecc71;}
+.doc-check-wrap:hover .doc-check-box{border-color:rgba(46,204,113,0.4);}
+.chip-docs{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.3);color:#2ecc71;}
 
 /* RECRUITER BAR */
 .fit-bar-rec{background:linear-gradient(90deg,#f39c12,#e67e22);}
@@ -182,7 +182,7 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
 /* STATUS CONTATO */
 .status-contato-sel{font-family:inherit;font-size:0.62rem;font-weight:700;border-radius:99px;padding:0.1rem 0.55rem;border:1px solid;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;transition:all 0.18s;background-image:none;}
 .status-contato-sel.sc-pendente{background:rgba(119,119,119,0.13);border-color:rgba(119,119,119,0.3);color:#888;}
-.status-contato-sel.sc-respondeu{background:rgba(59,130,246,0.13);border-color:rgba(59,130,246,0.35);color:#2ecc71;}
+.status-contato-sel.sc-respondeu{background:rgba(46,204,113,0.13);border-color:rgba(46,204,113,0.35);color:#2ecc71;}
 .status-contato-sel.sc-nao_respondeu{background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.3);color:#e74c3c;}
 .status-contato-sel.sc-sem_retorno{background:rgba(243,156,18,0.12);border-color:rgba(243,156,18,0.3);color:#f39c12;}
 .status-contato-sel.sc-pendencia_docs{background:rgba(52,152,219,0.12);border-color:rgba(52,152,219,0.3);color:#3498db;}
@@ -195,7 +195,7 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
 .modal-status-dot:hover{transform:scale(1.15);}
 .modal-status-dot.disc{background:#3498db;box-shadow:0 0 8px rgba(52,152,219,0.6);}.modal-status-dot.disc.off{background:rgba(52,152,219,0.1);border-color:rgba(52,152,219,0.3);}
 .modal-status-dot.entrevista{background:#f39c12;box-shadow:0 0 8px rgba(243,156,18,0.6);}.modal-status-dot.entrevista.off{background:rgba(243,156,18,0.1);border-color:rgba(243,156,18,0.3);}
-.modal-status-dot.curriculo{background:#2ecc71;box-shadow:0 0 8px rgba(59,130,246,0.6);}.modal-status-dot.curriculo.off{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);}
+.modal-status-dot.curriculo{background:#2ecc71;box-shadow:0 0 8px rgba(46,204,113,0.6);}.modal-status-dot.curriculo.off{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.3);}
 .modal-status-dot.parecer{background:#a78bfa;box-shadow:0 0 8px rgba(167,139,250,0.6);}.modal-status-dot.parecer.off{background:rgba(167,139,250,0.1);border-color:rgba(167,139,250,0.3);}
 .modal-status-wrap{position:absolute;top:0.85rem;right:2.8rem;display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
 .modal-status-pend-badge{font-size:0.52rem;font-weight:800;color:#e74c3c;background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.3);border-radius:99px;padding:0.08rem 0.45rem;text-align:center;animation:pendPulse 2s ease infinite;}
@@ -231,8 +231,8 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
 .pf-lock-indicator{display:flex;align-items:center;gap:0.6rem;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:0.65rem 0.9rem;margin-bottom:1rem;}
 .pf-lock-dot{width:8px;height:8px;border-radius:50%;background:#a78bfa;flex-shrink:0;animation:pfPulse 2s ease infinite;}
 @keyframes pfPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.pf-link-preview{display:flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.25);border-radius:10px;padding:0.6rem 0.9rem;margin-top:0.5rem;}
-.pf-link-preview a{font-size:0.72rem;font-weight:700;color:#3b82f6;text-decoration:none;word-break:break-all;flex:1;}
+.pf-link-preview{display:flex;align-items:center;gap:0.5rem;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.25);border-radius:10px;padding:0.6rem 0.9rem;margin-top:0.5rem;}
+.pf-link-preview a{font-size:0.72rem;font-weight:700;color:#2ecc71;text-decoration:none;word-break:break-all;flex:1;}
 .pf-link-preview a:hover{text-decoration:underline;}
 /* Senha modal */
 .pf-pwd-overlay{position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.95);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:1rem;}
@@ -340,6 +340,7 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
     <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
       <button class="btn btn-ghost" onclick="exportarCSVCands()">📊 Exportar CSV</button>
       <button class="btn btn-blue" id="btnAtualizar" onclick="atualizarBanco()">↺ Atualizar</button>
+      <button class="btn" onclick="ativarModoMassa()" style="background:rgba(59,130,246,0.12);color:#3b82f6;border:1px solid rgba(59,130,246,0.35);font-weight:700;" title="Selecionar vários candidatos e mover em massa para uma vaga">☑️ Mover em Massa</button>
       <button class="btn btn-accent" onclick="abrirModalNovoCand()">+ Adicionar Candidato</button>
       <button class="btn" style="background:rgba(167,139,250,0.12);color:#a78bfa;border-color:rgba(167,139,250,0.35);" onclick="abrirModalPesos()" title="Configurar pesos de aderência por vaga">⚖️ Pesos</button>
       <button class="btn btn-ghost" onclick="window.parent.postMessage({tipo:'nexus_navegar',mod:'pipeline-triagem'},'*')">⊞ Triagem</button>
@@ -420,8 +421,8 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
   </div>
 
   <!-- PAINEL: CANDIDATOS EM BANCO DE ÁREAS -->
-  <div id="areasPainelWrap" style="display:none;margin-top:0.75rem;background:rgba(59,130,246,0.03);border:1px solid rgba(59,130,246,0.15);border-radius:14px;overflow:hidden;">
-    <div onclick="toggleAreasPainel()" style="display:flex;align-items:center;gap:0.7rem;padding:0.85rem 1.1rem;cursor:pointer;user-select:none;" onmouseenter="this.style.background='rgba(59,130,246,0.04)'" onmouseleave="this.style.background='transparent'">
+  <div id="areasPainelWrap" style="display:none;margin-top:0.75rem;background:rgba(46,204,113,0.03);border:1px solid rgba(46,204,113,0.15);border-radius:14px;overflow:hidden;">
+    <div onclick="toggleAreasPainel()" style="display:flex;align-items:center;gap:0.7rem;padding:0.85rem 1.1rem;cursor:pointer;user-select:none;" onmouseenter="this.style.background='rgba(46,204,113,0.04)'" onmouseleave="this.style.background='transparent'">
       <span style="font-size:1rem;">🗂️</span>
       <div style="flex:1;">
         <div style="font-size:0.78rem;font-weight:800;color:#2ecc71;">Candidatos em Banco de Áreas</div>
@@ -430,7 +431,7 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
       <span id="areasCount" style="font-size:0.72rem;font-weight:700;color:#888;margin-right:0.4rem;"></span>
       <span id="areasToggleIco" style="font-size:0.75rem;color:#666;transition:transform 0.2s;">▼</span>
     </div>
-    <div id="areasListWrap" style="display:none;padding:0 1rem 1rem;border-top:1px solid rgba(59,130,246,0.1);"></div>
+    <div id="areasListWrap" style="display:none;padding:0 1rem 1rem;border-top:1px solid rgba(46,204,113,0.1);"></div>
   </div>
 
   <!-- PAINEL: CANDIDATOS EM PENDÊNCIAS -->
@@ -445,6 +446,20 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
       <span id="pendenciasToggleIco" style="font-size:0.75rem;color:#666;transition:transform 0.2s;">▼</span>
     </div>
     <div id="pendenciasListWrap" style="display:none;padding:0 1rem 1rem;border-top:1px solid rgba(245,158,11,0.12);"></div>
+  </div>
+
+  <!-- PAINEL: CAIXA DE ENTRADA -->
+  <div id="inboxPainelWrap" style="display:none;margin-top:0.75rem;background:rgba(79,168,232,0.03);border:1px solid rgba(79,168,232,0.18);border-radius:14px;overflow:hidden;">
+    <div onclick="toggleInboxPainel()" style="display:flex;align-items:center;gap:0.7rem;padding:0.85rem 1.1rem;cursor:pointer;user-select:none;" onmouseenter="this.style.background='rgba(79,168,232,0.05)'" onmouseleave="this.style.background='transparent'">
+      <span style="font-size:1rem;">📥</span>
+      <div style="flex:1;">
+        <div style="font-size:0.78rem;font-weight:800;color:#4fa8e8;">Caixa de Entrada</div>
+        <div style="font-size:0.63rem;color:#666;">Candidatos aguardando distribuição — clique para expandir</div>
+      </div>
+      <span id="inboxCount" style="font-size:0.72rem;font-weight:700;color:#888;margin-right:0.4rem;"></span>
+      <span id="inboxToggleIco" style="font-size:0.75rem;color:#666;transition:transform 0.2s;">▼</span>
+    </div>
+    <div id="inboxListWrap" style="display:none;padding:0 1rem 1rem;border-top:1px solid rgba(79,168,232,0.12);"></div>
   </div>
 
   <!-- PAINEL: RETORNO NEGATIVO EM MASSA -->
@@ -488,6 +503,85 @@ select.perfil-inp:focus{background-color:#1e1e1e;border-color:#3b82f6;}
   </div>
 
 </div><!-- /page -->
+
+<!-- BARRA FLUTUANTE MOVER EM MASSA -->
+<div id="barraMassa" style="display:none;position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(10,10,10,0.97);border:1px solid rgba(59,130,246,0.5);border-radius:16px;padding:0.75rem 1.2rem;box-shadow:0 8px 40px rgba(0,0,0,0.7),0 0 0 1px rgba(59,130,246,0.15);backdrop-filter:blur(16px);align-items:center;gap:1rem;flex-wrap:wrap;min-width:340px;max-width:94vw;">
+  <div style="display:flex;align-items:center;gap:0.6rem;flex:1;">
+    <div style="width:10px;height:10px;border-radius:50%;background:#3b82f6;animation:_pulseInd 1s ease infinite;flex-shrink:0;"></div>
+    <span id="massaContador" style="font-size:0.82rem;font-weight:800;color:#3b82f6;">Nenhum selecionado</span>
+  </div>
+  <div style="display:flex;gap:0.45rem;flex-wrap:wrap;align-items:center;">
+    <button onclick="massaSelecionarTodos()" style="background:rgba(59,130,246,0.12);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:0.35rem 0.75rem;font-family:inherit;font-size:0.72rem;font-weight:700;cursor:pointer;">☑️ Todos</button>
+    <button onclick="massaDesmarcarTodos()" style="background:rgba(255,255,255,0.06);color:#888;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:0.35rem 0.75rem;font-family:inherit;font-size:0.72rem;font-weight:700;cursor:pointer;">☐ Nenhum</button>
+    <button id="massaMoverBtn" onclick="abrirModalMoverMassa()" disabled style="background:linear-gradient(135deg,#1a3a6b,#3b82f6);color:#fff;border:none;border-radius:9px;padding:0.42rem 1rem;font-family:inherit;font-size:0.78rem;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:0.4rem;opacity:0.4;">🚀 Mover para Vaga</button>
+    <button onclick="desativarModoMassa()" style="background:rgba(231,76,60,0.1);color:#e74c3c;border:1px solid rgba(231,76,60,0.25);border-radius:8px;padding:0.35rem 0.7rem;font-family:inherit;font-size:0.72rem;font-weight:700;cursor:pointer;">✕ Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL MOVER EM MASSA -->
+<div id="modalMoverMassa" style="display:none;position:fixed;inset:0;z-index:10200;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharModalMoverMassa()">
+  <div style="background:#131313;border:1px solid rgba(59,130,246,0.3);border-radius:20px;padding:1.8rem;width:100%;max-width:460px;position:relative;">
+    <button onclick="fecharModalMoverMassa()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3b82f6;margin-bottom:0.3rem;">Mover em Massa</div>
+    <h3 style="font-size:1rem;font-weight:900;color:#f0f0f0;margin-bottom:0.2rem;">🚀 Enviar para Pipeline</h3>
+    <p style="font-size:0.75rem;color:#777;margin-bottom:1.2rem;">Movendo <strong id="massaQtd" style="color:#3b82f6;">0</strong> candidato(s) para a triagem.</p>
+    <div style="margin-bottom:0.75rem;">
+      <label style="font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;">Vaga de destino</label>
+      <select id="massaVagaSel" style="width:100%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.65rem 0.9rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;" onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+        <option value="">— Selecione a vaga de destino —</option>
+      </select>
+    </div>
+    <div style="margin-bottom:1.2rem;">
+      <label style="font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;">Etapa inicial</label>
+      <select id="massaEtapaSel" style="width:100%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.65rem 0.9rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;">
+        <option value="triagem">🔵 Triagem</option>
+        <option value="pre">🟣 Pré-seleção</option>
+        <option value="entrevista">🟠 Entrevista</option>
+        <option value="finalista">🟢 Finalista</option>
+        <option value="aprovado">✅ Aprovado</option>
+        <option value="recusado">❌ Rec. Agência</option>
+        <option value="recusado_cliente">🚫 Rec. Cliente</option>
+      </select>
+    </div>
+    <div id="massaProgresso" style="font-size:0.72rem;color:#666;margin-bottom:0.7rem;min-height:1rem;text-align:center;"></div>
+    <div style="display:flex;gap:0.6rem;">
+      <button id="massaConfirmarBtn" onclick="confirmarMoverMassa()" style="flex:2;background:linear-gradient(135deg,#1a3a6b,#3b82f6);color:#fff;border:none;border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">✅ Confirmar</button>
+      <button onclick="fecharModalMoverMassa()" style="flex:1;background:rgba(255,255,255,0.05);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.85rem;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL INBOX → MOVER PARA VAGA -->
+<div id="modalInboxMoverVaga" style="display:none;position:fixed;inset:0;z-index:10200;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharInboxMoverVaga()">
+  <div style="background:#131313;border:1px solid rgba(79,168,232,0.3);border-radius:20px;padding:1.8rem;width:100%;max-width:440px;position:relative;">
+    <button onclick="fecharInboxMoverVaga()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4fa8e8;margin-bottom:0.3rem;">Caixa de Entrada</div>
+    <h3 style="font-size:1rem;font-weight:900;color:#f0f0f0;margin-bottom:0.2rem;">🚀 Mover para Vaga</h3>
+    <p style="font-size:0.75rem;color:#777;margin-bottom:1.2rem;">Candidato: <strong id="imvNome" style="color:#4fa8e8;">—</strong></p>
+    <div style="margin-bottom:0.75rem;">
+      <label style="font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;">Vaga de destino</label>
+      <select id="imvVagaSel" style="width:100%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.65rem 0.9rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;" onfocus="this.style.borderColor='#4fa8e8'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+        <option value="">— Selecione a vaga —</option>
+      </select>
+    </div>
+    <div style="margin-bottom:1.2rem;">
+      <label style="font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.3rem;">Etapa inicial</label>
+      <select id="imvEtapaSel" style="width:100%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.65rem 0.9rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;cursor:pointer;">
+        <option value="triagem">🔵 Triagem</option>
+        <option value="pre">🟣 Pré-seleção</option>
+        <option value="entrevista">🟠 Entrevista</option>
+        <option value="finalista">🟢 Finalista</option>
+        <option value="aprovado">✅ Aprovado</option>
+        <option value="recusado">❌ Rec. Agência</option>
+        <option value="recusado_cliente">🚫 Rec. Cliente</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:0.6rem;">
+      <button id="imvConfirmarBtn" onclick="confirmarInboxMoverVaga()" style="flex:2;background:linear-gradient(135deg,#1a5276,#4fa8e8);color:#fff;border:none;border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">✅ Confirmar</button>
+      <button onclick="fecharInboxMoverVaga()" style="flex:1;background:rgba(255,255,255,0.05);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.85rem;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL NEGATIVO EM MASSA -->
 <div class="overlay-modal" id="modalNegativoMassa" style="display:none;z-index:10500;" onclick="if(event.target===this)fecharModalNegativoMassa()">
@@ -699,9 +793,11 @@ Equipe Agência Nexus</textarea>
             <select id="pMoverEtapa" class="perfil-inp" style="width:130px;">
               <option value="triagem">🔵 Triagem</option>
               <option value="pre">🟣 Pré-seleção</option>
-              <option value="entrevista">🟡 Entrevista</option>
+              <option value="entrevista">🟠 Entrevista</option>
               <option value="finalista">🟢 Finalista</option>
               <option value="aprovado">✅ Aprovado</option>
+              <option value="recusado">❌ Rec. Agência</option>
+              <option value="recusado_cliente">🚫 Rec. Cliente</option>
             </select>
             <button onclick="moverCandParaVagaPerfil()" style="background:rgba(59,130,246,0.2);color:#3b82f6;border:1px solid rgba(59,130,246,0.4);border-radius:9px;padding:0.58rem 0.7rem;font-family:inherit;font-size:0.75rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;">➕</button>
           </div>
@@ -711,7 +807,7 @@ Equipe Agência Nexus</textarea>
           <button onclick="limparFitManual()" title="Remove o Fit manual e restaura o automático" style="flex-shrink:0;background:rgba(231,76,60,0.1);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);border-radius:9px;padding:0.6rem 0.8rem;font-family:inherit;font-size:0.72rem;font-weight:700;cursor:pointer;">🔄 Restaurar Fit auto</button>
         </div>
         <div style="margin-top:0.55rem;">
-          <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.18);border-radius:9px;padding:0.5rem 0.75rem;">
+          <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.18);border-radius:9px;padding:0.5rem 0.75rem;">
             <input type="checkbox" id="pDocCompleta" style="accent-color:#2ecc71;width:16px;height:16px;cursor:pointer;flex-shrink:0;"/>
             <div>
               <div style="font-size:0.78rem;font-weight:700;color:#2ecc71;">📁 Documentação completa</div>
@@ -816,7 +912,7 @@ CREATE POLICY IF NOT EXISTS "allow_anon_all" ON entrevistados_assign
       <div class="perfil-sec" id="importarWrap" style="display:none;border-color:rgba(52,152,219,0.2);">
         <div class="perfil-sec-title" style="color:#3498db;">⚡ Importar resultado por link</div>
         <p style="font-size:0.7rem;color:#777;margin-bottom:0.6rem;line-height:1.55;">Cole o link do <em>entrevista-resultado.html</em> ou <em>disc-resultado.html</em>.</p>
-        <textarea id="pUrlImport" class="perfil-inp ta" placeholder="https://agencianexus.github.io/agencianexus/entrevista-resultado.html?nome=… ou entrevista-resultado-urgente.html?…" oninput="previewImport(this.value)" style="min-height:72px;"></textarea>
+        <textarea id="pUrlImport" class="perfil-inp ta" placeholder="https://nexusats.github.io/nexusats/entrevista-resultado.html?nome=… ou entrevista-resultado-urgente.html?…" oninput="previewImport(this.value)" style="min-height:72px;"></textarea>
         <div class="import-preview" id="pImportPreview"></div>
         <div style="display:flex;gap:0.5rem;margin-top:0.6rem;">
           <button onclick="importarUrl()" class="perfil-save-btn" style="flex:1;">⚡ Importar e Salvar</button>
@@ -863,7 +959,7 @@ CREATE POLICY IF NOT EXISTS "allow_anon_all" ON entrevistados_assign
         <label class="modal-toggle"><input type="checkbox" id="dupCopiarFit"/> 🎯 Scores e Fit Cultural (zera por padrão)</label>
       </div>
     </div>
-    <button onclick="confirmarDuplicar()" style="width:100%;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border:none;border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.9rem;font-weight:800;cursor:pointer;">📋 Criar cópia</button>
+    <button onclick="confirmarDuplicar()" style="width:100%;background:linear-gradient(135deg,#1a3a6b,#3b82f6);color:#fff;border:none;border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.9rem;font-weight:800;cursor:pointer;">📋 Criar cópia</button>
   </div>
 </div>
 
@@ -1007,6 +1103,7 @@ function mostrarToast(msg, erro=false){
 let _idsEmEntrevistados = new Set(); // IDs que estão no assign de entrevistados
 let _idsEmAreas = new Set();         // IDs que estão no assign de banco de áreas
 let _idsEmPendencias = new Set();    // IDs que estão no assign de pendências
+let _idsEmInbox = new Set();         // IDs que estão na Caixa de Entrada
 let _areasDisponiveis = [];          // Lista de áreas para o modal
 let _moverAreaCandId = null;
 let _moverAreaCandNome = null;
@@ -1014,6 +1111,10 @@ let _cargosDisponiveis = [];         // Lista de cargos para o modal
 let _modalCargoCandId = null;
 let _modalCargoCandNome = null;
 let _cargosSelecionados = new Set(); // IDs dos cargos selecionados no modal
+
+// ─── MOVER EM MASSA ───
+let _massaSelecionados = new Set();  // IDs selecionados para mover em massa
+let _massaModoAtivo = false;         // Se o modo seleção em massa está ativo
 
 async function carregarDados(){
   try{
@@ -1058,6 +1159,18 @@ async function carregarDados(){
         _idsEmPendencias = new Set(Array.isArray(pendRows) ? pendRows.map(r=>String(r.cand_id)) : []);
       }
     }catch(e){ _idsEmPendencias = new Set(); }
+
+    // Carrega assign de Caixa de Entrada
+    try{
+      const resInbox = await fetch(
+        `${SUPABASE_URL}/rest/v1/inbox_assign?select=cand_id`,
+        {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}
+      );
+      if(resInbox.ok){
+        const inboxRows = await resInbox.json();
+        _idsEmInbox = new Set(Array.isArray(inboxRows) ? inboxRows.map(r=>String(r.cand_id)) : []);
+      }
+    }catch(e){ _idsEmInbox = new Set(); }
 
     // Carrega lista de áreas disponíveis para o modal
     try{
@@ -1161,7 +1274,7 @@ function atualizarStatsCands(hist){
   const comFit = hist.filter(h=>h.fit_score||h.url_resultado_fit).length;
   const s = id => document.getElementById(id);
   // Mostra apenas candidatos da Entrada (não movidos para outras etapas)
-  const soEntrada = hist.filter(h=>!_idsEmEntrevistados.has(String(h.id)) && !_idsEmAreas.has(String(h.id)) && !_idsEmPendencias.has(String(h.id)));
+  const soEntrada = hist.filter(h=>!_idsEmEntrevistados.has(String(h.id)) && !_idsEmAreas.has(String(h.id)) && !_idsEmPendencias.has(String(h.id)) && !_idsEmInbox.has(String(h.id)));
   if(s('csTotal')) s('csTotal').textContent = soEntrada.length;
   if(s('csFit'))   s('csFit').textContent   = comFit;
   if(s('csD'))     s('csD').textContent     = p.D||0;
@@ -1206,7 +1319,7 @@ function filtrarCands(){
   const fit     = document.getElementById('cFiltroFit')?.value||'';
   const docs    = document.getElementById('cFiltroDocs')?.value||'';
   // Oculta candidatos que foram movidos para Entrevistados (via assign do Supabase)
-  let lista = _allCands.filter(h=>!_idsEmEntrevistados.has(String(h.id)) && !_idsEmAreas.has(String(h.id)) && !_idsEmPendencias.has(String(h.id)));
+  let lista = _allCands.filter(h=>!_idsEmEntrevistados.has(String(h.id)) && !_idsEmAreas.has(String(h.id)) && !_idsEmPendencias.has(String(h.id)) && !_idsEmInbox.has(String(h.id)));
   if(busca)  lista = lista.filter(h=>(h.nome||'').toLowerCase().includes(busca)||(h.vaga||'').toLowerCase().includes(busca));
   if(vagaF)  lista = lista.filter(h=>(h.vaga||'')===vagaF);
   if(perfil) lista = lista.filter(h=>h.dom===perfil);
@@ -1274,6 +1387,22 @@ function filtrarCands(){
 
   // Atualiza select de vagas no painel de retorno negativo
   _atualizarSelectNegativo();
+  // Painel de candidatos na Caixa de Entrada
+  const emInbox = _allCands.filter(h=>_idsEmInbox.has(String(h.id)));
+  const inboxPainelWrap = document.getElementById('inboxPainelWrap');
+  const inboxListWrap   = document.getElementById('inboxListWrap');
+  const inboxCountEl    = document.getElementById('inboxCount');
+  if(inboxPainelWrap && inboxListWrap){
+    if(emInbox.length){
+      inboxPainelWrap.style.display = 'block';
+      if(inboxCountEl) inboxCountEl.textContent = emInbox.length + ' candidato' + (emInbox.length!==1?'s':'');
+      inboxListWrap.innerHTML = `<div class="cands-grid">${emInbox.map(h=>candCardInbox(h)).join('')}</div>`;
+    } else {
+      inboxPainelWrap.style.display = 'none';
+    }
+  }
+  // Atualiza barra de mover em massa se ativa
+  _atualizarBarraMassa();
   // Salva aderencia_calculada no Supabase (somente quando tem pesos configurados e valor mudou)
   lista.forEach(h=>{
     const calc = calcularAderencia(h);
@@ -1852,6 +1981,228 @@ function toggleNegativoPainel(){
   if(!aberto) _atualizarSelectNegativo();
 }
 
+// ═══ CAIXA DE ENTRADA ═══
+async function moverParaInbox(id, nome){
+  const cand = _allCands.find(x=>String(x.id)===String(id));
+  if(!cand){ mostrarToast('Candidato não encontrado',true); return; }
+  if(_idsEmInbox.has(String(id))){ mostrarToast(`${nome} já está na Caixa de Entrada!`); return; }
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/inbox_assign`,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({cand_id:String(id)})
+    });
+    if(!res.ok){ const t=await res.text(); throw new Error('Supabase '+res.status+': '+t); }
+    _idsEmInbox.add(String(id));
+    mostrarToastDesfazer(`📥 ${nome} movido para Caixa de Entrada!`, ()=>desfazerMoverInbox(id,nome));
+    filtrarCands();
+    try{ window.parent.postMessage({tipo:'nexus_badge_update'},'*'); }catch(e){}
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+async function desfazerMoverInbox(id, nome){
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/inbox_assign?cand_id=eq.${encodeURIComponent(id)}`,{
+      method:'DELETE',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'}
+    });
+    if(!res.ok){ const t=await res.text(); throw new Error('Supabase '+res.status+': '+t); }
+    _idsEmInbox.delete(String(id));
+    mostrarToast(`↩️ ${nome} retornou ao Banco de Talentos!`);
+    filtrarCands();
+    try{ window.parent.postMessage({tipo:'nexus_badge_update'},'*'); }catch(e){}
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+}
+
+function toggleInboxPainel(){
+  const lista = document.getElementById('inboxListWrap');
+  const ico   = document.getElementById('inboxToggleIco');
+  if(!lista) return;
+  const aberto = lista.style.display !== 'none';
+  lista.style.display = aberto ? 'none' : 'block';
+  if(ico) ico.style.transform = aberto ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+function candCardInbox(h){
+  if(!h||!h.id) return '';
+  const cor   = COR[h.dom]||'#888';
+  const emoji = EMO[h.dom]||'⬜';
+  const combo = h.combo_nome||(COMBOS[(h.dom||'')+(h.sec||'')])||`${h.dom||'?'}+${h.sec||'?'}`;
+  const fit   = h.fit_manual != null ? parseInt(h.fit_manual) : (h.fit_score != null ? parseInt(h.fit_score) : null);
+  const fitCor= fit!=null ? (fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c') : '#777';
+  const temDiscReal = !!(h.dom||h.disc_perfil||h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
+  // Mesma estrutura do candCard principal — herda tudo
+  const aderencia = calcularAderencia(h);
+  const aderStr = aderencia ? `<span class="chip" style="background:rgba(167,139,250,0.12);border-color:rgba(167,139,250,0.3);color:#a78bfa;">Ader. ${aderencia.valor}%</span>` : '';
+  const fitChip = fit!=null ? `<span class="chip" style="background:${fitCor}15;border-color:${fitCor}33;color:${fitCor};">Fit ${fit}%</span>` : '';
+  const discChip = temDiscReal ? `<span class="chip chip-disc">${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</span>` : '';
+  // Select de vagas para mover direto da inbox
+  const vagasOpts = _vagasList.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo||v.slug)}</option>`).join('');
+  return `<div class="cand-card" style="border-color:rgba(79,168,232,0.3);">
+    <div class="cand-card-inner">
+      <div class="cand-avatar" style="background:${temDiscReal?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDiscReal?cor+'40':'rgba(255,255,255,0.12)'};color:${temDiscReal?cor:'#555'};">${temDiscReal?emoji:'?'}</div>
+      <div class="cand-info">
+        <div class="cand-nome" onclick="abrirPerfil('${esc(h.id)}')" style="cursor:pointer;">${esc(h.nome||'—')}</div>
+        <div class="cand-meta">📋 ${esc(h.vaga||'—')} &nbsp;·&nbsp; 📅 ${esc(_fmtCadastro(h))}</div>
+        <div class="cand-chips">
+          <span class="chip" style="background:rgba(79,168,232,0.12);border-color:rgba(79,168,232,0.35);color:#4fa8e8;">📥 Caixa de Entrada</span>
+          ${discChip}${fitChip}${aderStr}
+        </div>
+      </div>
+    </div>
+    <div class="cand-foot" style="margin-top:0.55rem;">
+      <div style="display:flex;gap:0.3rem;flex-wrap:wrap;">
+        <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);">👤 Perfil</button>
+        <button class="btn-sm" onclick="abrirInboxMoverVaga('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(79,168,232,0.12);color:#4fa8e8;border-color:rgba(79,168,232,0.3);">🚀 Mover p/ Vaga</button>
+        <button class="btn-sm" onclick="desfazerMoverInbox('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.1);color:#e74c3c;border-color:rgba(231,76,60,0.25);">↩️ Devolver ao Banco</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// Modal inline para mover da inbox para vaga
+let _inboxMoverCandId = null, _inboxMoverCandNome = null;
+function abrirInboxMoverVaga(id, nome){
+  _inboxMoverCandId = id;
+  _inboxMoverCandNome = nome;
+  document.getElementById('imvNome').textContent = nome;
+  const sel = document.getElementById('imvVagaSel');
+  sel.innerHTML = '<option value="">— Selecione a vaga —</option>' +
+    _vagasList.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo||v.slug)}</option>`).join('');
+  document.getElementById('modalInboxMoverVaga').style.display='flex';
+}
+function fecharInboxMoverVaga(){ document.getElementById('modalInboxMoverVaga').style.display='none'; }
+
+async function confirmarInboxMoverVaga(){
+  const id = _inboxMoverCandId, nome = _inboxMoverCandNome;
+  const vagaSlug = document.getElementById('imvVagaSel').value;
+  const etapa    = document.getElementById('imvEtapaSel').value || 'triagem';
+  if(!vagaSlug){ mostrarToast('Selecione uma vaga',true); return; }
+  const btn = document.getElementById('imvConfirmarBtn');
+  btn.disabled=true; btn.textContent='⏳ Movendo…';
+  try{
+    const cand = _allCands.find(x=>String(x.id)===String(id));
+    const fitScore = cand ? (parseFloat(cand.fit_score||cand.fit_manual||0)||0) : 0;
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/pipeline?on_conflict=vaga_slug,candidato_id`,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({vaga_slug:vagaSlug,candidato_id:String(id),etapa,fit_score:fitScore,atualizado_em:new Date().toISOString()})
+    });
+    if(!res.ok){ let e='Supabase '+res.status; try{const b=await res.json();e+=': '+(b.message||b.hint||'');}catch(e2){} throw new Error(e); }
+    // Remove da inbox
+    await fetch(`${SUPABASE_URL}/rest/v1/inbox_assign?cand_id=eq.${encodeURIComponent(id)}`,{
+      method:'DELETE',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'}
+    });
+    _idsEmInbox.delete(String(id));
+    try{ const pipe=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}'); if(!pipe[vagaSlug]) pipe[vagaSlug]={}; pipe[vagaSlug][String(id)]={etapa,fit_score:fitScore}; localStorage.setItem(PIPE_KEY,JSON.stringify(pipe)); }catch(e2){}
+    window.parent.postMessage({tipo:'nexus_kpi'},'*');
+    const vagaTit = _vagasList.find(v=>v.slug===vagaSlug)?.titulo || vagaSlug;
+    mostrarToast(`✅ ${nome} → ${vagaTit} (${etapa})`);
+    fecharInboxMoverVaga();
+    filtrarCands();
+  }catch(e){ mostrarToast('Erro: '+e.message,true); }
+  finally{ btn.disabled=false; btn.textContent='✅ Confirmar'; }
+}
+
+// ═══ MOVER EM MASSA ═══
+function ativarModoMassa(){
+  _massaModoAtivo = true;
+  _massaSelecionados = new Set();
+  filtrarCands();
+  const barra = document.getElementById('barraMassa');
+  if(barra) barra.style.display = 'flex';
+  mostrarToast('☑️ Modo seleção ativado — clique nos candidatos para selecionar');
+}
+
+function desativarModoMassa(){
+  _massaModoAtivo = false;
+  _massaSelecionados = new Set();
+  filtrarCands();
+  const barra = document.getElementById('barraMassa');
+  if(barra) barra.style.display = 'none';
+}
+
+function toggleMassaCand(id){
+  if(!_massaModoAtivo) return;
+  if(_massaSelecionados.has(String(id))){ _massaSelecionados.delete(String(id)); }
+  else { _massaSelecionados.add(String(id)); }
+  _atualizarBarraMassa();
+  // Atualiza visual do card
+  const el = document.getElementById('massaCard_'+id);
+  if(el){
+    if(_massaSelecionados.has(String(id))){ el.style.borderColor='rgba(59,130,246,0.7)'; el.style.background='rgba(59,130,246,0.06)'; }
+    else { el.style.borderColor=''; el.style.background=''; }
+  }
+}
+
+function massaSelecionarTodos(){
+  const wrap = document.getElementById('candsListWrap');
+  if(!wrap) return;
+  wrap.querySelectorAll('[id^="massaCard_"]').forEach(el=>{
+    const id = el.id.replace('massaCard_','');
+    _massaSelecionados.add(id);
+    el.style.borderColor='rgba(59,130,246,0.7)';
+    el.style.background='rgba(59,130,246,0.06)';
+  });
+  _atualizarBarraMassa();
+}
+
+function massaDesmarcarTodos(){
+  _massaSelecionados.clear();
+  document.querySelectorAll('[id^="massaCard_"]').forEach(el=>{ el.style.borderColor=''; el.style.background=''; });
+  _atualizarBarraMassa();
+}
+
+function _atualizarBarraMassa(){
+  const n = _massaSelecionados.size;
+  const el = document.getElementById('massaContador');
+  if(el) el.textContent = n > 0 ? `${n} selecionado${n!==1?'s':''}` : 'Nenhum selecionado';
+  const btn = document.getElementById('massaMoverBtn');
+  if(btn){ btn.disabled = n===0; btn.style.opacity = n===0?'0.4':'1'; }
+}
+
+function abrirModalMoverMassa(){
+  if(!_massaSelecionados.size){ mostrarToast('Selecione ao menos um candidato',true); return; }
+  const sel = document.getElementById('massaVagaSel');
+  sel.innerHTML = '<option value="">— Selecione a vaga de destino —</option>' +
+    _vagasList.map(v=>`<option value="${esc(v.slug)}">${esc(v.titulo||v.slug)}</option>`).join('');
+  document.getElementById('massaQtd').textContent = _massaSelecionados.size;
+  document.getElementById('modalMoverMassa').style.display='flex';
+}
+
+function fecharModalMoverMassa(){ document.getElementById('modalMoverMassa').style.display='none'; }
+
+async function confirmarMoverMassa(){
+  const vagaSlug = document.getElementById('massaVagaSel').value;
+  const etapa    = document.getElementById('massaEtapaSel').value || 'triagem';
+  if(!vagaSlug){ mostrarToast('Selecione uma vaga de destino',true); return; }
+  const btn = document.getElementById('massaConfirmarBtn');
+  btn.disabled=true; btn.textContent='⏳ Movendo…';
+  const ids = [..._massaSelecionados];
+  let ok=0, err=0;
+  const progEl = document.getElementById('massaProgresso');
+  for(const id of ids){
+    try{
+      const cand = _allCands.find(x=>String(x.id)===String(id));
+      const fitScore = cand ? (parseFloat(cand.fit_score||cand.fit_manual||0)||0) : 0;
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/pipeline?on_conflict=vaga_slug,candidato_id`,{
+        method:'POST',
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
+        body:JSON.stringify({vaga_slug:vagaSlug,candidato_id:String(id),etapa,fit_score:fitScore,atualizado_em:new Date().toISOString()})
+      });
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      try{ const pipe=JSON.parse(localStorage.getItem(PIPE_KEY)||'{}'); if(!pipe[vagaSlug]) pipe[vagaSlug]={}; pipe[vagaSlug][String(id)]={etapa,fit_score:fitScore}; localStorage.setItem(PIPE_KEY,JSON.stringify(pipe)); }catch(e2){}
+      ok++;
+    }catch(e){ err++; }
+    if(progEl) progEl.textContent = `${ok+err}/${ids.length}…`;
+  }
+  window.parent.postMessage({tipo:'nexus_kpi'},'*');
+  const vagaTit = _vagasList.find(v=>v.slug===vagaSlug)?.titulo || vagaSlug;
+  mostrarToast(`✅ ${ok} candidato${ok!==1?'s':''} → ${vagaTit} (${etapa})${err>0?' · '+err+' erro(s)':''}`);
+  fecharModalMoverMassa();
+  desativarModoMassa();
+}
+
 // ═══ RETORNO NEGATIVO EM MASSA ═══
 let _negCandsVisiveis = []; // candidatos visíveis na lista do painel negativo
 let _negSelecionados  = new Set(); // IDs selecionados para envio
@@ -1982,7 +2333,7 @@ function enviarNegativoGmail(){
   if(bccField) url += '&bcc=' + encodeURIComponent(bccField);
 
   let ccList = [];
-  if(copiaRec) ccList.push('bancodetalentosnexus@gmail.com');
+  if(copiaRec) ccList.push('bancotalentosnexus@gmail.com');
   if(ccExtra)  ccList.push(ccExtra);
   if(ccList.length) url += '&cc=' + encodeURIComponent(ccList.join(','));
 
@@ -2001,7 +2352,7 @@ function enviarNegativoIndividual(){
   const ccExtra  = (document.getElementById('negCcExtra')?.value||'').trim();
 
   let ccList = [];
-  if(copiaRec) ccList.push('bancodetalentosnexus@gmail.com');
+  if(copiaRec) ccList.push('bancotalentosnexus@gmail.com');
   if(ccExtra)  ccList.push(ccExtra);
 
   // Abre um por um com delay
@@ -2043,7 +2394,7 @@ function candCardEntrevistado(h){
       </div>
     </div>
     <div class="cand-foot">
-      <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Perfil</button>
+      <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Perfil</button>
       <button class="btn-sm" onclick="desfazerMoverEntrevistados('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.1);color:#e74c3c;border-color:rgba(231,76,60,0.25);">↩️ Desfazer — Retornar ao Banco</button>
     </div>
   </div>`;
@@ -2075,7 +2426,7 @@ function candCardPendencia(h){
         <span style="font-size:0.52rem;font-weight:800;color:#e74c3c;opacity:0.85;width:100%;margin-bottom:0.1rem;">⚠ FALTANDO</span>
         ${faltando.map(f=>`<span style="font-size:0.58rem;font-weight:700;padding:0.08rem 0.42rem;border-radius:99px;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);color:#e74c3c;">${f}</span>`).join('')}
       </div>`
-    : `<div style="font-size:0.58rem;font-weight:700;color:#2ecc71;margin-top:0.35rem;padding:0.28rem 0.5rem;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);border-radius:8px;">✅ Tudo preenchido</div>`;
+    : `<div style="font-size:0.58rem;font-weight:700;color:#2ecc71;margin-top:0.35rem;padding:0.28rem 0.5rem;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);border-radius:8px;">✅ Tudo preenchido</div>`;
 
   const parecerUrl = `../disc-parecer.html?t=${encodeURIComponent(h.id||'')}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}&data=${encodeURIComponent(h.data||'')}&url=${encodeURIComponent(h.url||'')}&cidade=${encodeURIComponent(h.cidade||'')}&bairro=${encodeURIComponent(h.bairro||'')}&idade=${encodeURIComponent(h.idade||'')}&disponibilidade=${encodeURIComponent(h.disponibilidade||'')}&mae=${encodeURIComponent(h.nome_mae||'')}`;
 
@@ -2099,8 +2450,8 @@ function candCardPendencia(h){
       </div>
     </div>
     <div class="cand-foot">
-      <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Perfil</button>
-      <a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/parecer2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Parecer</a>
+      <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Perfil</button>
+      <a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Parecer</a>
       ${h.email_externo?`<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')\" style="background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);">📧 E-mail</button>`:''}
       ${h.tel_externo?`<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')\" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);">💬 WhatsApp</button>`:''}
       <button class="btn-sm" onclick="desfazerMoverPendencias('${esc(h.id)}','${esc(h.nome||'')}')\" style="background:rgba(167,139,250,0.1);color:#a78bfa;border-color:rgba(167,139,250,0.25);">↩️ Retornar</button>
@@ -2205,7 +2556,7 @@ function candCard(h){
   if(h.kw_score!=null){ const kw=parseInt(h.kw_score),ck=kw>=65?'#3498db':kw>=40?'#5dade2':'#85c1e9'; const kwFnd=(h.keywords_encontradas||'').split(' | ').filter(Boolean); const kwAus=(h.keywords_ausentes||'').split(' | ').filter(Boolean); const kwTip=`Keywords encontradas: ${kwFnd.slice(0,5).join(', ')||'—'}${kwAus.length?` | Ausentes: ${kwAus.slice(0,3).join(', ')}`:''}` ; bars+=`<div class="fit-bar-row" title="${kwTip}"><span class="fit-bar-lbl" style="color:${ck};">🔑 KW</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${kw}%;background:linear-gradient(90deg,#1a5276,${ck});"></div></div><span class="fit-bar-pct" style="color:${ck};">${kw}%</span><span class="fit-bar-src">kw</span></div>`; }
   if(ader!=null){ const aderGrad=isAderManual?'linear-gradient(90deg,#7c3aed,#a78bfa)':'linear-gradient(90deg,#5b21b6,#a78bfa)'; const _aderModo=isAderManual?'man.':(aderCalc&&aderCalc.modo?aderCalc.modo:'ponderada'); const _aderIco=isAderManual?'✏️':getModoIcon(_aderModo); const _aderLbl=isAderManual?'Manual':getModoLabelCurto(_aderModo); const tooltip=isAderManual?'Definida manualmente':`Método: ${(FORMULA_MODOS[_aderModo]||FORMULA_MODOS.ponderada).label}` + (aderCalc&&aderCalc.detalhes?' · '+aderCalc.detalhes.map(p=>`${p.label} ${Math.round(p.peso/(aderCalc.detalhes.reduce((s,x)=>s+x.peso,0))*100)}%`).join(' + '):''); bars+=`<div class="fit-bar-row" title="${tooltip}"><span class="fit-bar-lbl" style="color:#a78bfa;">${_aderIco} Ader</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${ader}%;background:${aderGrad};"></div></div><span class="fit-bar-pct" style="color:#a78bfa;">${ader}%</span><span class="fit-bar-src">${_aderLbl}</span></div>`; }
   if(h.score_recrutador!=null){ const sr=parseInt(h.score_recrutador),sc=sr>=80?'#2ecc71':sr>=65?'#3b82f6':sr>=45?'#f39c12':'#e74c3c'; bars+=`<div class="fit-bar-row"><span class="fit-bar-lbl" style="color:${sc};">🧑‍💼 Rec.</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${sr}%;background:linear-gradient(90deg,#e67e22,#f39c12);"></div></div><span class="fit-bar-pct" style="color:${sc};">${sr}%</span><span class="fit-bar-src">rec.</span></div>`; }
-  if(h.pilar_livre_valor!=null){ const pl=parseInt(h.pilar_livre_valor),plc=pl>=80?'#2ecc71':pl>=65?'#3b82f6':pl>=45?'#f39c12':'#e74c3c',plnome=h.pilar_livre_nome||'Livre'; bars+=`<div class="fit-bar-row" title="${esc(plnome)}"><span class="fit-bar-lbl" style="color:${plc};overflow:hidden;text-overflow:ellipsis;">🔧 ${esc(plnome.substring(0,6))}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${pl}%;background:linear-gradient(90deg,#2563eb,#1d4ed8);"></div></div><span class="fit-bar-pct" style="color:${plc};">${pl}%</span><span class="fit-bar-src">livre</span></div>`; }
+  if(h.pilar_livre_valor!=null){ const pl=parseInt(h.pilar_livre_valor),plc=pl>=80?'#2ecc71':pl>=65?'#3b82f6':pl>=45?'#f39c12':'#e74c3c',plnome=h.pilar_livre_nome||'Livre'; bars+=`<div class="fit-bar-row" title="${esc(plnome)}"><span class="fit-bar-lbl" style="color:${plc};overflow:hidden;text-overflow:ellipsis;">🔧 ${esc(plnome.substring(0,6))}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${pl}%;background:linear-gradient(90deg,#1abc9c,#16a085);"></div></div><span class="fit-bar-pct" style="color:${plc};">${pl}%</span><span class="fit-bar-src">livre</span></div>`; }
 
   // URL do parecer com dados diretos como params (funciona ao abrir em nova aba)
   const parecerUrl = `../disc-parecer.html?t=${encodeURIComponent(h.id||'')}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}&data=${encodeURIComponent(h.data||'')}&url=${encodeURIComponent(h.url||'')}&cidade=${encodeURIComponent(h.cidade||'')}&bairro=${encodeURIComponent(h.bairro||'')}&idade=${encodeURIComponent(h.idade||'')}&disponibilidade=${encodeURIComponent(h.disponibilidade||'')}&mae=${encodeURIComponent(h.nome_mae||'')}`;
@@ -2215,34 +2566,35 @@ function candCard(h){
   const jaEmEntrevistados = _idsEmEntrevistados.has(String(h.id));
   const jaEmAreas = _idsEmAreas.has(String(h.id));
   const jaEmPendencias = _idsEmPendencias.has(String(h.id));
+  const jaEmInbox = _idsEmInbox.has(String(h.id));
   let footBtns = `
-    <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Perfil</button>
-    <a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/parecer2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Parecer</a>
-    ${!jaEmEntrevistados ? `<button class="btn-sm" onclick="moverParaEntrevistados('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);" title="Mover para Entrevistados — candidato some daqui"><img src="imagens/entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Entrevistados</button>` : `<button class="btn-sm" onclick="desfazerMoverEntrevistados('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.1);color:#e74c3c;border-color:rgba(231,76,60,0.25);" title="Desfazer — retornar ao banco">↩️ Desfazer</button>`}
-    <button class="btn-sm" onclick="abrirModalAreaMoverCopiar('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#2ecc71;border-color:rgba(59,130,246,0.3);" title="Mover ou Copiar para Banco de Áreas"><img src="imagens/area2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Área</button>
-    <button class="btn-sm" onclick="moverParaPendencias('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.28);" title="Mover para Pendências — candidato some daqui"><img src="imagens/pendencis2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Pendências</button>
-    ${!h.no_banco ? `<button class="btn-sm" onclick="moverParaBanco('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(167,139,250,0.12);color:#a78bfa;border-color:rgba(167,139,250,0.3);"><img src="imagens/banco2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Banco</button>` : `<span class="btn-sm" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);cursor:default;opacity:0.7;">✅ No Banco</span>`}`;
-  footBtns += `<button class="btn-sm" onclick="abrirMiniPipe('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;" title="Mover para o Pipeline de uma vaga"><img src="imagens/triagem2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Triagem</button>`;
-  footBtns += `<button class="btn-sm" onclick="abrirModalCargoMoverCopiar('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);font-weight:800;" title="Mover ou Copiar para Banco por Cargo"><img src="imagens/cargo2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Cargo</button>`;
+    <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Perfil</button>
+    <a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Parecer</a>
+    ${!jaEmEntrevistados ? `<button class="btn-sm" onclick="moverParaEntrevistados('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);" title="Mover para Entrevistados — candidato some daqui"><img src="entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Entrevistados</button>` : `<button class="btn-sm" onclick="desfazerMoverEntrevistados('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.1);color:#e74c3c;border-color:rgba(231,76,60,0.25);" title="Desfazer — retornar ao banco">↩️ Desfazer</button>`}
+    <button class="btn-sm" onclick="abrirModalAreaMoverCopiar('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(46,204,113,0.12);color:#2ecc71;border-color:rgba(46,204,113,0.3);" title="Mover ou Copiar para Banco de Áreas"><img src="area2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Área</button>
+    <button class="btn-sm" onclick="moverParaPendencias('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.28);" title="Mover para Pendências — candidato some daqui"><img src="pendencis2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Pendências</button>
+    ${!h.no_banco ? `<button class="btn-sm" onclick="moverParaBanco('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(167,139,250,0.12);color:#a78bfa;border-color:rgba(167,139,250,0.3);"><img src="banco2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Banco</button>` : `<span class="btn-sm" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);cursor:default;opacity:0.7;">✅ No Banco</span>`}`;
+  footBtns += `<button class="btn-sm" onclick="abrirMiniPipe('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;" title="Mover para o Pipeline de uma vaga"><img src="triagem2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Triagem</button>`;
+  footBtns += `<button class="btn-sm" onclick="abrirModalCargoMoverCopiar('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);font-weight:800;" title="Mover ou Copiar para Banco por Cargo"><img src="cargo2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> → Cargo</button>`;
   // Botão DISC: sempre aparece.
   // Se já tem resultado → abre disc-resultado; se não tem → manda para o teste
-  const _base = 'https://agencianexus.github.io/agencianexus/';
+  const _base = 'https://nexusats.github.io/nexusats/';
   const _temResultadoDisc = !!(h.dom||h.disc_perfil||h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
   const _discUrl = _temResultadoDisc
     ? (h.url || (_base+'disc-resultado.html?nome='+encodeURIComponent(h.nome||'')+'&tel='+encodeURIComponent(h.tel_externo||'')+'&email='+encodeURIComponent(h.email_externo||'')+'&perfil='+(h.dom||'D')+'&sec='+(h.sec||'I')+'&d='+(h.pct_d||0)+'&i='+(h.pct_i||0)+'&s='+(h.pct_s||0)+'&c='+(h.pct_c||0)+'&vaga='+encodeURIComponent(h.vaga||'')+'&canal='+encodeURIComponent(h.canal||'')))
     : (_base+'disc.html?nome='+encodeURIComponent(h.nome||'')+'&tel='+encodeURIComponent(h.tel_externo||'')+'&email='+encodeURIComponent(h.email_externo||'')+'&vaga='+encodeURIComponent(h.vaga||'')+'&canal='+encodeURIComponent(h.canal||'')+'&retorno='+encodeURIComponent(_base+'vagas.html'));
-  const _discLabel = _temResultadoDisc ? '<img src=\"imagens/disc2.png\" style=\"width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;\" alt=\"\"> DISC' : '<img src=\"imagens/disc2.png\" style=\"width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;\" alt=\"\"> Fazer DISC';
+  const _discLabel = _temResultadoDisc ? '<img src=\"disc2.png\" style=\"width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;\" alt=\"\"> DISC' : '<img src=\"disc2.png\" style=\"width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;\" alt=\"\"> Fazer DISC';
   const _discStyle = _temResultadoDisc
     ? 'background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.2);'
     : 'background:rgba(52,152,219,0.05);color:#5dade2;border-color:rgba(52,152,219,0.15);';
   footBtns += `<a class="btn-sm" href="${esc(_discUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="${_discStyle}">${_discLabel}</a>`;
-  if(h.url_resultado_fit) footBtns += `<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/fitcultural2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Fit Cultural</a>`;
+  if(h.url_resultado_fit) footBtns += `<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="fitcultural2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Fit Cultural</a>`;
   else footBtns += `<button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(243,156,18,0.08);color:#f39c12;border-color:rgba(243,156,18,0.2);">➕ Adicionar Fit</button>`;
-  if(h.entrevista_json||h.resumo_ia||h.url_resultado_fit) footBtns += `<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="imagens/entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista</a>`;
-  else footBtns += `<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);" title="Aplicar entrevista"><img src="imagens/entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista</a>`;
-footBtns += `<button class="btn-sm" onclick="abrirModalAgendamento('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.email_externo||'')}','${esc(h.vaga||'')}')" style="background:rgba(96,165,250,0.1);color:#60a5fa;border-color:rgba(96,165,250,0.3);font-weight:800;" title="Agendar entrevista">📅 Agendar</button>`;
-footBtns += `<button class="btn-sm" onclick="abrirParecerCard('${esc(h.id)}')" style="background:rgba(167,139,250,0.1);color:#c4b5fd;border-color:rgba(167,139,250,0.3);" title="Parecer Final do Candidato"><img src="imagens/parecer3.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Parecer${h.parecer_final_link ? ' ✅' : ''}</button>`;
-if(h.curriculo_url) footBtns += `<a class="btn-sm" href="${esc(h.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="imagens/curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`;
+  if(h.entrevista_json||h.resumo_ia||h.url_resultado_fit) footBtns += `<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista</a>`;
+  else footBtns += `<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);" title="Aplicar entrevista"><img src="entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista</a>`;
+footBtns += `<button class="btn-sm" onclick="abrirModalAgendamento('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.email_externo||'')}','${esc(h.vaga||'')}')" style="background:rgba(52,211,153,0.1);color:#34d399;border-color:rgba(52,211,153,0.3);font-weight:800;" title="Agendar entrevista">📅 Agendar</button>`;
+footBtns += `<button class="btn-sm" onclick="abrirParecerCard('${esc(h.id)}')" style="background:rgba(167,139,250,0.1);color:#c4b5fd;border-color:rgba(167,139,250,0.3);" title="Parecer Final do Candidato"><img src="parecer3.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Parecer${h.parecer_final_link ? ' ✅' : ''}</button>`;
+if(h.curriculo_url) footBtns += `<a class="btn-sm" href="${esc(h.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`;
 if (h.entrevista_json) {
   const _jaTemScore = h.score_curriculo != null;
   const _recalcLabel = _jaTemScore ? `🔄 Recalc. CV` : `⚡ Calcular CV`;
@@ -2254,12 +2606,12 @@ if (h.entrevista_json) {
     : `Currículo preenchido mas ainda sem score. Clique para calcular com IA.`;
   footBtns += `<button class="btn-sm" onclick="recalcularCurriculo('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.vaga||'')}',this)" style="${_recalcStyle}" title="${_recalcTitle}">${_recalcLabel}</button>`;
 }
-if(h.link_externo) footBtns += `<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="imagens/linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`;
-if(h.email_externo) footBtns += `<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="imagens/correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`;
-if(h.tel_externo) footBtns += `<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="imagens/whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`;
+if(h.link_externo) footBtns += `<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`;
+if(h.email_externo) footBtns += `<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`;
+if(h.tel_externo) footBtns += `<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`;
 footBtns += h.recomendacao_doc_url
-  ? `<a class="btn-sm" href="${esc(h.recomendacao_doc_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);" title="Ver carta de recomendação"><img src="imagens/recomendacao2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Recomendação</a>`
-  : `<button class="btn-sm" onclick="abrirModalRecomendacao('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.06);color:#f59e0b;border-color:rgba(245,158,11,0.18);" title="Adicionar carta de recomendação"><img src="imagens/recomendacao2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> + Recomendação</button>`;
+  ? `<a class="btn-sm" href="${esc(h.recomendacao_doc_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);" title="Ver carta de recomendação"><img src="recomendacao2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Recomendação</a>`
+  : `<button class="btn-sm" onclick="abrirModalRecomendacao('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.06);color:#f59e0b;border-color:rgba(245,158,11,0.18);" title="Adicionar carta de recomendação"><img src="recomendacao2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> + Recomendação</button>`;
   // ── Separar footBtns em 3 grupos ──
   // Grupo 1: Perfil/Docs/Avaliação
   const _g1 = [];
@@ -2273,42 +2625,43 @@ footBtns += h.recomendacao_doc_url
   const _IS = 'width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;';
 
   // GRUPO 1 — Perfil, Parecer(link), DISC, Fit Cultural, Entrevista, Agendar, Parecer(final)
-  _g1.push(`<button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
-  _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
+  _g1.push(`<button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+  _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
   _g1.push(`<a class="btn-sm" href="${esc(_discUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="${_discStyle}">${_discLabel}</a>`);
-  if(h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/fitcultural2.png" style="${_IS}" alt=""> Fit Cultural</a>`);
+  if(h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="fitcultural2.png" style="${_IS}" alt=""> Fit Cultural</a>`);
   else _g1.push(`<button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(243,156,18,0.08);color:#f39c12;border-color:rgba(243,156,18,0.2);">➕ Fit</button>`);
-  if(h.entrevista_json||h.resumo_ia||h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="imagens/entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
-  else _g1.push(`<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);"><img src="imagens/entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
-  _g1.push(`<button class="btn-sm" onclick="abrirModalAgendamento('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.email_externo||'')}','${esc(h.vaga||'')}')" style="background:rgba(96,165,250,0.1);color:#60a5fa;border-color:rgba(96,165,250,0.3);" title="Agendar entrevista">📅 Agendar</button>`);
-  _g1.push(`<button class="btn-sm" onclick="abrirParecerCard('${esc(h.id)}')" style="background:rgba(167,139,250,0.1);color:#c4b5fd;border-color:rgba(167,139,250,0.3);"><img src="imagens/parecer3.png" style="${_IS}" alt=""> Parecer${h.parecer_final_link ? ' ✅' : ''}</button>`);
+  if(h.entrevista_json||h.resumo_ia||h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
+  else _g1.push(`<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);"><img src="entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
+  _g1.push(`<button class="btn-sm" onclick="abrirModalAgendamento('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.email_externo||'')}','${esc(h.vaga||'')}')" style="background:rgba(52,211,153,0.1);color:#34d399;border-color:rgba(52,211,153,0.3);" title="Agendar entrevista">📅 Agendar</button>`);
+  _g1.push(`<button class="btn-sm" onclick="abrirParecerCard('${esc(h.id)}')" style="background:rgba(167,139,250,0.1);color:#c4b5fd;border-color:rgba(167,139,250,0.3);"><img src="parecer3.png" style="${_IS}" alt=""> Parecer${h.parecer_final_link ? ' ✅' : ''}</button>`);
 
   // GRUPO 2 — Movimentação
-  if(!jaEmEntrevistados) _g2.push(`<button class="btn-sm" onclick="moverParaEntrevistados('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);"><img src="imagens/entrevistados2.png" style="${_IS}" alt=""> → Entrevistados</button>`);
+  if(!jaEmEntrevistados) _g2.push(`<button class="btn-sm" onclick="moverParaEntrevistados('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);"><img src="entrevistados2.png" style="${_IS}" alt=""> → Entrevistados</button>`);
   else _g2.push(`<button class="btn-sm" onclick="desfazerMoverEntrevistados('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.1);color:#e74c3c;border-color:rgba(231,76,60,0.25);">↩️ Desfazer</button>`);
-  _g2.push(`<button class="btn-sm" onclick="abrirModalAreaMoverCopiar('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#2ecc71;border-color:rgba(59,130,246,0.3);"><img src="imagens/area2.png" style="${_IS}" alt=""> → Área</button>`);
-  _g2.push(`<button class="btn-sm" onclick="moverParaPendencias('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.28);"><img src="imagens/pendencis2.png" style="${_IS}" alt=""> → Pendências</button>`);
-  _g2.push(`<button class="btn-sm" onclick="moverParaEntrevistaPendente('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.vaga||'')}')" style="background:rgba(245,158,11,0.18);color:#fbbf24;border-color:rgba(245,158,11,0.45);font-weight:800;" title="Adicionar à lista Entrevista Pendente"><img src="imagens/pendencis2.png" style="${_IS}" alt=""> → Entrevista?</button>`);
-  if(!h.no_banco) _g2.push(`<button class="btn-sm" onclick="moverParaBanco('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(167,139,250,0.12);color:#a78bfa;border-color:rgba(167,139,250,0.3);"><img src="imagens/banco2.png" style="${_IS}" alt=""> → Banco</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirModalAreaMoverCopiar('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(46,204,113,0.12);color:#2ecc71;border-color:rgba(46,204,113,0.3);"><img src="area2.png" style="${_IS}" alt=""> → Área</button>`);
+  _g2.push(`<button class="btn-sm" onclick="moverParaPendencias('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.28);"><img src="pendencis2.png" style="${_IS}" alt=""> → Pendências</button>`);
+  _g2.push(`<button class="btn-sm" onclick="moverParaEntrevistaPendente('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.vaga||'')}')" style="background:rgba(245,158,11,0.18);color:#fbbf24;border-color:rgba(245,158,11,0.45);font-weight:800;" title="Adicionar à lista Entrevista Pendente"><img src="pendencis2.png" style="${_IS}" alt=""> → Entrevista?</button>`);
+  if(!h.no_banco) _g2.push(`<button class="btn-sm" onclick="moverParaBanco('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(167,139,250,0.12);color:#a78bfa;border-color:rgba(167,139,250,0.3);"><img src="banco2.png" style="${_IS}" alt=""> → Banco</button>`);
   else _g2.push(`<span class="btn-sm" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);cursor:default;opacity:0.7;">✅ No Banco</span>`);
-  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipe('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="imagens/triagem2.png" style="${_IS}" alt=""> → Triagem</button>`);
-  _g2.push(`<button class="btn-sm" onclick="abrirModalCargoMoverCopiar('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);font-weight:800;"><img src="imagens/cargo2.png" style="${_IS}" alt=""> → Cargo</button>`);
-  _g2.push(`<button class="btn-sm" onclick="event.stopPropagation();abrirEnviarVaga('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(167,139,250,0.12);color:#c4b5fd;border-color:rgba(167,139,250,0.35);font-weight:800;">🏢 → Parecer Empresa</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipe('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="triagem2.png" style="${_IS}" alt=""> → Triagem</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirModalCargoMoverCopiar('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);font-weight:800;"><img src="cargo2.png" style="${_IS}" alt=""> → Cargo</button>`);
+  _g2.push(`<button class="btn-sm" onclick="event.stopPropagation();abrirEnviarVaga('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(167,139,250,0.12);color:#c4b5fd;border-color:rgba(167,139,250,0.35);font-weight:800;" title="Enviar para Parecer Empresa">🏢 P. Empresa</button>`);
+  if(!jaEmInbox) _g2.push(`<button class="btn-sm" onclick="moverParaInbox('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(79,168,232,0.12);color:#4fa8e8;border-color:rgba(79,168,232,0.35);font-weight:800;" title="Mover para Caixa de Entrada — organizar para distribuição">📥 C. Entrada</button>`);
 
   // GRUPO 3 — Comunicação / Docs
   if(h.entrevista_json){ const _jaTemScore=h.score_curriculo!=null; _g3.push(`<button class="btn-sm" onclick="recalcularCurriculo('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.vaga||'')}',this)" style="${_jaTemScore?'background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);':'background:rgba(243,156,18,0.12);color:#f39c12;border-color:rgba(243,156,18,0.35);font-weight:800;'}">${_jaTemScore?'🔄 Recalc. CV':'⚡ Calcular CV'}</button>`); }
-  if(h.link_externo) _g3.push(`<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="imagens/linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
+  if(h.link_externo) _g3.push(`<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
   if(h.curriculo_url) {
-    _g3.push(`<a class="btn-sm" href="${esc(h.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="imagens/curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
+    _g3.push(`<a class="btn-sm" href="${esc(h.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
     _g3.push(`<button class="btn-sm" onclick="abrirCurriculoHtml('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.tel_externo||'')}','${esc(h.email_externo||'')}','${esc(h.vaga||'')}')" style="background:rgba(52,152,219,0.05);color:#5dade2;border-color:rgba(52,152,219,0.12);" title="Ver currículo gerado a partir dos dados da entrevista">📄 CV Gerado</button>`);
   } else {
-    _g3.push(`<button class="btn-sm" onclick="abrirModalAdicionarCurriculo('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.tel_externo||'')}','${esc(h.email_externo||'')}','${esc(h.vaga||'')}')" style="background:rgba(52,152,219,0.06);color:#3498db;border-color:rgba(52,152,219,0.15);font-weight:800;" title="Adicionar URL ou abrir currículo gerado a partir da entrevista"><img src="imagens/curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">+ Currículo</button>`);
+    _g3.push(`<button class="btn-sm" onclick="abrirModalAdicionarCurriculo('${esc(h.id)}','${esc(h.nome||'')}','${esc(h.tel_externo||'')}','${esc(h.email_externo||'')}','${esc(h.vaga||'')}')" style="background:rgba(52,152,219,0.06);color:#3498db;border-color:rgba(52,152,219,0.15);font-weight:800;" title="Adicionar URL ou abrir currículo gerado a partir da entrevista"><img src="curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">+ Currículo</button>`);
   }
-  if(h.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="imagens/correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
-  if(h.tel_externo) _g3.push(`<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="imagens/whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`);
+  if(h.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
+  if(h.tel_externo) _g3.push(`<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`);
   _g3.push(h.recomendacao_doc_url
-    ? `<a class="btn-sm" href="${esc(h.recomendacao_doc_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);"><img src="imagens/recomendacao2.png" style="${_IS}" alt=""> Recomendação</a>`
-    : `<button class="btn-sm" onclick="abrirModalRecomendacao('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.06);color:#f59e0b;border-color:rgba(245,158,11,0.18);"><img src="imagens/recomendacao2.png" style="${_IS}" alt=""> + Recomendação</button>`);
+    ? `<a class="btn-sm" href="${esc(h.recomendacao_doc_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);"><img src="recomendacao2.png" style="${_IS}" alt=""> Recomendação</a>`
+    : `<button class="btn-sm" onclick="abrirModalRecomendacao('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.06);color:#f59e0b;border-color:rgba(245,158,11,0.18);"><img src="recomendacao2.png" style="${_IS}" alt=""> + Recomendação</button>`);
 
   const footBtnsHtml = `
     <div class="cand-foot-label">👤 Perfil & Avaliação</div>
@@ -2350,8 +2703,8 @@ footBtns += h.recomendacao_doc_url
   const _recIsNeg = /não recomendado|nao recomendado|requisitos mínimos|competências não|experiência insuficiente|abaixo do esperado/i.test(_recTxt);
   const _recIsPos = /recomendado|excelente|destaque|acima do esperado|perfil forte|muito bom/i.test(_recTxt);
   const _recColor = _recIsNeg ? '#e74c3c' : _recIsPos ? '#2ecc71' : '#f39c12';
-  const _recBg    = _recIsNeg ? 'rgba(231,76,60,0.07)' : _recIsPos ? 'rgba(59,130,246,0.07)' : 'rgba(243,156,18,0.07)';
-  const _recBorder= _recIsNeg ? 'rgba(231,76,60,0.35)' : _recIsPos ? 'rgba(59,130,246,0.35)' : 'rgba(243,156,18,0.35)';
+  const _recBg    = _recIsNeg ? 'rgba(231,76,60,0.07)' : _recIsPos ? 'rgba(46,204,113,0.07)' : 'rgba(243,156,18,0.07)';
+  const _recBorder= _recIsNeg ? 'rgba(231,76,60,0.35)' : _recIsPos ? 'rgba(46,204,113,0.35)' : 'rgba(243,156,18,0.35)';
   const _recIcon  = _recIsNeg ? '⚠️' : _recIsPos ? '✅' : '💡';
   const rec = _recTxt ? `<div style="font-size:0.7rem;color:${_recColor};margin-top:0.5rem;line-height:1.5;background:${_recBg};border-radius:9px;padding:0.5rem 0.75rem;border:1px solid ${_recBorder};display:flex;align-items:flex-start;gap:0.4rem;"><span style="flex-shrink:0;font-size:0.85rem;">${_recIcon}</span><span>${esc(_recTxt.substring(0,160))}${_recTxt.length>160?'…':''}</span></div>` : '';
 
@@ -2396,7 +2749,12 @@ footBtns += h.recomendacao_doc_url
     miniRadar=`<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" width="36" height="36" title="DISC: D${_d}% I${_i}% S${_s}% C${_c}%" style="flex-shrink:0;">${_grids}${_axes}<polygon points="${_poly}" fill="${_domCor2}30" stroke="${_domCor2}" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
   }
 
-  return `<div class="cand-card${(h.candidato_destaque===true||h.candidato_destaque==='true')?' is-destaque':''}">
+  const _isSel = _massaModoAtivo && _massaSelecionados.has(String(h.id));
+  const _massaWrap = _massaModoAtivo ? `
+    <div onclick="toggleMassaCand('${esc(h.id)}')" style="position:absolute;top:0.55rem;left:0.55rem;width:22px;height:22px;border-radius:6px;border:2px solid ${_isSel?'#3b82f6':'rgba(255,255,255,0.25)'};background:${_isSel?'rgba(59,130,246,0.3)':'rgba(255,255,255,0.05)'};display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;font-size:0.75rem;transition:all 0.15s;">${_isSel?'✓':''}</div>` : '';
+
+  return `<div class="cand-card${(h.candidato_destaque===true||h.candidato_destaque==='true')?' is-destaque':''}" id="massaCard_${esc(h.id)}" ${_massaModoAtivo?`onclick="toggleMassaCand('${esc(h.id)}')" style="cursor:pointer;${_isSel?'border-color:rgba(59,130,246,0.7);background:rgba(59,130,246,0.06);':''}"`:''}>
+    ${_massaWrap}
     <div class="card-top-right">
       ${(h.candidato_destaque===true||h.candidato_destaque==='true') ? '<span class="badge-destaque" title="Candidato excepcional identificado pela IA — experiência forte mesmo com preenchimento parcial">⭐ Destaque</span>' : ''}
       ${miniRadar}
@@ -2484,7 +2842,7 @@ function abrirPerfil(id){
   const ader      = aderCalc2 ? aderCalc2.valor : null;
   const aderFonte = aderCalc2 ? aderCalc2.fonte : null;
   let scoresHtml = '';
-  [[fitEst,'🧠 DISC (estimado)','est.'],[fitScore,'<img src="imagens/fitcultural2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Fit Cultural','real'],[fitManual,'✏️ Manual','rec.']]
+  [[fitEst,'🧠 DISC (estimado)','est.'],[fitScore,'<img src="fitcultural2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Fit Cultural','real'],[fitManual,'✏️ Manual','rec.']]
     .forEach(([v,label,src])=>{
       if(v==null) return;
       const c=v>=80?'#2ecc71':v>=65?'#3b82f6':v>=45?'#f39c12':'#e74c3c';
@@ -2517,7 +2875,7 @@ function abrirPerfil(id){
   if(h.score_entrevista!=null){
     const se2=parseInt(h.score_entrevista),ce=se2>=65?'#3498db':se2>=40?'#f39c12':'#e74c3c';
     const ne2=h.nivel_entrevista?` <span style="font-size:0.58rem;background:${ce}22;border:1px solid ${ce}44;border-radius:99px;padding:0.05rem 0.4rem;color:${ce};">${esc(h.nivel_entrevista)}</span>`:''
-    scoresHtml+=`<div class="fit-bar-row" style="margin-bottom:0.35rem;" title="Score da Entrevista (Etapas 1-4) — Trajetória/Competências/Motivação"><span class="fit-bar-lbl" style="color:${ce};width:110px;"><img src="imagens/entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista${ne2}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${se2}%;background:${ce};"></div></div><span class="fit-bar-pct" style="color:${ce};">${se2}%</span><span class="fit-bar-src">entr.</span></div>`;
+    scoresHtml+=`<div class="fit-bar-row" style="margin-bottom:0.35rem;" title="Score da Entrevista (Etapas 1-4) — Trajetória/Competências/Motivação"><span class="fit-bar-lbl" style="color:${ce};width:110px;"><img src="entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista${ne2}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${se2}%;background:${ce};"></div></div><span class="fit-bar-pct" style="color:${ce};">${se2}%</span><span class="fit-bar-src">entr.</span></div>`;
     if(h.nota_trajetoria!=null||h.nota_competencias_ent!=null||h.nota_motivacao_ent!=null){
       scoresHtml+=`<div style="display:flex;gap:0.5rem;padding-left:118px;margin-top:-0.1rem;margin-bottom:0.35rem;flex-wrap:wrap;">`;
       if(h.nota_trajetoria!=null) scoresHtml+=`<span style="font-size:0.6rem;background:rgba(255,255,255,0.05);border-radius:6px;padding:0.1rem 0.4rem;color:#aaa;">📖 Traj: ${h.nota_trajetoria}/10</span>`;
@@ -2565,7 +2923,7 @@ function abrirPerfil(id){
   if(h.pilar_livre_valor!=null){
     const pl=parseInt(h.pilar_livre_valor),plnome=h.pilar_livre_nome||'Pilar Livre';
     const plc=pl>=80?'#2ecc71':pl>=65?'#3b82f6':pl>=45?'#f39c12':'#e74c3c';
-    scoresHtml+=`<div class="fit-bar-row" style="margin-bottom:0.35rem;" title="${esc(plnome)}"><span class="fit-bar-lbl" style="color:${plc};width:110px;">🔧 ${esc(plnome.substring(0,10))}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${pl}%;background:linear-gradient(90deg,#2563eb,#1d4ed8);"></div></div><span class="fit-bar-pct" style="color:${plc};">${pl}%</span><span class="fit-bar-src">livre</span></div>`;
+    scoresHtml+=`<div class="fit-bar-row" style="margin-bottom:0.35rem;" title="${esc(plnome)}"><span class="fit-bar-lbl" style="color:${plc};width:110px;">🔧 ${esc(plnome.substring(0,10))}</span><div class="fit-bar-track"><div class="fit-bar-fill" style="width:${pl}%;background:linear-gradient(90deg,#1abc9c,#16a085);"></div></div><span class="fit-bar-pct" style="color:${plc};">${pl}%</span><span class="fit-bar-src">livre</span></div>`;
   }
   // Fórmula de aderência usada — mostra pilares e método ativo
   if(aderCalc2 && aderCalc2.detalhes){
@@ -2643,7 +3001,7 @@ function abrirPerfil(id){
   const waTxt = encodeURIComponent('Olá ' + ((h.nome||'').split(' ')[0]) + '! Aqui é da Agência Nexus. Tudo bem?');
   let acoes = '';
   acoes += _btn('📋','Parecer', parecerUrl, 'rgba(167,139,250,0.12)', '#a78bfa', 'rgba(167,139,250,0.3)', '_blank');
-  const _baseP = 'https://agencianexus.github.io/agencianexus/';
+  const _baseP = 'https://nexusats.github.io/nexusats/';
   const _temDiscPerfil = !!(h.dom||h.disc_perfil||h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
   const _discUrlPerfil = _temDiscPerfil
     ? (h.url || (_baseP+'disc-resultado.html?nome='+encodeURIComponent(h.nome||'')+'&tel='+encodeURIComponent(h.tel_externo||'')+'&email='+encodeURIComponent(h.email_externo||'')+'&perfil='+(h.dom||'D')+'&sec='+(h.sec||'I')+'&d='+(h.pct_d||0)+'&i='+(h.pct_i||0)+'&s='+(h.pct_s||0)+'&c='+(h.pct_c||0)+'&vaga='+encodeURIComponent(h.vaga||'')+'&canal='+encodeURIComponent(h.canal||'')))
@@ -3031,11 +3389,11 @@ function atualizarPreviewPilarLivre(input){
 // ═══ MODAL PESOS ═══
 const PILARES_DEF = [
   { key:'disc',       label:'🧠 DISC estimado',    cor:'#3498db',  desc:'Estimativa baseada no perfil DISC' },
-  { key:'fit',        label:'<img src="imagens/fitcultural2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Fit Cultural',      cor:'#2ecc71',  desc:'Resultado da entrevista / Fit Score' },
+  { key:'fit',        label:'<img src="fitcultural2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Fit Cultural',      cor:'#2ecc71',  desc:'Resultado da entrevista / Fit Score' },
   { key:'curriculo',  label:'📄 Currículo',         cor:'#f39c12',  desc:'Score do currículo (Etapa 0)' },
   { key:'recrutador', label:'🧑‍💼 Score Recrutador',  cor:'#e67e22',  desc:'Avaliação subjetiva do recrutador' },
-  { key:'entrevista', label:'<img src="imagens/entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista IA',     cor:'#a78bfa',  desc:'Nota gerada pela entrevista IA' },
-  { key:'livre',      label:'🔧 Pilar Livre',       cor:'#2563eb',  desc:'Pilar customizável por candidato' },
+  { key:'entrevista', label:'<img src="entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista IA',     cor:'#a78bfa',  desc:'Nota gerada pela entrevista IA' },
+  { key:'livre',      label:'🔧 Pilar Livre',       cor:'#1abc9c',  desc:'Pilar customizável por candidato' },
 ];
 
 function selecionarFormulaModo(modo){
@@ -3721,7 +4079,7 @@ function abrirNegPerfilGmail(){
   const corpo   = document.getElementById('negPerfilTexto').value;
   const url = 'https://mail.google.com/mail/?view=cm'
     +'&to='+encodeURIComponent(email)
-    +'&bcc='+encodeURIComponent('bancodetalentosnexus@gmail.com')
+    +'&bcc='+encodeURIComponent('bancotalentosnexus@gmail.com')
     +'&su='+encodeURIComponent(assunto)
     +'&body='+encodeURIComponent(corpo);
   window.top.open(url,'_blank');
@@ -4012,7 +4370,7 @@ async function buscarDiscPorEmail(){
         const combo = r.combo_nome||(COMBOS[(r.dom||'')+(r.sec||'')])||`${r.dom||'?'}+${r.sec||'?'}`;
         const cor = COR[r.dom]||'#888';
         const d=parseFloat(r.pct_d)||0,i=parseFloat(r.pct_i)||0,s=parseFloat(r.pct_s)||0,c=parseFloat(r.pct_c)||0;
-        return `<div style="background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.18);border-radius:9px;padding:0.65rem 0.8rem;margin-bottom:0.35rem;">
+        return `<div style="background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.18);border-radius:9px;padding:0.65rem 0.8rem;margin-bottom:0.35rem;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.35rem;">
             <div>
               <div style="font-size:0.78rem;font-weight:800;color:${cor};">${esc(r.dom||'?')}+${esc(r.sec||'?')} · ${esc(combo)}</div>
@@ -4020,7 +4378,7 @@ async function buscarDiscPorEmail(){
             </div>
             <div style="display:flex;gap:0.3rem;flex-wrap:wrap;">
               ${r.url?`<a href="${esc(r.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="font-size:0.65rem;font-weight:700;color:#3498db;background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.2);border-radius:6px;padding:0.2rem 0.5rem;text-decoration:none;">🧠 Ver</a>`:''}
-              <button onclick="importarDiscDeRegistro('${esc(String(r.id))}','${esc(r.dom||'')}','${esc(r.sec||'')}','${d}','${i}','${s}','${c}','${esc(r.url||'')}')" style="background:rgba(59,130,246,0.15);color:#2ecc71;border:1px solid rgba(59,130,246,0.35);border-radius:6px;padding:0.2rem 0.55rem;font-family:inherit;font-size:0.65rem;font-weight:700;cursor:pointer;white-space:nowrap;">⬇️ Importar</button>
+              <button onclick="importarDiscDeRegistro('${esc(String(r.id))}','${esc(r.dom||'')}','${esc(r.sec||'')}','${d}','${i}','${s}','${c}','${esc(r.url||'')}')" style="background:rgba(46,204,113,0.15);color:#2ecc71;border:1px solid rgba(46,204,113,0.35);border-radius:6px;padding:0.2rem 0.55rem;font-family:inherit;font-size:0.65rem;font-weight:700;cursor:pointer;white-space:nowrap;">⬇️ Importar</button>
             </div>
           </div>
           <div style="display:flex;gap:0.28rem;flex-wrap:wrap;">
@@ -4090,21 +4448,21 @@ function candCardArea(h){
   const fit   = h.fit_score ? parseInt(h.fit_score) : (h.fit_manual ? parseInt(h.fit_manual) : null);
   const fitCor= fit!=null ? (fit>=80?'#2ecc71':fit>=65?'#3b82f6':fit>=45?'#f39c12':'#e74c3c') : '#777';
   const temDiscReal = !!(h.dom||h.disc_perfil||h.url||(h.pct_d&&parseFloat(h.pct_d)>0));
-  return `<div class="cand-card" style="border-color:rgba(59,130,246,0.25);opacity:0.85;">
+  return `<div class="cand-card" style="border-color:rgba(46,204,113,0.25);opacity:0.85;">
     <div class="cand-card-inner">
       <div class="cand-avatar" style="background:${temDiscReal?cor+'15':'rgba(255,255,255,0.04)'};border-color:${temDiscReal?cor+'40':'rgba(255,255,255,0.12)'};color:${temDiscReal?cor:'#555'};">${temDiscReal?emoji:'?'}</div>
       <div class="cand-info">
         <div class="cand-nome">${esc(h.nome||'—')}</div>
         <div class="cand-meta">📋 ${esc(h.vaga||'—')} &nbsp;·&nbsp; 📅 ${esc(_fmtCadastro(h))}</div>
         <div class="cand-chips">
-          <span class="chip" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.35);color:#2ecc71;">🗂️ Em Banco de Áreas</span>
+          <span class="chip" style="background:rgba(46,204,113,0.12);border-color:rgba(46,204,113,0.35);color:#2ecc71;">🗂️ Em Banco de Áreas</span>
           ${temDiscReal?`<span class="chip chip-disc">${esc(h.dom||'?')}+${esc(h.sec||'?')} · ${esc(combo)}</span>`:''}
           ${fit!=null?`<span class="chip" style="background:${fitCor}15;border-color:${fitCor}33;color:${fitCor};">Fit ${fit}%</span>`:''}
         </div>
       </div>
     </div>
     <div class="cand-foot">
-      <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Perfil</button>
+      <button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Perfil</button>
       <button class="btn-sm" onclick="desfazerMoverArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.1);color:#e74c3c;border-color:rgba(231,76,60,0.25);">↩️ Retornar ao Banco</button>
     </div>
   </div>`;
@@ -4127,7 +4485,7 @@ function abrirModalMoverArea(id, nome){
       const cor = a.cor || '#2ecc71';
       return `<div onclick="confirmarMoverArea('${esc(a.id)}','${esc(a.nome)}')"
         style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.75rem 1rem;cursor:pointer;transition:all 0.15s;"
-        onmouseenter="this.style.background='rgba(59,130,246,0.07)';this.style.borderColor='rgba(59,130,246,0.3)'"
+        onmouseenter="this.style.background='rgba(46,204,113,0.07)';this.style.borderColor='rgba(46,204,113,0.3)'"
         onmouseleave="this.style.background='rgba(255,255,255,0.03)';this.style.borderColor='rgba(255,255,255,0.08)'">
         <div style="width:10px;height:10px;border-radius:50%;background:${cor};flex-shrink:0;"></div>
         <div style="flex:1;font-size:0.83rem;font-weight:700;color:#f0f0f0;">${esc(a.nome)}</div>
@@ -4234,7 +4592,7 @@ function amcEscolherModo(modo){
     if(modo === 'mover'){
       return `<div data-area-nome="${esc2(a.nome)}" onclick="amcConfirmarMover('${esc2(a.id)}','${esc2(a.nome)}')"
         style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.75rem 1rem;cursor:pointer;transition:all 0.15s;"
-        onmouseenter="this.style.background='rgba(59,130,246,0.07)';this.style.borderColor='rgba(59,130,246,0.3)'"
+        onmouseenter="this.style.background='rgba(46,204,113,0.07)';this.style.borderColor='rgba(46,204,113,0.3)'"
         onmouseleave="this.style.background='rgba(255,255,255,0.03)';this.style.borderColor='rgba(255,255,255,0.08)'">
         <div style="width:10px;height:10px;border-radius:50%;background:${cor};flex-shrink:0;"></div>
         <div style="flex:1;font-size:0.83rem;font-weight:700;color:#f0f0f0;">${esc2(a.nome)}</div>
@@ -4273,7 +4631,7 @@ function amcToggleArea(areaId){
     _cargosSelecionados.add(areaId);
     const el = document.getElementById('amcItem_'+areaId);
     const chk = document.getElementById('amcCheck_'+areaId);
-    if(el){ el.style.background='rgba(59,130,246,0.08)'; el.style.borderColor='rgba(59,130,246,0.4)'; }
+    if(el){ el.style.background='rgba(46,204,113,0.08)'; el.style.borderColor='rgba(46,204,113,0.4)'; }
     if(chk){ chk.style.background='#2ecc71'; chk.style.borderColor='#2ecc71'; chk.textContent='✓'; chk.style.color='#000'; chk.style.fontWeight='900'; }
   }
 }
@@ -4524,7 +4882,7 @@ async function _autoRefreshTick(){
       if(Notification && Notification.permission === 'granted'){
         const cand = _allCands[0];
         try{
-          new Notification('🎯 Novo candidato — Agência Nexus', {
+          new Notification('🎯 Novo candidato — Nexus ATS', {
             body: (cand?.nome||'Candidato')+' · '+(cand?.vaga||'Vaga não informada')+(cand?.fit_score?' · Fit '+cand.fit_score+'%':''),
             icon: 'icone.png'
           });
@@ -4687,7 +5045,7 @@ function navegar(mod){ window.parent.postMessage({tipo:'nexus_navegar',mod},'*')
 
     <div id="ncErro" style="font-size:0.75rem;color:#e74c3c;margin-bottom:0.7rem;min-height:1rem;"></div>
     <div style="display:flex;gap:0.7rem;">
-      <button onclick="salvarNovoCand()" id="btnSalvarNovoCand" style="flex:2;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border:none;border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.9rem;font-weight:800;cursor:pointer;">✅ Salvar Candidato</button>
+      <button onclick="salvarNovoCand()" id="btnSalvarNovoCand" style="flex:2;background:linear-gradient(135deg,#1a3a6b,#3b82f6);color:#fff;border:none;border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.9rem;font-weight:800;cursor:pointer;">✅ Salvar Candidato</button>
       <button onclick="fecharModalNovoCand()" style="flex:1;background:rgba(255,255,255,0.05);color:#777;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.85rem;font-family:inherit;font-size:0.85rem;cursor:pointer;">Cancelar</button>
     </div>
   </div>
@@ -4762,12 +5120,12 @@ function navegar(mod){ window.parent.postMessage({tipo:'nexus_navegar',mod},'*')
 
 <!-- MODAL MOVER PARA ÁREA -->
 <div id="modalMoverArea" style="display:none;position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharModalMoverArea()">
-  <div style="background:#111;border:1px solid rgba(59,130,246,0.3);border-radius:20px;width:100%;max-width:420px;max-height:85vh;overflow-y:auto;position:relative;padding:1.6rem;">
+  <div style="background:#111;border:1px solid rgba(46,204,113,0.3);border-radius:20px;width:100%;max-width:420px;max-height:85vh;overflow-y:auto;position:relative;padding:1.6rem;">
     <button onclick="fecharModalMoverArea()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;">✕</button>
     <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;margin-bottom:0.3rem;">Banco de Áreas · Mover</div>
     <h3 style="font-size:1rem;font-weight:900;margin-bottom:0.15rem;color:#f0f0f0;">🗂️ Mover para uma Área</h3>
     <p style="font-size:0.74rem;color:#777;margin-bottom:1rem;line-height:1.6;" id="moverAreaSub">Selecione a área de destino para este candidato.</p>
-    <div id="moverAreaLista" style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem;max-height:300px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;"></div>
+    <div id="moverAreaLista" style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem;max-height:300px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(46,204,113,0.3) transparent;"></div>
     <div id="moverAreaMsg" style="display:none;text-align:center;font-size:0.72rem;color:#2ecc71;font-weight:700;margin-top:0.4rem;"></div>
     <button onclick="fecharModalMoverArea()" style="width:100%;background:rgba(255,255,255,0.04);color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.7rem;font-family:inherit;font-size:0.82rem;cursor:pointer;margin-top:0.5rem;">Cancelar</button>
   </div>
@@ -4775,7 +5133,7 @@ function navegar(mod){ window.parent.postMessage({tipo:'nexus_navegar',mod},'*')
 
 <!-- MODAL IMPORTAR DISC (lookup automático) -->
 <div id="modalImportarDisc" style="display:none;position:fixed;inset:0;z-index:10003;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharModalImportarDisc()">
-  <div style="background:#111;border:1px solid rgba(59,130,246,0.3);border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;position:relative;padding:1.6rem;">
+  <div style="background:#111;border:1px solid rgba(46,204,113,0.3);border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;position:relative;padding:1.6rem;">
     <button onclick="fecharModalImportarDisc()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;">✕</button>
     <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;margin-bottom:0.3rem;">Banco de Talentos · DISC</div>
     <h3 style="font-size:1rem;font-weight:900;margin-bottom:0.2rem;color:#f0f0f0;">🧠 DISC encontrado para este e-mail</h3>
@@ -5001,8 +5359,8 @@ function _atualizarPreviewLinkPF(link){
     const h = _perfilAtual;
     const temLink = !!(link || (h && h.parecer_final_link));
     badge.textContent = temLink ? 'link salvo' : 'sem link';
-    badge.style.background = temLink ? 'rgba(59,130,246,0.25)' : 'rgba(167,139,250,0.3)';
-    badge.style.borderColor = temLink ? 'rgba(59,130,246,0.4)' : 'rgba(167,139,250,0.4)';
+    badge.style.background = temLink ? 'rgba(46,204,113,0.25)' : 'rgba(167,139,250,0.3)';
+    badge.style.borderColor = temLink ? 'rgba(46,204,113,0.4)' : 'rgba(167,139,250,0.4)';
     badge.style.color = temLink ? '#2ecc71' : '#c4b5fd';
   }
 }
@@ -5071,8 +5429,8 @@ function _atualizarBadgeParecerFinal(h){
   if(!badge) return;
   const temLink = !!(h && h.parecer_final_link);
   badge.textContent = temLink ? 'link salvo' : 'sem link';
-  badge.style.background = temLink ? 'rgba(59,130,246,0.25)' : 'rgba(167,139,250,0.3)';
-  badge.style.borderColor = temLink ? 'rgba(59,130,246,0.4)' : 'rgba(167,139,250,0.4)';
+  badge.style.background = temLink ? 'rgba(46,204,113,0.25)' : 'rgba(167,139,250,0.3)';
+  badge.style.borderColor = temLink ? 'rgba(46,204,113,0.4)' : 'rgba(167,139,250,0.4)';
   badge.style.color = temLink ? '#2ecc71' : '#c4b5fd';
 }
 
@@ -5202,13 +5560,13 @@ function abrirModalImportarDisc(novo, discList){
     const combo = r.combo_nome||(COMBOS[(r.dom||'')+(r.sec||'')])||`${r.dom||'?'}+${r.sec||'?'}`;
     const cor = COR[r.dom]||'#888';
     const d=parseFloat(r.pct_d)||0,i=parseFloat(r.pct_i)||0,s=parseFloat(r.pct_s)||0,c=parseFloat(r.pct_c)||0;
-    return `<div style="background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:0.9rem 1rem;">
+    return `<div style="background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.2);border-radius:12px;padding:0.9rem 1rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.5rem;">
         <div>
           <div style="font-size:0.82rem;font-weight:800;color:${cor};">${esc(r.dom||'?')}+${esc(r.sec||'?')} · ${esc(combo)}</div>
           <div style="font-size:0.67rem;color:#777;margin-top:0.08rem;">${esc(r.nome||'—')} · ${esc(r.vaga||'—')} · ${esc(r.data||'—')}</div>
         </div>
-        <button onclick="confirmarImportarDisc('${esc(String(r.id))}','${esc(r.dom||'')}','${esc(r.sec||'')}','${d}','${i}','${s}','${c}','${esc(r.url||'')}')" style="background:rgba(59,130,246,0.18);color:#2ecc71;border:1px solid rgba(59,130,246,0.4);border-radius:9px;padding:0.38rem 0.75rem;font-family:inherit;font-size:0.73rem;font-weight:700;cursor:pointer;white-space:nowrap;">⬇️ Importar</button>
+        <button onclick="confirmarImportarDisc('${esc(String(r.id))}','${esc(r.dom||'')}','${esc(r.sec||'')}','${d}','${i}','${s}','${c}','${esc(r.url||'')}')" style="background:rgba(46,204,113,0.18);color:#2ecc71;border:1px solid rgba(46,204,113,0.4);border-radius:9px;padding:0.38rem 0.75rem;font-family:inherit;font-size:0.73rem;font-weight:700;cursor:pointer;white-space:nowrap;">⬇️ Importar</button>
       </div>
       <div style="display:flex;gap:0.3rem;flex-wrap:wrap;">
         ${[['D',d,'#e74c3c'],['I',i,'#f39c12'],['S',s,'#2ecc71'],['C',c,'#3498db']].map(([l,v,cor])=>
@@ -5258,17 +5616,17 @@ function fecharModalImportarDisc(){
     <div style="margin-bottom:1.3rem;">
       <label style="font-size:0.62rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.7px;display:block;margin-bottom:0.35rem;">Etapa</label>
       <select id="miniPipeEtapa" style="width:100%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.6rem 0.85rem;color:#f0f0f0;font-family:inherit;font-size:0.83rem;outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;">
-        <option value="triagem">🔍 Triagem</option>
-        <option value="entrevista_rh"><img src="imagens/entrevistados2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;" alt=""> Entrevista RH</option>
-        <option value="entrevista_gestor">👤 Entrevista Gestor</option>
-        <option value="teste_tecnico">🧪 Teste Técnico</option>
-        <option value="proposta">📋 Proposta</option>
+        <option value="triagem">🔵 Triagem</option>
+        <option value="pre">🟣 Pré-seleção</option>
+        <option value="entrevista">🟠 Entrevista</option>
+        <option value="finalista">🟢 Finalista</option>
         <option value="aprovado">✅ Aprovado</option>
-        <option value="reprovado">❌ Reprovado</option>
+        <option value="recusado">❌ Rec. Agência</option>
+        <option value="recusado_cliente">🚫 Rec. Cliente</option>
       </select>
     </div>
     <div id="miniPipeMsg" style="font-size:0.75rem;min-height:1.2rem;margin-bottom:0.7rem;color:#f39c12;"></div>
-    <button id="miniPipeBtn" onclick="confirmarMiniPipe()" style="width:100%;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border:none;border-radius:10px;padding:0.7rem 1.2rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;transition:opacity 0.18s;">🚀 Mover</button>
+    <button id="miniPipeBtn" onclick="confirmarMiniPipe()" style="width:100%;background:linear-gradient(135deg,#1a3a6b,#3b82f6);color:#fff;border:none;border-radius:10px;padding:0.7rem 1.2rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;transition:opacity 0.18s;">🚀 Mover</button>
   </div>
 </div>
 
@@ -5282,7 +5640,7 @@ function fecharModalImportarDisc(){
 
 <!-- MODAL ÁREA — MOVER / COPIAR -->
 <div id="modalAreaMoverCopiar" style="display:none;position:fixed;inset:0;z-index:10003;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharModalAreaMoverCopiar()">
-  <div style="background:#111;border:1px solid rgba(59,130,246,0.3);border-radius:20px;width:100%;max-width:420px;max-height:88vh;overflow-y:auto;position:relative;padding:1.6rem;">
+  <div style="background:#111;border:1px solid rgba(46,204,113,0.3);border-radius:20px;width:100%;max-width:420px;max-height:88vh;overflow-y:auto;position:relative;padding:1.6rem;">
     <button onclick="fecharModalAreaMoverCopiar()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;">✕</button>
     <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;margin-bottom:0.3rem;">Banco de Áreas</div>
     <h3 style="font-size:1rem;font-weight:900;margin-bottom:0.15rem;color:#f0f0f0;">🗂️ <span id="amcNome">—</span></h3>
@@ -5290,14 +5648,14 @@ function fecharModalImportarDisc(){
     <!-- Step 1: escolher modo -->
     <div id="amcStep1" style="display:flex;flex-direction:column;gap:0.6rem;margin-top:1.1rem;">
       <p style="font-size:0.74rem;color:#777;margin-bottom:0.4rem;line-height:1.6;">O que deseja fazer com este candidato?</p>
-      <button onclick="amcEscolherModo('mover')" style="display:flex;align-items:center;gap:0.75rem;background:rgba(59,130,246,0.08);border:1.5px solid rgba(59,130,246,0.3);border-radius:12px;padding:0.85rem 1rem;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.18s;" onmouseenter="this.style.borderColor='rgba(59,130,246,0.6)'" onmouseleave="this.style.borderColor='rgba(59,130,246,0.3)'">
+      <button onclick="amcEscolherModo('mover')" style="display:flex;align-items:center;gap:0.75rem;background:rgba(46,204,113,0.08);border:1.5px solid rgba(46,204,113,0.3);border-radius:12px;padding:0.85rem 1rem;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.18s;" onmouseenter="this.style.borderColor='rgba(46,204,113,0.6)'" onmouseleave="this.style.borderColor='rgba(46,204,113,0.3)'">
         <span style="font-size:1.5rem;line-height:1;">🚚</span>
         <div>
           <div style="font-size:0.85rem;font-weight:800;color:#2ecc71;">Mover para uma Área</div>
           <div style="font-size:0.68rem;color:#666;margin-top:0.15rem;">O candidato é enviado para a área e sai desta página.</div>
         </div>
       </button>
-      <button onclick="amcEscolherModo('copiar')" style="display:flex;align-items:center;gap:0.75rem;background:rgba(59,130,246,0.04);border:1.5px solid rgba(59,130,246,0.18);border-radius:12px;padding:0.85rem 1rem;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.18s;" onmouseenter="this.style.borderColor='rgba(59,130,246,0.45)'" onmouseleave="this.style.borderColor='rgba(59,130,246,0.18)'">
+      <button onclick="amcEscolherModo('copiar')" style="display:flex;align-items:center;gap:0.75rem;background:rgba(46,204,113,0.04);border:1.5px solid rgba(46,204,113,0.18);border-radius:12px;padding:0.85rem 1rem;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.18s;" onmouseenter="this.style.borderColor='rgba(46,204,113,0.45)'" onmouseleave="this.style.borderColor='rgba(46,204,113,0.18)'">
         <span style="font-size:1.5rem;line-height:1;">📋</span>
         <div>
           <div style="font-size:0.85rem;font-weight:800;color:#2ecc71;">Copiar para Área(s)</div>
@@ -5313,11 +5671,11 @@ function fecharModalImportarDisc(){
       <div id="amcStep2Sub" style="font-size:0.7rem;color:#666;margin-bottom:0.65rem;"></div>
       <div style="position:relative;margin-bottom:0.6rem;">
         <span style="position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);font-size:0.8rem;pointer-events:none;opacity:0.5;">🔍</span>
-        <input type="text" id="amcBusca" placeholder="Buscar área..." oninput="amcFiltrarLista()" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(59,130,246,0.25);border-radius:9px;padding:0.5rem 0.75rem 0.5rem 2rem;color:#f0f0f0;font-family:inherit;font-size:0.8rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(59,130,246,0.6)'" onblur="this.style.borderColor='rgba(59,130,246,0.25)'" />
+        <input type="text" id="amcBusca" placeholder="Buscar área..." oninput="amcFiltrarLista()" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(46,204,113,0.25);border-radius:9px;padding:0.5rem 0.75rem 0.5rem 2rem;color:#f0f0f0;font-family:inherit;font-size:0.8rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(46,204,113,0.6)'" onblur="this.style.borderColor='rgba(46,204,113,0.25)'" />
       </div>
-      <div id="amcLista" style="display:flex;flex-direction:column;gap:0.45rem;max-height:260px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(59,130,246,0.3) transparent;margin-bottom:0.85rem;"></div>
+      <div id="amcLista" style="display:flex;flex-direction:column;gap:0.45rem;max-height:260px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(46,204,113,0.3) transparent;margin-bottom:0.85rem;"></div>
       <div id="amcMsg" style="display:none;text-align:center;font-size:0.72rem;color:#2ecc71;font-weight:700;margin-bottom:0.5rem;"></div>
-      <button id="amcConfirmarBtn" onclick="amcConfirmarCopiar()" style="display:none;width:100%;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;border:none;border-radius:11px;padding:0.72rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:0.4rem;">✅ Confirmar Cópia</button>
+      <button id="amcConfirmarBtn" onclick="amcConfirmarCopiar()" style="display:none;width:100%;background:linear-gradient(135deg,#1a6b3c,#2ecc71);color:#fff;border:none;border-radius:11px;padding:0.72rem;font-family:inherit;font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:0.4rem;">✅ Confirmar Cópia</button>
       <button onclick="fecharModalAreaMoverCopiar()" style="width:100%;background:rgba(255,255,255,0.04);color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.65rem;font-family:inherit;font-size:0.82rem;cursor:pointer;">Cancelar</button>
     </div>
   </div>
@@ -5416,9 +5774,9 @@ async function salvarRecomendacaoLink(){
 
 <!-- MODAL AGENDAMENTO -->
 <div id="modalAgendamento" style="display:none;position:fixed;inset:0;z-index:10100;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)fecharModalAgendamento()">
-  <div style="background:#141414;border:1px solid rgba(96,165,250,0.25);border-radius:20px;padding:1.8rem;width:100%;max-width:460px;position:relative;max-height:92vh;overflow-y:auto;">
+  <div style="background:#141414;border:1px solid rgba(52,211,153,0.25);border-radius:20px;padding:1.8rem;width:100%;max-width:460px;position:relative;max-height:92vh;overflow-y:auto;">
     <button onclick="fecharModalAgendamento()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.07);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;color:#777;font-size:0.95rem;display:flex;align-items:center;justify-content:center;">✕</button>
-    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#60a5fa;margin-bottom:0.3rem;">Agenda de Entrevistas</div>
+    <div style="font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#34d399;margin-bottom:0.3rem;">Agenda de Entrevistas</div>
     <h3 style="font-size:1rem;font-weight:900;margin-bottom:0.15rem;color:#f0f0f0;">📅 Agendar Entrevista</h3>
     <p id="agModalSub" style="font-size:0.75rem;color:#666;margin-bottom:1.3rem;">Preencha os dados abaixo</p>
     <label style="font-size:0.72rem;font-weight:700;color:#aaa;display:block;margin-bottom:0.3rem;">👤 Candidato</label>
@@ -5447,7 +5805,7 @@ async function salvarRecomendacaoLink(){
     <input id="agFLocal" style="width:100%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.6rem 0.8rem;color:#f0f0f0;font-family:inherit;font-size:0.85rem;outline:none;margin-bottom:1.1rem;box-sizing:border-box;" placeholder="Endereço ou link meet/zoom"/>
     <div style="display:flex;gap:0.6rem;">
       <button onclick="fecharModalAgendamento()" style="flex:1;background:rgba(255,255,255,0.04);color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:0.7rem;font-family:inherit;font-size:0.84rem;cursor:pointer;">Cancelar</button>
-      <button id="agBtnSalvar" onclick="salvarAgendamento()" style="flex:2;background:linear-gradient(135deg,#1e3a5f,#60a5fa);color:#fff;border:none;border-radius:11px;padding:0.7rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">✅ Agendar</button>
+      <button id="agBtnSalvar" onclick="salvarAgendamento()" style="flex:2;background:linear-gradient(135deg,#065f46,#34d399);color:#fff;border:none;border-radius:11px;padding:0.7rem;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;">✅ Agendar</button>
     </div>
   </div>
 </div>
@@ -5521,7 +5879,7 @@ async function salvarAgendamento(){
     const emo  = {presencial:'Presencial',video:'Videoconferencia',telefone:'Telefone'}[ev.tipo]||ev.tipo;
     await fetch('https://ntfy.sh/'+_AG_NTFY,{
       method:'POST',
-      headers:{'Title':'Entrevista Agendada - Agência Nexus','Priority':'default','Tags':'calendar','Content-Type':'text/plain;charset=utf-8'},
+      headers:{'Title':'Entrevista Agendada - Nexus ATS','Priority':'default','Tags':'calendar','Content-Type':'text/plain;charset=utf-8'},
       body:'Candidato: '+ev.candidato+'\nVaga: '+(ev.vaga||'Nao informada')+'\nTipo: '+emo+'\nData: '+dFmt+' as '+hFmt+'\nLocal: '+(ev.local||'A confirmar')
     });
   } catch(e){ console.warn('ntfy falhou:',e); }
@@ -5769,8 +6127,8 @@ Retorne APENAS este JSON válido (sem markdown, sem texto fora do JSON):
     btnEl.title = _isFallback
       ? `Score estimado (fallback heurístico). Clique para tentar novamente quando a IA estiver disponível.`
       : `Score atual: ${resultado.score_curriculo}% (${resultado.nivel_curriculo}). Clique para recalcular.`;
-    btnEl.style.background = _isFallback ? 'rgba(243,156,18,0.12)' : 'rgba(59,130,246,0.12)';
-    btnEl.style.borderColor = _isFallback ? 'rgba(243,156,18,0.3)' : 'rgba(59,130,246,0.3)';
+    btnEl.style.background = _isFallback ? 'rgba(243,156,18,0.12)' : 'rgba(46,204,113,0.12)';
+    btnEl.style.borderColor = _isFallback ? 'rgba(243,156,18,0.3)' : 'rgba(46,204,113,0.3)';
     btnEl.style.color = _isFallback ? '#f39c12' : '#2ecc71';
     btnEl.disabled = false;
     btnEl.style.opacity = '';
@@ -5932,7 +6290,7 @@ function evRenderLista(empresas){
     wrap.innerHTML = `<div class="ev-empty"><div class="ev-empty-ico">🏢</div><div>${(!_evDb||!(_evDb.empresas||[]).length)?'Nenhuma empresa cadastrada em Pareceres de Empresas.':'Nenhum resultado para este filtro.'}</div></div>`;
     return;
   }
-  const CORES = ['#3b82f6','#a78bfa','#2ecc71','#f59e0b','#e74c3c','#60a5fa'];
+  const CORES = ['#3b82f6','#a78bfa','#2ecc71','#f59e0b','#e74c3c','#0dcfbb'];
   let html = '';
   empresas.forEach(emp => {
     const vagas = emp.vagas||[];
