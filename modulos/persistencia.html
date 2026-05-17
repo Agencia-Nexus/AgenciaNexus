@@ -11,9 +11,9 @@ html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;m
 body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(59,130,246,0.025)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.025)1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
 .page{position:relative;z-index:1;padding:1.8rem 2rem 5rem;width:100%;box-sizing:border-box;}
 .hero{margin-bottom:1.8rem;}
-.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);opacity:0.85;margin-bottom:0.35rem;}
+.hero-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.85;margin-bottom:0.35rem;}
 .hero-title{font-size:1.6rem;font-weight:900;margin-bottom:0.2rem;}
-.hero-title span{color:var(--green);}
+.hero-title span{color:var(--accent);}
 .hero-sub{font-size:0.8rem;color:var(--muted);line-height:1.6;}
 .sec-label{font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
@@ -140,7 +140,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
   <div class="sec-label">Status de sincronização</div>
   <div class="card">
     <div class="sync-row">
-      <div class="sync-ico" style="background:rgba(141,198,63,0.1);">🧠</div>
+      <div class="sync-ico" style="background:rgba(59,130,246,0.1);">🧠</div>
       <div class="sync-info"><div class="sync-name">Candidatos (disc_historico)</div><div class="sync-desc">Todos os perfis DISC, fit scores e entrevistas — já no Supabase nativamente</div></div>
       <span class="sync-status ss-ok">✓ Supabase nativo</span>
     </div>
