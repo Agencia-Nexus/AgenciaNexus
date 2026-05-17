@@ -195,7 +195,7 @@ body {
   <!-- TOP BAR -->
   <div class="top-bar">
     <div class="logo-area">
-      <img src="imagens/fundo.png" alt="Agência Nexus"/>
+      <img src="imagens/fundo.png" alt="Agência Nexus" onerror="this.style.display='none'"/>
       <span>Uso interno — Agência Nexus</span>
     </div>
     <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
@@ -1728,7 +1728,7 @@ async function gerarPDFCompleto(){
     const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const escP = s => esc((s||'').replace(/\r/g,'').replace(/\n+/g,' ').trim());
     const hdr = titulo => `
-<div style="background:#3a5710;padding:10px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
+<div style="background:#1e3a5f;padding:10px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
   <div><div style="font-size:16px;font-weight:900;letter-spacing:1.2px;">${titulo}</div></div>
   <div style="text-align:right;font-size:9px;opacity:.7;line-height:1.7;"><div>${dataHoje}</div><div>Recrutamento e Seleção</div></div>
 </div>
@@ -1770,7 +1770,7 @@ p{text-align:justify;word-wrap:break-word;overflow-wrap:break-word;}
 /* ── CAPA / BANNER TOPO PG1 ── */
 .capa{
   position:relative;overflow:hidden;
-  background:#0b1904;
+  background:#0d1b2a;
   width:100%;
   padding:28px 28px 22px;
 }
@@ -1793,7 +1793,7 @@ p{text-align:justify;word-wrap:break-word;overflow-wrap:break-word;}
 }
 .capa-topline{
   position:absolute;top:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,#3a5710,#3b82f6,#3a5710);
+  background:linear-gradient(90deg,#1e3a5f,#3b82f6,#1e3a5f);
 }
 .capa-botline{
   position:absolute;bottom:0;left:0;right:0;height:2px;
@@ -1889,7 +1889,7 @@ p{text-align:justify;word-wrap:break-word;overflow-wrap:break-word;}
 .pg1-wrap{height:297mm;display:flex;flex-direction:column;overflow:hidden;}
 .pg1-spacer{flex:1;min-height:0;}
 .pg1-footer{
-  background:#0b1904;
+  background:#0d1b2a;
   position:relative;
   overflow:hidden;
   margin:0;
@@ -1909,7 +1909,7 @@ p{text-align:justify;word-wrap:break-word;overflow-wrap:break-word;}
 }`;
 
     const toolbar = `
-<div class="nopr" style="background:#3a5710;padding:8px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:99;width:100%;">
+<div class="nopr" style="background:#1e3a5f;padding:8px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:99;width:100%;">
   <span style="color:#fff;font-size:13px;font-weight:700;">Parecer — ${esc(nomeCandAtual)}</span>
   <button onclick="window.print()" style="margin-left:auto;background:#3b82f6;color:#fff;border:none;border-radius:7px;padding:6px 18px;font-size:13px;font-weight:700;cursor:pointer;">💾 Salvar como PDF</button>
   <button onclick="window.close()" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:7px;padding:6px 12px;font-size:13px;cursor:pointer;">✕</button>
@@ -1934,7 +1934,7 @@ p{text-align:justify;word-wrap:break-word;overflow-wrap:break-word;}
     <div class="capa-marca">
       <div class="capa-tag">Parecer · Relatório de Avaliação</div>
       <div class="capa-nome-ag">Agência</div>
-      <div class="capa-titulo">EXIT<span>TUS</span></div>
+      <div class="capa-titulo">NEX<span>US</span></div>
       <div class="capa-sub">Recrutamento &amp; Seleção</div>
       <div class="capa-div"></div>
     </div>
@@ -1971,7 +1971,7 @@ p{text-align:justify;word-wrap:break-word;overflow-wrap:break-word;}
 <div class="pad">
 
 <div style="margin-bottom:14px;">
-${st('👤 Dados Pessoais','#3a5710')}
+${st('👤 Dados Pessoais','#1e3a5f')}
 ${fr(fl('Nome completo', d.nome) + fl('Idade', d.idade) + fl('Nacionalidade', d.nacionalidade))}
 ${fr(fl('Nome da mãe', d.mae) + fl('Nome do pai', d.pai))}
 ${fr(fl('CPF', d.cpf) + fl('RG', d.rg) + fl('Cidade', d.cidade) + fl('Bairro', d.bairro))}
@@ -1985,11 +1985,11 @@ ${(d.expArea||d.areaAtuacao) ? fr(fl('Experiência na área', {comprovada:'✅ S
 
 <!-- RODAPÉ PG1 -->
 <div class="pg1-footer">
-  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3a5710,#3b82f6,#3a5710);"></div>
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1e3a5f,#3b82f6,#1e3a5f);"></div>
   <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:20px 20px;"></div>
   <div style="position:absolute;top:-40px;left:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(30,64,175,0.18) 0%,transparent 65%);pointer-events:none;"></div>
   <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;width:100%;">
-    <img src="imagens/${baseUrl}fundo.png" alt="Agência Nexus" style="height:75px;width:auto;filter:brightness(10);opacity:.9;"/>
+    <img src="${baseUrl}imagens/fundo.png" alt="Agência Nexus" style="height:75px;width:auto;filter:brightness(10);opacity:.9;"/>
     <div style="text-align:center;">
       <div style="font-size:7.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(59,130,246,0.75);">Documento Confidencial</div>
       <div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,0.4),transparent);margin:4px auto 0;"></div>

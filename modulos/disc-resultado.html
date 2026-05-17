@@ -1162,7 +1162,7 @@ body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111;line-heig
 </style></head><body>
 
 <!-- TOOLBAR -->
-<div class="nopr" style="background:#3a5710;padding:8px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:99;">
+<div class="nopr" style="background:#1e3a5f;padding:8px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:99;">
 <span style="color:#fff;font-size:13px;font-weight:700;">Relatório DISC — ${nome}</span>
 <button onclick="window.print()" style="margin-left:auto;background:#3b82f6;color:#fff;border:none;border-radius:7px;padding:6px 18px;font-size:13px;font-weight:700;cursor:pointer;">🖨️ Salvar como PDF</button>
 <button onclick="window.close()" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:7px;padding:6px 12px;font-size:13px;cursor:pointer;">✕ Fechar</button>
@@ -1170,7 +1170,7 @@ body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111;line-heig
 
 <!-- ════════════ PÁGINA 1 — PERFIL DO CANDIDATO ════════════ -->
 <div class="pg">
-<div style="background:#3a5710;padding:12px 22px;color:#fff;display:flex;justify-content:space-between;align-items:flex-start;">
+<div style="background:#1e3a5f;padding:12px 22px;color:#fff;display:flex;justify-content:space-between;align-items:flex-start;">
   <div><div style="font-size:16px;font-weight:900;letter-spacing:1.2px;">AGÊNCIA NEXUS</div>
   <div style="font-size:9px;opacity:.7;margin-top:1px;">RELATÓRIO DE PERFIL COMPORTAMENTAL DISC</div></div>
   <div style="font-size:9px;opacity:.7;text-align:right;line-height:1.7;"><div>${dataHoje}</div><div>Uso interno — Recrutamento</div></div>
@@ -1196,20 +1196,20 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 <!-- RADAR + DONUT + ESCALA -->
 <div class="r2 mb12" style="align-items:flex-start;">
   <div style="flex:0 0 170px;text-align:center;">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;text-align:left;">Radar — Intensidade</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;text-align:left;">Radar — Intensidade</div>
     ${radarSVG()}
   </div>
   <div style="flex:0 0 130px;text-align:center;">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;text-align:left;">Proporção DISC</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;text-align:left;">Proporção DISC</div>
     ${donutSVG()}
     <div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:4px;">
       ${['D','I','S','C'].map(f=>`<span style="font-size:9px;font-weight:700;color:${coresHex[f]};">${f}:${pct[f]}%</span>`).join('<span style="color:#ccc;font-size:9px;"> · </span>')}
     </div>
   </div>
   <div style="flex:1;border-left:1px solid #ebebeb;padding-left:14px;">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;">Escala 0–100</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;">Escala 0–100</div>
     ${['D','I','S','C'].map(f=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;"><div style="width:100px;font-size:11px;font-weight:700;color:${cl[f]};flex-shrink:0;">${nm[f]}</div><div style="flex:1;height:7px;background:#e5e5e5;border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct[f]}%;background:${cl[f]};border-radius:3px;"></div></div><div style="width:24px;font-size:11px;font-weight:700;color:${cl[f]};text-align:right;">${pct[f]}</div></div>`).join('')}
-    <div class="st" style="color:#3a5710;border-color:#3a5710;margin-top:10px;">Tendência por Área</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;margin-top:10px;">Tendência por Área</div>
     ${fitScores.map(v=>`<div style="display:flex;align-items:center;gap:4px;border-bottom:1px solid #f2f2f2;padding:2.5px 0;"><div style="flex:1;font-size:10.5px;color:#333;">${v.n}</div><div style="font-size:10.5px;font-weight:700;color:${cF(v.s)};width:28px;text-align:right;">${v.s}%</div><div style="width:46px;height:4px;background:#e5e5e5;border-radius:2px;overflow:hidden;margin-left:3px;"><div style="height:100%;width:${v.s}%;background:${cF(v.s)};"></div></div></div>`).join('')}
     <p style="font-size:8.5px;color:#bbb;margin-top:3px;">12 áreas — afinidade comportamental.</p>
   </div>
@@ -1250,7 +1250,7 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 
 <!-- ════════════ PÁGINA 2 — ANÁLISE COMPORTAMENTAL ════════════ -->
 <div class="pg pg2">
-<div style="background:#3a5710;padding:8px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
+<div style="background:#1e3a5f;padding:8px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
   <div style="font-size:14px;font-weight:900;letter-spacing:1px;">AGÊNCIA NEXUS</div>
   <div style="font-size:9px;opacity:.75;">${perfil.nome} + ${perfilSec.nome} — ${nome.toUpperCase()}</div>
 </div>
@@ -1260,7 +1260,7 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 <!-- LIDERANÇA + COMUNICAÇÃO -->
 <div class="r2 mb12">
   <div class="col">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;">Estilo de Liderança</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;">Estilo de Liderança</div>
     <div class="bi" style="border-color:${corPerfil};background:${corPerfil}10;margin-bottom:6px;">
       <div class="bil" style="color:${corPerfil};">Como este perfil lidera</div>
       <div class="bit">${perfil.estiloLideranca||''}</div>
@@ -1271,7 +1271,7 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
     </div>
   </div>
   <div class="col">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;">Comunicação</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;">Comunicação</div>
     <div class="bi" style="border-color:${corPerfil};background:${corPerfil}10;margin-bottom:6px;">
       <div class="bil" style="color:${corPerfil};">Como se comunica</div>
       <div class="bit">${estilosComo[dom]||''}</div>
@@ -1350,7 +1350,7 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 
 <!-- ════════════ PÁGINA 3 — FERRAMENTAS DE SELEÇÃO ════════════ -->
 <div class="pg pg2">
-<div style="background:#3a5710;padding:8px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
+<div style="background:#1e3a5f;padding:8px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
   <div style="font-size:14px;font-weight:900;letter-spacing:1px;">AGÊNCIA NEXUS</div>
   <div style="font-size:9px;opacity:.75;">${perfil.nome} + ${perfilSec.nome} — ${nome.toUpperCase()}</div>
 </div>
@@ -1359,25 +1359,25 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 
 <!-- RESUMO EXECUTIVO -->
 <div class="mb12" style="background:#f6fbee;border:1.5px solid #3b82f644;border-radius:6px;padding:9px 13px;">
-  <div style="font-size:9px;font-weight:900;color:#3a5710;text-transform:uppercase;letter-spacing:.9px;margin-bottom:7px;border-bottom:2px solid #3b82f6;padding-bottom:3px;">📋 Resumo Executivo — Página de Entrevista</div>
+  <div style="font-size:9px;font-weight:900;color:#1e3a5f;text-transform:uppercase;letter-spacing:.9px;margin-bottom:7px;border-bottom:2px solid #3b82f6;padding-bottom:3px;">📋 Resumo Executivo — Página de Entrevista</div>
   <div style="display:flex;gap:12px;align-items:flex-start;">
     <div style="flex:1;">
-      <div style="font-size:8.5px;font-weight:700;color:#3a5710;margin-bottom:3px;text-transform:uppercase;">Candidato</div>
+      <div style="font-size:8.5px;font-weight:700;color:#1e3a5f;margin-bottom:3px;text-transform:uppercase;">Candidato</div>
       <div style="font-size:12px;font-weight:900;color:#111;">${nome.toUpperCase()}</div>
       <div style="font-size:10px;color:#555;margin-top:1px;">Vaga: ${vagaAtual}</div>
       <div style="font-size:10px;color:#555;">Data: ${dataHoje}</div>
     </div>
     <div style="flex:1;">
-      <div style="font-size:8.5px;font-weight:700;color:#3a5710;margin-bottom:3px;text-transform:uppercase;">Perfil Dominante</div>
+      <div style="font-size:8.5px;font-weight:700;color:#1e3a5f;margin-bottom:3px;text-transform:uppercase;">Perfil Dominante</div>
       <div style="font-size:13px;font-weight:900;color:${corPerfil};">${perfil.emoji} ${perfil.nome} + ${perfilSec.nome}</div>
       <div style="font-size:10px;color:#555;margin-top:1px;">${comboNome}</div>
     </div>
     <div style="flex:1.2;">
-      <div style="font-size:8.5px;font-weight:700;color:#3a5710;margin-bottom:4px;text-transform:uppercase;">Escala DISC</div>
+      <div style="font-size:8.5px;font-weight:700;color:#1e3a5f;margin-bottom:4px;text-transform:uppercase;">Escala DISC</div>
       ${['D','I','S','C'].map(f=>`<div style="display:flex;align-items:center;gap:5px;margin-bottom:3px;"><span style="width:14px;font-size:9px;font-weight:700;color:${cl[f]};">${f}</span><div style="flex:1;height:5px;background:#e5e5e5;border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct[f]}%;background:${cl[f]};border-radius:3px;"></div></div><span style="font-size:9px;font-weight:700;color:${cl[f]};width:22px;text-align:right;">${pct[f]}</span></div>`).join('')}
     </div>
     <div style="flex:1.2;">
-      <div style="font-size:8.5px;font-weight:700;color:#3a5710;margin-bottom:4px;text-transform:uppercase;">Top 3 Áreas</div>
+      <div style="font-size:8.5px;font-weight:700;color:#1e3a5f;margin-bottom:4px;text-transform:uppercase;">Top 3 Áreas</div>
       ${fitScores.slice(0,3).map((v,i)=>`<div style="display:flex;align-items:center;gap:4px;margin-bottom:3px;"><span style="font-size:9px;color:#888;width:10px;">${i+1}.</span><span style="flex:1;font-size:9.5px;color:#333;">${v.n}</span><span style="font-size:9px;font-weight:700;color:${cF(v.s)};">${v.s}%</span></div>`).join('')}
     </div>
   </div>
@@ -1398,7 +1398,7 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 
 <!-- OBSERVAÇÕES DO RECRUTADOR -->
 ${obsTexto
-  ? `<div class="mb12" style="background:#f5f9ee;border-left:4px solid #1e40af;border-radius:0 6px 6px 0;padding:10px 14px;">
+  ? `<div class="mb12" style="background:#eef2fb;border-left:4px solid #1e40af;border-radius:0 6px 6px 0;padding:10px 14px;">
       <div class="st" style="color:#1e40af;border-color:#1e40af;">📝 Observações do Recrutador</div>
       <p style="font-size:12px;color:#333;line-height:1.6;white-space:pre-wrap;margin-top:4px;">${obsTexto}</p>
     </div>`
@@ -1500,13 +1500,13 @@ body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111;line-heig
 .mb12{margin-bottom:12px;}
 @media print{@page{margin:0;size:A4;}body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.nopr{display:none!important;}.pg{width:100%;}}
 </style></head><body>
-<div class="nopr" style="background:#3a5710;padding:8px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:99;">
+<div class="nopr" style="background:#1e3a5f;padding:8px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:99;">
 <span style="color:#fff;font-size:13px;font-weight:700;">Resultado DISC — ${nome} (Versão Candidato)</span>
 <button onclick="window.print()" style="margin-left:auto;background:#3b82f6;color:#fff;border:none;border-radius:7px;padding:6px 18px;font-size:13px;font-weight:700;cursor:pointer;">🖨️ Salvar como PDF</button>
 <button onclick="window.close()" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:7px;padding:6px 12px;font-size:13px;cursor:pointer;">✕ Fechar</button>
 </div>
 <div class="pg">
-<div style="background:#3a5710;padding:12px 22px;color:#fff;display:flex;justify-content:space-between;align-items:flex-start;">
+<div style="background:#1e3a5f;padding:12px 22px;color:#fff;display:flex;justify-content:space-between;align-items:flex-start;">
   <div><div style="font-size:16px;font-weight:900;letter-spacing:1.2px;">AGÊNCIA NEXUS</div>
   <div style="font-size:9px;opacity:.7;margin-top:1px;">RESULTADO DO PERFIL COMPORTAMENTAL DISC</div></div>
   <div style="font-size:9px;opacity:.7;text-align:right;line-height:1.7;"><div>${dataHoje}</div><div>Resultado do candidato</div></div>
@@ -1524,13 +1524,13 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 <div style="border-left:4px solid ${corPerfil};background:#f6fbee;padding:7px 11px;border-radius:0 5px 5px 0;margin-bottom:11px;font-size:11.5px;color:#333;line-height:1.55;">${perfil.descricao}</div>
 <div class="r2 mb12" style="align-items:flex-start;">
   <div style="flex:0 0 185px;text-align:center;">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;text-align:left;">Gráfico Radar</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;text-align:left;">Gráfico Radar</div>
     ${radarSVG2()}
   </div>
   <div style="flex:1;border-left:1px solid #ebebeb;padding-left:14px;">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;">Escala 0–100</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;">Escala 0–100</div>
     ${['D','I','S','C'].map(f=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><div style="width:100px;font-size:11px;font-weight:700;color:${cl[f]};flex-shrink:0;">${nm[f]}</div><div style="flex:1;height:6px;background:#e5e5e5;border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct[f]}%;background:${cl[f]};border-radius:3px;"></div></div><div style="width:20px;font-size:11px;font-weight:700;color:${cl[f]};text-align:right;">${pct[f]}</div></div>`).join('')}
-    <div class="st" style="color:#3a5710;border-color:#3a5710;margin-top:9px;">Seus Pontos Fortes</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;margin-top:9px;">Seus Pontos Fortes</div>
     ${(perfil.forcas||[]).map(x=>`<div class="bul"><span style="color:#1e8449;flex-shrink:0;">✓</span>${x}</div>`).join('')}
   </div>
 </div>
@@ -1548,7 +1548,7 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 </div></div>
 
 <div class="pg" style="page-break-before:always;">
-<div style="background:#3a5710;padding:8px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
+<div style="background:#1e3a5f;padding:8px 22px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
   <div style="font-size:14px;font-weight:900;">AGÊNCIA NEXUS</div>
   <div style="font-size:9px;opacity:.75;">${nome.toUpperCase()} — Resultado DISC</div>
 </div>
@@ -1556,12 +1556,12 @@ ${[{l:'Candidato',v:nome.toUpperCase()},{l:'Vaga',v:vagaAtual.toUpperCase()},{l:
 <div class="pad">
 <div class="r2 mb12">
   <div class="col">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;">Como você se Comunica</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;">Como você se Comunica</div>
     <div class="bi" style="border-color:${corPerfil};background:#f6fbee;"><div class="bil" style="color:${corPerfil};">Seu estilo de comunicação</div><div class="bit">${estilosComo[dom]||''}</div></div>
     <div class="bi" style="border-color:#1e40af;background:#f6fbee;"><div class="bil" style="color:#1e40af;">Como comunicar melhor com outros</div><div class="bit">${estilosPara[dom]||''}</div></div>
   </div>
   <div class="col">
-    <div class="st" style="color:#3a5710;border-color:#3a5710;">Ambiente Ideal para Você</div>
+    <div class="st" style="color:#1e3a5f;border-color:#1e3a5f;">Ambiente Ideal para Você</div>
     <div class="bi" style="border-color:#1e40af;background:#f6fbee;"><div class="bit">${perfil.ambienteIdeal||''}</div></div>
     <div class="st" style="color:#b36200;border-color:#b36200;margin-top:8px;">Áreas de Desenvolvimento</div>
     ${(perfil.melhorar||[]).map(x=>`<div class="bul"><span style="color:#b36200;flex-shrink:0;">→</span>${x}</div>`).join('')}
@@ -1630,7 +1630,7 @@ function _gerarWordDoc(chartBase64){
   const lH=lightMap[corHex]||'f5f5f5',lHS=lightMap[corSHex]||'f5f5f5';
   function sp(b=0,a=80){return{line:L,lineRule:'auto',before:b,after:a};}
   function sep(cor='e5e5e5',b=120,a=120){return new Paragraph({border:{bottom:{color:cor,size:6,style:BorderStyle.SINGLE}},spacing:{before:b,after:a}});}
-  function tit(txt,cor='4F7214'){return new Paragraph({children:[new TextRun({text:txt,bold:true,size:22,font:F,color:cor,characterSpacing:60})],spacing:{before:200,after:100}});}
+  function tit(txt,cor='1e3a5f'){return new Paragraph({children:[new TextRun({text:txt,bold:true,size:22,font:F,color:cor,characterSpacing:60})],spacing:{before:200,after:100}});}
   function barra(l,n,s,cor){
     const fill=Math.max(1,Math.round(s/5)),vazio=20-fill,cells=[];
     for(let i=0;i<fill;i++)cells.push(new TableCell({children:[new Paragraph({children:[new TextRun({text:' '})],spacing:{before:0,after:0}})],width:{size:5,type:WidthType.PERCENTAGE},shading:{fill:cor,type:ShadingType.CLEAR,color:'FFFFFF'},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}}}));
@@ -1654,10 +1654,10 @@ function _gerarWordDoc(chartBase64){
   const doc=new Document({creator:'Agência Nexus',title:`Relatório DISC — ${nome}`,sections:[{
     properties:{page:{margin:{top:convertInchesToTwip(0.9),bottom:convertInchesToTwip(0.9),left:convertInchesToTwip(1.0),right:convertInchesToTwip(1.0)}}},
     children:[
-      new Paragraph({children:[new TextRun({text:'AGÊNCIA NEXUS',bold:true,size:30,font:F,color:'4F7214',characterSpacing:120})],alignment:AlignmentType.CENTER,spacing:{after:40}}),
+      new Paragraph({children:[new TextRun({text:'AGÊNCIA NEXUS',bold:true,size:30,font:F,color:'1e3a5f',characterSpacing:120})],alignment:AlignmentType.CENTER,spacing:{after:40}}),
       new Paragraph({children:[new TextRun({text:'Relatório de Perfil Comportamental DISC',size:20,font:F,color:'888888',italics:true})],alignment:AlignmentType.CENTER,spacing:{after:40}}),
       new Paragraph({children:[new TextRun({text:`Emitido em ${dataHoje}`,size:18,font:F,color:'555555'})],alignment:AlignmentType.CENTER,spacing:{after:0}}),
-      new Paragraph({border:{bottom:{color:'4F7214',size:20,style:BorderStyle.SINGLE}},spacing:{before:140,after:200}}),
+      new Paragraph({border:{bottom:{color:'1e3a5f',size:20,style:BorderStyle.SINGLE}},spacing:{before:140,after:200}}),
       tit('DADOS DO CANDIDATO'),
       new Table({width:{size:100,type:WidthType.PERCENTAGE},borders:{top:{style:BorderStyle.SINGLE,color:'d6d6d6',size:8},bottom:{style:BorderStyle.SINGLE,color:'d6d6d6',size:8},left:{style:BorderStyle.SINGLE,color:'d6d6d6',size:8},right:{style:BorderStyle.SINGLE,color:'d6d6d6',size:8},insideH:{style:BorderStyle.NONE},insideV:{style:BorderStyle.SINGLE,color:'d6d6d6',size:8}},
         rows:[new TableRow({children:[
@@ -1679,16 +1679,16 @@ function _gerarWordDoc(chartBase64){
       new Paragraph({alignment:AlignmentType.LEFT,shading:{fill:lH,type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:corHex,size:28,style:BorderStyle.THICK}},children:[new TextRun({text:perfil.descricao,size:20,font:F,color:'333333'})],spacing:{line:L,lineRule:'auto',before:0,after:0},indent:{left:convertInchesToTwip(0.2)}}),
       tit('PERFIL SECUNDÁRIO E COMBINAÇÃO'),
       new Paragraph({shading:{fill:lHS,type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:corSHex,size:28,style:BorderStyle.THICK}},children:[new TextRun({text:`${sec}  —  ${perfilSec.nome}`,bold:true,size:24,font:F,color:corSHex})],spacing:{before:80,after:60},indent:{left:convertInchesToTwip(0.2)}}),
-      new Paragraph({shading:{fill:'f8f8f8',type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:'4F7214',size:18,style:BorderStyle.THICK}},children:[new TextRun({text:`Combinação ${dom}+${sec}: `,bold:true,size:20,font:F,color:'4F7214'}),new TextRun({text:comboNome,bold:true,size:20,font:F,color:'333333'})],spacing:{before:0,after:0},indent:{left:convertInchesToTwip(0.2)}}),
+      new Paragraph({shading:{fill:'f8f8f8',type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:'1e3a5f',size:18,style:BorderStyle.THICK}},children:[new TextRun({text:`Combinação ${dom}+${sec}: `,bold:true,size:20,font:F,color:'1e3a5f'}),new TextRun({text:comboNome,bold:true,size:20,font:F,color:'333333'})],spacing:{before:0,after:0},indent:{left:convertInchesToTwip(0.2)}}),
       tit('ESCALA DE INTENSIDADE 0–100 + GRÁFICO'),
       new Table({width:{size:100,type:WidthType.PERCENTAGE},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE},insideH:{style:BorderStyle.NONE},insideV:{style:BorderStyle.NONE}},
         rows:[new TableRow({children:[
           new TableCell({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new ImageRun({data:imgBytes,transformation:{width:180,height:180}})],spacing:{after:0}})],width:{size:40,type:WidthType.PERCENTAGE},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}},margins:{top:0,bottom:0,left:0,right:convertInchesToTwip(0.15)},verticalAlign:'center'}),
-          new TableCell({children:[new Paragraph({children:[new TextRun({text:'INTENSIDADE POR DIMENSÃO',bold:true,size:20,font:F,color:'4F7214'})],spacing:{after:120}}),...['D','I','S','C'].flatMap(f=>{const cP={D:'e74c3c',I:'f39c12',S:'2ecc71',C:'3498db'},nP={D:'Dominância',I:'Influência',S:'Estabilidade',C:'Conformidade'};const cF=cP[f],nF=nP[f],sF=pct[f],fl=Math.max(1,Math.round(sF/10)),em=10-fl,cl2=[];for(let i=0;i<fl;i++)cl2.push(new TableCell({children:[new Paragraph({children:[new TextRun({text:' '})],spacing:{before:0,after:0}})],width:{size:10,type:WidthType.PERCENTAGE},shading:{fill:cF,type:ShadingType.CLEAR,color:'FFFFFF'},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}}}));for(let i=0;i<em;i++)cl2.push(new TableCell({children:[new Paragraph({children:[new TextRun({text:' '})],spacing:{before:0,after:0}})],width:{size:10,type:WidthType.PERCENTAGE},shading:{fill:'eeeeee',type:ShadingType.CLEAR,color:'FFFFFF'},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}}}));return[new Paragraph({children:[new TextRun({text:`${f} — ${nF}`,bold:true,size:18,font:F,color:cF}),new TextRun({text:`  ${sF}/100`,size:16,font:F,color:'aaaaaa'})],spacing:{before:80,after:30}}),new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:[new TableRow({children:cl2,height:{value:convertInchesToTwip(0.11)}})],borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE},insideH:{style:BorderStyle.NONE},insideV:{style:BorderStyle.NONE}}})];})],width:{size:60,type:WidthType.PERCENTAGE},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}},margins:{top:convertInchesToTwip(0.05),bottom:0,left:convertInchesToTwip(0.15),right:0}}),
+          new TableCell({children:[new Paragraph({children:[new TextRun({text:'INTENSIDADE POR DIMENSÃO',bold:true,size:20,font:F,color:'1e3a5f'})],spacing:{after:120}}),...['D','I','S','C'].flatMap(f=>{const cP={D:'e74c3c',I:'f39c12',S:'2ecc71',C:'3498db'},nP={D:'Dominância',I:'Influência',S:'Estabilidade',C:'Conformidade'};const cF=cP[f],nF=nP[f],sF=pct[f],fl=Math.max(1,Math.round(sF/10)),em=10-fl,cl2=[];for(let i=0;i<fl;i++)cl2.push(new TableCell({children:[new Paragraph({children:[new TextRun({text:' '})],spacing:{before:0,after:0}})],width:{size:10,type:WidthType.PERCENTAGE},shading:{fill:cF,type:ShadingType.CLEAR,color:'FFFFFF'},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}}}));for(let i=0;i<em;i++)cl2.push(new TableCell({children:[new Paragraph({children:[new TextRun({text:' '})],spacing:{before:0,after:0}})],width:{size:10,type:WidthType.PERCENTAGE},shading:{fill:'eeeeee',type:ShadingType.CLEAR,color:'FFFFFF'},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}}}));return[new Paragraph({children:[new TextRun({text:`${f} — ${nF}`,bold:true,size:18,font:F,color:cF}),new TextRun({text:`  ${sF}/100`,size:16,font:F,color:'aaaaaa'})],spacing:{before:80,after:30}}),new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:[new TableRow({children:cl2,height:{value:convertInchesToTwip(0.11)}})],borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE},insideH:{style:BorderStyle.NONE},insideV:{style:BorderStyle.NONE}}})];})],width:{size:60,type:WidthType.PERCENTAGE},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}},margins:{top:convertInchesToTwip(0.05),bottom:0,left:convertInchesToTwip(0.15),right:0}}),
         ]})]
       }),
       new Paragraph({spacing:{before:160,after:0}}),
-      new Paragraph({shading:{fill:'f5f9ee',type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:'4F7214',size:22,style:BorderStyle.THICK}},children:[new TextRun({text:`Combinação ${dom}+${sec}: `,bold:true,size:20,font:F,color:'4F7214'}),new TextRun({text:comboNome,bold:true,size:20,font:F,color:'333333'})],spacing:{before:0,after:0},indent:{left:convertInchesToTwip(0.18)}}),
+      new Paragraph({shading:{fill:'eef2fb',type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:'1e3a5f',size:22,style:BorderStyle.THICK}},children:[new TextRun({text:`Combinação ${dom}+${sec}: `,bold:true,size:20,font:F,color:'1e3a5f'}),new TextRun({text:comboNome,bold:true,size:20,font:F,color:'333333'})],spacing:{before:0,after:0},indent:{left:convertInchesToTwip(0.18)}}),
       tit('ANÁLISE COMPORTAMENTAL'),
       new Table({width:{size:100,type:WidthType.PERCENTAGE},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE},insideH:{style:BorderStyle.NONE},insideV:{style:BorderStyle.NONE}},
         rows:[new TableRow({children:[
@@ -1715,11 +1715,11 @@ function _gerarWordDoc(chartBase64){
         ]})]
       }),
       tit('AMBIENTE IDEAL DE TRABALHO'),
-      new Paragraph({shading:{fill:'f5f9ee',type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:'4F7214',size:16,style:BorderStyle.THICK}},children:[new TextRun({text:perfil.ambienteIdeal||'',size:20,font:F,color:'333333'})],spacing:{line:L,lineRule:'auto',before:0,after:0},indent:{left:convertInchesToTwip(0.18)}}),
+      new Paragraph({shading:{fill:'eef2fb',type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:'1e3a5f',size:16,style:BorderStyle.THICK}},children:[new TextRun({text:perfil.ambienteIdeal||'',size:20,font:F,color:'333333'})],spacing:{line:L,lineRule:'auto',before:0,after:0},indent:{left:convertInchesToTwip(0.18)}}),
       tit('ESTILO DE LIDERANÇA'),
       new Paragraph({shading:{fill:lH,type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:corHex,size:16,style:BorderStyle.THICK}},children:[new TextRun({text:'Como lidera: ',bold:true,size:20,font:F,color:'333333'}),new TextRun({text:perfil.estiloLideranca||'',size:20,font:F,color:'444444'})],spacing:{line:L,lineRule:'auto',before:0,after:60},indent:{left:convertInchesToTwip(0.18)}}),
       new Paragraph({shading:{fill:'f5f5f5',type:ShadingType.CLEAR,color:'FFFFFF'},border:{left:{color:corHex,size:16,style:BorderStyle.THICK}},children:[new TextRun({text:'Como quer ser liderado: ',bold:true,size:20,font:F,color:'333333'}),new TextRun({text:perfil.comoSerLiderado||'',size:20,font:F,color:'444444'})],spacing:{line:L,lineRule:'auto',before:0,after:0},indent:{left:convertInchesToTwip(0.18)}}),
-      tit('PONTOS DE ATENÇÃO — PARA O RECRUTADOR','3a5710'),
+      tit('PONTOS DE ATENÇÃO — PARA O RECRUTADOR','1e3a5f'),
       ...(perfil.entrevistaRecrutador||[]).flatMap((r,i)=>[new Paragraph({children:[new TextRun({text:`${i+1}. ${r}`,size:20,font:F,color:'444444'})],spacing:sp(40,40),indent:{left:convertInchesToTwip(0.15)}})]),
       tit('CARGOS COM MAIOR AFINIDADE COMPORTAMENTAL'),
       new Paragraph({children:[new TextRun({text:(perfil.cargos||[]).join('  •  '),size:19,font:F,color:corHex})],spacing:{before:40,after:60},indent:{left:convertInchesToTwip(0.1)}}),
