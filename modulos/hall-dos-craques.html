@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="../guard.js"></script>
 <script src="../nexus-security.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -1128,8 +1127,8 @@ function abrirPerfil(id){
 
   // Actions — botões de acesso rápido no header do perfil
   const _parecerUrlHall = typeof NexusSec !== 'undefined'
-    ? ('../disc-parecer.html?t=' + NexusSec.storeUrlData({id:h.id,nome:h.nome||'',vaga:h.vaga||'',dom:h.dom||'D',sec:h.sec||'I',d:h.pct_d||'0',i:h.pct_i||'0',s:h.pct_s||'0',c:h.pct_c||'0',data:h.data||'',url:h.url||'',tel:h.tel_externo||''}))
-    : ('../disc-parecer.html?nome='+encodeURIComponent(h.nome||'')+'&vaga='+encodeURIComponent(h.vaga||'')+'&dom='+(h.dom||'D')+'&sec='+(h.sec||'I')+'&d='+(h.pct_d||0)+'&i='+(h.pct_i||0)+'&s='+(h.pct_s||0)+'&c='+(h.pct_c||0)+'&url='+encodeURIComponent(h.url||'')+'&tel='+encodeURIComponent(h.tel_externo||''));
+    ? ('disc-parecer.html?t=' + NexusSec.storeUrlData({id:h.id,nome:h.nome||'',vaga:h.vaga||'',dom:h.dom||'D',sec:h.sec||'I',d:h.pct_d||'0',i:h.pct_i||'0',s:h.pct_s||'0',c:h.pct_c||'0',data:h.data||'',url:h.url||'',tel:h.tel_externo||''}))
+    : ('disc-parecer.html?nome='+encodeURIComponent(h.nome||'')+'&vaga='+encodeURIComponent(h.vaga||'')+'&dom='+(h.dom||'D')+'&sec='+(h.sec||'I')+'&d='+(h.pct_d||0)+'&i='+(h.pct_i||0)+'&s='+(h.pct_s||0)+'&c='+(h.pct_c||0)+'&url='+encodeURIComponent(h.url||'')+'&tel='+encodeURIComponent(h.tel_externo||''));
   const _btnHA = (ico, lbl, href, bg, cor, bord) =>
     `<button onclick="window.top.open('${href.replace(/'/g,"\\'")}','_blank')" class="btn" style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.68rem;padding:0.28rem 0.65rem;background:${bg};color:${cor};border:1px solid ${bord};border-radius:8px;font-family:inherit;font-weight:700;cursor:pointer;white-space:nowrap;">${ico} ${lbl}</button>`;
   const _btnHAhref = (ico, lbl, href, bg, cor, bord) =>

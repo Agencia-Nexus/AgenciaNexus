@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="../guard.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Publicar Vaga no Site | Agência Nexus ATS</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -913,11 +912,11 @@ async function gerarHTML(){
 
         <div class="vaga-meta">
           <span>
-            <img src="pino-de-localizacao.png" alt="Localização" width="16" height="16" style="vertical-align:middle;margin-right:4px;">
+            <img src="imagens/pino-de-localizacao.png" alt="Localização" width="16" height="16" style="vertical-align:middle;margin-right:4px;">
             ${cidadeEsc}
           </span>
           <span style="display:flex;align-items:center;gap:11px;">
-            <img src="earning_4752254.png" alt="Remuneração" width="16" height="16" style="vertical-align:middle;">
+            <img src="imagens/earning_4752254.png" alt="Remuneração" width="16" height="16" style="vertical-align:middle;">
             ${esc(salario)}
           </span>
         </div>
@@ -1163,7 +1162,7 @@ function gerarCardParaRepublicar(v){
       <div id="${slug}" class="vaga-card" data-area="${esc(v.area||'')}" data-city="${esc(v.cidade||'')}" data-nivel="${esc(v.nivel||'')}" data-escolaridade="${esc(v.escolaridade||'')}">
         <div class="vaga-header"><div class="vaga-icon">${esc(v.icone||'💼')}</div><div class="vaga-title-area"><h3 class="vaga-title">${tituloEsc}</h3><p class="vaga-company">${esc(v.empresa||'Confidencial')}</p><p class="vaga-segment">${esc(v.segmento||'')}</p></div></div>
         <div class="vaga-tags"><span class="tag">${esc(v.regime||'')}</span><span class="tag">${esc(v.modalidade||'')}</span><span class="tag">${esc(v.nivel||'')}</span></div>
-        <div class="vaga-meta"><span><img src="pino-de-localizacao.png" width="16" height="16" style="vertical-align:middle;margin-right:4px;" alt=""> ${esc(v.cidade||'')}</span><span><img src="earning_4752254.png" width="16" height="16" style="vertical-align:middle;" alt=""> ${esc(v.salario||'')}</span></div>
+        <div class="vaga-meta"><span><img src="imagens/pino-de-localizacao.png" width="16" height="16" style="vertical-align:middle;margin-right:4px;" alt=""> ${esc(v.cidade||'')}</span><span><img src="imagens/earning_4752254.png" width="16" height="16" style="vertical-align:middle;" alt=""> ${esc(v.salario||'')}</span></div>
         <div class="accordion"><div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)"><span class="accordion-trigger-left"><span class="accordion-icon-label">📄</span> Descrição da vaga</span><span class="accordion-arrow">▼</span></button><div class="accordion-panel"><p>${esc(v.descricao||'')}</p></div></div></div>
         <div class="share-bar"><span class="share-label">Compartilhar:</span><button class="share-btn copy" onclick="copiarLink('${slug}',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span class="share-text">Link</span></button></div>
         <div class="vaga-footer"><span class="vaga-date" data-publicado="${v.data_publicacao||''}" data-status="${v.status||''}">📅</span><div style="position:relative;"><button class="btn-apply" onclick="candidatarSe(this)">Candidatar</button></div></div>
@@ -1298,8 +1297,8 @@ function gerarCardCompleto(v){
         </div>
         <div class="vaga-tags"><span class="tag">${esc(v.regime||'')}</span><span class="tag">${esc(v.modalidade||'')}</span><span class="tag">${esc(v.nivel||'')}</span></div>
         <div class="vaga-meta">
-          <span><img src="pino-de-localizacao.png" alt="" width="16" height="16" style="vertical-align:middle;margin-right:4px;"> ${cidadeEsc}</span>
-          <span><img src="earning_4752254.png" alt="" width="16" height="16" style="vertical-align:middle;"> ${esc(v.salario||'')}</span>
+          <span><img src="imagens/pino-de-localizacao.png" alt="" width="16" height="16" style="vertical-align:middle;margin-right:4px;"> ${cidadeEsc}</span>
+          <span><img src="imagens/earning_4752254.png" alt="" width="16" height="16" style="vertical-align:middle;"> ${esc(v.salario||'')}</span>
         </div>
         <div class="accordion">
           <div class="accordion-item">

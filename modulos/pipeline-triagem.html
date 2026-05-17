@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" autocomplete="off">
 <head>
-<script src="../guard.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Triagem | Agência Nexus ATS</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -648,8 +647,8 @@ function renderCard(h,vagaSlug,etapaId,rank,total){
     scoresHtml+='</div>';
   }
   let acts='';
-  const parecerUrl=`../disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}`;
-  const parecerPdfUrl=`../disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}&acao=pdf`;
+  const parecerUrl=`disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}`;
+  const parecerPdfUrl=`disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}&acao=pdf`;
   acts+=`<button class="act" onclick="abrirPerfilModal('${id}')" style="background:rgba(167,139,250,0.1);color:#a78bfa;border-color:rgba(167,139,250,0.22);">👤 Perfil</button>`;
   acts+=`<button class="act" onclick="window.top.open('${esc(parecerUrl)}','_blank')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);">📋 Parecer</button>`;
   if(h.parecer_final_link){

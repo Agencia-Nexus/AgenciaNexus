@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="../guard.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Entrevistados | Agência Nexus ATS</title>
@@ -1612,7 +1611,7 @@ function candCardSemSecao(h){
   if(ader!=null) chips+=`<span class="chip" style="background:rgba(167,139,250,0.12);border-color:rgba(167,139,250,0.35);color:#a78bfa;" title="${isAderManual?'Manual':'Calculado'}">📊 ${ader}% vaga</span>`;
   if(h.score_recrutador!=null){ const sr=parseInt(h.score_recrutador),sc=sr>=80?'#2ecc71':sr>=65?'#3b82f6':sr>=45?'#f39c12':'#e74c3c'; chips+=`<span class="chip" style="background:${sc}15;border-color:${sc}33;color:${sc};">🧑‍💼 ${sr}%</span>`; }
 
-  const parecerUrl = `../disc-parecer.html?id=${encodeURIComponent(h.id)}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}&data=${encodeURIComponent(h.data||'')}&url=${encodeURIComponent(h.url||'')}&tel=${encodeURIComponent(h.tel_externo||'')}`;
+  const parecerUrl = `disc-parecer.html?id=${encodeURIComponent(h.id)}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}&data=${encodeURIComponent(h.data||'')}&url=${encodeURIComponent(h.url||'')}&tel=${encodeURIComponent(h.tel_externo||'')}`;
   let foot = `<button class="btn-sm" onclick="abrirPerfil('${esc(String(h.id))}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.3);">👤 Perfil</button>`;
   foot += `<button class="btn-sm" onclick="abrirModalMover('${esc(String(h.id))}','${esc(h.nome||'')}')" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);">↕️ Mover para seção</button>`;
   foot += `<button class="btn-sm" onclick="abrirSenhaParecer(()=>{ window.top.open(parecerUrl,'_blank'); })" style="background:rgba(167,139,250,0.08);color:#a78bfa;border-color:rgba(167,139,250,0.2);">📋 Parecer</button>`;
@@ -1697,7 +1696,7 @@ function candCardEnt(h, secao){
   const notaPreview = nota ? `<div style="font-size:0.65rem;color:#888;margin-top:0.35rem;padding:0.3rem 0.55rem;background:rgba(255,255,255,0.02);border-radius:6px;border-left:2px solid ${secCor}55;line-height:1.45;">${esc(nota.substring(0,80))}${nota.length>80?'…':''}</div>` : '';
 
   // ── BOTÕES ──
-  const parecerUrl = `../disc-parecer.html?id=${encodeURIComponent(h.id)}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}&data=${encodeURIComponent(h.data||'')}&url=${encodeURIComponent(h.url||'')}&tel=${encodeURIComponent(h.tel_externo||'')}`;
+  const parecerUrl = `disc-parecer.html?id=${encodeURIComponent(h.id)}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}&data=${encodeURIComponent(h.data||'')}&url=${encodeURIComponent(h.url||'')}&tel=${encodeURIComponent(h.tel_externo||'')}`;
   const entFormUrl  = `../entrevista.html?nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||'0'}&i=${h.pct_i||'0'}&s=${h.pct_s||'0'}&c=${h.pct_c||'0'}&perfil=${h.dom||'D'}&url=${encodeURIComponent(h.url||'')}`;
   const entResultUrl = h.url_resultado_fit || entFormUrl;
 
@@ -2257,7 +2256,7 @@ async function abrirPerfil(id){
   // Botões de ação
   const numW=(h.tel_externo||'').replace(/\D/g,'');
   const waTxt=encodeURIComponent('Olá '+(h.nome||'').split(' ')[0]+'! Aqui é da Agência Nexus.');
-  const parecerUrl=`../disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}`;
+  const parecerUrl=`disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}`;
   const entUrl=`../entrevista.html?nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}`;
   const btn=(ico,lbl,href,brd,c2,fn='')=>`<${fn?`button onclick="${fn}"`:`a href="${esc(href)}" onclick="window.top.open(this.href,'_blank');return false;"`} class="pact-btn" style="border-color:${brd};"><span class="pact-ico">${ico}</span><span class="pact-lbl" style="color:${c2};">${lbl}</span></${fn?'button':'a'}>`;
   let acts='';

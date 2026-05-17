@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="../guard.js"></script>
 <script src="../nexus-security.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -672,8 +671,8 @@ select.perfil-inp option{background:#1e1e1e;color:#f0f0f0;}
 
 <script>
 // ═══ SUPABASE — via módulo de segurança ═══
-const SUPABASE_URL = (typeof NexusSec!=='undefined'&&NexusSec._url)||'https://soyogedsgrvduygjsgqg.supabase.co';
-const SUPABASE_KEY = (typeof NexusSec!=='undefined'&&NexusSec._key)||'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+const SUPABASE_URL = NexusSec._url;
+const SUPABASE_KEY = NexusSec._key;
 const PIPE_KEY = 'nexus_pipeline_v1';
 const AREAS_KEY  = 'nexus_areas_v2';
 const ASSIGN_KEY = 'nexus_areas_assign_v2';
@@ -1283,7 +1282,7 @@ function candCardArea(h, area){
   }
 
   // Parecer URL
-  const parecerUrl = `../disc-parecer.html?t=${encodeURIComponent(h.id||'')}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(vagaDisplay)}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}`;
+  const parecerUrl = `disc-parecer.html?t=${encodeURIComponent(h.id||'')}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(vagaDisplay)}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}&d=${encodeURIComponent(h.pct_d||'0')}&i=${encodeURIComponent(h.pct_i||'0')}&s=${encodeURIComponent(h.pct_s||'0')}&c=${encodeURIComponent(h.pct_c||'0')}`;
 
   // Botões — grupos
   const _IS = 'width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;';
@@ -1291,22 +1290,22 @@ function candCardArea(h, area){
   const _g2 = [];
   const _g3 = [];
 
-  _g1.push(`<button class="btn-sm" onclick="abrirPerfilArea('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
-  _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
-  if(h.url) _g1.push(`<a class="btn-sm" href="${esc(h.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);"><img src="disc2.png" style="${_IS}" alt=""> DISC</a>`);
-  if(h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="fitcultural2.png" style="${_IS}" alt=""> Fit Cultural</a>`);
-  _g1.push(`<button class="btn-sm" onclick="(()=>{_perfilAtual=_allCands.find(x=>String(x.id)==='${esc(h.id)}');abrirSenhaParecerArea();})();" style="background:rgba(167,139,250,0.12);color:#c4b5fd;border-color:rgba(167,139,250,0.35);font-weight:800;"><img src="parecer3.png" style="${_IS}" alt=""> Parecer Final</button>`);
+  _g1.push(`<button class="btn-sm" onclick="abrirPerfilArea('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+  _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
+  if(h.url) _g1.push(`<a class="btn-sm" href="${esc(h.url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.25);"><img src="imagens/disc2.png" style="${_IS}" alt=""> DISC</a>`);
+  if(h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/fitcultural2.png" style="${_IS}" alt=""> Fit Cultural</a>`);
+  _g1.push(`<button class="btn-sm" onclick="(()=>{_perfilAtual=_allCands.find(x=>String(x.id)==='${esc(h.id)}');abrirSenhaParecerArea();})();" style="background:rgba(167,139,250,0.12);color:#c4b5fd;border-color:rgba(167,139,250,0.35);font-weight:800;"><img src="imagens/parecer3.png" style="${_IS}" alt=""> Parecer Final</button>`);
 
   _g2.push(`<button class="btn-sm" onclick="abrirCopiarArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.25);">📋 Copiar área</button>`);
   _g2.push(`<button class="btn-sm" onclick="abrirModalMover('${esc(h.id)}','${esc(h.nome||'')}')" style="background:${acor}12;color:${acor};border-color:${acor}35;">🗂️ Gerenciar</button>`);
   _g2.push(`<button class="btn-sm" onclick="removerDaAreaDireto('${esc(h.id)}','${esc(h.nome||'')}','${esc(area.id)}')" style="background:rgba(231,76,60,0.08);color:#e74c3c;border-color:rgba(231,76,60,0.2);">↩️ Devolver</button>`);
-  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipeArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="triagem2.png" style="${_IS}" alt=""> → Pipeline</button>`);
-  _g2.push(`<button class="btn-sm" onclick="navegar('banco-cargos')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);font-weight:800;"><img src="cargo2.png" style="${_IS}" alt=""> → Cargo</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipeArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="imagens/triagem2.png" style="${_IS}" alt=""> → Pipeline</button>`);
+  _g2.push(`<button class="btn-sm" onclick="navegar('banco-cargos')" style="background:rgba(59,130,246,0.12);color:#3b82f6;border-color:rgba(59,130,246,0.3);font-weight:800;"><img src="imagens/cargo2.png" style="${_IS}" alt=""> → Cargo</button>`);
 
-  if(h.link_externo) _g3.push(`<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
-  if(h.curriculo_url) _g3.push(`<a class="btn-sm" href="${esc(h.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
-  if(h.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
-  if(h.tel_externo) _g3.push(`<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`);
+  if(h.link_externo) _g3.push(`<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="imagens/linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
+  if(h.curriculo_url) _g3.push(`<a class="btn-sm" href="${esc(h.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="imagens/curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
+  if(h.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(h.email_externo)}','${esc(h.nome||'')}')" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="imagens/correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
+  if(h.tel_externo) _g3.push(`<button class="btn-sm" onclick="abrirWhatsApp('${esc(h.tel_externo)}','${esc(h.nome||'')}')" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="imagens/whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`);
 
   const footHtml = `
     <div class="cand-foot-label">👤 Perfil & Avaliação</div>
@@ -1418,10 +1417,10 @@ function candCardSemArea(h){
 
   const _IS = 'width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;';
   const _g2 = [];
-  _g2.push(`<button class="btn-sm" onclick="abrirPerfilArea('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirPerfilArea('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
   _g2.push(`<button class="btn-sm" onclick="abrirModalMover('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);">↕️ Organizar</button>`);
   _g2.push(`<button class="btn-sm" onclick="removerDaAreaDireto('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(231,76,60,0.08);color:#e74c3c;border-color:rgba(231,76,60,0.2);">↩️ Devolver</button>`);
-  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipeArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="triagem2.png" style="${_IS}" alt=""> → Pipeline</button>`);
+  _g2.push(`<button class="btn-sm" onclick="abrirMiniPipeArea('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(59,130,246,0.15);color:#3b82f6;border-color:rgba(59,130,246,0.4);font-weight:800;"><img src="imagens/triagem2.png" style="${_IS}" alt=""> → Pipeline</button>`);
 
   return `<div class="cand-card">
     <div class="card-top-right">

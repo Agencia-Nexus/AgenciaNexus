@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="../guard.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Entrevista ? | Agência Nexus ATS</title>
@@ -820,7 +819,7 @@ function pendCard(p){
   const _g3 = [];
 
   if(temCandCompleto){
-    const parecerUrl = `../disc-parecer.html?t=${encodeURIComponent(cand.id||'')}&nome=${encodeURIComponent(cand.nome||'')}&vaga=${encodeURIComponent(cand.vaga||p.vaga||'')}&dom=${encodeURIComponent(cand.dom||'D')}&sec=${encodeURIComponent(cand.sec||'I')}&d=${encodeURIComponent(cand.pct_d||'0')}&i=${encodeURIComponent(cand.pct_i||'0')}&s=${encodeURIComponent(cand.pct_s||'0')}&c=${encodeURIComponent(cand.pct_c||'0')}`;
+    const parecerUrl = `disc-parecer.html?t=${encodeURIComponent(cand.id||'')}&nome=${encodeURIComponent(cand.nome||'')}&vaga=${encodeURIComponent(cand.vaga||p.vaga||'')}&dom=${encodeURIComponent(cand.dom||'D')}&sec=${encodeURIComponent(cand.sec||'I')}&d=${encodeURIComponent(cand.pct_d||'0')}&i=${encodeURIComponent(cand.pct_i||'0')}&s=${encodeURIComponent(cand.pct_s||'0')}&c=${encodeURIComponent(cand.pct_c||'0')}`;
     const entFormUrl  = `../entrevista.html?nome=${encodeURIComponent(cand.nome||'')}&vaga=${encodeURIComponent(cand.vaga||p.vaga||'')}&dom=${cand.dom||'D'}&sec=${cand.sec||'I'}&d=${cand.pct_d||'0'}&i=${cand.pct_i||'0'}&s=${cand.pct_s||'0'}&c=${cand.pct_c||'0'}&candidato_id=${encodeURIComponent(cand.id||'')}&email=${encodeURIComponent(cand.email_externo||'')}&tel=${encodeURIComponent(cand.tel_externo||'')}`;
     const entResultUrl = cand.url_resultado_fit || entFormUrl;
     const _temDiscPerfil = temDisc;
@@ -828,31 +827,31 @@ function pendCard(p){
       ? (cand.url || (_base+'disc-resultado.html?nome='+encodeURIComponent(cand.nome||'')+'&perfil='+(cand.dom||'D')+'&sec='+(cand.sec||'I')+'&d='+(cand.pct_d||0)+'&i='+(cand.pct_i||0)+'&s='+(cand.pct_s||0)+'&c='+(cand.pct_c||0)+'&vaga='+encodeURIComponent(cand.vaga||p.vaga||'')))
       : (_base+'disc.html?nome='+encodeURIComponent(cand.nome||'')+'&email='+encodeURIComponent(cand.email_externo||'')+'&vaga='+encodeURIComponent(cand.vaga||p.vaga||''));
     const _discStyle = _temDiscPerfil ? 'background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.2);' : 'background:rgba(52,152,219,0.05);color:#5dade2;border-color:rgba(52,152,219,0.15);';
-    const _discLabel  = `<img src="disc2.png" style="${_IS}" alt=""> ${_temDiscPerfil?'DISC':'Fazer DISC'}`;
+    const _discLabel  = `<img src="imagens/disc2.png" style="${_IS}" alt=""> ${_temDiscPerfil?'DISC':'Fazer DISC'}`;
 
     // G1: Perfil & Avaliação
-    _g1.push(`<button class="btn-sm" onclick="abrirPerfilBanco('${esc(String(cand.id))}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
-    _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
+    _g1.push(`<button class="btn-sm" onclick="abrirPerfilBanco('${esc(String(cand.id))}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+    _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
     _g1.push(`<a class="btn-sm" href="${esc(_discUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="${_discStyle}">${_discLabel}</a>`);
-    if(cand.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(cand.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="fitcultural2.png" style="${_IS}" alt=""> Fit Cultural</a>`);
+    if(cand.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(cand.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/fitcultural2.png" style="${_IS}" alt=""> Fit Cultural</a>`);
     else _g1.push(`<button class="btn-sm" onclick="abrirPerfilBanco('${esc(String(cand.id))}')" style="background:rgba(243,156,18,0.08);color:#f39c12;border-color:rgba(243,156,18,0.2);">➕ Fit</button>`);
-    if(cand.entrevista_json||cand.resumo_ia||cand.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
-    else _g1.push(`<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);"><img src="entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
+    if(cand.entrevista_json||cand.resumo_ia||cand.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="imagens/entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
+    else _g1.push(`<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);"><img src="imagens/entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
 
     // G2: Ações da pendência
     _g2.push(`<button class="btn-sm" onclick="editarPendencia('${esc(String(p.id))}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.3);">✏️ Editar</button>`);
     _g2.push(`<button class="btn-sm" onclick="marcarStatus('${esc(String(p.id))}','agendada')" style="background:rgba(59,130,246,0.08);color:#2ecc71;border-color:rgba(59,130,246,0.2);">✅ Agendada</button>`);
     _g2.push(`<button class="btn-sm" onclick="marcarStatus('${esc(String(p.id))}','sem_retorno')" style="background:rgba(231,76,60,0.06);color:#e74c3c;border-color:rgba(231,76,60,0.18);">📵 Sem retorno</button>`);
-    _g2.push(`<button class="btn-sm" onclick="moverParaEntrevistados('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);"><img src="entrevistados2.png" style="${_IS}" alt=""> → Entrevistados</button>`);
-    _g2.push(`<button class="btn-sm" onclick="moverParaBancoDeAreas('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#2ecc71;border-color:rgba(59,130,246,0.3);"><img src="area2.png" style="${_IS}" alt=""> → Área</button>`);
-    _g2.push(`<button class="btn-sm" onclick="moverParaPendenciasCand('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.28);"><img src="pendencis2.png" style="${_IS}" alt=""> → Pendências</button>`);
+    _g2.push(`<button class="btn-sm" onclick="moverParaEntrevistados('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.3);"><img src="imagens/entrevistados2.png" style="${_IS}" alt=""> → Entrevistados</button>`);
+    _g2.push(`<button class="btn-sm" onclick="moverParaBancoDeAreas('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(59,130,246,0.12);color:#2ecc71;border-color:rgba(59,130,246,0.3);"><img src="imagens/area2.png" style="${_IS}" alt=""> → Área</button>`);
+    _g2.push(`<button class="btn-sm" onclick="moverParaPendenciasCand('${esc(String(cand.id))}','${esc(cand.nome||p.nome||'')}')" style="background:rgba(245,158,11,0.1);color:#f59e0b;border-color:rgba(245,158,11,0.28);"><img src="imagens/pendencis2.png" style="${_IS}" alt=""> → Pendências</button>`);
     _g2.push(`<button class="btn-sm" onclick="confirmarDelPend('${esc(String(p.id))}','${esc(p.nome||'')}' )" style="background:rgba(231,76,60,0.06);color:#e74c3c;border-color:rgba(231,76,60,0.18);">🗑️ Remover</button>`);
 
     // G3: Comunicação
-    if(cand.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(cand.email_externo)}','${esc(cand.nome||'')}' )" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
-    if(cand.tel_externo){ const n=cand.tel_externo.replace(/\D/g,''); _g3.push(`<a class="btn-sm" href="https://wa.me/55${n}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.22);"><img src="whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</a>`); }
-    if(cand.link_externo) _g3.push(`<a class="btn-sm" href="${esc(cand.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
-    if(cand.curriculo_url) _g3.push(`<a class="btn-sm" href="${esc(cand.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
+    if(cand.email_externo) _g3.push(`<button class="btn-sm" onclick="abrirEmail('${esc(cand.email_externo)}','${esc(cand.nome||'')}' )" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);"><img src="imagens/correspondencia2563.png" alt="Email" style="width:14px;height:14px;">Email</button>`);
+    if(cand.tel_externo){ const n=cand.tel_externo.replace(/\D/g,''); _g3.push(`<a class="btn-sm" href="https://wa.me/55${n}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.22);"><img src="imagens/whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</a>`); }
+    if(cand.link_externo) _g3.push(`<a class="btn-sm" href="${esc(cand.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);"><img src="imagens/linkedin2323232.png" alt="LinkedIn" style="width:14px;height:14px;">LinkedIn</a>`);
+    if(cand.curriculo_url) _g3.push(`<a class="btn-sm" href="${esc(cand.curriculo_url)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);"><img src="imagens/curriculos1253.png" alt="Currículo" style="width:14px;height:14px;">Currículo</a>`);
 
   } else {
     // Sem candidato completo: só ações básicas de pendência

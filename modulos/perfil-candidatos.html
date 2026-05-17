@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="../guard.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Banco Geral | Agência Nexus ATS</title>
@@ -1325,7 +1324,7 @@ function candRow(h){
 
   // Botões de ação
   const _IS = 'width:14px;height:14px;object-fit:contain;vertical-align:middle;mix-blend-mode:screen;';
-  const parecerUrl = `../disc-parecer.html?t=${encodeURIComponent(h.id||'')}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}`;
+  const parecerUrl = `disc-parecer.html?t=${encodeURIComponent(h.id||'')}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${encodeURIComponent(h.dom||'D')}&sec=${encodeURIComponent(h.sec||'I')}`;
   const entFormUrl = `../entrevista.html?nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&candidato_id=${encodeURIComponent(h.id||'')}`;
   const entResultUrl = h.url_resultado_fit || entFormUrl;
   const _temResultadoDisc = !!(h.dom||(h.pct_d&&parseFloat(h.pct_d)>0));
@@ -1333,21 +1332,21 @@ function candRow(h){
   const _discUrl = _temResultadoDisc
     ? (h.url || (_base+'disc-resultado.html?nome='+encodeURIComponent(h.nome||'')+'&perfil='+(h.dom||'D')+'&sec='+(h.sec||'I')+'&d='+(h.pct_d||0)+'&i='+(h.pct_i||0)+'&s='+(h.pct_s||0)+'&c='+(h.pct_c||0)+'&vaga='+encodeURIComponent(h.vaga||'')))
     : (_base+'disc.html?nome='+encodeURIComponent(h.nome||'')+'&vaga='+encodeURIComponent(h.vaga||''));
-  const _discLabel = _temResultadoDisc ? '<img src="disc2.png" style="'+_IS+'" alt=""> DISC' : '<img src="disc2.png" style="'+_IS+'" alt=""> Fazer DISC';
+  const _discLabel = _temResultadoDisc ? '<img src="imagens/disc2.png" style="'+_IS+'" alt=""> DISC' : '<img src="imagens/disc2.png" style="'+_IS+'" alt=""> Fazer DISC';
   const _discStyle = _temResultadoDisc ? 'background:rgba(52,152,219,0.1);color:#3498db;border-color:rgba(52,152,219,0.2);' : 'background:rgba(52,152,219,0.05);color:#5dade2;border-color:rgba(52,152,219,0.15);';
 
   const _g1 = [];
-  _g1.push(`<button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
-  _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
+  _g1.push(`<button class="btn-sm" onclick="abrirPerfil('${esc(h.id)}')" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);"><img src="imagens/perfil2.png" style="${_IS}" alt=""> Perfil</button>`);
+  _g1.push(`<a class="btn-sm" href="${parecerUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.07);color:#3b82f6;border-color:rgba(59,130,246,0.2);"><img src="imagens/parecer2.png" style="${_IS}" alt=""> Parecer</a>`);
   _g1.push(`<a class="btn-sm" href="${esc(_discUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="${_discStyle}">${_discLabel}</a>`);
-  if(h.entrevista_json||h.resumo_ia||h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
-  else _g1.push(`<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);"><img src="entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
+  if(h.entrevista_json||h.resumo_ia||h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(entResultUrl)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.1);color:#f39c12;border-color:rgba(243,156,18,0.2);"><img src="imagens/entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
+  else _g1.push(`<a class="btn-sm" href="${entFormUrl}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(243,156,18,0.05);color:#f39c12;border-color:rgba(243,156,18,0.12);"><img src="imagens/entrevistados2.png" style="${_IS}" alt=""> Entrevista</a>`);
   if(h.url_resultado_fit) _g1.push(`<a class="btn-sm" href="${esc(h.url_resultado_fit)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2);">Fit Cultural</a>`);
   _g1.push(`<button class="btn-sm" onclick="abrirSenhaParecer()" style="background:rgba(167,139,250,0.1);color:#c4b5fd;border-color:rgba(167,139,250,0.3);">📑 Parecer${h.parecer_final_link ? ' ✅' : ''}</button>`);
   _g1.push(`<button class="btn-sm" onclick="event.stopPropagation();abrirEnviarVaga('${esc(h.id)}','${esc(h.nome||'')}')" style="background:rgba(167,139,250,0.1);color:#c4b5fd;border-color:rgba(167,139,250,0.28);">🏢 Enviar vaga</button>`);
 
   const _g2 = [];
-  if(h.tel_externo||extra.tel) _g2.push(`<button class="btn-sm" onclick="abrirWpp()" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`);
+  if(h.tel_externo||extra.tel) _g2.push(`<button class="btn-sm" onclick="abrirWpp()" style="background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.25);"><img src="imagens/whatsapp23323.png" alt="WhatsApp" style="width:14px;height:14px;">WhatsApp</button>`);
   if(h.email_externo||extra.email) _g2.push(`<button class="btn-sm" onclick="abrirEmail()" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.2);">✉️ Email</button>`);
   if(h.curriculo_url||extra.curriculo) _g2.push(`<a class="btn-sm" href="${esc(h.curriculo_url||extra.curriculo||'#')}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(52,152,219,0.08);color:#3498db;border-color:rgba(52,152,219,0.18);">📄 Currículo</a>`);
   if(h.link_externo) _g2.push(`<a class="btn-sm" href="${esc(h.link_externo)}" target="_blank" onclick="window.top.open(this.href,'_blank');return false;" style="background:rgba(10,102,194,0.1);color:#0A66C2;border-color:rgba(10,102,194,0.25);">🔗 LinkedIn</a>`);
@@ -1530,7 +1529,7 @@ document.querySelectorAll('.tab-btn').forEach(b=>b.onclick=()=>mudarTab(b.datase
 function renderAcoes(h){
   const numW = (h.tel_externo||'').replace(/\D/g,'');
   const waTxt = encodeURIComponent('Olá '+(h.nome||'').split(' ')[0]+'! Aqui é da Agência Nexus.');
-  const parecerUrl = `../disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}`;
+  const parecerUrl = `disc-parecer.html?id=${h.id}&nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}&d=${h.pct_d||0}&i=${h.pct_i||0}&s=${h.pct_s||0}&c=${h.pct_c||0}`;
   const entUrl = `../entrevista.html?nome=${encodeURIComponent(h.nome||'')}&vaga=${encodeURIComponent(h.vaga||'')}&dom=${h.dom||'D'}&sec=${h.sec||'I'}`;
 
   const btn = (ico,lbl,href,bg,cor,brd,fn='')=>
