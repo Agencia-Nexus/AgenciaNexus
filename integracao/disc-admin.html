@@ -14,7 +14,7 @@
   img-src 'self' data:;
 "/>
 <title>Painel Admin | Agência Nexus</title>
-<link rel="icon" type="image/png" href="icone.png"/>
+<link rel="icon" type="image/png" href="../imagens/icone.png"/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -1547,7 +1547,7 @@ button:focus-visible,
     <div class="login-brand">
       <div>
         <div class="lb-logo">
-          <img src="fundo.png" alt="Nexus" onerror="this.parentElement.innerHTML='⚡'"/>
+          <img src="../imagens/fundo.png" alt="Nexus" onerror="this.parentElement.innerHTML='⚡'"/>
         </div>
         <div class="lb-tag">Sistema ATS</div>
         <div class="lb-title"><span>Nexus</span><br/>ATS</div>
@@ -1634,7 +1634,7 @@ button:focus-visible,
     <aside class="sidebar" id="sidebar">
       <div class="sb-head">
         <div class="sb-logo-ico">
-          <img src="fundo.png" alt="Nexus" onerror="this.parentElement.innerHTML='⚡'"/>
+          <img src="../imagens/fundo.png" alt="Nexus" onerror="this.parentElement.innerHTML='⚡'"/>
         </div>
         <div class="sb-logo-txt">
           <div class="sb-logo-name"><span>Nexus</span></div>
@@ -1891,14 +1891,14 @@ button:focus-visible,
           <!-- Seção: logo -->
           <span class="edit-name-section-lbl" style="margin-top:0.55rem;">Logo do painel</span>
           <div class="logo-picker" id="logoPicker">
-            <div class="logo-opt" id="logoOpt0" onclick="selecionarLogo(0)" title="fundo.png">
-              <img src="fundo.png" alt="fundo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="logo-opt" id="logoOpt0" onclick="selecionarLogo(0)" title="../imagens/fundo.png">
+              <img src="../imagens/fundo.png" alt="fundo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
               <div class="logo-opt-emoji" style="display:none">⚡</div>
               <div class="logo-opt-label">Fundo</div>
               <div class="logo-opt-check">✓</div>
             </div>
-            <div class="logo-opt" id="logoOpt1" onclick="selecionarLogo(1)" title="icone.png">
-              <img src="icone.png" alt="ícone" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="logo-opt" id="logoOpt1" onclick="selecionarLogo(1)" title="../imagens/icone.png">
+              <img src="../imagens/icone.png" alt="ícone" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
               <div class="logo-opt-emoji" style="display:none">🏢</div>
               <div class="logo-opt-label">Ícone</div>
               <div class="logo-opt-check">✓</div>
@@ -3382,7 +3382,7 @@ function _marcarLogoAtual(idx){
 }
 
 function _aplicarLogo(idx){
-  const srcs = ['fundo.png','icone.png',null];
+  const srcs = ['../imagens/fundo.png','../imagens/icone.png',null];
   const logoPlaces = [
     document.querySelector('.lb-logo'),
     document.querySelector('.sb-logo-ico'),
@@ -3403,7 +3403,7 @@ function _aplicarLogo(idx){
   });
   try{
     const link = document.querySelector('link[rel="icon"]');
-    if(link) link.href = srcs[idx] || 'icone.png';
+    if(link) link.href = srcs[idx] || '../imagens/icone.png';
   }catch(e){}
 }
 
