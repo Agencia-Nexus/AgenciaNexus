@@ -1283,6 +1283,7 @@ function atualizarStatsCands(hist){
   // Mostra apenas candidatos da Entrada (não movidos para outras etapas)
   const soEntrada = hist.filter(h=>!_idsEmEntrevistados.has(String(h.id)) && !_idsEmAreas.has(String(h.id)) && !_idsEmPendencias.has(String(h.id)) && !_idsEmInbox.has(String(h.id)));
   if(s('csTotal')) s('csTotal').textContent = soEntrada.length;
+  try{ window.parent.postMessage({tipo:'nexus_badge_talentos', count: soEntrada.length},'*'); }catch(e){}
   if(s('csFit'))   s('csFit').textContent   = comFit;
   if(s('csD'))     s('csD').textContent     = p.D||0;
   if(s('csI'))     s('csI').textContent     = p.I||0;
