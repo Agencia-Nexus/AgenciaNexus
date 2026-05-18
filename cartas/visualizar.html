@@ -3,6 +3,23 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Visualize documentos e contratos digitais assinados pela plataforma Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Visualizar Documento — Agência Nexus" />
+  <meta property="og:description" content="Visualize documentos e contratos digitais assinados pela plataforma Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Visualizar Documento — Agência Nexus" />
+  <meta name="twitter:description" content="Visualize documentos e contratos digitais assinados pela plataforma Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
 <title>Documento — Agência Nexus</title>
 
 <!-- ═══ FONTES LOCAIS SORA ═══ -->
@@ -249,7 +266,7 @@ const END ='Rua São José, nº 584, sala 202 — Centro, Guaíba/RS · CEP 9270
 const TEL ='(51) 99850-3183';
 const EMAIL='adm@agencianexus.com';
 
-const logo=()=>`<div class="hd-logo-box"><img src="imagens/fundo.png" alt="Nexus" onerror="this.outerHTML='<span class=hd-logo-txt>EX</span>'"/></div>`;
+const logo=()=>`<div class="hd-logo-box"><img src="../imagens/fundo.png" alt="Nexus" onerror="this.outerHTML='<span class=hd-logo-txt>EX</span>'"/></div>`;
 
 const cab=(d,t,s)=>{
   const dt=d.data_emissao?fDE(d.data_emissao):fDE(new Date().toISOString().slice(0,10));
