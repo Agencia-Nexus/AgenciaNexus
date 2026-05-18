@@ -2296,36 +2296,31 @@ body.dark-mode .chip { background: #2a2a2a; }
     font-weight: 400;
   }
 
-    /* FORCE EQUAL BUTTON SIZE - OVERRIDE ALL */
-    .back-button, .menu-toggle, .topics-toggle {
-      background: rgba(255, 255, 255, 0.2) !important;
-      border: 2px solid rgba(255, 255, 255, 0.4) !important;
-      backdrop-filter: blur(10px) !important;
-      padding: 0.8rem 1.5rem !important;
-      border-radius: 50px !important;
-      cursor: pointer !important;
-      font-size: 1rem !important;
-      color: white !important;
-      font-weight: 600 !important;
-      font-family: inherit !important;
-      transition: all 0.3s ease !important;
-      height: 50px !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      white-space: nowrap !important;
-      margin: 0 !important;
-      min-width: 0 !important;
-      width: auto !important;
-      text-decoration: none !important;
-      box-sizing: border-box !important;
-    }
-
-    .topics-toggle-mobile { display: none !important; }
-
-    .back-button, .menu-toggle, .topics-toggle {
-      font-weight: 600 !important;
-      font-family: 'Inter', 'Segoe UI', sans-serif !important;
+    @media (min-width: 769px) {
+      .back-button, .menu-toggle, .topics-toggle {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border: 2px solid rgba(255, 255, 255, 0.4) !important;
+        backdrop-filter: blur(10px) !important;
+        padding: 0.8rem 1.5rem !important;
+        border-radius: 50px !important;
+        cursor: pointer !important;
+        font-size: 1rem !important;
+        color: white !important;
+        font-weight: 600 !important;
+        font-family: 'Inter', 'Segoe UI', sans-serif !important;
+        transition: all 0.3s ease !important;
+        height: 50px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
+        min-width: 0 !important;
+        width: auto !important;
+        text-decoration: none !important;
+        box-sizing: border-box !important;
+      }
+      .topics-toggle-mobile { display: none !important; }
     }
 </style>
 </head>
