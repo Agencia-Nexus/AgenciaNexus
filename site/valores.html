@@ -190,41 +190,10 @@ body.dark-mode .chatbot-messages ol {
       opacity: 1;
     }
 
-    .header {
-      background: linear-gradient(to right, #0d47a1, #1e40af, #3b82f6, #bfdbfe);
-      padding: 3rem 2rem;
-      text-align: center;
-      color: white;
-      position: relative;
-      overflow: hidden;
-      min-height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    
     }
 
-    @media (max-width: 768px) {
-      .header {
-        min-height: 290px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .header {
-        min-height: 250px;
-      }
-    }
-
-    .header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-      animation: pulse 15s ease-in-out infinite;
-    }
+    
 
     .header-content {
       position: relative;
@@ -233,19 +202,9 @@ body.dark-mode .chatbot-messages ol {
       margin: 0 auto;
     }
 
-    .header h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-      animation: fadeInDown 1s ease-out;
-    }
+    
 
-    .header p {
-      font-size: 1.2rem;
-      opacity: 0.95;
-      animation: fadeInUp 1s ease-out 0.3s both;
-    }
+    
 
     .theme-toggle {
       position: fixed;
@@ -898,16 +857,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     /* ESTILO BASE - garante que a imagem sempre aparece */
-    .header-bg-img {
-        position: absolute;
-        left: -5.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
-      }
+    
 
     /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
     /* DESKTOP - 1024px ou mais */
@@ -916,16 +866,7 @@ body.dark-mode .chatbot-messages ol {
         min-height: 220px;
       }
 
-   .header-bg-img {
-        position: absolute;
-        left: -1.5%;
-        top: 77%;
-        transform: translateY(-50%);
-        width: 250px;
-        height: 250px;
-        z-index: 0;
-        opacity: 0.9;
-      }
+   
 
       .header-content {
         position: relative;
@@ -939,47 +880,20 @@ body.dark-mode .chatbot-messages ol {
 
     /* MOBILE - 768px ou menos */
     @media (max-width: 768px) {
-     .header-bg-img {
-        position: absolute !important;
-        width: 200px !important;
-        height: 200px !important;
-        top: -160px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 0 !important;
-        opacity: 0.9 !important;
-      }
+     
     }
 
     /* MOBILE PEQUENO - 480px ou menos */
     @media (max-width: 480px) {
-      .header-bg-img {
-        position: absolute;
-        left: 50%;
-        top: -100%;
-        transform: translateX(-50%);
-        width: 120px;
-        height: auto;
-        z-index: 0;
-        opacity: 0.9;
-      }
+      
 
-      .header-content {
-        position: relative;
-        z-index: 1;
-        margin-top: 150px;
-        text-align: center;
-      }
+      
     }
 
     @media (max-width: 768px) {
-      .header h1 {
-        font-size: 2rem;
-      }
+      
 
-      .header p {
-        font-size: 1rem;
-      }
+      
 
       .menu-toggle {
         }
@@ -999,9 +913,7 @@ body.dark-mode .chatbot-messages ol {
     }
 
     @media (max-width: 480px) {
-      .header h1 {
-        font-size: 1.8rem;
-      }
+      
 
       .back-button,
       .menu-toggle,
@@ -2026,6 +1938,282 @@ body.dark-mode .chip { background: #2a2a2a; }
       }
       .footer-bottom { flex-direction: column; }
     }
+  .header {
+    background: #0d1117;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    padding: 0; text-align: center; color: white;
+    position: relative; overflow: hidden;
+    min-height: 220px; display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid rgba(0,200,255,0.15);
+  }
+  .header::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0,180,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 2.5rem 1rem 2rem; width: 100%; text-align: center; }
+
+  /* NEXUS LOGO SVG */
+  .nexus-logo-svg { display: block; margin: 0 auto; animation: fadeInDown 0.8s ease-out; max-width: 500px; }
+  .nexus-logo-svg.mobile { display: none; }
+  .header-page-title {
+    color: rgba(0,200,255,0.75);
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 0.7rem;
+    font-weight: 400;
+  }
+  @media (max-width: 768px) {
+    .header { min-height: 260px; align-items: flex-end; }
+    .nexus-logo-svg.desktop { display: none; }
+    .nexus-logo-svg.mobile { display: block; }
+    /* padding-top empurra o conteúdo para baixo dos botões fixos (~50px botão + 2rem topo + margem) */
+    .header-content { padding: 100px 1rem 2rem; }
+    .header-page-title { font-size: 0.68rem; letter-spacing: 2.5px; margin-top: 0.5rem; }
+  }
+  @media (max-width: 480px) {
+    .header { min-height: 280px; }
+    .header-content { padding: 110px 1rem 2rem; }
+  }
+
+
+  .back-button,
+  .topics-toggle-mobile {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    height: 50px;
+    justify-content: center;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .back-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-5px);
+  }
+
+  .menu-toggle,
+  .topics-toggle-mobile {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 480px) {
+    .back-button,
+    .menu-toggle,
+    .topics-toggle-mobile {
+      padding: 0.8rem 1rem !important;
+      font-size: 0.9rem;
+      height: 50px;
+      width: fit-content !important;
+      min-width: 0 !important;
+    }
+
+    .theme-toggle {
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+      min-width: 45px;
+    }
+  }
+
+  /* OVERLAY */
+  .menu-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 95;
+    display: none; opacity: 0; transition: opacity 0.3s ease;
+  }
+  .menu-overlay.active { display: block; opacity: 1; }
+
+  /* MENU LATERAL */
+  .menu-content {
+    position: fixed; top: 0; left: -100%;
+    width: 300px; height: 100vh;
+    background: var(--bg-light); backdrop-filter: blur(20px);
+    padding: 1.6rem 1.4rem 1.2rem;
+    transition: left 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);
+    box-shadow: 5px 0 30px rgba(0,0,0,0.1);
+    overflow-y: auto; z-index: 97;
+  }
+  body.dark-mode .menu-content { background: var(--bg-dark); }
+  .menu-content.active { left: 0; }
+
+  .menu-section { margin-bottom: 1.1rem; }
+  .menu-section h3 {
+    color: var(--accent); font-size: 0.82rem;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 0.6rem; font-weight: 700;
+  }
+  .menu-link {
+    display: block; padding: 0.6rem 0.8rem;
+    color: var(--text-light); text-decoration: none;
+    border-radius: 7px; margin-bottom: 0.28rem;
+    transition: all 0.3s ease; font-weight: 500; font-size: 0.875rem;
+  }
+  body.dark-mode .menu-link { color: var(--text-dark); }
+  .menu-link:hover { background: var(--primary); color: white; transform: translateX(8px); }
+  .menu-link.active-page { background: rgba(30,64,175,0.12); color: var(--primary); font-weight: 700; }
+  body.dark-mode .menu-link.active-page { color: #38bdf8; background: rgba(30,64,175,0.2); }
+
+  /* HEADER */
+  .header {
+    background: #0d1117;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    padding: 0; text-align: center; color: white;
+    position: relative; overflow: hidden;
+    min-height: 220px; display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid rgba(0,200,255,0.15);
+  }
+  .header::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0,180,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 2.5rem 1rem 2rem; width: 100%; text-align: center; }
+
+  /* NEXUS LOGO SVG */
+  .nexus-logo-svg { display: block; margin: 0 auto; animation: fadeInDown 0.8s ease-out; max-width: 500px; }
+  .nexus-logo-svg.mobile { display: none; }
+  .header-page-title {
+    color: rgba(0,200,255,0.75);
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 0.7rem;
+    font-weight: 400;
+  }
+  @media (max-width: 768px) {
+    .header { min-height: 260px; align-items: flex-end; }
+    .nexus-logo-svg.desktop { display: none; }
+    .nexus-logo-svg.mobile { display: block; }
+    /* padding-top empurra o conteúdo para baixo dos botões fixos (~50px botão + 2rem topo + margem) */
+    .header-content { padding: 100px 1rem 2rem; }
+    .header-page-title { font-size: 0.68rem; letter-spacing: 2.5px; margin-top: 0.5rem; }
+  }
+  @media (max-width: 480px) {
+    .header { min-height: 280px; }
+    .header-content { padding: 110px 1rem 2rem; }
+  }
+
+  /* CONTENT */
+  .content-section { max-width: 1100px; margin: 3rem auto; padding: 0 2rem; }
+
+  .info-bar {
+    width: 100%; margin: 2rem auto;
+    font-size: 1.4rem; font-weight: 800; color: #1e40af;
+    text-align: center; padding: 1rem 0;
+  }
+  body.dark-mode .info-bar { color: #38bdf8; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  body.dark-mode .card { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(59,130,246,0.15); }
+
+  .card-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+
+  .card h3 { color: var(--primary); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.7rem; }
+  body.dark-mode .card h3 { color: #38bdf8; }
+
+  .card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; opacity: 0.85; }
+  body.dark-mode .card p { color: var(--text-dark); }
+
+  .card-tag {
+    display: inline-block; padding: 0.25rem 0.75rem;
+    border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .tag-free     { background: rgba(59,130,246,0.12); color: var(--primary); }
+  .tag-freemium { background: rgba(255,165,0,0.12); color: #b87400; }
+  .tag-pago     { background: rgba(200,0,0,0.08);   color: #b00000; }
+  body.dark-mode .tag-free     { background: rgba(59,130,246,0.2);  color: #38bdf8; }
+  body.dark-mode .tag-freemium { background: rgba(255,165,0,0.2);  color: #ffd080; }
+  body.dark-mode .tag-pago     { background: rgba(200,0,0,0.15);   color: #ff8080; }
+
+  .card-link {
+    display: inline-block; margin-top: 0.5rem;
+    color: var(--primary); font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; transition: all 0.3s ease;
+  }
+  .card-link:hover { color: var(--accent); text-decoration: underline; }
+  body.dark-mode .card-link { color: #38bdf8; }
+
+  .tip-box {
+    background: rgba(59,130,246,0.08);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  body.dark-mode .tip-box { background: rgba(59,130,246,0.18); }
+
+  /* FOOTER */
+  /* BUTTONS */
+  .btn {
+    padding: 0.9rem 2rem; border: none; border-radius: 50px;
+    font-weight: 700; font-size: 1rem; cursor: pointer;
+    transition: all 0.3s ease; font-family: inherit;
+    display: inline-block; text-decoration: none;
+    margin: 0.4rem;
+  }
+  .btn-primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(30,64,175,0.3); }
+  .btn-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+  body.dark-mode .btn-secondary { color: white; border-color: white; }
+  .btn-secondary:hover { background: var(--primary); color: white; }
 </style>
 </head>
 <body>
@@ -2186,12 +2374,51 @@ body.dark-mode .chip { background: #2a2a2a; }
 
   <header class="header">
     <div class="header-content">
-      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-        <img src="../imagens/fundo.png" alt="Nossos Valores" class="header-bg-img">
-        <div>
-          <h1 style="margin: 0 0 0.5rem 0;" data-i18n="val-header-title">Nossos Valores</h1>
-          <p data-i18n="val-header-subtitle">Os princípios que guiam nossas ações e decisões</p>
-        </div>
+      <svg class="nexus-logo-svg desktop" width="100%" height="100" preserveAspectRatio="xMidYMid meet" viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow-d">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-strong-d">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Subtitle top -->
+        <text x="250" y="18" text-anchor="middle" fill="#00c8ff" font-family="'Courier New', monospace" font-size="9.5" letter-spacing="4" opacity="0.8" filter="url(#glow-d)">// SISTEMA DE GESTÃO //</text>
+        <!-- Main title -->
+        <text x="250" y="65" text-anchor="middle" fill="#00c8ff" font-family="'Arial Black', 'Impact', sans-serif" font-size="58" font-weight="900" letter-spacing="10" filter="url(#glow-strong-d)">NEXUS</text>
+        <!-- Horizontal lines flanking diamond -->
+        <line x1="80" y1="76" x2="190" y2="76" stroke="#00c8ff" stroke-width="0.8" opacity="0.45"/>
+        <line x1="310" y1="76" x2="420" y2="76" stroke="#00c8ff" stroke-width="0.8" opacity="0.45"/>
+        <!-- Diamond bullet centered -->
+        <polygon points="250,73 255,78 250,83 245,78" fill="#00c8ff" opacity="0.9" filter="url(#glow-d)"/>
+        <!-- Subtitle bottom — single centered text block -->
+        <text x="250" y="95" text-anchor="middle" fill="#00c8ff" font-family="'Courier New', monospace" font-size="10" letter-spacing="4" opacity="0.85" filter="url(#glow-d)">RECRUTAMENTO  ✦  SELEÇÃO</text>
+      </svg>
+
+      <!-- LOGO MOBILE -->
+      <svg class="nexus-logo-svg mobile" width="100%" height="78" preserveAspectRatio="xMidYMid meet" viewBox="0 0 280 78" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow-m">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-strong-m">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <text x="140" y="14" text-anchor="middle" fill="#00c8ff" font-family="'Courier New', monospace" font-size="7" letter-spacing="3" opacity="0.8" filter="url(#glow-m)">// SISTEMA DE GESTÃO //</text>
+        <text x="140" y="52" text-anchor="middle" fill="#00c8ff" font-family="'Arial Black', 'Impact', sans-serif" font-size="40" font-weight="900" letter-spacing="7" filter="url(#glow-strong-m)">NEXUS</text>
+        <line x1="30" y1="61" x2="115" y2="61" stroke="#00c8ff" stroke-width="0.7" opacity="0.45"/>
+        <line x1="165" y1="61" x2="250" y2="61" stroke="#00c8ff" stroke-width="0.7" opacity="0.45"/>
+        <polygon points="140,58 144,62 140,66 136,62" fill="#00c8ff" opacity="0.9" filter="url(#glow-m)"/>
+        <text x="140" y="75" text-anchor="middle" fill="#00c8ff" font-family="'Courier New', monospace" font-size="7.5" letter-spacing="3" opacity="0.85" filter="url(#glow-m)">RECRUTAMENTO  ✦  SELEÇÃO</text>
+      </svg>
+      <p class="header-page-title">Nossos Valores</p>
+    </div>
       </div>
     </div>
   </header>
