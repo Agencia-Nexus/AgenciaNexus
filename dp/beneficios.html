@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Gestão de VT, VR, planos de saúde e demais benefícios da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Benefícios | DP — Agência Nexus" />
+  <meta property="og:description" content="Gestão de VT, VR, planos de saúde e demais benefícios da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Benefícios | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Gestão de VT, VR, planos de saúde e demais benefícios da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Benefícios | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item active" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Benefícios</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarBeneficios()">📊 Exportar CSV</button>
+      <button class="btn btn-blue btn-sm" onclick="exportarBeneficiosWord()">📄 Word</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">🎁 Gestão de <span>Benefícios</span></div>
+        <div class="sec-sub">Controle de VT, VR/VA, planos de saúde, odonto, seguro de vida e outros</div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-row" id="benKPI"></div>
+
+    <!-- Tabela geral de benefícios por colaborador -->
+    <div class="tbl-wrap" style="margin-bottom:1rem">
+      <div class="tbl-hd">
+        <span class="tbl-title">📋 Benefícios por Colaborador</span>
+        <div class="tbl-actions">
+          <div class="search-box"><span>🔍</span><input placeholder="Buscar colaborador..." oninput="UI.filtrarTabela('tblBen',this.value)"/></div>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+      <table id="tblBen">
+        <thead>
+          <tr>
+            <th>Colaborador</th><th>Tipo</th>
+            <th>VT (R$/mês)</th><th>Desc. VT</th>
+            <th>VR (R$/mês)</th><th>VA (R$/mês)</th>
+            <th>Plano Saúde</th><th>Odonto</th>
+            <th>Seg. Vida</th><th>Total Empresa</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyBen"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"><strong>TOTAL</strong></td>
+            <td id="tfVT"></td><td>—</td>
+            <td id="tfVR"></td><td id="tfVA"></td>
+            <td id="tfSaude"></td><td>—</td><td>—</td>
+            <td id="tfTotal" class="c-accent fw8"></td>
+          </tr>
+        </tfoot>
+      </table>
+      </div>
+    </div>
+
+    <!-- Custo por benefício -->
+    <div class="two-col">
+      <div class="tbl-wrap" style="padding:1.1rem">
+        <div class="tbl-title" style="margin-bottom:0.9rem">💰 Custo Mensal por Benefício</div>
+        <div id="custoBenBox"></div>
+      </div>
+      <div class="tbl-wrap" style="padding:1.1rem">
+        <div class="tbl-title" style="margin-bottom:0.9rem">📊 Cobertura dos Benefícios</div>
+        <div id="coberturaBenBox"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs().filter(c => c.situacao === 'Ativo');
+  const cfg    = DP.getConfig();
+  
+  const saudeCusto  = { 'Não':0, 'Básico':320, 'Premium':520 };
+  const odontoCusto = { 'Não':0, 'Básico':65,  'Premium':100 };
+  
+  function renderTabela() {
+    let tVT=0, tVR=0, tVA=0, tSaude=0, tTotal=0;
+    document.getElementById('tbodyBen').innerHTML = colabs.map(c => {
+      const vt    = c.vt || 0;
+      const descVT = c.tipo !== 'Estagiário' ? Math.min(vt, c.salario * cfg.limiteDescVT) : 0;
+      const vr    = c.vr || 0;
+      const va    = c.va || 0;
+      const saude = saudeCusto[c.saude] || 0;
+      const odonto= odontoCusto[c.odonto] || 0;
+      const segVida = c.segVida === 'Sim' ? 45 : 0;
+      const custoEmpresa = vt + vr + va + saude + odonto + segVida;
+      tVT+=vt; tVR+=vr; tVA+=va; tSaude+=saude; tTotal+=custoEmpresa;
+      return `<tr>
+        <td><div class="ci"><div class="av ${c.avc||'av-g'}" style="width:26px;height:26px;font-size:0.70rem">${Fmt.initials(c.nome)}</div>
+          <div class="ci-name" style="font-size:0.83rem">${c.nome}</div></div></td>
+        <td><span class="tag ${c.tipo==='CLT'?'tag-blue':'tag-purple'}">${c.tipo}</span></td>
+        <td>${vt>0?Fmt.brl(vt):'—'}</td>
+        <td class="c-red">${descVT>0?Fmt.brl(descVT)+'*':'—'}</td>
+        <td>${vr>0?Fmt.brl(vr):'—'}</td>
+        <td>${va>0?Fmt.brl(va):'—'}</td>
+        <td><span class="tag ${saude>0?'tag-blue':'tag-gray'}">${c.saude||'Não'}</span></td>
+        <td><span class="tag ${odonto>0?'tag-accent':'tag-gray'}">${c.odonto||'Não'}</span></td>
+        <td><span class="tag ${segVida>0?'tag-green':'tag-gray'}">${c.segVida||'Não'}</span></td>
+        <td class="c-orange fw7">${Fmt.brl(custoEmpresa)}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('tfVT').innerHTML    = `<strong>${Fmt.brl(tVT)}</strong>`;
+    document.getElementById('tfVR').innerHTML    = `<strong>${Fmt.brl(tVR)}</strong>`;
+    document.getElementById('tfVA').innerHTML    = `<strong>${Fmt.brl(tVA)}</strong>`;
+    document.getElementById('tfSaude').innerHTML = `<strong>${Fmt.brl(tSaude)}</strong>`;
+    document.getElementById('tfTotal').textContent = Fmt.brl(tTotal);
+  
+    // KPI
+    document.getElementById('benKPI').innerHTML = [
+      {v:Fmt.brl(tVT),    l:'Custo VT/Mês',    cls:'c-blue'},
+      {v:Fmt.brl(tVR+tVA),l:'Custo Alimentação',cls:'c-orange'},
+      {v:Fmt.brl(tSaude), l:'Custo Saúde',      cls:'c-blue'},
+      {v:Fmt.brl(tTotal), l:'Total Benefícios', cls:'c-accent'},
+    ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div></div>`).join('');
+  
+    // Custo por benefício
+    document.getElementById('custoBenBox').innerHTML = `
+      <div class="result-box">
+        <div class="rb-row"><span class="rb-lbl">Vale Transporte</span><span class="rb-val c-blue">${Fmt.brl(tVT)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Vale Refeição</span><span class="rb-val c-orange">${Fmt.brl(tVR)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Vale Alimentação</span><span class="rb-val c-orange">${Fmt.brl(tVA)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Plano de Saúde</span><span class="rb-val c-blue">${Fmt.brl(tSaude)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Plano Odontológico</span><span class="rb-val c-blue">${Fmt.brl(colabs.reduce((s,c)=>s+(odontoCusto[c.odonto]||0),0))}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Seguro de Vida</span><span class="rb-val c-green">${Fmt.brl(colabs.filter(c=>c.segVida==='Sim').length*45)}</span></div>
+        <div class="rb-row total"><span class="rb-lbl">TOTAL MENSAL</span><span class="rb-val">${Fmt.brl(tTotal)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Custo Anual Projetado</span><span class="rb-val c-accent fw8">${Fmt.brl(tTotal*12)}</span></div>
+      </div>`;
+  
+    // Cobertura
+    const n = colabs.length;
+    const coberturas = [
+      ['VT', colabs.filter(c=>c.vt>0).length],
+      ['VR/VA', colabs.filter(c=>(c.vr||0)+(c.va||0)>0).length],
+      ['Plano Saúde', colabs.filter(c=>c.saude&&c.saude!=='Não').length],
+      ['Odonto', colabs.filter(c=>c.odonto&&c.odonto!=='Não').length],
+      ['Seguro de Vida', colabs.filter(c=>c.segVida==='Sim').length],
+    ];
+    document.getElementById('coberturaBenBox').innerHTML = coberturas.map(([nome, qtd])=>`
+      <div style="margin-bottom:0.8rem">
+        <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:0.3rem">
+          <span>${nome}</span><span class="c-accent">${qtd}/${n} (${Math.round(qtd/n*100)}%)</span>
+        </div>
+        <div class="pbar"><div class="pbar-fill" style="width:${Math.round(qtd/n*100)}%"></div></div>
+      </div>`).join('');
+  }
+  
+  function exportarBeneficios() {
+    Export.dataToCSV(
+      ['Colaborador','Tipo','VT','Desc.VT','VR','VA','Plano Saúde','Odonto','Seg.Vida','Total Empresa'],
+      colabs.map(c => {
+        const vt=c.vt||0; const vr=c.vr||0; const va=c.va||0;
+        const saude=saudeCusto[c.saude]||0; const odonto=odontoCusto[c.odonto]||0;
+        const desc=Math.min(vt,c.salario*cfg.limiteDescVT);
+        const total=vt+vr+va+saude+odonto+(c.segVida==='Sim'?45:0);
+        return [c.nome,c.tipo,Fmt.brl(vt),Fmt.brl(desc),Fmt.brl(vr),Fmt.brl(va),c.saude||'Não',c.odonto||'Não',c.segVida||'Não',Fmt.brl(total)];
+      }),
+      'beneficios.csv'
+    );
+  }
+  function exportarBeneficiosWord() {
+    const rows = colabs.map(c=>`<tr><td>${c.nome}</td><td>${c.tipo}</td><td>${Fmt.brl(c.vt||0)}</td><td>${Fmt.brl(c.vr||0)}</td><td>${c.saude||'Não'}</td><td>${c.odonto||'Não'}</td></tr>`).join('');
+    Export.toWord(`<h2>Relatório de Benefícios — Agência Nexus</h2>
+      <table><thead><tr><th>Colaborador</th><th>Tipo</th><th>VT</th><th>VR</th><th>Saúde</th><th>Odonto</th></tr></thead>
+      <tbody>${rows}</tbody></table>`, 'beneficios.doc');
+  }
+  
+  renderTabela();
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

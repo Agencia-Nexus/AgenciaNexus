@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Controle contratos de estágio e vigências dos estagiários da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Estagiários | DP — Agência Nexus" />
+  <meta property="og:description" content="Controle contratos de estágio e vigências dos estagiários da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Estagiários | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Controle contratos de estágio e vigências dos estagiários da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Estagiários | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item active" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Estagiários</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarEst()">📊 CSV</button>
+      <button class="btn btn-blue btn-sm" onclick="exportarEstWord()">📄 Word</button>
+      <button class="btn btn-primary btn-sm" onclick="UI.openModal('modalEst')">＋ Novo Estagiário</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">🎓 Gestão de <span>Estagiários</span></div>
+        <div class="sec-sub">Lei 11.788/2008 — contratos, renovações, vencimentos e bolsas</div>
+      </div>
+    </div>
+
+    <div class="info-box blue">
+      📚 <strong>Lei 11.788/2008:</strong> Estágio obrigatório ou não obrigatório. Jornada máxima 6h/dia (30h/sem) para não obrigatório. Prazo máximo de 2 anos na mesma empresa. Recesso de 30 dias a cada 12 meses ou proporcional. Seguro de acidentes pessoais obrigatório.
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-row" id="estKPI"></div>
+
+    <!-- Alertas de vencimento -->
+    <div class="tbl-wrap" style="margin-bottom:1rem;padding:1rem" id="alertasVencimento">
+      <div class="tbl-title" style="margin-bottom:0.7rem">⚠️ Contratos a Vencer em 30 dias</div>
+      <div id="alertasBox"></div>
+    </div>
+
+    <!-- Tabela de estagiários -->
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">👥 Estagiários Ativos</span>
+        <div class="tbl-actions">
+          <div class="search-box"><span>🔍</span><input placeholder="Buscar..." oninput="UI.filtrarTabela('tblEst',this.value)"/></div>
+          <select class="fi" id="filtEstDepto" style="font-size:0.82rem;padding:0.3rem 0.5rem" onchange="renderEstagiarios()">
+            <option value="">Todos os Deptos</option>
+            <option>Criação</option><option>Atendimento</option><option>Mídia</option>
+            <option>Planejamento</option><option>Financeiro</option><option>TI</option>
+          </select>
+        </div>
+      </div>
+      <table id="tblEst">
+        <thead>
+          <tr>
+            <th>Estagiário</th><th>Curso/IES</th><th>Depto</th><th>Supervisor</th>
+            <th>Início</th><th>Término</th><th>Dias Restantes</th>
+            <th>Bolsa</th><th>VT</th><th>Jornada</th><th>Situação</th><th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyEst"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL ESTAGIÁRIO -->
+<div class="overlay" id="modalEst">
+<div class="modal w-lg">
+  <div class="modal-hd"><div class="modal-title">🎓 Cadastrar Estagiário</div><div class="modal-close" onclick="UI.closeModal('modalEst')">✕</div></div>
+  <div class="tabs" id="estTabs">
+    <div class="tab active" onclick="showEstTab(0,this)">Dados Pessoais</div>
+    <div class="tab" onclick="showEstTab(1,this)">Contrato</div>
+    <div class="tab" onclick="showEstTab(2,this)">IES e Supervisor</div>
+  </div>
+
+  <div class="est-tab" id="esttab0">
+    <div class="form-grid">
+      <div class="form-group fg-full"><label class="fl">Nome Completo *</label><input class="fi" id="estNome" placeholder="Nome completo"/></div>
+      <div class="form-group"><label class="fl">CPF *</label><input class="fi" id="estCPF" placeholder="000.000.000-00" oninput="Mask.cpf(this)"/></div>
+      <div class="form-group"><label class="fl">Data Nascimento</label><input type="date" class="fi" id="estNasc"/></div>
+      <div class="form-group"><label class="fl">E-mail</label><input class="fi" id="estEmail" type="email" placeholder="email@exemplo.com"/></div>
+      <div class="form-group"><label class="fl">Telefone</label><input class="fi" id="estTel" placeholder="(11) 90000-0000" oninput="Mask.tel(this)"/></div>
+      <div class="form-group"><label class="fl">Endereço</label><input class="fi" id="estEnd" placeholder="Rua, Nº, Bairro, Cidade — UF"/></div>
+    </div>
+  </div>
+  <div class="est-tab" id="esttab1" style="display:none">
+    <div class="form-grid">
+      <div class="form-group"><label class="fl">Tipo de Estágio</label>
+        <select class="fi" id="estTipoEst"><option>Não Obrigatório</option><option>Obrigatório</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Data de Início *</label><input type="date" class="fi" id="estInicio" oninput="calcularTermino()"/></div>
+      <div class="form-group"><label class="fl">Duração (meses)</label>
+        <select class="fi" id="estDuracao" onchange="calcularTermino()">
+          <option value="6">6 meses</option><option value="12" selected>12 meses</option>
+          <option value="18">18 meses</option><option value="24">24 meses</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="fl">Data de Término</label><input class="fi" id="estTermino" readonly/></div>
+      <div class="form-group"><label class="fl">Bolsa Mensal (R$)</label><input type="number" class="fi" id="estBolsa" step="0.01" placeholder="0,00"/></div>
+      <div class="form-group"><label class="fl">Vale Transporte (R$/mês)</label><input type="number" class="fi" id="estVT" step="0.01" placeholder="0,00"/></div>
+      <div class="form-group"><label class="fl">Jornada</label>
+        <select class="fi" id="estJornada">
+          <option>4h/dia (20h/sem)</option><option selected>6h/dia (30h/sem)</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="fl">Departamento</label>
+        <select class="fi" id="estDepto">
+          <option>Criação</option><option>Atendimento</option><option>Mídia</option>
+          <option>Planejamento</option><option>Financeiro</option><option>TI</option>
+          <option>Administrativo</option><option>Comercial</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="est-tab" id="esttab2" style="display:none">
+    <div class="form-grid">
+      <div class="form-group fg-full"><label class="fl">Instituição de Ensino (IES)</label><input class="fi" id="estIES" placeholder="Nome da faculdade/universidade"/></div>
+      <div class="form-group"><label class="fl">Curso</label><input class="fi" id="estCurso" placeholder="Ex: Publicidade e Propaganda"/></div>
+      <div class="form-group"><label class="fl">Semestre/Período</label><input class="fi" id="estSemestre" placeholder="Ex: 5º semestre"/></div>
+      <div class="form-group fg-full"><label class="fl">Supervisor na Empresa</label><input class="fi" id="estSupervisor" placeholder="Nome do supervisor responsável"/></div>
+      <div class="form-group fg-full"><label class="fl">Orientador na IES</label><input class="fi" id="estOrientador" placeholder="Nome do professor orientador"/></div>
+      <div class="form-group"><label class="fl">Nº Apólice Seguro Acid.</label><input class="fi" id="estSeguro" placeholder="Nº da apólice de seguro"/></div>
+      <div class="form-group"><label class="fl">Situação</label>
+        <select class="fi" id="estSituacao"><option>Ativo</option><option>Concluído</option><option>Desligado</option><option>Suspenso</option></select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-ft">
+    <button class="btn btn-ghost" onclick="UI.closeModal('modalEst')">Cancelar</button>
+    <button class="btn btn-primary" onclick="salvarEstagiario()">✓ Cadastrar Estagiário</button>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  let estagiarios = DP.getColabs().filter(c => c.tipo === 'Estagiário');
+  // Mescla com colabs ativos
+  let allEst = DP.getColabs().filter(c => c.tipo === 'Estagiário');
+  
+  function showEstTab(n, el) {
+    document.querySelectorAll('.est-tab').forEach((t,i)=>t.style.display=i===n?'block':'none');
+    document.querySelectorAll('#estTabs .tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+  }
+  
+  function calcularTermino() {
+    const inicio   = document.getElementById('estInicio').value;
+    const duracao  = parseInt(document.getElementById('estDuracao').value)||12;
+    if (!inicio) return;
+    const d = new Date(inicio+'T12:00:00'); d.setMonth(d.getMonth()+duracao);
+    document.getElementById('estTermino').value = d.toISOString().slice(0,10);
+  }
+  
+  function diasRestantes(termino) {
+    if (!termino) return Infinity;
+    return Math.round((new Date(termino+'T12:00:00')-new Date())/(86400000));
+  }
+  
+  function renderEstagiarios() {
+    const filtDepto = document.getElementById('filtEstDepto').value;
+    const lista = filtDepto ? allEst.filter(e=>e.depto===filtDepto) : allEst;
+    const hoje = new Date();
+  
+    document.getElementById('tbodyEst').innerHTML = lista.length === 0
+      ? `<tr><td colspan="12"><div class="empty"><span class="ico">🎓</span><p>Nenhum estagiário cadastrado. Acesse Colaboradores ou "+ Novo Estagiário".</p></div></td></tr>`
+      : lista.map(e => {
+          const dias = diasRestantes(e.termino);
+          const diasCls = dias < 30 ? 'c-red fw8' : dias < 60 ? 'c-orange fw7' : 'c-green';
+          const diasTxt = dias === Infinity ? '—' : dias < 0 ? `Vencido` : `${dias}d`;
+          return `<tr>
+            <td><div class="ci"><div class="av ${e.avc||'av-purple'}" style="width:28px;height:28px;font-size:0.70rem">${Fmt.initials(e.nome)}</div>
+              <div><div class="ci-name" style="font-size:0.84rem">${e.nome}</div>
+              <div style="font-size:0.76rem;color:var(--muted)">${e.cpf||''}</div></div></div></td>
+            <td style="font-size:0.80rem">${e.curso||'—'}<br><span style="color:var(--muted)">${e.ies||''}</span></td>
+            <td>${e.depto}</td>
+            <td style="font-size:0.80rem">${e.supervisor||'—'}</td>
+            <td>${Fmt.date(e.admissao)}</td>
+            <td>${e.termino?Fmt.date(e.termino):'—'}</td>
+            <td class="${diasCls}">${diasTxt}</td>
+            <td class="c-accent fw7">${Fmt.brl(e.salario)}</td>
+            <td>${e.vt?Fmt.brl(e.vt):'—'}</td>
+            <td style="font-size:0.78rem">${e.jornada||'6h/dia'}</td>
+            <td><span class="tag ${e.situacao==='Ativo'?'tag-green':e.situacao==='Concluído'?'tag-blue':'tag-red'}">${e.situacao||'Ativo'}</span></td>
+            <td><button class="btn btn-blue btn-sm" onclick="renovarContrato(${e.id})">🔄</button></td>
+          </tr>`;
+        }).join('');
+  
+    // KPI
+    const ativos = allEst.filter(e=>e.situacao==='Ativo');
+    const vencendo = ativos.filter(e=>diasRestantes(e.termino)<30 && diasRestantes(e.termino)>=0);
+    const totalBolsas = ativos.reduce((s,e)=>s+(e.salario||0),0);
+    document.getElementById('estKPI').innerHTML = [
+      {v:ativos.length,    l:'Estagiários Ativos',    cls:'c-purple'},
+      {v:vencendo.length,  l:'Contratos a Vencer/30d', cls:vencendo.length>0?'c-red':'c-green'},
+      {v:Fmt.brl(totalBolsas), l:'Total Bolsas/Mês',  cls:'c-accent'},
+      {v:allEst.filter(e=>e.situacao==='Concluído').length, l:'Concluídos', cls:'c-blue'},
+    ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div></div>`).join('');
+  
+    // Alertas
+    const alertas = ativos.filter(e => { const d=diasRestantes(e.termino); return d >= 0 && d <= 30; });
+    document.getElementById('alertasBox').innerHTML = alertas.length === 0
+      ? '<div style="font-size:0.82rem;color:var(--green)">✅ Nenhum contrato vencendo nos próximos 30 dias</div>'
+      : alertas.map(e => {
+          const dias = diasRestantes(e.termino);
+          return `<div class="info-box warn" style="margin-bottom:0.4rem">
+            ⚠️ <strong>${e.nome}</strong> — contrato vence em <strong>${dias} dia(s)</strong> (${Fmt.date(e.termino)}).
+            <button class="btn btn-blue btn-sm" style="margin-left:0.5rem" onclick="renovarContrato(${e.id})">Renovar</button>
+          </div>`;
+        }).join('');
+  }
+  
+  function salvarEstagiario() {
+    const nome = document.getElementById('estNome').value.trim();
+    if (!nome) { UI.toast('Preencha o nome do estagiário', 'err'); return; }
+    const colabs = DP.getColabs();
+    const novoId = Math.max(...colabs.map(c=>c.id), 0) + 1;
+    const novoEst = {
+      id: novoId, nome, cpf: UI.val('estCPF'), email: UI.val('estEmail'),
+      tel: UI.val('estTel'), nasc: UI.val('estNasc'), tipo: 'Estagiário',
+      cargo: 'Estagiário — ' + (UI.val('estCurso')||''), depto: UI.val('estDepto'),
+      salario: parseFloat(UI.val('estBolsa'))||0, admissao: UI.val('estInicio')||Fmt.today(),
+      termino: UI.val('estTermino'), vt: parseFloat(UI.val('estVT'))||0,
+      tipoEst: UI.val('estTipoEst'), jornada: UI.val('estJornada'),
+      ies: UI.val('estIES'), curso: UI.val('estCurso'), semestre: UI.val('estSemestre'),
+      supervisor: UI.val('estSupervisor'), orientador: UI.val('estOrientador'),
+      seguro: UI.val('estSeguro'), situacao: UI.val('estSituacao'),
+      avc: 'av-purple',
+    };
+    colabs.push(novoEst);
+    DP.saveColabs(colabs);
+    allEst = DP.getColabs().filter(c=>c.tipo==='Estagiário');
+    renderEstagiarios();
+    UI.closeModal('modalEst');
+    UI.toast(`Estagiário ${nome} cadastrado!`, 'ok');
+  }
+  
+  function renovarContrato(id) {
+    const colabs = DP.getColabs();
+    const e = colabs.find(c=>c.id===id);
+    if (!e) return;
+    const novaBase = e.termino ? new Date(e.termino+'T12:00:00') : new Date();
+    novaBase.setDate(novaBase.getDate()+1);
+    const novoTermino = new Date(novaBase); novoTermino.setMonth(novoTermino.getMonth()+12);
+    const mesAtual = Calc.mesesTrabalhados(e.admissao);
+    if (mesAtual >= 24) { UI.toast('Limite de 2 anos atingido — não é possível renovar este contrato (Lei 11.788/2008)', 'err'); return; }
+    e.termino = novoTermino.toISOString().slice(0,10);
+    DP.saveColabs(colabs);
+    allEst = DP.getColabs().filter(c=>c.tipo==='Estagiário');
+    renderEstagiarios();
+    UI.toast(`Contrato de ${e.nome} renovado até ${Fmt.date(e.termino)}`, 'ok');
+  }
+  
+  function exportarEst() {
+    Export.dataToCSV(
+      ['Nome','CPF','Curso','IES','Depto','Admissão','Término','Bolsa','VT','Jornada','Situação'],
+      allEst.map(e=>[e.nome,e.cpf||'',e.curso||'',e.ies||'',e.depto,Fmt.date(e.admissao),e.termino?Fmt.date(e.termino):'',Fmt.brl(e.salario),Fmt.brl(e.vt||0),e.jornada||'',e.situacao||'Ativo']),
+      'estagiarios.csv'
+    );
+  }
+  function exportarEstWord() {
+    const rows = allEst.map(e=>`<tr><td>${e.nome}</td><td>${e.curso||'—'}</td><td>${e.ies||'—'}</td><td>${e.depto}</td><td>${Fmt.date(e.admissao)}</td><td>${e.termino?Fmt.date(e.termino):'—'}</td><td>${Fmt.brl(e.salario)}</td><td>${e.situacao||'Ativo'}</td></tr>`).join('');
+    Export.toWord(`<h2>Estagiários — Agência Nexus</h2>
+      <table><thead><tr><th>Nome</th><th>Curso</th><th>IES</th><th>Depto</th><th>Início</th><th>Término</th><th>Bolsa</th><th>Situação</th></tr></thead>
+      <tbody>${rows}</tbody></table>`, 'estagiarios.doc');
+  }
+  
+  document.getElementById('estInicio').value = Fmt.today();
+  calcularTermino();
+  renderEstagiarios();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

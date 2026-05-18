@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Emita e gerencie holerites dos colaboradores da Agência Nexus com cálculo automático." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Holerites | DP — Agência Nexus" />
+  <meta property="og:description" content="Emita e gerencie holerites dos colaboradores da Agência Nexus com cálculo automático." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Holerites | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Emita e gerencie holerites dos colaboradores da Agência Nexus com cálculo automático." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Holerites | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+<style>
+.hr-preview-panel { background:var(--card2); border:1px solid var(--border); border-radius:var(--radius); padding:1.2rem; }
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html" data-page="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html" data-page="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html" data-page="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html" data-page="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html" data-page="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html" data-page="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html" data-page="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html" data-page="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item active" href="holerite.html" data-page="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html" data-page="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html" data-page="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html" data-page="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html" data-page="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html" data-page="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html" data-page="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html" data-page="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html" data-page="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Holerites</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="gerarTodos()">🖨️ Gerar Todos</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">🧾 <span>Holerites</span></div>
+        <div class="sec-sub">Geração, visualização e impressão de contracheques — com todos os cálculos automáticos</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- PAINEL DE CONFIGURAÇÃO -->
+      <div>
+        <div class="tbl-wrap" style="padding:1.2rem;margin-bottom:1rem">
+          <div class="tbl-title" style="margin-bottom:1rem">⚙️ Parâmetros do Holerite</div>
+          <div class="form-grid">
+            <div class="form-group fg-full">
+              <label class="fl">Colaborador *</label>
+              <select class="fi" id="hrColab" onchange="preencherDados()"><option value="">— Selecione —</option></select>
+            </div>
+            <div class="form-group">
+              <label class="fl">Competência *</label>
+              <input type="month" class="fi" id="hrComp" value="2025-03"/>
+            </div>
+            <div class="form-group">
+              <label class="fl">Salário Base</label>
+              <input type="number" class="fi" id="hrSalBase" readonly placeholder="Automático"/>
+            </div>
+          </div>
+
+          <div style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin:0.9rem 0 0.5rem">
+            ＋ Proventos Adicionais
+          </div>
+          <div class="form-grid">
+            <div class="form-group"><label class="fl">Horas Extras 50% (horas)</label><input type="number" class="fi" id="hrHext50" value="0" min="0" oninput="recalcular()"/></div>
+            <div class="form-group"><label class="fl">Horas Extras 100% (horas)</label><input type="number" class="fi" id="hrHext100" value="0" min="0" oninput="recalcular()"/></div>
+            <div class="form-group"><label class="fl">Horas Noturnas (horas)</label><input type="number" class="fi" id="hrNoturno" value="0" min="0" oninput="recalcular()"/></div>
+            <div class="form-group"><label class="fl">Adicional Periculosidade</label>
+              <select class="fi" id="hrPeric" onchange="recalcular()"><option value="0">Não</option><option value="1">Sim (30%)</option></select>
+            </div>
+            <div class="form-group"><label class="fl">Insalubridade (%)</label>
+              <select class="fi" id="hrInsalub" onchange="recalcular()">
+                <option value="0">Não</option><option value="10">Mínimo (10%)</option>
+                <option value="20">Médio (20%)</option><option value="40">Máximo (40%)</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="fl">Outros Proventos (R$)</label><input type="number" class="fi" id="hrOutrosProv" value="0" step="0.01" oninput="recalcular()"/></div>
+            <div class="form-group fg-full"><label class="fl">Descrição de Outros Proventos</label><input class="fi" id="hrOutrosProvDesc" placeholder="Ex: Comissão de vendas, PLR..."/></div>
+          </div>
+
+          <div style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin:0.9rem 0 0.5rem">
+            — Descontos Adicionais
+          </div>
+          <div class="form-grid">
+            <div class="form-group"><label class="fl">Faltas (dias)</label><input type="number" class="fi" id="hrFaltas" value="0" min="0" max="30" oninput="recalcular()"/></div>
+            <div class="form-group"><label class="fl">Atrasos (horas)</label><input type="number" class="fi" id="hrAtrasos" value="0" min="0" oninput="recalcular()"/></div>
+            <div class="form-group"><label class="fl">Adiantamento (R$)</label><input type="number" class="fi" id="hrAdiantamento" value="0" step="0.01" oninput="recalcular()"/></div>
+            <div class="form-group"><label class="fl">Outros Descontos (R$)</label><input type="number" class="fi" id="hrOutrosDesc" value="0" step="0.01" oninput="recalcular()"/></div>
+            <div class="form-group fg-full"><label class="fl">Descrição de Outros Descontos</label><input class="fi" id="hrOutrosDescTxt" placeholder="Ex: Desconto uniforme, empréstimo..."/></div>
+            <div class="form-group"><label class="fl">Nº Dependentes (IRRF)</label><input type="number" class="fi" id="hrDeps" value="0" min="0" oninput="recalcular()"/></div>
+            <div class="form-group"><label class="fl">VT (R$/mês)</label><input type="number" class="fi" id="hrVT" value="0" step="0.01" oninput="recalcular()"/></div>
+            <div class="form-group"><label class="fl">VR (R$/mês) — Provento</label><input type="number" class="fi" id="hrVR" value="0" step="0.01" oninput="recalcular()"/></div>
+          </div>
+
+          <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap">
+            <button class="btn btn-primary" style="flex:1" onclick="gerarHolerite()">⚡ Gerar Holerite</button>
+            <button class="btn btn-ghost" onclick="limparForm()">↺ Limpar</button>
+          </div>
+        </div>
+
+        <!-- TABELA INSS/IRRF referência -->
+        <div class="tbl-wrap" style="padding:1rem">
+          <div class="tbl-title" style="margin-bottom:0.8rem">📐 Tabelas Vigentes 2025</div>
+          <div class="tabs" style="margin-bottom:0.7rem">
+            <div class="tab active" onclick="showTabRef(0,this)">INSS</div>
+            <div class="tab" onclick="showTabRef(1,this)">IRRF</div>
+          </div>
+          <div id="refINSS">
+            <table style="font-size:0.80rem">
+              <thead><tr><th>Faixa Salarial</th><th>Alíquota</th><th>Parcela a Deduzir</th></tr></thead>
+              <tbody>
+                <tr><td>Até R$ 1.518,00</td><td><span class="tag tag-green">7,5%</span></td><td>—</td></tr>
+                <tr><td>R$ 1.518,01 – R$ 2.793,88</td><td><span class="tag tag-blue">9%</span></td><td>R$ 22,77</td></tr>
+                <tr><td>R$ 2.793,89 – R$ 4.190,83</td><td><span class="tag tag-orange">12%</span></td><td>R$ 106,59</td></tr>
+                <tr><td>R$ 4.190,84 – R$ 8.157,41</td><td><span class="tag tag-red">14%</span></td><td>R$ 190,42</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="refIRRF" style="display:none">
+            <table style="font-size:0.80rem">
+              <thead><tr><th>Base de Cálculo</th><th>Alíquota</th><th>Dedução</th></tr></thead>
+              <tbody>
+                <tr><td>Até R$ 2.259,20</td><td><span class="tag tag-green">Isento</span></td><td>—</td></tr>
+                <tr><td>R$ 2.259,21 – R$ 2.826,65</td><td><span class="tag tag-blue">7,5%</span></td><td>R$ 169,44</td></tr>
+                <tr><td>R$ 2.826,66 – R$ 3.751,05</td><td><span class="tag tag-orange">15%</span></td><td>R$ 381,44</td></tr>
+                <tr><td>R$ 3.751,06 – R$ 4.664,68</td><td><span class="tag tag-red">22,5%</span></td><td>R$ 662,77</td></tr>
+                <tr><td>Acima de R$ 4.664,68</td><td><span class="tag tag-red">27,5%</span></td><td>R$ 896,00</td></tr>
+              </tbody>
+            </table>
+            <div style="font-size:0.62rem;color:var(--muted);margin-top:0.5rem">* Dedução por dependente: R$ 189,59/mês</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÁREA DE PREVIEW E RESULTADO -->
+      <div id="hrRightPanel">
+        <div class="hr-preview-panel" style="text-align:center;padding:3rem 1rem;color:var(--muted)" id="hrPlaceholder">
+          <div style="font-size:3rem;margin-bottom:1rem;opacity:0.25">🧾</div>
+          <p>Selecione um colaborador e preencha os parâmetros para gerar o holerite.</p>
+        </div>
+
+        <!-- Painel de cálculo em tempo real -->
+        <div id="hrCalcPanel" style="display:none">
+          <div class="result-box" style="margin-bottom:1rem">
+            <div class="rb-row add"><span class="rb-lbl">Salário Base</span><span class="rb-val" id="rc-salbase">—</span></div>
+            <div class="rb-row add"><span class="rb-lbl">Horas Extras 50%</span><span class="rb-val" id="rc-hext50">—</span></div>
+            <div class="rb-row add"><span class="rb-lbl">Horas Extras 100%</span><span class="rb-val" id="rc-hext100">—</span></div>
+            <div class="rb-row add"><span class="rb-lbl">Adicional Noturno</span><span class="rb-val" id="rc-noturno">—</span></div>
+            <div class="rb-row add"><span class="rb-lbl">Periculosidade</span><span class="rb-val" id="rc-peric">—</span></div>
+            <div class="rb-row add"><span class="rb-lbl">Insalubridade</span><span class="rb-val" id="rc-insalub">—</span></div>
+            <div class="rb-row add"><span class="rb-lbl">Outros Proventos</span><span class="rb-val" id="rc-outrosp">—</span></div>
+            <div class="rb-row add"><span class="rb-lbl">VR (Benefício)</span><span class="rb-val" id="rc-vr">—</span></div>
+            <div class="rb-row" style="border-top:1px solid var(--border2)"><span class="rb-lbl fw8">TOTAL PROVENTOS</span><span class="rb-val c-green fw8" id="rc-totprov">—</span></div>
+            <div class="rb-row desc"><span class="rb-lbl">Faltas / Atrasos</span><span class="rb-val" id="rc-faltas">—</span></div>
+            <div class="rb-row desc"><span class="rb-lbl">INSS (progressivo)</span><span class="rb-val" id="rc-inss">—</span></div>
+            <div class="rb-row desc"><span class="rb-lbl">IRRF</span><span class="rb-val" id="rc-irrf">—</span></div>
+            <div class="rb-row desc"><span class="rb-lbl">Desconto VT (6%)</span><span class="rb-val" id="rc-vt">—</span></div>
+            <div class="rb-row desc"><span class="rb-lbl">Adiantamento</span><span class="rb-val" id="rc-adiant">—</span></div>
+            <div class="rb-row desc"><span class="rb-lbl">Outros Descontos</span><span class="rb-val" id="rc-outrosd">—</span></div>
+            <div class="rb-row" style="border-top:1px solid var(--border2)"><span class="rb-lbl fw8">TOTAL DESCONTOS</span><span class="rb-val c-red fw8" id="rc-totdesc">—</span></div>
+            <div class="rb-row total"><span class="rb-lbl">💰 LÍQUIDO A RECEBER</span><span class="rb-val" id="rc-liq">—</span></div>
+            <div class="rb-row"><span class="rb-lbl">FGTS (8%) — ônus empresa</span><span class="rb-val c-blue" id="rc-fgts">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOLERITE GERADO (resultado final para impressão) -->
+    <div id="hrDocArea" style="margin-top:1rem;display:none">
+      <div class="tbl-hd" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius) var(--radius) 0 0;padding:0.85rem 1rem">
+        <span class="tbl-title">🧾 Holerite Gerado</span>
+        <div class="tbl-actions">
+          <button class="btn btn-success btn-sm" onclick="imprimirHolerite()">🖨️ Imprimir / PDF</button>
+          <button class="btn btn-blue btn-sm" onclick="exportarWordHolerite()">📄 Exportar .doc</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportarCSVHolerite()">📊 Exportar CSV</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);background:var(--card);padding:1rem">
+        <div id="hrDocContent"></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /app -->
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs();
+  const cfg    = DP.getConfig();
+  let currentCalc = null;
+  let currentColab = null;
+  
+  // Populate select
+  UI.renderSelect('hrColab', colabs.filter(c=>c.situacao==='Ativo'), 'id',
+    c => `${c.nome} — ${c.tipo} · ${Fmt.brl(c.salario)}`);
+  
+  function showTabRef(n, el){
+    document.getElementById('refINSS').style.display  = n===0?'':'none';
+    document.getElementById('refIRRF').style.display  = n===1?'':'none';
+    document.querySelectorAll('.tabs .tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+  }
+  
+  function preencherDados(){
+    const id = parseInt(UI.val('hrColab'));
+    currentColab = colabs.find(c=>c.id===id) || null;
+    if(!currentColab){ document.getElementById('hrCalcPanel').style.display='none'; return; }
+    UI.setVal('hrSalBase', currentColab.salario.toFixed(2));
+    UI.setVal('hrVT',  currentColab.vt || 0);
+    UI.setVal('hrVR',  currentColab.vr || 0);
+    UI.setVal('hrDeps',currentColab.dependentes || 0);
+    document.getElementById('hrCalcPanel').style.display='block';
+    document.getElementById('hrPlaceholder').style.display='none';
+    recalcular();
+  }
+  
+  function recalcular(){
+    if(!currentColab) return;
+    const extras = {
+      horasExtras50:    parseFloat(UI.val('hrHext50'))||0,
+      horasExtras100:   parseFloat(UI.val('hrHext100'))||0,
+      adicNocturno:     parseFloat(UI.val('hrNoturno'))||0,
+      adicPericulosidade: UI.val('hrPeric')==='1',
+      adicInsalubridade:parseFloat(UI.val('hrInsalub'))||0,
+      outrosProventos:  parseFloat(UI.val('hrOutrosProv'))||0,
+      descFaltas:       parseFloat(UI.val('hrFaltas'))||0 + (parseFloat(UI.val('hrAtrasos'))||0)/8,
+      adiantamento:     parseFloat(UI.val('hrAdiantamento'))||0,
+      outrosDescontos:  parseFloat(UI.val('hrOutrosDesc'))||0,
+      numDependentes:   parseInt(UI.val('hrDeps'))||0,
+    };
+    // VT/VR overrides
+    const vtVal = parseFloat(UI.val('hrVT'))||0;
+    const vrVal = parseFloat(UI.val('hrVR'))||0;
+    const colabClone = { ...currentColab, vt: vtVal, vr: vrVal };
+    const r = Calc.liquido(colabClone, extras);
+    currentCalc = r;
+  
+    const set = (id, v) => { const el=document.getElementById(id); if(el) el.textContent = v > 0 ? Fmt.brl(v) : '—'; };
+    set('rc-salbase',  r.proventos.salario);
+    set('rc-hext50',   r.proventos.hext50);
+    set('rc-hext100',  r.proventos.hext100);
+    set('rc-noturno',  r.proventos.noturno);
+    set('rc-peric',    r.proventos.periculoso);
+    set('rc-insalub',  r.proventos.insalubre);
+    set('rc-outrosp',  r.proventos.outros);
+    set('rc-vr',       r.proventos.vr);
+    document.getElementById('rc-totprov').textContent = Fmt.brl(r.totalProv + r.proventos.vr + r.proventos.vt);
+    set('rc-faltas',   r.descontos.faltas);
+    set('rc-inss',     r.descontos.inss);
+    set('rc-irrf',     r.descontos.irrf);
+    set('rc-vt',       r.descontos.vt);
+    set('rc-adiant',   r.descontos.adiantamento);
+    set('rc-outrosd',  r.descontos.outros);
+    document.getElementById('rc-totdesc').textContent = Fmt.brl(r.totalDesc);
+    document.getElementById('rc-liq').textContent     = Fmt.brl(r.liquido);
+    document.getElementById('rc-fgts').textContent    = Fmt.brl(r.fgts);
+  }
+  
+  function gerarHolerite(){
+    if(!currentColab){ UI.toast('Selecione um colaborador','err'); return; }
+    if(!currentCalc) recalcular();
+    const r = currentCalc;
+    const comp = UI.val('hrComp') || '2025-03';
+    const c = currentColab;
+    const cfg2 = DP.getConfig();
+    const [ano,mes] = comp.split('-');
+    const competencia = `${Fmt.mes(+mes)}/${ano}`;
+    const hext50  = parseFloat(UI.val('hrHext50'))||0;
+    const hext100 = parseFloat(UI.val('hrHext100'))||0;
+    const noturno = parseFloat(UI.val('hrNoturno'))||0;
+    const faltas  = parseFloat(UI.val('hrFaltas'))||0;
+    const atrasos = parseFloat(UI.val('hrAtrasos'))||0;
+    const vtVal   = parseFloat(UI.val('hrVT'))||0;
+    const vrVal   = parseFloat(UI.val('hrVR'))||0;
+    const outrosProvDesc = UI.val('hrOutrosProvDesc') || 'Outros Proventos';
+    const outrosDescTxt  = UI.val('hrOutrosDescTxt')  || 'Outros Descontos';
+  
+    // Linhas de proventos e descontos
+    const linhasP = [
+      ['0001','Salário Base','30 dias', r.proventos.salario],
+      hext50>0  ? ['0010',`Horas Extras 50%`,`${hext50}h`,r.proventos.hext50] : null,
+      hext100>0 ? ['0011',`Horas Extras 100%`,`${hext100}h`,r.proventos.hext100] : null,
+      noturno>0 ? ['0012','Adicional Noturno (20%)',`${noturno}h`,r.proventos.noturno] : null,
+      r.proventos.periculoso>0 ? ['0020','Adicional Periculosidade (30%)','30%',r.proventos.periculoso] : null,
+      r.proventos.insalubre>0  ? ['0021','Adicional Insalubridade',`${UI.val('hrInsalub')}%`,r.proventos.insalubre] : null,
+      r.proventos.outros>0     ? ['0030', outrosProvDesc,'—',r.proventos.outros] : null,
+      vrVal>0   ? ['0070','Vale Refeição','Benefício',vrVal] : null,
+      vtVal>0   ? ['0071','Vale Transporte','Benefício',vtVal] : null,
+    ].filter(Boolean);
+  
+    const linhasD = [
+      faltas>0  ? ['0040',`Desconto Faltas`,`${faltas}d`, r.descontos.faltas] : null,
+      atrasos>0 ? ['0041',`Desconto Atrasos`,`${atrasos}h`, r.descontos.faltas * 0.1] : null,
+      r.descontos.inss>0 ? ['0100',`INSS (${Fmt.pct(r.descontos.inss/r.baseINSS)})`,`Base: ${Fmt.brl(r.baseINSS)}`, r.descontos.inss] : null,
+      r.descontos.irrf>0 ? ['0200',`IRRF (${Fmt.pct(r.descontos.irrf/r.baseIRRF)})`,`Base: ${Fmt.brl(r.baseIRRF)}`, r.descontos.irrf] : null,
+      r.descontos.vt>0   ? ['0071','Desconto VT (6% sal.)','6%', r.descontos.vt] : null,
+      r.descontos.adiantamento>0 ? ['0300','Adiantamento Salarial','—', r.descontos.adiantamento] : null,
+      r.descontos.outros>0       ? ['0400', outrosDescTxt,'—', r.descontos.outros] : null,
+    ].filter(Boolean);
+  
+    const html = `
+    <div class="holerite-doc" id="hrImprimivel">
+      <div class="hd-top">
+        <div>
+          <div class="hd-empresa">${cfg2.empresa.razao_social}</div>
+          <div class="hd-cnpj">CNPJ: ${cfg2.empresa.cnpj}</div>
+          <div class="hd-cnpj">${cfg2.empresa.endereco}</div>
+          <div class="hd-cnpj">Tel: ${cfg2.empresa.telefone} | ${cfg2.empresa.email}</div>
+        </div>
+        <div class="hd-comp">
+          <small>FOLHA DE PAGAMENTO</small>
+          <strong>${competencia}</strong>
+          <small>Contracheque</small>
+        </div>
+      </div>
+  
+      <div class="hd-func">
+        <div class="hd-fi"><label>Matrícula</label><strong>${String(c.id).padStart(6,'0')}</strong></div>
+        <div class="hd-fi"><label>Nome do Funcionário</label><strong>${c.nome}</strong></div>
+        <div class="hd-fi"><label>CPF</label><strong>${c.cpf}</strong></div>
+        <div class="hd-fi"><label>Cargo / Função</label><strong>${c.cargo}</strong></div>
+        <div class="hd-fi"><label>Departamento</label><strong>${c.depto}</strong></div>
+        <div class="hd-fi"><label>Admissão</label><strong>${Fmt.date(c.admissao)}</strong></div>
+        <div class="hd-fi"><label>Tipo de Contrato</label><strong>${c.tipo}</strong></div>
+        <div class="hd-fi"><label>Regime</label><strong>${c.regime||'44h semanais'}</strong></div>
+        <div class="hd-fi"><label>PIS/PASEP</label><strong>${c.pis||'—'}</strong></div>
+      </div>
+  
+      <table class="hd-table">
+        <thead>
+          <tr>
+            <th style="width:60px">Código</th>
+            <th>Descrição</th>
+            <th>Referência</th>
+            <th style="text-align:right">Proventos</th>
+            <th style="text-align:right">Descontos</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${linhasP.map(l=>`<tr>
+            <td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td>
+            <td style="text-align:right;color:#2a7a2a;font-weight:700">${Fmt.brl(l[3])}</td>
+            <td></td>
+          </tr>`).join('')}
+          ${linhasD.map(l=>`<tr>
+            <td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td>
+            <td></td>
+            <td style="text-align:right;color:#c0392b;font-weight:700">${Fmt.brl(l[3])}</td>
+          </tr>`).join('')}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" style="font-weight:800;font-size:0.83rem">TOTAIS</td>
+            <td style="text-align:right;font-weight:900;color:#2a7a2a">${Fmt.brl(r.totalProv+vrVal+vtVal)}</td>
+            <td style="text-align:right;font-weight:900;color:#c0392b">${Fmt.brl(r.totalDesc)}</td>
+          </tr>
+        </tfoot>
+      </table>
+  
+      <div class="hd-totals">
+        <div class="hd-tot prov">
+          <label>Total Proventos</label>
+          <strong>${Fmt.brl(r.totalProv+vrVal+vtVal)}</strong>
+        </div>
+        <div class="hd-tot desc">
+          <label>Total Descontos</label>
+          <strong>${Fmt.brl(r.totalDesc)}</strong>
+        </div>
+        <div class="hd-tot liq">
+          <label>💰 Líquido a Receber</label>
+          <strong>${Fmt.brl(r.liquido)}</strong>
+        </div>
+      </div>
+  
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;font-size:0.62rem;background:#f8f8f8;padding:0.6rem;border-radius:6px;margin-bottom:0.8rem">
+        <div><label style="color:#999;display:block;text-transform:uppercase;font-size:0.52rem">Base INSS</label><strong>${Fmt.brl(r.baseINSS)}</strong></div>
+        <div><label style="color:#999;display:block;text-transform:uppercase;font-size:0.52rem">Base IRRF</label><strong>${Fmt.brl(r.baseIRRF)}</strong></div>
+        <div><label style="color:#999;display:block;text-transform:uppercase;font-size:0.52rem">FGTS Depositado (8%)</label><strong>${Fmt.brl(r.fgts)}</strong></div>
+        <div><label style="color:#999;display:block;text-transform:uppercase;font-size:0.52rem">Salário Contribuição</label><strong>${Fmt.brl(r.baseINSS)}</strong></div>
+        <div><label style="color:#999;display:block;text-transform:uppercase;font-size:0.52rem">Nº Dependentes</label><strong>${UI.val('hrDeps')||c.dependentes||0}</strong></div>
+        <div><label style="color:#999;display:block;text-transform:uppercase;font-size:0.52rem">Banco / Conta</label><strong>${c.banco||'—'}</strong></div>
+      </div>
+  
+      <div class="hd-ass">
+        <div class="hd-ass-ln"><div class="ln"></div><span>${c.nome}</span></div>
+        <div class="hd-ass-ln"><div class="ln"></div><span>Departamento Pessoal — Agência Nexus</span></div>
+        <div class="hd-ass-ln"><div class="ln"></div><span>Recebimento em: ___/___/______</span></div>
+      </div>
+      <div style="text-align:center;font-size:0.68rem;color:#aaa;margin-top:0.6rem;border-top:1px solid #eee;padding-top:0.5rem">
+        Documento gerado em ${new Date().toLocaleString('pt-BR')} · Sistema DP Agência Nexus · Este documento é válido sem rasuras
+      </div>
+    </div>`;
+  
+    document.getElementById('hrDocContent').innerHTML = html;
+    document.getElementById('hrDocArea').style.display='block';
+    document.getElementById('hrDocArea').scrollIntoView({behavior:'smooth'});
+    UI.toast('Holerite gerado com sucesso!','ok');
+  }
+  
+  function imprimirHolerite(){
+    Export.printDiv('hrImprimivel', `Holerite — ${currentColab?.nome||''} — ${UI.val('hrComp')}`);
+  }
+  
+  function exportarWordHolerite(){
+    const el = document.getElementById('hrImprimivel');
+    if(!el) { UI.toast('Gere o holerite primeiro','err'); return; }
+    Export.toWord(el.innerHTML, `holerite_${currentColab?.nome?.replace(/\s/g,'_')}_${UI.val('hrComp')}.doc`);
+  }
+  
+  function exportarCSVHolerite(){
+    if(!currentCalc||!currentColab){ UI.toast('Gere o holerite primeiro','err'); return; }
+    const r = currentCalc;
+    const headers = ['Descrição','Proventos','Descontos'];
+    const rows = [
+      ['Salário Base', Fmt.brl(r.proventos.salario), ''],
+      r.proventos.hext50>0  ? ['Horas Extras 50%', Fmt.brl(r.proventos.hext50),'']:[],
+      r.proventos.hext100>0 ? ['Horas Extras 100%', Fmt.brl(r.proventos.hext100),'']:[],
+      r.proventos.outros>0  ? ['Outros Proventos', Fmt.brl(r.proventos.outros),'']:[],
+      ['INSS', '', Fmt.brl(r.descontos.inss)],
+      ['IRRF', '', Fmt.brl(r.descontos.irrf)],
+      r.descontos.vt>0 ? ['Desconto VT','',Fmt.brl(r.descontos.vt)]:[],
+      r.descontos.faltas>0 ? ['Faltas','',Fmt.brl(r.descontos.faltas)]:[],
+      ['TOTAL PROVENTOS', Fmt.brl(r.totalProv),''],
+      ['TOTAL DESCONTOS','', Fmt.brl(r.totalDesc)],
+      ['LÍQUIDO A RECEBER', Fmt.brl(r.liquido), ''],
+      ['FGTS (ônus empresa)', Fmt.brl(r.fgts), ''],
+    ].filter(r=>r.length);
+    Export.dataToCSV(headers, rows, `holerite_${currentColab.nome.replace(/\s/g,'_')}.csv`);
+  }
+  
+  function gerarTodos(){
+    const ativos = colabs.filter(c=>c.situacao==='Ativo');
+    UI.toast(`Gerando ${ativos.length} holerites... Use a impressão do navegador para PDF em lote.`, 'inf');
+  }
+  
+  function limparForm(){
+    ['hrHext50','hrHext100','hrNoturno','hrFaltas','hrAtrasos','hrAdiantamento','hrOutrosProv','hrOutrosDesc'].forEach(id=>UI.setVal(id,0));
+    UI.setVal('hrPeric','0'); UI.setVal('hrInsalub','0');
+    recalcular();
+  }
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

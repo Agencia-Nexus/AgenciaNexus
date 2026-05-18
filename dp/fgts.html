@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Acompanhe os depósitos de FGTS dos colaboradores da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FGTS | DP — Agência Nexus" />
+  <meta property="og:description" content="Acompanhe os depósitos de FGTS dos colaboradores da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FGTS | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Acompanhe os depósitos de FGTS dos colaboradores da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>FGTS | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item active" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>FGTS</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarFGTS()">📊 Exportar GFIP/CSV</button>
+      <button class="btn btn-primary btn-sm" onclick="gerarGuia()">🏦 Gerar Guia FGTS</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">🏦 Controle de <span>FGTS</span></div>
+        <div class="sec-sub">Depósito mensal 8%, extrato por colaborador, cálculo de multa rescisória</div>
+      </div>
+    </div>
+
+    <div class="info-box blue">💡 O FGTS deve ser depositado até o dia <strong>7 de cada mês</strong> (ou dia útil anterior) via guia GFIP/SEFIP. Prazo improrrogável — multa de 5% + 3% a.m. sobre saldo em atraso.</div>
+
+    <!-- KPI geral -->
+    <div class="kpi-row" id="fgtsKPI"></div>
+
+    <div class="two-col" style="margin-bottom:1rem">
+      <!-- Calculadora individual -->
+      <div class="tbl-wrap" style="padding:1.2rem">
+        <div class="tbl-title" style="margin-bottom:1rem">🧮 Calculadora FGTS Individual</div>
+        <div class="form-grid">
+          <div class="form-group fg-full"><label class="fl">Colaborador</label>
+            <select class="fi" id="fgtsColab" onchange="calcularFGTSInd()"><option value="">— Selecione —</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Salário Base</label><input class="fi" id="fgtsSal" readonly/></div>
+          <div class="form-group"><label class="fl">Meses Trabalhados</label><input type="number" class="fi" id="fgtsMeses" value="12" min="1" oninput="calcularFGTSInd()"/></div>
+          <div class="form-group"><label class="fl">Outras Verbas Incidentes (R$)</label><input type="number" class="fi" id="fgtsOutras" value="0" step="0.01" oninput="calcularFGTSInd()"/></div>
+          <div class="form-group"><label class="fl">FGTS Real Acumulado (R$)</label><input type="number" class="fi" id="fgtsReal" value="0" step="0.01" placeholder="0 = automático" oninput="calcularFGTSInd()"/></div>
+          <div class="form-group"><label class="fl">Tipo de Rescisão (multa)</label>
+            <select class="fi" id="fgtsTipoResc" onchange="calcularFGTSInd()">
+              <option value="nao">Não se aplica</option>
+              <option value="sem_justa_causa">Sem Justa Causa (40%)</option>
+              <option value="acordo">Acordo Mútuo (20%)</option>
+              <option value="justa_causa">Justa Causa (sem multa)</option>
+            </select>
+          </div>
+        </div>
+        <div class="result-box" style="margin-top:1rem" id="fgtsIndResult">
+          <div class="empty"><span class="ico">🏦</span><p>Selecione um colaborador</p></div>
+        </div>
+      </div>
+
+      <!-- Depósito mensal geral -->
+      <div class="tbl-wrap" style="padding:1.2rem">
+        <div class="tbl-title" style="margin-bottom:1rem">📅 Depósito Mensal — Resumo</div>
+        <div class="form-group" style="margin-bottom:1rem">
+          <label class="fl">Competência</label>
+          <input type="month" class="fi" id="fgtsComp" value="2025-03" oninput="renderFGTSGeral()"/>
+        </div>
+        <div id="fgtsGeralResult"></div>
+        <div id="guiaArea" style="margin-top:0.8rem;display:none">
+          <div class="tbl-hd" style="background:var(--card2);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:0.7rem 1rem">
+            <span class="tbl-title">📄 Guia GFIP</span>
+            <div class="tbl-actions">
+              <button class="btn btn-success btn-sm" onclick="imprimirGuia()">🖨️ Imprimir</button>
+              <button class="btn btn-blue btn-sm" onclick="exportarGuiaWord()">📄 Word</button>
+            </div>
+          </div>
+          <div id="guiaContent" style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:1rem;background:var(--card2)"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extrato por colaborador -->
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">📊 Extrato FGTS por Colaborador</span>
+        <div class="tbl-actions">
+          <button class="btn btn-ghost btn-sm" onclick="exportarFGTS()">📊 CSV/Excel</button>
+        </div>
+      </div>
+      <table id="tblFGTSExtrato">
+        <thead>
+          <tr>
+            <th>Colaborador</th><th>Tipo</th><th>Admissão</th>
+            <th>Meses Trab.</th><th>Salário Atual</th>
+            <th>Depósito/Mês (8%)</th><th>FGTS Acumulado (est.)</th>
+            <th>Multa 40% (est.)</th><th>Total Disponível</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyFGTS"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5"><strong>TOTAL</strong></td>
+            <td id="tfFGTSMes"></td>
+            <td id="tfFGTSAcum"></td>
+            <td id="tfFGTSMulta"></td>
+            <td id="tfFGTSTotal"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs().filter(c => c.situacao === 'Ativo' && c.tipo === 'CLT');
+  const cfg = DP.getConfig();
+  
+  UI.renderSelect('fgtsColab', colabs, 'id', c => `${c.nome} — ${Fmt.brl(c.salario)}`);
+  
+  function calcularFGTSInd() {
+    const id = parseInt(UI.val('fgtsColab'));
+    const colab = colabs.find(c => c.id === id);
+    if (!colab) return;
+    UI.setVal('fgtsSal', Fmt.brl(colab.salario));
+    const meses = parseInt(UI.val('fgtsMeses')) || 1;
+    const outras = parseFloat(UI.val('fgtsOutras')) || 0;
+    const fgtsReal = parseFloat(UI.val('fgtsReal')) || 0;
+    const tipoResc = UI.val('fgtsTipoResc');
+    const base = colab.salario + outras;
+    const deposito = base * cfg.aliqFGTS;
+    const acumulado = fgtsReal > 0 ? fgtsReal : deposito * meses;
+    const multa40 = tipoResc === 'sem_justa_causa' ? acumulado * 0.40 : tipoResc === 'acordo' ? acumulado * 0.20 : 0;
+    const multaFAT = tipoResc === 'sem_justa_causa' ? acumulado * 0.10 : 0; // contribuição social
+    document.getElementById('fgtsIndResult').innerHTML = `
+      <div class="rb-row"><span class="rb-lbl">Salário Base + Verbas</span><span class="rb-val">${Fmt.brl(base)}</span></div>
+      <div class="rb-row add"><span class="rb-lbl">Depósito Mensal (8%)</span><span class="rb-val c-blue fw7">${Fmt.brl(deposito)}</span></div>
+      <div class="rb-row"><span class="rb-lbl">Meses Trabalhados</span><span class="rb-val">${meses}</span></div>
+      <div class="rb-row"><span class="rb-lbl">FGTS Acumulado ${fgtsReal>0?'(informado)':'(estimado)'}</span><span class="rb-val c-blue fw8">${Fmt.brl(acumulado)}</span></div>
+      ${tipoResc !== 'nao' ? `
+      <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);padding:0.5rem 0 0.2rem">Multas Rescisórias</div>
+      <div class="rb-row"><span class="rb-lbl">Multa FGTS (${tipoResc==='sem_justa_causa'?'40%':'20%'})</span><span class="rb-val c-orange fw7">${Fmt.brl(multa40)}</span></div>
+      ${tipoResc==='sem_justa_causa'?`<div class="rb-row"><span class="rb-lbl">Contribuição Social FAT (10%)</span><span class="rb-val c-orange">${Fmt.brl(multaFAT)}</span></div>`:''}
+      <div class="rb-row total"><span class="rb-lbl">Total para Saque</span><span class="rb-val">${Fmt.brl(acumulado+multa40)}</span></div>` : ''}`;
+  }
+  
+  function renderFGTSGeral() {
+    const comp = UI.val('fgtsComp') || '2025-03';
+    let totMes=0, totAcum=0, totMulta=0;
+    const rows = colabs.map(c => {
+      const meses = Calc.mesesTrabalhados(c.admissao);
+      const dep = c.salario * cfg.aliqFGTS;
+      const acum = dep * meses;
+      const multa = acum * cfg.multaFGTS;
+      totMes += dep; totAcum += acum; totMulta += multa;
+      return { c, dep, acum, multa };
+    });
+    document.getElementById('fgtsGeralResult').innerHTML = `
+      <div class="result-box">
+        <div class="rb-row"><span class="rb-lbl">Colaboradores CLT</span><span class="rb-val">${colabs.length}</span></div>
+        <div class="rb-row add"><span class="rb-lbl">Depósito Total — ${Fmt.competencia(comp)}</span><span class="rb-val c-blue fw8">${Fmt.brl(totMes)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Saldo Acumulado Total (est.)</span><span class="rb-val c-blue">${Fmt.brl(totAcum)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Passivo Multa 40% (provisão)</span><span class="rb-val c-orange">${Fmt.brl(totMulta)}</span></div>
+        <div class="rb-row total"><span class="rb-lbl">Vencimento da Guia</span><span class="rb-val">07/${comp.split('-')[1]}/${comp.split('-')[0]}</span></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:0.7rem" onclick="gerarGuia()">📄 Gerar Guia GFIP</button>`;
+    // Extrato
+    let tfMes=0,tfAcum=0,tfMulta=0,tfTotal=0;
+    document.getElementById('tbodyFGTS').innerHTML = colabs.map(c => {
+      const meses = Calc.mesesTrabalhados(c.admissao);
+      const dep = c.salario * cfg.aliqFGTS;
+      const acum = dep * meses;
+      const multa = acum * cfg.multaFGTS;
+      tfMes+=dep; tfAcum+=acum; tfMulta+=multa; tfTotal+=(acum+multa);
+      return `<tr>
+        <td><div class="ci"><div class="av ${c.avc||'av-g'}" style="width:26px;height:26px;font-size:0.70rem">${Fmt.initials(c.nome)}</div>
+          <div class="ci-name" style="font-size:0.83rem">${c.nome}</div></div></td>
+        <td><span class="tag tag-blue">CLT</span></td>
+        <td>${Fmt.date(c.admissao)}</td>
+        <td>${meses}</td>
+        <td>${Fmt.brl(c.salario)}</td>
+        <td class="c-blue fw7">${Fmt.brl(dep)}</td>
+        <td class="c-blue">${Fmt.brl(acum)}</td>
+        <td class="c-orange">${Fmt.brl(multa)}</td>
+        <td class="c-accent fw7">${Fmt.brl(acum+multa)}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('tfFGTSMes').innerHTML   = `<strong class="c-blue">${Fmt.brl(tfMes)}</strong>`;
+    document.getElementById('tfFGTSAcum').innerHTML  = `<strong class="c-blue">${Fmt.brl(tfAcum)}</strong>`;
+    document.getElementById('tfFGTSMulta').innerHTML = `<strong class="c-orange">${Fmt.brl(tfMulta)}</strong>`;
+    document.getElementById('tfFGTSTotal').innerHTML = `<strong class="c-accent">${Fmt.brl(tfTotal)}</strong>`;
+    // KPI
+    document.getElementById('fgtsKPI').innerHTML = [
+      {v:Fmt.brl(tfMes),   l:'Depósito do Mês',    cls:'c-blue'},
+      {v:Fmt.brl(tfAcum),  l:'Acumulado Total',     cls:'c-blue'},
+      {v:Fmt.brl(tfMulta), l:'Provisão Multa 40%',  cls:'c-orange'},
+      {v:Fmt.brl(tfTotal), l:'Passivo Total FGTS',  cls:'c-accent'},
+    ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div></div>`).join('');
+  }
+  
+  function gerarGuia() {
+    const comp = UI.val('fgtsComp') || '2025-03';
+    const cfg2 = DP.getConfig();
+    const totDep = colabs.reduce((s,c)=>s+c.salario*cfg.aliqFGTS,0);
+    const [ano,mes] = comp.split('-');
+    document.getElementById('guiaContent').innerHTML = `
+      <div id="guiaImprimivel" style="font-family:'Sora',sans-serif;font-size:0.83rem;color:#111">
+        <div style="text-align:center;border-bottom:3px solid #1e40af;padding-bottom:0.6rem;margin-bottom:0.8rem">
+          <div style="font-size:0.85rem;font-weight:900;color:#1e40af">GUIA DE RECOLHIMENTO DO FGTS — GFIP</div>
+          <div style="font-size:0.78rem;color:#666">Competência: ${Fmt.mes(+mes)}/${ano} · Vencimento: 07/${mes}/${ano}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;background:#f8f8f8;padding:0.7rem;border-radius:6px;margin-bottom:0.8rem">
+          <div><b>Empresa:</b> ${cfg2.empresa.razao_social}</div>
+          <div><b>CNPJ:</b> ${cfg2.empresa.cnpj}</div>
+          <div><b>CNAE:</b> ${cfg2.empresa.cnaePrimario||'—'}</div>
+          <div><b>Nº Trabalhadores:</b> ${colabs.length}</div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:0.8rem;font-size:0.78rem">
+          <thead><tr style="background:#1e40af;color:#fff">
+            <th style="padding:5px 8px;text-align:left">Trabalhador</th>
+            <th style="padding:5px 8px;text-align:left">PIS</th>
+            <th style="padding:5px 8px;text-align:right">Rem. Base FGTS</th>
+            <th style="padding:5px 8px;text-align:right">FGTS (8%)</th>
+          </tr></thead>
+          <tbody>
+            ${colabs.map(c=>`<tr>
+              <td style="padding:4px 8px;border-bottom:1px solid #eee">${c.nome}</td>
+              <td style="padding:4px 8px;border-bottom:1px solid #eee">${c.pis||'—'}</td>
+              <td style="padding:4px 8px;border-bottom:1px solid #eee;text-align:right">${Fmt.brl(c.salario)}</td>
+              <td style="padding:4px 8px;border-bottom:1px solid #eee;text-align:right;color:#1a5276;font-weight:700">${Fmt.brl(c.salario*0.08)}</td>
+            </tr>`).join('')}
+          </tbody>
+          <tfoot>
+            <tr style="background:#f0f0f0;font-weight:800">
+              <td colspan="3" style="padding:5px 8px">TOTAL A RECOLHER</td>
+              <td style="padding:5px 8px;text-align:right;color:#1a5276">${Fmt.brl(totDep)}</td>
+            </tr>
+          </tfoot>
+        </table>
+        <div style="text-align:center;font-size:0.70rem;color:#aaa">Gerado em ${new Date().toLocaleString('pt-BR')} · Sistema DP Agência Nexus</div>
+      </div>`;
+    document.getElementById('guiaArea').style.display='block';
+    UI.toast('Guia GFIP gerada!','ok');
+  }
+  
+  function imprimirGuia() { Export.printDiv('guiaImprimivel','Guia FGTS — Agência Nexus'); }
+  function exportarGuiaWord() {
+    const el=document.getElementById('guiaImprimivel');
+    if(!el){UI.toast('Gere a guia primeiro','err');return;}
+    Export.toWord(el.innerHTML,'guia_fgts.doc');
+  }
+  function exportarFGTS() {
+    Export.dataToCSV(
+      ['Colaborador','Admissão','Meses','Salário','Depósito/Mês (8%)','Acumulado (est.)','Multa 40% (est.)','Total'],
+      colabs.map(c => {
+        const meses=Calc.mesesTrabalhados(c.admissao);
+        const dep=c.salario*0.08; const acum=dep*meses; const multa=acum*0.40;
+        return [c.nome,Fmt.date(c.admissao),meses,Fmt.brl(c.salario),Fmt.brl(dep),Fmt.brl(acum),Fmt.brl(multa),Fmt.brl(acum+multa)];
+      }),
+      'fgts_extrato.csv'
+    );
+  }
+  
+  renderFGTSGeral();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

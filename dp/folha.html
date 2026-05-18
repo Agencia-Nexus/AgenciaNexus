@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Processe e gerencie a folha de pagamento mensal da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Folha de Pagamento | DP — Agência Nexus" />
+  <meta property="og:description" content="Processe e gerencie a folha de pagamento mensal da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Folha de Pagamento | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Processe e gerencie a folha de pagamento mensal da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Folha de Pagamento | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item active" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Folha de Pagamento</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarFolha()">📊 Exportar Excel/CSV</button>
+      <button class="btn btn-blue btn-sm" onclick="exportarFolhaWord()">📄 Exportar Word</button>
+      <button class="btn btn-primary btn-sm" onclick="processarFolha()">⚡ Processar Folha</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">💰 Folha de <span>Pagamento</span></div>
+        <div class="sec-sub">Processamento mensal completo com todos os cálculos trabalhistas</div>
+      </div>
+      <div class="sec-hd-actions">
+        <label class="fl" style="color:var(--muted);font-size:0.82rem">Competência:</label>
+        <input type="month" class="fi" id="competencia" value="2025-03" style="font-size:0.75rem;padding:0.35rem 0.7rem"/>
+        <select class="fi" id="filtroTipo" style="font-size:0.83rem;padding:0.35rem 0.7rem" onchange="processarFolha()">
+          <option value="">Todos</option>
+          <option value="CLT">CLT</option>
+          <option value="Estagiário">Estagiários</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- KPIs da folha -->
+    <div class="kpi-row" id="folhaKPI"></div>
+
+    <!-- Tabela principal de eventos por colaborador -->
+    <div class="tbl-wrap" style="margin-bottom:1rem">
+      <div class="tbl-hd">
+        <span class="tbl-title">📋 Eventos por Colaborador</span>
+        <div class="tbl-actions">
+          <span style="font-size:0.78rem;color:var(--muted)">Edite horas extras, faltas e outros eventos antes de processar</span>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+      <table id="tblEventos">
+        <thead>
+          <tr>
+            <th>Colaborador</th>
+            <th>Tipo</th>
+            <th>Salário Base</th>
+            <th>H.Extra 50%</th>
+            <th>H.Extra 100%</th>
+            <th>H.Noturnas</th>
+            <th>Faltas</th>
+            <th>Adiantamento</th>
+            <th>Outros Prov.</th>
+            <th>Outros Desc.</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyEventos"></tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- Resultado processado -->
+    <div id="folhaResultado" style="display:none">
+      <div class="tbl-wrap">
+        <div class="tbl-hd">
+          <span class="tbl-title" id="folhaTitulo">Folha Processada</span>
+          <div class="tbl-actions">
+            <button class="btn btn-success btn-sm" onclick="imprimirFolha()">🖨️ Imprimir</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportarFolha()">📊 CSV/Excel</button>
+            <button class="btn btn-blue btn-sm" onclick="exportarFolhaWord()">📄 Word</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+        <table id="tblFolhaResult">
+          <thead>
+            <tr>
+              <th>Colaborador</th>
+              <th>Depto</th>
+              <th>Tipo</th>
+              <th>Salário Base</th>
+              <th>Total Proventos</th>
+              <th>INSS</th>
+              <th>IRRF</th>
+              <th>Desc. VT</th>
+              <th>Total Descontos</th>
+              <th>Líquido</th>
+              <th>FGTS (emp.)</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyFolhaResult"></tbody>
+          <tfoot>
+            <tr id="tfootFolha">
+              <td colspan="3"><strong>TOTAL GERAL</strong></td>
+              <td id="tf-salbase"></td>
+              <td id="tf-prov"></td>
+              <td id="tf-inss"></td>
+              <td id="tf-irrf"></td>
+              <td id="tf-vt"></td>
+              <td id="tf-desc"></td>
+              <td id="tf-liq" class="c-accent fw8"></td>
+              <td id="tf-fgts" class="c-blue fw8"></td>
+            </tr>
+          </tfoot>
+        </table>
+        </div>
+      </div>
+
+      <!-- Resumo por departamento -->
+      <div class="two-col" style="margin-top:1rem">
+        <div class="tbl-wrap" style="padding:1rem">
+          <div class="tbl-title" style="margin-bottom:0.8rem">📊 Por Departamento</div>
+          <div id="resumoDepto"></div>
+        </div>
+        <div class="tbl-wrap" style="padding:1rem">
+          <div class="tbl-title" style="margin-bottom:0.8rem">🏛️ Encargos Patronais</div>
+          <div id="resumoEncargos"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs().filter(c => c.situacao === 'Ativo');
+  let folhaData = [];
+  
+  // Render tabela de eventos editável
+  function renderEventos() {
+    const tipo = document.getElementById('filtroTipo').value;
+    const lista = tipo ? colabs.filter(c => c.tipo === tipo) : colabs;
+    document.getElementById('tbodyEventos').innerHTML = lista.map(c => `
+      <tr>
+        <td><div class="ci"><div class="av ${c.avc||'av-g'}" style="width:28px;height:28px;font-size:0.70rem">${Fmt.initials(c.nome)}</div>
+          <div><div class="ci-name" style="font-size:0.84rem">${c.nome}</div></div></div></td>
+        <td><span class="tag ${c.tipo==='CLT'?'tag-blue':'tag-purple'}">${c.tipo}</span></td>
+        <td class="fw7">${Fmt.brl(c.salario)}</td>
+        <td><input type="number" class="fi" id="ev_hext50_${c.id}" value="0" min="0" style="width:65px;padding:0.25rem 0.4rem;font-size:0.82rem"/></td>
+        <td><input type="number" class="fi" id="ev_hext100_${c.id}" value="0" min="0" style="width:65px;padding:0.25rem 0.4rem;font-size:0.82rem"/></td>
+        <td><input type="number" class="fi" id="ev_noturno_${c.id}" value="0" min="0" style="width:65px;padding:0.25rem 0.4rem;font-size:0.82rem"/></td>
+        <td><input type="number" class="fi" id="ev_faltas_${c.id}" value="0" min="0" max="30" style="width:55px;padding:0.25rem 0.4rem;font-size:0.82rem"/></td>
+        <td><input type="number" class="fi" id="ev_adiant_${c.id}" value="0" min="0" step="0.01" style="width:80px;padding:0.25rem 0.4rem;font-size:0.82rem"/></td>
+        <td><input type="number" class="fi" id="ev_outrosp_${c.id}" value="0" min="0" step="0.01" style="width:80px;padding:0.25rem 0.4rem;font-size:0.82rem"/></td>
+        <td><input type="number" class="fi" id="ev_outrosd_${c.id}" value="0" min="0" step="0.01" style="width:80px;padding:0.25rem 0.4rem;font-size:0.82rem"/></td>
+      </tr>`).join('');
+  }
+  
+  function processarFolha() {
+    renderEventos();
+    const tipo = document.getElementById('filtroTipo').value;
+    const lista = tipo ? colabs.filter(c => c.tipo === tipo) : colabs;
+    const comp = document.getElementById('competencia').value || '2025-03';
+    folhaData = [];
+  
+    lista.forEach(c => {
+      const extras = {
+        horasExtras50:   parseFloat(document.getElementById(`ev_hext50_${c.id}`)?.value)||0,
+        horasExtras100:  parseFloat(document.getElementById(`ev_hext100_${c.id}`)?.value)||0,
+        adicNocturno:    parseFloat(document.getElementById(`ev_noturno_${c.id}`)?.value)||0,
+        descFaltas:      parseFloat(document.getElementById(`ev_faltas_${c.id}`)?.value)||0,
+        adiantamento:    parseFloat(document.getElementById(`ev_adiant_${c.id}`)?.value)||0,
+        outrosProventos: parseFloat(document.getElementById(`ev_outrosp_${c.id}`)?.value)||0,
+        outrosDescontos: parseFloat(document.getElementById(`ev_outrosd_${c.id}`)?.value)||0,
+      };
+      const r = Calc.liquido(c, extras);
+      folhaData.push({ colab: c, calc: r, extras });
+    });
+  
+    // Render tabela resultado
+    document.getElementById('folhaTitulo').textContent =
+      `Folha Processada — ${Fmt.competencia(comp)} (${folhaData.length} colaboradores)`;
+  
+    let totSal=0,totProv=0,totINSS=0,totIRRF=0,totVT=0,totDesc=0,totLiq=0,totFGTS=0;
+  
+    document.getElementById('tbodyFolhaResult').innerHTML = folhaData.map(({colab:c,calc:r}) => {
+      totSal  += c.salario;
+      totProv += r.totalProv + r.proventos.vr + r.proventos.vt;
+      totINSS += r.descontos.inss;
+      totIRRF += r.descontos.irrf;
+      totVT   += r.descontos.vt;
+      totDesc += r.totalDesc;
+      totLiq  += r.liquido;
+      totFGTS += r.fgts;
+      return `<tr>
+        <td><div class="ci"><div class="av ${c.avc||'av-g'}" style="width:26px;height:26px;font-size:0.70rem">${Fmt.initials(c.nome)}</div>
+          <div class="ci-name" style="font-size:0.83rem">${c.nome}</div></div></td>
+        <td>${c.depto}</td>
+        <td><span class="tag ${c.tipo==='CLT'?'tag-blue':'tag-purple'}">${c.tipo}</span></td>
+        <td>${Fmt.brl(c.salario)}</td>
+        <td class="c-green">${Fmt.brl(r.totalProv+r.proventos.vr+r.proventos.vt)}</td>
+        <td class="c-red">${Fmt.brl(r.descontos.inss)}</td>
+        <td class="c-red">${Fmt.brl(r.descontos.irrf)}</td>
+        <td class="c-red">${Fmt.brl(r.descontos.vt)}</td>
+        <td class="c-red">${Fmt.brl(r.totalDesc)}</td>
+        <td class="c-accent fw8">${Fmt.brl(r.liquido)}</td>
+        <td class="c-blue">${Fmt.brl(r.fgts)}</td>
+      </tr>`;
+    }).join('');
+  
+    document.getElementById('tf-salbase').textContent = Fmt.brl(totSal);
+    document.getElementById('tf-prov').innerHTML   = `<strong class="c-green">${Fmt.brl(totProv)}</strong>`;
+    document.getElementById('tf-inss').innerHTML   = `<strong class="c-red">${Fmt.brl(totINSS)}</strong>`;
+    document.getElementById('tf-irrf').innerHTML   = `<strong class="c-red">${Fmt.brl(totIRRF)}</strong>`;
+    document.getElementById('tf-vt').innerHTML     = `<strong class="c-red">${Fmt.brl(totVT)}</strong>`;
+    document.getElementById('tf-desc').innerHTML   = `<strong class="c-red">${Fmt.brl(totDesc)}</strong>`;
+    document.getElementById('tf-liq').textContent  = Fmt.brl(totLiq);
+    document.getElementById('tf-fgts').textContent = Fmt.brl(totFGTS);
+  
+    // KPI
+    document.getElementById('folhaKPI').innerHTML = [
+      {v:Fmt.brl(totSal),   l:'Base da Folha',  cls:'c-text'},
+      {v:Fmt.brl(totProv),  l:'Total Proventos',cls:'c-green'},
+      {v:Fmt.brl(totINSS),  l:'Total INSS',     cls:'c-red'},
+      {v:Fmt.brl(totIRRF),  l:'Total IRRF',     cls:'c-red'},
+      {v:Fmt.brl(totDesc),  l:'Total Descontos',cls:'c-red'},
+      {v:Fmt.brl(totLiq),   l:'Total Líquido',  cls:'c-accent'},
+      {v:Fmt.brl(totFGTS),  l:'FGTS (empresa)', cls:'c-blue'},
+      {v:Fmt.brl(totProv+Calc.encargosPatronais(totSal).total), l:'Custo Total Empresa', cls:'c-orange'},
+    ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div></div>`).join('');
+  
+    // Resumo por depto
+    const deptos = {};
+    folhaData.forEach(({colab:c,calc:r}) => {
+      if(!deptos[c.depto]) deptos[c.depto]={sal:0,liq:0,n:0};
+      deptos[c.depto].sal+=c.salario; deptos[c.depto].liq+=r.liquido; deptos[c.depto].n++;
+    });
+    document.getElementById('resumoDepto').innerHTML = Object.entries(deptos).map(([d,v])=>`
+      <div class="rb-row"><span class="rb-lbl">${d} (${v.n} func.)</span><span class="rb-val">${Fmt.brl(v.liq)}</span></div>`).join('');
+  
+    // Encargos
+    const enc = Calc.encargosPatronais(totSal);
+    document.getElementById('resumoEncargos').innerHTML = `
+      <div class="rb-row"><span class="rb-lbl">INSS Patronal (20%)</span><span class="rb-val c-red">${Fmt.brl(enc.inssPatronal)}</span></div>
+      <div class="rb-row"><span class="rb-lbl">RAT Ajustado (2%)</span><span class="rb-val c-orange">${Fmt.brl(enc.rat)}</span></div>
+      <div class="rb-row"><span class="rb-lbl">Terceiros/S (5,8%)</span><span class="rb-val c-orange">${Fmt.brl(enc.terceiros)}</span></div>
+      <div class="rb-row"><span class="rb-lbl">FGTS Empresa (8%)</span><span class="rb-val c-blue">${Fmt.brl(enc.fgts)}</span></div>
+      <div class="rb-row total"><span class="rb-lbl fw8">Total Encargos</span><span class="rb-val">${Fmt.brl(enc.total)}</span></div>
+      <div class="rb-row"><span class="rb-lbl fw8">CUSTO TOTAL EMPRESA</span><span class="rb-val c-accent fw8">${Fmt.brl(totSal+enc.total)}</span></div>`;
+  
+    document.getElementById('folhaResultado').style.display = 'block';
+    UI.toast(`Folha processada! ${folhaData.length} colaboradores.`, 'ok');
+  }
+  
+  function exportarFolha() {
+    if(!folhaData.length){UI.toast('Processe a folha primeiro','err');return;}
+    const headers = ['Colaborador','Depto','Tipo','Salário Base','Total Proventos','INSS','IRRF','Desc.VT','Total Descontos','Líquido','FGTS'];
+    const rows = folhaData.map(({colab:c,calc:r})=>[
+      c.nome, c.depto, c.tipo,
+      Fmt.brl(c.salario),
+      Fmt.brl(r.totalProv+r.proventos.vr+r.proventos.vt),
+      Fmt.brl(r.descontos.inss), Fmt.brl(r.descontos.irrf),
+      Fmt.brl(r.descontos.vt), Fmt.brl(r.totalDesc),
+      Fmt.brl(r.liquido), Fmt.brl(r.fgts)
+    ]);
+    const comp = document.getElementById('competencia').value.replace('-','_');
+    Export.dataToCSV(headers, rows, `folha_${comp}.csv`);
+  }
+  
+  function exportarFolhaWord() {
+    if(!folhaData.length){UI.toast('Processe a folha primeiro','err');return;}
+    const comp = document.getElementById('competencia').value;
+    const cfg = DP.getConfig();
+    const rows = folhaData.map(({colab:c,calc:r})=>`
+      <tr><td>${c.nome}</td><td>${c.depto}</td><td>${c.tipo}</td>
+      <td>${Fmt.brl(c.salario)}</td>
+      <td>${Fmt.brl(r.totalProv+r.proventos.vr+r.proventos.vt)}</td>
+      <td>${Fmt.brl(r.descontos.inss)}</td><td>${Fmt.brl(r.descontos.irrf)}</td>
+      <td>${Fmt.brl(r.totalDesc)}</td><td><strong>${Fmt.brl(r.liquido)}</strong></td>
+      <td>${Fmt.brl(r.fgts)}</td></tr>`).join('');
+    Export.toWord(`
+      <h2>Folha de Pagamento — ${Fmt.competencia(comp)}</h2>
+      <p><strong>${cfg.empresa.razao_social}</strong> | CNPJ: ${cfg.empresa.cnpj}</p>
+      <table><thead><tr><th>Colaborador</th><th>Depto</th><th>Tipo</th><th>Salário</th>
+      <th>Proventos</th><th>INSS</th><th>IRRF</th><th>Descontos</th><th>Líquido</th><th>FGTS</th></tr></thead>
+      <tbody>${rows}</tbody></table>`,
+      `folha_${comp.replace('-','_')}.doc`);
+  }
+  
+  function imprimirFolha() {
+    Export.printDiv('tblFolhaResult', 'Folha de Pagamento — Agência Nexus');
+  }
+  
+  // Init
+  renderEventos();
+  processarFolha();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Controle atestados, licenças e afastamentos dos colaboradores da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Afastamentos | DP — Agência Nexus" />
+  <meta property="og:description" content="Controle atestados, licenças e afastamentos dos colaboradores da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Afastamentos | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Controle atestados, licenças e afastamentos dos colaboradores da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Afastamentos | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item active" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Afastamentos</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarAfas()">📊 Exportar CSV</button>
+      <button class="btn btn-primary btn-sm" onclick="UI.openModal('modalAfa')">＋ Registrar Afastamento</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">🏥 Controle de <span>Afastamentos</span></div>
+        <div class="sec-sub">Atestados médicos, licenças, auxílio-doença INSS, acidentes de trabalho e outros</div>
+      </div>
+    </div>
+
+    <!-- Informações de afastamentos por tipo -->
+    <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))">
+      <div class="card"><div class="card-icon">🏥</div><div class="card-val c-blue" id="kpiAtestado">0</div><div class="card-lbl">Atestados no Mês</div></div>
+      <div class="card"><div class="card-icon">🤕</div><div class="card-val c-red" id="kpiAcidente">0</div><div class="card-lbl">Acidente de Trabalho</div></div>
+      <div class="card"><div class="card-icon">🤰</div><div class="card-val c-purple" id="kpiMaternidade">0</div><div class="card-lbl">Lic. Maternidade</div></div>
+      <div class="card"><div class="card-icon">👶</div><div class="card-val c-blue" id="kpiPaternidade">0</div><div class="card-lbl">Lic. Paternidade</div></div>
+      <div class="card"><div class="card-icon">💊</div><div class="card-val c-orange" id="kpiINSS">0</div><div class="card-lbl">Aux. Doença INSS</div></div>
+    </div>
+
+    <!-- Guia de tipos e prazos -->
+    <div class="two-col" style="margin-bottom:1rem">
+      <div class="tbl-wrap" style="padding:1rem">
+        <div class="tbl-title" style="margin-bottom:0.8rem">📖 Tipos de Afastamento e Prazos</div>
+        <table style="font-size:0.80rem">
+          <thead><tr><th>Tipo</th><th>Prazo empresa paga</th><th>Após prazo</th><th>Estabilidade</th></tr></thead>
+          <tbody>
+            <tr><td>Atestado Médico (doença)</td><td>15 dias</td><td>INSS (Aux. Doença)</td><td>Não</td></tr>
+            <tr><td>Acidente de Trabalho (CAT)</td><td>15 dias</td><td>INSS (B91)</td><td>12 meses pós-alta</td></tr>
+            <tr><td>Licença Maternidade</td><td>120 dias*</td><td>Prorrog. 180d (Cid. Emp.)</td><td>5 meses</td></tr>
+            <tr><td>Licença Paternidade</td><td>5 dias*</td><td>Prorrog. 20d</td><td>Não</td></tr>
+            <tr><td>Luto (cônjuge/filho/pai/mãe)</td><td>2 dias</td><td>—</td><td>Não</td></tr>
+            <tr><td>Casamento</td><td>3 dias</td><td>—</td><td>Não</td></tr>
+            <tr><td>Doação de Sangue</td><td>1 dia/12 meses</td><td>—</td><td>Não</td></tr>
+            <tr><td>Serviço Militar</td><td>Duração</td><td>—</td><td>Sim</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:0.70rem;color:var(--muted);margin-top:0.5rem">*Empresa cidadã/programa governamental pode prorrogar</div>
+      </div>
+      <div class="tbl-wrap" style="padding:1rem">
+        <div class="tbl-title" style="margin-bottom:0.8rem">⚠️ Afastamentos Ativos</div>
+        <div id="afasAtivos">
+          <div class="empty"><span class="ico">✅</span><p>Nenhum afastamento ativo no momento</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela histórico -->
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">📋 Histórico de Afastamentos</span>
+        <div class="tbl-actions">
+          <div class="search-box"><span>🔍</span><input placeholder="Buscar..." oninput="UI.filtrarTabela('tblAfas',this.value)"/></div>
+          <select class="fi" id="filtTipoAfa" style="font-size:0.82rem;padding:0.3rem 0.5rem" onchange="renderAfas()">
+            <option value="">Todos os tipos</option>
+            <option value="atestado">Atestado</option>
+            <option value="acidente">Acidente de Trabalho</option>
+            <option value="maternidade">Lic. Maternidade</option>
+            <option value="paternidade">Lic. Paternidade</option>
+            <option value="inss">Aux. Doença INSS</option>
+            <option value="luto">Luto</option>
+            <option value="casamento">Casamento</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+      </div>
+      <table id="tblAfas">
+        <thead>
+          <tr>
+            <th>Colaborador</th><th>Tipo</th><th>CID</th><th>Início</th><th>Fim (prev.)</th>
+            <th>Dias</th><th>Médico/CRM</th><th>Status</th><th>Impacto Folha</th><th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyAfas"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL AFASTAMENTO -->
+<div class="overlay" id="modalAfa">
+<div class="modal w-lg">
+  <div class="modal-hd"><div class="modal-title">🏥 Registrar Afastamento</div><div class="modal-close" onclick="UI.closeModal('modalAfa')">✕</div></div>
+  <div class="form-grid">
+    <div class="form-group fg-full"><label class="fl">Colaborador *</label>
+      <select class="fi" id="afaColab"><option value="">— Selecione —</option></select>
+    </div>
+    <div class="form-group"><label class="fl">Tipo de Afastamento *</label>
+      <select class="fi" id="afaTipo" onchange="atualizarInfoAfa()">
+        <option value="atestado">Atestado Médico (doença)</option>
+        <option value="acidente">Acidente de Trabalho (CAT)</option>
+        <option value="maternidade">Licença Maternidade</option>
+        <option value="paternidade">Licença Paternidade</option>
+        <option value="inss">Auxílio-Doença INSS</option>
+        <option value="luto">Licença Luto</option>
+        <option value="casamento">Licença Casamento</option>
+        <option value="doacao">Doação de Sangue</option>
+        <option value="militar">Serviço Militar</option>
+        <option value="outros">Outros</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="fl">CID-10</label><input class="fi" id="afaCID" placeholder="Ex: J06.9 — Infecção aguda"/></div>
+    <div class="form-group"><label class="fl">Data de Início *</label><input type="date" class="fi" id="afaInicio" oninput="calcularFimAfa()"/></div>
+    <div class="form-group"><label class="fl">Data de Término (previsão)</label><input type="date" class="fi" id="afaFim"/></div>
+    <div class="form-group"><label class="fl">Número de Dias</label><input type="number" class="fi" id="afaDias" min="1" oninput="calcularFimAfaDias()"/></div>
+    <div class="form-group"><label class="fl">Nome do Médico</label><input class="fi" id="afaMedico" placeholder="Dr(a). Nome Completo"/></div>
+    <div class="form-group"><label class="fl">CRM</label><input class="fi" id="afaCRM" placeholder="CRM 000000/UF"/></div>
+    <div class="form-group"><label class="fl">Nº CAT (acidente)</label><input class="fi" id="afaCAT" placeholder="Nº do boletim de CAT"/></div>
+    <div class="form-group"><label class="fl">Nº Benefício INSS</label><input class="fi" id="afaBenefINSS" placeholder="Nº do benefício INSS"/></div>
+    <div class="form-group"><label class="fl">Impacto na Folha</label>
+      <select class="fi" id="afaImpacto">
+        <option value="empresa_paga">Empresa paga (até 15 dias)</option>
+        <option value="inss_paga">INSS paga (após 15 dias)</option>
+        <option value="empresa_integral">Empresa paga integral</option>
+        <option value="sem_remuneracao">Sem remuneração</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="fl">Status</label>
+      <select class="fi" id="afaStatus">
+        <option value="Ativo">Ativo</option>
+        <option value="Encerrado">Encerrado</option>
+        <option value="Prorrogado">Prorrogado</option>
+      </select>
+    </div>
+    <div class="form-group fg-full"><label class="fl">Observações</label>
+      <textarea class="fi" id="afaObs" placeholder="Detalhes do afastamento, providências tomadas..."></textarea>
+    </div>
+  </div>
+  <div id="afaInfoBox" class="info-box blue" style="margin-top:0.8rem"></div>
+  <div class="modal-ft">
+    <button class="btn btn-ghost" onclick="UI.closeModal('modalAfa')">Cancelar</button>
+    <button class="btn btn-primary" onclick="salvarAfa()">✓ Registrar</button>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs().filter(c => c.situacao === 'Ativo');
+  let afas = DP.getAfas();
+  
+  UI.renderSelect('afaColab', colabs, 'id', c => c.nome);
+  
+  const afaInfos = {
+    atestado:    'Empresa arca com os primeiros 15 dias. A partir do 16º dia, o empregado entra em Auxílio-Doença pelo INSS (Benefício B31).',
+    acidente:    'Emitir CAT (Comunicação de Acidente de Trabalho). Empresa paga os primeiros 15 dias. INSS paga B91 a partir do 16º. Estabilidade de 12 meses após retorno.',
+    maternidade: 'Licença de 120 dias (ou 180 dias em empresa Cidadã). Salário pago pela empresa e descontado da contribuição previdenciária (salário-maternidade B80).',
+    paternidade: '5 dias corridos (pode ser 20 dias em empresa Cidadã). Empresa arca com o custo integral.',
+    inss:        'Benefício B31 (doença comum) ou B91 (acidente). Registrar afastamento no eSocial e acompanhar prazo de retorno.',
+    luto:        '2 dias corridos — cônjuge, filhos, pais ou irmãos. Falecimento de outros parentes: não obrigatório pela CLT.',
+    casamento:   '3 dias corridos a partir da data do matrimônio.',
+    doacao:      '1 dia por semestre para doação de sangue voluntária (desde que comprovado).',
+    militar:     'Empregado convocado para serviço militar deve ter o emprego garantido durante o período.',
+    outros:      'Registre as informações detalhadas e o embasamento legal para este tipo de afastamento.',
+  };
+  
+  function atualizarInfoAfa() {
+    const tipo = UI.val('afaTipo');
+    document.getElementById('afaInfoBox').textContent = afaInfos[tipo] || '';
+    const diasPadrao = { maternidade:120, paternidade:5, luto:2, casamento:3, doacao:1 };
+    if (diasPadrao[tipo]) {
+      UI.setVal('afaDias', diasPadrao[tipo]);
+      calcularFimAfaDias();
+    }
+  }
+  
+  function calcularFimAfa() {
+    const inicio = UI.val('afaInicio');
+    const dias   = parseInt(UI.val('afaDias'));
+    if (inicio && dias) {
+      const d = new Date(inicio); d.setDate(d.getDate() + dias - 1);
+      UI.setVal('afaFim', d.toISOString().slice(0,10));
+    }
+  }
+  function calcularFimAfaDias() {
+    const inicio = UI.val('afaInicio');
+    const fim    = UI.val('afaFim');
+    if (inicio && fim) {
+      const dias = Math.round((new Date(fim)-new Date(inicio))/(86400000))+1;
+      UI.setVal('afaDias', dias > 0 ? dias : 1);
+    } else calcularFimAfa();
+  }
+  
+  function salvarAfa() {
+    const cId = parseInt(UI.val('afaColab'));
+    const colab = colabs.find(c => c.id === cId);
+    if (!colab || !UI.val('afaInicio')) { UI.toast('Preencha colaborador e data de início', 'err'); return; }
+    const dias = parseInt(UI.val('afaDias')) || 1;
+    afas.push({
+      id: Date.now(), colabId: cId, colabNome: colab.nome,
+      tipo: UI.val('afaTipo'), cid: UI.val('afaCID'),
+      inicio: UI.val('afaInicio'), fim: UI.val('afaFim'),
+      dias, medico: UI.val('afaMedico'), crm: UI.val('afaCRM'),
+      cat: UI.val('afaCAT'), benefINSS: UI.val('afaBenefINSS'),
+      impacto: UI.val('afaImpacto'), status: UI.val('afaStatus'),
+      obs: UI.val('afaObs')
+    });
+    DP.saveAfas(afas);
+    renderAfas(); renderKPIs();
+    UI.closeModal('modalAfa');
+    UI.toast(`Afastamento de ${colab.nome} registrado!`, 'ok');
+  }
+  
+  function renderAfas() {
+    const filtTipo = UI.val('filtTipoAfa');
+    const lista = filtTipo ? afas.filter(a => a.tipo === filtTipo) : afas;
+    const tipoCls = { atestado:'tag-blue', acidente:'tag-red', maternidade:'tag-purple', paternidade:'tag-blue', inss:'tag-orange', luto:'tag-gray', casamento:'tag-accent', outros:'tag-gray' };
+    const statusCls = { Ativo:'tag-orange', Encerrado:'tag-green', Prorrogado:'tag-red' };
+    document.getElementById('tbodyAfas').innerHTML = lista.length === 0
+      ? `<tr><td colspan="10"><div class="empty"><span class="ico">✅</span><p>Nenhum afastamento registrado</p></div></td></tr>`
+      : lista.map(a => `<tr>
+          <td>${a.colabNome}</td>
+          <td><span class="tag ${tipoCls[a.tipo]||'tag-gray'}">${a.tipo}</span></td>
+          <td>${a.cid||'—'}</td>
+          <td>${Fmt.date(a.inicio)}</td>
+          <td>${a.fim?Fmt.date(a.fim):'Indeterminado'}</td>
+          <td>${a.dias}d</td>
+          <td style="font-size:0.80rem">${a.medico||'—'}<br><span style="color:var(--muted)">${a.crm||''}</span></td>
+          <td><span class="tag ${statusCls[a.status]||'tag-gray'}">${a.status}</span></td>
+          <td style="font-size:0.78rem">${a.impacto||'—'}</td>
+          <td><button class="btn btn-danger btn-sm" onclick="excluirAfa(${a.id})">✕</button></td>
+        </tr>`).join('');
+  
+    // Ativos
+    const ativos = afas.filter(a => a.status === 'Ativo');
+    document.getElementById('afasAtivos').innerHTML = ativos.length === 0
+      ? '<div class="empty"><span class="ico">✅</span><p>Nenhum afastamento ativo</p></div>'
+      : ativos.map(a => `
+          <div class="result-box" style="margin-bottom:0.5rem;padding:0.7rem">
+            <div class="rb-row"><span class="rb-lbl">${a.colabNome}</span><span class="tag tag-orange">${a.tipo}</span></div>
+            <div class="rb-row"><span class="rb-lbl">Início</span><span>${Fmt.date(a.inicio)}</span></div>
+            <div class="rb-row"><span class="rb-lbl">Previsão retorno</span><span>${a.fim?Fmt.date(a.fim):'Indefinido'}</span></div>
+          </div>`).join('');
+  }
+  
+  function renderKPIs() {
+    const hoje = new Date(); const mesAtual = hoje.toISOString().slice(0,7);
+    const mesAfas = afas.filter(a => a.inicio.startsWith(mesAtual));
+    document.getElementById('kpiAtestado').textContent   = mesAfas.filter(a=>a.tipo==='atestado').length;
+    document.getElementById('kpiAcidente').textContent   = mesAfas.filter(a=>a.tipo==='acidente').length;
+    document.getElementById('kpiMaternidade').textContent= mesAfas.filter(a=>a.tipo==='maternidade').length;
+    document.getElementById('kpiPaternidade').textContent= mesAfas.filter(a=>a.tipo==='paternidade').length;
+    document.getElementById('kpiINSS').textContent       = mesAfas.filter(a=>a.tipo==='inss').length;
+  }
+  
+  function excluirAfa(id) {
+    UI.confirm('Excluir este afastamento?', () => {
+      afas = afas.filter(a => a.id !== id);
+      DP.saveAfas(afas); renderAfas(); renderKPIs();
+    });
+  }
+  
+  function exportarAfas() {
+    Export.dataToCSV(
+      ['Colaborador','Tipo','CID','Início','Fim','Dias','Médico','Status','Impacto'],
+      afas.map(a=>[a.colabNome,a.tipo,a.cid||'',Fmt.date(a.inicio),a.fim?Fmt.date(a.fim):'',a.dias,a.medico||'',a.status,a.impacto||'']),
+      'afastamentos.csv'
+    );
+  }
+  
+  document.getElementById('afaInicio').value = Fmt.today();
+  atualizarInfoAfa();
+  renderAfas(); renderKPIs();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

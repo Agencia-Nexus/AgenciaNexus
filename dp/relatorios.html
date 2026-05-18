@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Central de relatórios do DP da Agência Nexus. Exporte em PDF, CSV e Word." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Relatórios | DP — Agência Nexus" />
+  <meta property="og:description" content="Central de relatórios do DP da Agência Nexus. Exporte em PDF, CSV e Word." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Relatórios | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Central de relatórios do DP da Agência Nexus. Exporte em PDF, CSV e Word." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Relatórios | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+<style>
+.rel-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;cursor:pointer;transition:all 0.15s;}
+.rel-card:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-2px);}
+.rel-card .ico{font-size:1.8rem;margin-bottom:0.6rem;}
+.rel-card h4{font-size:0.82rem;font-weight:800;margin-bottom:0.2rem;}
+.rel-card p{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+.rel-card .tags{display:flex;gap:0.3rem;margin-top:0.6rem;flex-wrap:wrap;}
+.rel-preview{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item active" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Relatórios</span></div>
+    <div class="tb-right"><span class="tb-date" id="tb-date"></span></div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">📈 Central de <span>Relatórios</span></div>
+        <div class="sec-sub">Gere, exporte e imprima relatórios em PDF, Word e Excel/CSV</div>
+      </div>
+      <div class="sec-hd-actions">
+        <label class="fl" style="color:var(--muted)">Competência:</label>
+        <input type="month" class="fi" id="relComp" value="2025-03" style="padding:0.3rem 0.6rem;font-size:0.83rem"/>
+      </div>
+    </div>
+
+    <!-- Grid de relatórios disponíveis -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.8rem;margin-bottom:1.5rem" id="relGrid"></div>
+
+    <!-- Preview do relatório selecionado -->
+    <div id="relPreviewArea" style="display:none">
+      <div class="rel-preview">
+        <div class="tbl-hd" style="padding:0;padding-bottom:0.8rem;margin-bottom:0.8rem;border-bottom:1px solid var(--border)">
+          <span class="tbl-title" id="relPreviewTitle">Relatório</span>
+          <div class="tbl-actions" id="relExportBtns"></div>
+        </div>
+        <div id="relPreviewContent"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs();
+  const ativos = colabs.filter(c => c.situacao === 'Ativo');
+  const clt    = ativos.filter(c => c.tipo === 'CLT');
+  const cfg    = DP.getConfig();
+  
+  const relatorios = [
+    { id:'quadro_func',  ico:'👥', nome:'Quadro Funcional', desc:'Lista completa de colaboradores ativos com dados e vínculos', tags:['CSV','Word','PDF'] },
+    { id:'folha_resumo', ico:'💰', nome:'Resumo da Folha',  desc:'Resumo mensal com proventos, descontos e líquido por colaborador', tags:['CSV','Word','PDF'] },
+    { id:'custo_empresa',ico:'🏛️', nome:'Custo Total Empresa', desc:'Salário + encargos + benefícios = custo real por colaborador', tags:['CSV','Word'] },
+    { id:'fgts_mensal',  ico:'🏦', nome:'FGTS Mensal',      desc:'Relação de trabalhadores e valores para guia GFIP', tags:['CSV','Word'] },
+    { id:'inss_irrf',    ico:'📋', nome:'INSS e IRRF',      desc:'Resumo de recolhimentos previdenciários e IR por competência', tags:['CSV','Word'] },
+    { id:'beneficios_r', ico:'🎁', nome:'Relatório de Benefícios', desc:'VT, VR, VA, planos de saúde — custo e cobertura', tags:['CSV','Word'] },
+    { id:'ferias_r',     ico:'🏖️', nome:'Controle de Férias', desc:'Programação e situação dos períodos aquisitivos', tags:['CSV','Word'] },
+    { id:'afastamentos_r',ico:'🏥', nome:'Afastamentos',    desc:'Histórico de atestados, licenças e auxílios por período', tags:['CSV','Word'] },
+    { id:'aniversarios', ico:'🎂', nome:'Aniversários',     desc:'Aniversários do mês e datas comemorativas', tags:['CSV','PDF'] },
+    { id:'admissoes_dem',ico:'📅', nome:'Admissões e Desligamentos', desc:'Movimentações do período selecionado', tags:['CSV','Word'] },
+    { id:'encargos',     ico:'📊', nome:'Encargos Patronais', desc:'INSS patronal, RAT, terceiros e FGTS por competência', tags:['CSV','Word'] },
+    { id:'analitico',    ico:'📈', nome:'Analítico Completo', desc:'Relatório analítico completo de DP com todos os módulos', tags:['PDF','Word'] },
+  ];
+  
+  // Render cards
+  document.getElementById('relGrid').innerHTML = relatorios.map(r => `
+    <div class="rel-card" onclick="gerarRelatorio('${r.id}')">
+      <div class="ico">${r.ico}</div>
+      <h4>${r.nome}</h4>
+      <p>${r.desc}</p>
+      <div class="tags">${r.tags.map(t=>`<span class="tag ${t==='CSV'?'tag-green':t==='Word'?'tag-blue':'tag-accent'}">${t}</span>`).join('')}</div>
+    </div>`).join('');
+  
+  function gerarRelatorio(id) {
+    const comp = document.getElementById('relComp').value || '2025-03';
+    const rel  = relatorios.find(r => r.id === id);
+    const area = document.getElementById('relPreviewArea');
+    const cont = document.getElementById('relPreviewContent');
+    const title= document.getElementById('relPreviewTitle');
+    const btns = document.getElementById('relExportBtns');
+  
+    area.style.display = 'block';
+    title.textContent = `${rel.ico} ${rel.nome} — ${Fmt.competencia(comp)}`;
+  
+    let html = '', csvHeaders = [], csvRows = [];
+  
+    switch(id) {
+      case 'quadro_func':
+        csvHeaders = ['Mat.','Nome','CPF','Cargo','Depto','Tipo','Admissão','Salário','Situação'];
+        csvRows = ativos.map(c => [String(c.id).padStart(6,'0'),c.nome,c.cpf,c.cargo,c.depto,c.tipo,Fmt.date(c.admissao),Fmt.brl(c.salario),c.situacao]);
+        html = `<table id="relTabela"><thead><tr>${csvHeaders.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
+          ${ativos.map(c=>`<tr><td>${String(c.id).padStart(6,'0')}</td><td><strong>${c.nome}</strong></td><td>${c.cpf}</td><td>${c.cargo}</td><td>${c.depto}</td>
+          <td><span class="tag ${c.tipo==='CLT'?'tag-blue':'tag-purple'}">${c.tipo}</span></td>
+          <td>${Fmt.date(c.admissao)}</td><td class="c-accent fw7">${Fmt.brl(c.salario)}</td>
+          <td><span class="tag tag-green">${c.situacao}</span></td></tr>`).join('')}
+          </tbody></table>`;
+        break;
+  
+      case 'folha_resumo':
+        csvHeaders = ['Nome','Depto','Tipo','Salário','INSS','IRRF','Desc.VT','Total Desc.','Líquido','FGTS'];
+        csvRows = ativos.map(c => {
+          const r = Calc.liquido(c, {});
+          return [c.nome,c.depto,c.tipo,Fmt.brl(c.salario),Fmt.brl(r.descontos.inss),Fmt.brl(r.descontos.irrf),Fmt.brl(r.descontos.vt),Fmt.brl(r.totalDesc),Fmt.brl(r.liquido),Fmt.brl(r.fgts)];
+        });
+        html = `<table id="relTabela"><thead><tr>${csvHeaders.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
+          ${ativos.map(c=>{ const r=Calc.liquido(c,{});
+          return `<tr><td><strong>${c.nome}</strong></td><td>${c.depto}</td><td>${c.tipo}</td>
+          <td>${Fmt.brl(c.salario)}</td><td class="c-red">${Fmt.brl(r.descontos.inss)}</td>
+          <td class="c-red">${Fmt.brl(r.descontos.irrf)}</td><td class="c-red">${Fmt.brl(r.descontos.vt)}</td>
+          <td class="c-red">${Fmt.brl(r.totalDesc)}</td><td class="c-accent fw7">${Fmt.brl(r.liquido)}</td>
+          <td class="c-blue">${Fmt.brl(r.fgts)}</td></tr>`; }).join('')}
+          <tr><td colspan="3"><strong>TOTAL</strong></td>
+          <td><strong>${Fmt.brl(ativos.reduce((s,c)=>s+c.salario,0))}</strong></td>
+          <td class="c-red"><strong>${Fmt.brl(ativos.reduce((s,c)=>s+Calc.inss(c.salario),0))}</strong></td>
+          <td colspan="2"></td>
+          <td></td>
+          <td class="c-accent fw8"><strong>${Fmt.brl(ativos.reduce((s,c)=>{const r=Calc.liquido(c,{});return s+r.liquido;},0))}</strong></td>
+          <td class="c-blue fw7"><strong>${Fmt.brl(ativos.reduce((s,c)=>s+Calc.fgts(c.salario,c.tipo),0))}</strong></td></tr>
+          </tbody></table>`;
+        break;
+  
+      case 'custo_empresa':
+        csvHeaders = ['Nome','Salário','INSS Emp.','RAT','Terceiros','FGTS','Benefícios','Custo Total'];
+        csvRows = clt.map(c => {
+          const enc = Calc.encargosPatronais(c.salario);
+          const ben = (c.vt||0)+(c.vr||0)+(c.va||0)+({Básico:320,Premium:520}[c.saude]||0);
+          return [c.nome,Fmt.brl(c.salario),Fmt.brl(enc.inssPatronal),Fmt.brl(enc.rat),Fmt.brl(enc.terceiros),Fmt.brl(enc.fgts),Fmt.brl(ben),Fmt.brl(c.salario+enc.total+ben)];
+        });
+        html = `<table id="relTabela"><thead><tr>${csvHeaders.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
+          ${clt.map(c=>{ const enc=Calc.encargosPatronais(c.salario); const ben=(c.vt||0)+(c.vr||0)+(c.va||0)+({Básico:320,Premium:520}[c.saude]||0);
+          return `<tr><td><strong>${c.nome}</strong></td><td>${Fmt.brl(c.salario)}</td>
+          <td class="c-red">${Fmt.brl(enc.inssPatronal)}</td><td class="c-orange">${Fmt.brl(enc.rat)}</td>
+          <td class="c-orange">${Fmt.brl(enc.terceiros)}</td><td class="c-blue">${Fmt.brl(enc.fgts)}</td>
+          <td class="c-purple">${Fmt.brl(ben)}</td>
+          <td class="c-accent fw8">${Fmt.brl(c.salario+enc.total+ben)}</td></tr>`; }).join('')}
+          </tbody></table>`;
+        break;
+  
+      case 'aniversarios':
+        const mesRef = parseInt((comp||'2025-03').split('-')[1]);
+        const aniv   = colabs.filter(c => c.nasc && new Date(c.nasc+'T12:00:00').getMonth()+1 === mesRef);
+        csvHeaders = ['Nome','Nascimento','Idade','Depto','Tipo'];
+        csvRows = aniv.map(c => {
+          const nasc = new Date(c.nasc+'T12:00:00');
+          const idade = new Date().getFullYear() - nasc.getFullYear();
+          return [c.nome, Fmt.date(c.nasc), `${idade} anos`, c.depto, c.tipo];
+        });
+        html = aniv.length === 0
+          ? '<div class="empty"><span class="ico">🎂</span><p>Nenhum aniversário neste mês</p></div>'
+          : `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.8rem">
+            ${aniv.map(c=>`<div class="card"><div class="card-icon">🎂</div>
+              <div class="card-val c-accent" style="font-size:1.1rem">${c.nome.split(' ')[0]}</div>
+              <div class="card-lbl">${Fmt.date(c.nasc)} · ${new Date().getFullYear()-new Date(c.nasc+'T12:00:00').getFullYear()} anos</div>
+              <div style="font-size:0.62rem;color:var(--muted);margin-top:0.3rem">${c.cargo} · ${c.depto}</div>
+            </div>`).join('')}</div>`;
+        break;
+  
+      default:
+        html = `<div class="info-box accent">✅ Relatório <strong>${rel.nome}</strong> disponível. Use os botões de exportação.</div>`;
+        csvHeaders = ['Nome','Cargo','Depto'];
+        csvRows = ativos.map(c=>[c.nome,c.cargo,c.depto]);
+    }
+  
+    cont.innerHTML = html;
+  
+    btns.innerHTML = `
+      <button class="btn btn-success btn-sm" onclick="imprimirRel()">🖨️ PDF/Imprimir</button>
+      <button class="btn btn-ghost btn-sm" onclick="exportarRelCSV(${JSON.stringify(csvHeaders)}, ${JSON.stringify(csvRows)}, '${id}')">📊 CSV</button>
+      <button class="btn btn-blue btn-sm" onclick="exportarRelWord()">📄 Word</button>`;
+    area.scrollIntoView({behavior:'smooth'});
+  }
+  
+  function imprimirRel() { Export.printDiv('relPreviewContent', document.getElementById('relPreviewTitle').textContent); }
+  function exportarRelCSV(h, r, id) { Export.dataToCSV(h, r, `relatorio_${id}.csv`); }
+  function exportarRelWord() {
+    const el = document.getElementById('relPreviewContent');
+    const title = document.getElementById('relPreviewTitle').textContent;
+    if (!el) return;
+    Export.toWord(`<h2>${title}</h2><p>Agência Nexus · Gerado em ${new Date().toLocaleDateString('pt-BR')}</p>${el.innerHTML}`,
+      `relatorio_${Date.now()}.doc`);
+  }
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

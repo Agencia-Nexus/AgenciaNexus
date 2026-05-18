@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Programação e controle de períodos aquisitivos de férias na Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Férias | DP — Agência Nexus" />
+  <meta property="og:description" content="Programação e controle de períodos aquisitivos de férias na Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Férias | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Programação e controle de períodos aquisitivos de férias na Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Férias | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item active" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Férias</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-primary btn-sm" onclick="UI.openModal('modalFerias')">＋ Programar Férias</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">🏖️ Gestão de <span>Férias</span></div>
+        <div class="sec-sub">Cálculo, programação e controle de períodos aquisitivos e concessivos</div>
+      </div>
+    </div>
+
+    <div class="info-box warn">⚠️ A concessão de férias deve ser comunicada com <strong>30 dias de antecedência</strong>. O pagamento deve ocorrer com <strong>2 dias úteis de antecedência</strong>. Férias vencidas geram risco trabalhista.</div>
+
+    <!-- Calculadora de Férias -->
+    <div class="two-col" style="margin-bottom:1rem">
+      <div class="tbl-wrap" style="padding:1.2rem">
+        <div class="tbl-title" style="margin-bottom:1rem">🧮 Calculadora de Férias</div>
+        <div class="form-grid">
+          <div class="form-group fg-full">
+            <label class="fl">Colaborador</label>
+            <select class="fi" id="fColabSel" onchange="preencherDadosFerias()"><option value="">— Selecione —</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Data Admissão</label><input class="fi" id="fAdmissao" readonly/></div>
+          <div class="form-group"><label class="fl">Salário Base</label><input class="fi" id="fSalario" readonly/></div>
+          <div class="form-group"><label class="fl">Período Aquisitivo Ref.</label>
+            <select class="fi" id="fPeriodo">
+              <option value="1">1º Período</option><option value="2">2º Período</option>
+              <option value="3">3º Período ou mais</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="fl">Faltas no Período</label>
+            <select class="fi" id="fFaltas" onchange="atualizarDias()">
+              <option value="0">0 faltas → 30 dias</option>
+              <option value="5">1 a 5 faltas → 24 dias</option>
+              <option value="14">6 a 14 faltas → 18 dias</option>
+              <option value="23">15 a 23 faltas → 12 dias</option>
+              <option value="32">24 a 32 faltas → 6 dias</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="fl">Dias de Férias (calculado)</label>
+            <input class="fi" id="fDias" value="30" readonly/>
+          </div>
+          <div class="form-group"><label class="fl">Abono Pecuniário (venda de 10 dias)</label>
+            <select class="fi" id="fAbono" onchange="calcularFerias()">
+              <option value="0">Não</option><option value="1">Sim — vender 10 dias</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="fl">Adiantamento do 13º Salário</label>
+            <select class="fi" id="fAdiant13" onchange="calcularFerias()">
+              <option value="0">Não</option><option value="1">Sim (1ª parcela)</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="fl">Nº de Dependentes (IRRF)</label>
+            <input type="number" class="fi" id="fDeps" value="0" min="0" oninput="calcularFerias()"/>
+          </div>
+          <div class="form-group"><label class="fl">Início das Férias</label>
+            <input type="date" class="fi" id="fInicio" oninput="calcularFim()"/>
+          </div>
+          <div class="form-group"><label class="fl">Término (calculado)</label>
+            <input class="fi" id="fFim" readonly/>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:0.9rem" onclick="calcularFerias()">⚡ Calcular Férias</button>
+      </div>
+
+      <!-- Resultado -->
+      <div>
+        <div class="tbl-wrap" style="padding:1.2rem;margin-bottom:0.9rem" id="resultadoFeriasBox">
+          <div class="tbl-title" style="margin-bottom:0.8rem">💰 Resultado do Cálculo</div>
+          <div id="resultadoFerias">
+            <div class="empty"><span class="ico">🏖️</span><p>Selecione um colaborador e calcule</p></div>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="padding:1rem" id="avisoPrazos" style="display:none">
+          <div class="tbl-title" style="margin-bottom:0.7rem">📅 Prazos Legais</div>
+          <div id="prazosBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Programação de férias -->
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">📅 Programação de Férias</span>
+        <div class="tbl-actions">
+          <button class="btn btn-ghost btn-sm" onclick="exportarProgramacao()">📊 Exportar</button>
+          <button class="btn btn-blue btn-sm" onclick="exportarWordFerias()">📄 Word</button>
+          <button class="btn btn-primary btn-sm" onclick="UI.openModal('modalFerias')">＋ Programar</button>
+        </div>
+      </div>
+      <table>
+        <thead><tr>
+          <th>Colaborador</th><th>Período Aquisitivo</th><th>Dias</th>
+          <th>Início</th><th>Retorno</th><th>Abono</th><th>Valor Líquido</th><th>Status</th><th>Ações</th>
+        </tr></thead>
+        <tbody id="tbodyProgramacao"></tbody>
+      </table>
+    </div>
+
+    <!-- Situação por colaborador -->
+    <div class="tbl-wrap" style="margin-top:1rem">
+      <div class="tbl-hd"><span class="tbl-title">🗓️ Situação dos Períodos Aquisitivos</span></div>
+      <table>
+        <thead><tr>
+          <th>Colaborador</th><th>Admissão</th><th>Tempo de Casa</th>
+          <th>Per. Aquisitivo Atual</th><th>Direito (dias)</th><th>Status</th>
+        </tr></thead>
+        <tbody id="tbodySituacao"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL PROGRAMAR FÉRIAS -->
+<div class="overlay" id="modalFerias">
+<div class="modal">
+  <div class="modal-hd"><div class="modal-title">🏖️ Programar Férias</div><div class="modal-close" onclick="UI.closeModal('modalFerias')">✕</div></div>
+  <div class="form-grid">
+    <div class="form-group fg-full"><label class="fl">Colaborador *</label>
+      <select class="fi" id="mfColab"><option value="">— Selecione —</option></select></div>
+    <div class="form-group"><label class="fl">Início *</label><input type="date" class="fi" id="mfInicio"/></div>
+    <div class="form-group"><label class="fl">Dias de Gozo</label>
+      <select class="fi" id="mfDias"><option value="30">30 dias</option><option value="20">20 dias</option><option value="10">10 dias</option></select></div>
+    <div class="form-group"><label class="fl">Abono Pecuniário</label>
+      <select class="fi" id="mfAbono"><option value="0">Não</option><option value="1">Sim (10 dias)</option></select></div>
+    <div class="form-group"><label class="fl">Período Aquisitivo</label>
+      <input class="fi" id="mfPeriodo" placeholder="Ex: 01/2024 – 01/2025"/></div>
+    <div class="form-group"><label class="fl">Status</label>
+      <select class="fi" id="mfStatus">
+        <option value="Agendado">Agendado</option>
+        <option value="Aprovado">Aprovado</option>
+        <option value="Em Gozo">Em Gozo</option>
+        <option value="Concluído">Concluído</option>
+      </select>
+    </div>
+    <div class="form-group fg-full"><label class="fl">Observações</label>
+      <textarea class="fi" id="mfObs" placeholder="Observações sobre o período de férias..."></textarea></div>
+  </div>
+  <div class="modal-ft">
+    <button class="btn btn-ghost" onclick="UI.closeModal('modalFerias')">Cancelar</button>
+    <button class="btn btn-primary" onclick="salvarProgramacao()">✓ Salvar Programação</button>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs().filter(c => c.situacao === 'Ativo');
+  let feriasData = DP.getFerias();
+  let calcAtual = null;
+  let colabAtual = null;
+  
+  // Populate selects
+  [document.getElementById('fColabSel'), document.getElementById('mfColab')].forEach(sel => {
+    sel.innerHTML = '<option value="">— Selecione —</option>' +
+      colabs.map(c => `<option value="${c.id}">${c.nome} — ${c.tipo}</option>`).join('');
+  });
+  
+  function preencherDadosFerias() {
+    const id = parseInt(UI.val('fColabSel'));
+    colabAtual = colabs.find(c => c.id === id) || null;
+    if (!colabAtual) return;
+    UI.setVal('fAdmissao', Fmt.date(colabAtual.admissao));
+    UI.setVal('fSalario', Fmt.brl(colabAtual.salario));
+    UI.setVal('fDeps', colabAtual.dependentes || 0);
+    UI.setVal('fInicio', Fmt.today());
+    atualizarDias();
+    calcularFerias();
+    calcularFim();
+  }
+  
+  function atualizarDias() {
+    const faltas = parseInt(UI.val('fFaltas'));
+    const dias = Calc.diasFeriasPorFaltas(faltas);
+    UI.setVal('fDias', dias);
+    calcularFerias();
+    calcularFim();
+  }
+  
+  function calcularFim() {
+    const ini = UI.val('fInicio');
+    const dias = parseInt(UI.val('fDias')) || 30;
+    const abono = UI.val('fAbono') === '1' ? 10 : 0;
+    if (!ini) return;
+    const d = new Date(ini);
+    d.setDate(d.getDate() + (dias - abono));
+    UI.setVal('fFim', d.toISOString().slice(0, 10));
+  }
+  
+  function calcularFerias() {
+    if (!colabAtual) return;
+    const abono   = UI.val('fAbono') === '1';
+    const adiant13 = UI.val('fAdiant13') === '1';
+    const faltas  = parseInt(UI.val('fFaltas'));
+    const dias    = Calc.diasFeriasPorFaltas(faltas);
+    const deps    = parseInt(UI.val('fDeps')) || 0;
+    const r = Calc.ferias(colabAtual, dias, abono, adiant13, deps);
+    calcAtual = r;
+  
+    document.getElementById('resultadoFerias').innerHTML = `
+      <div class="result-box">
+        <div class="rb-row"><span class="rb-lbl">Dias de Férias</span><span class="rb-val fw7">${dias} dias</span></div>
+        ${abono ? `<div class="rb-row"><span class="rb-lbl">Dias de Gozo Efetivo</span><span class="rb-val">${dias-10} dias</span></div>` : ''}
+        <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);padding:0.5rem 0 0.2rem">Proventos</div>
+        <div class="rb-row add"><span class="rb-lbl">Salário de Férias (${r.diasEfetivos}d)</span><span class="rb-val">${Fmt.brl(r.prov_ferias)}</span></div>
+        <div class="rb-row add"><span class="rb-lbl">1/3 Constitucional</span><span class="rb-val">${Fmt.brl(r.prov_terco)}</span></div>
+        ${abono ? `<div class="rb-row add"><span class="rb-lbl">Abono Pecuniário (${r.diasAbono}d + 1/3)</span><span class="rb-val">${Fmt.brl(r.prov_abono)}</span></div>` : ''}
+        ${adiant13 ? `<div class="rb-row add"><span class="rb-lbl">Adiantamento 13º (1ª parcela)</span><span class="rb-val">${Fmt.brl(r.prov_13)}</span></div>` : ''}
+        <div class="rb-row" style="border-top:1px solid var(--border2)"><span class="rb-lbl fw8">Total Bruto</span><span class="rb-val c-green fw8">${Fmt.brl(r.bruto)}</span></div>
+        <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);padding:0.5rem 0 0.2rem">Descontos</div>
+        <div class="rb-row desc"><span class="rb-lbl">INSS s/ Férias</span><span class="rb-val">${Fmt.brl(r.desc_inss)}</span></div>
+        <div class="rb-row desc"><span class="rb-lbl">IRRF s/ Férias</span><span class="rb-val">${Fmt.brl(r.desc_irrf)}</span></div>
+        <div class="rb-row total"><span class="rb-lbl">💰 LÍQUIDO A RECEBER</span><span class="rb-val">${Fmt.brl(r.liquido)}</span></div>
+      </div>
+      <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
+        <button class="btn btn-success btn-sm" style="flex:1" onclick="imprimirCalculo()">🖨️ Imprimir Cálculo</button>
+        <button class="btn btn-blue btn-sm" style="flex:1" onclick="exportarCalcWord()">📄 Word</button>
+        <button class="btn btn-ghost btn-sm" style="flex:1" onclick="exportarCalcCSV()">📊 CSV</button>
+      </div>`;
+  
+    // Prazos legais
+    const ini = UI.val('fInicio');
+    if (ini) {
+      const dtIni = new Date(ini);
+      const comunicacao = new Date(dtIni); comunicacao.setDate(comunicacao.getDate() - 30);
+      const pagamento   = new Date(dtIni); pagamento.setDate(pagamento.getDate() - 2);
+      document.getElementById('prazosBox').innerHTML = `
+        <div class="rb-row"><span class="rb-lbl">Comunicação até</span><span class="rb-val c-orange">${comunicacao.toLocaleDateString('pt-BR')}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Pagamento até</span><span class="rb-val c-orange">${pagamento.toLocaleDateString('pt-BR')}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Início das Férias</span><span class="rb-val">${dtIni.toLocaleDateString('pt-BR')}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Término</span><span class="rb-val">${UI.val('fFim')?new Date(UI.val('fFim')).toLocaleDateString('pt-BR'):'—'}</span></div>`;
+    }
+    calcularFim();
+  }
+  
+  function salvarProgramacao() {
+    const cId = parseInt(UI.val('mfColab'));
+    const colab = colabs.find(c => c.id === cId);
+    if (!colab || !UI.val('mfInicio')) { UI.toast('Preencha todos os campos obrigatórios', 'err'); return; }
+    const dias   = parseInt(UI.val('mfDias'));
+    const abono  = UI.val('mfAbono') === '1';
+    const r = Calc.ferias(colab, dias, abono, false, colab.dependentes || 0);
+    const ini = new Date(UI.val('mfInicio'));
+    const fim = new Date(ini); fim.setDate(fim.getDate() + dias - (abono ? 10 : 0));
+    feriasData.push({
+      id: Date.now(), colabId: cId, colabNome: colab.nome,
+      inicio: UI.val('mfInicio'), fim: fim.toISOString().slice(0, 10),
+      dias, abono: abono ? 'Sim' : 'Não', periodo: UI.val('mfPeriodo'),
+      status: UI.val('mfStatus'), obs: UI.val('mfObs'),
+      liquidoCalc: r.liquido
+    });
+    DP.saveFerias(feriasData);
+    renderProgramacao();
+    UI.closeModal('modalFerias');
+    UI.toast(`Férias de ${colab.nome} programadas!`, 'ok');
+  }
+  
+  function renderProgramacao() {
+    const statusCls = { Agendado:'tag-blue', Aprovado:'tag-accent', 'Em Gozo':'tag-orange', Concluído:'tag-green' };
+    document.getElementById('tbodyProgramacao').innerHTML = feriasData.length === 0
+      ? `<tr><td colspan="9"><div class="empty"><span class="ico">🏖️</span><p>Nenhuma programação registrada</p></div></td></tr>`
+      : feriasData.map(f => `<tr>
+          <td>${f.colabNome}</td>
+          <td>${f.periodo || '—'}</td>
+          <td>${f.dias}d${f.abono==='Sim' ? ' (+10 abono)' : ''}</td>
+          <td>${Fmt.date(f.inicio)}</td>
+          <td>${Fmt.date(f.fim)}</td>
+          <td><span class="tag ${f.abono==='Sim'?'tag-accent':'tag-gray'}">${f.abono}</span></td>
+          <td class="c-accent fw7">${Fmt.brl(f.liquidoCalc)}</td>
+          <td><span class="tag ${statusCls[f.status]||'tag-gray'}">${f.status}</span></td>
+          <td><button class="btn btn-danger btn-sm" onclick="excluirFerias(${f.id})">✕</button></td>
+        </tr>`).join('');
+  }
+  
+  function excluirFerias(id) {
+    UI.confirm('Excluir este registro de férias?', () => {
+      feriasData = feriasData.filter(f => f.id !== id);
+      DP.saveFerias(feriasData);
+      renderProgramacao();
+    });
+  }
+  
+  function renderSituacao() {
+    const hoje = new Date();
+    document.getElementById('tbodySituacao').innerHTML = colabs.map(c => {
+      const meses = Calc.mesesTrabalhados(c.admissao);
+      const periodoAtual = Math.floor(meses / 12) + 1;
+      const mesesNoPeriodo = meses % 12;
+      const pctConquistado = Math.round((mesesNoPeriodo / 12) * 100);
+      const diasDireito = 30;
+      const statusCls = meses >= 12 ? 'tag-green' : meses >= 6 ? 'tag-orange' : 'tag-gray';
+      const statusTxt = meses >= 12 ? 'Disponível' : `${mesesNoPeriodo}/12 meses`;
+      return `<tr>
+        <td><div class="ci"><div class="av ${c.avc||'av-g'}" style="width:26px;height:26px;font-size:0.70rem">${Fmt.initials(c.nome)}</div>
+          <div class="ci-name" style="font-size:0.83rem">${c.nome}</div></div></td>
+        <td>${Fmt.date(c.admissao)}</td>
+        <td>${Math.floor(meses/12)} ano(s) e ${meses%12} mês(es)</td>
+        <td>${periodoAtual}º Período</td>
+        <td>${diasDireito} dias</td>
+        <td><span class="tag ${statusCls}">${statusTxt}</span></td>
+      </tr>`;
+    }).join('');
+  }
+  
+  function exportarProgramacao() {
+    Export.dataToCSV(
+      ['Colaborador','Período','Dias','Início','Fim','Abono','Líquido','Status'],
+      feriasData.map(f=>[f.colabNome,f.periodo||'—',f.dias,Fmt.date(f.inicio),Fmt.date(f.fim),f.abono,Fmt.brl(f.liquidoCalc),f.status]),
+      'programacao_ferias.csv'
+    );
+  }
+  function exportarWordFerias() {
+    const rows = feriasData.map(f=>`<tr><td>${f.colabNome}</td><td>${f.dias}d</td><td>${Fmt.date(f.inicio)}</td><td>${Fmt.date(f.fim)}</td><td>${f.abono}</td><td>${Fmt.brl(f.liquidoCalc)}</td><td>${f.status}</td></tr>`).join('');
+    Export.toWord(`<h2>Programação de Férias — Agência Nexus</h2>
+      <table><thead><tr><th>Colaborador</th><th>Dias</th><th>Início</th><th>Fim</th><th>Abono</th><th>Líquido</th><th>Status</th></tr></thead>
+      <tbody>${rows}</tbody></table>`, 'ferias_programacao.doc');
+  }
+  function imprimirCalculo() { Export.printDiv('resultadoFerias', 'Cálculo de Férias — Agência Nexus'); }
+  function exportarCalcWord() {
+    if (!calcAtual || !colabAtual) { UI.toast('Calcule as férias primeiro', 'err'); return; }
+    const r = calcAtual;
+    Export.toWord(`<h2>Cálculo de Férias — ${colabAtual.nome}</h2>
+      <table><thead><tr><th>Verba</th><th>Valor</th></tr></thead><tbody>
+      <tr><td>Salário de Férias (${r.diasEfetivos}d)</td><td>${Fmt.brl(r.prov_ferias)}</td></tr>
+      <tr><td>1/3 Constitucional</td><td>${Fmt.brl(r.prov_terco)}</td></tr>
+      ${r.prov_abono>0?`<tr><td>Abono Pecuniário</td><td>${Fmt.brl(r.prov_abono)}</td></tr>`:''}
+      ${r.prov_13>0?`<tr><td>Adiantamento 13º</td><td>${Fmt.brl(r.prov_13)}</td></tr>`:''}
+      <tr><td><strong>Total Bruto</strong></td><td><strong>${Fmt.brl(r.bruto)}</strong></td></tr>
+      <tr><td>INSS</td><td>(${Fmt.brl(r.desc_inss)})</td></tr>
+      <tr><td>IRRF</td><td>(${Fmt.brl(r.desc_irrf)})</td></tr>
+      <tr><td><strong>LÍQUIDO</strong></td><td><strong>${Fmt.brl(r.liquido)}</strong></td></tr>
+      </tbody></table>`, `ferias_${colabAtual.nome.replace(/\s/g,'_')}.doc`);
+  }
+  function exportarCalcCSV() {
+    if (!calcAtual || !colabAtual) { UI.toast('Calcule as férias primeiro', 'err'); return; }
+    const r = calcAtual;
+    Export.dataToCSV(['Verba','Valor'], [
+      ['Salário de Férias', Fmt.brl(r.prov_ferias)],
+      ['1/3 Constitucional', Fmt.brl(r.prov_terco)],
+      ['Abono Pecuniário', Fmt.brl(r.prov_abono)],
+      ['Adiantamento 13º', Fmt.brl(r.prov_13)],
+      ['INSS', Fmt.brl(r.desc_inss)],
+      ['IRRF', Fmt.brl(r.desc_irrf)],
+      ['LÍQUIDO', Fmt.brl(r.liquido)],
+    ], `ferias_${colabAtual.nome.replace(/\s/g,'_')}.csv`);
+  }
+  
+  renderProgramacao();
+  renderSituacao();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

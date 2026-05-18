@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Configure parâmetros do sistema de DP da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Configurações | DP — Agência Nexus" />
+  <meta property="og:description" content="Configure parâmetros do sistema de DP da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Configurações | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Configure parâmetros do sistema de DP da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Configurações | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item active" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Configurações</span></div>
+    <div class="tb-right"><span class="tb-date" id="tb-date"></span></div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">⚙️ <span>Configurações</span> do Sistema</div>
+        <div class="sec-sub">Dados da empresa, tabelas previdenciárias, parâmetros e backup</div>
+      </div>
+    </div>
+
+    <div class="tabs" id="cfgTabs">
+      <div class="tab active" onclick="showCfgTab(0,this)">🏢 Empresa</div>
+      <div class="tab" onclick="showCfgTab(1,this)">📐 Tabelas INSS/IRRF</div>
+      <div class="tab" onclick="showCfgTab(2,this)">⚙️ Parâmetros</div>
+      <div class="tab" onclick="showCfgTab(3,this)">💾 Dados / Backup</div>
+    </div>
+
+    <!-- ABA 0: Empresa -->
+    <div class="cfg-tab" id="cfgtab0">
+      <div class="tbl-wrap" style="padding:1.3rem">
+        <div class="tbl-title" style="margin-bottom:1rem">🏢 Dados da Empresa</div>
+        <div class="form-grid c3">
+          <div class="form-group fg-full"><label class="fl">Razão Social</label><input class="fi" id="cfgRazao" placeholder="Razão Social Ltda"/></div>
+          <div class="form-group fg-full"><label class="fl">Nome Fantasia</label><input class="fi" id="cfgFantasia" placeholder="Nome comercial"/></div>
+          <div class="form-group"><label class="fl">CNPJ</label><input class="fi" id="cfgCNPJ" placeholder="00.000.000/0001-00" oninput="Mask.cnpj(this)"/></div>
+          <div class="form-group"><label class="fl">CNAE Principal</label><input class="fi" id="cfgCNAE" placeholder="7311-4/00"/></div>
+          <div class="form-group"><label class="fl">Telefone</label><input class="fi" id="cfgTel" placeholder="(11) 3000-0000" oninput="Mask.tel(this)"/></div>
+          <div class="form-group"><label class="fl">E-mail DP</label><input class="fi" id="cfgEmail" placeholder="dp@empresa.com.br" type="email"/></div>
+          <div class="form-group fg-full"><label class="fl">Endereço Completo</label><input class="fi" id="cfgEnd" placeholder="Rua, Nº, Bairro, Cidade — UF"/></div>
+          <div class="form-group"><label class="fl">Regime Tributário</label>
+            <select class="fi" id="cfgRegime"><option>Lucro Real</option><option>Lucro Presumido</option><option>Simples Nacional</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Grau de Risco (RAT)</label>
+            <select class="fi" id="cfgRisk"><option value="1">Grau 1 — 1%</option><option value="2">Grau 2 — 2%</option><option value="3">Grau 3 — 3%</option></select>
+          </div>
+          <div class="form-group"><label class="fl">FAP (Fator Acidentário)</label><input type="number" class="fi" id="cfgFAP" value="1.00" min="0.5" max="2.0" step="0.01"/></div>
+        </div>
+        <div style="margin-top:1rem;display:flex;justify-content:flex-end">
+          <button class="btn btn-primary" onclick="salvarEmpresa()">✓ Salvar Dados da Empresa</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 1: Tabelas -->
+    <div class="cfg-tab" id="cfgtab1" style="display:none">
+      <div class="two-col">
+        <div class="tbl-wrap" style="padding:1.1rem">
+          <div class="tbl-title" style="margin-bottom:0.8rem">📐 Tabela INSS 2025 (Progressiva)</div>
+          <div class="info-box blue" style="margin-bottom:0.8rem">Os valores abaixo são as faixas para desconto progressivo. Cada faixa é calculada sobre a parcela do salário dentro do limite.</div>
+          <table>
+            <thead><tr><th>Faixa Salarial (até)</th><th>Alíquota</th><th>Ação</th></tr></thead>
+            <tbody id="tbodyINSS"></tbody>
+          </table>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem">Teto do INSS 2025: R$ 8.157,41</div>
+        </div>
+        <div class="tbl-wrap" style="padding:1.1rem">
+          <div class="tbl-title" style="margin-bottom:0.8rem">📐 Tabela IRRF 2025</div>
+          <div class="info-box blue" style="margin-bottom:0.8rem">Base de cálculo = Salário Bruto − INSS − (Nº dependentes × R$ 189,59)</div>
+          <table>
+            <thead><tr><th>Base Cálculo (até)</th><th>Alíquota</th><th>Dedução</th></tr></thead>
+            <tbody id="tbodyIRRF"></tbody>
+          </table>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem">Dedução por dependente: R$ 189,59 · Isenção até: R$ 2.259,20</div>
+        </div>
+      </div>
+      <div class="tbl-wrap" style="padding:1.1rem;margin-top:1rem">
+        <div class="tbl-title" style="margin-bottom:0.8rem">⚙️ Alíquotas e Parâmetros Previdenciários</div>
+        <div class="form-grid c3">
+          <div class="form-group"><label class="fl">Salário Mínimo Nacional (R$)</label><input type="number" class="fi" id="cfgSalMin" step="0.01"/></div>
+          <div class="form-group"><label class="fl">Teto INSS (R$)</label><input type="number" class="fi" id="cfgTetoINSS" step="0.01"/></div>
+          <div class="form-group"><label class="fl">INSS Patronal (%)</label><input type="number" class="fi" id="cfgINSSPat" step="0.01" min="0" max="30"/></div>
+          <div class="form-group"><label class="fl">Alíquota FGTS (%)</label><input type="number" class="fi" id="cfgFGTS" step="0.01" min="0" max="20"/></div>
+          <div class="form-group"><label class="fl">Multa FGTS Rescisão (%)</label><input type="number" class="fi" id="cfgMultaFGTS" step="0.01" min="0" max="100"/></div>
+          <div class="form-group"><label class="fl">Dedução por Dependente (R$)</label><input type="number" class="fi" id="cfgDepend" step="0.01"/></div>
+        </div>
+        <div style="margin-top:1rem;display:flex;justify-content:flex-end">
+          <button class="btn btn-primary" onclick="salvarTabelas()">✓ Salvar Tabelas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 2: Parâmetros -->
+    <div class="cfg-tab" id="cfgtab2" style="display:none">
+      <div class="tbl-wrap" style="padding:1.3rem">
+        <div class="tbl-title" style="margin-bottom:1rem">⚙️ Parâmetros de Jornada e Sistema</div>
+        <div class="form-grid c3">
+          <div class="form-group"><label class="fl">Horas Diárias Padrão</label><input type="number" class="fi" id="cfgHD" value="8" min="1" max="12"/></div>
+          <div class="form-group"><label class="fl">Horas Mensais (CLT 44h)</label><input type="number" class="fi" id="cfgHM" value="220"/></div>
+          <div class="form-group"><label class="fl">Dias Úteis (média mensal)</label><input type="number" class="fi" id="cfgDU" value="22"/></div>
+          <div class="form-group"><label class="fl">Limite Desconto VT (% sal.)</label><input type="number" class="fi" id="cfgVTLimite" value="6" min="0" max="10"/></div>
+          <div class="form-group"><label class="fl">Período Aquisitivo Férias (meses)</label><input type="number" class="fi" id="cfgPAferi" value="12"/></div>
+          <div class="form-group"><label class="fl">Prazo Aviso Prévio Mínimo (dias)</label><input type="number" class="fi" id="cfgAvisoPrev" value="30"/></div>
+          <div class="form-group"><label class="fl">Custo Plano Saúde Básico (R$)</label><input type="number" class="fi" id="cfgSaudeBasico" value="320" step="0.01"/></div>
+          <div class="form-group"><label class="fl">Custo Plano Saúde Premium (R$)</label><input type="number" class="fi" id="cfgSaudePremium" value="520" step="0.01"/></div>
+          <div class="form-group"><label class="fl">Custo Odonto Básico (R$)</label><input type="number" class="fi" id="cfgOdontoBasico" value="65" step="0.01"/></div>
+        </div>
+        <div style="margin-top:1rem;display:flex;justify-content:flex-end">
+          <button class="btn btn-primary" onclick="salvarParametros()">✓ Salvar Parâmetros</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 3: Dados/Backup -->
+    <div class="cfg-tab" id="cfgtab3" style="display:none">
+      <div class="two-col">
+        <div class="tbl-wrap" style="padding:1.2rem">
+          <div class="tbl-title" style="margin-bottom:0.9rem">💾 Backup e Exportação</div>
+          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">Exporte todos os dados do sistema em formato JSON para backup externo ou importação em outro computador.</p>
+          <div style="display:flex;flex-direction:column;gap:0.5rem">
+            <button class="btn btn-primary" onclick="exportarBackup()">💾 Exportar Backup JSON</button>
+            <button class="btn btn-ghost" onclick="exportarTodoCSV()">📊 Exportar Todos os Dados (CSV)</button>
+            <label class="btn btn-blue" style="cursor:pointer;text-align:center">
+              📂 Importar Backup JSON
+              <input type="file" accept=".json" id="importFile" style="display:none" onchange="importarBackup(this)"/>
+            </label>
+          </div>
+          <div class="info-box warn" style="margin-top:1rem">⚠️ A importação substituirá todos os dados atuais. Faça backup antes.</div>
+        </div>
+        <div class="tbl-wrap" style="padding:1.2rem">
+          <div class="tbl-title" style="margin-bottom:0.9rem">🗑️ Zona de Risco</div>
+          <div class="info-box danger" style="margin-bottom:1rem">⛔ Ações irreversíveis abaixo. Tenha certeza antes de executar.</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem">
+            <button class="btn btn-warning" onclick="limparPontos()">⏱️ Limpar Todos os Pontos</button>
+            <button class="btn btn-warning" onclick="limparAfastamentos()">🏥 Limpar Afastamentos</button>
+            <button class="btn btn-danger" onclick="resetarSistema()">⛔ RESETAR SISTEMA COMPLETO</button>
+          </div>
+          <div style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border)">
+            <div class="tbl-title" style="margin-bottom:0.6rem;font-size:0.82rem">📊 Uso do LocalStorage</div>
+            <div id="storageInfo" style="font-size:0.80rem;color:var(--muted)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  let cfg = DP.getConfig();
+  
+  function showCfgTab(n, el) {
+    document.querySelectorAll('.cfg-tab').forEach((t,i)=>t.style.display=i===n?'block':'none');
+    document.querySelectorAll('#cfgTabs .tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+  }
+  
+  function preencherDados() {
+    // Empresa
+    UI.setVal('cfgRazao',   cfg.empresa.razao_social);
+    UI.setVal('cfgFantasia',cfg.empresa.nome_fantasia);
+    UI.setVal('cfgCNPJ',    cfg.empresa.cnpj);
+    UI.setVal('cfgCNAE',    cfg.empresa.cnaePrimario||'');
+    UI.setVal('cfgTel',     cfg.empresa.telefone);
+    UI.setVal('cfgEmail',   cfg.empresa.email);
+    UI.setVal('cfgEnd',     cfg.empresa.endereco);
+    // Tabelas numéricas
+    UI.setVal('cfgSalMin',    cfg.salarioMinimo);
+    UI.setVal('cfgTetoINSS',  cfg.tetoINSS);
+    UI.setVal('cfgINSSPat',   (cfg.aliqINSSPatronal*100).toFixed(1));
+    UI.setVal('cfgFGTS',      (cfg.aliqFGTS*100).toFixed(1));
+    UI.setVal('cfgMultaFGTS', (cfg.multaFGTS*100).toFixed(1));
+    UI.setVal('cfgDepend',    cfg.deducaoDependente);
+    // Parâmetros
+    UI.setVal('cfgHD',  cfg.horasDiarias);
+    UI.setVal('cfgHM',  cfg.horasMensais);
+    UI.setVal('cfgDU',  cfg.diasUteisMedia);
+    UI.setVal('cfgVTLimite', (cfg.limiteDescVT*100).toFixed(0));
+    // Tabelas
+    renderTabelaINSS();
+    renderTabelaIRRF();
+    renderStorageInfo();
+  }
+  
+  function renderTabelaINSS() {
+    document.getElementById('tbodyINSS').innerHTML = cfg.tabelaINSS.map((f,i) => `
+      <tr>
+        <td>R$ ${f.ate.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
+        <td><span class="tag tag-${i===0?'green':i===1?'blue':i===2?'orange':'red'}">${(f.aliq*100)}%</span></td>
+        <td><span class="tag tag-gray">Padrão 2025</span></td>
+      </tr>`).join('');
+  }
+  
+  function renderTabelaIRRF() {
+    document.getElementById('tbodyIRRF').innerHTML = cfg.tabelaIRRF.map((f,i) => `
+      <tr>
+        <td>${f.ate===Infinity?'Acima':'Até R$ '+f.ate.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
+        <td><span class="tag tag-${i===0?'green':i===1?'blue':i===2?'orange':'red'}">${f.aliq===0?'Isento':(f.aliq*100)+'%'}</span></td>
+        <td>${f.deducao>0?'R$ '+f.deducao.toLocaleString('pt-BR',{minimumFractionDigits:2}):'—'}</td>
+      </tr>`).join('');
+  }
+  
+  function salvarEmpresa() {
+    cfg.empresa.razao_social  = UI.val('cfgRazao');
+    cfg.empresa.nome_fantasia = UI.val('cfgFantasia');
+    cfg.empresa.cnpj          = UI.val('cfgCNPJ');
+    cfg.empresa.cnaePrimario  = UI.val('cfgCNAE');
+    cfg.empresa.telefone      = UI.val('cfgTel');
+    cfg.empresa.email         = UI.val('cfgEmail');
+    cfg.empresa.endereco      = UI.val('cfgEnd');
+    DP.saveConfig(cfg);
+    UI.toast('Dados da empresa salvos!', 'ok');
+  }
+  
+  function salvarTabelas() {
+    cfg.salarioMinimo      = parseFloat(UI.val('cfgSalMin'))||1518;
+    cfg.tetoINSS           = parseFloat(UI.val('cfgTetoINSS'))||8157.41;
+    cfg.aliqINSSPatronal   = parseFloat(UI.val('cfgINSSPat'))/100||0.20;
+    cfg.aliqFGTS           = parseFloat(UI.val('cfgFGTS'))/100||0.08;
+    cfg.multaFGTS          = parseFloat(UI.val('cfgMultaFGTS'))/100||0.40;
+    cfg.deducaoDependente  = parseFloat(UI.val('cfgDepend'))||189.59;
+    DP.saveConfig(cfg);
+    UI.toast('Tabelas e alíquotas salvas!', 'ok');
+  }
+  
+  function salvarParametros() {
+    cfg.horasDiarias   = parseInt(UI.val('cfgHD'))||8;
+    cfg.horasMensais   = parseInt(UI.val('cfgHM'))||220;
+    cfg.diasUteisMedia = parseInt(UI.val('cfgDU'))||22;
+    cfg.limiteDescVT   = parseFloat(UI.val('cfgVTLimite'))/100||0.06;
+    DP.saveConfig(cfg);
+    UI.toast('Parâmetros salvos!', 'ok');
+  }
+  
+  function exportarBackup() {
+    const backup = {
+      version: '1.0', gerado: new Date().toISOString(),
+      colaboradores: DP.getColabs(), pontos: DP.getPontos(),
+      ferias: DP.getFerias(), afastamentos: DP.getAfas(),
+      folhas: DP.getFolhas(), documentos: DP.getDocs(),
+      config: DP.getConfig(),
+    };
+    const blob = new Blob([JSON.stringify(backup, null, 2)], {type:'application/json'});
+    const url  = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=`backup_dp_${Date.now()}.json`; a.click();
+    URL.revokeObjectURL(url);
+    UI.toast('Backup exportado com sucesso!', 'ok');
+  }
+  
+  function exportarTodoCSV() {
+    const c = DP.getColabs();
+    Export.dataToCSV(
+      ['Nome','CPF','Cargo','Depto','Tipo','Admissão','Salário','Situação'],
+      c.map(x=>[x.nome,x.cpf,x.cargo,x.depto,x.tipo,Fmt.date(x.admissao),Fmt.brl(x.salario),x.situacao]),
+      'backup_colaboradores.csv'
+    );
+  }
+  
+  function importarBackup(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.colaboradores) DP.saveColabs(data.colaboradores);
+        if (data.pontos)        DP.savePontos(data.pontos);
+        if (data.ferias)        DP.saveFerias(data.ferias);
+        if (data.afastamentos)  DP.saveAfas(data.afastamentos);
+        if (data.config)        DP.saveConfig(data.config);
+        UI.toast('Backup importado! Recarregue o sistema.', 'ok');
+        renderStorageInfo();
+      } catch(err) { UI.toast('Erro ao importar backup: JSON inválido', 'err'); }
+    };
+    reader.readAsText(file);
+  }
+  
+  function limparPontos() {
+    UI.confirm('Limpar TODOS os registros de ponto? (irreversível)', () => {
+      DP.savePontos([]); UI.toast('Pontos apagados.', 'wrn'); renderStorageInfo();
+    });
+  }
+  function limparAfastamentos() {
+    UI.confirm('Limpar todos os afastamentos registrados?', () => {
+      DP.saveAfas([]); UI.toast('Afastamentos apagados.', 'wrn'); renderStorageInfo();
+    });
+  }
+  function resetarSistema() {
+    UI.confirm('⛔ ATENÇÃO: Isso apagará TODOS os dados do sistema. Esta ação é IRREVERSÍVEL. Deseja continuar?', () => {
+      localStorage.clear(); UI.toast('Sistema resetado! Recarregando...', 'err');
+      setTimeout(() => location.reload(), 1800);
+    });
+  }
+  
+  function renderStorageInfo() {
+    const keys = Object.keys(localStorage).filter(k => k.startsWith('dp_exittus_'));
+    let totalSize = 0;
+    const infos = keys.map(k => {
+      const size = (localStorage.getItem(k)||'').length;
+      totalSize += size;
+      return `<div style="display:flex;justify-content:space-between;margin-bottom:0.3rem"><span>${k.replace('dp_exittus_','')}</span><span>${(size/1024).toFixed(1)} KB</span></div>`;
+    }).join('');
+    document.getElementById('storageInfo').innerHTML = infos +
+      `<div style="border-top:1px solid var(--border);margin-top:0.4rem;padding-top:0.4rem;font-weight:700">Total: ${(totalSize/1024).toFixed(1)} KB</div>`;
+  }
+  
+  preencherDados();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

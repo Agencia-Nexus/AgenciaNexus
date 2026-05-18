@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Registre e gerencie o controle de ponto dos colaboradores da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Controle de Ponto | DP — Agência Nexus" />
+  <meta property="og:description" content="Registre e gerencie o controle de ponto dos colaboradores da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Controle de Ponto | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Registre e gerencie o controle de ponto dos colaboradores da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Controle de Ponto | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+<style>
+.clock-box{background:var(--card2);border:1px solid var(--border2);border-radius:18px;padding:1.5rem;text-align:center;margin-bottom:1rem;}
+.clock-time{font-size:3rem;font-weight:900;letter-spacing:-2px;color:var(--accent);line-height:1;}
+.clock-date{font-size:0.83rem;color:var(--muted);margin-top:0.3rem;}
+.ponto-btns{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:1rem;}
+.btn-ponto{padding:0.8rem;border-radius:12px;font-family:inherit;font-size:0.75rem;font-weight:800;cursor:pointer;border:2px solid transparent;transition:all 0.15s;text-align:center;}
+.btn-entrada{background:rgba(46,204,113,0.15);color:var(--green);border-color:rgba(46,204,113,0.4);}
+.btn-entrada:hover{background:rgba(46,204,113,0.25);}
+.btn-intervalo{background:rgba(243,156,18,0.15);color:var(--orange);border-color:rgba(243,156,18,0.4);}
+.btn-retorno{background:rgba(52,152,219,0.15);color:var(--blue);border-color:rgba(52,152,219,0.4);}
+.btn-saida{background:rgba(231,76,60,0.15);color:var(--red);border-color:rgba(231,76,60,0.4);}
+.btn-saida:hover{background:rgba(231,76,60,0.25);}
+.saldo-pos{color:var(--green);font-weight:800;}
+.saldo-neg{color:var(--red);font-weight:800;}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item active" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Controle de Ponto</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarEspelho()">📊 Exportar Espelho</button>
+      <button class="btn btn-blue btn-sm" onclick="exportarEspelhoWord()">📄 Word</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">⏱️ Controle de <span>Ponto</span></div>
+        <div class="sec-sub">Registro de jornada, banco de horas e espelho de ponto</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- Marcação de ponto -->
+      <div>
+        <div class="clock-box">
+          <div class="clock-time" id="relogio">00:00:00</div>
+          <div class="clock-date" id="dataAtual">--/--/----</div>
+          <div style="margin-top:0.8rem">
+            <label class="fl" style="text-align:left;display:block;margin-bottom:0.3rem">Colaborador</label>
+            <select class="fi" id="pontoColab" style="width:100%" onchange="atualizarStatusPonto()">
+              <option value="">— Selecione —</option>
+            </select>
+          </div>
+          <div class="ponto-btns">
+            <button class="btn-ponto btn-entrada"  onclick="registrarPonto('entrada')">✅ Entrada</button>
+            <button class="btn-ponto btn-intervalo" onclick="registrarPonto('intervalo')">⏸️ Intervalo</button>
+            <button class="btn-ponto btn-retorno"   onclick="registrarPonto('retorno')">▶️ Retorno</button>
+            <button class="btn-ponto btn-saida"     onclick="registrarPonto('saida')">🔴 Saída</button>
+          </div>
+          <div id="pontoStatusMsg" style="margin-top:0.8rem;font-size:0.82rem;color:var(--muted)">Selecione um colaborador para marcar o ponto.</div>
+        </div>
+
+        <!-- Lançamento manual -->
+        <div class="tbl-wrap" style="padding:1.1rem">
+          <div class="tbl-title" style="margin-bottom:0.9rem">✍️ Lançamento Manual de Ponto</div>
+          <div class="form-grid">
+            <div class="form-group fg-full"><label class="fl">Colaborador</label>
+              <select class="fi" id="manColab"><option value="">— Selecione —</option></select>
+            </div>
+            <div class="form-group"><label class="fl">Data</label><input type="date" class="fi" id="manData"/></div>
+            <div class="form-group"><label class="fl">Entrada</label><input type="time" class="fi" id="manEntrada" value="09:00"/></div>
+            <div class="form-group"><label class="fl">Início Intervalo</label><input type="time" class="fi" id="manIntervalo" value="12:00"/></div>
+            <div class="form-group"><label class="fl">Fim Intervalo</label><input type="time" class="fi" id="manRetorno" value="13:00"/></div>
+            <div class="form-group"><label class="fl">Saída</label><input type="time" class="fi" id="manSaida" value="18:00"/></div>
+            <div class="form-group fg-full"><label class="fl">Ocorrência</label>
+              <select class="fi" id="manOcorrencia">
+                <option value="">Nenhuma</option>
+                <option value="falta">Falta</option><option value="falta_just">Falta Justificada</option>
+                <option value="atestado">Atestado Médico</option><option value="folga">Folga Compensatória</option>
+                <option value="feriado">Feriado</option><option value="afastamento">Afastamento</option>
+              </select>
+            </div>
+            <div class="form-group fg-full"><label class="fl">Observação</label>
+              <input class="fi" id="manObs" placeholder="Observações sobre o dia..."/>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width:100%;margin-top:0.8rem" onclick="lancarManual()">✓ Lançar Ponto</button>
+        </div>
+      </div>
+
+      <!-- Espelho de ponto -->
+      <div>
+        <div class="tbl-wrap" style="padding:1rem;margin-bottom:1rem">
+          <div class="tbl-title" style="margin-bottom:0.8rem">📋 Filtros do Espelho</div>
+          <div class="form-grid">
+            <div class="form-group"><label class="fl">Colaborador</label>
+              <select class="fi" id="filtColabEsp"><option value="">Todos</option></select>
+            </div>
+            <div class="form-group"><label class="fl">Mês/Ano</label>
+              <input type="month" class="fi" id="filtMesEsp" value="2025-03"/>
+            </div>
+          </div>
+          <button class="btn btn-ghost" style="width:100%;margin-top:0.7rem" onclick="renderEspelho()">🔍 Filtrar</button>
+        </div>
+
+        <!-- Banco de Horas por colaborador -->
+        <div class="tbl-wrap" style="padding:1rem;margin-bottom:1rem">
+          <div class="tbl-title" style="margin-bottom:0.8rem">⚖️ Banco de Horas</div>
+          <table>
+            <thead><tr><th>Colaborador</th><th>Regime</th><th>Saldo</th><th>Status</th></tr></thead>
+            <tbody id="tbodyBancoHoras"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Espelho de ponto detalhado -->
+    <div class="tbl-wrap" id="espelhoWrap">
+      <div class="tbl-hd">
+        <span class="tbl-title" id="espelhoTitulo">Espelho de Ponto</span>
+        <div class="tbl-actions">
+          <button class="btn btn-success btn-sm" onclick="imprimirEspelho()">🖨️ Imprimir</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportarEspelho()">📊 CSV</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <table id="tblEspelho">
+          <thead>
+            <tr>
+              <th>Data</th><th>Dia</th><th>Entrada</th><th>Intervalo</th>
+              <th>Retorno</th><th>Saída</th><th>H. Trabalhadas</th>
+              <th>H. Devidas</th><th>Saldo</th><th>Ocorrência</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyEspelho"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6"><strong>TOTAIS DO MÊS</strong></td>
+              <td id="tfHT"></td><td id="tfHD"></td><td id="tfSaldo"></td><td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs().filter(c => c.situacao === 'Ativo');
+  let pontos = DP.getPontos();
+  
+  // Populate selects
+  [document.getElementById('pontoColab'), document.getElementById('manColab'),
+   document.getElementById('filtColabEsp')].forEach((sel, i) => {
+    if (i === 2) sel.innerHTML = '<option value="">Todos</option>';
+    else sel.innerHTML = '<option value="">— Selecione —</option>';
+    colabs.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id; opt.textContent = c.nome;
+      sel.appendChild(opt);
+    });
+  });
+  
+  // Relógio
+  function atualizarRelogio() {
+    const now = new Date();
+    document.getElementById('relogio').textContent =
+      now.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+    document.getElementById('dataAtual').textContent =
+      now.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
+  }
+  setInterval(atualizarRelogio, 1000);
+  atualizarRelogio();
+  
+  function registrarPonto(tipo) {
+    const id = parseInt(UI.val('pontoColab'));
+    const colab = colabs.find(c => c.id === id);
+    if (!colab) { UI.toast('Selecione um colaborador', 'err'); return; }
+    const now = new Date();
+    const hoje = now.toISOString().slice(0, 10);
+    const hora = now.toTimeString().slice(0, 8);
+    pontos.push({ id: Date.now(), colabId: id, colabNome: colab.nome, data: hoje, tipo, hora });
+    DP.savePontos(pontos);
+    const labels = { entrada:'Entrada registrada', intervalo:'Intervalo iniciado', retorno:'Retorno registrado', saida:'Saída registrada' };
+    UI.toast(`${labels[tipo]} — ${colab.nome} às ${hora}`, 'ok');
+    document.getElementById('pontoStatusMsg').textContent = `Último registro: ${labels[tipo]} às ${hora}`;
+    atualizarStatusPonto();
+    renderBancoHoras();
+  }
+  
+  function atualizarStatusPonto() {
+    const id = parseInt(UI.val('pontoColab'));
+    if (!id) return;
+    const hoje = Fmt.today();
+    const regHoje = pontos.filter(p => p.colabId === id && p.data === hoje);
+    if (regHoje.length === 0) {
+      document.getElementById('pontoStatusMsg').textContent = 'Nenhum registro hoje. Clique em Entrada para iniciar.';
+    } else {
+      const ultimo = regHoje[regHoje.length - 1];
+      document.getElementById('pontoStatusMsg').textContent = `Hoje: ${regHoje.map(p=>`${p.tipo} ${p.hora}`).join(' | ')}`;
+    }
+  }
+  
+  function lancarManual() {
+    const id = parseInt(UI.val('manColab'));
+    const colab = colabs.find(c => c.id === id);
+    if (!colab || !UI.val('manData')) { UI.toast('Preencha colaborador e data', 'err'); return; }
+    const data = UI.val('manData');
+    const entrada   = UI.val('manEntrada');
+    const intervalo = UI.val('manIntervalo');
+    const retorno   = UI.val('manRetorno');
+    const saida     = UI.val('manSaida');
+    if (entrada) pontos.push({ id: Date.now()+1, colabId: id, colabNome: colab.nome, data, tipo:'entrada',   hora: entrada });
+    if (intervalo) pontos.push({ id: Date.now()+2, colabId: id, colabNome: colab.nome, data, tipo:'intervalo', hora: intervalo });
+    if (retorno)  pontos.push({ id: Date.now()+3, colabId: id, colabNome: colab.nome, data, tipo:'retorno',   hora: retorno });
+    if (saida)    pontos.push({ id: Date.now()+4, colabId: id, colabNome: colab.nome, data, tipo:'saida',     hora: saida });
+    if (UI.val('manOcorrencia')) pontos.push({ id: Date.now()+5, colabId: id, colabNome: colab.nome, data, tipo: UI.val('manOcorrencia'), hora:'—', obs: UI.val('manObs') });
+    DP.savePontos(pontos);
+    UI.toast(`Ponto lançado para ${colab.nome} em ${Fmt.date(data)}`, 'ok');
+    renderBancoHoras();
+  }
+  
+  function calcularHoras(entrada, saida, intervalo, retorno) {
+    if (!entrada || !saida) return 0;
+    const toMin = t => { const [h,m]=t.split(':'); return parseInt(h)*60+parseInt(m); };
+    let trabalhado = toMin(saida) - toMin(entrada);
+    if (intervalo && retorno) trabalhado -= (toMin(retorno) - toMin(intervalo));
+    return Math.max(0, trabalhado / 60);
+  }
+  
+  function renderEspelho() {
+    const filtId = parseInt(UI.val('filtColabEsp')) || null;
+    const filtMes = UI.val('filtMesEsp') || '2025-03';
+    const [ano, mes] = filtMes.split('-');
+    const colab = filtId ? colabs.find(c => c.id === filtId) : null;
+    document.getElementById('espelhoTitulo').textContent =
+      `Espelho de Ponto — ${colab ? colab.nome : 'Todos'} — ${Fmt.mes(+mes)}/${ano}`;
+    // Gerar dias do mês
+    const diasNoMes = new Date(ano, mes, 0).getDate();
+    const dias = Array.from({length: diasNoMes}, (_, i) => {
+      const d = String(i+1).padStart(2,'0');
+      return `${ano}-${mes}-${d}`;
+    });
+    let totHT=0, totHD=0;
+    const cfg = DP.getConfig();
+    document.getElementById('tbodyEspelho').innerHTML = dias.map(data => {
+      const dt = new Date(data+'T12:00:00');
+      const diaSemana = dt.toLocaleDateString('pt-BR', {weekday:'short'});
+      const isFDS = dt.getDay() === 0 || dt.getDay() === 6;
+      const regs = pontos.filter(p => p.data === data && (!filtId || p.colabId === filtId));
+      const entrada   = regs.find(r=>r.tipo==='entrada')?.hora   || '';
+      const intervalo = regs.find(r=>r.tipo==='intervalo')?.hora || '';
+      const retorno   = regs.find(r=>r.tipo==='retorno')?.hora   || '';
+      const saida     = regs.find(r=>r.tipo==='saida')?.hora     || '';
+      const falta     = regs.find(r=>['falta','falta_just','atestado','folga','feriado','afastamento'].includes(r.tipo));
+      const hT = falta ? 0 : calcularHoras(entrada, saida, intervalo, retorno);
+      const hD = isFDS ? 0 : cfg.horasDiarias;
+      totHT += hT; totHD += hD;
+      const saldo = hT - hD;
+      const saldoStr = isFDS && hT===0 ? '—' : (saldo >= 0 ? `+${saldo.toFixed(1)}h` : `${saldo.toFixed(1)}h`);
+      const saldoCls = saldo >= 0 ? 'saldo-pos' : 'saldo-neg';
+      return `<tr style="${isFDS?'opacity:0.4':''}">
+        <td>${Fmt.date(data)}</td>
+        <td>${diaSemana}</td>
+        <td>${entrada||'—'}</td>
+        <td>${intervalo||'—'}</td>
+        <td>${retorno||'—'}</td>
+        <td>${saida||'—'}</td>
+        <td>${hT>0?hT.toFixed(1)+'h':'—'}</td>
+        <td>${hD>0?hD+'h':'—'}</td>
+        <td class="${!isFDS&&saldoCls||''}">${isFDS?'Folga':saldoStr}</td>
+        <td>${falta?`<span class="tag tag-orange">${falta.tipo}</span>`:''}</td>
+      </tr>`;
+    }).join('');
+    const saldoTotal = totHT - totHD;
+    document.getElementById('tfHT').innerHTML    = `<strong>${totHT.toFixed(1)}h</strong>`;
+    document.getElementById('tfHD').innerHTML    = `<strong>${totHD.toFixed(1)}h</strong>`;
+    document.getElementById('tfSaldo').innerHTML = `<strong class="${saldoTotal>=0?'saldo-pos':'saldo-neg'}">${saldoTotal>=0?'+':''}${saldoTotal.toFixed(1)}h</strong>`;
+  }
+  
+  function renderBancoHoras() {
+    const cfg = DP.getConfig();
+    document.getElementById('tbodyBancoHoras').innerHTML = colabs.slice(0, 6).map(c => {
+      // Simula saldo baseado em pontos registrados
+      const regsColab = pontos.filter(p => p.colabId === c.id);
+      const dias = [...new Set(regsColab.map(p=>p.data))];
+      let totalTrab = 0;
+      dias.forEach(data => {
+        const regs = regsColab.filter(p=>p.data===data);
+        const e = regs.find(r=>r.tipo==='entrada')?.hora;
+        const s = regs.find(r=>r.tipo==='saida')?.hora;
+        const i = regs.find(r=>r.tipo==='intervalo')?.hora;
+        const rt = regs.find(r=>r.tipo==='retorno')?.hora;
+        totalTrab += calcularHoras(e,s,i,rt);
+      });
+      const horasDevidas = dias.length * cfg.horasDiarias;
+      const saldo = totalTrab - horasDevidas;
+      const cls = saldo >= 0 ? 'saldo-pos' : 'saldo-neg';
+      return `<tr>
+        <td><div class="ci"><div class="av ${c.avc||'av-g'}" style="width:24px;height:24px;font-size:0.68rem">${Fmt.initials(c.nome)}</div>
+          <div class="ci-name" style="font-size:0.82rem">${c.nome}</div></div></td>
+        <td style="font-size:0.78rem">${c.regime||'44h'}</td>
+        <td class="${cls}">${saldo>=0?'+':''}${saldo.toFixed(1)}h</td>
+        <td><span class="tag ${saldo>=0?'tag-green':'tag-red'}">${saldo>=0?'Crédito':'Débito'}</span></td>
+      </tr>`;
+    }).join('');
+  }
+  
+  function imprimirEspelho() { Export.printDiv('tblEspelho','Espelho de Ponto — Agência Nexus'); }
+  function exportarEspelho() {
+    UI.toast('Gerando CSV do espelho de ponto...','inf');
+    const filtId = parseInt(UI.val('filtColabEsp'))||null;
+    const filtMes = UI.val('filtMesEsp')||'2025-03';
+    const [ano,mes] = filtMes.split('-');
+    const dias = Array.from({length:new Date(ano,mes,0).getDate()},(_,i)=>`${ano}-${mes}-${String(i+1).padStart(2,'0')}`);
+    const cfg = DP.getConfig();
+    const rows = dias.map(data => {
+      const regs = pontos.filter(p=>p.data===data&&(!filtId||p.colabId===filtId));
+      const e=regs.find(r=>r.tipo==='entrada')?.hora||'';
+      const i=regs.find(r=>r.tipo==='intervalo')?.hora||'';
+      const rt=regs.find(r=>r.tipo==='retorno')?.hora||'';
+      const s=regs.find(r=>r.tipo==='saida')?.hora||'';
+      const hT=calcularHoras(e,s,i,rt);
+      return [Fmt.date(data),e||'—',i||'—',rt||'—',s||'—',`${hT.toFixed(1)}h`,`${cfg.horasDiarias}h`,`${(hT-cfg.horasDiarias).toFixed(1)}h`];
+    });
+    Export.dataToCSV(['Data','Entrada','Intervalo','Retorno','Saída','H.Trabalhadas','H.Devidas','Saldo'],rows,`espelho_ponto_${filtMes}.csv`);
+  }
+  function exportarEspelhoWord() {
+    UI.toast('Gerando Word do espelho...','inf');
+    setTimeout(() => {
+      const el=document.getElementById('tblEspelho');
+      if(el) Export.toWord(el.outerHTML,'espelho_ponto.doc');
+    }, 200);
+  }
+  
+  // Defaults
+  document.getElementById('manData').value = Fmt.today();
+  renderBancoHoras();
+  renderEspelho();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

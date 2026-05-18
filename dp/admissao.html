@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Gerencie o processo de admissão de novos colaboradores na Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Admissão | DP — Agência Nexus" />
+  <meta property="og:description" content="Gerencie o processo de admissão de novos colaboradores na Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Admissão | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Gerencie o processo de admissão de novos colaboradores na Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Admissão | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+<style>
+.step-bar{display:flex;gap:0;margin-bottom:1.5rem;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+.step{flex:1;padding:0.65rem 0.5rem;text-align:center;font-size:0.62rem;font-weight:700;color:var(--muted);background:var(--card2);border-right:1px solid var(--border);cursor:pointer;transition:all 0.2s;text-transform:uppercase;letter-spacing:0.5px;}
+.step:last-child{border-right:none;}
+.step.done{background:rgba(96,165,250,0.12);color:var(--green);}
+.step.active{background:var(--accent-grad);color:#fff;}
+.check-item{display:flex;align-items:center;gap:0.7rem;padding:0.55rem 0;border-bottom:1px solid var(--border);font-size:0.83rem;}
+.check-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--green);cursor:pointer;}
+.check-item.checked{color:var(--muted);text-decoration:line-through;}
+.doc-req{padding:0.4rem 0.7rem;background:rgba(231,76,60,0.12);border-left:3px solid var(--red);border-radius:0 6px 6px 0;font-size:0.80rem;margin-bottom:0.35rem;}
+.doc-ok{padding:0.4rem 0.7rem;background:rgba(46,204,113,0.12);border-left:3px solid var(--green);border-radius:0 6px 6px 0;font-size:0.80rem;margin-bottom:0.35rem;}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item active" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Processo de Admissão</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarAdmissoes()">📊 Exportar CSV</button>
+      <button class="btn btn-blue btn-sm" onclick="gerarContratoWord()">📄 Gerar Contrato Word</button>
+      <button class="btn btn-primary btn-sm" onclick="UI.openModal('modalNovaAdmissao')">＋ Nova Admissão</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">✅ Processo de <span>Admissão</span></div>
+        <div class="sec-sub">Controle completo do fluxo admissional: documentos, cadastro, CTPS, e-Social</div>
+      </div>
+    </div>
+
+    <!-- KPIs rápidos -->
+    <div class="kpi-row" id="admKPI"></div>
+
+    <!-- Prazos legais de admissão -->
+    <div class="info-box blue" style="margin-bottom:1rem">
+      📅 <strong>Prazos legais:</strong> Registrar na CTPS em até <strong>48 horas</strong> após admissão. Comunicar ao e-Social até o dia anterior ao início das atividades. Exame admissional obrigatório antes do início.
+    </div>
+
+    <!-- Etapas do processo -->
+    <div class="tbl-wrap" style="padding:1.2rem;margin-bottom:1rem">
+      <div class="tbl-title" style="margin-bottom:1rem">📋 Processo Passo a Passo — Nova Admissão</div>
+      <div class="step-bar" id="stepBar">
+        <div class="step active" onclick="goStep(0)">1. Candidato</div>
+        <div class="step" onclick="goStep(1)">2. Documentos</div>
+        <div class="step" onclick="goStep(2)">3. Cadastro</div>
+        <div class="step" onclick="goStep(3)">4. Benefícios</div>
+        <div class="step" onclick="goStep(4)">5. Contrato</div>
+        <div class="step" onclick="goStep(5)">6. e-Social/CTPS</div>
+        <div class="step" onclick="goStep(6)">7. Conclusão</div>
+      </div>
+
+      <!-- Painéis de cada etapa -->
+      <div id="step0">
+        <div class="two-col">
+          <div>
+            <div class="form-grid">
+              <div class="form-group fg-full"><label class="fl">Nome Completo do Candidato *</label><input class="fi" id="admNome" placeholder="Nome como no RG"/></div>
+              <div class="form-group"><label class="fl">CPF *</label><input class="fi" id="admCPF" placeholder="000.000.000-00" oninput="Mask.cpf(this)"/></div>
+              <div class="form-group"><label class="fl">RG</label><input class="fi" id="admRG" placeholder="00.000.000-0"/></div>
+              <div class="form-group"><label class="fl">Data de Nascimento *</label><input type="date" class="fi" id="admNasc"/></div>
+              <div class="form-group"><label class="fl">Gênero</label>
+                <select class="fi" id="admGenero"><option>Masculino</option><option>Feminino</option><option>Outro</option></select>
+              </div>
+              <div class="form-group"><label class="fl">Estado Civil</label>
+                <select class="fi" id="admEstCivil"><option>Solteiro(a)</option><option>Casado(a)</option><option>Divorciado(a)</option><option>Viúvo(a)</option><option>União Estável</option></select>
+              </div>
+              <div class="form-group"><label class="fl">Escolaridade</label>
+                <select class="fi" id="admEscol"><option>Fundamental</option><option>Médio Completo</option><option>Superior Incompleto</option><option>Superior Completo</option><option>Pós-Graduação</option></select>
+              </div>
+              <div class="form-group"><label class="fl">Nº Dependentes</label><input type="number" class="fi" id="admDeps" value="0" min="0"/></div>
+              <div class="form-group"><label class="fl">Telefone</label><input class="fi" id="admTel" placeholder="(11) 9xxxx-xxxx" oninput="Mask.tel(this)"/></div>
+              <div class="form-group"><label class="fl">E-mail</label><input class="fi" id="admEmail" placeholder="email@exemplo.com" type="email"/></div>
+              <div class="form-group fg-full"><label class="fl">Endereço Completo</label><input class="fi" id="admEnd" placeholder="Rua, Nº, Complemento, Bairro, Cidade — UF"/></div>
+              <div class="form-group"><label class="fl">CEP</label><input class="fi" id="admCEP" placeholder="00000-000" oninput="Mask.cep(this)"/></div>
+              <div class="form-group"><label class="fl">Naturalidade</label><input class="fi" id="admNaturalidade" placeholder="São Paulo/SP"/></div>
+            </div>
+          </div>
+          <div>
+            <div class="form-grid">
+              <div class="form-group fg-full"><label class="fl">Cargo *</label><input class="fi" id="admCargo" placeholder="Ex: Analista de Marketing"/></div>
+              <div class="form-group"><label class="fl">CBO</label><input class="fi" id="admCBO" placeholder="Ex: 2531-05"/></div>
+              <div class="form-group"><label class="fl">Departamento</label>
+                <select class="fi" id="admDepto"><option>Administrativo</option><option>Comercial</option><option>Criação</option><option>Financeiro</option><option>Operações</option><option>RH/DP</option><option>Tecnologia</option><option>Jurídico</option></select>
+              </div>
+              <div class="form-group"><label class="fl">Tipo de Contrato *</label>
+                <select class="fi" id="admTipoContrato" onchange="atualizarTipoAdm()">
+                  <option value="CLT">CLT</option>
+                  <option value="Experiência">Período de Experiência (CLT)</option>
+                  <option value="Estagiário">Estágio</option>
+                  <option value="PJ">PJ / Serviços</option>
+                  <option value="Aprendiz">Jovem Aprendiz</option>
+                  <option value="Temporário">Temporário</option>
+                </select>
+              </div>
+              <div class="form-group"><label class="fl">Data de Admissão *</label><input type="date" class="fi" id="admData"/></div>
+              <div class="form-group"><label class="fl">Salário (R$) *</label><input type="number" class="fi" id="admSalario" step="0.01" min="0" placeholder="0,00"/></div>
+              <div class="form-group"><label class="fl">Regime de Jornada</label>
+                <select class="fi" id="admJornada"><option>44h semanais</option><option>40h semanais</option><option>36h semanais</option><option>30h semanais</option><option>6h diárias</option><option>4h diárias</option></select>
+              </div>
+              <div class="form-group"><label class="fl">Gestor Direto</label><input class="fi" id="admGestor" placeholder="Nome do gestor responsável"/></div>
+              <div class="form-group"><label class="fl">Período de Experiência</label>
+                <select class="fi" id="admExperiencia"><option value="">N/A</option><option value="45+45">45 + 45 dias (máx. 90d)</option><option value="30+60">30 + 60 dias</option><option value="90">90 dias corridos</option></select>
+              </div>
+              <div class="form-group"><label class="fl">Centro de Custo</label><input class="fi" id="admCC" placeholder="Ex: CC-001 Criação"/></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:1rem">
+          <button class="btn btn-primary" onclick="goStep(1)">Próximo: Documentos →</button>
+        </div>
+      </div>
+
+      <div id="step1" style="display:none">
+        <div class="two-col">
+          <div>
+            <div class="tbl-title" style="margin-bottom:0.8rem">📄 Documentos Obrigatórios CLT</div>
+            <div id="checklistDocs"></div>
+          </div>
+          <div>
+            <div class="tbl-title" style="margin-bottom:0.8rem">📋 Formulários a Assinar</div>
+            <div id="checklistForms"></div>
+          </div>
+        </div>
+        <div class="info-box warn" style="margin-top:1rem">⚠️ A ausência de documentação obrigatória não impede o início das atividades, mas o registro deve ser feito dentro do prazo legal.</div>
+        <div style="display:flex;justify-content:space-between;margin-top:1rem">
+          <button class="btn btn-ghost" onclick="goStep(0)">← Anterior</button>
+          <button class="btn btn-primary" onclick="goStep(2)">Próximo: Cadastro →</button>
+        </div>
+      </div>
+
+      <div id="step2" style="display:none">
+        <div class="form-grid">
+          <div class="form-group"><label class="fl">CTPS — Série</label><input class="fi" id="admCTPSSerie" placeholder="001"/></div>
+          <div class="form-group"><label class="fl">CTPS — Número</label><input class="fi" id="admCTPSNum" placeholder="000000"/></div>
+          <div class="form-group"><label class="fl">CTPS — UF</label><input class="fi" id="admCTPSUF" placeholder="SP"/></div>
+          <div class="form-group"><label class="fl">PIS/PASEP</label><input class="fi" id="admPIS" placeholder="000.00000.00-0" oninput="Mask.pis(this)"/></div>
+          <div class="form-group"><label class="fl">Banco</label><input class="fi" id="admBanco" placeholder="Ex: Nubank (Nu Pagamentos SA)"/></div>
+          <div class="form-group"><label class="fl">Código do Banco</label><input class="fi" id="admBancoCod" placeholder="000"/></div>
+          <div class="form-group"><label class="fl">Agência</label><input class="fi" id="admAgencia" placeholder="0000"/></div>
+          <div class="form-group"><label class="fl">Conta Corrente</label><input class="fi" id="admConta" placeholder="00000-0"/></div>
+          <div class="form-group"><label class="fl">Chave PIX</label><input class="fi" id="admPIX" placeholder="CPF, e-mail ou telefone"/></div>
+          <div class="form-group"><label class="fl">Título de Eleitor</label><input class="fi" id="admTitulo" placeholder="Número do título"/></div>
+          <div class="form-group"><label class="fl">Zona Eleitoral</label><input class="fi" id="admZona" placeholder="000"/></div>
+          <div class="form-group"><label class="fl">Seção Eleitoral</label><input class="fi" id="admSecao" placeholder="000"/></div>
+          <div class="form-group"><label class="fl">CNH (se aplicável)</label><input class="fi" id="admCNH" placeholder="Número e categoria"/></div>
+          <div class="form-group"><label class="fl">Validade CNH</label><input type="date" class="fi" id="admCNHVenc"/></div>
+          <div class="form-group fg-full"><label class="fl">Nome da Mãe</label><input class="fi" id="admMae" placeholder="Nome completo da mãe"/></div>
+          <div class="form-group fg-full"><label class="fl">Nome do Pai</label><input class="fi" id="admPai" placeholder="Nome completo do pai (ou 'não declarado')"/></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:1rem">
+          <button class="btn btn-ghost" onclick="goStep(1)">← Anterior</button>
+          <button class="btn btn-primary" onclick="goStep(3)">Próximo: Benefícios →</button>
+        </div>
+      </div>
+
+      <div id="step3" style="display:none">
+        <div class="form-grid c3">
+          <div class="form-group"><label class="fl">Vale Transporte (R$/mês)</label><input type="number" class="fi" id="admVT" value="0" step="0.01" min="0"/></div>
+          <div class="form-group"><label class="fl">Tipo de Trajeto VT</label>
+            <select class="fi" id="admTipoVT"><option>Ônibus</option><option>Metrô</option><option>Ônibus + Metrô</option><option>Intermunicipal</option><option>Digital (cartão)</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Desconto VT (%)</label><input class="fi" id="admDescVT" value="6%" readonly/></div>
+          <div class="form-group"><label class="fl">Vale Refeição (R$/mês)</label><input type="number" class="fi" id="admVR" value="550" step="0.01" min="0"/></div>
+          <div class="form-group"><label class="fl">Vale Alimentação (R$/mês)</label><input type="number" class="fi" id="admVA" value="0" step="0.01" min="0"/></div>
+          <div class="form-group"><label class="fl">Plano de Saúde</label>
+            <select class="fi" id="admSaude"><option value="Não">Não</option><option value="Básico">Básico (R$ 320/mês)</option><option value="Premium">Premium (R$ 520/mês)</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Plano Odontológico</label>
+            <select class="fi" id="admOdonto"><option value="Não">Não</option><option value="Básico">Básico (R$ 65/mês)</option><option value="Premium">Premium (R$ 100/mês)</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Seguro de Vida</label>
+            <select class="fi" id="admSegVida"><option value="Não">Não</option><option value="Sim">Sim (R$ 45/mês)</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Outros Benefícios</label><input class="fi" id="admOutrosBen" placeholder="Ex: Gympass, cursos..."/></div>
+        </div>
+        <div id="resumoBeneficios" class="result-box" style="margin-top:1rem"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:1rem">
+          <button class="btn btn-ghost" onclick="goStep(2)">← Anterior</button>
+          <button class="btn btn-primary" onclick="goStep(4);calcularResumo()">Próximo: Contrato →</button>
+        </div>
+      </div>
+
+      <div id="step4" style="display:none">
+        <div class="form-grid">
+          <div class="form-group fg-full"><label class="fl">Atribuições / Descrição do Cargo</label>
+            <textarea class="fi" id="admAtrib" rows="3" placeholder="Descreva as principais atividades e responsabilidades do cargo..."></textarea>
+          </div>
+          <div class="form-group fg-full"><label class="fl">Cláusulas Especiais</label>
+            <textarea class="fi" id="admClausulas" rows="2" placeholder="Cláusulas de confidencialidade, não concorrência, exclusividade, etc."></textarea>
+          </div>
+          <div class="form-group"><label class="fl">Local de Trabalho</label>
+            <select class="fi" id="admLocalTrab"><option>Presencial</option><option>Híbrido</option><option>Home Office</option><option>Externo</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Duração do Contrato</label>
+            <select class="fi" id="admDuracao"><option>Indeterminado</option><option>Determinado (experiência)</option><option>Obra Certa</option></select>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="padding:1rem;margin-top:1rem;background:var(--card)">
+          <div class="tbl-title" style="margin-bottom:0.7rem">📄 Preview do Contrato</div>
+          <div id="previewContrato" style="font-size:0.80rem;line-height:1.8;color:var(--text2)"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:1rem">
+          <button class="btn btn-ghost" onclick="goStep(3)">← Anterior</button>
+          <div style="display:flex;gap:0.5rem">
+            <button class="btn btn-blue" onclick="gerarContratoWord()">📄 Gerar Contrato Word</button>
+            <button class="btn btn-primary" onclick="goStep(5)">Próximo: e-Social/CTPS →</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="step5" style="display:none">
+        <div class="two-col">
+          <div>
+            <div class="tbl-title" style="margin-bottom:0.8rem">🏛️ e-Social — Obrigações</div>
+            <div id="esocialChecklist"></div>
+          </div>
+          <div>
+            <div class="tbl-title" style="margin-bottom:0.8rem">📒 CTPS — Anotações</div>
+            <div id="ctpsChecklist"></div>
+            <div class="info-box blue" style="margin-top:0.8rem">
+              <strong>Prazo CTPS:</strong> Registrar e devolver em até 48h. Se digital (CTPS Digital), anotação no sistema é suficiente. Data de admissão deve constar claramente.
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:1rem">
+          <button class="btn btn-ghost" onclick="goStep(4)">← Anterior</button>
+          <button class="btn btn-primary" onclick="goStep(6)">Próximo: Conclusão →</button>
+        </div>
+      </div>
+
+      <div id="step6" style="display:none">
+        <div id="conclusaoBox"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:1.5rem">
+          <button class="btn btn-ghost" onclick="goStep(5)">← Anterior</button>
+          <div style="display:flex;gap:0.6rem">
+            <button class="btn btn-ghost" onclick="exportarAdmissoes()">📊 Exportar CSV</button>
+            <button class="btn btn-blue" onclick="gerarKitAdmissionalWord()">📄 Kit Admissional Word</button>
+            <button class="btn btn-primary" onclick="concluirAdmissao()">✅ Confirmar e Cadastrar Colaborador</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Histórico de admissões -->
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">📋 Histórico de Admissões</span>
+        <div class="tbl-actions">
+          <div class="search-box"><span>🔍</span><input placeholder="Buscar..." oninput="UI.filtrarTabela('tblAdm',this.value)"/></div>
+          <button class="btn btn-ghost btn-sm" onclick="exportarAdmissoes()">📊 CSV</button>
+        </div>
+      </div>
+      <table id="tblAdm">
+        <thead><tr>
+          <th>Nome</th><th>CPF</th><th>Cargo</th><th>Depto</th><th>Tipo</th>
+          <th>Data Admissão</th><th>Salário</th><th>Status</th><th>Ações</th>
+        </tr></thead>
+        <tbody id="tbodyAdm"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal nova admissão rápida -->
+<div class="overlay" id="modalNovaAdmissao">
+<div class="modal">
+  <div class="modal-hd"><div class="modal-title">✅ Nova Admissão Rápida</div><div class="modal-close" onclick="UI.closeModal('modalNovaAdmissao')">✕</div></div>
+  <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem">Use o formulário completo abaixo para registrar uma nova admissão passo a passo, ou registre aqui de forma rápida.</p>
+  <div class="form-grid">
+    <div class="form-group fg-full"><label class="fl">Nome Completo *</label><input class="fi" id="radNome" placeholder="Nome completo"/></div>
+    <div class="form-group"><label class="fl">CPF *</label><input class="fi" id="radCPF" oninput="Mask.cpf(this)" placeholder="000.000.000-00"/></div>
+    <div class="form-group"><label class="fl">Data Admissão *</label><input type="date" class="fi" id="radData"/></div>
+    <div class="form-group"><label class="fl">Cargo *</label><input class="fi" id="radCargo" placeholder="Cargo"/></div>
+    <div class="form-group"><label class="fl">Departamento</label>
+      <select class="fi" id="radDepto"><option>Administrativo</option><option>Comercial</option><option>Criação</option><option>Tecnologia</option><option>Financeiro</option><option>RH/DP</option></select>
+    </div>
+    <div class="form-group"><label class="fl">Tipo</label>
+      <select class="fi" id="radTipo"><option value="CLT">CLT</option><option value="Estagiário">Estagiário</option><option value="Temporário">Temporário</option></select>
+    </div>
+    <div class="form-group"><label class="fl">Salário (R$) *</label><input type="number" class="fi" id="radSalario" min="0" step="0.01"/></div>
+    <div class="form-group"><label class="fl">E-mail</label><input type="email" class="fi" id="radEmail" placeholder="email@exemplo.com"/></div>
+  </div>
+  <div class="modal-ft">
+    <button class="btn btn-ghost" onclick="UI.closeModal('modalNovaAdmissao')">Cancelar</button>
+    <button class="btn btn-primary" onclick="admissaoRapida()">✓ Registrar Admissão</button>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  let admissoes = DP.getAdmissoes();
+  let stepAtual = 0;
+  
+  const docChecklist = [
+    {doc:'RG (original + cópia)', obrig:true},
+    {doc:'CPF (ou via RG)', obrig:true},
+    {doc:'Certidão de nascimento ou casamento', obrig:true},
+    {doc:'CTPS física ou CTPS Digital', obrig:true},
+    {doc:'Comprovante de residência (até 3 meses)', obrig:true},
+    {doc:'PIS/PASEP (1ª vez: solicitar ao banco)', obrig:true},
+    {doc:'Cartão de vacina (filhos menores de 7 anos — para IRRF)', obrig:false},
+    {doc:'Foto 3×4 recente', obrig:true},
+    {doc:'Diploma ou certificado de escolaridade', obrig:false},
+    {doc:'Número de título de eleitor', obrig:false},
+    {doc:'Certificado de reservista (homens até 45a)', obrig:false},
+    {doc:'CNH (se o cargo exigir)', obrig:false},
+    {doc:'Dados bancários (para folha de pagamento)', obrig:true},
+  ];
+  const formChecklist = [
+    {doc:'Ficha de Admissão preenchida e assinada', obrig:true},
+    {doc:'Declaração de opção por VT', obrig:true},
+    {doc:'Declaração de dependentes (IRRF)', obrig:false},
+    {doc:'Declaração de saúde (plano de saúde)', obrig:false},
+    {doc:'Autorização para desconto em folha', obrig:false},
+    {doc:'Contrato de trabalho assinado (2 vias)', obrig:true},
+    {doc:'Termo de confidencialidade (se aplicável)', obrig:false},
+    {doc:'ASO — Atestado de Saúde Ocupacional (admissional)', obrig:true},
+    {doc:'PCMSO — Programa de Controle Médico', obrig:true},
+  ];
+  const esocialChecklist = [
+    {doc:'S-2200 — Cadastramento Inicial do Vínculo Empregatício (até dia anterior ao início)', obrig:true},
+    {doc:'S-2205 — Alteração de Dados Cadastrais (quando necessário)', obrig:false},
+    {doc:'S-2206 — Alteração de Contrato de Trabalho (se houver)', obrig:false},
+    {doc:'CAGED — Comunicação de Admissão (para empresas obrigadas)', obrig:true},
+  ];
+  const ctpsChecklist = [
+    {doc:'Anotar data de admissão na CTPS', obrig:true},
+    {doc:'Anotar cargo, salário e regime de jornada', obrig:true},
+    {doc:'Assinar e carimbar a CTPS', obrig:true},
+    {doc:'Devolver a CTPS ao empregado em até 48h', obrig:true},
+    {doc:'Registrar número CTPS na ficha do colaborador', obrig:true},
+  ];
+  
+  function renderChecklistDocs() {
+    document.getElementById('checklistDocs').innerHTML = docChecklist.map((d, i) => `
+      <div class="check-item" id="chkdoc${i}">
+        <input type="checkbox" id="ck_doc_${i}" onchange="marcarCheck('chkdoc${i}',this)"/>
+        <label for="ck_doc_${i}">${d.doc}</label>
+        <span class="tag ${d.obrig?'tag-red':'tag-gray'}" style="margin-left:auto;font-size:0.68rem">${d.obrig?'Obrigatório':'Opcional'}</span>
+      </div>`).join('');
+    document.getElementById('checklistForms').innerHTML = formChecklist.map((d, i) => `
+      <div class="check-item" id="chkform${i}">
+        <input type="checkbox" id="ck_form_${i}" onchange="marcarCheck('chkform${i}',this)"/>
+        <label for="ck_form_${i}">${d.doc}</label>
+        <span class="tag ${d.obrig?'tag-red':'tag-gray'}" style="margin-left:auto;font-size:0.68rem">${d.obrig?'Obrigatório':'Opcional'}</span>
+      </div>`).join('');
+    document.getElementById('esocialChecklist').innerHTML = esocialChecklist.map((d,i) => `
+      <div class="check-item" id="chkes${i}">
+        <input type="checkbox" id="ck_es_${i}" onchange="marcarCheck('chkes${i}',this)"/>
+        <label for="ck_es_${i}">${d.doc}</label>
+        <span class="tag ${d.obrig?'tag-red':'tag-gray'}" style="margin-left:auto;font-size:0.68rem">${d.obrig?'Obrigatório':'Opcional'}</span>
+      </div>`).join('');
+    document.getElementById('ctpsChecklist').innerHTML = ctpsChecklist.map((d,i) => `
+      <div class="check-item" id="chkctps${i}">
+        <input type="checkbox" id="ck_ctps_${i}" onchange="marcarCheck('chkctps${i}',this)"/>
+        <label for="ck_ctps_${i}">${d.doc}</label>
+      </div>`).join('');
+  }
+  
+  function marcarCheck(id, el) {
+    document.getElementById(id)?.classList.toggle('checked', el.checked);
+  }
+  
+  function goStep(n) {
+    for (let i = 0; i <= 6; i++) {
+      const el = document.getElementById('step'+i);
+      if (el) el.style.display = i === n ? 'block' : 'none';
+    }
+    document.querySelectorAll('.step-bar .step').forEach((s, i) => {
+      s.classList.toggle('active', i === n);
+      s.classList.toggle('done', i < n);
+    });
+    if (n === 4) renderPreviewContrato();
+    if (n === 6) renderConclusao();
+    stepAtual = n;
+  }
+  
+  function renderPreviewContrato() {
+    const nome     = UI.val('admNome') || '[NOME DO COLABORADOR]';
+    const cpf      = UI.val('admCPF')  || '000.000.000-00';
+    const cargo    = UI.val('admCargo')|| '[CARGO]';
+    const salario  = parseFloat(UI.val('admSalario')) || 0;
+    const data     = UI.val('admData') ? Fmt.date(UI.val('admData')) : '[DATA]';
+    const tipo     = UI.val('admTipoContrato');
+    const jornada  = UI.val('admJornada');
+    const cfg = DP.getConfig();
+    document.getElementById('previewContrato').innerHTML = `
+      <div style="text-align:center;font-weight:900;font-size:0.85rem;margin-bottom:1rem">CONTRATO DE TRABALHO — ${tipo.toUpperCase()}</div>
+      <p>Por este instrumento particular, de um lado, <strong>${cfg.empresa.razao_social}</strong>, inscrita no CNPJ sob o nº ${cfg.empresa.cnpj}, com sede em ${cfg.empresa.endereco}, doravante denominada <strong>EMPREGADORA</strong>;</p>
+      <p>De outro lado, <strong>${nome}</strong>, portador(a) do CPF ${cpf}, doravante denominado(a) <strong>EMPREGADO(A)</strong>;</p>
+      <p>As partes acima qualificadas resolvem celebrar o presente Contrato Individual de Trabalho, regido pela Consolidação das Leis do Trabalho — CLT e legislação complementar, mediante as seguintes cláusulas:</p>
+      <p><strong>Cláusula 1ª — CARGO E FUNÇÃO:</strong> O(a) EMPREGADO(A) é admitido(a) no cargo de <strong>${cargo}</strong>, exercendo as funções descritas na Descrição de Cargo anexa.</p>
+      <p><strong>Cláusula 2ª — REMUNERAÇÃO:</strong> O(a) EMPREGADO(A) perceberá salário mensal de <strong>${Fmt.brl(salario)}</strong>, pago até o 5º dia útil do mês subsequente.</p>
+      <p><strong>Cláusula 3ª — JORNADA DE TRABALHO:</strong> Jornada de <strong>${jornada}</strong>, podendo ser compensada conforme necessidade operacional, nos termos da lei.</p>
+      <p><strong>Cláusula 4ª — DATA DE INÍCIO:</strong> O presente contrato vigorará a partir de <strong>${data}</strong>.</p>
+      ${UI.val('admAtrib') ? `<p><strong>Cláusula 5ª — ATRIBUIÇÕES:</strong> ${UI.val('admAtrib')}</p>` : ''}
+      ${UI.val('admClausulas') ? `<p><strong>Cláusula 6ª — DISPOSIÇÕES ESPECIAIS:</strong> ${UI.val('admClausulas')}</p>` : ''}
+      <p style="margin-top:2rem">São Paulo, ${new Date().toLocaleDateString('pt-BR')}</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem">
+        <div>_____________________________<br><small>${cfg.empresa.razao_social}<br>EMPREGADORA</small></div>
+        <div>_____________________________<br><small>${nome}<br>EMPREGADO(A)</small></div>
+      </div>`;
+  }
+  
+  function renderConclusao() {
+    const nome    = UI.val('admNome') || 'Novo Colaborador';
+    const cargo   = UI.val('admCargo');
+    const salario = parseFloat(UI.val('admSalario')) || 0;
+    const data    = UI.val('admData') ? Fmt.date(UI.val('admData')) : '—';
+    const cfg     = DP.getConfig();
+    const r       = Calc.liquido({ salario, tipo:UI.val('admTipoContrato')==='Estagiário'?'Estagiário':'CLT', vt:parseFloat(UI.val('admVT'))||0, vr:parseFloat(UI.val('admVR'))||0, dependentes:parseInt(UI.val('admDeps'))||0 }, {});
+    document.getElementById('conclusaoBox').innerHTML = `
+      <div class="info-box ok" style="margin-bottom:1rem">✅ Processo de admissão concluído! Revise os dados abaixo antes de confirmar.</div>
+      <div class="two-col">
+        <div class="result-box">
+          <div style="font-size:0.78rem;font-weight:800;letter-spacing:1.5px;color:var(--accent);margin-bottom:0.5rem">DADOS DO COLABORADOR</div>
+          <div class="rb-row"><span class="rb-lbl">Nome</span><span class="rb-val fw7">${nome}</span></div>
+          <div class="rb-row"><span class="rb-lbl">CPF</span><span>${UI.val('admCPF')||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Cargo</span><span>${cargo||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Departamento</span><span>${UI.val('admDepto')}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Tipo</span><span><span class="tag tag-blue">${UI.val('admTipoContrato')}</span></span></div>
+          <div class="rb-row"><span class="rb-lbl">Admissão</span><span>${data}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Salário Bruto</span><span class="c-green fw7">${Fmt.brl(salario)}</span></div>
+        </div>
+        <div class="result-box">
+          <div style="font-size:0.78rem;font-weight:800;letter-spacing:1.5px;color:var(--accent);margin-bottom:0.5rem">PROJEÇÃO FINANCEIRA 1º MÊS</div>
+          <div class="rb-row add"><span class="rb-lbl">Salário Base</span><span>${Fmt.brl(salario)}</span></div>
+          <div class="rb-row add"><span class="rb-lbl">VR/VA</span><span>${Fmt.brl((parseFloat(UI.val('admVR'))||0)+(parseFloat(UI.val('admVA'))||0))}</span></div>
+          <div class="rb-row desc"><span class="rb-lbl">INSS</span><span>${Fmt.brl(r.descontos.inss)}</span></div>
+          <div class="rb-row desc"><span class="rb-lbl">IRRF</span><span>${Fmt.brl(r.descontos.irrf)}</span></div>
+          <div class="rb-row desc"><span class="rb-lbl">Desconto VT</span><span>${Fmt.brl(r.descontos.vt)}</span></div>
+          <div class="rb-row total"><span class="rb-lbl">Líquido Estimado</span><span>${Fmt.brl(r.liquido)}</span></div>
+          <div class="rb-row"><span class="rb-lbl">FGTS (empresa)</span><span class="c-blue">${Fmt.brl(r.fgts)}</span></div>
+        </div>
+      </div>`;
+  }
+  
+  function calcularResumo() {
+    const vt = parseFloat(UI.val('admVT'))||0;
+    const vr = parseFloat(UI.val('admVR'))||0;
+    const va = parseFloat(UI.val('admVA'))||0;
+    const saude = {Não:0,Básico:320,Premium:520}[UI.val('admSaude')]||0;
+    const odonto = {Não:0,Básico:65,Premium:100}[UI.val('admOdonto')]||0;
+    const seg = UI.val('admSegVida')==='Sim'?45:0;
+    const total = vt+vr+va+saude+odonto+seg;
+    document.getElementById('resumoBeneficios').innerHTML = `
+      <div style="font-size:0.62rem;font-weight:800;letter-spacing:1.5px;color:var(--accent);margin-bottom:0.6rem">CUSTO DE BENEFÍCIOS / MÊS</div>
+      ${[['VT',vt],['VR',vr],['VA',va],['Saúde',saude],['Odonto',odonto],['Seg. Vida',seg]].filter(x=>x[1]>0).map(x=>`<div class="rb-row"><span class="rb-lbl">${x[0]}</span><span>${Fmt.brl(x[1])}</span></div>`).join('')}
+      <div class="rb-row total"><span class="rb-lbl">Total Benefícios</span><span class="c-accent fw8">${Fmt.brl(total)}</span></div>`;
+  }
+  
+  function concluirAdmissao() {
+    const nome = UI.val('admNome') || UI.val('radNome');
+    if (!nome) { UI.toast('Preencha o nome do colaborador', 'err'); return; }
+    const novo = {
+      id: Date.now(), nome, cpf: UI.val('admCPF'), rg: UI.val('admRG'),
+      nasc: UI.val('admNasc'), email: UI.val('admEmail'), tel: UI.val('admTel'),
+      endereco: UI.val('admEnd'), genero: UI.val('admGenero'),
+      estadoCivil: UI.val('admEstCivil'), escolaridade: UI.val('admEscol'),
+      dependentes: parseInt(UI.val('admDeps'))||0,
+      tipo: UI.val('admTipoContrato') === 'Estagiário' ? 'Estagiário' : 'CLT',
+      cargo: UI.val('admCargo'), cbo: UI.val('admCBO'), depto: UI.val('admDepto'),
+      admissao: UI.val('admData'), salario: parseFloat(UI.val('admSalario'))||0,
+      regime: UI.val('admJornada'), gestor: UI.val('admGestor'),
+      ctps: `${UI.val('admCTPSNum')||''}/${UI.val('admCTPSSerie')||''}-${UI.val('admCTPSUF')||'SP'}`,
+      pis: UI.val('admPIS'), banco: UI.val('admBanco'),
+      vt: parseFloat(UI.val('admVT'))||0, vr: parseFloat(UI.val('admVR'))||0,
+      va: parseFloat(UI.val('admVA'))||0, saude: UI.val('admSaude'),
+      odonto: UI.val('admOdonto'), segVida: UI.val('admSegVida'),
+      situacao: 'Ativo', av: (nome.split(' ')[0]?.[0]||'?')+(nome.split(' ')[1]?.[0]||''), avc: 'av-g',
+    };
+    const colabs = DP.getColabs();
+    colabs.push(novo);
+    DP.saveColabs(colabs);
+    admissoes.push({ ...novo, registradoEm: new Date().toISOString(), status: 'Concluído' });
+    DP.saveAdmissoes(admissoes);
+    renderAdmissoes(); renderKPIs();
+    UI.toast(`${nome} admitido(a) com sucesso! Colaborador cadastrado.`, 'ok');
+    goStep(0);
+  }
+  
+  function admissaoRapida() {
+    const nome = UI.val('radNome');
+    if (!nome || !UI.val('radData') || !UI.val('radSalario')) {
+      UI.toast('Preencha nome, data e salário', 'err'); return;
+    }
+    const novo = {
+      id: Date.now(), nome, cpf: UI.val('radCPF'),
+      cargo: UI.val('radCargo'), depto: UI.val('radDepto'),
+      tipo: UI.val('radTipo'), admissao: UI.val('radData'),
+      salario: parseFloat(UI.val('radSalario'))||0, email: UI.val('radEmail'),
+      situacao: 'Ativo', av: (nome[0]||'?').toUpperCase(), avc: 'av-g',
+    };
+    const colabs = DP.getColabs(); colabs.push(novo); DP.saveColabs(colabs);
+    admissoes.push({ ...novo, registradoEm: new Date().toISOString(), status: 'Rápida' });
+    DP.saveAdmissoes(admissoes);
+    renderAdmissoes(); renderKPIs();
+    UI.closeModal('modalNovaAdmissao');
+    UI.toast(`${nome} registrado(a) com sucesso!`, 'ok');
+  }
+  
+  function gerarContratoWord() {
+    const el = document.getElementById('previewContrato');
+    if (!el || !el.innerHTML) { renderPreviewContrato(); }
+    setTimeout(() => {
+      const content = document.getElementById('previewContrato')?.innerHTML || '';
+      Export.toWord(`<h2>Contrato de Trabalho</h2>${content}`, `contrato_${UI.val('admNome').replace(/\s/g,'_')||'novo'}.doc`);
+    }, 100);
+  }
+  
+  function gerarKitAdmissionalWord() {
+    const nome = UI.val('admNome') || 'Colaborador';
+    const cfg  = DP.getConfig();
+    const content = document.getElementById('previewContrato')?.innerHTML || '';
+    Export.toWord(`
+      <h1>KIT ADMISSIONAL — ${cfg.empresa.razao_social}</h1>
+      <h2>Colaborador: ${nome}</h2>
+      <p>Data de Admissão: ${UI.val('admData')?Fmt.date(UI.val('admData')):'—'} | Cargo: ${UI.val('admCargo')||'—'}</p>
+      <h2>1. Contrato de Trabalho</h2>${content}
+      <h2>2. Documentos Coletados</h2>
+      <p>${docChecklist.map(d=>`• ${d.doc}${d.obrig?' (Obrigatório)':''}`).join('<br>')}</p>
+      <h2>3. Benefícios Concedidos</h2>
+      <p>VT: ${Fmt.brl(parseFloat(UI.val('admVT'))||0)} | VR: ${Fmt.brl(parseFloat(UI.val('admVR'))||0)} | Saúde: ${UI.val('admSaude')||'Não'} | Odonto: ${UI.val('admOdonto')||'Não'}</p>`,
+      `kit_admissional_${nome.replace(/\s/g,'_')}.doc`);
+  }
+  
+  function renderAdmissoes() {
+    const statusCls = { Concluído:'tag-green', 'Em andamento':'tag-orange', Rápida:'tag-blue' };
+    document.getElementById('tbodyAdm').innerHTML = admissoes.length === 0
+      ? `<tr><td colspan="9"><div class="empty"><span class="ico">✅</span><p>Nenhuma admissão registrada</p></div></td></tr>`
+      : admissoes.slice().reverse().map(a => `<tr>
+          <td><strong>${a.nome}</strong></td>
+          <td style="font-size:0.78rem">${a.cpf||'—'}</td>
+          <td>${a.cargo||'—'}</td>
+          <td>${a.depto||'—'}</td>
+          <td><span class="tag ${a.tipo==='CLT'?'tag-blue':a.tipo==='Estagiário'?'tag-purple':'tag-gray'}">${a.tipo||'CLT'}</span></td>
+          <td>${Fmt.date(a.admissao)}</td>
+          <td class="c-accent fw7">${Fmt.brl(a.salario)}</td>
+          <td><span class="tag ${statusCls[a.status]||'tag-gray'}">${a.status||'—'}</span></td>
+          <td><button class="btn btn-danger btn-sm" onclick="excluirAdm(${a.id})">✕</button></td>
+        </tr>`).join('');
+  }
+  
+  function excluirAdm(id) {
+    UI.confirm('Excluir este registro de admissão?', () => {
+      admissoes = admissoes.filter(a => a.id !== id);
+      DP.saveAdmissoes(admissoes); renderAdmissoes(); renderKPIs();
+    });
+  }
+  
+  function exportarAdmissoes() {
+    Export.dataToCSV(
+      ['Nome','CPF','Cargo','Departamento','Tipo','Admissão','Salário','Status'],
+      admissoes.map(a => [a.nome, a.cpf||'', a.cargo||'', a.depto||'', a.tipo||'CLT', Fmt.date(a.admissao), Fmt.brl(a.salario), a.status||'']),
+      'admissoes.csv'
+    );
+  }
+  
+  function renderKPIs() {
+    const mesAtual = new Date().toISOString().slice(0,7);
+    const mesMes   = admissoes.filter(a => a.admissao?.startsWith(mesAtual));
+    const colabs   = DP.getColabs().filter(c => c.situacao === 'Ativo');
+    document.getElementById('admKPI').innerHTML = [
+      {v: admissoes.length,       l:'Total Admissões', cls:'c-text'},
+      {v: mesMes.length,          l:'Admissões do Mês', cls:'c-green'},
+      {v: colabs.length,          l:'Colaboradores Ativos', cls:'c-accent'},
+      {v: admissoes.filter(a=>a.tipo==='Estagiário').length, l:'Estagiários Admitidos', cls:'c-purple'},
+    ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div></div>`).join('');
+  }
+  
+  document.getElementById('admData').value = Fmt.today();
+  document.getElementById('radData').value  = Fmt.today();
+  renderChecklistDocs();
+  renderAdmissoes();
+  renderKPIs();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

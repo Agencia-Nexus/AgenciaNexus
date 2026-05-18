@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Armazene e gerencie documentos e templates do DP da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Documentos | DP — Agência Nexus" />
+  <meta property="og:description" content="Armazene e gerencie documentos e templates do DP da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Documentos | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Armazene e gerencie documentos e templates do DP da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Documentos | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+<style>
+.doc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;display:flex;flex-direction:column;gap:0.4rem;transition:all 0.15s;}
+.doc-card:hover{border-color:var(--border2);background:var(--card2);}
+.doc-ico{font-size:1.8rem;}
+.doc-name{font-size:0.75rem;font-weight:700;}
+.doc-sub{font-size:0.62rem;color:var(--muted);}
+.template-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:0.7rem;}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item active" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Documentos</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-primary btn-sm" onclick="UI.openModal('modalDoc')">＋ Registrar Documento</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">📁 Central de <span>Documentos</span></div>
+        <div class="sec-sub">Templates Word prontos para uso, controle de documentos por colaborador e arquivos do DP</div>
+      </div>
+    </div>
+
+    <!-- Templates prontos -->
+    <div class="tbl-wrap" style="padding:1.2rem;margin-bottom:1rem">
+      <div class="tbl-title" style="margin-bottom:0.9rem">📄 Templates Prontos para Download (Word)</div>
+      <div class="template-grid" id="templateGrid"></div>
+    </div>
+
+    <!-- Documentos registrados por colaborador -->
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">🗂️ Documentos Registrados por Colaborador</span>
+        <div class="tbl-actions">
+          <div class="search-box"><span>🔍</span><input placeholder="Buscar..." oninput="UI.filtrarTabela('tblDocs',this.value)"/></div>
+          <select class="fi" id="filtDocTipo" style="font-size:0.82rem;padding:0.3rem 0.5rem" onchange="renderDocs()">
+            <option value="">Todos os tipos</option>
+            <option>Contrato de Trabalho</option><option>Aditivo Contratual</option>
+            <option>Termo de Confidencialidade</option><option>Advertência</option>
+            <option>Suspensão</option><option>Declaração IRRF</option>
+            <option>Declaração VT</option><option>ASO</option><option>Outros</option>
+          </select>
+        </div>
+      </div>
+      <table id="tblDocs">
+        <thead>
+          <tr><th>Colaborador</th><th>Tipo</th><th>Descrição</th><th>Emissão</th><th>Vencimento</th><th>Status</th><th>Ações</th></tr>
+        </thead>
+        <tbody id="tbodyDocs"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL DOCUMENTO -->
+<div class="overlay" id="modalDoc">
+<div class="modal">
+  <div class="modal-hd"><div class="modal-title">📁 Registrar Documento</div><div class="modal-close" onclick="UI.closeModal('modalDoc')">✕</div></div>
+  <div class="form-grid">
+    <div class="form-group fg-full"><label class="fl">Colaborador *</label>
+      <select class="fi" id="docColab"><option value="">— Selecione —</option></select>
+    </div>
+    <div class="form-group"><label class="fl">Tipo *</label>
+      <select class="fi" id="docTipo">
+        <option>Contrato de Trabalho</option><option>Aditivo Contratual</option>
+        <option>Termo de Confidencialidade</option><option>Advertência</option>
+        <option>Suspensão</option><option>Declaração IRRF</option>
+        <option>Declaração VT</option><option>ASO</option><option>Outros</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="fl">Data de Emissão</label><input type="date" class="fi" id="docEmissao"/></div>
+    <div class="form-group"><label class="fl">Data de Vencimento</label><input type="date" class="fi" id="docVenc" placeholder="Opcional"/></div>
+    <div class="form-group"><label class="fl">Status</label>
+      <select class="fi" id="docStatus"><option>Válido</option><option>Vencido</option><option>Aguardando Assinatura</option><option>Arquivado</option></select>
+    </div>
+    <div class="form-group fg-full"><label class="fl">Descrição / Observações</label>
+      <textarea class="fi" id="docDesc" placeholder="Detalhes sobre o documento..."></textarea>
+    </div>
+  </div>
+  <div class="modal-ft">
+    <button class="btn btn-ghost" onclick="UI.closeModal('modalDoc')">Cancelar</button>
+    <button class="btn btn-primary" onclick="salvarDoc()">✓ Registrar</button>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs();
+  let docs = DP.getDocs();
+  const cfg = DP.getConfig();
+  
+  UI.renderSelect('docColab', colabs.filter(c=>c.situacao==='Ativo'), 'id', c => c.nome);
+  document.getElementById('docEmissao').value = Fmt.today();
+  
+  // Templates disponíveis
+  const templates = [
+    { ico:'📄', nome:'Contrato de Trabalho CLT',      desc:'Contrato padrão por prazo indeterminado', fn:'gerarContratoCLT' },
+    { ico:'🔬', nome:'Contrato Período Experiência',   desc:'45+45 dias com cláusulas legais',          fn:'gerarContratoExp' },
+    { ico:'🎓', nome:'Contrato de Estágio',            desc:'Lei 11.788/2008 — não obrigatório',        fn:'gerarContratoEst' },
+    { ico:'🔒', nome:'Termo de Confidencialidade',     desc:'NDA padrão para colaboradores',            fn:'gerarNDA' },
+    { ico:'⚠️', nome:'Carta de Advertência',           desc:'Advertência formal com espaço de defesa',  fn:'gerarAdvertencia' },
+    { ico:'📋', nome:'Declaração de Dependentes',      desc:'Para IRRF — dedução por dependente',       fn:'gerarDecDepend' },
+    { ico:'🚌', nome:'Declaração de VT',               desc:'Opção/renúncia ao vale-transporte',        fn:'gerarDecVT' },
+    { ico:'💰', nome:'Recibo de Adiantamento',         desc:'Comprovante de adiantamento salarial',     fn:'gerarReciboAdiant' },
+    { ico:'✋', nome:'Termo de Rescisão (TRCT)',       desc:'Acesse → Demissão para TRCT completo',     fn:'irDemissao' },
+    { ico:'🎁', nome:'Termo de Responsabilidade',      desc:'EPI, equipamentos, ativos da empresa',     fn:'gerarTermoResp' },
+    { ico:'🏥', nome:'Ficha de Saúde Admissional',     desc:'Questionário de saúde pré-ASO',            fn:'gerarFichaSaude' },
+    { ico:'📅', nome:'Aviso de Férias',                desc:'Comunicado oficial de concessão de férias',fn:'gerarAvisoFerias' },
+  ];
+  
+  document.getElementById('templateGrid').innerHTML = templates.map(t => `
+    <div class="doc-card" onclick="${t.fn}()">
+      <div class="doc-ico">${t.ico}</div>
+      <div class="doc-name">${t.nome}</div>
+      <div class="doc-sub">${t.desc}</div>
+      <div class="tags" style="margin-top:0.3rem"><span class="tag tag-blue">Word</span></div>
+    </div>`).join('');
+  
+  function gerarContratoCLT() {
+    const emp = cfg.empresa;
+    Export.toWord(`
+      <h2 style="text-align:center">CONTRATO DE TRABALHO POR PRAZO INDETERMINADO</h2>
+      <p><strong>EMPREGADOR:</strong> ${emp.razao_social}, pessoa jurídica de direito privado, inscrita no CNPJ sob nº ${emp.cnpj}, com sede em ${emp.endereco||'—'}, doravante denominada <strong>EMPRESA</strong>.</p>
+      <p><strong>EMPREGADO:</strong> ________________________________, portador do CPF nº _______________, RG nº _______________, residente em ________________________________, doravante denominado <strong>COLABORADOR</strong>.</p>
+      <p>As partes acima qualificadas celebram o presente <strong>CONTRATO DE TRABALHO POR PRAZO INDETERMINADO</strong>, regido pela Consolidação das Leis do Trabalho (CLT), mediante as seguintes cláusulas:</p>
+      <p><strong>CLÁUSULA 1ª – FUNÇÃO:</strong> O(A) COLABORADOR(A) é admitido(a) para exercer a função de _________________________, junto ao departamento de _________________________.</p>
+      <p><strong>CLÁUSULA 2ª – REMUNERAÇÃO:</strong> O salário mensal é de R$ _______________ (_____________________________), pagos até o 5º (quinto) dia útil do mês subsequente ao trabalhado.</p>
+      <p><strong>CLÁUSULA 3ª – JORNADA:</strong> A jornada de trabalho é de 44 (quarenta e quatro) horas semanais, de segunda a sexta-feira, das ___h às ___h, com intervalo de __ hora(s) para repouso e alimentação.</p>
+      <p><strong>CLÁUSULA 4ª – LOCAL:</strong> O trabalho será prestado em ${emp.endereco||'local definido pela empresa'}, podendo ser alterado por conveniência da empresa, nos termos do art. 469 da CLT.</p>
+      <p><strong>CLÁUSULA 5ª – BENEFÍCIOS:</strong> O(A) COLABORADOR(A) fará jus aos benefícios concedidos pela empresa conforme política vigente, incluindo Vale-Transporte (Lei 7.418/85) e demais benefícios descritos no Regulamento Interno.</p>
+      <p><strong>CLÁUSULA 6ª – PRAZO:</strong> O presente contrato é por <strong>prazo indeterminado</strong>, com início em ___/___/______.</p>
+      <p><strong>CLÁUSULA 7ª – FORO:</strong> Fica eleito o Foro da Comarca de ______________ para dirimir quaisquer controvérsias oriundas do presente contrato.</p>
+      <br/><p>Por estarem assim acordados, firmam o presente instrumento em 2 (duas) vias de igual teor e forma.</p>
+      <br/><p>___________________________, _____ de __________________ de _______.</p>
+      <br/><p>_____________________________________<br/>EMPRESA: ${emp.razao_social}</p>
+      <br/><p>_____________________________________<br/>COLABORADOR(A): ________________________________</p>
+      <br/><p>Testemunhas:<br/>1. ___________________________ CPF: ___________________<br/>2. ___________________________ CPF: ___________________</p>`,
+      'contrato_clt.doc');
+    UI.toast('Contrato CLT gerado!', 'ok');
+  }
+  
+  function gerarContratoExp() {
+    Export.toWord(`
+      <h2 style="text-align:center">CONTRATO DE TRABALHO — PERÍODO DE EXPERIÊNCIA</h2>
+      <p>Pelo presente instrumento, <strong>${cfg.empresa.razao_social}</strong> (CNPJ: ${cfg.empresa.cnpj}) contrata ________________________________ (CPF: _______________), pelo prazo de <strong>45 (quarenta e cinco) dias</strong>, com possibilidade de prorrogação por igual período, conforme art. 445, parágrafo único da CLT.</p>
+      <p><strong>Função:</strong> _________________________ | <strong>Depto:</strong> _________________________</p>
+      <p><strong>Salário:</strong> R$ _______________ | <strong>Jornada:</strong> 44h semanais</p>
+      <p><strong>Início:</strong> ___/___/______ | <strong>Término (1ª fase):</strong> ___/___/______</p>
+      <p>Caso não haja manifestação de qualquer das partes, o contrato será automaticamente prorrogado por mais 45 dias. Após o término do período de experiência sem rescisão, o contrato converte-se em prazo indeterminado.</p>
+      <br/><p>_____________________, _____ de __________________ de _______.</p>
+      <br/><p>_______________________________<br/>EMPRESA</p>
+      <p>_______________________________<br/>COLABORADOR(A)</p>`,
+      'contrato_experiencia.doc');
+  }
+  
+  function gerarContratoEst() {
+    Export.toWord(`
+      <h2 style="text-align:center">TERMO DE COMPROMISSO DE ESTÁGIO</h2>
+      <p>(Lei nº 11.788/2008)</p>
+      <p><strong>CONCEDENTE:</strong> ${cfg.empresa.razao_social} — CNPJ: ${cfg.empresa.cnpj}</p>
+      <p><strong>ESTAGIÁRIO(A):</strong> ________________________________ | CPF: _______________ | Matrícula: _______________</p>
+      <p><strong>INSTITUIÇÃO DE ENSINO (IES):</strong> ________________________________</p>
+      <p><strong>Curso:</strong> _________________________ | <strong>Semestre:</strong> _____</p>
+      <p><strong>Período:</strong> ___/___/______ a ___/___/______ (máx. 2 anos na mesma empresa)</p>
+      <p><strong>Jornada:</strong> ___ horas diárias / ___ horas semanais (máx. 6h/dia — art. 10 da Lei 11.788/2008)</p>
+      <p><strong>Bolsa Auxílio:</strong> R$ _______________ mensais</p>
+      <p><strong>Vale-Transporte:</strong> R$ _______________ mensais</p>
+      <p><strong>Supervisor na Empresa:</strong> ________________________________</p>
+      <p><strong>Orientador na IES:</strong> ________________________________</p>
+      <p><strong>Apólice de Seguro de Acidentes Pessoais:</strong> nº _______________</p>
+      <p><em>O estágio não gera vínculo empregatício, conforme art. 3º da Lei 11.788/2008. O estagiário fará jus a recesso remunerado de 30 dias a cada 12 meses.</em></p>
+      <br/><p>_____________________, _____ de __________________ de _______.</p>
+      <p>CONCEDENTE: _____________________________ | ESTAGIÁRIO: _____________________________ | IES: _____________________________</p>`,
+      'contrato_estagio.doc');
+  }
+  
+  function gerarNDA() {
+    Export.toWord(`
+      <h2 style="text-align:center">TERMO DE CONFIDENCIALIDADE E NÃO DIVULGAÇÃO</h2>
+      <p>O(A) colaborador(a) ________________________________ (CPF: _______________), admitido(a) por <strong>${cfg.empresa.razao_social}</strong>, compromete-se a manter sigilo absoluto sobre todas as informações, dados, estratégias, clientes, fornecedores, processos e know-how a que tiver acesso em razão de seu trabalho, durante e após o período de vínculo empregatício.</p>
+      <p>O descumprimento deste termo sujeita o colaborador às penalidades legais cabíveis, incluindo responsabilização civil e criminal nos termos da Lei 9.279/96 (propriedade industrial) e Lei 9.610/98 (direitos autorais).</p>
+      <br/><p>_____________________, _____ de __________________ de _______.</p>
+      <p>_______________________________<br/>Colaborador(a)</p>
+      <p>_______________________________<br/>${cfg.empresa.razao_social}</p>`,
+      'nda.doc');
+  }
+  
+  function gerarAdvertencia() {
+    Export.toWord(`
+      <h2 style="text-align:center">CARTA DE ADVERTÊNCIA</h2>
+      <p><strong>Colaborador(a):</strong> ________________________________ | <strong>Cargo:</strong> ________________________________ | <strong>Data:</strong> ___/___/______</p>
+      <p>Pelo presente, informamos que V.Sa. está sendo advertido(a), em razão de:</p>
+      <p>_____________________________________________________________________________<br/>_____________________________________________________________________________<br/>_____________________________________________________________________________</p>
+      <p>Ocorrido em: ___/___/______, local: ________________________________</p>
+      <p>Esta advertência é expedida nos termos do art. 158 da CLT e do Regulamento Interno da empresa. O reincidência poderá ensejar penalidades mais graves, inclusive a rescisão por justa causa, com base no art. 482 da CLT.</p>
+      <p>Solicitamos que V.Sa. assine o presente, ciência de seu recebimento. Caso se recuse a assinar, o documento será assinado por duas testemunhas.</p>
+      <br/><p>_______________________________<br/>Colaborador(a) — Data: ___/___/______</p>
+      <p>_______________________________<br/>RH/DP — ${cfg.empresa.razao_social}</p>
+      <p>Testemunhas: 1. ___________________________ 2. ___________________________</p>`,
+      'advertencia.doc');
+  }
+  
+  function gerarDecDepend() {
+    Export.toWord(`
+      <h2 style="text-align:center">DECLARAÇÃO DE DEPENDENTES PARA FINS DE IRRF</h2>
+      <p>Eu, ________________________________ (CPF: _______________), colaborador(a) de <strong>${cfg.empresa.razao_social}</strong>, declaro para fins de desconto do Imposto de Renda Retido na Fonte (IRRF) os seguintes dependentes:</p>
+      <table><thead><tr><th>Nome</th><th>CPF</th><th>Grau de Parentesco</th><th>Nascimento</th></tr></thead>
+      <tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+      <p>Declaro que as informações são verdadeiras e me responsabilizo pelas consequências de qualquer inexatidão.</p>
+      <br/><p>_____________________, _____ de __________________ de _______.</p>
+      <p>_______________________________<br/>Assinatura do(a) Colaborador(a)</p>`,
+      'declaracao_dependentes.doc');
+  }
+  
+  function gerarDecVT() {
+    Export.toWord(`
+      <h2 style="text-align:center">DECLARAÇÃO DE VALE-TRANSPORTE — OPÇÃO/RENÚNCIA</h2>
+      <p>Eu, ________________________________ (CPF: _______________), colaborador(a) de <strong>${cfg.empresa.razao_social}</strong>, declaro:</p>
+      <p>( ) <strong>OPTO</strong> pelo benefício do Vale-Transporte, declarando utilizar o(s) seguinte(s) meio(s) de transporte para o deslocamento ao trabalho:</p>
+      <table><thead><tr><th>Linha/Serviço</th><th>Tarifa (R$)</th><th>Qtd. por dia</th><th>Total/mês</th></tr></thead>
+      <tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+      <p>( ) <strong>RENUNCIO</strong> ao benefício do Vale-Transporte, declarando que me desloco ao trabalho com veículo próprio ou não necessito do benefício.</p>
+      <br/><p>_____________________, _____ de __________________ de _______.</p>
+      <p>_______________________________<br/>Assinatura do(a) Colaborador(a)</p>`,
+      'declaracao_vt.doc');
+  }
+  
+  function gerarReciboAdiant() {
+    Export.toWord(`
+      <h2 style="text-align:center">RECIBO DE ADIANTAMENTO SALARIAL</h2>
+      <p>Recebi de <strong>${cfg.empresa.razao_social}</strong> (CNPJ: ${cfg.empresa.cnpj}) a importância de <strong>R$ _______________</strong> (_____________________________), referente ao adiantamento de salário da competência ___/______.</p>
+      <p>O referido valor será descontado do holerite do mês de referência.</p>
+      <br/><p>_____________________, _____ de __________________ de _______.</p>
+      <p>_______________________________<br/>Colaborador(a): ________________________________</p>
+      <p>_______________________________<br/>Responsável RH/DP</p>`,
+      'recibo_adiantamento.doc');
+  }
+  
+  function gerarTermoResp() {
+    Export.toWord(`
+      <h2 style="text-align:center">TERMO DE RESPONSABILIDADE DE EQUIPAMENTOS / ATIVOS</h2>
+      <p>Eu, ________________________________ (CPF: _______________), declaro ter recebido os seguintes bens/equipamentos de <strong>${cfg.empresa.razao_social}</strong>, comprometendo-me a zelar e devolvê-los em perfeito estado ao término do vínculo:</p>
+      <table><thead><tr><th>Descrição</th><th>Série/Patrimônio</th><th>Estado</th><th>Data</th></tr></thead>
+      <tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+      <p>Em caso de perda, furto ou dano por negligência, o valor será descontado do colaborador, conforme art. 462 §1º da CLT.</p>
+      <br/><p>_____________________, _____ de __________________ de _______.</p>
+      <p>_______________________________<br/>Colaborador(a)</p>`,
+      'termo_responsabilidade.doc');
+  }
+  
+  function gerarFichaSaude() {
+    Export.toWord(`
+      <h2 style="text-align:center">FICHA DE ANAMNESE OCUPACIONAL</h2>
+      <p><strong>Nome:</strong> ________________________________ | <strong>Data:</strong> ___/___/______</p>
+      <p><strong>Cargo pretendido:</strong> ________________________________ | <strong>Empresa:</strong> ${cfg.empresa.razao_social}</p>
+      <h3>Histórico Médico:</h3>
+      <p>Possui/possuiu alguma das seguintes condições? (marque S/N)</p>
+      <p>Hipertensão: ___ | Diabetes: ___ | Problemas Cardíacos: ___ | LER/DORT: ___ | Problemas de Visão: ___ | Problemas Auditivos: ___ | Asma/Alergias: ___ | Problemas de Coluna: ___</p>
+      <p>Outros: ____________________________________________</p>
+      <p>Uso de medicamentos contínuos: ( ) Não  ( ) Sim — Qual: ________________________________</p>
+      <p>Cirurgias anteriores: ( ) Não  ( ) Sim — Qual: ________________________________</p>
+      <p>Alergias: ( ) Não  ( ) Sim — Qual: ________________________________</p>
+      <p><em>As informações prestadas são de caráter confidencial e de uso exclusivo do médico do trabalho, conforme CFM e legislação de saúde ocupacional.</em></p>
+      <br/><p>_______________________________<br/>Assinatura do(a) candidato(a)</p>`,
+      'ficha_saude.doc');
+  }
+  
+  function gerarAvisoFerias() {
+    Export.toWord(`
+      <h2 style="text-align:center">AVISO DE CONCESSÃO DE FÉRIAS</h2>
+      <p><strong>Ao(À) Sr(a). ________________________________</strong></p>
+      <p>Comunicamos que suas férias foram concedidas para o período de <strong>___/___/______</strong> a <strong>___/___/______</strong>, totalizando <strong>___ dias</strong> de gozo.</p>
+      <p>O pagamento do pecúlio de férias será efetuado até 2 (dois) dias úteis antes do início do período, conforme art. 145 da CLT.</p>
+      <p>Informamos que ${cfg.empresa.razao_social} está cumprindo o prazo legal de comunicação com antecedência mínima de 30 dias.</p>
+      <br/><p>_____________________, _____ de __________________ de _______.</p>
+      <p>_______________________________<br/>RH/DP — ${cfg.empresa.razao_social}</p>
+      <br/><p>Ciente:</p>
+      <p>_______________________________<br/>Colaborador(a) — Data: ___/___/______</p>`,
+      'aviso_ferias.doc');
+  }
+  
+  function irDemissao() { window.location.href = 'demissao.html'; }
+  
+  function salvarDoc() {
+    const cId = parseInt(UI.val('docColab'));
+    const colab = colabs.find(c => c.id === cId);
+    if (!colab) { UI.toast('Selecione um colaborador', 'err'); return; }
+    docs.push({
+      id: Date.now(), colabId: cId, colabNome: colab.nome,
+      tipo: UI.val('docTipo'), emissao: UI.val('docEmissao'),
+      vencimento: UI.val('docVenc'), status: UI.val('docStatus'),
+      desc: UI.val('docDesc')
+    });
+    DP.saveDocs(docs);
+    renderDocs();
+    UI.closeModal('modalDoc');
+    UI.toast(`Documento registrado para ${colab.nome}!`, 'ok');
+  }
+  
+  function renderDocs() {
+    const filtTipo = UI.val('filtDocTipo');
+    const lista = filtTipo ? docs.filter(d=>d.tipo===filtTipo) : docs;
+    const statusCls = { Válido:'tag-green', Vencido:'tag-red', 'Aguardando Assinatura':'tag-orange', Arquivado:'tag-gray' };
+    document.getElementById('tbodyDocs').innerHTML = lista.length === 0
+      ? `<tr><td colspan="7"><div class="empty"><span class="ico">📁</span><p>Nenhum documento registrado</p></div></td></tr>`
+      : lista.map(d => `<tr>
+          <td>${d.colabNome}</td>
+          <td><span class="tag tag-blue" style="font-size:0.70rem">${d.tipo}</span></td>
+          <td style="font-size:0.80rem;color:var(--muted)">${d.desc||'—'}</td>
+          <td>${Fmt.date(d.emissao)}</td>
+          <td>${d.vencimento?Fmt.date(d.vencimento):'—'}</td>
+          <td><span class="tag ${statusCls[d.status]||'tag-gray'}">${d.status}</span></td>
+          <td><button class="btn btn-danger btn-sm" onclick="excluirDoc(${d.id})">✕</button></td>
+        </tr>`).join('');
+  }
+  
+  function excluirDoc(id) {
+    UI.confirm('Excluir este documento?', () => {
+      docs = docs.filter(d=>d.id!==id); DP.saveDocs(docs); renderDocs();
+    });
+  }
+  
+  renderDocs();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

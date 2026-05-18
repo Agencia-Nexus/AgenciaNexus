@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Calcule e gerencie o 13º salário dos colaboradores da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="13º Salário | DP — Agência Nexus" />
+  <meta property="og:description" content="Calcule e gerencie o 13º salário dos colaboradores da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="13º Salário | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Calcule e gerencie o 13º salário dos colaboradores da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>13º Salário | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item active" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>13º Salário</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarDecimo()">📊 Exportar CSV</button>
+      <button class="btn btn-blue btn-sm" onclick="exportarDecimoWord()">📄 Word</button>
+      <button class="btn btn-primary btn-sm" onclick="processarTodos()">⚡ Processar Todos</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">🎄 13º <span>Salário</span></div>
+        <div class="sec-sub">Cálculo proporcional, 1ª e 2ª parcelas, INSS e IRRF sobre gratificação natalina</div>
+      </div>
+    </div>
+
+    <div class="info-box accent">📌 <strong>1ª Parcela:</strong> pagar entre fev–nov (ou até 30/11). Sem INSS/IRRF. <strong>2ª Parcela:</strong> pagar até 20/12. Desconta INSS e IRRF sobre o total.</div>
+
+    <div class="two-col" style="margin-bottom:1rem">
+      <!-- Calculadora individual -->
+      <div class="tbl-wrap" style="padding:1.2rem">
+        <div class="tbl-title" style="margin-bottom:1rem">🧮 Calculadora Individual — 13º</div>
+        <div class="form-grid">
+          <div class="form-group fg-full"><label class="fl">Colaborador</label>
+            <select class="fi" id="d13Colab" onchange="calcularDecimo()"><option value="">— Selecione —</option></select>
+          </div>
+          <div class="form-group"><label class="fl">Ano de Referência</label>
+            <input type="number" class="fi" id="d13Ano" value="2025" min="2020" max="2030" oninput="calcularDecimo()"/>
+          </div>
+          <div class="form-group"><label class="fl">Meses Trabalhados no Ano</label>
+            <select class="fi" id="d13Meses" onchange="calcularDecimo()">
+              <option value="12">12 meses (integral)</option>
+              <option value="11">11/12</option><option value="10">10/12</option>
+              <option value="9">9/12</option><option value="8">8/12</option>
+              <option value="7">7/12</option><option value="6">6/12</option>
+              <option value="5">5/12</option><option value="4">4/12</option>
+              <option value="3">3/12</option><option value="2">2/12</option>
+              <option value="1">1/12</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="fl">Parcela a Calcular</label>
+            <select class="fi" id="d13Parcela" onchange="calcularDecimo()">
+              <option value="1a">1ª Parcela (adiantamento)</option>
+              <option value="2a">2ª Parcela (saldo)</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="fl">Nº Dependentes (IRRF)</label>
+            <input type="number" class="fi" id="d13Deps" value="0" min="0" oninput="calcularDecimo()"/>
+          </div>
+          <div class="form-group"><label class="fl">Horas Extras (média mensal)</label>
+            <input type="number" class="fi" id="d13HExt" value="0" min="0" oninput="calcularDecimo()"/>
+          </div>
+        </div>
+
+        <div class="result-box" style="margin-top:1rem" id="d13Result">
+          <div class="empty"><span class="ico">🎄</span><p>Selecione um colaborador</p></div>
+        </div>
+        <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
+          <button class="btn btn-success btn-sm" style="flex:1" onclick="imprimirCalcDecimo()">🖨️ Imprimir</button>
+          <button class="btn btn-blue btn-sm" style="flex:1" onclick="exportarCalcDecimoWord()">📄 Word</button>
+          <button class="btn btn-ghost btn-sm" style="flex:1" onclick="exportarCalcDecimoCSV()">📊 CSV</button>
+        </div>
+      </div>
+
+      <!-- Resumo geral -->
+      <div>
+        <div class="kpi-row" id="d13KPI" style="grid-template-columns:1fr 1fr;margin-bottom:0.9rem"></div>
+        <div class="tbl-wrap" style="padding:1rem">
+          <div class="tbl-title" style="margin-bottom:0.8rem">📅 Datas e Prazos Legais</div>
+          <div class="result-box">
+            <div class="rb-row"><span class="rb-lbl">1ª Parcela — prazo máximo</span><span class="rb-val c-orange">30/11/2025</span></div>
+            <div class="rb-row"><span class="rb-lbl">2ª Parcela — prazo máximo</span><span class="rb-val c-orange">20/12/2025</span></div>
+            <div class="rb-row"><span class="rb-lbl">Base de cálculo 2ª parcela</span><span class="rb-val">Salário de dezembro</span></div>
+            <div class="rb-row"><span class="rb-lbl">INSS — aplica na</span><span class="rb-val">2ª parcela (sobre total)</span></div>
+            <div class="rb-row"><span class="rb-lbl">IRRF — aplica na</span><span class="rb-val">2ª parcela (sobre total)</span></div>
+            <div class="rb-row"><span class="rb-lbl">FGTS sobre 13º</span><span class="rb-val c-blue">Sim — 8% sobre o total</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela geral de todos os colaboradores -->
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">📋 13º Salário — Todos os Colaboradores CLT</span>
+        <div class="tbl-actions">
+          <select class="fi" id="d13ParcelaGeral" style="font-size:0.83rem;padding:0.32rem 0.6rem" onchange="renderTabelaGeral()">
+            <option value="1a">1ª Parcela</option>
+            <option value="2a">2ª Parcela</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="exportarDecimo()">📊 CSV</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+      <table id="tblDecimo">
+        <thead>
+          <tr>
+            <th>Colaborador</th><th>Depto.</th><th>Salário Base</th>
+            <th>Meses</th><th>Valor Proporcional</th>
+            <th>INSS</th><th>IRRF</th><th>Líquido</th><th>FGTS s/13º</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyDecimo"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4"><strong>TOTAL</strong></td>
+            <td id="td13Prop"></td>
+            <td id="td13INSS"></td>
+            <td id="td13IRRF"></td>
+            <td id="td13Liq" class="c-accent fw8"></td>
+            <td id="td13FGTS" class="c-blue fw8"></td>
+          </tr>
+        </tfoot>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs().filter(c => c.situacao === 'Ativo' && c.tipo === 'CLT');
+  let d13CalcAtual = null;
+  let d13ColabAtual = null;
+  
+  UI.renderSelect('d13Colab', colabs, 'id', c => `${c.nome} — ${Fmt.brl(c.salario)}`);
+  
+  function calcularDecimo() {
+    const id = parseInt(UI.val('d13Colab'));
+    d13ColabAtual = colabs.find(c => c.id === id);
+    if (!d13ColabAtual) return;
+    const meses   = parseInt(UI.val('d13Meses')) || 12;
+    const parcela = UI.val('d13Parcela');
+    const deps    = parseInt(UI.val('d13Deps')) || 0;
+    const hext    = parseFloat(UI.val('d13HExt')) || 0;
+    const cfg2 = DP.getConfig();
+    const hextVal  = hext > 0 ? Calc.horasExtras(d13ColabAtual.salario, hext, 50) : 0;
+    const baseCalc = d13ColabAtual.salario + hextVal;
+    const r = Calc.decimoTerceiro({ ...d13ColabAtual, salario: baseCalc }, meses, parcela, deps);
+    d13CalcAtual = { r, meses, parcela, baseCalc, hextVal };
+  
+    document.getElementById('d13Result').innerHTML = `
+      <div class="rb-row"><span class="rb-lbl">Salário Base</span><span class="rb-val">${Fmt.brl(d13ColabAtual.salario)}</span></div>
+      ${hextVal>0?`<div class="rb-row add"><span class="rb-lbl">Horas Extras Médias</span><span class="rb-val">${Fmt.brl(hextVal)}</span></div>`:''}
+      <div class="rb-row"><span class="rb-lbl">Base de Cálculo</span><span class="rb-val fw7">${Fmt.brl(baseCalc)}</span></div>
+      <div class="rb-row"><span class="rb-lbl">Competência (${meses}/12)</span><span class="rb-val fw7">${Fmt.brl(r.proporcional||baseCalc)}</span></div>
+      <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);padding:0.5rem 0 0.2rem">${parcela==='1a'?'1ª PARCELA (ADIANTAMENTO)':'2ª PARCELA (SALDO)'}</div>
+      <div class="rb-row add"><span class="rb-lbl">Valor ${parcela==='1a'?'(50% sem descontos)':'(saldo 50%)'}</span><span class="rb-val c-green fw7">${Fmt.brl(r.bruto)}</span></div>
+      ${parcela==='2a'?`
+      <div class="rb-row desc"><span class="rb-lbl">INSS (sobre total)</span><span class="rb-val">${Fmt.brl(r.inss)}</span></div>
+      <div class="rb-row desc"><span class="rb-lbl">IRRF (sobre total - INSS)</span><span class="rb-val">${Fmt.brl(r.irrf)}</span></div>`:''}
+      <div class="rb-row total"><span class="rb-lbl">💰 LÍQUIDO A PAGAR</span><span class="rb-val">${Fmt.brl(r.liquido)}</span></div>
+      <div class="rb-row"><span class="rb-lbl">FGTS sobre 13º (8%)</span><span class="rb-val c-blue">${Fmt.brl((r.proporcional||baseCalc)*0.08)}</span></div>`;
+  }
+  
+  function renderTabelaGeral() {
+    const parcela = UI.val('d13ParcelaGeral');
+    let totProp=0,totINSS=0,totIRRF=0,totLiq=0,totFGTS=0;
+    document.getElementById('tbodyDecimo').innerHTML = colabs.map(c => {
+      const meses = Math.min(Calc.mesesTrabalhados(c.admissao), 12);
+      const r = Calc.decimoTerceiro(c, meses, parcela, c.dependentes||0);
+      const prop = r.proporcional || c.salario;
+      const fgts = prop * 0.08;
+      totProp+=prop; totINSS+=r.inss; totIRRF+=r.irrf; totLiq+=r.liquido; totFGTS+=fgts;
+      return `<tr>
+        <td><div class="ci"><div class="av ${c.avc||'av-g'}" style="width:26px;height:26px;font-size:0.70rem">${Fmt.initials(c.nome)}</div>
+          <div class="ci-name" style="font-size:0.83rem">${c.nome}</div></div></td>
+        <td>${c.depto}</td>
+        <td>${Fmt.brl(c.salario)}</td>
+        <td>${meses}/12</td>
+        <td>${Fmt.brl(prop)}</td>
+        <td class="${r.inss>0?'c-red':''}">${Fmt.brl(r.inss)}</td>
+        <td class="${r.irrf>0?'c-red':''}">${Fmt.brl(r.irrf)}</td>
+        <td class="c-accent fw7">${Fmt.brl(r.liquido)}</td>
+        <td class="c-blue">${Fmt.brl(fgts)}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('td13Prop').innerHTML = `<strong>${Fmt.brl(totProp)}</strong>`;
+    document.getElementById('td13INSS').innerHTML = `<strong class="c-red">${Fmt.brl(totINSS)}</strong>`;
+    document.getElementById('td13IRRF').innerHTML = `<strong class="c-red">${Fmt.brl(totIRRF)}</strong>`;
+    document.getElementById('td13Liq').textContent  = Fmt.brl(totLiq);
+    document.getElementById('td13FGTS').textContent = Fmt.brl(totFGTS);
+    // KPI
+    document.getElementById('d13KPI').innerHTML = [
+      {v:Fmt.brl(totProp), l:'Total Proporcional', cls:'c-text'},
+      {v:Fmt.brl(totLiq),  l:'Total Líquido',      cls:'c-accent'},
+      {v:Fmt.brl(totINSS), l:'Total INSS',         cls:'c-red'},
+      {v:Fmt.brl(totFGTS), l:'Total FGTS s/13º',   cls:'c-blue'},
+    ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div></div>`).join('');
+  }
+  
+  function processarTodos() { renderTabelaGeral(); UI.toast('13º processado para todos os colaboradores!','ok'); }
+  
+  function exportarDecimo() {
+    const parcela = UI.val('d13ParcelaGeral');
+    Export.dataToCSV(
+      ['Colaborador','Depto','Salário','Meses','Proporcional','INSS','IRRF','Líquido','FGTS'],
+      colabs.map(c => {
+        const meses = Math.min(Calc.mesesTrabalhados(c.admissao),12);
+        const r = Calc.decimoTerceiro(c,meses,parcela,c.dependentes||0);
+        const prop = r.proporcional||c.salario;
+        return [c.nome,c.depto,Fmt.brl(c.salario),`${meses}/12`,Fmt.brl(prop),Fmt.brl(r.inss),Fmt.brl(r.irrf),Fmt.brl(r.liquido),Fmt.brl(prop*0.08)];
+      }),
+      `decimo_terceiro_${parcela}.csv`
+    );
+  }
+  function exportarDecimoWord() {
+    const parcela = UI.val('d13ParcelaGeral');
+    const rows = colabs.map(c => {
+      const meses=Math.min(Calc.mesesTrabalhados(c.admissao),12);
+      const r=Calc.decimoTerceiro(c,meses,parcela,c.dependentes||0);
+      const prop=r.proporcional||c.salario;
+      return `<tr><td>${c.nome}</td><td>${c.depto}</td><td>${Fmt.brl(c.salario)}</td><td>${meses}/12</td><td>${Fmt.brl(prop)}</td><td>${Fmt.brl(r.inss)}</td><td>${Fmt.brl(r.irrf)}</td><td><strong>${Fmt.brl(r.liquido)}</strong></td></tr>`;
+    }).join('');
+    Export.toWord(`<h2>13º Salário (${parcela}) — Agência Nexus</h2>
+      <table><thead><tr><th>Colaborador</th><th>Depto</th><th>Salário</th><th>Meses</th><th>Proporcional</th><th>INSS</th><th>IRRF</th><th>Líquido</th></tr></thead>
+      <tbody>${rows}</tbody></table>`, `decimo_terceiro_${parcela}.doc`);
+  }
+  function imprimirCalcDecimo() { Export.printDiv('d13Result','13º Salário — Agência Nexus'); }
+  function exportarCalcDecimoWord() {
+    if(!d13CalcAtual||!d13ColabAtual){UI.toast('Calcule primeiro','err');return;}
+    const {r,meses,parcela}=d13CalcAtual;
+    Export.toWord(`<h2>13º Salário — ${d13ColabAtual.nome}</h2>
+      <p>Parcela: ${parcela} | Meses: ${meses}/12 | Base: ${Fmt.brl(d13CalcAtual.baseCalc)}</p>
+      <table><thead><tr><th>Verba</th><th>Valor</th></tr></thead><tbody>
+      <tr><td>Valor ${parcela}</td><td>${Fmt.brl(r.bruto)}</td></tr>
+      <tr><td>INSS</td><td>(${Fmt.brl(r.inss)})</td></tr>
+      <tr><td>IRRF</td><td>(${Fmt.brl(r.irrf)})</td></tr>
+      <tr><td><strong>Líquido</strong></td><td><strong>${Fmt.brl(r.liquido)}</strong></td></tr>
+      </tbody></table>`, `decimo_${d13ColabAtual.nome.replace(/\s/g,'_')}.doc`);
+  }
+  function exportarCalcDecimoCSV() {
+    if(!d13CalcAtual||!d13ColabAtual){UI.toast('Calcule primeiro','err');return;}
+    const {r}=d13CalcAtual;
+    Export.dataToCSV(['Verba','Valor'],[
+      ['Valor da Parcela',Fmt.brl(r.bruto)],
+      ['INSS',Fmt.brl(r.inss)],
+      ['IRRF',Fmt.brl(r.irrf)],
+      ['Líquido',Fmt.brl(r.liquido)],
+    ],`decimo_${d13ColabAtual.nome.replace(/\s/g,'_')}.csv`);
+  }
+  
+  renderTabelaGeral();
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

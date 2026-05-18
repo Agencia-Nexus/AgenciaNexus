@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Painel do Departamento Pessoal da Agência Nexus. Gestão completa de colaboradores, folha e encargos." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Dashboard | DP — Agência Nexus" />
+  <meta property="og:description" content="Painel do Departamento Pessoal da Agência Nexus. Gestão completa de colaboradores, folha e encargos." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dashboard | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Painel do Departamento Pessoal da Agência Nexus. Gestão completa de colaboradores, folha e encargos." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Dashboard | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+<!-- Estilos mobile centralizados em dp-mobile.css -->
+</head>
+<body>
+<div class="app">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head">
+    <div class="sb-logo">EX</div>
+    <div class="sb-info">
+      <div class="sb-name">Agência <span>Nexus</span></div>
+      <div class="sb-sub">Depto. Pessoal</div>
+    </div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"         data-page="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"          data-page="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"  data-page="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"    data-page="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html"            data-page="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"        data-page="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"        data-page="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"          data-page="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"       data-page="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"           data-page="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"         data-page="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"         data-page="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"   data-page="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"     data-page="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"     data-page="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"     data-page="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"  data-page="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-av">RH</div>
+    <div class="sb-uinfo">
+      <div class="sb-uname" id="user-nome">—</div>
+      <div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div>
+    </div>
+    <button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem">⏻</button>
+    <div class="sb-toggle" id="sb-toggle">◀</div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><span>Dashboard</span><span class="sep">/</span><span>Visão Geral</span></div>
+    <div class="tb-right">
+      <span class="tb-mod-badge">DP · 2025</span>
+      <span class="tb-date" id="tb-date">--/--/----</span>
+      <a href="colaboradores.html" class="btn btn-primary btn-sm">＋ Colaborador</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- KPIs -->
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">Painel <span>Departamento Pessoal</span></div>
+        <div class="sec-sub">Agência Nexus Comunicação Ltda · Março / 2025</div>
+      </div>
+      <div class="sec-hd-actions">
+        <button class="btn btn-ghost btn-sm" onclick="exportDash()">📊 Exportar Resumo</button>
+        <button class="btn btn-ghost btn-sm" onclick="location.reload()">↻ Atualizar</button>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="kpiCards"></div>
+
+    <!-- Gráficos e tabelas -->
+    <div class="two-col" style="margin-bottom:1rem">
+      <div class="tbl-wrap">
+        <div class="tbl-hd"><span class="tbl-title">💼 Folha por Departamento</span></div>
+        <div style="padding:1.1rem" id="chartFolha"></div>
+      </div>
+
+      <div class="tbl-wrap">
+        <div class="tbl-hd">
+          <span class="tbl-title">📅 Eventos & Alertas</span>
+          <span class="tag tag-red" id="alertCount">0 alertas</span>
+        </div>
+        <table id="tblEventos">
+          <thead><tr><th>Evento</th><th>Colaborador</th><th>Data</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="tbl-wrap">
+        <div class="tbl-hd">
+          <span class="tbl-title">👥 Colaboradores Ativos</span>
+          <a href="colaboradores.html" class="btn btn-ghost btn-sm">Ver todos →</a>
+        </div>
+        <table id="tblColabsRecentes">
+          <thead><tr><th>Colaborador</th><th>Cargo</th><th>Tipo</th><th>Salário</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="tbl-wrap">
+        <div class="tbl-hd"><span class="tbl-title">🏛️ Encargos Patronais (Mês)</span></div>
+        <div id="encargosBox" style="padding:1rem"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- /app -->
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs();
+  const cfg    = DP.getConfig();
+
+  // ── KPI Cards ──
+  function renderKPIs(){
+    const ativos    = colabs.filter(c=>c.situacao==='Ativo');
+    const clt       = ativos.filter(c=>c.tipo==='CLT');
+    const estagio   = ativos.filter(c=>c.tipo==='Estagiário');
+    const folhaBruta= clt.reduce((s,c)=>s+c.salario,0);
+    const inssTotal = clt.reduce((s,c)=>s+Calc.inss(c.salario),0);
+    const fgtsTotal = clt.reduce((s,c)=>s+Calc.fgts(c.salario),0);
+    const liquidoTotal = folhaBruta - inssTotal - clt.reduce((s,c)=>s+Calc.irrf(c.salario-Calc.inss(c.salario),c.dependentes||0),0);
+
+    document.getElementById('kpiCards').innerHTML = [
+      { ico:'👥', val: ativos.length,         lbl:'Total Colaboradores',  cls:'c-accent', delta:'↑ 2 este mês', dCls:'up' },
+      { ico:'📋', val: clt.length,            lbl:'Funcionários CLT',     cls:'c-blue',   delta:'Contratos ativos' },
+      { ico:'🎓', val: estagio.length,        lbl:'Estagiários',          cls:'c-purple', delta:'2 expirando em breve', dCls:'dn' },
+      { ico:'💰', val: Fmt.brl(folhaBruta),   lbl:'Folha Bruta / Mês',   cls:'c-green',  delta:'↑ R$ 1.200 vs fev', dCls:'up' },
+      { ico:'🏦', val: Fmt.brl(fgtsTotal),    lbl:'FGTS / Mês',          cls:'c-blue',   delta:'8% do salário bruto' },
+      { ico:'💳', val: Fmt.brl(liquidoTotal), lbl:'Líquido a Pagar',     cls:'c-accent', delta:'Após INSS e IRRF' },
+    ].map(k=>`
+      <div class="card">
+        <div class="card-icon">${k.ico}</div>
+        <div class="card-val ${k.cls}">${k.val}</div>
+        <div class="card-lbl">${k.lbl}</div>
+        ${k.delta?`<div class="card-delta ${k.dCls||''}">${k.delta}</div>`:''}
+      </div>`).join('');
+  }
+
+  // ── Folha por Depto ──
+  function renderChartFolha(){
+    const clt = colabs.filter(c=>c.situacao==='Ativo'&&c.tipo==='CLT');
+    const deptos = {};
+    clt.forEach(c=>{ deptos[c.depto]=(deptos[c.depto]||0)+c.salario; });
+    const total = Object.values(deptos).reduce((s,v)=>s+v,0);
+    const colors = ['var(--accent)','var(--blue)','var(--orange)','var(--red)','var(--purple)','var(--cyan)'];
+    let i=0;
+    document.getElementById('chartFolha').innerHTML = Object.entries(deptos).sort((a,b)=>b[1]-a[1]).map(([d,v])=>{
+      const pct = ((v/total)*100).toFixed(1);
+      const c = colors[i++%colors.length];
+      return `<div style="margin-bottom:0.85rem">
+        <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:0.3rem">
+          <span>${d}</span><span style="color:${c}">${Fmt.brl(v)} <span class="c-muted">(${pct}%)</span></span>
+        </div>
+        <div class="pbar"><div class="pbar-fill" style="width:${pct}%;background:${c}"></div></div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Eventos & Alertas ──
+  function renderEventos(){
+    const hoje = new Date();
+    const eventos = [];
+    colabs.filter(c=>c.tipo==='Estagiário'&&c.terminoEstagio).forEach(c=>{
+      const dias = Math.floor((new Date(c.terminoEstagio)-hoje)/(86400000));
+      if(dias<90) eventos.push({ ev:'Contrato Expirando', nome:c.nome, data:Fmt.date(c.terminoEstagio), status:'tag-orange', st: dias<30?'Urgente':'Atenção' });
+    });
+    eventos.push({ ev:'Pagamento Folha', nome:'Todos CLT', data:'30/03/2025', status:'tag-blue', st:'Agendado' });
+    eventos.push({ ev:'Depósito FGTS',   nome:'Todos CLT', data:'07/04/2025', status:'tag-accent',st:'Previsto' });
+    eventos.push({ ev:'Exame Periódico', nome:'Carlos Mendes', data:'15/04/2025',status:'tag-gray', st:'Pendente'});
+    document.getElementById('alertCount').textContent = eventos.filter(e=>e.st==='Urgente'||e.st==='Atenção').length + ' alertas';
+    document.querySelector('#tblEventos tbody').innerHTML = eventos.map(e=>
+      `<tr><td>${e.ev}</td><td>${e.nome}</td><td>${e.data}</td><td><span class="tag ${e.status}">${e.st}</span></td></tr>`
+    ).join('');
+  }
+
+  // ── Colabs recentes ──
+  function renderColabs(){
+    const ativos = colabs.filter(c=>c.situacao==='Ativo').slice(0,6);
+    document.querySelector('#tblColabsRecentes tbody').innerHTML = ativos.map(c=>
+      `<tr>
+        <td><div class="ci"><div class="av ${c.avc||Fmt.avColor(c.nome)}">${Fmt.initials(c.nome)}</div>
+          <div><div class="ci-name">${c.nome}</div></div></div></td>
+        <td>${c.cargo}</td>
+        <td><span class="tag ${c.tipo==='CLT'?'tag-blue':'tag-purple'}">${c.tipo}</span></td>
+        <td class="c-accent fw7">${Fmt.brl(c.salario)}</td>
+      </tr>`).join('');
+  }
+
+  // ── Encargos ──
+  function renderEncargos(){
+    const clt = colabs.filter(c=>c.situacao==='Ativo'&&c.tipo==='CLT');
+    const folhaBruta = clt.reduce((s,c)=>s+c.salario,0);
+    const enc = Calc.encargosPatronais(folhaBruta);
+    document.getElementById('encargosBox').innerHTML = `
+      <div class="result-box">
+        <div class="rb-row"><span class="rb-lbl">Base da Folha (Bruto)</span><span class="rb-val">${Fmt.brl(folhaBruta)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">INSS Patronal (20%)</span><span class="rb-val c-red">${Fmt.brl(enc.inssPatronal)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">RAT Ajustado (2%)</span><span class="rb-val c-orange">${Fmt.brl(enc.rat)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">Terceiros (5,8%)</span><span class="rb-val c-orange">${Fmt.brl(enc.terceiros)}</span></div>
+        <div class="rb-row"><span class="rb-lbl">FGTS (8%)</span><span class="rb-val c-blue">${Fmt.brl(enc.fgts)}</span></div>
+        <div class="rb-row total"><span class="rb-lbl fw8">Total Encargos</span><span class="rb-val">${Fmt.brl(enc.total)}</span></div>
+      </div>
+      <div style="margin-top:0.7rem;font-size:0.78rem;color:var(--muted)">* Custo total empresa: <strong class="c-accent">${Fmt.brl(folhaBruta+enc.total)}</strong></div>`;
+  }
+
+  function exportDash(){
+    const headers = ['Indicador','Valor'];
+    const clt = colabs.filter(c=>c.situacao==='Ativo'&&c.tipo==='CLT');
+    const rows = [
+      ['Total Colaboradores Ativos', colabs.filter(c=>c.situacao==='Ativo').length],
+      ['Funcionários CLT', clt.length],
+      ['Estagiários', colabs.filter(c=>c.situacao==='Ativo'&&c.tipo==='Estagiário').length],
+      ['Folha Bruta Mensal', Fmt.brl(clt.reduce((s,c)=>s+c.salario,0))],
+      ['FGTS Mensal', Fmt.brl(clt.reduce((s,c)=>s+Calc.fgts(c.salario),0))],
+    ];
+    Export.dataToCSV(headers, rows, 'dashboard_dp_nexus.csv');
+  }
+
+  renderKPIs(); renderChartFolha(); renderEventos(); renderColabs(); renderEncargos();
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

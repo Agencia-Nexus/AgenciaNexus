@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Gerencie demissões e rescisões de contratos de trabalho na Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rescisão | DP — Agência Nexus" />
+  <meta property="og:description" content="Gerencie demissões e rescisões de contratos de trabalho na Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rescisão | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Gerencie demissões e rescisões de contratos de trabalho na Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Rescisão | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html" data-page="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html" data-page="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html" data-page="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html" data-page="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html" data-page="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html" data-page="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item active" href="demissao.html" data-page="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html" data-page="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html" data-page="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html" data-page="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html" data-page="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html" data-page="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html" data-page="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html" data-page="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html" data-page="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html" data-page="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html" data-page="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Demissão & Rescisão</span></div>
+    <div class="tb-right"><span class="tb-date" id="tb-date"></span></div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">🚪 Rescisão <span>Contratual (TRCT)</span></div>
+        <div class="sec-sub">Cálculo completo do Termo de Rescisão do Contrato de Trabalho — todos os tipos</div>
+      </div>
+    </div>
+
+    <div class="info-box warn">⚠️ O prazo para pagamento das verbas rescisórias é de <strong>10 dias corridos</strong> a partir da data do término do contrato. Certifique-se de registrar o CAGED e atualizar o eSocial.</div>
+
+    <div class="two-col">
+      <!-- PAINEL DE CÁLCULO -->
+      <div>
+        <div class="tbl-wrap" style="padding:1.2rem">
+          <div class="tbl-title" style="margin-bottom:1rem">⚙️ Dados da Rescisão</div>
+          <div class="form-grid">
+            <div class="form-group fg-full">
+              <label class="fl">Colaborador *</label>
+              <select class="fi" id="rescColab" onchange="selecionarColab()"><option value="">— Selecione —</option></select>
+            </div>
+            <div class="form-group">
+              <label class="fl">Data de Admissão</label>
+              <input class="fi" id="rescAdmissao" readonly/>
+            </div>
+            <div class="form-group">
+              <label class="fl">Data de Desligamento *</label>
+              <input type="date" class="fi" id="rescDataDesl" oninput="calcularRescisao()"/>
+            </div>
+            <div class="form-group fg-full">
+              <label class="fl">Motivo / Tipo de Rescisão *</label>
+              <select class="fi" id="rescMotivo" onchange="calcularRescisao()">
+                <option value="sem_justa_causa">Dispensa sem Justa Causa (empregador)</option>
+                <option value="justa_causa">Dispensa por Justa Causa</option>
+                <option value="pedido_demissao">Pedido de Demissão</option>
+                <option value="acordo">Acordo (art. 484-A CLT)</option>
+                <option value="termino_contrato">Término de Contrato Determinado</option>
+                <option value="falecimento">Falecimento do Empregado</option>
+                <option value="aposentadoria">Aposentadoria Compulsória</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="fl">Aviso Prévio</label>
+              <select class="fi" id="rescAviso" onchange="calcularRescisao()">
+                <option value="trabalhado">Trabalhado</option>
+                <option value="indenizado">Indenizado</option>
+                <option value="dispensado">Dispensado (pedido demissão)</option>
+                <option value="nao_aplica">Não se aplica</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="fl">Dias Aviso Proporcional</label>
+              <input type="number" class="fi" id="rescDiasAviso" value="30" min="30" max="90" oninput="calcularRescisao()"/>
+            </div>
+            <div class="form-group">
+              <label class="fl">Saldo de Banco de Horas (h)</label>
+              <input type="number" class="fi" id="rescBancoHoras" value="0" step="0.5" oninput="calcularRescisao()"/>
+            </div>
+            <div class="form-group">
+              <label class="fl">Férias Vencidas (dias)</label>
+              <input type="number" class="fi" id="rescFeriasVenc" value="0" min="0" max="60" oninput="calcularRescisao()"/>
+            </div>
+            <div class="form-group">
+              <label class="fl">Faltas no Último Mês</label>
+              <input type="number" class="fi" id="rescFaltas" value="0" min="0" oninput="calcularRescisao()"/>
+            </div>
+            <div class="form-group">
+              <label class="fl">Adiantamento a Descontar (R$)</label>
+              <input type="number" class="fi" id="rescAdiant" value="0" step="0.01" oninput="calcularRescisao()"/>
+            </div>
+            <div class="form-group">
+              <label class="fl">Meses de FGTS para Cálculo</label>
+              <input type="number" class="fi" id="rescMesesFGTS" value="0" placeholder="Auto" oninput="calcularRescisao()"/>
+            </div>
+            <div class="form-group">
+              <label class="fl">FGTS Acumulado Real (R$)</label>
+              <input type="number" class="fi" id="rescFGTSReal" value="0" step="0.01" placeholder="0 = automático" oninput="calcularRescisao()"/>
+              <span class="f-hint">Se 0, calcula automaticamente com base nos meses</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info tipo de rescisão -->
+        <div class="info-box blue" id="infoMotivo" style="margin-top:0.8rem">
+          Selecione o tipo de rescisão para ver as verbas aplicáveis.
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div>
+        <div id="rescResultado">
+          <div style="text-align:center;padding:3rem;color:var(--muted)">
+            <div style="font-size:2.5rem;opacity:0.2">🚪</div>
+            <p style="font-size:0.78rem;margin-top:0.8rem">Preencha os dados ao lado para calcular a rescisão</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRCT GERADO -->
+    <div id="trctArea" style="margin-top:1rem;display:none">
+      <div class="tbl-hd" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius) var(--radius) 0 0">
+        <span class="tbl-title">📋 TRCT — Termo de Rescisão do Contrato de Trabalho</span>
+        <div class="tbl-actions">
+          <button class="btn btn-success btn-sm" onclick="imprimirTRCT()">🖨️ Imprimir / PDF</button>
+          <button class="btn btn-blue btn-sm" onclick="exportarWordTRCT()">📄 Exportar .doc</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportarCSVResc()">📊 Exportar CSV</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);background:var(--card);padding:1rem">
+        <div id="trctContent"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const colabs = DP.getColabs();
+  let currentColab = null;
+  let currentResc  = null;
+  
+  UI.renderSelect('rescColab', colabs.filter(c=>c.tipo==='CLT'), 'id',
+    c => `${c.nome} — Adm: ${Fmt.date(c.admissao)} · ${Fmt.brl(c.salario)}`);
+  
+  function selecionarColab(){
+    const id = parseInt(UI.val('rescColab'));
+    currentColab = colabs.find(c=>c.id===id)||null;
+    if(!currentColab) return;
+    UI.setVal('rescAdmissao', Fmt.date(currentColab.admissao));
+    UI.setVal('rescDataDesl', Fmt.today());
+    // Calcular meses e FGTS estimado
+    const meses = Calc.mesesTrabalhados(currentColab.admissao);
+    UI.setVal('rescMesesFGTS', meses);
+    calcularRescisao();
+  }
+  
+  const motivoInfo = {
+    sem_justa_causa: '✅ Verbas: Saldo salário + Aviso prévio (indenizado ou trabalhado) + 13º proporcional + Férias proporcional + vencidas (se houver) + 1/3 + FGTS + Multa FGTS (40%) + Guias SD/CD.',
+    justa_causa:     '❌ Justa Causa: Apenas Saldo de salário + Férias vencidas (se houver) + 1/3. Não há aviso, 13º proporcional, FGTS ou multa.',
+    pedido_demissao: '📝 Pedido de Demissão: Saldo salário + 13º proporcional + Férias proporcional + vencidas + 1/3. Aviso prévio deve ser cumprido ou descontado. Sem multa FGTS.',
+    acordo:          '🤝 Acordo Mútuo (art. 484-A): Metade do aviso indenizado + metade da multa FGTS (20%) + todas as verbas proporcionais. Seguro-desemprego permitido.',
+    termino_contrato:'📅 Término Contrato Determinado: Saldo salário + 13º proporcional + Férias proporcional + 1/3 + FGTS. Sem aviso prévio se o empregado não for mantido.',
+    falecimento:     '🕊️ Falecimento: Saldo salário + 13º proporcional + Férias proporcional + vencidas + 1/3 + FGTS (sem multa). Verbas pagas aos dependentes/herdeiros.',
+    aposentadoria:   '🏦 Aposentadoria: Saldo salário + 13º proporcional + Férias proporcional + vencidas + 1/3. FGTS disponível. Sem multa rescisória.',
+  };
+  
+  function calcularRescisao(){
+    if(!currentColab) return;
+    const motivo       = UI.val('rescMotivo');
+    const dataDesl     = UI.val('rescDataDesl');
+    const aviso        = UI.val('rescAviso');
+    const diasAviso    = parseInt(UI.val('rescDiasAviso'))||30;
+    const bancoHoras   = parseFloat(UI.val('rescBancoHoras'))||0;
+    const feriasVenc   = parseInt(UI.val('rescFeriasVenc'))||0;
+    const faltas       = parseInt(UI.val('rescFaltas'))||0;
+    const adiant       = parseFloat(UI.val('rescAdiant'))||0;
+    const mesesFGTS    = parseInt(UI.val('rescMesesFGTS'))||Calc.mesesTrabalhados(currentColab.admissao);
+    const fgtsReal     = parseFloat(UI.val('rescFGTSReal'))||0;
+  
+    if(!dataDesl){ return; }
+    document.getElementById('infoMotivo').textContent = motivoInfo[motivo]||'';
+  
+    const cfg = DP.getConfig();
+    const admissao = new Date(currentColab.admissao);
+    const demissao = new Date(dataDesl);
+    const mesesTotal = (demissao - admissao)/(1000*60*60*24*30.44);
+    const mesesTrab  = Math.floor(mesesTotal);
+    const diasUltMes = Math.round((mesesTotal-mesesTrab)*30);
+    const diasAnos   = Math.floor(mesesTrab/12); // para aviso proporcional
+  
+    const salDiario  = currentColab.salario/30;
+    const salHora    = currentColab.salario/cfg.horasMensais;
+  
+    // ── VERBAS ──
+    let saldoSal     = salDiario * diasUltMes;
+    let avisoInderiz = 0;
+    if(aviso==='indenizado' && motivo!=='pedido_demissao' && motivo!=='justa_causa'){
+      avisoInderiz = currentColab.salario * (diasAviso/30);
+    }
+    // Desconto aviso se pedido de demissão e não cumprido
+    let descAviso = 0;
+    if(motivo==='pedido_demissao' && aviso==='dispensado'){
+      descAviso = currentColab.salario * (diasAviso/30);
+    }
+  
+    const meses13 = Math.min(mesesTrab % 12 || 12, 12);
+    let dec13 = motivo!=='justa_causa' ? (currentColab.salario/12)*meses13 : 0;
+  
+    // Férias proporcionais
+    const mesesFeriasP = mesesTrab % 12 || 12;
+    let feriasP = motivo!=='justa_causa' ? ((currentColab.salario/12)*mesesFeriasP) + ((currentColab.salario/12)*mesesFeriasP/3) : 0;
+  
+    // Férias vencidas
+    let feriasV = feriasVenc>0 ? (salDiario*feriasVenc) + (salDiario*feriasVenc/3) : 0;
+  
+    // Banco de horas
+    const bancoPagamento = bancoHoras > 0 ? salHora * bancoHoras : 0;
+    const bancoDesconto  = bancoHoras < 0 ? Math.abs(salHora * bancoHoras) : 0;
+  
+    // Desconto faltas
+    const descFaltas = salDiario * faltas;
+  
+    const fgtsAcum = fgtsReal > 0 ? fgtsReal : currentColab.salario * cfg.aliqFGTS * mesesFGTS;
+    const multaFGTS = motivo==='sem_justa_causa' || motivo==='termino_contrato' || motivo==='falecimento'
+      ? fgtsAcum * cfg.multaFGTS : motivo==='acordo' ? fgtsAcum * cfg.multaFGTSComp : 0;
+    const multaComp = motivo==='sem_justa_causa' ? fgtsAcum * cfg.multaFGTSComp : 0;
+  
+    // Acordo: metade do aviso + metade da multa
+    if(motivo==='acordo'){
+      avisoInderiz = currentColab.salario * (diasAviso/30) * 0.5;
+    }
+  
+    const bruto = saldoSal + avisoInderiz + dec13 + feriasP + feriasV + bancoPagamento;
+    const desc  = descFaltas + bancoDesconto + descAviso + adiant;
+    const baseINSS = Math.max(0, bruto - desc);
+    const inss  = Calc.inss(baseINSS);
+    const irrf  = Calc.irrf(baseINSS-inss, currentColab.dependentes||0);
+    const liquido = bruto - desc - inss - irrf;
+  
+    currentResc = { saldoSal, avisoInderiz, dec13, feriasP, feriasV, bancoPagamento,
+      descFaltas, bancoDesconto, descAviso, adiant, bruto, desc, inss, irrf, liquido,
+      fgtsAcum, multaFGTS, multaComp, mesesTrab, diasUltMes, motivo,
+      dataDesl, colabNome: currentColab.nome };
+  
+    // Render resultado
+    document.getElementById('rescResultado').innerHTML = `
+      <div class="result-box">
+        <div class="rb-row"><span class="rb-lbl c-muted">Tempo de Casa</span><span class="rb-val">${mesesTrab} meses e ${diasUltMes} dias</span></div>
+        <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);padding:0.5rem 0 0.2rem">Proventos</div>
+        <div class="rb-row add"><span class="rb-lbl">Saldo de Salário (${diasUltMes}d)</span><span class="rb-val">${Fmt.brl(saldoSal)}</span></div>
+        ${avisoInderiz>0?`<div class="rb-row add"><span class="rb-lbl">Aviso Prévio Indenizado (${diasAviso}d)</span><span class="rb-val">${Fmt.brl(avisoInderiz)}</span></div>`:''}
+        ${dec13>0?`<div class="rb-row add"><span class="rb-lbl">13º Salário Proporcional (${meses13}/12)</span><span class="rb-val">${Fmt.brl(dec13)}</span></div>`:''}
+        ${feriasP>0?`<div class="rb-row add"><span class="rb-lbl">Férias Proporcionais + 1/3 (${mesesFeriasP}/12)</span><span class="rb-val">${Fmt.brl(feriasP)}</span></div>`:''}
+        ${feriasV>0?`<div class="rb-row add"><span class="rb-lbl">Férias Vencidas + 1/3 (${feriasVenc}d)</span><span class="rb-val">${Fmt.brl(feriasV)}</span></div>`:''}
+        ${bancoPagamento>0?`<div class="rb-row add"><span class="rb-lbl">Banco de Horas (+${bancoHoras}h)</span><span class="rb-val">${Fmt.brl(bancoPagamento)}</span></div>`:''}
+        <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);padding:0.5rem 0 0.2rem">Descontos</div>
+        ${descFaltas>0?`<div class="rb-row desc"><span class="rb-lbl">Faltas (${faltas}d)</span><span class="rb-val">${Fmt.brl(descFaltas)}</span></div>`:''}
+        ${descAviso>0?`<div class="rb-row desc"><span class="rb-lbl">Aviso Não Cumprido</span><span class="rb-val">${Fmt.brl(descAviso)}</span></div>`:''}
+        ${bancoDesconto>0?`<div class="rb-row desc"><span class="rb-lbl">Banco de Horas Negativo</span><span class="rb-val">${Fmt.brl(bancoDesconto)}</span></div>`:''}
+        ${adiant>0?`<div class="rb-row desc"><span class="rb-lbl">Adiantamento</span><span class="rb-val">${Fmt.brl(adiant)}</span></div>`:''}
+        <div class="rb-row desc"><span class="rb-lbl">INSS</span><span class="rb-val">${Fmt.brl(inss)}</span></div>
+        <div class="rb-row desc"><span class="rb-lbl">IRRF</span><span class="rb-val">${Fmt.brl(irrf)}</span></div>
+        <div class="rb-row total"><span class="rb-lbl">💰 TOTAL LÍQUIDO</span><span class="rb-val">${Fmt.brl(liquido)}</span></div>
+        <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);padding:0.5rem 0 0.2rem">FGTS (levantamento)</div>
+        <div class="rb-row"><span class="rb-lbl">FGTS Acumulado (estimado)</span><span class="rb-val c-blue">${Fmt.brl(fgtsAcum)}</span></div>
+        ${multaFGTS>0?`<div class="rb-row"><span class="rb-lbl">Multa FGTS (${motivo==='acordo'?'20%':'40%'})</span><span class="rb-val c-blue">${Fmt.brl(multaFGTS)}</span></div>`:''}
+        ${multaComp>0?`<div class="rb-row"><span class="rb-lbl">Multa Complementar FAT (20%)</span><span class="rb-val c-orange">${Fmt.brl(multaComp)}</span></div>`:''}
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:0.8rem" onclick="gerarTRCT()">📋 Gerar TRCT Completo</button>`;
+  }
+  
+  function gerarTRCT(){
+    if(!currentResc||!currentColab){ UI.toast('Calcule a rescisão primeiro','err'); return; }
+    const r = currentResc; const c = currentColab;
+    const cfg2 = DP.getConfig();
+    const html = `
+    <div id="trctImprimivel" style="font-family:'Sora',sans-serif;font-size:0.84rem;color:#111">
+      <div style="text-align:center;border-bottom:3px solid #1e40af;padding-bottom:0.8rem;margin-bottom:0.8rem">
+        <div style="font-size:1rem;font-weight:900;color:#1e40af">${cfg2.empresa.razao_social}</div>
+        <div style="font-size:0.70rem;color:#666">CNPJ: ${cfg2.empresa.cnpj} · ${cfg2.empresa.endereco}</div>
+        <div style="font-size:0.85rem;font-weight:800;margin-top:0.4rem">TERMO DE RESCISÃO DO CONTRATO DE TRABALHO — TRCT</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.4rem;background:#f8f8f8;padding:0.7rem;border-radius:6px;margin-bottom:0.8rem;font-size:0.80rem">
+        <div><b>Empregado:</b> ${c.nome}</div>
+        <div><b>CPF:</b> ${c.cpf}</div>
+        <div><b>Matrícula:</b> ${String(c.id).padStart(6,'0')}</div>
+        <div><b>Cargo:</b> ${c.cargo}</div>
+        <div><b>Departamento:</b> ${c.depto}</div>
+        <div><b>PIS:</b> ${c.pis||'—'}</div>
+        <div><b>Admissão:</b> ${Fmt.date(c.admissao)}</div>
+        <div><b>Desligamento:</b> ${Fmt.date(r.dataDesl)}</div>
+        <div><b>Tempo de Casa:</b> ${r.mesesTrab} meses / ${r.diasUltMes}d</div>
+        <div><b>Motivo:</b> ${document.getElementById('rescMotivo').options[document.getElementById('rescMotivo').selectedIndex].text}</div>
+        <div><b>Salário Base:</b> ${Fmt.brl(c.salario)}</div>
+        <div><b>CTPS:</b> ${c.ctps||'—'}</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:0.8rem;font-size:0.80rem">
+        <thead><tr style="background:#1e40af;color:#fff">
+          <th style="padding:6px 10px;text-align:left">Verba</th>
+          <th style="padding:6px 10px;text-align:right">Proventos</th>
+          <th style="padding:6px 10px;text-align:right">Descontos</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #eee">Saldo de Salário (${r.diasUltMes} dias)</td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#2a7a2a;font-weight:700">${Fmt.brl(r.saldoSal)}</td><td></td></tr>
+          ${r.avisoInderiz>0?`<tr><td style="padding:5px 10px;border-bottom:1px solid #eee">Aviso Prévio Indenizado</td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#2a7a2a;font-weight:700">${Fmt.brl(r.avisoInderiz)}</td><td></td></tr>`:''}
+          ${r.dec13>0?`<tr><td style="padding:5px 10px;border-bottom:1px solid #eee">13º Salário Proporcional</td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#2a7a2a;font-weight:700">${Fmt.brl(r.dec13)}</td><td></td></tr>`:''}
+          ${r.feriasP>0?`<tr><td style="padding:5px 10px;border-bottom:1px solid #eee">Férias Proporcionais + 1/3</td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#2a7a2a;font-weight:700">${Fmt.brl(r.feriasP)}</td><td></td></tr>`:''}
+          ${r.feriasV>0?`<tr><td style="padding:5px 10px;border-bottom:1px solid #eee">Férias Vencidas + 1/3</td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#2a7a2a;font-weight:700">${Fmt.brl(r.feriasV)}</td><td></td></tr>`:''}
+          ${r.descFaltas>0?`<tr><td style="padding:5px 10px;border-bottom:1px solid #eee">Desconto Faltas</td><td></td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#c0392b;font-weight:700">${Fmt.brl(r.descFaltas)}</td></tr>`:''}
+          ${r.adiant>0?`<tr><td style="padding:5px 10px;border-bottom:1px solid #eee">Adiantamento Salarial</td><td></td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#c0392b;font-weight:700">${Fmt.brl(r.adiant)}</td></tr>`:''}
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #eee">INSS</td><td></td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#c0392b;font-weight:700">${Fmt.brl(r.inss)}</td></tr>
+          <tr><td style="padding:5px 10px;border-bottom:1px solid #eee">IRRF</td><td></td><td style="text-align:right;padding:5px 10px;border-bottom:1px solid #eee;color:#c0392b;font-weight:700">${Fmt.brl(r.irrf)}</td></tr>
+          <tr style="background:#f0f0f0;font-weight:800">
+            <td style="padding:6px 10px">TOTAIS</td>
+            <td style="text-align:right;padding:6px 10px;color:#2a7a2a">${Fmt.brl(r.bruto)}</td>
+            <td style="text-align:right;padding:6px 10px;color:#c0392b">${Fmt.brl(r.desc+r.inss+r.irrf)}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;margin-bottom:0.8rem">
+        <div style="background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;padding:0.7rem;text-align:center">
+          <div style="font-size:0.52rem;text-transform:uppercase;color:#666">Total Bruto</div>
+          <div style="font-size:0.95rem;font-weight:900;color:#2a7a2a">${Fmt.brl(r.bruto)}</div>
+        </div>
+        <div style="background:#fce4ec;border:1px solid #f48fb1;border-radius:6px;padding:0.7rem;text-align:center">
+          <div style="font-size:0.52rem;text-transform:uppercase;color:#666">Total Descontos</div>
+          <div style="font-size:0.95rem;font-weight:900;color:#c0392b">${Fmt.brl(r.desc+r.inss+r.irrf)}</div>
+        </div>
+        <div style="background:#1e40af;border-radius:6px;padding:0.7rem;text-align:center;color:#fff">
+          <div style="font-size:0.52rem;text-transform:uppercase;opacity:0.75">Líquido a Receber</div>
+          <div style="font-size:0.95rem;font-weight:900">${Fmt.brl(r.liquido)}</div>
+        </div>
+      </div>
+      ${r.multaFGTS>0||r.fgtsAcum>0?`
+      <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:6px;padding:0.7rem;margin-bottom:0.8rem;font-size:0.80rem">
+        <b>FGTS para Saque / Levantamento:</b>
+        FGTS Acumulado: ${Fmt.brl(r.fgtsAcum)} |
+        ${r.multaFGTS>0?`Multa (${r.motivo==='acordo'?'20%':'40%'}): ${Fmt.brl(r.multaFGTS)} |`:''}
+        ${r.multaComp>0?`Multa FAT (20%): ${Fmt.brl(r.multaComp)} |`:''}
+        <b>Total FGTS: ${Fmt.brl(r.fgtsAcum+r.multaFGTS+r.multaComp)}</b>
+      </div>`:''}
+      <div style="display:flex;justify-content:space-between;margin-top:1.5rem;padding-top:0.8rem;border-top:1px dashed #ccc;gap:1rem">
+        <div style="text-align:center;flex:1"><div style="border-bottom:1px solid #333;height:28px;margin:0 0.5rem 0.3rem"></div><span style="font-size:0.70rem;color:#888">${c.nome} — Empregado</span></div>
+        <div style="text-align:center;flex:1"><div style="border-bottom:1px solid #333;height:28px;margin:0 0.5rem 0.3rem"></div><span style="font-size:0.70rem;color:#888">Depto. Pessoal — Agência Nexus</span></div>
+        <div style="text-align:center;flex:1"><div style="border-bottom:1px solid #333;height:28px;margin:0 0.5rem 0.3rem"></div><span style="font-size:0.70rem;color:#888">Testemunha</span></div>
+      </div>
+      <div style="text-align:center;font-size:0.68rem;color:#bbb;margin-top:0.5rem">
+        Gerado em ${new Date().toLocaleString('pt-BR')} · Sistema DP Agência Nexus
+      </div>
+    </div>`;
+    document.getElementById('trctContent').innerHTML = html;
+    document.getElementById('trctArea').style.display='block';
+    document.getElementById('trctArea').scrollIntoView({behavior:'smooth'});
+    UI.toast('TRCT gerado!','ok');
+  }
+  
+  function imprimirTRCT(){ Export.printDiv('trctImprimivel','TRCT — Agência Nexus'); }
+  function exportarWordTRCT(){
+    const el=document.getElementById('trctImprimivel');
+    if(!el){UI.toast('Gere o TRCT primeiro','err');return;}
+    Export.toWord(el.innerHTML,`TRCT_${currentColab?.nome?.replace(/\s/g,'_')}.doc`);
+  }
+  function exportarCSVResc(){
+    if(!currentResc){UI.toast('Calcule a rescisão primeiro','err');return;}
+    const r=currentResc;
+    Export.dataToCSV(
+      ['Verba','Proventos','Descontos'],
+      [
+        ['Saldo Salário',Fmt.brl(r.saldoSal),''],
+        ['Aviso Prévio',Fmt.brl(r.avisoInderiz),''],
+        ['13º Proporcional',Fmt.brl(r.dec13),''],
+        ['Férias Proporcionais + 1/3',Fmt.brl(r.feriasP),''],
+        ['Férias Vencidas + 1/3',Fmt.brl(r.feriasV),''],
+        ['INSS','',Fmt.brl(r.inss)],
+        ['IRRF','',Fmt.brl(r.irrf)],
+        ['LÍQUIDO',Fmt.brl(r.liquido),''],
+        ['FGTS Acumulado',Fmt.brl(r.fgtsAcum),''],
+        ['Multa FGTS',Fmt.brl(r.multaFGTS),''],
+      ],
+      `rescisao_${currentColab?.nome?.replace(/\s/g,'_')}.csv`
+    );
+  }
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

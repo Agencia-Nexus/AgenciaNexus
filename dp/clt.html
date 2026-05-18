@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Acompanhe vínculos, períodos de experiência e reajustes CLT na Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Contratos CLT | DP — Agência Nexus" />
+  <meta property="og:description" content="Acompanhe vínculos, períodos de experiência e reajustes CLT na Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Contratos CLT | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Acompanhe vínculos, períodos de experiência e reajustes CLT na Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Contratos CLT | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item active" href="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Contratos CLT</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportarCLT()">📊 CSV</button>
+      <button class="btn btn-blue btn-sm" onclick="exportarCLTWord()">📄 Word</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">📋 Contratos <span>CLT</span></div>
+        <div class="sec-sub">Controle de vínculos, períodos de experiência, reajustes e tempo de casa</div>
+      </div>
+    </div>
+
+    <div class="info-box blue">
+      📌 <strong>Período de Experiência:</strong> máximo 90 dias (ou 45+45). Deve ser prorrogado dentro do prazo ou automaticamente converte para indeterminado. Rescisão dentro do período tem regras diferenciadas.
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-row" id="cltKPI"></div>
+
+    <!-- Alertas de fim de período de experiência -->
+    <div id="alertasExp" style="margin-bottom:1rem"></div>
+
+    <!-- Filtros -->
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">👥 Colaboradores CLT</span>
+        <div class="tbl-actions">
+          <div class="search-box"><span>🔍</span><input placeholder="Buscar nome ou cargo..." oninput="UI.filtrarTabela('tblCLT',this.value)"/></div>
+          <select class="fi" id="filtCLTDepto" style="font-size:0.82rem;padding:0.3rem 0.5rem" onchange="renderCLT()">
+            <option value="">Todos os Deptos</option>
+            <option>Criação</option><option>Atendimento</option><option>Mídia</option>
+            <option>Planejamento</option><option>Financeiro</option><option>TI</option>
+            <option>Administrativo</option><option>Comercial</option><option>RH/DP</option>
+          </select>
+          <select class="fi" id="filtCLTRegime" style="font-size:0.82rem;padding:0.3rem 0.5rem" onchange="renderCLT()">
+            <option value="">Todos os Regimes</option>
+            <option value="Indeterminado">Indeterminado</option>
+            <option value="Experiência">Período Experiência</option>
+            <option value="Determinado">Prazo Determinado</option>
+          </select>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+      <table id="tblCLT">
+        <thead>
+          <tr>
+            <th>Colaborador</th><th>Cargo / CBO</th><th>Depto</th>
+            <th>Admissão</th><th>Tempo de Casa</th><th>Regime</th>
+            <th>Salário</th><th>Último Reajuste</th><th>Situação</th><th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyCLT"></tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- Histórico salarial e reajustes -->
+    <div class="tbl-wrap" style="margin-top:1rem;padding:1.1rem">
+      <div class="tbl-title" style="margin-bottom:0.8rem">📈 Análise Salarial — CLT Ativos</div>
+      <div class="two-col">
+        <div id="analiseSalarialBox"></div>
+        <div id="distribuicaoDeptoBox"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  const cltColabs = DP.getColabs().filter(c => c.tipo === 'CLT' && c.situacao === 'Ativo');
+  
+  function diasAteFim(admissao, regimeDias) {
+    if (!regimeDias) return null;
+    const inicio = new Date(admissao+'T12:00:00');
+    const fim    = new Date(inicio); fim.setDate(fim.getDate() + regimeDias);
+    return Math.round((fim - new Date()) / 86400000);
+  }
+  
+  function renderCLT() {
+    const filtDepto  = document.getElementById('filtCLTDepto').value;
+    const filtRegime = document.getElementById('filtCLTRegime').value;
+    let lista = cltColabs;
+    if (filtDepto)  lista = lista.filter(c => c.depto === filtDepto);
+    if (filtRegime) lista = lista.filter(c => (c.regime || 'Indeterminado').includes(filtRegime));
+  
+    // Alertas de experiência
+    const expirando = cltColabs.filter(c => {
+      const regime = c.regime || '';
+      if (!regime.includes('Experiência')) return false;
+      const d = diasAteFim(c.admissao, 90);
+      return d !== null && d >= 0 && d <= 15;
+    });
+    document.getElementById('alertasExp').innerHTML = expirando.length === 0 ? '' :
+      expirando.map(c => {
+        const dias = diasAteFim(c.admissao, 90);
+        return `<div class="info-box warn">
+          ⚠️ <strong>${c.nome}</strong> — período de experiência encerra em <strong>${dias} dia(s)</strong>. Decida: <em>efetivar</em> ou <em>não renovar</em> antes do prazo.
+        </div>`;
+      }).join('');
+  
+    document.getElementById('tbodyCLT').innerHTML = lista.length === 0
+      ? `<tr><td colspan="10"><div class="empty"><span class="ico">📋</span><p>Nenhum colaborador CLT encontrado para os filtros aplicados</p></div></td></tr>`
+      : lista.map(c => {
+          const meses  = Calc.mesesTrabalhados(c.admissao);
+          const regime = c.regime || 'Indeterminado';
+          const diasExp = regime.includes('Experiência') ? diasAteFim(c.admissao, 90) : null;
+          const regimeCls = regime.includes('Experiência') ? (diasExp !== null && diasExp < 15 ? 'tag-red' : 'tag-orange') : 'tag-blue';
+          return `<tr>
+            <td><div class="ci"><div class="av ${c.avc||'av-g'}" style="width:28px;height:28px;font-size:0.70rem">${Fmt.initials(c.nome)}</div>
+              <div><div class="ci-name" style="font-size:0.84rem">${c.nome}</div>
+              <div style="font-size:0.76rem;color:var(--muted)">${c.cpf||''}</div></div></div></td>
+            <td style="font-size:0.80rem">${c.cargo}<br><span style="color:var(--muted)">${c.cbo||'—'}</span></td>
+            <td>${c.depto}</td>
+            <td>${Fmt.date(c.admissao)}</td>
+            <td>${Math.floor(meses/12)}a ${meses%12}m</td>
+            <td>
+              <span class="tag ${regimeCls}">${regime}</span>
+              ${diasExp !== null ? `<br><span style="font-size:0.76rem;color:var(--muted)">${diasExp}d restantes</span>` : ''}
+            </td>
+            <td class="c-accent fw7">${Fmt.brl(c.salario)}</td>
+            <td style="font-size:0.80rem">${c.ultimoReajuste ? Fmt.date(c.ultimoReajuste) : '—'}</td>
+            <td><span class="tag tag-green">${c.situacao}</span></td>
+            <td>
+              <button class="btn btn-blue btn-sm" title="Ver ficha" onclick="alert('Acesse Colaboradores para ver a ficha completa de ${c.nome}')">👁️</button>
+            </td>
+          </tr>`;
+        }).join('');
+  
+    // KPI
+    const totalSal = cltColabs.reduce((s,c)=>s+c.salario,0);
+    const menorSal = Math.min(...cltColabs.map(c=>c.salario));
+    const maiorSal = Math.max(...cltColabs.map(c=>c.salario));
+    const mediaSal = totalSal / (cltColabs.length||1);
+    const emExp    = cltColabs.filter(c=>(c.regime||'').includes('Experiência')).length;
+    document.getElementById('cltKPI').innerHTML = [
+      {v:cltColabs.length, l:'Total CLT Ativos',     cls:'c-text'},
+      {v:emExp,            l:'Em Experiência',        cls:emExp>0?'c-orange':'c-green'},
+      {v:Fmt.brl(mediaSal),l:'Salário Médio',         cls:'c-accent'},
+      {v:Fmt.brl(maiorSal),l:'Maior Salário',         cls:'c-blue'},
+      {v:Fmt.brl(menorSal),l:'Menor Salário',         cls:'c-muted'},
+      {v:Fmt.brl(totalSal),l:'Total Folha CLT',       cls:'c-accent'},
+    ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div></div>`).join('');
+  
+    // Análise salarial
+    const faixas = [
+      {label:'até R$ 2.000', min:0,    max:2000},
+      {label:'R$ 2K–5K',     min:2000, max:5000},
+      {label:'R$ 5K–10K',    min:5000, max:10000},
+      {label:'acima R$ 10K', min:10000,max:Infinity},
+    ];
+    document.getElementById('analiseSalarialBox').innerHTML = `
+      <div class="tbl-title" style="font-size:0.83rem;margin-bottom:0.7rem">Distribuição por Faixa Salarial</div>
+      ${faixas.map(f => {
+        const qtd = cltColabs.filter(c=>c.salario>=f.min && c.salario<f.max).length;
+        const pct = Math.round(qtd/(cltColabs.length||1)*100);
+        return `<div style="margin-bottom:0.7rem">
+          <div style="display:flex;justify-content:space-between;font-size:0.80rem;margin-bottom:0.2rem">
+            <span>${f.label}</span><span class="c-accent">${qtd} col. (${pct}%)</span>
+          </div>
+          <div class="pbar"><div class="pbar-fill" style="width:${pct}%"></div></div>
+        </div>`;
+      }).join('')}`;
+  
+    // Por departamento
+    const deptos = {};
+    cltColabs.forEach(c => { if(!deptos[c.depto]) deptos[c.depto]={n:0,sal:0}; deptos[c.depto].n++; deptos[c.depto].sal+=c.salario; });
+    document.getElementById('distribuicaoDeptoBox').innerHTML = `
+      <div class="tbl-title" style="font-size:0.83rem;margin-bottom:0.7rem">Headcount e Massa Salarial por Depto</div>
+      <div class="result-box">
+        ${Object.entries(deptos).sort((a,b)=>b[1].n-a[1].n).map(([d,v])=>`
+          <div class="rb-row"><span class="rb-lbl">${d} (${v.n})</span><span class="rb-val">${Fmt.brl(v.sal)}</span></div>`).join('')}
+      </div>`;
+  }
+  
+  function exportarCLT() {
+    Export.dataToCSV(
+      ['Nome','CPF','Cargo','Depto','Admissão','Tempo','Regime','Salário','Situação'],
+      cltColabs.map(c => {
+        const meses=Calc.mesesTrabalhados(c.admissao);
+        return [c.nome,c.cpf||'',c.cargo,c.depto,Fmt.date(c.admissao),`${Math.floor(meses/12)}a ${meses%12}m`,c.regime||'Indeterminado',Fmt.brl(c.salario),c.situacao];
+      }),
+      'contratos_clt.csv'
+    );
+  }
+  function exportarCLTWord() {
+    const rows = cltColabs.map(c=>{
+      const meses=Calc.mesesTrabalhados(c.admissao);
+      return `<tr><td>${c.nome}</td><td>${c.cargo}</td><td>${c.depto}</td><td>${Fmt.date(c.admissao)}</td><td>${Math.floor(meses/12)}a ${meses%12}m</td><td>${c.regime||'Indeterminado'}</td><td>${Fmt.brl(c.salario)}</td></tr>`;
+    }).join('');
+    Export.toWord(`<h2>Contratos CLT — Agência Nexus</h2>
+      <table><thead><tr><th>Nome</th><th>Cargo</th><th>Depto</th><th>Admissão</th><th>Tempo</th><th>Regime</th><th>Salário</th></tr></thead>
+      <tbody>${rows}</tbody></table>`, 'contratos_clt.doc');
+  }
+  
+  renderCLT();
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+  <!-- SEO -->
+  <meta name="description" content="Gerencie o quadro completo de colaboradores do DP da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Agência Nexus" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Colaboradores | DP — Agência Nexus" />
+  <meta property="og:description" content="Gerencie o quadro completo de colaboradores do DP da Agência Nexus." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Colaboradores | DP — Agência Nexus" />
+  <meta name="twitter:description" content="Gerencie o quadro completo de colaboradores do DP da Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+<title>Colaboradores | DP — Agência Nexus</title>
+<link rel="stylesheet" href="assets/dp-style.css"/>
+<link rel="stylesheet" href="assets/dp-mobile.css"/>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head"><div class="sb-logo">EX</div><div class="sb-info"><div class="sb-name">Agência <span>Nexus</span></div><div class="sb-sub">Depto. Pessoal</div></div></div>
+  <nav class="sb-nav">
+    <div class="sb-sep">Visão Geral</div>
+    <a class="sb-item" href="index.html" data-page="index.html"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+    <a class="sb-item" href="ponto.html" data-page="ponto.html"><span class="ico">⏱️</span><span class="lbl">Controle de Ponto</span></a>
+    <div class="sb-sep">Colaboradores</div>
+    <a class="sb-item" href="colaboradores.html" data-page="colaboradores.html"><span class="ico">👥</span><span class="lbl">Colaboradores</span></a>
+    <a class="sb-item" href="estagiarios.html" data-page="estagiarios.html"><span class="ico">🎓</span><span class="lbl">Estagiários</span></a>
+    <a class="sb-item" href="clt.html" data-page="clt.html"><span class="ico">📋</span><span class="lbl">Contratos CLT</span></a>
+    <a class="sb-item" href="admissao.html" data-page="admissao.html"><span class="ico">✅</span><span class="lbl">Admissão</span></a>
+    <a class="sb-item" href="demissao.html" data-page="demissao.html"><span class="ico">🚪</span><span class="lbl">Demissão / Rescisão</span></a>
+    <div class="sb-sep">Financeiro / Folha</div>
+    <a class="sb-item" href="folha.html" data-page="folha.html"><span class="ico">💰</span><span class="lbl">Folha de Pagamento</span></a>
+    <a class="sb-item" href="holerite.html" data-page="holerite.html"><span class="ico">🧾</span><span class="lbl">Holerites</span></a>
+    <a class="sb-item" href="fgts.html" data-page="fgts.html"><span class="ico">🏦</span><span class="lbl">FGTS</span></a>
+    <a class="sb-item" href="decimo.html" data-page="decimo.html"><span class="ico">🎄</span><span class="lbl">13º Salário</span></a>
+    <div class="sb-sep">Benefícios & RH</div>
+    <a class="sb-item" href="ferias.html" data-page="ferias.html"><span class="ico">🏖️</span><span class="lbl">Férias</span></a>
+    <a class="sb-item" href="afastamentos.html" data-page="afastamentos.html"><span class="ico">🏥</span><span class="lbl">Afastamentos</span></a>
+    <a class="sb-item" href="beneficios.html" data-page="beneficios.html"><span class="ico">🎁</span><span class="lbl">Benefícios</span></a>
+    <a class="sb-item" href="documentos.html" data-page="documentos.html"><span class="ico">📁</span><span class="lbl">Documentos</span></a>
+    <div class="sb-sep">Relatórios</div>
+    <a class="sb-item" href="relatorios.html" data-page="relatorios.html"><span class="ico">📈</span><span class="lbl">Relatórios</span></a>
+    <a class="sb-item" href="configuracoes.html" data-page="configuracoes.html"><span class="ico">⚙️</span><span class="lbl">Configurações</span></a>
+  </nav>
+  <div class="sb-foot"><div class="sb-av">RH</div><div class="sb-uinfo"><div class="sb-uname" id="user-nome">—</div><div class="sb-urole" id="user-email" style="font-size:0.70rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">—</div></div><button class="sb-toggle" id="sb-logout" onclick="if(window.dpLogout)window.dpLogout()" title="Sair" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:0.2rem" >⏻</button><div class="sb-toggle" id="sb-toggle">◀</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-bc"><a href="index.html" style="color:var(--muted);text-decoration:none">Dashboard</a><span class="sep"> / </span><span>Colaboradores</span></div>
+    <div class="tb-right">
+      <span class="tb-date" id="tb-date"></span>
+      <button class="btn btn-ghost btn-sm" onclick="exportColabs()">📊 Exportar CSV</button>
+      <button class="btn btn-primary btn-sm" onclick="UI.openModal('modalColab')">＋ Novo Colaborador</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-hd">
+      <div class="sec-hd-left">
+        <div class="sec-title">👥 <span>Colaboradores</span></div>
+        <div class="sec-sub">Cadastro completo — dados pessoais, profissionais e trabalhistas</div>
+      </div>
+      <div class="sec-hd-actions">
+        <select class="fi" id="filtroSit" style="font-size:0.83rem;padding:0.35rem 0.7rem" onchange="renderTable()">
+          <option value="">Todos</option><option value="Ativo">Ativos</option><option value="Desligado">Desligados</option>
+        </select>
+        <select class="fi" id="filtroTipo" style="font-size:0.83rem;padding:0.35rem 0.7rem" onchange="renderTable()">
+          <option value="">Todos os tipos</option><option value="CLT">CLT</option><option value="Estagiário">Estagiário</option><option value="PJ">PJ</option>
+        </select>
+        <select class="fi" id="filtroDepto" style="font-size:0.83rem;padding:0.35rem 0.7rem" onchange="renderTable()">
+          <option value="">Todos os deptos</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpiRow"></div>
+
+    <div class="tbl-wrap">
+      <div class="tbl-hd">
+        <span class="tbl-title">Lista de Colaboradores</span>
+        <div class="tbl-actions">
+          <div class="search-box"><span>🔍</span><input id="searchColab" placeholder="Buscar nome, CPF, cargo..." oninput="UI.filtrarTabela('mainTable', this.value)"/></div>
+        </div>
+      </div>
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th onclick="UI.sortTable('mainTable',1)">Colaborador ↕</th>
+            <th>CPF</th>
+            <th onclick="UI.sortTable('mainTable',3)">Cargo</th>
+            <th>Depto.</th>
+            <th onclick="UI.sortTable('mainTable',5)">Admissão</th>
+            <th>Tipo</th>
+            <th onclick="UI.sortTable('mainTable',6,'num')">Salário</th>
+            <th>Situação</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyColabs"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div><!-- /app -->
+
+<!-- MODAL COLABORADOR (cadastro completo) -->
+<div class="overlay" id="modalColab">
+<div class="modal w-xl">
+  <div class="modal-hd">
+    <div class="modal-title" id="modalColabTitle">👤 Cadastro de Colaborador</div>
+    <div class="modal-close" onclick="UI.closeModal('modalColab')">✕</div>
+  </div>
+
+  <div class="tabs" id="formTabs">
+    <div class="tab active" onclick="showTab(0)">Dados Pessoais</div>
+    <div class="tab" onclick="showTab(1)">Dados Profissionais</div>
+    <div class="tab" onclick="showTab(2)">Dados Bancários</div>
+    <div class="tab" onclick="showTab(3)">Benefícios</div>
+    <div class="tab" onclick="showTab(4)">Documentos</div>
+  </div>
+
+  <!-- ABA 0: Dados Pessoais -->
+  <div class="form-tab active" id="tab0">
+    <div class="form-grid">
+      <div class="form-group fg-full"><label class="fl">Nome Completo *</label><input class="fi" id="cNome" placeholder="Nome completo conforme RG"/></div>
+      <div class="form-group"><label class="fl">CPF *</label><input class="fi" id="cCPF" placeholder="000.000.000-00" oninput="Mask.cpf(this)"/></div>
+      <div class="form-group"><label class="fl">RG</label><input class="fi" id="cRG" placeholder="00.000.000-0"/></div>
+      <div class="form-group"><label class="fl">Data de Nascimento</label><input class="fi" type="date" id="cNasc"/></div>
+      <div class="form-group"><label class="fl">Gênero</label>
+        <select class="fi" id="cGenero"><option>Masculino</option><option>Feminino</option><option>Não-binário</option><option>Prefiro não informar</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Estado Civil</label>
+        <select class="fi" id="cEstCivil"><option>Solteiro(a)</option><option>Casado(a)</option><option>Divorciado(a)</option><option>Viúvo(a)</option><option>União Estável</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Escolaridade</label>
+        <select class="fi" id="cEscolaridade"><option>Fundamental</option><option>Médio Incompleto</option><option>Médio Completo</option><option>Superior Incompleto</option><option>Superior Completo</option><option>Pós-Graduação</option><option>Mestrado</option><option>Doutorado</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Nº de Dependentes (IRRF)</label><input class="fi" type="number" id="cDependentes" value="0" min="0"/></div>
+      <div class="form-group"><label class="fl">E-mail</label><input class="fi" type="email" id="cEmail" placeholder="nome@agenciaexittus.com.br"/></div>
+      <div class="form-group"><label class="fl">Telefone</label><input class="fi" id="cTel" placeholder="(11) 90000-0000" oninput="Mask.tel(this)"/></div>
+      <div class="form-group fg-full"><label class="fl">Endereço Completo</label><input class="fi" id="cEnd" placeholder="Rua, Nº, Complemento, Bairro, Cidade — UF"/></div>
+      <div class="form-group"><label class="fl">CEP</label><input class="fi" id="cCEP" placeholder="00000-000" oninput="Mask.cep(this)"/></div>
+      <div class="form-group"><label class="fl">Nacionalidade</label><input class="fi" id="cNac" value="Brasileira"/></div>
+    </div>
+  </div>
+
+  <!-- ABA 1: Dados Profissionais -->
+  <div class="form-tab" id="tab1" style="display:none">
+    <div class="form-grid">
+      <div class="form-group"><label class="fl">Tipo de Contrato *</label>
+        <select class="fi" id="cTipo"><option value="CLT">CLT</option><option value="Estagiário">Estagiário</option><option value="PJ">PJ</option><option value="Temporário">Temporário</option><option value="Aprendiz">Aprendiz</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Cargo / Função *</label><input class="fi" id="cCargo" placeholder="Ex: Designer Gráfico Sênior"/></div>
+      <div class="form-group"><label class="fl">CBO</label><input class="fi" id="cCBO" placeholder="Ex: 2621-05"/></div>
+      <div class="form-group"><label class="fl">Departamento *</label>
+        <select class="fi" id="cDepto">
+          <option>Criação</option><option>Tecnologia</option><option>Comercial</option>
+          <option>Administrativo</option><option>Financeiro</option><option>RH</option><option>Operacional</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="fl">Gestor Direto</label><input class="fi" id="cGestor" placeholder="Nome do gestor responsável"/></div>
+      <div class="form-group"><label class="fl">Data de Admissão *</label><input class="fi" type="date" id="cAdmissao"/></div>
+      <div class="form-group"><label class="fl">Salário / Bolsa (R$) *</label><input class="fi" type="number" id="cSalario" step="0.01" placeholder="0,00"/></div>
+      <div class="form-group"><label class="fl">Regime de Trabalho</label>
+        <select class="fi" id="cRegime"><option>44h semanais</option><option>40h semanais</option><option>30h semanais</option><option>20h semanais</option><option>Horista</option><option>Home Office</option><option>Híbrido</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Período de Experiência</label>
+        <select class="fi" id="cExperiencia"><option value="45">45 dias</option><option value="90">90 dias (45+45)</option><option value="0">Sem experiência</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Centro de Custo</label><input class="fi" id="cCentroCusto" placeholder="Ex: CC-001"/></div>
+      <div class="form-group fg-full"><label class="fl">Atribuições / Observações</label><textarea class="fi" id="cAtrib" placeholder="Descrição das funções e observações gerais..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- ABA 2: Dados Bancários -->
+  <div class="form-tab" id="tab2" style="display:none">
+    <div class="form-grid">
+      <div class="f-sec-title" style="grid-column:1/-1">Conta para Crédito de Salário</div>
+      <div class="form-group"><label class="fl">Banco</label><input class="fi" id="cBanco" placeholder="Nome do banco"/></div>
+      <div class="form-group"><label class="fl">Código do Banco</label><input class="fi" id="cBancoCod" placeholder="Ex: 341"/></div>
+      <div class="form-group"><label class="fl">Agência</label><input class="fi" id="cAgencia" placeholder="0000-0"/></div>
+      <div class="form-group"><label class="fl">Conta Corrente</label><input class="fi" id="cConta" placeholder="00000-0"/></div>
+      <div class="form-group"><label class="fl">Tipo de Conta</label>
+        <select class="fi" id="cTipoConta"><option>Corrente</option><option>Poupança</option><option>Salário</option><option>PIX</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Chave PIX</label><input class="fi" id="cPix" placeholder="CPF, e-mail, telefone ou chave aleatória"/></div>
+      <div class="f-sec-title" style="grid-column:1/-1">Dados Trabalhistas</div>
+      <div class="form-group"><label class="fl">CTPS Nº</label><input class="fi" id="cCTPS" placeholder="000000/000-UF"/></div>
+      <div class="form-group"><label class="fl">CTPS Série</label><input class="fi" id="cCTPSSerie" placeholder="0000"/></div>
+      <div class="form-group"><label class="fl">CTPS UF</label><input class="fi" id="cCTPSUF" placeholder="SP"/></div>
+      <div class="form-group"><label class="fl">PIS/PASEP</label><input class="fi" id="cPIS" placeholder="000.00000.00-0" oninput="Mask.pis(this)"/></div>
+      <div class="form-group"><label class="fl">NIT</label><input class="fi" id="cNIT" placeholder="Número de Inscrição do Trabalhador"/></div>
+      <div class="form-group"><label class="fl">Título Eleitor</label><input class="fi" id="cTitulo" placeholder="Nº título de eleitor"/></div>
+    </div>
+  </div>
+
+  <!-- ABA 3: Benefícios -->
+  <div class="form-tab" id="tab3" style="display:none">
+    <div class="form-grid">
+      <div class="f-sec-title" style="grid-column:1/-1">Vale Transporte</div>
+      <div class="form-group"><label class="fl">Valor VT (R$/mês)</label><input class="fi" type="number" id="cVT" value="0" step="0.01"/></div>
+      <div class="form-group"><label class="fl">Trajeto (linhas)</label><input class="fi" id="cTrajeto" placeholder="Ex: 7720, 5119"/></div>
+      <div class="form-group"><label class="fl">Desconto VT aplicado</label>
+        <select class="fi" id="cVTDesc"><option value="sim">Sim — 6% do salário</option><option value="nao">Não (empresa arca)</option></select>
+      </div>
+      <div class="f-sec-title" style="grid-column:1/-1">Alimentação</div>
+      <div class="form-group"><label class="fl">Vale Refeição (R$/mês)</label><input class="fi" type="number" id="cVR" value="0" step="0.01"/></div>
+      <div class="form-group"><label class="fl">Vale Alimentação (R$/mês)</label><input class="fi" type="number" id="cVA" value="0" step="0.01"/></div>
+      <div class="form-group"><label class="fl">Desconto VR/VA</label>
+        <select class="fi" id="cVRDesc"><option value="nao">Não</option><option value="sim">Sim (desconto em folha)</option></select>
+      </div>
+      <div class="f-sec-title" style="grid-column:1/-1">Saúde & Outros</div>
+      <div class="form-group"><label class="fl">Plano de Saúde</label>
+        <select class="fi" id="cSaude"><option value="Não">Não incluso</option><option value="Básico">Básico — R$ 320/mês</option><option value="Premium">Premium — R$ 520/mês</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Plano Odontológico</label>
+        <select class="fi" id="cOdonto"><option value="Não">Não incluso</option><option value="Básico">Básico — R$ 65/mês</option><option value="Premium">Premium — R$ 100/mês</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Seguro de Vida</label>
+        <select class="fi" id="cSegVida"><option value="Não">Não</option><option value="Sim">Sim</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Outros Benefícios (R$/mês)</label><input class="fi" type="number" id="cOutrosBen" value="0" step="0.01"/></div>
+      <div class="form-group fg-full"><label class="fl">Descrição de Outros Benefícios</label><input class="fi" id="cOutrosBenDesc" placeholder="Ex: Gympass, Auxílio Creche..."/></div>
+    </div>
+  </div>
+
+  <!-- ABA 4: Documentos -->
+  <div class="form-tab" id="tab4" style="display:none">
+    <div class="info-box accent">📌 Anexos físicos devem ser arquivados no prontuário do colaborador. Registre aqui os dados para controle digital.</div>
+    <div class="form-grid">
+      <div class="form-group"><label class="fl">ASO (Atestado Saúde Ocupacional)</label>
+        <select class="fi" id="cASO"><option>Pendente</option><option>Entregue</option><option>Não obrigatório</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Data do ASO</label><input class="fi" type="date" id="cASODate"/></div>
+      <div class="form-group"><label class="fl">Foto 3x4</label>
+        <select class="fi" id="cFoto"><option>Pendente</option><option>Entregue</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Contrato Assinado</label>
+        <select class="fi" id="cContrato"><option>Pendente</option><option>Assinado Físico</option><option>Assinado Digital</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Declaração IRRF</label>
+        <select class="fi" id="cDeclIRRF"><option>Pendente</option><option>Entregue</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Declaração VT</label>
+        <select class="fi" id="cDeclVT"><option>Pendente</option><option>Entregue</option><option>Não solicita VT</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Comprovante de Escolaridade</label>
+        <select class="fi" id="cCompEsc"><option>Pendente</option><option>Entregue</option></select>
+      </div>
+      <div class="form-group"><label class="fl">Comprovante de Endereço</label>
+        <select class="fi" id="cCompEnd"><option>Pendente</option><option>Entregue</option></select>
+      </div>
+      <div class="form-group fg-full"><label class="fl">Observações sobre Documentação</label><textarea class="fi" id="cObsDocs" placeholder="Pendências ou informações adicionais..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="modal-ft">
+    <button class="btn btn-ghost" onclick="prevTab()">← Anterior</button>
+    <button class="btn btn-ghost" onclick="UI.closeModal('modalColab')">Cancelar</button>
+    <button class="btn btn-primary" id="btnSalvarColab" onclick="salvarColab()">✓ Salvar Colaborador</button>
+    <button class="btn btn-blue" id="btnProxTab" onclick="nextTab()">Próximo →</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL VISUALIZAR COLABORADOR -->
+<div class="overlay" id="modalVerColab">
+<div class="modal w-lg">
+  <div class="modal-hd"><div class="modal-title">👤 Ficha do Colaborador</div><div class="modal-close" onclick="UI.closeModal('modalVerColab')">✕</div></div>
+  <div id="fichaColab"></div>
+  <div class="modal-ft">
+    <button class="btn btn-blue" id="btnEditColab">✏️ Editar</button>
+    <button class="btn btn-ghost" onclick="UI.closeModal('modalVerColab')">Fechar</button>
+    <button class="btn btn-primary" onclick="printFicha()">🖨️ Imprimir Ficha</button>
+  </div>
+</div>
+</div>
+
+<div id="toast-ct"></div>
+<script src="assets/dp-auth.js"></script>
+<script src="assets/dp-core.js"></script>
+<script>
+(async () => {
+  await DP.init();
+  let colabs = DP.getColabs();
+  let currentTab = 0;
+  let editId = null;
+  
+  // ── Filtros departamentos ──
+  function populateFiltros(){
+    const deptos = [...new Set(colabs.map(c=>c.depto))];
+    const sel = document.getElementById('filtroDepto');
+    sel.innerHTML = '<option value="">Todos os deptos</option>' + deptos.map(d=>`<option>${d}</option>`).join('');
+  }
+  
+  // ── Render Table ──
+  function renderTable(){
+    const sit  = document.getElementById('filtroSit').value;
+    const tipo = document.getElementById('filtroTipo').value;
+    const dep  = document.getElementById('filtroDepto').value;
+    let list = colabs;
+    if(sit)  list = list.filter(c=>c.situacao===sit);
+    if(tipo) list = list.filter(c=>c.tipo===tipo);
+    if(dep)  list = list.filter(c=>c.depto===dep);
+  
+    document.getElementById('tbodyColabs').innerHTML = list.length === 0
+      ? `<tr><td colspan="9"><div class="empty"><span class="ico">👥</span><p>Nenhum colaborador encontrado</p></div></td></tr>`
+      : list.map(c => {
+          const tagTipo = c.tipo==='CLT'?'tag-blue':c.tipo==='Estagiário'?'tag-purple':c.tipo==='PJ'?'tag-cyan':'tag-gray';
+          const tagSit  = c.situacao==='Ativo'?'tag-green':'tag-red';
+          return `<tr>
+            <td><div class="ci"><div class="av ${c.avc||Fmt.avColor(c.nome)}">${Fmt.initials(c.nome)}</div>
+              <div><div class="ci-name">${c.nome}</div><div class="ci-sub">${c.email||''}</div></div></div></td>
+            <td>${c.cpf}</td>
+            <td>${c.cargo}</td>
+            <td>${c.depto}</td>
+            <td>${Fmt.date(c.admissao)}</td>
+            <td><span class="tag ${tagTipo}">${c.tipo}</span></td>
+            <td class="c-accent fw7">${Fmt.brl(c.salario)}</td>
+            <td><span class="tag ${tagSit}">${c.situacao}</span></td>
+            <td style="white-space:nowrap">
+              <button class="btn btn-ghost btn-sm" onclick="verColab(${c.id})">👁️</button>
+              <button class="btn btn-blue btn-sm" onclick="editColab(${c.id})">✏️</button>
+              <button class="btn btn-danger btn-sm" onclick="desligarColab(${c.id})" ${c.situacao!=='Ativo'?'disabled':''}>✕</button>
+            </td>
+          </tr>`;
+        }).join('');
+  
+    // KPI row
+    const ativos = colabs.filter(c=>c.situacao==='Ativo');
+    document.getElementById('kpiRow').innerHTML = [
+      { v: ativos.length,                                   l:'Ativos',       cls:'c-accent' },
+      { v: ativos.filter(c=>c.tipo==='CLT').length,        l:'CLT',          cls:'c-blue'   },
+      { v: ativos.filter(c=>c.tipo==='Estagiário').length, l:'Estagiários',  cls:'c-purple' },
+      { v: Fmt.brl(ativos.reduce((s,c)=>s+c.salario,0)),   l:'Folha Bruta',  cls:'c-green'  },
+    ].map(k=>`<div class="kpi"><div class="kpi-v ${k.cls}">${k.v}</div><div class="kpi-l">${k.l}</div></div>`).join('');
+  }
+  
+  // ── Tabs do formulário ──
+  function showTab(n){
+    document.querySelectorAll('.form-tab').forEach((t,i)=>t.style.display=i===n?'block':'none');
+    document.querySelectorAll('#formTabs .tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+    currentTab = n;
+    document.getElementById('btnSalvarColab').style.display = n===4?'inline-flex':'none';
+    document.getElementById('btnProxTab').style.display     = n<4?'inline-flex':'none';
+    document.getElementById('btnSalvarColab').style.display = n===4?'inline-flex':'none';
+    const prev = document.querySelector('.modal-ft .btn-ghost');
+  }
+  function nextTab(){ if(currentTab<4) showTab(currentTab+1); }
+  function prevTab(){ if(currentTab>0) showTab(currentTab-1); }
+  
+  // ── Salvar ──
+  function salvarColab(){
+    const nome   = UI.val('cNome').trim();
+    const cpf    = UI.val('cCPF').trim();
+    const cargo  = UI.val('cCargo').trim();
+    const sal    = parseFloat(UI.val('cSalario'))||0;
+    const admissao = UI.val('cAdmissao');
+    if(!nome||!cpf||!cargo||!sal||!admissao){ UI.toast('Preencha todos os campos obrigatórios (*)','err'); showTab(0); return; }
+  
+    const obj = {
+      id: editId || Date.now(),
+      nome, cpf, rg:UI.val('cRG'), nasc:UI.val('cNasc'),
+      genero:UI.val('cGenero'), estadoCivil:UI.val('cEstCivil'),
+      escolaridade:UI.val('cEscolaridade'), dependentes:parseInt(UI.val('cDependentes'))||0,
+      email:UI.val('cEmail'), tel:UI.val('cTel'), endereco:UI.val('cEnd'), cep:UI.val('cCEP'),
+      nacionalidade:UI.val('cNac'),
+      tipo:UI.val('cTipo'), cargo, cbo:UI.val('cCBO'), depto:UI.val('cDepto'),
+      gestor:UI.val('cGestor'), admissao, salario:sal, regime:UI.val('cRegime'),
+      experiencia:UI.val('cExperiencia'), centroCusto:UI.val('cCentroCusto'),
+      atribuicoes:UI.val('cAtrib'),
+      banco:UI.val('cBanco'), bancoCod:UI.val('cBancoCod'), agencia:UI.val('cAgencia'),
+      conta:UI.val('cConta'), tipoConta:UI.val('cTipoConta'), pix:UI.val('cPix'),
+      ctps:UI.val('cCTPS'), ctpsSerie:UI.val('cCTPSSerie'), ctpsUF:UI.val('cCTPSUF'),
+      pis:UI.val('cPIS'), nit:UI.val('cNIT'), titulo:UI.val('cTitulo'),
+      vt:parseFloat(UI.val('cVT'))||0, vr:parseFloat(UI.val('cVR'))||0,
+      va:parseFloat(UI.val('cVA'))||0, saude:UI.val('cSaude'), odonto:UI.val('cOdonto'),
+      segVida:UI.val('cSegVida'), outrosBen:parseFloat(UI.val('cOutrosBen'))||0,
+      aso:UI.val('cASO'), asoDate:UI.val('cASODate'), contrato:UI.val('cContrato'),
+      situacao:'Ativo', av:Fmt.initials(nome), avc:Fmt.avColor(nome),
+    };
+  
+    if(editId){
+      const idx = colabs.findIndex(c=>c.id===editId);
+      if(idx>-1) colabs[idx] = { ...colabs[idx], ...obj };
+    } else {
+      colabs.push(obj);
+    }
+    DP.saveColabs(colabs);
+    UI.closeModal('modalColab');
+    UI.toast(editId?`${nome} atualizado(a)!`:`${nome} cadastrado(a) com sucesso!`, 'ok');
+    editId = null;
+    renderTable();
+  }
+  
+  // ── Visualizar ──
+  function verColab(id){
+    const c = colabs.find(x=>x.id===id);
+    if(!c) return;
+    document.getElementById('fichaColab').innerHTML = `
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem">
+        <div class="av ${c.avc}" style="width:56px;height:56px;font-size:1.2rem;border-radius:14px">${Fmt.initials(c.nome)}</div>
+        <div>
+          <div style="font-size:1.1rem;font-weight:900">${c.nome}</div>
+          <div style="font-size:0.83rem;color:var(--muted)">${c.cargo} · ${c.depto}</div>
+          <div style="margin-top:0.3rem"><span class="tag ${c.tipo==='CLT'?'tag-blue':'tag-purple'}">${c.tipo}</span> <span class="tag ${c.situacao==='Ativo'?'tag-green':'tag-red'}">${c.situacao}</span></div>
+        </div>
+      </div>
+      <div class="two-col" style="gap:0.5rem;font-size:0.74rem">
+        <div class="result-box">
+          <div class="rb-row"><span class="rb-lbl">CPF</span><span>${c.cpf}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Admissão</span><span>${Fmt.date(c.admissao)}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Salário</span><span class="c-accent fw8">${Fmt.brl(c.salario)}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Regime</span><span>${c.regime||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">CTPS</span><span>${c.ctps||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">PIS/PASEP</span><span>${c.pis||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">E-mail</span><span>${c.email||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Telefone</span><span>${c.tel||'—'}</span></div>
+        </div>
+        <div class="result-box">
+          <div class="rb-row"><span class="rb-lbl">VT</span><span>${Fmt.brl(c.vt||0)}/mês</span></div>
+          <div class="rb-row"><span class="rb-lbl">VR</span><span>${Fmt.brl(c.vr||0)}/mês</span></div>
+          <div class="rb-row"><span class="rb-lbl">Plano Saúde</span><span>${c.saude||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Odonto</span><span>${c.odonto||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Banco</span><span>${c.banco||'—'}</span></div>
+          <div class="rb-row"><span class="rb-lbl">Dependentes</span><span>${c.dependentes||0}</span></div>
+          <div class="rb-row"><span class="rb-lbl">INSS (est.)</span><span class="c-red">${Fmt.brl(Calc.inss(c.salario))}</span></div>
+          <div class="rb-row"><span class="rb-lbl">IRRF (est.)</span><span class="c-red">${Fmt.brl(Calc.irrf(c.salario-Calc.inss(c.salario),c.dependentes||0))}</span></div>
+        </div>
+      </div>`;
+    document.getElementById('btnEditColab').onclick = () => { UI.closeModal('modalVerColab'); editColab(id); };
+    UI.openModal('modalVerColab');
+  }
+  
+  // ── Editar ──
+  function editColab(id){
+    const c = colabs.find(x=>x.id===id);
+    if(!c) return;
+    editId = id;
+    document.getElementById('modalColabTitle').textContent = '✏️ Editar Colaborador';
+    UI.setVal('cNome',c.nome); UI.setVal('cCPF',c.cpf); UI.setVal('cRG',c.rg);
+    UI.setVal('cNasc',c.nasc); UI.setVal('cEmail',c.email); UI.setVal('cTel',c.tel);
+    UI.setVal('cEnd',c.endereco); UI.setVal('cDependentes',c.dependentes||0);
+    UI.setVal('cTipo',c.tipo); UI.setVal('cCargo',c.cargo); UI.setVal('cDepto',c.depto);
+    UI.setVal('cAdmissao',c.admissao); UI.setVal('cSalario',c.salario);
+    UI.setVal('cRegime',c.regime); UI.setVal('cVT',c.vt||0); UI.setVal('cVR',c.vr||0);
+    UI.setVal('cSaude',c.saude); UI.setVal('cOdonto',c.odonto);
+    UI.setVal('cCTPS',c.ctps); UI.setVal('cPIS',c.pis);
+    UI.setVal('cBanco',c.banco); UI.setVal('cConta',c.conta); UI.setVal('cAgencia',c.agencia);
+    showTab(0);
+    UI.openModal('modalColab');
+  }
+  
+  // ── Desligar ──
+  function desligarColab(id){
+    const c = colabs.find(x=>x.id===id);
+    if(!c) return;
+    UI.confirm(`Confirmar desligamento de ${c.nome}? Esta ação gerará TRCT.`, () => {
+      c.situacao = 'Desligado';
+      c.dataDesligamento = Fmt.today();
+      DP.saveColabs(colabs);
+      renderTable();
+      UI.toast(`${c.nome} desligado(a). Acesse Rescisão para calcular TRCT.`, 'wrn');
+    });
+  }
+  
+  // ── Export ──
+  function exportColabs(){
+    const headers = ['Nome','CPF','Cargo','Departamento','Admissão','Tipo','Salário','Situação','E-mail'];
+    const rows = colabs.map(c=>[c.nome,c.cpf,c.cargo,c.depto,Fmt.date(c.admissao),c.tipo,Fmt.brl(c.salario),c.situacao,c.email||'']);
+    Export.dataToCSV(headers, rows, 'colaboradores_exittus.csv');
+  }
+  
+  function printFicha(){ Export.printDiv('fichaColab','Ficha do Colaborador — Agência Nexus'); }
+  
+  populateFiltros();
+  renderTable();
+  showTab(0);
+})();
+
+/* ── Mobile nav toggle ── */
+(function(){
+  const toggle = document.getElementById('sb-toggle');
+  const nav    = document.querySelector('.sb-nav');
+  const sidebar= document.querySelector('.sidebar');
+  if(!toggle || !nav) return;
+
+  // Cria overlay para fechar ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)';
+  document.body.appendChild(overlay);
+
+  function openNav(){
+    nav.classList.add('mob-open');
+    toggle.textContent = '✕';
+    overlay.style.display = 'block';
+  }
+  function closeNav(){
+    nav.classList.remove('mob-open');
+    toggle.textContent = '☰';
+    overlay.style.display = 'none';
+  }
+
+  toggle.textContent = '☰';
+  toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+  overlay.onclick = closeNav;
+
+  // Fecha ao clicar em item do nav
+  nav.querySelectorAll('.sb-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if(window.innerWidth <= 768) closeNav();
+    });
+  });
+  
+  // Desktop: toggle collapsed
+  if(window.innerWidth > 768){
+    toggle.textContent = '◀';
+    toggle.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+    };
+  }
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 768){
+      closeNav();
+      toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      toggle.onclick = () => {
+        sidebar.classList.toggle('collapsed');
+        toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+      };
+    } else {
+      toggle.textContent = nav.classList.contains('mob-open') ? '✕' : '☰';
+      toggle.onclick = () => nav.classList.contains('mob-open') ? closeNav() : openNav();
+    }
+  });
+})();
+</script>
+<script src="assets/dp-mobile.js"></script>
+</body>
+</html>
