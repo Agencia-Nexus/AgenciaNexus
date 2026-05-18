@@ -1103,7 +1103,7 @@ body:not(.dark-mode) .theme-toggle {
       position: fixed;
       top: 2rem;
       right: 2rem;
-      z-index: 9997;
+      z-index: 1000;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -2146,12 +2146,6 @@ body:not(.dark-mode) .theme-toggle {
     user-select: none;
   }
 
-  body.menu-open .back-button,
-body.menu-open .menu-toggle,
-body.menu-open .theme-toggle {
-  display: none !important;
-  pointer-events: none !important;
-}
   .sn-header-icon {
     width: 52px; height: 52px;
     background: rgba(255,255,255,0.2);
