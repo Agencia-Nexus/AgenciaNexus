@@ -3,16 +3,81 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Status da Candidatura | Agência Exittus</title>
+<title>Status da Candidatura | Agência Nexus</title>
+<!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+
+  <!-- SEO Primário -->
+  <meta name="description" content="Acompanhe o status da sua candidatura na Agência Nexus. Veja em qual etapa do processo seletivo você está: triagem, pré-seleção, entrevista, finalista ou aprovado." />
+  <meta name="keywords" content="Agência Nexus, status candidatura, processo seletivo, vagas de emprego, acompanhar candidatura, recrutamento, seleção, pipeline candidatos" />
+  <meta name="author" content="Agência Nexus" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#3b82f6" />
+  <link rel="canonical" href="https://agencianexus.com.br/status-candidatura.html" />
+
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Status da Candidatura | Agência Nexus" />
+  <meta property="og:description" content="Acompanhe em tempo real o status da sua candidatura na Agência Nexus. Consulte por nome ou telefone e veja sua posição no processo seletivo." />
+  <meta property="og:image" content="../imagens/fundo.png" />
+  <meta property="og:url" content="https://agencianexus.com.br/status-candidatura.html" />
+  <meta property="og:site_name" content="Agência Nexus" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Status da Candidatura | Agência Nexus" />
+  <meta name="twitter:description" content="Acompanhe em tempo real o status da sua candidatura na Agência Nexus." />
+  <meta name="twitter:image" content="../imagens/fundo.png" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Status da Candidatura | Agência Nexus",
+    "description": "Acompanhe o status da sua candidatura na Agência Nexus. Veja em qual etapa do processo seletivo você está.",
+    "url": "https://agencianexus.com.br/status-candidatura.html",
+    "inLanguage": "pt-BR",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Agência Nexus",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "../imagens/fundo.png"
+      }
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://agencianexus.com.br"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Status da Candidatura",
+          "item": "https://agencianexus.com.br/status-candidatura.html"
+        }
+      ]
+    }
+  }
+  </script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --green:#8dc63f;--green-d:#4F7214;--green-glow:rgba(141,198,63,0.13);
+  --green:#3b82f6;--green-d:#1d4ed8;--green-glow:rgba(59,130,246,0.13);
   --bg:#070709;--surface:#0e0f11;--surface2:#141518;--surface3:#1a1b1f;
-  --border:rgba(255,255,255,0.06);--border-a:rgba(141,198,63,0.22);
+  --border:rgba(255,255,255,0.06);--border-a:rgba(59,130,246,0.22);
   --text:#eeeef0;--text-2:#8a8b91;--text-3:#4a4b52;
   --triagem:#4fa8e8;--pre:#a78bfa;--entrevista:#e8943a;
-  --finalista:#4fc87a;--aprovado:#8dc63f;
+  --finalista:#4fc87a;--aprovado:#3b82f6;
   --recusado:#e05252;--recusado-cli:#c0392b;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -45,7 +110,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
 
 /* HEADER */
 .logo-row{display:flex;align-items:center;gap:10px;margin-bottom:2.5rem;}
-.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--green-d),var(--green));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;}
+.logo-mark{width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 .logo-name{font-size:13px;font-weight:700;color:var(--text-2);}
 
 /* BUSCA */
@@ -102,7 +167,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
 .step-locked .step-dot{background:var(--surface2);border-color:var(--border);color:var(--text-3);}
 .step-recusado .step-dot{background:rgba(224,82,82,0.15);border-color:rgba(224,82,82,0.4);color:#e05252;}
 
-@keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(141,198,63,0.4);}50%{box-shadow:0 0 0 7px rgba(141,198,63,0);}}
+@keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0.4);}50%{box-shadow:0 0 0 7px rgba(59,130,246,0);}}
 
 /* BARRA PROGRESSO */
 .prog-wrap{margin-bottom:1rem;}
@@ -177,8 +242,8 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
 
   <!-- LOGO -->
   <div class="logo-row">
-    <div class="logo-mark">E</div>
-    <div class="logo-name">Agência Exittus</div>
+    <div class="logo-mark"><img src="imagens/fundo.png" alt="Nexus" style="width:32px;height:32px;object-fit:cover;border-radius:8px;"/></div>
+    <div class="logo-name">Agência Nexus</div>
   </div>
 
   <!-- BUSCA -->
@@ -199,7 +264,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
       <div class="pan-step">
         <div class="pan-step-icon">🔍</div>
         <div class="pan-step-label" style="color:#4fa8e8;">Triagem</div>
-        <div class="pan-step-msg">Currículo analisado pela equipe Exittus.</div>
+        <div class="pan-step-msg">Currículo analisado pela equipe Nexus.</div>
       </div>
       <div class="pan-step">
         <div class="pan-step-icon">⭐</div>
@@ -209,7 +274,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
       <div class="pan-step">
         <div class="pan-step-icon">🎙️</div>
         <div class="pan-step-label" style="color:#e8943a;">Entrevista</div>
-        <div class="pan-step-msg">Entrevista com IA, equipe Exittus ou empresa cliente.</div>
+        <div class="pan-step-msg">Entrevista com IA, equipe Nexus ou empresa cliente.</div>
       </div>
       <div class="pan-step">
         <div class="pan-step-icon">🏆</div>
@@ -218,7 +283,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-ev
       </div>
       <div class="pan-step">
         <div class="pan-step-icon">✅</div>
-        <div class="pan-step-label" style="color:#8dc63f;">Aprovado</div>
+        <div class="pan-step-label" style="color:#3b82f6;">Aprovado</div>
         <div class="pan-step-msg">Contratação confirmada! Entraremos em contato.</div>
       </div>
     </div>
@@ -308,9 +373,9 @@ const ETAPAS = [
     id:'aprovado',
     label:'Aprovado',
     icon:'✅',
-    cor:'#8dc63f',
-    corBg:'rgba(141,198,63,0.12)',
-    corBorder:'rgba(141,198,63,0.3)',
+    cor:'#3b82f6',
+    corBg:'rgba(59,130,246,0.12)',
+    corBorder:'rgba(59,130,246,0.3)',
     desc:'Aprovado! Nossa equipe ou o cliente entrarão em contato para os próximos passos da contratação.',
     chip:'Aprovado!'
   },
@@ -437,7 +502,7 @@ function renderNotFound(termo){
   return `<div class="not-found">
     <div class="nf-ico">🔍</div>
     <div class="nf-title">Candidatura não encontrada</div>
-    <div class="nf-sub">Não encontramos nenhuma candidatura para "<strong>${esc(termo)}</strong>".<br><br>Verifique se o nome ou telefone está correto (exatamente como digitou na inscrição), ou <a href="https://agenciaexittus.github.io/agenciaexittus/vagas.html" style="color:var(--green);">cadastre-se em uma vaga</a>.</div>
+    <div class="nf-sub">Não encontramos nenhuma candidatura para "<strong>${esc(termo)}</strong>".<br><br>Verifique se o nome ou telefone está correto (exatamente como digitou na inscrição), ou <a href="#" style="color:var(--green);">cadastre-se em uma vaga</a>.</div>
   </div>`;
 }
 
@@ -498,7 +563,7 @@ function renderCandidato(c, pipes, vagaMap){
         <div class="cand-nome">${esc(nome)}</div>
         <div class="cand-meta">${esc(c.telefone||c.vaga||'')}</div>
         <div class="cand-badges">
-          ${perfilDisc?`<span class="badge" style="background:rgba(141,198,63,0.08);color:var(--green);border-color:var(--border-a);">DISC · ${perfilDisc}</span>`:''}
+          ${perfilDisc?`<span class="badge" style="background:rgba(59,130,246,0.08);color:var(--green);border-color:var(--border-a);">DISC · ${perfilDisc}</span>`:''}
           <span class="badge" style="background:var(--surface2);color:var(--text-2);border-color:var(--border);">${esc(vagaMetaText)}</span>
         </div>
       </div>
