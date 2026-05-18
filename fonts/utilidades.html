@@ -1,0 +1,3302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+
+<script>
+    if (localStorage.getItem('theme') !== 'light') {
+      document.documentElement.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('dark-mode');
+      });
+    }
+    document.documentElement.style.transition = 'none';
+    window.addEventListener('load', () => {
+      document.documentElement.style.transition = '';
+    });
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Utilidades | Agência Nexus</title>
+  <meta name="description" content="Dicas gerais, sites úteis, calculadoras e recursos para facilitar sua vida profissional. Um cantinho de utilidades da Agência Nexus." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png" />
+  <link rel="shortcut icon" href="../imagens/icone.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../imagens/icone.png" />
+</head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #3b82f6;
+    --accent: #60a5fa;
+    --bg-light: #ffffff;
+    --text-light: #1a1a1a;
+    --bg-dark: #0a0a0a;
+    --text-dark: #f0f0f0;
+  }
+html.dark-mode body {
+  background: #0a0a0a !important;
+  color: #f0f0f0 !important;
+}
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg-light); color: var(--text-light);
+    overflow-x: hidden; transition: background 0.5s ease, color 0.5s ease;
+  }
+  body.dark-mode { background: var(--bg-dark); color: var(--text-dark); }
+
+  body.chat-open .theme-toggle,
+  body.chat-open .back-button,
+  body.chat-open .menu-toggle { display: none !important; }
+
+  body.menu-open .back-button,
+  body.menu-open .menu-toggle,
+  body.menu-open .theme-toggle { display: none !important; pointer-events: none !important; }
+
+  body.scrolling .theme-toggle,
+  body.scrolling .back-button,
+  body.scrolling .menu-toggle { opacity: 0; pointer-events: none; }
+
+  .back-button,
+  .menu-toggle,
+  .theme-toggle { background: rgba(0,0,0,0.2); border: 2px solid rgba(255,255,255,0.4); color: white; transition: all 0.3s ease; }
+
+  .back-button:hover, .menu-toggle:hover, .theme-toggle:hover { background: rgba(79,114,20,0.4); transform: scale(1.05); }
+
+  body:not(.dark-mode) .back-button,
+  body:not(.dark-mode) .menu-toggle,
+  body:not(.dark-mode) .theme-toggle { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+body:not(.dark-mode) .theme-toggle {
+  height: 50px;
+  min-width: 50px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  transform: none;
+}
+
+  body:not(.dark-mode) .back-button:hover,
+  body:not(.dark-mode) .menu-toggle:hover,
+  body:not(.dark-mode) .theme-toggle:hover { color: white; }
+
+  .theme-toggle { position:static;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.4);backdrop-filter:blur(10px);padding:0.8rem 1.5rem;border-radius:50px;cursor:pointer;font-size:1rem;color:white;font-weight:600;transition:all 0.3s ease;height:50px;display:flex;align-items:center;justify-content:center;min-width:50px; }
+  .theme-toggle:hover { background:rgba(255,255,255,0.3);transform:scale(1.05); }
+
+  .back-button,
+  .topics-toggle-mobile {
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+    transition: all 0.3s ease; text-decoration: none; display: inline-flex;
+    align-items: center; height: 50px; justify-content: center; white-space: nowrap; margin: 0;
+  }
+  .back-button:hover { background: rgba(255,255,255,0.3); transform: translateX(-5px); }
+
+  .menu-toggle,
+  .topics-toggle-mobile {
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+    cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+    transition: all 0.3s ease; height: 50px; display: inline-flex;
+    align-items: center; justify-content: center; white-space: nowrap; margin: 0;
+  }
+  .menu-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+
+  @media (max-width: 480px) {
+    .back-button, .menu-toggle, .topics-toggle-mobile {
+      padding: 0.8rem 1rem !important; font-size: 0.9rem;
+      height: 50px; width: fit-content !important; min-width: 0 !important;
+    }
+    .theme-toggle { font-size:0.9rem; padding:0.6rem 1rem; min-width:45px; }
+  }
+
+  .menu-overlay { position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:95;display:none;opacity:0;transition:opacity 0.3s ease; }
+  .menu-overlay.active { display:block;opacity:1; }
+
+  .menu-content { position:fixed;top:0;left:-100%;width:300px;height:100vh;background:var(--bg-light);backdrop-filter:blur(20px);padding:1.6rem 1.4rem 1.2rem;transition:left 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);box-shadow:5px 0 30px rgba(0,0,0,0.1);overflow-y:auto;z-index:97; }
+  body.dark-mode .menu-content { background:var(--bg-dark); }
+  .menu-content.active { left:0; }
+  .menu-section { margin-bottom:1.1rem; }
+  .menu-section h3 { color:var(--accent);font-size:0.82rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.6rem;font-weight:700; }
+  .menu-link { display:block;padding:0.6rem 0.8rem;color:var(--text-light);text-decoration:none;border-radius:7px;margin-bottom:0.28rem;transition:all 0.3s ease;font-weight:500;font-size:0.875rem; }
+  body.dark-mode .menu-link { color:var(--text-dark); }
+  .menu-link:hover { background:var(--primary);color:white;transform:translateX(8px); }
+  .menu-link.active-page { background:rgba(59,130,246,0.12);color:var(--primary);font-weight:700; }
+  body.dark-mode .menu-link.active-page { color:#38bdf8;background:rgba(59,130,246,0.2); }
+
+    .header {
+    background: #0d1117;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    padding: 0; text-align: center; color: white;
+    position: relative; overflow: hidden;
+    min-height: 220px; display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid rgba(0,200,255,0.15);
+  }
+  .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 2.5rem 1rem 2rem; width: 100%; text-align: center; }
+  /* NEXUS LOGO SVG */
+  .nexus-logo-svg { display: block; margin: 0 auto; animation: fadeInDown 0.8s ease-out; max-width: 500px; }
+  .nexus-logo-svg.mobile { display: none; }
+  .header-page-title {
+    color: rgba(0,200,255,0.75);
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 0.7rem;
+    font-weight: 400;
+  }
+  @media (max-width: 768px) {
+    .header { min-height: 260px; align-items: flex-end; }
+    .nexus-logo-svg.desktop { display: none; }
+    .nexus-logo-svg.mobile { display: block; }
+    .header-content { padding: 100px 1rem 2rem; }
+    .header-page-title { font-size: 0.68rem; letter-spacing: 2.5px; margin-top: 0.5rem; }
+  }
+  @media (max-width: 480px) {
+    .header { min-height: 280px; }
+    .header-content { padding: 110px 1rem 2rem; }
+  }
+  .header::before { content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);animation:pulse 15s ease-in-out infinite; }
+  .header-content { position:relative;z-index:1;max-width:1200px;margin:0 auto; }
+
+  .header p  { font-size:1.2rem;opacity:0.95;animation:fadeInUp 1s ease-out 0.3s both; }
+  @media(max-width:768px){.header h1{font-size:2rem;}.header p{font-size:1rem;}}
+  @media(max-width:480px){.header h1{font-size:1.8rem;}}
+
+  .content-section { max-width:1100px;margin:3rem auto;padding:0 2rem; }
+
+  .info-bar { width:100%;margin:2rem auto;font-size:1.4rem;font-weight:800;color:#1e40af;text-align:center;padding:1rem 0; }
+  body.dark-mode .info-bar { color:#38bdf8; }
+
+  .cards-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem; }
+
+  .card { background:white;border-radius:16px;padding:1.8rem;box-shadow:0 8px 30px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.05);transition:all 0.3s ease;text-align:center; }
+  body.dark-mode .card { background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1); }
+  .card:hover { transform:translateY(-6px);box-shadow:0 16px 40px rgba(59,130,246,0.15); }
+  .card-icon { font-size:2.8rem;margin-bottom:1rem;display:block; }
+  .card h3 { color:var(--primary);font-size:1.1rem;font-weight:700;margin-bottom:0.7rem; }
+  body.dark-mode .card h3 { color:#38bdf8; }
+  .card p { color:var(--text-light);font-size:0.88rem;line-height:1.7;margin-bottom:0.9rem;opacity:0.85; }
+  body.dark-mode .card p { color:var(--text-dark); }
+
+  .card-link { display:inline-block;margin-top:0.3rem;color:var(--primary);font-weight:600;font-size:0.88rem;text-decoration:none;transition:all 0.3s ease; }
+  .card-link:hover { color:var(--accent);text-decoration:underline; }
+  body.dark-mode .card-link { color:#38bdf8; }
+
+  .card-tag { display:inline-block;padding:0.22rem 0.7rem;border-radius:20px;font-size:0.72rem;font-weight:700;margin-bottom:0.5rem; }
+  .tag-green  { background:rgba(59,130,246,0.12);color:var(--primary); }
+  .tag-blue   { background:rgba(0,100,200,0.1);color:#0055aa; }
+  .tag-orange { background:rgba(255,140,0,0.12);color:#b86a00; }
+  .tag-purple { background:rgba(120,0,200,0.1);color:#7700bb; }
+  body.dark-mode .tag-green  { background:rgba(59,130,246,0.3);color:#38bdf8; }
+  body.dark-mode .tag-blue   { background:rgba(0,100,200,0.2);color:#80aaff; }
+  body.dark-mode .tag-orange { background:rgba(255,140,0,0.2);color:#ffd080; }
+  body.dark-mode .tag-purple { background:rgba(120,0,200,0.2);color:#cc88ff; }
+
+  .tip-box { background:rgba(59,130,246,0.08);border-left:4px solid var(--primary);border-radius:8px;padding:1.2rem 1.5rem;margin:2rem 0;font-size:0.95rem;line-height:1.7; }
+  body.dark-mode .tip-box { background:rgba(59,130,246,0.18); }
+
+  /* Dica rápida em destaque */
+  .quick-tip {
+    background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(96,165,250,0.04));
+    border: 2px solid rgba(59,130,246,0.2);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  body.dark-mode .quick-tip { background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.3); }
+  .quick-tip strong { color: var(--primary); }
+  body.dark-mode .quick-tip strong { color: #38bdf8; }
+
+  .btn { padding:0.9rem 2rem;border:none;border-radius:50px;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.3s ease;font-family:inherit;display:inline-block;text-decoration:none;margin:0.4rem; }
+  .btn-primary { background:linear-gradient(135deg,var(--primary),var(--accent));color:white; }
+  .btn-primary:hover { transform:translateY(-3px);box-shadow:0 10px 30px rgba(59,130,246,0.3); }
+  .btn-secondary { background:transparent;color:var(--primary);border:2px solid var(--primary); }
+  body.dark-mode .btn-secondary { color:white;border-color:white; }
+  .btn-secondary:hover { background:var(--primary);color:white; }
+
+  /* CHATBOT */
+  /* IMAGEM FUNDO.PNG */
+  /* IMAGEM FUNDO.PNG - EXATAMENTE COMO PADRÃO */
+  @media (min-width: 1024px) {
+    .header { min-height: 220px; }
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+  }
+  @media (max-width: 768px) {
+    .header { min-height: 290px; }
+  }
+  @media (max-width: 480px) {
+    .header { min-height: 250px; }
+    
+  }
+
+  body.chat-open .chatbot-button {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: 0.3s ease;
+  }
+
+  .chatbot-button { position:fixed;bottom:2rem;right:1rem;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(59,130,246,0.4);transition:all 0.3s ease;animation:float 3s ease-in-out infinite;z-index:100; }
+  .chatbot-button:hover { transform:scale(1.1); }
+  .chatbot-button.active { animation:none; }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .chatbot-window { display:none;position:fixed;bottom:2rem;right:1rem;width:380px;height:550px;background:white;border-radius:15px;box-shadow:0 5px 40px rgba(0,0,0,0.16);flex-direction:column;z-index:99; }
+  body.dark-mode .chatbot-window { background:#1e1e1e; }
+  .chatbot-window.active { display:flex; }
+  .chatbot-header { background:linear-gradient(135deg,var(--primary),var(--accent));color:white;padding:1rem;border-radius:15px 15px 0 0;display:flex;justify-content:space-between;align-items:center; }
+  .chatbot-header h3 { margin:0;font-size:0.95rem; }
+  .chatbot-header p  { margin:0.3rem 0 0;font-size:0.8rem;opacity:0.9; }
+  .close-chatbot { background:none;border:none;color:white;font-size:1.5rem;cursor:pointer;transition:transform 0.2s; }
+  .close-chatbot:hover { transform:rotate(90deg); }
+    .ai-toggle-wrap {
+      display: flex; align-items: center; gap: 7px;
+      padding: 4px 10px 4px 6px;
+      background: rgba(255,255,255,0.15); border-radius: 20px;
+      cursor: pointer; border: 1.5px solid rgba(255,255,255,0.3);
+      transition: all 0.25s; user-select: none;
+    }
+    .ai-toggle-wrap:hover { background: rgba(255,255,255,0.25); }
+    .ai-toggle-wrap.ai-on { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+    .ai-toggle-switch { position: relative; width: 30px; height: 16px; background: rgba(0,0,0,0.25); border-radius: 8px; transition: background 0.25s; flex-shrink: 0; }
+    .ai-toggle-wrap.ai-on .ai-toggle-switch { background: rgba(255,255,255,0.5); }
+    .ai-toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; background: white; border-radius: 50%; transition: transform 0.25s; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+    .ai-toggle-wrap.ai-on .ai-toggle-switch::after { transform: translateX(14px); }
+    .ai-toggle-label { font-size: 0.7rem; font-weight: 700; color: white; letter-spacing: 0.3px; white-space: nowrap; }
+    .ai-mode-badge { display: none; font-size: 0.65rem; background: rgba(255,255,255,0.25); color: white; border-radius: 10px; padding: 1px 7px; font-weight: 700; letter-spacing: 0.5px; animation: pulseBadge 2s infinite; }
+    .ai-on .ai-mode-badge { display: inline-block; }
+    @keyframes pulseBadge { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
+  .chatbot-messages { flex:1;overflow-y:auto;padding:1.5rem;background:#f8f9fa;display:flex;flex-direction:column;gap:1rem;scroll-behavior:smooth; }
+  body.dark-mode .chatbot-messages { background:#0a0a0a; }
+  .message { display:flex;animation:fadeIn 0.3s ease;word-wrap:break-word; }
+  .message.bot{justify-content:flex-start;}.message.user{justify-content:flex-end;}
+  .message-content { max-width:75%;padding:0.9rem 1.2rem;border-radius:12px;font-size:0.95rem;line-height:1.4; }
+  .message.bot  .message-content{background:white;color:#333;border:1px solid #e0e0e0;}
+  body.dark-mode .message.bot .message-content{background:#2a2a2a;color:#f0f0f0;border-color:#444;}
+  .message.user .message-content{background:linear-gradient(135deg,var(--primary),var(--accent));color:white;}
+  .chatbot-input-area{padding:1rem;border-top:1px solid #e0e0e0;display:flex;gap:0.7rem;}
+  body.dark-mode .chatbot-input-area{border-top-color:#444;}
+  .chatbot-input{flex:1;border:1px solid #ddd;border-radius:8px;padding:0.75rem;font-size:0.95rem;}
+  body.dark-mode .chatbot-input{background:#2a2a2a;border-color:#444;color:#f0f0f0;}
+  .chatbot-input:focus{outline:none;border-color:var(--primary);}
+  .chatbot-send-btn{background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border:none;border-radius:8px;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+  @media(max-width:480px){.chatbot-window{bottom:2rem;right:0.5rem;left:0.5rem;width:calc(100% - 1rem);height:70vh;}}
+
+  .message-content p{margin:0 0 0.55rem 0;line-height:1.55;}.message-content p:last-child{margin-bottom:0;}.message-content strong{font-weight:700;}.message-content ul{padding-left:1.2rem;margin:0.3rem 0 0.6rem;}.message-content li{margin-bottom:0.25rem;line-height:1.5;}
+  .typing-dots{display:flex;gap:4px;align-items:center;padding:2px 0;}
+  .typing-dots span{width:6px;height:6px;background:var(--primary);border-radius:50%;animation:dotBounce 1.2s infinite;}
+  .typing-dots span:nth-child(2){animation-delay:.2s;}.typing-dots span:nth-child(3){animation-delay:.4s;}
+  @keyframes dotBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+  .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding-left:4px;}
+  .chip{background:white;border:1.5px solid var(--primary);color:var(--primary);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:0.8rem;font-weight:600;transition:all 0.2s;white-space:nowrap;}
+  body.dark-mode .chip{background:#2a2a2a;}.chip:hover{background:var(--primary);color:white;transform:translateY(-1px);}
+
+  .scroll-top-btn {
+    position: fixed;
+    bottom: calc(2rem + 60px + 1.4rem);
+    right: 1.15rem;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #1e40af;
+    border: none;
+    color: #ffffff;
+    font-size: 0.55rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(30,64,175,0.5);
+    z-index: 99;
+    opacity: 0; pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  body.dark-mode .scroll-top-btn {
+    background: #1e40af;
+    color: #ffffff;
+  }
+  .scroll-top-btn.visible {
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+  }
+  .scroll-top-btn:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(30,64,175,0.7);
+  }
+
+  @keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeInUp  {from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn    {from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)}}
+  @keyframes pulse     {0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.2)}}
+
+  /* ── TRANSPORTE ──────────────────────────────────── */
+  .transport-box {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+  }
+  body.dark-mode .transport-box { background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1); }
+
+  .transport-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .transport-select-wrap label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  body.dark-mode .transport-select-wrap label { color: #38bdf8; }
+
+  .transport-select {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.75rem 1rem;
+    border: 2px solid rgba(59,130,246,0.3);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--bg-light);
+    color: var(--text-light);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .transport-select:focus { border-color: var(--primary); }
+  body.dark-mode .transport-select { background:#1a1a1a; color:#f0f0f0; border-color:rgba(144,238,144,0.3); }
+
+  .transport-panel { display: none; animation: fadeIn 0.3s ease; }
+  .transport-panel.active { display: block; }
+
+  .transport-panel h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(59,130,246,0.15);
+  }
+  body.dark-mode .transport-panel h4 { color:#38bdf8; border-color:rgba(56,189,248,0.2); }
+
+  .linha-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .linha-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: rgba(59,130,246,0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(59,130,246,0.12);
+    transition: all 0.2s ease;
+    gap: 0.5rem;
+  }
+  body.dark-mode .linha-item { background:rgba(144,238,144,0.06); border-color:rgba(144,238,144,0.15); }
+  .linha-item:hover { background:rgba(59,130,246,0.1); transform:translateY(-2px); box-shadow:0 4px 12px rgba(59,130,246,0.15); }
+
+  .linha-nome {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-light);
+    flex: 1;
+  }
+  body.dark-mode .linha-nome { color:#f0f0f0; }
+
+  .btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.85rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .btn-pdf:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(59,130,246,0.35); }
+  .btn-pdf.em-breve {
+    background: rgba(0,0,0,0.1);
+    color: #888;
+    cursor: default;
+    pointer-events: none;
+  }
+  body.dark-mode .btn-pdf.em-breve { background:rgba(255,255,255,0.08); color:#666; }
+
+  /* ── Botão visualizar ───────────────────────────────── */
+  .btn-ver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.85rem;
+    background: transparent;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-ver:hover { background: var(--primary); color: white; transform:translateY(-1px); }
+  body.dark-mode .btn-ver { color:#38bdf8; border-color:#38bdf8; }
+  body.dark-mode .btn-ver:hover { background:#38bdf8; color:#111; }
+
+  /* ── Modal de pré-visualização ──────────────────────── */
+  .preview-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.82);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .preview-overlay.aberto { display: flex; }
+  .preview-box {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+  body.dark-mode .preview-box { background: #1a1a1a; }
+  .preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.2rem;
+    background: linear-gradient(135deg, #1e40af, #38bdf8);
+    color: white;
+    gap: 1rem;
+  }
+  .preview-titulo {
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .preview-acoes { display: flex; gap: 0.5rem; flex-shrink: 0; }
+  .preview-btn-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 1rem;
+    background: white;
+    color: #1e40af;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .preview-btn-dl:hover { background: #f0f7e6; }
+  .preview-btn-fechar {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .preview-btn-fechar:hover { background: rgba(255,255,255,0.35); }
+  .preview-corpo {
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f4f4;
+  }
+  body.dark-mode .preview-corpo { background: #111; }
+  .preview-corpo iframe {
+    width: 100%;
+    height: 75vh;
+    border: none;
+    display: block;
+  }
+  .preview-corpo img {
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    display: block;
+  }
+  .ats-hero {
+    background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(96,165,250,0.05));
+    border: 2px solid rgba(59,130,246,0.2);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  body.dark-mode .ats-hero { background:rgba(59,130,246,0.15); border-color:rgba(56,189,248,0.25); }
+  .ats-hero h3 { font-size: 1.5rem; color: var(--primary); font-weight: 800; margin-bottom: 0.75rem; }
+  body.dark-mode .ats-hero h3 { color: #38bdf8; }
+  .ats-hero p { font-size: 0.95rem; line-height: 1.75; max-width: 700px; margin: 0 auto 1.5rem; opacity: 0.9; }
+  .ats-steps {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .ats-step {
+    background: white;
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid rgba(59,130,246,0.15);
+  }
+  body.dark-mode .ats-step { background:#1e1e1e; color:#38bdf8; border-color:rgba(56,189,248,0.2); }
+
+  /* ── REDES SOCIAIS ───────────────────────────────── */
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+  .social-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+    border: 1px solid rgba(0,0,0,0.05);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    gap: 0.6rem;
+  }
+  body.dark-mode .social-card { background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1); }
+  .social-card:hover { transform:translateY(-5px); box-shadow:0 14px 35px rgba(0,0,0,0.13); }
+  .social-card .s-icon { font-size: 2.5rem; }
+  .social-card .s-name { font-size: 0.95rem; font-weight: 700; color: var(--text-light); }
+  body.dark-mode .social-card .s-name { color: #f0f0f0; }
+  .social-card .s-handle { font-size: 0.78rem; color: var(--primary); font-weight: 600; }
+  body.dark-mode .social-card .s-handle { color: #38bdf8; }
+  .social-card .s-desc { font-size: 0.78rem; color: #888; line-height: 1.4; }
+
+  /* ── PORTAIS ─────────────────────────────────────── */
+  .portal-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    font-size: 0.88rem;
+  }
+  .portal-table thead th {
+    text-align: left;
+    padding: 0.6rem 1rem;
+    color: var(--accent);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .portal-table tbody tr {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  body.dark-mode .portal-table tbody tr { background:rgba(255,255,255,0.05); }
+  .portal-table tbody tr:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(59,130,246,0.12); }
+  .portal-table td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    color: var(--text-light);
+  }
+  body.dark-mode .portal-table td { color: #f0f0f0; }
+  .portal-table td:first-child { border-radius: 10px 0 0 10px; font-weight: 700; }
+  .portal-table td:last-child  { border-radius: 0 10px 10px 0; }
+  .portal-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .badge-ats    { background:rgba(59,130,246,0.12); color:var(--primary); }
+  .badge-portal { background:rgba(0,100,200,0.1);  color:#0055aa; }
+  .badge-gov    { background:rgba(255,140,0,0.12); color:#b86a00; }
+  body.dark-mode .badge-ats    { background:rgba(59,130,246,0.3);  color:#38bdf8; }
+  body.dark-mode .badge-portal { background:rgba(0,100,200,0.2);  color:#80aaff; }
+  body.dark-mode .badge-gov    { background:rgba(255,140,0,0.2);  color:#ffd080; }
+  .portal-link { color:var(--primary); font-weight:600; text-decoration:none; font-size:0.82rem; }
+  .portal-link:hover { text-decoration:underline; }
+  body.dark-mode .portal-link { color:#38bdf8; }
+
+  @media(max-width:600px) {
+    .portal-table { width: 100%; display: block; }
+    .portal-table thead { display:none; }
+    .portal-table tbody { display: block; width: 100%; }
+    .portal-table tbody tr {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      padding: 1.4rem 1.5rem;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    body.dark-mode .portal-table tbody tr { background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1); }
+    .portal-table td { display:block; padding: 0.2rem 0; border-radius:0 !important; }
+    .portal-table td:first-child { font-weight:700; color:var(--primary); }
+    body.dark-mode .portal-table td:first-child { color:#38bdf8; }
+    .linha-grid { grid-template-columns: 1fr; }
+    .social-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+    /* ══ FOOTER PROFISSIONAL ══ */
+    footer {
+      --ft-bg:            #f2f5ee;
+      --ft-border:        rgba(79, 114, 20, 0.18);
+      --ft-text:          #1a1a1a;
+      --ft-muted:         rgba(0, 0, 0, 0.45);
+      --ft-social-bg:     rgba(0, 0, 0, 0.06);
+      --ft-social-border: rgba(0, 0, 0, 0.11);
+      --ft-link-color:    rgba(0, 0, 0, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.05);
+      --ft-bottom-border: rgba(0, 0, 0, 0.09);
+      --ft-copy:          rgba(0, 0, 0, 0.38);
+      --ft-copy-strong:   rgba(0, 0, 0, 0.58);
+      --ft-badge:         rgba(0, 0, 0, 0.3);
+      --ft-accent:        #1e40af;
+      --ft-title:         #1e40af;
+
+      background: var(--ft-bg);
+      color: var(--ft-text);
+      padding: 0;
+      border-top: 1px solid var(--ft-border);
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-mode footer {
+      --ft-bg:            #0d0d0d;
+      --ft-border:        rgba(141, 198, 63, 0.15);
+      --ft-text:          #e0e0e0;
+      --ft-muted:         rgba(255, 255, 255, 0.45);
+      --ft-social-bg:     rgba(255, 255, 255, 0.06);
+      --ft-social-border: rgba(255, 255, 255, 0.09);
+      --ft-link-color:    rgba(255, 255, 255, 0.5);
+      --ft-bottom-bg:     rgba(0,0,0,0.25);
+      --ft-bottom-border: rgba(255, 255, 255, 0.07);
+      --ft-copy:          rgba(255, 255, 255, 0.3);
+      --ft-copy-strong:   rgba(255, 255, 255, 0.5);
+      --ft-badge:         rgba(255, 255, 255, 0.25);
+      --ft-accent:        #38bdf8;
+      --ft-title:         #38bdf8;
+    }
+
+    .footer-top {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 560px) {
+      .footer-top { grid-template-columns: 1fr; gap: 1.6rem; padding: 2rem 1.2rem 1.5rem; }
+    }
+
+    .footer-brand {}
+    .footer-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.9rem;
+    }
+    .footer-brand-logo img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .footer-brand-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ft-text);
+      letter-spacing: -0.3px;
+    }
+    .footer-brand-name span { color: var(--ft-accent); }
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--ft-muted);
+      line-height: 1.6;
+      max-width: 280px;
+      margin-bottom: 1.4rem;
+    }
+
+    /* Redes sociais */
+    .footer-social {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .footer-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--ft-social-bg);
+      border: 1px solid var(--ft-social-border);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: var(--ft-muted);
+    }
+    .footer-social-link:hover {
+      background: rgba(56,189,248,0.12);
+      border-color: rgba(56,189,248,0.35);
+      color: var(--ft-accent);
+      transform: translateY(-2px);
+    }
+    .footer-social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Colunas de links */
+    .footer-col-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ft-title);
+      margin-bottom: 1rem;
+    }
+    .footer-col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .footer-col-links a {
+      text-decoration: none;
+      color: var(--ft-link-color);
+      font-size: 0.83rem;
+      transition: color 0.18s;
+    }
+    .footer-col-links a:hover { color: var(--ft-accent); }
+
+    /* Contato */
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--ft-link-color);
+      margin-bottom: 0.55rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .footer-contact-item:hover { color: var(--ft-accent); }
+    .footer-contact-item svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--ft-accent);
+      flex-shrink: 0;
+    }
+
+    /* Linha inferior */
+    .footer-bottom {
+      border-top: 1px solid var(--ft-bottom-border);
+      background: var(--ft-bottom-bg, transparent);
+      padding: 1.1rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 560px) {
+      .footer-bottom { flex-direction: column; text-align: center; padding: 1rem 1.2rem; }
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--ft-copy);
+    }
+    .footer-copy strong { color: var(--ft-copy-strong); font-weight: 600; }
+    .footer-badge {
+      font-size: 0.68rem;
+      color: var(--ft-badge);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .footer-badge span { color: var(--ft-accent); font-weight: 700; }
+
+    /* === Language Selector === */
+    .footer-language-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+    
+    .footer-language-selector label {
+      color: var(--ft-copy);
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+    }
+    
+    .footer-language-selector select {
+      padding: 0.6rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      color: #333;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 140px;
+    }
+    
+    .footer-language-selector select option {
+      padding: 0.5rem;
+      color: #333;
+      background: white;
+    }
+    
+    body.dark-mode .footer-language-selector select {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border-color: #555;
+    }
+    
+    body.dark-mode .footer-language-selector select option {
+      color: #f0f0f0;
+      background: #2a2a2a;
+    }
+    
+    .footer-language-selector select:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    body.dark-mode .footer-language-selector select:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+    
+    .footer-language-selector select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    
+    body.dark-mode .footer-language-selector select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+    
+    @media (max-width: 560px) {
+      .footer-language-selector {
+        font-size: 0.85rem;
+        gap: 0.6rem;
+        flex: 1 0 100%;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 1rem;
+      }
+      
+      .footer-language-selector select {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+        min-width: 130px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    /* WRAPPER FLEX DOS BOTÕES DO TOPO-ESQUERDO */
+    .top-left-buttons {
+      position: fixed; top: 2rem; left: 2rem; z-index: 1000;
+      display: flex; flex-direction: row; gap: 8px; align-items: center;
+    }
+    .top-row { display: flex; flex-direction: row; gap: 8px; align-items: center; }
+
+    body.chat-open .top-left-buttons,
+    body.menu-open .top-left-buttons { display: none !important; }
+    body.scrolling .top-left-buttons { opacity: 0; pointer-events: none; }
+
+    .topics-toggle {
+      background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px;
+      cursor: pointer; font-size: 1rem; color: white; font-weight: 600;
+      transition: all 0.3s ease; height: 50px; display: inline-flex;
+      align-items: center; justify-content: center; white-space: nowrap;
+    }
+    .topics-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+    body:not(.dark-mode) .topics-toggle { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+    body:not(.dark-mode) .topics-toggle:hover { color: white; background: rgba(30,64,175,0.4); }
+
+    .topics-dropdown {
+      position: fixed; top: calc(2rem + 58px); left: 2rem; z-index: 1001;
+      background: white; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 0.5rem 0; min-width: 210px; display: none; flex-direction: column;
+      animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    body.dark-mode .topics-dropdown { background: #1a1a1a; border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+    .topics-dropdown.open { display: flex; }
+
+    .topics-overlay { display: none; position: fixed; inset: 0; z-index: 999; background: transparent; }
+    .topics-overlay.open { display: block; }
+
+    @keyframes topicsDropIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topics-link {
+      display: block; padding: 0.65rem 1.1rem; color: #1a1a1a;
+      text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: all 0.18s ease;
+    }
+    body.dark-mode .topics-link { color: #f0f0f0; }
+    .topics-link:hover { background: rgba(30,64,175,0.1); color: #1e40af; padding-left: 1.4rem; }
+
+    body.chat-open .topics-dropdown,
+    body.menu-open .topics-dropdown { display: none !important; }
+
+    .topics-toggle-mobile { display: none; }
+    .topics-dropdown-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .topics-toggle { display: none !important; }
+      .topics-toggle-mobile { display: inline-flex !important; }
+      body:not(.dark-mode) .topics-toggle-mobile { background: rgba(255,255,255,0.2); border: 2px solid rgba(0,0,0,0.4); color: rgb(27,27,27); }
+      body:not(.dark-mode) .topics-toggle-mobile:hover { color: white; background: rgba(30,64,175,0.4); }
+
+      .topics-dropdown-mobile {
+        position: fixed; top: calc(2rem + 116px); left: 2rem; z-index: 1001;
+        background: white; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 0.5rem 0; min-width: 210px; flex-direction: column;
+        animation: topicsDropIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+        border: 1px solid rgba(0,0,0,0.07);
+      }
+      body.dark-mode .topics-dropdown-mobile { background: #1a1a1a; border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+      .topics-dropdown-mobile.open { display: flex; }
+
+      .topics-link-mobile {
+        display: block; padding: 0.65rem 1.1rem; color: #1a1a1a;
+        text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: all 0.18s ease;
+      }
+      body.dark-mode .topics-link-mobile { color: #f0f0f0; }
+      .topics-link-mobile:hover { background: rgba(30,64,175,0.1); color: #1e40af; padding-left: 1.4rem; }
+
+      body.chat-open .topics-dropdown-mobile,
+      body.menu-open .topics-dropdown-mobile { display: none !important; }
+    }
+  
+    /* TRADUTOR */
+    .top-right-buttons {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 9997;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+    .top-right-buttons * {
+      pointer-events: auto;
+    }
+
+    /* Botão Tradutor em Voz */
+    .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      height: 50px;
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      white-space: nowrap;
+    }
+    .voice-translator-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    body:not(.dark-mode) .voice-translator-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      color: rgb(27, 27, 27);
+    }
+    body:not(.dark-mode) .voice-translator-toggle:hover {
+      color: white;
+      background: rgba(30, 64, 175, 0.4);
+    }
+    .voice-translator-toggle.listening {
+      background: rgba(239, 68, 68, 0.35) !important;
+      border-color: rgba(239, 68, 68, 0.8) !important;
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-mic {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+    }
+
+    /* Painel do tradutor */
+        /* === PAINEL TRADUTOR — ESPAÇAMENTO GENEROSO === */
+    .voice-translator-panel {
+      position: fixed;
+      top: calc(2rem + 120px);
+      right: 1.2rem;
+      z-index: 1001;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.8rem 1.8rem 2rem;
+      width: min(360px, calc(100vw - 2.4rem));
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: none;
+      flex-direction: column;
+      gap: 22px;
+      border: 1px solid rgba(0,0,0,0.06);
+      animation: dropIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    body.dark-mode .voice-translator-panel {
+      background: #1c1c1e;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 2px 10px rgba(0,0,0,0.3);
+      color: #f0f0f0;
+    }
+    .voice-translator-panel.open { display: flex; }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Abas */
+    .vt-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 5px;
+    }
+    body.dark-mode .vt-tabs { background: rgba(255,255,255,0.07); }
+    .vt-tab {
+      flex: 1;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .vt-tab.active {
+      background: #ffffff;
+      color: #3b82f6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .vt-tab.active {
+      background: #2c2c2e;
+      color: #60a5fa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .vt-tab { color: #888; }
+
+    /* Label */
+    .vt-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #3b82f6;
+      margin-bottom: 2px;
+    }
+
+    /* Linha de idiomas */
+    .vt-lang-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vt-lang-row select {
+      flex: 1;
+      padding: 11px 16px;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      font-size: 0.84rem;
+      font-family: inherit;
+      background: #f5f5f7;
+      cursor: pointer;
+      color: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
+    }
+    .vt-lang-row select:focus { border-color: #3b82f6; }
+    body.dark-mode .vt-lang-row select {
+      border-color: rgba(255,255,255,0.12);
+      background: #2c2c2e;
+      color: #f0f0f0;
+    }
+
+    /* Botão trocar */
+    .vt-swap-btn {
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      color: #3b82f6;
+    }
+    .vt-swap-btn:hover { background: #3b82f6; color: white; transform: rotate(180deg); }
+
+    /* Áreas de texto */
+    .vt-text-area {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f5f5f7;
+      min-height: 70px;
+      word-break: break-word;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
+    }
+    body.dark-mode .vt-text-area { background: #2c2c2e; border-color: rgba(255,255,255,0.05); }
+    .vt-text-area.placeholder { color: #aaa; font-style: italic; }
+
+    /* Botão mic principal */
+    .vt-mic-btn {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+    }
+    .vt-mic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+    }
+    .vt-mic-btn.active {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      box-shadow: 0 4px 16px rgba(220,38,38,0.4);
+      animation: pulse-mic 1.2s ease-in-out infinite;
+    }
+
+    /* Status */
+    .vt-status {
+      font-size: 0.74rem;
+      text-align: center;
+      color: #999;
+      line-height: 1.5;
+    }
+
+    /* Botão falar/parar */
+    .vt-speak-btn {
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.35);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      color: #3b82f6;
+      transition: all 0.25s;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .vt-speak-btn:hover { background: #3b82f6; color: white; }
+    .vt-speak-btn.show { display: flex; }
+
+    /* Configurações */
+    .vt-settings { font-size: 0.8rem; }
+    .vt-settings summary {
+      cursor: pointer;
+      color: #999;
+      padding: 4px 0;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .vt-settings summary:hover { color: #3b82f6; }
+    .vt-settings-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0 4px;
+    }
+    .vt-settings-body label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: inherit;
+    }
+    .vt-settings-body input[type=range] { flex: 1; accent-color: #3b82f6; }
+
+    /* Narrar progresso */
+    .vt-narrate-progress {
+      height: 6px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    body.dark-mode .vt-narrate-progress { background: rgba(255,255,255,0.1); }
+    .vt-narrate-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+    .vt-narrate-text {
+      font-size: 0.8rem;
+      color: #888;
+      min-height: 40px;
+      padding: 6px 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Select narrador */
+    #vtNarrateVoice {
+      background: #f5f5f7;
+      color: #111;
+      border-radius: 50px;
+      border: 2px solid rgba(0,0,0,0.12);
+      padding: 11px 16px;
+      font-size: 0.84rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    body.dark-mode #vtNarrateVoice { background: #2c2c2e; color: #f0f0f0; border-color: rgba(255,255,255,0.12); }
+    #vtNarrateVoice option { background: #fff; color: #111; }
+    body.dark-mode #vtNarrateVoice option { background: #2c2c2e; color: #f0f0f0; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .voice-translator-panel {
+        right: 0.6rem;
+        left: 0.6rem;
+        width: auto;
+        top: calc(2rem + 110px);
+        max-height: 72vh;
+        border-radius: 20px;
+        padding: 1.4rem 1.4rem 1.6rem;
+        gap: 18px;
+      }
+      .vt-tab { padding: 10px 10px; font-size: 0.76rem; }
+      .vt-mic-btn { padding: 14px 22px; font-size: 0.9rem; }
+      .vt-lang-row select { padding: 10px 12px; font-size: 0.8rem; }
+    }
+
+    body.chat-open .top-right-buttons,
+    body.menu-open .top-right-buttons { display: none !important; }
+    body.scrolling .top-right-buttons { opacity: 0; pointer-events: none; }
+</style>
+<body>
+<!-- Botões do lado direito: Tema + Tradutor em Voz -->
+  <div class="top-right-buttons" id="topRightButtons">
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span>
+    </button>
+    <button class="voice-translator-toggle" id="voiceTranslatorToggle" onclick="toggleVoiceTranslator()" title="Tradutor em Voz">
+      <span id="vtIcon">🌐</span>
+    </button>
+  </div>
+
+  <!-- Painel do Tradutor em Voz -->
+  <div class="voice-translator-panel" id="voiceTranslatorPanel">
+    <!-- Abas -->
+    <div class="vt-tabs">
+      <button class="vt-tab active" id="vtTabTranslate" onclick="vtSwitchTab('translate')">🌐 Traduzir</button>
+      <button class="vt-tab" id="vtTabNarrate" onclick="vtSwitchTab('narrate'); vtNarrateLoadVoices();">📢 Narrar Site</button>
+    </div>
+
+    <!-- ABA TRADUZIR -->
+    <div id="vtTabContentTranslate">
+      <div class="vt-label">Idioma de origem → destino</div>
+      <div class="vt-lang-row">
+        <select id="vtLangFrom" title="Idioma de origem">
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+        <button class="vt-swap-btn" onclick="vtSwapLangs()" title="Trocar idiomas">⇄</button>
+        <select id="vtLangTo" title="Idioma de destino">
+          <option value="en-US">🇺🇸 Inglês</option>
+          <option value="pt-BR">🇧🇷 Português</option>
+          <option value="es-ES">🇪🇸 Espanhol</option>
+          <option value="fr-FR">🇫🇷 Francês</option>
+          <option value="de-DE">🇩🇪 Alemão</option>
+          <option value="it-IT">🇮🇹 Italiano</option>
+          <option value="ja-JP">🇯🇵 Japonês</option>
+          <option value="zh-CN">🇨🇳 Chinês</option>
+          <option value="ar-SA">🇸🇦 Árabe</option>
+          <option value="ru-RU">🇷🇺 Russo</option>
+        </select>
+      </div>
+      <div class="vt-text-area placeholder" id="vtOriginalText">Pressione o mic e fale…</div>
+      <div class="vt-text-area placeholder" id="vtTranslatedText">Tradução aparecerá aqui…</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="vt-mic-btn" id="vtMicBtn" onclick="vtToggleMic()" style="flex:1;">
+          <span id="vtMicIcon">🎤</span> <span id="vtMicText">Falar</span>
+        </button>
+        <button class="vt-speak-btn" id="vtSpeakBtn" onclick="vtSpeak()" title="Ouvir tradução">🔊</button>
+        <button class="vt-speak-btn" id="vtStopSpeakBtn" onclick="vtStopSpeak()" title="Parar voz" style="display:none;">⏹</button>
+      </div>
+      <div class="vt-status" id="vtStatus">Selecione os idiomas e pressione Falar</div>
+      <!-- Configurações de voz -->
+      <details class="vt-settings">
+        <summary>⚙️ Configurações de voz</summary>
+        <div class="vt-settings-body">
+          <label>Velocidade <input type="range" id="vtRate" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtRateVal').textContent=this.value"> <span id="vtRateVal">1</span>x</label>
+          <label>Tom <input type="range" id="vtPitch" min="0.5" max="2" step="0.1" value="1" oninput="document.getElementById('vtPitchVal').textContent=this.value"> <span id="vtPitchVal">1</span></label>
+          <label>Voz
+            <select id="vtVoiceSelect" style="margin-left:4px;font-size:0.8rem;border-radius:8px;border:1px solid #ccc;padding:2px 6px;"></select>
+          </label>
+        </div>
+      </details>
+    </div>
+
+    <!-- ABA NARRAR SITE -->
+    <div id="vtTabContentNarrate" style="display:none;">
+      <div class="vt-label">Narração do conteúdo da página</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <select id="vtNarrateVoice" style="flex:1;padding:6px 10px;border-radius:50px;border:2px solid rgba(0,0,0,0.15);font-size:0.82rem;font-family:inherit;background:transparent;color:inherit;"></select>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;">
+        <label style="font-size:0.78rem;display:flex;align-items:center;gap:6px;flex:1;">Vel.
+          <input type="range" id="vtNarrateRate" min="0.5" max="2" step="0.1" value="1" style="flex:1;accent-color:#3b82f6;">
+          <span id="vtNarrateRateVal">1</span>x
+        </label>
+      </div>
+      <div class="vt-narrate-progress" id="vtNarrateProgress">
+        <div class="vt-narrate-bar" id="vtNarrateBar"></div>
+      </div>
+      <div class="vt-narrate-text" id="vtNarrateCurrentText">—</div>
+      <div style="display:flex;gap:8px;">
+        <button class="vt-mic-btn" id="vtNarrateBtn" onclick="vtToggleNarrate()" style="flex:1;">
+          <span id="vtNarrateIcon">📢</span> <span id="vtNarrateText">Narrar página</span>
+        </button>
+        <button class="vt-speak-btn" id="vtNarratePauseBtn" onclick="vtPauseNarrate()" title="Pausar" style="display:none;">⏸</button>
+      </div>
+      <div class="vt-status" id="vtNarrateStatus">Pressione para ouvir o conteúdo desta página</div>
+    </div>
+  </div>
+
+  <div class="top-left-buttons" id="topLeftButtons">
+    <div class="top-row">
+      <a href="../index.html" class="back-button">Voltar</a>
+      <button class="menu-toggle" onclick="toggleMenu()" title="Menu">Menu</button>
+      <button class="topics-toggle" id="topicsToggle" onclick="toggleTopics()" title="Topics">Topics</button>
+      <button class="topics-toggle-mobile" id="topicsToggleMobile" onclick="toggleTopicsMobile()" title="Topics" style="width:fit-content;min-width:0;max-width:none;">Topics</button>
+    </div>
+  </div>
+  <div class="topics-overlay" id="topicsOverlay" onclick="closeTopics(); closeTopicsMobile();"></div>
+  <div class="topics-dropdown" id="topicsDropdown">
+    <a href="#sec-dicas" class="topics-link" onclick="closeTopics()">🌟 Dicas de Carreira</a>
+    <a href="#sec-vagas" class="topics-link" onclick="closeTopics()">🔍 Sites de Vagas</a>
+    <a href="#sec-cursos" class="topics-link" onclick="closeTopics()">🎓 Cursos Gratuitos</a>
+    <a href="#sec-dicas-rapidas" class="topics-link" onclick="closeTopics()">⚡ Dicas Rápidas</a>
+    <a href="#sec-transporte" class="topics-link" onclick="closeTopics()">🚌 Transporte</a>
+    <a href="#sec-ats" class="topics-link" onclick="closeTopics()">🤖 Sistema ATS</a>
+    <a href="#sec-grupos" class="topics-link" onclick="closeTopics()">📲 Grupos & Redes</a>
+  </div>
+  <div class="topics-dropdown-mobile" id="topicsDropdownMobile">
+    <a href="#sec-dicas" class="topics-link-mobile" onclick="closeTopicsMobile()">🌟 Dicas de Carreira</a>
+    <a href="#sec-vagas" class="topics-link-mobile" onclick="closeTopicsMobile()">🔍 Sites de Vagas</a>
+    <a href="#sec-cursos" class="topics-link-mobile" onclick="closeTopicsMobile()">🎓 Cursos Gratuitos</a>
+    <a href="#sec-dicas-rapidas" class="topics-link-mobile" onclick="closeTopicsMobile()">⚡ Dicas Rápidas</a>
+    <a href="#sec-transporte" class="topics-link-mobile" onclick="closeTopicsMobile()">🚌 Transporte</a>
+    <a href="#sec-ats" class="topics-link-mobile" onclick="closeTopicsMobile()">🤖 Sistema ATS</a>
+    <a href="#sec-grupos" class="topics-link-mobile" onclick="closeTopicsMobile()">📲 Grupos & Redes</a>
+  </div>
+
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+  <div class="menu-content" id="menuContent">
+    <div class="menu-section">
+      <h3>Bem-Vindo</h3>
+      <a href="sobre.html" class="menu-link">Sobre</a>
+      <a href="missao.html" class="menu-link">Missão</a>
+      <a href="visao.html" class="menu-link">Visão</a>
+      <a href="valores.html" class="menu-link">Valores</a>
+    </div>
+    <div class="menu-section">
+      <h3>Carreira</h3>
+      <a href="candidato.html" class="menu-link">Candidatos</a>
+      <a href="tutorial.html" class="menu-link">Vídeos</a>
+      <a href="vagas.html" class="menu-link">Vagas</a>
+      <a href="ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
+      <a href="utilidades.html" class="menu-link active-page">Utilidades</a>
+    </div>
+    <div class="menu-section">
+      <h3>Atendimento</h3>
+      <a href="servicos.html" class="menu-link">Serviços</a>
+      <a href="contato.html" class="menu-link">Contato</a>
+    </div>
+    <div class="menu-section">
+      <h3>Informações</h3>
+      <a href="lgbt.html" class="menu-link">LGBT+</a>
+      <a href="privacidade.html" class="menu-link">Privacidade & LGPD</a>
+      <a href="indexcookies.html" class="menu-link">Cookies</a>
+    </div>
+  </div>
+
+    <header class="header">
+    <div class="header-content">
+
+      <!-- LOGO DESKTOP -->
+      <svg class="nexus-logo-svg desktop" width="100%" height="100" preserveAspectRatio="xMidYMid meet" viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow-d">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-strong-d">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Subtitle top -->
+        <text x="250" y="18" text-anchor="middle" fill="#00c8ff" font-family="'Courier New', monospace" font-size="9.5" letter-spacing="4" opacity="0.8" filter="url(#glow-d)">// SISTEMA DE GESTÃO //</text>
+        <!-- Main title -->
+        <text x="250" y="65" text-anchor="middle" fill="#00c8ff" font-family="'Arial Black', 'Impact', sans-serif" font-size="58" font-weight="900" letter-spacing="10" filter="url(#glow-strong-d)">NEXUS</text>
+        <!-- Horizontal lines flanking diamond -->
+        <line x1="80" y1="76" x2="190" y2="76" stroke="#00c8ff" stroke-width="0.8" opacity="0.45"/>
+        <line x1="310" y1="76" x2="420" y2="76" stroke="#00c8ff" stroke-width="0.8" opacity="0.45"/>
+        <!-- Diamond bullet centered -->
+        <polygon points="250,73 255,78 250,83 245,78" fill="#00c8ff" opacity="0.9" filter="url(#glow-d)"/>
+        <!-- Subtitle bottom — single centered text block -->
+        <text x="250" y="95" text-anchor="middle" fill="#00c8ff" font-family="'Courier New', monospace" font-size="10" letter-spacing="4" opacity="0.85" filter="url(#glow-d)">RECRUTAMENTO  ✦  SELEÇÃO</text>
+      </svg>
+
+      <!-- LOGO MOBILE -->
+      <svg class="nexus-logo-svg mobile" width="100%" height="78" preserveAspectRatio="xMidYMid meet" viewBox="0 0 280 78" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow-m">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-strong-m">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <text x="140" y="14" text-anchor="middle" fill="#00c8ff" font-family="'Courier New', monospace" font-size="7" letter-spacing="3" opacity="0.8" filter="url(#glow-m)">// SISTEMA DE GESTÃO //</text>
+        <text x="140" y="52" text-anchor="middle" fill="#00c8ff" font-family="'Arial Black', 'Impact', sans-serif" font-size="40" font-weight="900" letter-spacing="7" filter="url(#glow-strong-m)">NEXUS</text>
+        <line x1="30" y1="61" x2="115" y2="61" stroke="#00c8ff" stroke-width="0.7" opacity="0.45"/>
+        <line x1="165" y1="61" x2="250" y2="61" stroke="#00c8ff" stroke-width="0.7" opacity="0.45"/>
+        <polygon points="140,58 144,62 140,66 136,62" fill="#00c8ff" opacity="0.9" filter="url(#glow-m)"/>
+        <text x="140" y="75" text-anchor="middle" fill="#00c8ff" font-family="'Courier New', monospace" font-size="7.5" letter-spacing="3" opacity="0.85" filter="url(#glow-m)">RECRUTAMENTO  ✦  SELEÇÃO</text>
+      </svg>
+
+      <!-- Título da página -->
+      <p class="header-page-title">Utilidades</p>
+
+    </div>
+  </header>
+
+  
+<!-- ============================================================ -->
+<!-- SEÇÃO: DICAS GERAIS DE CARREIRA                              -->
+<!-- ============================================================ -->
+<div class="info-bar" id="sec-dicas" data-i18n="util-sec-dicas">🌟 Dicas Gerais de Carreira</div>
+<section class="content-section">
+  <div class="cards-grid">
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/gmail.png" width="42px" height="42px" alt="E-mail profissional">
+      </span>
+      <span class="card-tag tag-green">Comunicação</span>
+      <h3>E-mail Profissional</h3>
+      <p>Seu e-mail é o cartão de visitas digital. Use um endereço com seu nome real. Evite apelidos, números aleatórios ou e-mails antigos de adolescência. Ao enviar currículo, escreva um assunto claro e um corpo de mensagem breve e objetivo.</p>
+    </div>
+
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/1497619669-androidmobile-phone_85137.png" width="42px" height="42px" alt="Segurança nas redes sociais">
+      </span>
+      <span class="card-tag tag-orange">Segurança</span>
+      <h3>Redes Sociais e Imagem</h3>
+      <p>Antes de se candidatar, verifique o que aparece quando alguém pesquisa seu nome. Ajuste a privacidade de fotos inapropriadas no Instagram e Facebook. O que está público na internet pode ser visto por recrutadores. Mantenha o LinkedIn sempre atualizado e profissional.</p>
+    </div>
+
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/nova-contratacao.png" width="42px" height="42px" alt="Networking profissional">
+      </span>
+      <span class="card-tag tag-blue">Network</span>
+      <h3>Networking Ativo</h3>
+      <p>Mais de 70% das vagas são preenchidas por indicação. Participe de grupos no LinkedIn, eventos da área e comunidades online. Converse com ex-colegas e professores. Não peça emprego diretamente, peça conselhos e mostre seu trabalho. Conexões genuínas abrem portas.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SEÇÃO: SITES ÚTEIS PARA BUSCA DE EMPREGO                    -->
+<!-- ============================================================ -->
+<div class="info-bar" id="sec-vagas" data-i18n="util-sec-vagas">
+  <img src="../imagens/lupa.png" width="20" height="20" alt="Busca de empregos">
+  Sites para Busca de Emprego
+</div>
+
+<section class="content-section">
+
+  <div class="tip-box">
+    💡 <strong>Dica:</strong> Cadastre-se em pelo menos 3 plataformas diferentes e mantenha o perfil completo. Configure alertas de vaga para receber notificações automáticas por e-mail quando surgir algo compatível com seu perfil.
+  </div>
+
+  <div class="cards-grid">
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/linkedin (1).png" width="42" height="42" alt="LinkedIn">
+      </span>
+      <span class="card-tag tag-blue">Nacional</span>
+      <h3>LinkedIn</h3>
+      <p>Maior rede profissional do mundo. Além de vagas, permite que recrutadores te encontrem. Perfil completo com foto, resumo e habilidades aumenta muito suas chances de ser abordado diretamente.</p>
+      <a href="https://linkedin.com/jobs" target="_blank" class="card-link">→ Ver vagas no LinkedIn</a>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/catho.png" width="42px" height="42px" alt="Catho">
+      </span>
+      <span class="card-tag tag-blue">Nacional</span>
+      <h3>Catho</h3>
+      <p>Uma das maiores plataformas de emprego do Brasil. Forte em vagas de nível médio e superior em todo o país. Tem uma ferramenta de comparação de salários muito útil para negociações.</p>
+      <a href="https://catho.com.br" target="_blank" class="card-link">→ Acessar Catho</a>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/infojobs-seeklogo.png" width="42px" height="42px" alt="InfoJobs">
+      </span>
+      <span class="card-tag tag-blue">Nacional</span>
+      <h3>InfoJobs</h3>
+      <p>Plataforma popular com muitas vagas de diversas áreas. Fácil de usar e com boa cobertura de vagas no Rio Grande do Sul e região Sul do Brasil.</p>
+      <a href="https://infojobs.com.br" target="_blank" class="card-link">→ Acessar InfoJobs</a>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/gupy.png" width="42px" height="42px" alt="Gupy">
+      </span>
+      <span class="card-tag tag-blue">Nacional</span>
+      <h3>Gupy</h3>
+<p>Plataforma moderna de recrutamento usada por muitas empresas no Brasil. Nela é possível se candidatar a vagas de diversos níveis, desde operacionais até cargos técnicos e administrativos. Manter o perfil completo na Gupy aumenta a visibilidade para recrutadores e facilita candidaturas em processos seletivos corporativos.</p>      <a href="https://portal.gupy.io" target="_blank" class="card-link">→ Acessar Gupy</a>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/sine.png" width="42px" height="42px" alt="Sine">
+      </span>
+      <span class="card-tag tag-green">Governo</span>
+      <h3>SINE / Emprega Brasil</h3>
+      <p>Sistema Nacional de Emprego gratuito e com muitas vagas formais. Pode ser acessado online ou presencialmente. Ótimo para vagas CLT em empresas locais e regionais.</p>
+      <a href="https://empregabrasil.mte.gov.br" target="_blank" class="card-link">→ Acessar Emprega Brasil</a>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">
+        <img src="../imagens/indeed.png" width="42px" height="42px" alt="Indeed">
+      </span>
+      <span class="card-tag tag-blue">Internacional</span>
+      <h3>Indeed</h3>
+      <p>Motor de busca de empregos agregador, reúne vagas de vários sites em um só lugar. Útil para comparar oportunidades e encontrar vagas que não estão nas outras plataformas.</p>
+      <a href="https://br.indeed.com" target="_blank" class="card-link">→ Acessar Indeed</a>
+    </div>
+
+  </div>
+
+</section>
+
+  <!-- ============================================================ -->
+  <!-- SEÇÃO: CURSOS GRATUITOS & CERTIFICAÇÕES                      -->
+  <!-- ============================================================ -->
+  <div class="info-bar" id="sec-cursos" data-i18n="util-sec-cursos">🎓 Cursos Gratuitos & Certificações</div>
+  <section class="content-section">
+    <div class="cards-grid">
+
+<div class="card">
+  <span class="card-icon">
+    <img src="../imagens/senai.png" width="42" height="42" alt="SENAI SENAC">
+  </span>
+  <span class="card-tag tag-green">Gratuito</span>
+  <h3>Senai</h3>
+  <p>Cursos técnicos e profissionalizantes com ótima reputação no mercado. Muitas opções presenciais e online, algumas totalmente gratuitas. Certificado reconhecido por empresas de todos os setores.</p>
+  <a href="https://online.senai.br" target="_blank" class="card-link">→ SENAI Online</a><br>
+  <a href="https://www.ead.senac.br" target="_blank" class="card-link">→ SENAC EAD</a>
+</div>
+
+
+<div class="card">
+  <span class="card-icon">
+    <img src="../imagens/coursera.png" width="42" height="42" alt="Coursera">
+  </span>
+  <span class="card-tag tag-green">Gratuito</span>
+  <h3>Coursera</h3>
+  <p>Plataforma com cursos de universidades mundiais. É possível auditar (assistir) gratuitamente. Tem certificados pagos, mas o aprendizado é gratuito. Ótimo para aprender inglês técnico e hard skills.</p>
+  <a href="https://coursera.org" target="_blank" class="card-link">→ Acessar Coursera</a>
+</div>
+
+
+<div class="card">
+  <span class="card-icon">
+    <img src="../imagens/bradesco.png" width="42" height="42" alt="Fundação Bradesco">
+  </span>
+  <span class="card-tag tag-green">Gratuito</span>
+  <h3>Fundação Bradesco</h3>
+  <p>Mais de 100 cursos gratuitos em TI, administração, contabilidade e mais. Certificados reconhecidos pelo MEC. Ótima alternativa para quem está iniciando a carreira ou quer se requalificar.</p>
+  <a href="https://www.ev.org.br" target="_blank" class="card-link">→ Escola Virtual Bradesco</a>
+</div>
+
+</div>
+</section>
+
+  <!-- ============================================================ -->
+  <!-- SEÇÃO: DICAS RÁPIDAS — LISTA                                 -->
+  <!-- ============================================================ -->
+  <div class="info-bar" id="sec-dicas-rapidas" data-i18n="util-sec-dicas-rapidas">⚡ Dicas Rápidas</div>
+  <section class="content-section">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:2rem;">
+
+      <div class="quick-tip">💡 <strong>Arquivo do currículo:</strong> Sempre salve e envie em <strong>PDF</strong>. O Word pode desconfigurar em diferentes versões do Office.</div>
+      <div class="quick-tip">💡 <strong>Tamanho do currículo:</strong> Máximo 2 páginas é o suficiente.</div>
+      <div class="quick-tip">💡 <strong>Foto no currículo:</strong> No Brasil é opcional, mas se colocar, use fundo neutro, roupa profissional e expressão séria e amigável.</div>
+      <div class="quick-tip">💡 <strong>Resumo profissional:</strong> Escreva um resumo diferente para cada vaga. Mencione o cargo e a empresa pelo nome. Mostra atenção e interesse genuíno.</div>
+      <div class="quick-tip">💡 <strong>Carta de apresentação:</strong> Não é obrigatória, mas quando pedida faz diferença.</div>
+      <div class="quick-tip">💡 <strong>Salário na entrevista:</strong> Pesquise a faixa salarial do cargo antes. Sites como Glassdoor, Salario.com.br e Vagas.com têm dados de mercado. Não invente um número no escuro.</div>
+
+    </div>
+
+    <div class="tip-box">
+      🔗 <strong>Sites para pesquisar salários:</strong>
+      &nbsp;<a href="https://glassdoor.com.br" target="_blank" style="color:var(--primary);font-weight:600;">Glassdoor</a> &nbsp;|&nbsp;
+      <a href="https://salario.com.br" target="_blank" style="color:var(--primary);font-weight:600;">Salário.com.br</a> &nbsp;|&nbsp;
+      <a href="https://vagas.com.br" target="_blank" style="color:var(--primary);font-weight:600;">Vagas.com</a> &nbsp;|&nbsp;
+      <a href="https://lovemondays.com.br" target="_blank" style="color:var(--primary);font-weight:600;">Love Mondays</a>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SEÇÃO: TRANSPORTE                                            -->
+  <!-- ============================================================ -->
+  <div class="info-bar" id="sec-transporte" data-i18n="util-sec-transporte">🚌 Transporte — Horários & Linhas</div>
+  <section class="content-section">
+    <div class="tip-box">
+      💡 Selecione o tipo de transporte abaixo para ver as linhas disponíveis e baixar os horários em PDF. Os PDFs são disponibilizados pelas empresas de transporte, se algum link estiver indisponível, entre em contato com a operadora diretamente.
+    </div>
+
+    <div class="transport-box">
+      <div class="transport-select-wrap">
+        <label for="transportSelect">🗺️ Escolha o transporte:</label>
+        <select class="transport-select" id="transportSelect" onchange="mostrarTransporte(this.value)">
+          <option value="">-- Selecione --</option>
+          <option value="guaiba">🏙️ Ônibus — Guaíba (bairros)</option>
+          <option value="poa">🌆 Ônibus — Alimentadora Guaíba</option>
+        </select>
+      </div>
+
+      <!-- PAINEL: ÔNIBUS GUAÍBA -->
+      <div class="transport-panel" id="panel-guaiba">
+        <h4>🏙️ Expresso Assur — Guaíba</h4>
+        <div class="linha-grid">
+          <div class="linha-item">
+            <span class="linha-nome">🔵 COHAB - CENTRO - H.REGIONAL-</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/cohab.pdf', 'COHAB - Centro - H.Regional', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/cohab.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+          <div class="linha-item">
+            <span class="linha-nome">🔵 PEDRAS BRANCAS</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/pedrasbrancas-centro.pdf', 'Pedras Brancas', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/pedrasbrancas-centro.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+          <div class="linha-item">
+            <span class="linha-nome">🔵 JARDIM DOS LAGOS - COLINA - V.IOLANDA</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/jardimdoslagos.pdf', 'Jardim dos Lagos - Colina - V.Iolanda', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/jardimdoslagos.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+          <div class="linha-item">
+            <span class="linha-nome">🔵 LOGRADOURO</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/logradouro.pdf', 'Logradouro', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/logradouro.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+          <div class="linha-item">
+            <span class="linha-nome">🔵 VILA IOLANDA</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/vilaiolanda.pdf', 'Vila Iolanda', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/vilaiolanda.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+          <div class="linha-item">
+            <span class="linha-nome">🔵 FLORIDA - ARAUCARIA</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/florida.pdf', 'Flórida - Araucária', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/florida.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+          <div class="linha-item">
+            <span class="linha-nome">🔵 SÃO FRANCISCO - PRIMAVERA</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/primavera.pdf', 'São Francisco - Primavera', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/primavera.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+          <div class="linha-item">
+            <span class="linha-nome">🔵 PASSO FUNDO</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/passofundo.pdf', 'Passo Fundo', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/passofundo.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+          <div class="linha-item">
+            <span class="linha-nome">🔵 OPERAÇÃO NOTURNA</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/noturna.pdf', 'Operação Noturna', 'pdf')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/noturna.pdf" class="btn-pdf" download>📥 Baixar</a>
+          </div>
+       
+        </div>
+        <p style="margin-top:1rem;font-size:0.8rem;opacity:0.6;text-align:center;">📞 Empresa de Transporte Guaíba: entre em contato para obter os horários atualizados</p>
+      </div>
+
+     <!-- PAINEL: ÔNIBUS PORTO ALEGRE -->
+<div class="transport-panel" id="panel-poa">
+  <h4>Ônibus Alimentadora — Guaíba</h4>
+  <div class="linha-grid">
+
+    <div class="linha-item">
+      <span class="linha-nome">🟠 ALIMENTADORA BOM FIM</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorabomfim.png', 'Alimentadora Bom Fim', 'img')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorabomfim.png" class="btn-pdf" download>📥 Baixar</a>
+    </div>
+
+    <div class="linha-item">
+      <span class="linha-nome">🟠 ALIMENTADORA COLINA</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadoracolina.png', 'Alimentadora Colina', 'img')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadoracolina.png" class="btn-pdf" download>📥 Baixar</a>
+    </div>
+
+    <div class="linha-item">
+      <span class="linha-nome">🟠 ALIMENTADORA JARDIM DOS LAGOS</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorajardimdoslagos.png', 'Alimentadora Jardim dos Lagos', 'img')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorajardimdoslagos.png" class="btn-pdf" download>📥 Baixar</a>
+    </div>
+
+    <div class="linha-item">
+      <span class="linha-nome">🟠 ALIMENTADORA PARQUE 35</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadora35.png', 'Alimentadora Parque 35', 'img')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadora35.png" class="btn-pdf" download>📥 Baixar</a>
+    </div>
+
+    <div class="linha-item">
+      <span class="linha-nome">🟠 ALIMENTADORA PASSO FUNDO</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorapassofundo.png', 'Alimentadora Passo Fundo', 'img')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorapassofundo.png" class="btn-pdf" download>📥 Baixar</a>
+    </div>
+
+    <div class="linha-item">
+      <span class="linha-nome">🟠 ALIMENTADORA PEDRAS BRANCAS</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorapedrasbrancas.png', 'Alimentadora Pedras Brancas', 'img')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorapedrasbrancas.png" class="btn-pdf" download>📥 Baixar</a>
+    </div>
+
+    <div class="linha-item">
+      <span class="linha-nome">🟠 ALIMENTADORA SÃO FRANCISCO</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorasaofrancisco.png', 'Alimentadora São Francisco', 'img')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorasaofrancisco.png" class="btn-pdf" download>📥 Baixar</a>
+    </div>
+
+    <div class="linha-item">
+      <span class="linha-nome">🟠 ALIMENTADORA SÃO JORGE</span>
+      <button class="btn-ver" onclick="abrirPreview('https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorasaojorge.png', 'Alimentadora São Jorge', 'img')">👁️ Ver</button>
+      <a href="https://raw.githubusercontent.com/AgenciaNexus/agencianexus/main/alimentadorasaojorge.png" class="btn-pdf" download>📥 Baixar</a>
+    </div>
+
+  </div>
+
+  <p style="margin-top:1rem;font-size:0.8rem;opacity:0.6;text-align:center;">
+    📞 Expresso Guaíba - 0800 707 7639 
+    <a href="http://www.rioguaiba.com.br/" target="_blank" style="color:var(--primary);"></a>
+  </p>
+</div>
+
+      
+  </section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO: SISTEMA ATS                                           -->
+<!-- ============================================================ -->
+<div class="info-bar" id="sec-ats" data-i18n="util-sec-ats">🤖 O que é um Sistema ATS?</div>
+<section class="content-section">
+
+  <div class="ats-hero">
+    <h3>🤖 ATS — Applicant Tracking System</h3>
+    <p>
+      ATS é um <strong>sistema de rastreamento de candidatos</strong> usado por empresas e agências de recrutamento para gerenciar todo o processo seletivo de forma automatizada. Ele organiza currículos, filtra candidatos por palavras-chave, agenda entrevistas e acompanha cada etapa da seleção.
+    </p>
+    <p>
+      O funcionamento típico do ATS começa com o recebimento totalmente automatizado dos currículos. O sistema aplica algoritmos de ranqueamento, atribuindo uma pontuação de aderência a cada candidato em relação à vaga, por exemplo, de 1 a 100 para 100 candidatos. Em seguida, filtra por palavras-chave, experiência, qualificações e compatibilidade geral com a vaga. Os candidatos mais bem ranqueados são destacados para possível entrevista, enquanto os demais recebem respostas automáticas de reprovação. Agendamentos de entrevistas também podem ser automatizados, e alguns sistemas incluem testes adicionais, como testes de perfil comportamental (por exemplo, DISC) ou habilidades específicas, que podem influenciar a aprovação ou reprovação de forma automatizada. Basicamente, o ATS automatiza todo o processo de triagem, ajudando recrutadores a focarem nos candidatos mais alinhados à vaga.
+    </p>
+  </div>
+
+
+<div class="cards-grid">
+
+  <div class="card">
+    <span class="card-icon">
+      <img src="../imagens/ia.png" width="42" height="42" alt="Dica ATS">
+    </span>
+    <span class="card-tag tag-green">Dica</span>
+    <h3>Como passar no filtro ATS</h3>
+    <p>A maioria dos currículos é eliminada pelo ATS antes de chegar a um humano. Use palavras-chave da descrição da vaga no seu currículo. Evite tabelas, colunas e imagens, o ATS pode não ler. Prefira formato simples, fontes padrão e arquivo em PDF ou DOCX.</p>
+  </div>
+
+  <div class="card">
+    <span class="card-icon">
+      <img src="../imagens/cvi.png" width="42" height="42" alt="Formato ATS">
+    </span>
+    <span class="card-tag tag-blue">Formato</span>
+    <h3>Currículo amigável ao ATS</h3>
+    <p>Use títulos de seção padrão como "Experiência Profissional", "Formação Acadêmica" e "Habilidades". Escreva datas no formato MM/AAAA. Liste habilidades técnicas explicitamente. Não use cabeçalhos com caixas de texto ou gráficos, o ATS ignora tudo isso.</p>
+  </div>
+
+  <div class="card">
+    <span class="card-icon">
+      <img src="../imagens/empresas1.png" width="42" height="42" alt="Empresas usando ATS">
+    </span>
+    <span class="card-tag tag-orange">Empresas</span>
+    <h3>Quem usa ATS?</h3>
+    <p>Praticamente todas as médias e grandes empresas usam algum ATS. Os mais comuns no Brasil são Gupy, Kenoby, Recruta Simples e SAP SuccessFactors.</p>
+  </div>
+
+</div>
+
+ <div class="info-bar" data-i18n="util-sec-portais">🌐 Portais de Emprego vs. Sistemas ATS</div>
+
+
+  <div class="tip-box">
+      💡 <strong>Qual a diferença?</strong> <strong>Portais de emprego</strong> são sites onde você busca e se candidata a vagas publicamente (como Catho e LinkedIn). <strong>Sistemas ATS</strong> são ferramentas internas das empresas para gerenciar o processo seletivo, você só acessa ao se candidatar a uma vaga específica.
+  </div>
+
+
+    <div style="margin-top:1rem;">
+      <table class="portal-table">
+        <thead>
+          <tr>
+            <th>Plataforma</th>
+            <th>Tipo</th>
+            <th>Destaque</th>
+            <th>Acesso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>💼 LinkedIn Jobs</td>
+            <td><span class="portal-badge badge-portal">Portal</span></td>
+            <td>Maior rede profissional do mundo — vagas + network</td>
+            <td><a href="https://linkedin.com/jobs" target="_blank" class="portal-link">→ Acessar</a></td>
+          </tr>
+          <tr>
+            <td>🟠 Catho</td>
+            <td><span class="portal-badge badge-portal">Portal</span></td>
+            <td>Um dos maiores do Brasil — nível médio e superior</td>
+            <td><a href="https://catho.com.br" target="_blank" class="portal-link">→ Acessar</a></td>
+          </tr>
+          <tr>
+            <td>🟢 InfoJobs</td>
+            <td><span class="portal-badge badge-portal">Portal</span></td>
+            <td>Forte no Sul do Brasil — fácil de usar</td>
+            <td><a href="https://infojobs.com.br" target="_blank" class="portal-link">→ Acessar</a></td>
+          </tr>
+          <tr>
+            <td>🔵 Gupy</td>
+            <td><span class="portal-badge badge-ats">ATS + Portal</span></td>
+            <td>Portal público + ATS usado por grandes empresas</td>
+            <td><a href="https://portal.gupy.io" target="_blank" class="portal-link">→ Acessar</a></td>
+          </tr>
+          <tr>
+            <td>🔷 Kenoby / Sólides</td>
+            <td><span class="portal-badge badge-ats">ATS</span></td>
+            <td>ATS muito usado por PMEs brasileiras</td>
+            <td><a href="https://solides.com.br" target="_blank" class="portal-link">→ Acessar</a></td>
+          </tr>
+          <tr>
+            <td>🟣 Recruta Simples</td>
+            <td><span class="portal-badge badge-ats">ATS</span></td>
+            <td>ATS nacional focado em pequenas e médias empresas</td>
+            <td><a href="https://recrutasimples.com.br" target="_blank" class="portal-link">→ Acessar</a></td>
+          </tr>
+          <tr>
+            <td>🌐 Indeed</td>
+            <td><span class="portal-badge badge-portal">Portal</span></td>
+            <td>Agregador global — reúne vagas de vários sites</td>
+            <td><a href="https://br.indeed.com" target="_blank" class="portal-link">→ Acessar</a></td>
+          </tr>
+          <tr>
+            <td>🏛️ Emprega Brasil</td>
+            <td><span class="portal-badge badge-gov">Gov</span></td>
+            <td>SINE online — vagas formais, gratuito</td>
+            <td><a href="https://empregabrasil.mte.gov.br" target="_blank" class="portal-link">→ Acessar</a></td>
+          </tr>
+      
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+<!-- ============================================================ -->
+<!-- SEÇÃO: GRUPOS & REDES SOCIAIS DE VAGAS                       -->
+<!-- ============================================================ -->
+<style>
+  /* ── SOCIAL HUB ─────────────────────────────────────────────── */
+  .social-hub-intro {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 2rem;
+    font-size: 0.97rem;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  .social-network-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .sn-card {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .sn-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+  .sn-card.active { border-color: rgba(255,255,255,0.3); }
+
+  /* Facebook */
+  .sn-card.fb .sn-header { background: linear-gradient(135deg, #1877F2, #0a5dc7); }
+  .sn-card.fb .sn-groups-panel { border-top: 3px solid #1877F2; }
+  .sn-card.fb .sn-group-link:hover { background: rgba(24,119,242,0.08); color: #1877F2; }
+  body.dark-mode .sn-card.fb .sn-group-link:hover { background: rgba(24,119,242,0.15); color: #6baeff; }
+
+  /* WhatsApp */
+  .sn-card.wa .sn-header { background: linear-gradient(135deg, #25D366, #128C7E); }
+  .sn-card.wa .sn-groups-panel { border-top: 3px solid #25D366; }
+  .sn-card.wa .sn-group-link:hover { background: rgba(37,211,102,0.08); color: #128C7E; }
+  body.dark-mode .sn-card.wa .sn-group-link:hover { background: rgba(37,211,102,0.15); color: #4dff9a; }
+
+  /* Telegram */
+  .sn-card.tg .sn-header { background: linear-gradient(135deg, #229ED9, #1a7ab5); }
+  .sn-card.tg .sn-groups-panel { border-top: 3px solid #229ED9; }
+  .sn-card.tg .sn-group-link:hover { background: rgba(34,158,217,0.08); color: #229ED9; }
+  body.dark-mode .sn-card.tg .sn-group-link:hover { background: rgba(34,158,217,0.15); color: #7dcfff; }
+
+  .sn-header {
+    padding: 1.6rem 1.5rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+  }
+
+  body.menu-open .back-button,
+body.menu-open .menu-toggle,
+body.menu-open .theme-toggle {
+  display: none !important;
+  pointer-events: none !important;
+}
+  .sn-header-icon {
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem;
+    flex-shrink: 0;
+    backdrop-filter: blur(6px);
+  }
+  .sn-header-text { flex: 1; }
+  .sn-header-text h4 { margin: 0; font-size: 1.1rem; font-weight: 800; }
+  .sn-header-text p  { margin: 0.2rem 0 0; font-size: 0.8rem; opacity: 0.88; }
+  .sn-toggle-arrow {
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    flex-shrink: 0;
+  }
+  .sn-card.active .sn-toggle-arrow { transform: rotate(180deg); }
+
+  .sn-groups-panel {
+    background: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
+    padding: 0 1.2rem;
+  }
+  body.dark-mode .sn-groups-panel { background: #1a1a1a; }
+  .sn-card.active .sn-groups-panel { max-height: 600px; padding: 1rem 1.2rem 1.2rem; }
+
+  .sn-groups-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    color: #aaa;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .sn-group-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .sn-group-item { display: flex; align-items: center; gap: 0.6rem; }
+
+  .sn-group-link {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    flex: 1;
+    border: 1.5px solid transparent;
+  }
+  body.dark-mode .sn-group-link { color: var(--text-dark); }
+  .sn-group-link:hover { transform: translateX(4px); }
+  .sn-group-link .gl-icon { font-size: 1.05rem; flex-shrink: 0; }
+  .sn-group-link .gl-name { flex: 1; }
+  .sn-group-link .gl-arrow {
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    transform: translateX(-4px);
+  }
+  .sn-group-link:hover .gl-arrow { opacity: 1; transform: translateX(0); }
+
+  .sn-group-tag {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: rgba(59,130,246,0.1);
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  body.dark-mode .sn-group-tag { background: rgba(59,130,246,0.25); color: #38bdf8; }
+
+  .sn-footer-note {
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-top: 1.5rem;
+    line-height: 1.6;
+  }
+
+  @media(max-width:600px){
+    .social-network-cards { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="info-bar" id="sec-grupos" data-i18n="util-sec-grupos">📲 Grupos & Redes Sociais de Vagas</div>
+<section class="content-section">
+
+  <div class="tip-box">
+    💡 <strong>Dica:</strong> Além dos portais de emprego, grupos no Facebook e WhatsApp são canais muito ativos para divulgação de vagas, especialmente vagas locais e regionais. Clique em uma rede abaixo para ver os grupos disponíveis e entrar direto pelo link.
+  </div>
+
+  <p class="social-hub-intro">
+    Escolha a plataforma e explore os grupos de vagas. Ative as notificações para não perder nenhuma oportunidade!
+  </p>
+
+  <div class="social-network-cards">
+
+     <!-- FACEBOOK -->
+    <div class="sn-card fb" onclick="toggleSocialCard(this)">
+      <div class="sn-header">
+        <div class="sn-header-icon"><img src="../imagens/facebook.png" width="32" height="32" alt="Facebook"></div>
+        <div class="sn-header-text">
+          <h4>Facebook Grupos</h4>
+          <p>Vagas divulgadas em comunidades locais</p>
+        </div>
+        <div class="sn-toggle-arrow">▼</div>
+      </div>
+      <div class="sn-groups-panel">
+        <span class="sn-groups-label">Grupos disponíveis</span>
+        <ul class="sn-group-list">
+          <li>
+            <a href="https://www.facebook.com/groups/1764391013764052" target="_blank" class="sn-group-link">
+              <span class="gl-icon">👥</span>
+              <span class="gl-name">Emprego Guaíba e Região</span>
+              <span class="sn-group-tag">Guaíba</span>
+              <span class="gl-arrow">→</span>
+            </a> 
+          </li>
+          <li>
+            <a href="https://www.facebook.com/share/g/1CLNiMmqrh/" target="_blank" class="sn-group-link">
+              <span class="gl-icon">👥</span>
+              <span class="gl-name">Emprego em Guaíba</span>
+              <span class="sn-group-tag">Guaíba</span>
+              <span class="gl-arrow">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/share/g/1aUomvZ5Wb/" target="_blank" class="sn-group-link">
+              <span class="gl-icon">👥</span>
+              <span class="gl-name">Guaíba Empregos e Estágios</span>
+              <span class="sn-group-tag">Guaíba</span>
+              <span class="gl-arrow">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/profile.php?id=61576066286585" target="_blank" class="sn-group-link">
+              <span class="gl-icon">🏢</span>
+              <span class="gl-name">Agência Nexus</span>
+              <span class="sn-group-tag">Guaíba</span>
+              <span class="gl-arrow">→</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- WHATSAPP -->
+    <div class="sn-card wa" onclick="toggleSocialCard(this)">
+      <div class="sn-header">
+        <div class="sn-header-icon"><img src="../imagens/wpp5.png" width="32" height="32" alt="WhatsApp"></div>
+        <div class="sn-header-text">
+          <h4>WhatsApp Grupos</h4>
+          <p>Vagas em tempo real no seu celular</p>
+        </div>
+        <div class="sn-toggle-arrow">▼</div>
+      </div>
+      <div class="sn-groups-panel">
+        <span class="sn-groups-label">Grupos disponíveis</span>
+        <ul class="sn-group-list">
+          <li>
+            <a href="https://chat.whatsapp.com/CIMvbZDjfq03ueHzPFvKJR" target="_blank" class="sn-group-link">
+              <span class="gl-icon">👥</span>
+              <span class="gl-name">Vagas Guaíba RS</span>
+              <span class="sn-group-tag">Grupo</span>
+              <span class="gl-arrow">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://chat.whatsapp.com/GwtYTbOaZEzIsWqwH4sPL1" target="_blank" class="sn-group-link">
+              <span class="gl-icon">👥</span>
+              <span class="gl-name">Grupo Vagas Guaíba RS</span>
+              <span class="sn-group-tag">Grupo</span>
+              <span class="gl-arrow">→</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TELEGRAM -->
+    <div class="sn-card tg" onclick="toggleSocialCard(this)">
+      <div class="sn-header">
+        <div class="sn-header-icon"><img src="../imagens/telegrama.png" width="32" height="32" alt="Telegram"></div>
+        <div class="sn-header-text">
+          <h4>Telegram Canais</h4>
+          <p>Canais com vagas e alertas automáticos</p>
+        </div>
+        <div class="sn-toggle-arrow">▼</div>
+      </div>
+      <div class="sn-groups-panel">
+        <span class="sn-groups-label">Canais disponíveis</span>
+        <ul class="sn-group-list">
+          <li>
+            <a href="https://t.me/vagasguaibars" target="_blank" class="sn-group-link">
+              <span class="gl-icon">📣</span>
+              <span class="gl-name">Vagas Guaíba — Canal Telegram</span>
+              <span class="sn-group-tag">Guaíba</span>
+              <span class="gl-arrow">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://t.me/vagasportoalegre" target="_blank" class="sn-group-link">
+              <span class="gl-icon">📣</span>
+              <span class="gl-name">Vagas Porto Alegre — Telegram</span>
+              <span class="sn-group-tag">POA</span>
+              <span class="gl-arrow">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://t.me/vagasrs" target="_blank" class="sn-group-link">
+              <span class="gl-icon">📣</span>
+              <span class="gl-name">Vagas RS — Alertas em tempo real</span>
+              <span class="sn-group-tag">Estado</span>
+              <span class="gl-arrow">→</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+  <p class="sn-footer-note">
+    ⚠️ Os links de grupos são atualizados periodicamente. Se algum estiver inativo, entre em contato com a Agência Nexus via WhatsApp para receber o link mais recente.
+  </p>
+
+</section>
+
+<script>
+  function toggleSocialCard(card) {
+    const isActive = card.classList.contains('active');
+    // Fecha todos
+    document.querySelectorAll('.sn-card').forEach(c => c.classList.remove('active'));
+    // Abre o clicado (se não estava aberto)
+    if (!isActive) card.classList.add('active');
+  }
+</script>
+
+
+   <div style="text-align:center;margin-top:2.5rem;margin-bottom:3rem;">
+      <a href="candidato.html" class="btn btn-primary">Voltar para Candidatos</a>
+      <a href="ferramentas-ia.html" class="btn btn-secondary">Ver Ferramentas IA</a>
+    </div>
+  </section>
+
+ <!-- Footer -->
+   
+ 
+   <footer>
+    <div class="footer-top">
+
+      <!-- Coluna 1: Marca + Redes Sociais -->
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <div class="footer-brand-name">Agência <span>Nexus</span></div>
+        </div>
+        <p class="footer-tagline">Conectamos talentos a oportunidades reais. Recrutamento humano, ágil e eficiente.</p>
+        <div class="footer-social">
+
+          <!-- Instagram -->
+          <a class="footer-social-link" href="https://www.instagram.com/nexuscarreiras/" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+
+          <!-- Facebook -->
+          <a class="footer-social-link" href="https://www.facebook.com/profile.php?id=61576066286585" target="_blank" rel="noopener" title="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a class="footer-social-link" href="https://www.linkedin.com/company/107064981/admin/dashboard/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+
+          <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/555198503183" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+           <!-- WhatsApp -->
+          <a class="footer-social-link" href="https://wa.me/5551996976579" target="_blank" rel="noopener" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+
+          <!-- YouTube -->
+<a class="footer-social-link" href="https://www.youtube.com/@AgenciaNexusRS" target="_blank" rel="noopener" title="YouTube">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M23.498 6.186a2.96 2.96 0 0 0-2.085-2.094C19.63 3.5 12 3.5 12 3.5s-7.63 0-9.413.592A2.96 2.96 0 0 0 .502 6.186 30.2 30.2 0 0 0 0 12a30.2 30.2 0 0 0 .502 5.814 2.96 2.96 0 0 0 2.085 2.094C4.37 20.5 12 20.5 12 20.5s7.63 0 9.413-.592a2.96 2.96 0 0 0 2.085-2.094A30.2 30.2 0 0 0 24 12a30.2 30.2 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+  </svg>
+</a>
+            
+        <!-- Pinterest -->
+<a class="footer-social-link" href="https://br.pinterest.com/anexus/" target="_blank" rel="noopener" title="Pinterest">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+  </svg>
+</a>
+
+
+        </div>
+      </div>
+
+         <!-- Coluna 2: Links rápidos -->
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <div class="footer-col-links">
+          <div><a href="vagas.html">Vagas disponíveis</a></div>
+          <div><a href="contato.html">Contato</a></div>
+          <div><a href="tutorial.html">Vídeos</a></div>
+          <div><a href="servicos.html">Serviços</a></div>
+          <div><a href="sobre.html">Sobre nós</a></div>
+        </div>
+      </div>
+
+      <!-- Coluna 3: Contato -->
+      <div>
+        <div class="footer-col-title">Contato</div>
+
+        <a class="footer-contact-item" href="https://wa.me/5551996976579" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          (51) 99697-6579
+        </a>
+
+      <a class="footer-contact-item" href="mailto:adm.agencianexus@outlook.com">
+  <svg viewBox="0 0 24 24">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+  <span>adm.agencianexus@outlook.com</span>
+</a>
+
+
+      </div>
+
+    </div><!-- /footer-top -->
+
+    <div class="footer-bottom">
+      <div class="footer-language-selector">
+        <label for="languageSelector" data-i18n="lang-label">Idioma:</label>
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+          <option value="pt">Português (PT)</option>
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+        </select>
+      </div>
+      <p class="footer-copy"><span data-i18n="footer-text">© 2026 <strong>Agência Nexus</strong>. Todos os direitos reservados.</span></p>
+      <p class="footer-badge"><span>♥</span> Feito com propósito — Guaíba, RS</p>
+    </div>
+
+  </footer>
+
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">&#9650;</button>
+
+  <button class="chatbot-button" id="chatbotBtn" onclick="toggleChatbot()">
+    <img src="../imagens/chatbot.png" alt="Chatbot" style="width:32px;height:32px;">
+  </button>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <div>
+        <h3>Agência Nexus</h3>
+        <p id="chatbotStatusText">● Assistente virtual</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ai-toggle-wrap" id="aiToggleWrap" onclick="toggleModoIA()" title="Ligar/desligar Modo IA">
+          <div class="ai-toggle-switch"></div>
+          <span class="ai-toggle-label">Modo IA</span>
+          <span class="ai-mode-badge">ON</span>
+        </div>
+        <button class="close-chatbot" onclick="toggleChatbot()">✕</button>
+      </div>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages"></div>
+    <div class="chatbot-input-area">
+      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Digite sua dúvida..." onkeypress="if(event.key==='Enter') enviarMensagem()" autocomplete="off">
+      <button class="chatbot-send-btn" onclick="enviarMensagem()">➤</button>
+    </div>
+  </div>
+
+  <script>
+    const menuContent = document.getElementById('menuContent');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function toggleMenu() {
+      menuContent.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+      menuContent.style.left = menuContent.classList.contains('active') ? '0' : '-100%';
+    }
+ function closeMenu() {
+  menuContent.classList.remove('active');
+  menuOverlay.classList.remove('active');
+  menuContent.style.left = '-100%';
+  setTimeout(() => {
+    document.body.classList.remove('menu-open');
+  }, 300);
+}
+    
+    document.querySelectorAll('.menu-link').forEach(l => l.addEventListener('click', closeMenu));
+
+    
+    // THEME TOGGLE
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  document.documentElement.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const icon = document.getElementById('themeIcon');
+  if (icon) icon.textContent = isDarkMode ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+}
+
+function loadSavedTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const icon = document.getElementById('themeIcon');
+  if (savedTheme !== 'light') {
+    document.body.classList.add('dark-mode');
+    document.documentElement.classList.add('dark-mode');
+    if (icon) icon.textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.documentElement.classList.remove('dark-mode');
+    if (icon) icon.textContent = '🌙';
+  }
+}
+
+loadSavedTheme();
+
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      const b = document.getElementById('scrollTopBtn');
+      if(b) b.classList.toggle('visible', window.scrollY > 400);
+      document.body.classList.add('scrolling');
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => document.body.classList.remove('scrolling'), 250);
+    });
+
+    let startX=0, currentX=0, isDragging=false;
+    menuContent.addEventListener('touchstart', e => { if(!menuContent.classList.contains('active')) return; startX=e.touches[0].clientX; isDragging=true; menuContent.style.transition='none'; });
+    menuContent.addEventListener('touchmove',  e => { if(!isDragging) return; currentX=e.touches[0].clientX; if(currentX-startX<0) menuContent.style.left=`${currentX-startX}px`; });
+    menuContent.addEventListener('touchend',   () => { if(!isDragging) return; isDragging=false; menuContent.style.transition='left 0.5s cubic-bezier(0.68,-0.55,0.265,1.55)'; if(currentX-startX<-80) closeMenu(); else menuContent.style.left='0'; });
+
+    // CHATBOT INTELIGENTE
+    const KB = {
+      vagas: {
+        gatilhos: ['vaga','vagas','emprego','trabalho','oportunidade','oportunidades','contratar','contratação','posição','posições'],
+        respostas: [
+          'Temos diversas vagas abertas! 🎯\n\nNossas oportunidades incluem:\n- Vagas administrativas\n- Áreas técnicas e operacionais\n- Cargos de liderança\n\nAcesse nossa página de vagas para ver todas as oportunidades disponíveis!',
+          'Estamos sempre com novas vagas! 💼\n\nAtendemos empresas de diversos segmentos na região de Guaíba e Grande Porto Alegre.\n\nQuer ver as vagas disponíveis agora?'
+        ],
+        chips: ['🔍 Ver vagas','👤 Sou candidato','📞 Contato','↩️ Início']
+      },
+      candidato: {
+        gatilhos: ['candidato','candidatar','candidatura','currículo','curriculum','cv','me inscrever','quero trabalhar','procuro emprego','busco emprego'],
+        respostas: [
+          'Que ótimo que você quer se candidatar! 😊\n\nO processo é simples:\n- Acesse nossa página de candidatos\n- Cadastre seu currículo\n- Acompanhe as oportunidades\n\nNossa equipe entra em contato quando surgir uma vaga compatível com seu perfil!',
+          'Adoramos receber novos candidatos! 🌟\n\nCadastre seu currículo em nossa plataforma e fique por dentro de todas as oportunidades. Temos vagas para diversos perfis e áreas!'
+        ],
+        chips: ['👤 Quero me candidatar','🔍 Ver vagas','💡 Dicas de currículo','📞 Contato']
+      },
+      empresa: {
+        gatilhos: ['empresa','contratar profissionais','sou empresa','rh','recursos humanos','processo seletivo','recrutamento','selecionar','headhunting','orçamento'],
+        respostas: [
+          'Perfeito! Ajudamos empresas a encontrar os melhores talentos! 🏢\n\nNossos serviços incluem:\n- **Recrutamento e seleção**\n- **Hunting de executivos**\n- **Consultoria de RH**\n- **Processos seletivos completos**\n\nEntre em contato para um orçamento personalizado!',
+          'Somos especialistas em recrutamento estratégico! 💡\n\nCuidamos de todo o processo seletivo para sua empresa, desde a triagem até a contratação. Economize tempo e encontre os candidatos ideais!'
+        ],
+        chips: ['📞 Falar agora','📧 Enviar e-mail','📊 Nossos números','↩️ Início']
+      },
+      contato: {
+        gatilhos: ['contato','falar','ligar','telefone','whatsapp','email','e-mail','atendimento','fale conosco'],
+        respostas: [
+          'Entre em contato conosco! 📞\n\n**WhatsApp:** (51) 99697-6579\n**E-mail:** adm.agencianexus@outlook.com\n**Horário:** Segunda a Sexta, 8h às 18h\n\nResponde rapidinho! 😊',
+          'Estamos disponíveis para te atender! 💬\n\nFale pelo WhatsApp (51) 99697-6579 ou envie um e-mail para adm.agencianexus@outlook.com.\n\nTeremos prazer em ajudar!'
+        ],
+        chips: ['📞 Falar agora','📧 Enviar e-mail','↩️ Início']
+      },
+      processo: {
+        gatilhos: ['como funciona','processo','etapas','como me candidatar','como funciona o processo','passo a passo','funcionamento'],
+        respostas: [
+          'Nosso processo é simples e transparente! ✅\n\n1. **Cadastro** - Envie seu currículo\n2. **Triagem** - Analisamos seu perfil\n3. **Entrevista** - Conversa com nossa equipe\n4. **Match** - Indicamos para a vaga ideal\n5. **Contratação** - Acompanhamos até o fim!\n\nSimples assim! 😊',
+        ],
+        chips: ['👤 Sou candidato','🔍 Ver vagas','📞 Contato','↩️ Início']
+      },
+      gratuito: {
+        gatilhos: ['gratuito','grátis','custo','taxa','pago','cobrar','cobrança','valor','preço'],
+        respostas: [
+          'Para candidatos é **100% gratuito**! 🎉\n\nNunca cobramos nada de quem está buscando emprego. Nossa remuneração vem apenas das empresas contratantes.\n\nCadastre-se sem nenhum custo!',
+        ],
+        chips: ['👤 Sou candidato','🔍 Ver vagas','📞 Contato','↩️ Início']
+      },
+      curriculo: {
+        gatilhos: ['dica','dicas','curriculo','currículo','como fazer','melhorar','aprimorar'],
+        respostas: [
+          'Dicas de ouro para o seu currículo! 📄\n\n- **Seja objetivo** - máximo 2 páginas\n- **Foto profissional** - boa iluminação, fundo neutro\n- **Destaque conquistas** - não só responsabilidades\n- **Palavras-chave** - use termos da área\n- **Revisão** - zero erros de português!\n\nNossa página de Utilidades tem muito mais dicas! 💡',
+        ],
+        chips: ['👤 Sou candidato','🔍 Ver vagas','📞 Contato','↩️ Início']
+      },
+      tempo: {
+        gatilhos: ['tempo','quanto tempo','demora','prazo','quando','rapidez'],
+        respostas: [
+          'O tempo varia conforme a vaga! ⏱️\n\nEm média:\n- **Resposta inicial:** 2 a 5 dias úteis\n- **Processo seletivo:** 1 a 4 semanas\n- **Vagas urgentes:** pode ser mais rápido!\n\nMantemos você informado em cada etapa.',
+        ],
+        chips: ['👤 Sou candidato','🔍 Ver vagas','📞 Contato','↩️ Início']
+      },
+      resultados: {
+        gatilhos: ['resultado','resultados','taxa','sucesso','cases','números','estatística'],
+        respostas: [
+          'Nossos números falam por si! 📊\n\n- ✅ Alta taxa de sucesso em contratações\n- 🏢 Empresas parceiras na região\n- 👥 Candidatos colocados no mercado\n- ⭐ Avaliação positiva de clientes\n\nSomos referência em recrutamento na região de Guaíba!',
+        ],
+        chips: ['🏢 Sou empresa, quero orçamento','📞 Contato','↩️ Início']
+      },
+      fallback: {
+        respostas: [
+          'Posso te ajudar! 😊 Sobre o que você quer saber?\n\nPosso informar sobre **vagas**, **candidatura**, **serviços para empresas**, **contato** e muito mais!',
+          'Boa pergunta! 🤔 Não encontrei uma resposta exata, mas nossa equipe pode te ajudar. Que tal entrar em contato diretamente?'
+        ],
+        chips: ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']
+      }
+    };
+
+    const CHIP_ACOES = {
+      '🏢 Sou empresa, quero orçamento':   () => processarTexto('quero contratar profissionais'),
+      '🏢 Quero contratar':                () => processarTexto('quero contratar profissionais'),
+      '🏢 Sou empresa':                    () => processarTexto('sou empresa'),
+      '📞 Contato':                        () => processarTexto('contato'),
+      '📞 Falar agora':                    () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com especialista':         () => window.open('https://wa.me/5551996976579','_blank'),
+      '📞 Falar com a equipe':             () => window.open('https://wa.me/5551996976579','_blank'),
+      '📧 Enviar e-mail':                  () => window.location.href='mailto:adm.agencianexus@outlook.com',
+      '🔍 Ver vagas':                      () => window.location.href='vagas.html',
+      '👤 Sou candidato':                  () => processarTexto('quero me candidatar'),
+      '👤 Quero me candidatar':            () => window.location.href='candidato.html',
+      '📋 Como funciona':                  () => processarTexto('como funciona o processo'),
+      '📋 Como me candidatar':             () => processarTexto('como funciona o processo'),
+      '💡 Dicas de currículo':             () => processarTexto('dicas curriculo'),
+      '💰 É gratuito?':                    () => processarTexto('é gratuito'),
+      '⏱️ Quanto tempo leva?':             () => processarTexto('quanto tempo demora'),
+      '📊 Nossos números':                 () => processarTexto('resultados taxa de sucesso'),
+      '↩️ Início':                         () => mostrarBemVindo(),
+      '↩️ Voltar ao início':               () => mostrarBemVindo(),
+    };
+
+    let aberto=false, digitando=false;
+    function toggleChatbot() {
+      aberto=!aberto;
+      document.getElementById('chatbotBtn').classList.toggle('active', aberto);
+      document.getElementById('chatbotWindow').classList.toggle('active', aberto);
+      document.body.classList.toggle('chat-open', aberto);
+      if(aberto && !document.getElementById('chatbotMessages').children.length) setTimeout(()=>mostrarBemVindo(),300);
+    }
+
+    function mostrarBemVindo() {
+      document.getElementById('chatbotMessages').innerHTML = '';
+      mostrarSequencia([
+        'Olá! 👋 Sou o assistente virtual da **Agência Nexus**!',
+        'Pode me perguntar qualquer coisa — vagas, processo seletivo, dicas, contato... Estou aqui pra ajudar! 😊'
+      ], ['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato'], 0);
+    }
+
+
+    function mostrarSequencia(textos,chips,index) {
+      if(index>=textos.length){adicionarChips(chips);return;}
+      mostrarTyping(()=>{ adicionarBubbleBot(markdownParaHTML(textos[index])); setTimeout(()=>mostrarSequencia(textos,chips,index+1),400); }, index===0?800:600);
+    }
+        function enviarMensagem() {
+      const input = document.getElementById('chatbotInput');
+      const texto = input.value.trim();
+      if (!texto || digitando) return;
+      input.value = '';
+      adicionarBubbleUser(texto);
+      if (modoIA) {
+        responderComIA(texto);
+      } else {
+        setTimeout(() => processarTexto(texto), 300);
+      }
+    }
+    // ============= MODO IA (Llama via Edge Function Supabase) =============
+    let modoIA = false;
+    const EDGE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co/functions/v1/chatbot-groq';
+
+    function toggleModoIA() {
+      modoIA = !modoIA;
+      const wrap = document.getElementById('aiToggleWrap');
+      const statusText = document.getElementById('chatbotStatusText');
+      wrap.classList.toggle('ai-on', modoIA);
+      if (modoIA) {
+        statusText.textContent = '🤖 Modo IA ativo (Llama)';
+        adicionarBubbleBot(markdownParaHTML('🤖 **Modo IA ativado!** Agora uso inteligência artificial para responder suas dúvidas. Como posso ajudar?'));
+      } else {
+        statusText.textContent = '● Assistente virtual';
+        adicionarBubbleBot(markdownParaHTML('💬 Voltei ao modo padrão. Posso ajudar com vagas, processo seletivo e muito mais!'));
+        setTimeout(() => adicionarChips(['👤 Sou candidato','🏢 Sou empresa','🔍 Ver vagas','📞 Contato']), 300);
+      }
+    }
+
+    async function responderComIA(texto) {
+      mostrarTyping(async () => {
+        try {
+          const resp = await fetch(EDGE_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveW9nZWRzZ3J2ZHV5Z2pzZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDEwNDksImV4cCI6MjA4OTM3NzA0OX0.IUyEh5SZLz_j5nf2k9-xelbxthcvSJ8oX0mAbqtuLF4'
+            },
+            body: JSON.stringify({ mensagem: texto })
+          });
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.erro || `Erro ${resp.status}`);
+          }
+          const data = await resp.json();
+          const resposta = data.resposta || 'Não consegui gerar uma resposta.';
+          adicionarBubbleBot(markdownParaHTML(resposta));
+          setTimeout(() => adicionarChips(['💬 Continuar','📞 Falar com humano','↩️ Voltar ao início']), 300);
+        } catch (e) {
+          adicionarBubbleBot(markdownParaHTML(`❌ **Erro na IA:** ${e.message}\n\nTente novamente em instantes.`));
+        }
+      }, 1000);
+    }
+    // FIM MODO IA
+    function processarTexto(texto) {
+      const lower = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      let melhorCategoria = null, melhorPontuacao = 0;
+      for (const [cat, dados] of Object.entries(KB)) {
+        if (cat === 'fallback' || !dados.gatilhos) continue;
+        let pts = 0;
+        for (const g of dados.gatilhos) {
+          const gn = g.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+          if (lower.includes(gn)) pts += gn.split(' ').length;
+        }
+        if (pts > melhorPontuacao) { melhorPontuacao = pts; melhorCategoria = cat; }
+      }
+      const dados = melhorPontuacao > 0 ? KB[melhorCategoria] : KB.fallback;
+      const resposta = dados.respostas[Math.floor(Math.random() * dados.respostas.length)];
+      mostrarTyping(() => {
+        adicionarBubbleBot(markdownParaHTML(resposta));
+        setTimeout(() => adicionarChips(dados.chips || KB.fallback.chips), 300);
+      }, 800);
+    }
+    function mostrarTyping(cb,delay) {
+      digitando=true; const msgs=document.getElementById('chatbotMessages');
+      const el=document.createElement('div'); el.className='message bot'; el.id='typing-indicator';
+      el.innerHTML='<div class="message-content"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+      msgs.appendChild(el); msgs.scrollTop=msgs.scrollHeight;
+      setTimeout(()=>{ document.getElementById('typing-indicator')?.remove(); digitando=false; cb(); },delay);
+    }
+    function adicionarChips(chips) { const msgs=document.getElementById('chatbotMessages'); const div=document.createElement('div'); div.innerHTML='<div class="chip-row">'+chips.map(c=>`<button class="chip" onclick="clicarChip('${c.replace(/'/g,"\\'")}'">${c}</button>`).join('')+'</div>'; msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight; }
+    function clicarChip(chip) { adicionarBubbleUser(chip); const a=CHIP_ACOES[chip]; if(a){setTimeout(a,200);}else{setTimeout(()=>processarTexto(chip),300);} }
+    function adicionarBubbleBot(html) { const msgs=document.getElementById('chatbotMessages'); const div=document.createElement('div'); div.className='message bot'; div.innerHTML=`<div class="message-content">${html}</div>`; msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight; }
+    function adicionarBubbleUser(texto) { const msgs=document.getElementById('chatbotMessages'); const div=document.createElement('div'); div.className='message user'; div.innerHTML=`<div class="message-content">${escapeHtml(texto)}</div>`; msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight; }
+            function markdownParaHTML(texto) {
+      function processarInline(str) {
+        return str
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#38bdf8;text-decoration:underline;">$1</a>');
+      }
+      const linhas = texto.split('\n');
+      const blocos = []; let listaAtual = [];
+      function fecharLista() {
+        if (listaAtual.length) { blocos.push('<ul>'+listaAtual.map(i=>`<li>${i}</li>`).join('')+'</ul>'); listaAtual = []; }
+      }
+      for (let linha of linhas) {
+        linha = linha.trim();
+        if (/^[-\*] (.+)/.test(linha)) {
+          listaAtual.push(processarInline(linha.replace(/^[-\*] /,'')));
+          continue;
+        }
+        fecharLista();
+        if (!linha) continue;
+        blocos.push(`<p>${processarInline(linha)}</p>`);
+      }
+      fecharLista();
+      return blocos.join('');
+    }
+    function escapeHtml(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    const _cw = document.getElementById('chatbotWindow'); if(_cw) _cw.addEventListener('click', e=>e.stopPropagation());
+    document.addEventListener('click', e=>{
+      const cw=document.getElementById('chatbotWindow'); const cb=document.getElementById('chatbotBtn');
+      if(cw.classList.contains('active')&&!cw.contains(e.target)&&!cb.contains(e.target)) toggleChatbot();
+    });
+
+      // TRANSPORTE — dropdown
+    function mostrarTransporte(val) {
+      document.querySelectorAll('.transport-panel').forEach(p=>p.classList.remove('active'));
+      if(val) { const el=document.getElementById('panel-'+val); if(el) el.classList.add('active'); }
+    }
+
+    // ── PREVIEW MODAL ────────────────────────────────────────
+    function abrirPreview(url, titulo, tipo) {
+      const overlay = document.getElementById('previewOverlay');
+      const corpo   = document.getElementById('previewCorpo');
+      const tituloEl= document.getElementById('previewTitulo');
+      const dlBtn   = document.getElementById('previewDl');
+
+      tituloEl.textContent = titulo;
+      dlBtn.href = url;
+      dlBtn.download = url.split('/').pop();
+      corpo.innerHTML = '';
+
+      if (tipo === 'pdf') {
+        const iframe = document.createElement('iframe');
+        // Google Docs Viewer contorna o bloqueio de iframe do GitHub
+        iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+        corpo.appendChild(iframe);
+      } else {
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = titulo;
+        corpo.appendChild(img);
+      }
+
+      overlay.classList.add('aberto');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function fecharPreview() {
+      document.getElementById('previewOverlay').classList.remove('aberto');
+      document.getElementById('previewCorpo').innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    // Fecha ao clicar fora do box
+    const _po = document.getElementById('previewOverlay'); if(_po) _po.addEventListener('click', function(e){
+      if(e.target === this) fecharPreview();
+    });
+    // Fecha com Esc
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') fecharPreview();
+    });
+
+    function toggleTopics() {
+      document.getElementById('topicsDropdown').classList.toggle('open');
+      document.getElementById('topicsOverlay').classList.toggle('open');
+    }
+    function closeTopics() {
+      document.getElementById('topicsDropdown').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
+    }
+    function toggleTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.toggle('open');
+      document.getElementById('topicsOverlay').classList.toggle('open');
+    }
+    function closeTopicsMobile() {
+      document.getElementById('topicsDropdownMobile').classList.remove('open');
+      document.getElementById('topicsOverlay').classList.remove('open');
+    }
+  
+
+    let vtPanelOpen = false;
+let vtRecognition = null;
+    let vtIsListening = false;
+    let vtLastTranslation = '';
+    let vtCurrentTab = 'translate';
+
+    // --- Narrador ---
+    let vtNarrateChunks = [];
+    let vtNarrateIndex = 0;
+    let vtNarrateActive = false;
+    let vtNarratePaused = false;
+    let vtNarrateUtter = null;
+
+    function toggleVoiceTranslator() {
+      vtPanelOpen = !vtPanelOpen;
+      const panel = document.getElementById('voiceTranslatorPanel');
+      panel.classList.toggle('open', vtPanelOpen);
+      if (!vtPanelOpen) {
+        if (vtIsListening) vtStopMic();
+        if (vtNarrateActive) vtStopNarrate();
+      }
+      if (vtPanelOpen) { vtLoadVoices(); vtSwitchTab('translate'); }
+    }
+
+    function vtSwitchTab(tab) {
+      vtCurrentTab = tab;
+      document.getElementById('vtTabContentTranslate').style.display = tab === 'translate' ? '' : 'none';
+      document.getElementById('vtTabContentNarrate').style.display   = tab === 'narrate'   ? '' : 'none';
+      document.getElementById('vtTabTranslate').classList.toggle('active', tab === 'translate');
+      document.getElementById('vtTabNarrate').classList.toggle('active', tab === 'narrate');
+    }
+
+    // === TRADUZIR ===
+    function vtSwapLangs() {
+      const from = document.getElementById('vtLangFrom');
+      const to   = document.getElementById('vtLangTo');
+      const tmp  = from.value; from.value = to.value; to.value = tmp;
+      const orig  = document.getElementById('vtOriginalText');
+      const trans = document.getElementById('vtTranslatedText');
+      const tmpText = orig.textContent, tmpClass = orig.className;
+      orig.textContent = trans.textContent; orig.className = trans.className;
+      trans.textContent = tmpText; trans.className = tmpClass;
+      vtLastTranslation = trans.textContent;
+    }
+
+    const VT_LANG_CODE = {
+      'pt-BR':'pt','en-US':'en','es-ES':'es','fr-FR':'fr',
+      'de-DE':'de','it-IT':'it','ja-JP':'ja','zh-CN':'zh','ar-SA':'ar','ru-RU':'ru'
+    };
+
+    async function vtTranslateText(text, fromLang, toLang) {
+      const status = document.getElementById('vtStatus');
+      if (fromLang === toLang) {
+        vtLastTranslation = text;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = text; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Mesmo idioma — texto copiado';
+        return;
+      }
+      status.textContent = '🔄 Traduzindo…';
+      const from = VT_LANG_CODE[fromLang] || 'pt';
+      const to   = VT_LANG_CODE[toLang]   || 'en';
+      try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
+        const r   = await fetch(url);
+        const d   = await r.json();
+        const translation = d.responseData?.translatedText || text;
+        vtLastTranslation = translation;
+        const el = document.getElementById('vtTranslatedText');
+        el.textContent = translation; el.classList.remove('placeholder');
+        document.getElementById('vtSpeakBtn').style.display = 'flex';
+        status.textContent = '✅ Tradução concluída';
+        // falar automaticamente
+        vtSpeak();
+      } catch(e) {
+        status.textContent = '❌ Erro de tradução. Tente novamente.';
+      }
+    }
+
+    function vtToggleMic() {
+      if (vtIsListening) { vtStopMic(); return; }
+      vtStartMic();
+    }
+
+    function vtStartMic() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        document.getElementById('vtStatus').textContent = '❌ Microfone não suportado neste navegador (use Chrome).';
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const fromLang = document.getElementById('vtLangFrom').value;
+      vtRecognition = new SR();
+      vtRecognition.lang = fromLang;
+      vtRecognition.continuous = true;
+      vtRecognition.interimResults = true;
+
+      vtRecognition.onstart = () => {
+        vtIsListening = true;
+        document.getElementById('vtMicBtn').classList.add('active');
+        document.getElementById('vtMicIcon').textContent = '⏹';
+        document.getElementById('vtMicText').textContent = 'Parar';
+        document.getElementById('vtStatus').textContent = '🎙️ Ouvindo… fale agora';
+        document.getElementById('voiceTranslatorToggle').classList.add('listening');
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = ''; el.classList.remove('placeholder');
+        document.getElementById('vtTranslatedText').textContent = '';
+        document.getElementById('vtTranslatedText').classList.add('placeholder');
+        document.getElementById('vtTranslatedText').textContent = 'Tradução aparecerá aqui…';
+        document.getElementById('vtSpeakBtn').style.display = 'none';
+        vtLastTranslation = '';
+      };
+
+      let finalBuffer = '';
+      vtRecognition.onresult = (e) => {
+        let interim = '';
+        let finalNew = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) finalNew += e.results[i][0].transcript + ' ';
+          else interim += e.results[i][0].transcript;
+        }
+        if (finalNew) finalBuffer += finalNew;
+        const display = finalBuffer + interim;
+        const el = document.getElementById('vtOriginalText');
+        el.textContent = display; el.classList.remove('placeholder');
+      };
+
+      vtRecognition.onerror = (e) => {
+        if (e.error !== 'no-speech') {
+          document.getElementById('vtStatus').textContent = '❌ Erro: ' + e.error;
+        }
+      };
+
+      vtRecognition.onend = () => {
+        vtIsListening = false;
+        document.getElementById('vtMicBtn').classList.remove('active');
+        document.getElementById('vtMicIcon').textContent = '🎤';
+        document.getElementById('vtMicText').textContent = 'Falar';
+        document.getElementById('voiceTranslatorToggle').classList.remove('listening');
+        if (finalBuffer.trim()) {
+          const toLang = document.getElementById('vtLangTo').value;
+          vtTranslateText(finalBuffer.trim(), fromLang, toLang);
+        } else {
+          document.getElementById('vtStatus').textContent = 'Nenhuma fala detectada. Tente novamente.';
+        }
+        finalBuffer = '';
+        vtRecognition = null;
+      };
+      vtRecognition.start();
+    }
+
+    function vtStopMic() {
+      vtIsListening = false;
+      if (vtRecognition) { try { vtRecognition.stop(); } catch(e) {} }
+    }
+
+    function vtSpeak() {
+      if (!vtLastTranslation) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(vtLastTranslation);
+      utter.lang  = document.getElementById('vtLangTo').value;
+      utter.rate  = parseFloat(document.getElementById('vtRate').value);
+      utter.pitch = parseFloat(document.getElementById('vtPitch').value);
+      const voiceSel = document.getElementById('vtVoiceSelect');
+      const voices = window.speechSynthesis.getVoices();
+      const chosen = voices.find(v => v.name === voiceSel.value);
+      if (chosen) utter.voice = chosen;
+      const stopBtn = document.getElementById('vtStopSpeakBtn');
+      stopBtn.style.display = 'flex';
+      utter.onend = () => { stopBtn.style.display = 'none'; };
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtStopSpeak() {
+      window.speechSynthesis.cancel();
+      document.getElementById('vtStopSpeakBtn').style.display = 'none';
+    }
+
+    function vtLoadVoices() {
+      const sel = document.getElementById('vtVoiceSelect');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+      };
+      fill();
+      window.speechSynthesis.addEventListener('voiceschanged', fill);
+    }
+
+    // === NARRADOR DE SITE ===
+    function vtNarrateLoadVoices() {
+      const sel = document.getElementById('vtNarrateVoice');
+      if (!sel) return;
+      const fill = () => {
+        const voices = window.speechSynthesis.getVoices();
+        sel.innerHTML = '';
+        voices.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v.name;
+          o.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(o);
+        });
+        // prefer pt-BR
+        const pt = Array.from(sel.options).find(o => o.textContent.includes('pt-BR') || o.textContent.includes('Portuguese'));
+        if (pt) sel.value = pt.value;
+      };
+      fill();
+      window.speechSynthesis.addEventListener('voiceschanged', fill);
+    }
+
+    function vtGetPageText() {
+      const selectors = 'h1, h2, h3, h4, p, li, td, .card-title, .card-desc, .info-text, span:not(.vt-tab):not(#vtIcon):not(#themeIcon)';
+      const nodes = document.querySelectorAll(selectors);
+      const chunks = [];
+      const seen = new Set();
+      nodes.forEach(n => {
+        // ignorar elementos dentro do painel do tradutor
+        if (n.closest('#voiceTranslatorPanel') || n.closest('.chatbot-window') || n.closest('.menu-content')) return;
+        const t = n.innerText?.trim();
+        if (t && t.length > 5 && !seen.has(t)) { seen.add(t); chunks.push(t); }
+      });
+      return chunks;
+    }
+
+    function vtToggleNarrate() {
+      if (vtNarrateActive) {
+        vtStopNarrate();
+      } else {
+        vtStartNarrate();
+      }
+    }
+
+    function vtStartNarrate() {
+      vtNarrateChunks = vtGetPageText();
+      if (!vtNarrateChunks.length) {
+        document.getElementById('vtNarrateStatus').textContent = '❌ Nenhum conteúdo encontrado para narrar.';
+        return;
+      }
+      vtNarrateIndex = 0;
+      vtNarrateActive = true;
+      vtNarratePaused = false;
+      document.getElementById('vtNarrateBtn').classList.add('active');
+      document.getElementById('vtNarrateIcon').textContent = '⏹';
+      document.getElementById('vtNarrateText').textContent = 'Parar narração';
+      document.getElementById('vtNarratePauseBtn').style.display = 'flex';
+      document.getElementById('vtNarratePauseBtn').textContent = '⏸';
+      vtNarrateNext();
+    }
+
+    function vtNarrateNext() {
+      if (!vtNarrateActive || vtNarrateIndex >= vtNarrateChunks.length) {
+        vtStopNarrate();
+        document.getElementById('vtNarrateStatus').textContent = '✅ Narração concluída!';
+        return;
+      }
+      const text  = vtNarrateChunks[vtNarrateIndex];
+      const total = vtNarrateChunks.length;
+      const pct   = Math.round((vtNarrateIndex / total) * 100);
+      document.getElementById('vtNarrateBar').style.width = pct + '%';
+      document.getElementById('vtNarrateCurrentText').textContent = text.length > 120 ? text.slice(0,120)+'…' : text;
+      document.getElementById('vtNarrateStatus').textContent = `📍 Trecho ${vtNarrateIndex+1} de ${total}`;
+
+      const utter = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      const voiceSel = document.getElementById('vtNarrateVoice');
+      const chosen = voices.find(v => v.name === voiceSel?.value);
+      if (chosen) utter.voice = chosen;
+      utter.lang  = chosen?.lang || 'pt-BR';
+      utter.rate  = parseFloat(document.getElementById('vtNarrateRate').value);
+      utter.onend = () => {
+        if (!vtNarrateActive || vtNarratePaused) return;
+        vtNarrateIndex++;
+        setTimeout(vtNarrateNext, 300);
+      };
+      vtNarrateUtter = utter;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    }
+
+    function vtPauseNarrate() {
+      const btn = document.getElementById('vtNarratePauseBtn');
+      if (!vtNarratePaused) {
+        window.speechSynthesis.pause();
+        vtNarratePaused = true;
+        btn.textContent = '▶';
+        document.getElementById('vtNarrateStatus').textContent = '⏸ Pausado';
+      } else {
+        window.speechSynthesis.resume();
+        vtNarratePaused = false;
+        btn.textContent = '⏸';
+      }
+    }
+
+    function vtStopNarrate() {
+      vtNarrateActive = false;
+      vtNarratePaused = false;
+      window.speechSynthesis.cancel();
+      document.getElementById('vtNarrateBtn').classList.remove('active');
+      document.getElementById('vtNarrateIcon').textContent = '📢';
+      document.getElementById('vtNarrateText').textContent = 'Narrar página';
+      document.getElementById('vtNarratePauseBtn').style.display = 'none';
+      document.getElementById('vtNarrateBar').style.width = '0%';
+      document.getElementById('vtNarrateCurrentText').textContent = '—';
+      if (!document.getElementById('vtNarrateStatus').textContent.startsWith('✅')) {
+        document.getElementById('vtNarrateStatus').textContent = 'Pressione para ouvir o conteúdo desta página';
+      }
+    }
+
+    const vtNarrateRateEl = document.getElementById('vtNarrateRate');
+    if (vtNarrateRateEl) vtNarrateRateEl.addEventListener('input', function() {
+      document.getElementById('vtNarrateRateVal').textContent = this.value;
+    });
+
+    // Fechar painel ao clicar fora
+    document.addEventListener('click', (e) => {
+      const panel  = document.getElementById('voiceTranslatorPanel');
+      const toggle = document.getElementById('voiceTranslatorToggle');
+      if (vtPanelOpen && panel && !panel.contains(e.target) && !toggle.contains(e.target)) {
+        vtPanelOpen = false;
+        panel.classList.remove('open');
+        if (vtIsListening) vtStopMic();
+      }
+    });
+
+    // === SISTEMA MULTI-IDIOMA ===
+    const translations = {
+      pt: {
+        'util-header-title': 'Utilidades',
+        'util-header-subtitle': 'Dicas gerais, sites úteis e recursos para facilitar sua vida profissional',
+        'util-sec-dicas': '🌟 Dicas Gerais de Carreira',
+        'util-sec-vagas': 'Sites para Busca de Emprego',
+        'util-sec-cursos': '🎓 Cursos Gratuitos & Certificações',
+        'util-sec-dicas-rapidas': '⚡ Dicas Rápidas',
+        'util-sec-transporte': '🚌 Transporte — Horários & Linhas',
+        'util-sec-ats': '🤖 O que é um Sistema ATS?',
+        'util-sec-portais': '🌐 Portais de Emprego vs. Sistemas ATS',
+        'util-sec-grupos': '📲 Grupos & Redes Sociais de Vagas',
+        'lang-label': 'Idioma:',
+        'footer-text': '© 2026 Agência Nexus. Todos os direitos reservados.'
+      },
+      en: {
+        'util-header-title': 'Utilities',
+        'util-header-subtitle': 'General tips, useful websites and resources to make your professional life easier',
+        'util-sec-dicas': '🌟 General Career Tips',
+        'util-sec-vagas': 'Job Search Websites',
+        'util-sec-cursos': '🎓 Free Courses & Certifications',
+        'util-sec-dicas-rapidas': '⚡ Quick Tips',
+        'util-sec-transporte': '🚌 Transportation — Schedules & Lines',
+        'util-sec-ats': '🤖 What is an ATS System?',
+        'util-sec-portais': '🌐 Job Portals vs. ATS Systems',
+        'util-sec-grupos': '📲 Job Groups & Social Networks',
+        'lang-label': 'Language:',
+        'footer-text': '© 2026 Nexus Agency. All rights reserved.'
+      },
+      es: {
+        'util-header-title': 'Utilidades',
+        'util-header-subtitle': 'Consejos generales, sitios útiles y recursos para facilitar su vida profesional',
+        'util-sec-dicas': '🌟 Consejos Generales de Carrera',
+        'util-sec-vagas': 'Sitios para Buscar Empleo',
+        'util-sec-cursos': '🎓 Cursos Gratuitos y Certificaciones',
+        'util-sec-dicas-rapidas': '⚡ Consejos Rápidos',
+        'util-sec-transporte': '🚌 Transporte — Horarios y Líneas',
+        'util-sec-ats': '🤖 ¿Qué es un Sistema ATS?',
+        'util-sec-portais': '🌐 Portales de Empleo vs. Sistemas ATS',
+        'util-sec-grupos': '📲 Grupos y Redes Sociales de Empleos',
+        'lang-label': 'Idioma:',
+        'footer-text': '© 2026 Agencia Nexus. Todos los derechos reservados.'
+      }
+    };
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('siteLanguage') || 'pt';
+      const selector = document.getElementById('languageSelector');
+      if (selector) {
+        selector.value = savedLang;
+      }
+      changeLanguage(savedLang);
+    }
+
+    function changeLanguage(lang) {
+      if (!translations[lang]) lang = 'pt';
+      localStorage.setItem('siteLanguage', lang);
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      document.documentElement.lang = lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR';
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
+
+    </script>
+
+  <!-- ── MODAL DE PRÉ-VISUALIZAÇÃO ── -->
+  <div class="preview-overlay" id="previewOverlay">
+    <div class="preview-box">
+      <div class="preview-header">
+        <span class="preview-titulo" id="previewTitulo"></span>
+        <div class="preview-acoes">
+          <a class="preview-btn-dl" id="previewDl" download>📥 Baixar</a>
+          <button class="preview-btn-fechar" onclick="fecharPreview()">✕</button>
+        </div>
+      </div>
+      <div class="preview-corpo" id="previewCorpo"></div>
+    </div>
+  </div>
+
+</body>
+</html>
