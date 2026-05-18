@@ -228,24 +228,17 @@ body.dark-mode .chatbot-messages ol {
   }
 
   .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 2.5rem 1rem 2rem; width: 100%; text-align: center; }
+    .header-page-title { font-size: 0.68rem; letter-spacing: 2.5px; margin-top: 0.5rem; }
   /* NEXUS LOGO SVG */
   .nexus-logo-svg { display: block; margin: 0 auto; animation: fadeInDown 0.8s ease-out; max-width: 500px; }
   .nexus-logo-svg.mobile { display: none; }
-  .header-page-title {
-    color: rgba(0,200,255,0.75);
-    font-family: 'Courier New', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-top: 0.7rem;
-    font-weight: 400;
-  }
+  
   @media (max-width: 768px) {
     .header { min-height: 260px; align-items: flex-end; }
     .nexus-logo-svg.desktop { display: none; }
     .nexus-logo-svg.mobile { display: block; }
     .header-content { padding: -10px 1rem 2rem !important; margin-top: -60px !important; }
-.header-page-title { font-size: 0.68rem; letter-spacing: 2.5px; margin-top: 0.5rem; }
+
   }
   @media (max-width: 480px) {
     .header { min-height: 280px; }
@@ -2166,7 +2159,16 @@ body.dark-mode .chatbot-messages ol {
         min-width: 130px;
       }
     }
-    </style>
+.header-page-title {
+    color: rgba(0,200,255,0.75);
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 0.7rem;
+    font-weight: 400;
+  }
+</style>
 </head>
 <body>
 
