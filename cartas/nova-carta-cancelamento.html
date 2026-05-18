@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Cancelamento & Recesso — Agência Nexus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap"/>
+<style>
+:root{--accent:#60a5fa;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#141414;--border:rgba(96,165,250,.13);--border2:rgba(96,165,250,.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--radius:16px;--green:#2ecc71;--blue:#3498db;--red:#e74c3c;--orange:#f39c12;--sidebar:230px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-size:15px;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(96,165,250,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.025) 1px,transparent 1px);background-size:52px 52px}
+.app{display:flex;height:100vh;position:relative;z-index:1}
+.sidebar{width:var(--sidebar);flex-shrink:0;background:rgba(10,10,10,.97);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.sb-head{padding:1.1rem 1rem 1rem;display:flex;align-items:center;gap:.7rem;border-bottom:1px solid var(--border);}
+.sb-logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;box-shadow:0 0 14px rgba(96,165,250,.25);}
+.sb-name{font-size:.8rem;font-weight:800;line-height:1.2}
+.sb-name em{color:var(--accent);font-style:normal}
+.sb-sub{font-size:.52rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.8px;margin-top:.1rem}
+.sb-nav{flex:1;padding:.6rem .4rem;overflow-y:auto;scrollbar-width:none}
+.sb-nav::-webkit-scrollbar{display:none}
+.sb-sep{font-size:.48rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted2);padding:.8rem .7rem .3rem;}
+.sb-item{display:flex;align-items:center;gap:.6rem;padding:.48rem .65rem;border-radius:9px;cursor:pointer;text-decoration:none;color:var(--muted);font-size:.75rem;font-weight:600;transition:all .14s;position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sb-item:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.sb-item.active{background:rgba(96,165,250,.09);color:var(--accent)}
+.sb-item.active::before{content:'';position:absolute;left:0;top:18%;bottom:18%;width:2.5px;background:var(--accent);border-radius:99px;}
+.sb-ico{font-size:.85rem;flex-shrink:0;width:18px;text-align:center}
+.sb-back{display:flex;align-items:center;gap:.5rem;padding:.4rem .65rem .8rem;font-size:.65rem;color:var(--muted);cursor:pointer;text-decoration:none;opacity:.6;transition:opacity .14s;}
+.sb-back:hover{opacity:1;color:var(--text)}
+.sb-foot{padding:.7rem .8rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:.55rem;}
+.sb-av{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;flex-shrink:0;}
+.sb-uname{font-size:.7rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px}
+.sb-uemail{font-size:.58rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px}
+.sb-logout{background:none;border:none;cursor:pointer;color:var(--muted);font-size:.8rem;margin-left:auto;opacity:.45;transition:opacity .15s}
+.sb-logout:hover{opacity:1;color:var(--red)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(8,8,8,.9);flex-shrink:0}
+.tb-bc{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tb-bc a{color:var(--muted);text-decoration:none}.tb-bc a:hover{color:var(--accent)}
+.tb-bc strong{color:var(--text)}
+.content{flex:1;overflow-y:auto;padding:1.5rem}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-thumb{background:var(--muted2);border-radius:99px}
+.form-wrap{max-width:780px}
+.sec-title{font-size:1.3rem;font-weight:900;margin-bottom:.2rem}.sec-title span{color:var(--accent)}
+.sec-sub{font-size:.72rem;color:var(--muted);margin-bottom:1.4rem}
+/* Tipo */
+.tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.4rem}
+.tipo-item{display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:13px;cursor:pointer;transition:all .18s}
+.tipo-item:hover{background:rgba(255,255,255,.06)}
+.tipo-item.ativo{border-color:var(--accent);background:rgba(96,165,250,.07)}
+.tipo-ico{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.tipo-nome{font-size:.85rem;font-weight:700;margin-bottom:.1rem}
+.tipo-desc{font-size:.62rem;color:var(--muted)}
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem}
+.card-label{font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.card-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.05)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+.form-group{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.5rem}
+.fl{font-size:.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+.req{color:var(--accent)}
+.fi{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:.62rem .85rem;font-family:inherit;font-size:.82rem;color:var(--text);outline:none;transition:border .15s;width:100%}
+.fi:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(96,165,250,.07)}
+.fi::placeholder{color:var(--muted2)}
+select.fi option{background:#161616}
+textarea.fi{resize:vertical;line-height:1.6}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-family:inherit;font-size:.8rem;font-weight:700;transition:all .15s;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:0 2px 12px rgba(96,165,250,.25)}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--muted);border-color:rgba(255,255,255,.08)}
+.btn-ghost:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.spinner{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Toast */
+#toast-ct{position:fixed;bottom:1.5rem;right:1.5rem;display:flex;flex-direction:column;gap:.4rem;z-index:999}
+.toast{padding:.65rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:#fff;animation:fadeUp .25s ease}
+.toast.ok{background:#2ecc71}.toast.err{background:#e74c3c}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* Preview area */
+.preview-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem;display:none}
+.preview-card.show{display:block}
+.preview-btns{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}
+/* Mobile */
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;backdrop-filter:blur(2px)}
+.mob-overlay.open{display:block}
+.mob-menu-btn{display:none;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;width:38px;height:38px;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;color:var(--text);flex-shrink:0}
+@media(max-width:768px){
+  html,body{overflow:auto!important;height:auto!important}
+  .app{display:block!important;height:auto!important;min-height:100vh}
+  .main{height:auto!important;overflow:visible!important;display:block!important}
+  .content{overflow:visible!important;height:auto!important;padding:1rem .9rem 5rem!important}
+  .topbar{padding:.55rem .9rem!important;display:flex!important;gap:.5rem!important;flex-wrap:wrap!important;position:sticky;top:0;z-index:100;background:rgba(8,8,8,.95);backdrop-filter:blur(8px)}
+  .sidebar{position:fixed!important;left:-280px!important;top:0!important;bottom:0!important;width:260px!important;z-index:300!important;transition:left .25s!important;box-shadow:6px 0 30px rgba(0,0,0,.6)!important;overflow-y:auto!important}
+  .sidebar.mob-open{left:0!important}
+  .mob-menu-btn{display:flex!important}
+  .grid-2,.grid-3{grid-template-columns:1fr!important}
+  .tipo-grid{grid-template-columns:1fr 1fr!important}
+  .form-wrap{max-width:100%!important}
+  .card{padding:1rem 1.1rem!important}
+  .fi{font-size:16px!important}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="sb-head">
+    <div class="sb-logo"><img src="imagens/fundo.png" alt="Nexus" style="width:22px;height:22px;object-fit:contain" onerror="this.parentElement.innerHTML='✉️'"/></div>
+    <div><div class="sb-name">Agência <em>Nexus</em></div><div class="sb-sub">Cartas Manuais</div></div>
+  </div>
+  <nav class="sb-nav">
+    <a class="sb-back" href="index.html">← Hub Central</a>
+    <div class="sb-sep">Painel</div>
+    <a class="sb-item" href="index-cartas.html">
+      <span class="sb-ico">📋</span>Painel de Cartas
+    </a>
+    <div class="sb-sep">Criar Carta</div>
+    <a class="sb-item" href="nova-carta.html">
+      <span class="sb-ico">📄</span>Nova Carta PDF
+    </a>
+    <a class="sb-item" href="assinar-carta.html">
+      <span class="sb-ico">✍️</span>Carta + Assinatura
+    </a>
+    <a class="sb-item active" href="nova-carta-cancelamento.html">
+      <span class="sb-ico">📋</span>Cancelamento &amp; Recesso
+    </a>
+  
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-av">EX</div>
+    <div><div class="sb-uname" id="user-nome">—</div><div class="sb-uemail" id="user-email">—</div></div>
+    <button class="sb-logout" onclick="doLogout()" title="Sair">⏻</button>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="mob-overlay" id="mobOverlay" onclick="closeSidebar()"></div>
+  <div class="topbar">
+    <button class="mob-menu-btn" onclick="toggleSidebar()">☰</button>
+    <div class="tb-bc"><a href="index.html">Hub</a> <span style="color:var(--muted2)">›</span> <a href="index-cartas.html">Cartas Manuais</a> <span style="color:var(--muted2)">›</span> <strong>Cancelamento &amp; Recesso</strong></div>
+  </div>
+
+  <div class="content">
+    <div class="form-wrap">
+      <div class="sec-title">📄 Cancelamento <span>&amp; Recesso</span></div>
+      <div class="sec-sub">Gere a Carta de Cancelamento ou Carta de Recesso de estágio para impressão e assinatura.</div>
+
+      <!-- Tipo de documento -->
+      <div class="tipo-grid">
+        <div class="tipo-item ativo" id="btn-cancelamento" onclick="setTipo('cancelamento')">
+          <div class="tipo-ico" style="background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.22)">❌</div>
+          <div><div class="tipo-nome">Cancelamento de Estágio</div><div class="tipo-desc">Encerramento antecipado do contrato</div></div>
+        </div>
+        <div class="tipo-item" id="btn-recesso" onclick="setTipo('recesso')">
+          <div class="tipo-ico" style="background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.22)">🌿</div>
+          <div><div class="tipo-nome">Recesso de Estágio</div><div class="tipo-desc">Período de descanso — Lei 11.788/2008</div></div>
+        </div>
+      </div>
+
+      <!-- Dados do Estagiário -->
+      <div class="card">
+        <div class="card-label">Estagiário(a)</div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Nome completo <span class="req">*</span></label><input class="fi" id="nome_est" placeholder="Nome completo do estagiário"/></div>
+          <div class="form-group"><label class="fl">CPF <span class="req">*</span></label><input class="fi" id="cpf_est" placeholder="000.000.000-00" oninput="maskCPF(this)"/></div>
+        </div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Curso</label><input class="fi" id="curso_est" placeholder="Ex: Bacharelado em Administração"/></div>
+          <div class="form-group"><label class="fl">Instituição de Ensino (IES)</label><input class="fi" id="ies_est" placeholder="Ex: Universidade Feevale"/></div>
+        </div>
+      </div>
+
+      <!-- Dados da Empresa -->
+      <div class="card">
+        <div class="card-label">Empresa Concedente</div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Razão Social <span class="req">*</span></label><input class="fi" id="empresa" placeholder="Nome da empresa concedente"/></div>
+          <div class="form-group"><label class="fl">CNPJ</label><input class="fi" id="cnpj_emp" placeholder="00.000.000/0001-00" oninput="maskCNPJ(this)"/></div>
+        </div>
+      </div>
+
+      <!-- Dados do Cancelamento -->
+      <div class="card" id="bloco-cancelamento">
+        <div class="card-label">Dados do Cancelamento</div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Data do cancelamento <span class="req">*</span></label><input type="date" class="fi" id="data_canc"/></div>
+          <div class="form-group"><label class="fl">Valor a receber (R$)</label><input type="number" class="fi" id="valor_canc" placeholder="0,00" step="0.01"/></div>
+        </div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Período de referência</label><input class="fi" id="periodo_ref" placeholder="Ex: outubro (30 dias)"/></div>
+          <div class="form-group"><label class="fl">Recesso gozado (se houver)</label><input class="fi" id="recesso_gozado" placeholder="Ex: 15/10/2025 a 30/10/2025"/></div>
+        </div>
+        <div class="form-group"><label class="fl">Local de emissão</label><input class="fi" id="cidade_canc" value="Guaíba/RS"/></div>
+      </div>
+
+      <!-- Dados do Recesso -->
+      <div class="card" id="bloco-recesso" style="display:none">
+        <div class="card-label">Dados do Recesso</div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Início do recesso <span class="req">*</span></label><input type="date" class="fi" id="recesso_inicio"/></div>
+          <div class="form-group"><label class="fl">Fim do recesso <span class="req">*</span></label><input type="date" class="fi" id="recesso_fim"/></div>
+        </div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Dias de recesso</label><input class="fi" id="recesso_dias" placeholder="Ex: 15 dias" oninput="calcDias()"/></div>
+          <div class="form-group"><label class="fl">Período (meses de estágio)</label><input class="fi" id="recesso_periodo" placeholder="Ex: primeiros 6 meses"/></div>
+        </div>
+        <div class="form-group"><label class="fl">Data da carta</label><input type="date" class="fi" id="data_rec"/></div>
+        <div class="form-group"><label class="fl">Local de emissão</label><input class="fi" id="cidade_rec" value="Guaíba"/></div>
+      </div>
+
+      <div style="display:flex;gap:.7rem;padding-bottom:1rem;flex-wrap:wrap">
+        <button class="btn btn-primary" id="btnGerar" onclick="gerarPreview()">
+          <span id="btnGerarTxt">👁 Visualizar Documento</span>
+          <div class="spinner" id="spGerar"></div>
+        </button>
+        <a href="index-cartas.html" class="btn btn-ghost">← Voltar</a>
+      </div>
+
+      <!-- Preview + Print -->
+      <div class="preview-card" id="previewCard">
+        <div class="card-label" style="color:var(--accent)">✅ Documento pronto para impressão</div>
+        <p style="font-size:.72rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">
+          Revise o documento abaixo e clique em <strong>Baixar PDF</strong> para salvar ou imprimir.
+        </p>
+        <div class="preview-btns">
+          <button class="btn btn-primary" onclick="window.print()">🖨️ Baixar / Imprimir PDF</button>
+          <button class="btn btn-ghost" onclick="resetForm()">➕ Novo documento</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ÁREA DE IMPRESSÃO A4 — fica oculta na tela, aparece apenas no print -->
+<div id="print-area" style="display:none"></div>
+
+<div id="toast-ct"></div>
+
+<!-- ══ ESTILOS DE IMPRESSÃO (mesmo visual do visualizador-assinado) ══ -->
+<style>
+:root{
+  --g1:#1e3a06;--g2:#2d5a0a;--g3:#3d7a10;--g4:#1e40af;--g5:#60a5fa;--g6:#b8e069;--g7:#d4f47c;
+  --ink:#0f1a05;--ink2:#2a3d12;--muted-p:#5a6e3a;--muted2-p:#8a9e6a;
+  --light:#f0f7e6;--lighter:#f8fdf2;--border-p:#c8dfa8;--border2-p:#dff0bb;
+}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  @page{size:A4 portrait;margin:0}
+  body{background:#fff!important}
+  .app,.sidebar,.topbar,.mob-overlay,#toast-ct{display:none!important}
+  #print-area{display:block!important}
+  .pg-print{
+    width:210mm;height:297mm;background:#fff;
+    display:flex;flex-direction:column;
+    overflow:hidden;position:relative;
+    page-break-after:always;break-after:page;
+  }
+  .pg-print:last-child{page-break-after:auto;break-after:auto}
+  .pg-print::before{
+    content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+    background:linear-gradient(180deg,var(--g3),var(--g5),var(--g7),var(--g5),var(--g3))
+  }
+}
+/* Estilos do documento — visíveis tanto na tela (preview panel) quanto no print */
+.pg-print{
+  width:210mm;min-height:297mm;background:#fff;
+  display:flex;flex-direction:column;
+  box-shadow:0 4px 30px rgba(0,0,0,.18);
+  overflow:hidden;position:relative;font-family:'Sora',sans-serif;
+}
+.pg-print::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--g3),var(--g5),var(--g7),var(--g5),var(--g3))
+}
+/* Banner */
+.doc-banner{
+  background:linear-gradient(145deg,var(--g1) 0%,var(--g2) 38%,var(--g4) 72%,#4a6a10 100%);
+  padding:1.5rem 1.8rem 1.2rem 2rem;position:relative;overflow:hidden;flex-shrink:0;
+}
+.doc-banner::after{content:'';position:absolute;right:-25px;top:-25px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04)}
+.doc-banner::before{content:'';position:absolute;right:55px;bottom:-45px;width:180px;height:180px;border-radius:50%;background:rgba(96,165,250,.05)}
+.doc-banner-top{display:flex;align-items:flex-start;justify-content:space-between;position:relative;z-index:1;gap:.8rem}
+.doc-logo-box{display:flex;align-items:center;gap:.75rem}
+.doc-logo-img{width:50px;height:50px;border-radius:11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.doc-logo-img img{width:100%;height:100%;object-fit:contain;padding:4px}
+.doc-brand{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;color:#fff}
+.doc-brand span{color:var(--g7)}
+.doc-sl{font-size:.42rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:2px;margin-top:.12rem}
+.doc-num-box{text-align:right}
+.doc-num-l{font-size:.42rem;text-transform:uppercase;letter-spacing:1.8px;color:rgba(255,255,255,.42)}
+.doc-num{font-family:Georgia,serif;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.9);margin-top:.05rem}
+.doc-num-d{font-size:.45rem;color:rgba(255,255,255,.5);margin-top:.05rem}
+.doc-title-block{margin-top:1rem;position:relative;z-index:1}
+.doc-title-tag{font-size:.42rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.42);margin-bottom:.2rem}
+.doc-title{font-family:Georgia,serif;font-size:1.2rem;font-weight:700;color:#fff;line-height:1.15}
+.doc-sub{font-size:.5rem;color:var(--g6);margin-top:.25rem;letter-spacing:.5px}
+.doc-lei{font-size:.42rem;color:rgba(255,255,255,.38);margin-top:.1rem;text-transform:uppercase;letter-spacing:1.5px}
+/* Ornamento */
+.orn-p{height:3px;background:linear-gradient(90deg,var(--g5),var(--g7),var(--g5));flex-shrink:0}
+/* Body */
+.doc-body{padding:1.1rem 1.8rem 1rem 2rem;flex:1}
+/* Seção */
+.doc-sec-t{font-size:.44rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--g4);margin-bottom:.4rem;margin-top:.8rem;display:flex;align-items:center;gap:.4rem}
+.doc-sec-t::after{content:'';flex:1;height:1px;background:var(--border2-p)}
+.doc-sec-t:first-child{margin-top:0}
+/* Texto do documento */
+.doc-texto{font-size:.6rem;color:var(--ink2);line-height:1.85;text-align:justify;margin-bottom:.6rem}
+.doc-texto strong{color:var(--ink);font-weight:700}
+/* Grade de dados */
+.doc-g2{display:grid;grid-template-columns:1fr 1fr;gap:.28rem .75rem;margin-bottom:.5rem}
+.doc-g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.28rem .6rem;margin-bottom:.5rem}
+.doc-dado{display:flex;flex-direction:column;gap:.07rem;padding:.25rem .4rem;background:var(--lighter);border:1px solid var(--border2-p);border-radius:4px}
+.doc-dl{font-size:.38rem;font-weight:600;color:var(--muted-p);text-transform:uppercase;letter-spacing:.7px}
+.doc-dv{font-size:.56rem;font-weight:600;color:var(--ink);line-height:1.25}
+.doc-dv.hi{color:var(--g4);font-weight:700}
+/* Valor destaque */
+.doc-valor{display:inline-flex;align-items:center;gap:.4rem;background:rgba(30,64,175,.08);border:1px solid var(--border2-p);border-radius:6px;padding:.3rem .7rem;font-size:.7rem;font-weight:700;color:var(--g4);margin:.4rem 0}
+/* Assinaturas */
+.doc-sigs{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.4rem}
+.doc-sig{text-align:center}
+.doc-sig-line{border-top:1.5px solid var(--ink2);padding-top:.35rem;margin-top:1.8rem}
+.doc-sig-name{font-size:.55rem;font-weight:700;color:var(--ink)}
+.doc-sig-role{font-size:.44rem;color:var(--muted-p);text-transform:uppercase;letter-spacing:.8px;margin-top:.08rem}
+/* Rodapé */
+.doc-rf{border-top:1px solid var(--border-p);padding:.4rem 1.6rem .4rem 1.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.2rem;background:linear-gradient(135deg,var(--lighter),var(--light));flex-shrink:0;margin-top:auto}
+.doc-rf-i{font-size:.38rem;color:var(--muted-p);line-height:1.7}
+.doc-rf-i strong{color:var(--g4);font-weight:600}
+.doc-rf-r{display:flex;align-items:center;gap:.3rem;font-size:.38rem;color:var(--muted2-p)}
+.doc-rf-dot{width:4px;height:4px;border-radius:50%;background:var(--g5);flex-shrink:0}
+/* Destaque de recesso */
+.recesso-box{background:linear-gradient(135deg,rgba(30,64,175,.06),rgba(96,165,250,.08));border:1px solid var(--border2-p);border-left:3px solid var(--g5);border-radius:0 5px 5px 0;padding:.55rem .85rem;margin:.5rem 0}
+.recesso-box-t{font-size:.44rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--g4);margin-bottom:.25rem}
+.recesso-box-v{font-size:.65rem;font-weight:700;color:var(--ink)}
+/* Preview inline */
+#previewInline{margin-top:1rem;border:1px solid var(--border-p);border-radius:10px;overflow:hidden;transform:scale(0.7);transform-origin:top left;width:143%;}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="cr-auth.js"></script>
+<script>
+const CNPJ_EX='46.599.025/0001-54', END_EX='Rua São José, nº 584, sala 202 — Centro, Guaíba/RS · CEP 92704-380';
+const TEL_EX='(51) 99850-3183', EMAIL_EX='adm@agencianexus.com';
+
+let _tipo = 'cancelamento';
+
+function setTipo(t){
+  _tipo = t;
+  document.querySelectorAll('.tipo-item').forEach(e=>e.classList.remove('ativo'));
+  document.getElementById('btn-'+t).classList.add('ativo');
+  document.getElementById('bloco-cancelamento').style.display = t==='cancelamento' ? '' : 'none';
+  document.getElementById('bloco-recesso').style.display    = t==='recesso'      ? '' : 'none';
+  document.getElementById('previewCard').classList.remove('show');
+  document.getElementById('print-area').innerHTML='';
+}
+
+function v(id){ return (document.getElementById(id)?.value||'').trim(); }
+function maskCPF(el){let v=el.value.replace(/\D/g,'');v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');el.value=v;}
+function maskCNPJ(el){let v=el.value.replace(/\D/g,'');v=v.replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1/$2').replace(/(\d{4})(\d{1,2})$/,'$1-$2');el.value=v;}
+function fmt(d){if(!d)return'—';return new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});}
+function fmtC(d){if(!d)return'—';return new Date(d+'T12:00:00').toLocaleDateString('pt-BR');}
+function brl(n){if(!n&&n!==0)return'—';return'R$\u00a0'+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2});}
+function toast(msg,tipo='ok'){const el=document.createElement('div');el.className=`toast ${tipo}`;el.textContent=msg;document.getElementById('toast-ct').appendChild(el);setTimeout(()=>el.remove(),3500);}
+
+function calcDias(){
+  const ini=document.getElementById('recesso_inicio').value;
+  const fim=document.getElementById('recesso_fim').value;
+  if(ini&&fim){
+    const d=Math.round((new Date(fim)-new Date(ini))/(1000*60*60*24))+1;
+    if(d>0) document.getElementById('recesso_dias').value=d+' dias';
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('recesso_inicio').addEventListener('change',calcDias);
+  document.getElementById('recesso_fim').addEventListener('change',calcDias);
+  const today=new Date().toISOString().slice(0,10);
+  document.getElementById('data_canc').value=today;
+  document.getElementById('data_rec').value=today;
+});
+
+function gerarPreview(){
+  const nome=v('nome_est'), cpf=v('cpf_est'), empresa=v('empresa');
+  if(!nome){toast('Informe o nome do estagiário','err');return;}
+  if(!empresa){toast('Informe a empresa concedente','err');return;}
+  if(_tipo==='cancelamento'&&!v('data_canc')){toast('Informe a data do cancelamento','err');return;}
+  if(_tipo==='recesso'&&(!v('recesso_inicio')||!v('recesso_fim'))){toast('Informe as datas do recesso','err');return;}
+
+  const html = _tipo==='cancelamento' ? gerarCancelamento() : gerarRecesso();
+  document.getElementById('print-area').innerHTML = html;
+  document.getElementById('previewCard').classList.add('show');
+  document.getElementById('previewCard').scrollIntoView({behavior:'smooth',block:'start'});
+  toast('Documento gerado! Clique em Baixar PDF.');
+}
+
+function rodape(){
+  return `<div class="doc-rf">
+    <div class="doc-rf-i"><strong>Agência Nexus Recrutamento e Seleção LTDA</strong> · CNPJ ${CNPJ_EX}<br/>${END_EX} · ${EMAIL_EX} · ${TEL_EX}</div>
+    <div class="doc-rf-r"><div class="doc-rf-dot"></div>agencianexus.com.br</div>
+  </div>`;
+}
+
+function dado(l,v,hi=false){return`<div class="doc-dado"><span class="doc-dl">${l}</span><span class="doc-dv${hi?' hi':''}">${v||'—'}</span></div>`;}
+
+function gerarCancelamento(){
+  const nome    = v('nome_est');
+  const cpf     = v('cpf_est');
+  const curso   = v('curso_est');
+  const ies     = v('ies_est');
+  const empresa = v('empresa');
+  const cnpj    = v('cnpj_emp');
+  const datac   = v('data_canc');
+  const valor   = parseFloat(v('valor_canc'))||0;
+  const periodo = v('periodo_ref');
+  const recesso = v('recesso_gozado');
+  const cidade  = v('cidade_canc')||'Guaíba/RS';
+
+  const dataFmt  = fmt(datac);
+  const valorBrl = valor>0?brl(valor):'—';
+  const num = `CANC-${new Date().getFullYear()}-${String(Date.now()).slice(-4)}`;
+
+  // Texto do período com recesso
+  let txtRecesso='';
+  if(recesso) txtRecesso=` e, de acordo com a Lei 11.788, o(a) mesmo(a) tem direito ao recesso do qual foi gozado entre os dias <strong>${recesso}</strong>`;
+
+  return `<div class="pg-print">
+    <div class="doc-banner">
+      <div class="doc-banner-top">
+        <div class="doc-logo-box">
+          <div class="doc-logo-img"><img src="imagens/fundo.png" alt="EX" onerror="this.outerHTML='<span style=\\'color:#fff;font-weight:900;font-size:.85rem;font-family:Georgia,serif\\'>EX</span>'"/></div>
+          <div><div class="doc-brand">Agência <span>Nexus</span></div><div class="doc-sl">Recrutamento · Seleção · Estágios</div></div>
+        </div>
+        <div class="doc-num-box">
+          <div class="doc-num-l">Nº do Documento</div>
+          <div class="doc-num">${num}</div>
+          <div class="doc-num-d">${dataFmt}</div>
+        </div>
+      </div>
+      <div class="doc-title-block">
+        <div class="doc-title-tag">Documento Oficial — Agência Nexus</div>
+        <div class="doc-title">Carta de Cancelamento<br/>de Estágio</div>
+        <div class="doc-sub">${empresa} · ${nome}</div>
+        <div class="doc-lei">Lei nº 11.788/2008 · Estágio Não Obrigatório</div>
+      </div>
+    </div>
+    <div class="orn-p"></div>
+    <div class="doc-body">
+
+      <div class="doc-sec-t">Identificação das Partes</div>
+      <div class="doc-g2">
+        ${dado('Estagiário(a)',nome,true)}
+        ${dado('CPF',cpf)}
+        ${dado('Curso',curso)}
+        ${dado('Instituição de Ensino',ies)}
+        ${dado('Empresa Concedente',empresa,true)}
+        ${dado('CNPJ',cnpj)}
+      </div>
+
+      <div class="doc-sec-t">Declaração de Cancelamento</div>
+      <p class="doc-texto">
+        A empresa <strong>Agência Nexus Recrutamento e Seleção, CNPJ ${CNPJ_EX}</strong>, realiza o cancelamento de estágio não obrigatório com o(a) estagiário(a) <strong>${nome}${cpf?', CPF '+cpf:''}</strong>${curso||ies?', estudante do curso '+([curso,ies].filter(Boolean).join(' na ')):''}.<br/><br/>
+        A solicitação ocorreu no dia <strong>${dataFmt}</strong> através do agente integrador <strong>Agência Nexus Recrutamento e Seleção</strong>.${periodo?' O valor a ser recebido, pelo(a) estagiário(a), correspondente aos dias de <strong>'+periodo+'</strong>, pelas atividades desenvolvidas, é de <strong>'+valorBrl+'</strong>'+txtRecesso+'.':''}
+      </p>
+
+      ${valor>0?`<div class="doc-valor">💰 Valor total: ${valorBrl}</div>`:''}
+
+      <div class="doc-sec-t">Assinaturas</div>
+      <p class="doc-texto" style="margin-bottom:0">${cidade}, ${dataFmt}.</p>
+
+      <div class="doc-sigs">
+        <div class="doc-sig">
+          <div class="doc-sig-line">
+            <div class="doc-sig-name">AGÊNCIA NEXUS</div>
+            <div class="doc-sig-role">Recrutamento e Seleção — Agente Integrador</div>
+          </div>
+        </div>
+        <div class="doc-sig">
+          <div class="doc-sig-line">
+            <div class="doc-sig-name">${nome||'ESTAGIÁRIO(A)'}</div>
+            <div class="doc-sig-role">Estagiário(a)${cpf?' · CPF '+cpf:''}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    ${rodape()}
+  </div>`;
+}
+
+function gerarRecesso(){
+  const nome     = v('nome_est');
+  const cpf      = v('cpf_est');
+  const curso    = v('curso_est');
+  const ies      = v('ies_est');
+  const empresa  = v('empresa');
+  const cnpj     = v('cnpj_emp');
+  const rIni     = v('recesso_inicio');
+  const rFim     = v('recesso_fim');
+  const rDias    = v('recesso_dias');
+  const rPer     = v('recesso_periodo');
+  const dataRec  = v('data_rec');
+  const cidade   = v('cidade_rec')||'Guaíba';
+
+  const dataFmt  = fmt(dataRec||new Date().toISOString().slice(0,10));
+  const num = `REC-${new Date().getFullYear()}-${String(Date.now()).slice(-4)}`;
+
+  // Calcula dias automaticamente se não digitado
+  let diasTxt = rDias;
+  if(!diasTxt&&rIni&&rFim){
+    const d=Math.round((new Date(rFim)-new Date(rIni))/(1000*60*60*24))+1;
+    if(d>0) diasTxt=d+' dias';
+  }
+
+  return `<div class="pg-print">
+    <div class="doc-banner">
+      <div class="doc-banner-top">
+        <div class="doc-logo-box">
+          <div class="doc-logo-img"><img src="imagens/fundo.png" alt="EX" onerror="this.outerHTML='<span style=\\'color:#fff;font-weight:900;font-size:.85rem;font-family:Georgia,serif\\'>EX</span>'"/></div>
+          <div><div class="doc-brand">Agência <span>Nexus</span></div><div class="doc-sl">Recrutamento · Seleção · Estágios</div></div>
+        </div>
+        <div class="doc-num-box">
+          <div class="doc-num-l">Nº do Documento</div>
+          <div class="doc-num">${num}</div>
+          <div class="doc-num-d">${dataFmt}</div>
+        </div>
+      </div>
+      <div class="doc-title-block">
+        <div class="doc-title-tag">Documento Oficial — Agência Nexus</div>
+        <div class="doc-title">Carta de Recesso<br/>de Estágio</div>
+        <div class="doc-sub">${empresa} · ${nome}</div>
+        <div class="doc-lei">Lei nº 11.788/2008 · Art. 13 — Recesso Remunerado</div>
+      </div>
+    </div>
+    <div class="orn-p"></div>
+    <div class="doc-body">
+
+      <div class="doc-sec-t">Identificação das Partes</div>
+      <div class="doc-g2">
+        ${dado('Estagiário(a)',nome,true)}
+        ${dado('CPF',cpf)}
+        ${dado('Curso',curso)}
+        ${dado('Instituição de Ensino',ies)}
+        ${dado('Empresa Concedente',empresa,true)}
+        ${dado('CNPJ',cnpj)}
+      </div>
+
+      <div class="doc-sec-t">Período de Recesso</div>
+      <div class="recesso-box">
+        <div class="recesso-box-t">🌿 Recesso Remunerado — Lei nº 11.788/2008 · Art. 13</div>
+        <div class="doc-g3" style="margin-bottom:0">
+          ${dado('Início',fmtC(rIni))}
+          ${dado('Término',fmtC(rFim))}
+          ${dado('Total',diasTxt||'—')}
+        </div>
+      </div>
+
+      <div class="doc-sec-t">Declaração</div>
+      <p class="doc-texto">
+        O(A) estagiário(a) <strong>${nome}${cpf?', CPF '+cpf:''}</strong>${curso||ies?', estudante do curso de '+([curso,ies].filter(Boolean).join(' na ')):''}, de acordo com a Lei 11.788/2008 tem direito a recesso de <strong>${diasTxt||'—'}</strong>${rPer?', referente '+rPer:''}, sendo ele em descanso, sem prejuízo em sua bolsa-auxílio.<br/><br/>
+        A unidade concedente <strong>${empresa}${cnpj?', CNPJ nº '+cnpj:''}</strong>, optará pelo recesso em descanso dos dias <strong>${fmtC(rIni)}</strong> a <strong>${fmtC(rFim)}</strong>.<br/><br/>
+        Este recesso corresponde${rPer?' '+rPer+' do':' ao período do'} contrato de estágio junto ao agente integrador <strong>Agência Nexus Recrutamento e Seleção</strong>.
+      </p>
+
+      <div class="doc-sec-t">Assinaturas</div>
+      <p class="doc-texto" style="margin-bottom:0">${cidade}, ${dataFmt}.</p>
+
+      <div class="doc-sigs">
+        <div class="doc-sig">
+          <div class="doc-sig-line">
+            <div class="doc-sig-name">${nome||'ESTAGIÁRIO(A)'}</div>
+            <div class="doc-sig-role">Estagiário(a)${cpf?' · CPF '+cpf:''}</div>
+          </div>
+        </div>
+        <div class="doc-sig">
+          <div class="doc-sig-line">
+            <div class="doc-sig-name">AGÊNCIA NEXUS</div>
+            <div class="doc-sig-role">Recrutamento e Seleção — Agente Integrador</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    ${rodape()}
+  </div>`;
+}
+
+function resetForm(){
+  document.querySelectorAll('.fi').forEach(el=>{
+    if(el.tagName==='INPUT'&&el.type!=='date') el.value='';
+    if(el.tagName==='TEXTAREA') el.value='';
+  });
+  document.getElementById('cidade_canc').value='Guaíba/RS';
+  document.getElementById('cidade_rec').value='Guaíba';
+  const today=new Date().toISOString().slice(0,10);
+  document.getElementById('data_canc').value=today;
+  document.getElementById('data_rec').value=today;
+  document.getElementById('previewCard').classList.remove('show');
+  document.getElementById('print-area').innerHTML='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleSidebar(){document.querySelector('.sidebar').classList.toggle('mob-open');document.getElementById('mobOverlay').classList.toggle('open');}
+function closeSidebar(){document.querySelector('.sidebar').classList.remove('mob-open');document.getElementById('mobOverlay').classList.remove('open');}
+document.querySelectorAll('.sb-item').forEach(el=>{el.addEventListener('click',()=>{if(window.innerWidth<=768)closeSidebar();});});
+
+async function doLogout(){
+  // Caminho absoluto para login, funciona em qualquer subdiretório
+  const loginUrl = window.location.href.replace(/\/[^\/]*$/, '/login.html');
+  try{
+    // Tenta usar _sb se disponível
+    if(window._sb){
+      await window._sb.auth.signOut();
+    } else {
+      // Fallback: cria cliente Supabase e desloga
+      const SB_URL='https://yunoxkembhskpnprffoi.supabase.co';
+      const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bm94a2VtYmhza3BucHJmZm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5Nzg2MzksImV4cCI6MjA5NDU1NDYzOX0.WhkzrBCHThvJaMuLeo6oVPjrWvc_MvfCoyz9B90-Yms';
+      const tmp = supabase.createClient(SB_URL, SB_KEY);
+      await tmp.auth.signOut();
+    }
+  }catch(e){ console.error('logout error', e); }
+  window.location.replace(loginUrl);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Acesso — Cartas de Recomendação · Agência Nexus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap"/>
+<style>
+:root{--accent:#60a5fa;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#161616;--border:rgba(96,165,250,.14);--border2:rgba(96,165,250,.32);--text:#f0f0f0;--muted:#666;--radius:16px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-size:17px}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(96,165,250,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.022) 1px,transparent 1px);background-size:52px 52px}
+.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+.orb1{width:500px;height:500px;background:rgba(30,64,175,.18);top:-100px;left:-100px}
+.orb2{width:400px;height:400px;background:rgba(96,165,250,.10);bottom:-80px;right:-80px}
+.page{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+.card{width:100%;max-width:420px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2.2rem 2rem;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 32px 80px rgba(0,0,0,.5);animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.logo-wrap{text-align:center;margin-bottom:2rem}
+.logo-badge{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,var(--primary),var(--accent));font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:.8rem;box-shadow:0 0 40px rgba(96,165,250,.3)}
+.logo-title{font-size:1.1rem;font-weight:800}.logo-title span{color:var(--accent)}
+.logo-sub{font-size:.65rem;color:var(--muted);margin-top:.25rem;text-transform:uppercase;letter-spacing:2px}
+.tabs{display:flex;gap:.3rem;background:var(--card2);border-radius:10px;padding:.25rem;margin-bottom:1.6rem}
+.tab{flex:1;text-align:center;padding:.45rem;border-radius:8px;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted)}
+.tab.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(30,64,175,.4)}
+.form-group{margin-bottom:1rem}
+label{display:block;font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.4rem}
+.fi{width:100%;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:.7rem .9rem;font-family:inherit;font-size:.82rem;color:var(--text);outline:none;transition:border .15s}
+.fi:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(96,165,250,.08)}
+.fi::placeholder{color:var(--muted)}
+.pw-wrap{position:relative}
+.pw-toggle{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:.9rem}
+.btn{width:100%;padding:.8rem;border-radius:11px;border:none;cursor:pointer;font-family:inherit;font-size:.85rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;transition:all .15s;margin-top:.4rem;box-shadow:0 4px 20px rgba(96,165,250,.2)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(96,165,250,.3)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-ghost{background:none;border:none;cursor:pointer;font-family:inherit;font-size:.7rem;color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.btn-ghost:hover{color:var(--accent)}
+.msg{padding:.65rem .9rem;border-radius:9px;font-size:.72rem;font-weight:600;margin-bottom:1rem;display:none}
+.msg.err{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);color:#e74c3c}
+.msg.ok{background:rgba(96,165,250,.10);border:1px solid rgba(96,165,250,.3);color:#60a5fa}
+.msg.show{display:block}
+.spinner{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ft{text-align:center;margin-top:1.5rem;font-size:.62rem;color:var(--muted);line-height:1.7}
+.ft a{color:var(--accent);text-decoration:none}
+.sec{display:flex;align-items:center;gap:.5rem;justify-content:center;font-size:.62rem;color:var(--muted);margin-top:1.2rem}
+.sec-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent)}
+
+/* ── SPLIT LAYOUT (disc-admin style) ── */
+.login-wrap{
+  position:relative;z-index:1;width:100%;max-width:860px;
+  display:grid;grid-template-columns:1fr 1fr;
+  background:rgba(13,13,13,0.97);
+  border:1px solid var(--border2);border-radius:28px;
+  overflow:hidden;backdrop-filter:blur(24px);
+  box-shadow:0 40px 80px rgba(0,0,0,0.6);
+  margin:1rem;animation:fadeUp .4s ease;
+}
+@media(max-width:680px){.login-wrap{grid-template-columns:1fr;}.login-brand{display:none!important;}}
+.login-brand{
+  background:linear-gradient(160deg,rgba(8,16,40,0.98) 0%,rgba(4,8,20,0.99) 100%);
+  padding:2.8rem 2.2rem;display:flex;flex-direction:column;justify-content:space-between;
+  border-right:1px solid rgba(96,165,250,0.12);position:relative;overflow:hidden;
+}
+.login-brand::before{content:'';position:absolute;top:-40%;right:-30%;width:400px;height:400px;background:radial-gradient(ellipse,rgba(96,165,250,0.08) 0%,transparent 65%);pointer-events:none;}
+.login-brand::after{content:'';position:absolute;bottom:-20%;left:-10%;width:250px;height:250px;background:radial-gradient(ellipse,rgba(30,64,175,0.12) 0%,transparent 65%);pointer-events:none;}
+.lb-logo{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,rgba(30,64,175,0.4),rgba(96,165,250,0.15));border:1px solid rgba(96,165,250,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:1.8rem;box-shadow:0 4px 20px rgba(96,165,250,0.15);}
+.lb-logo img{width:46px;height:46px;object-fit:contain;}
+.lb-tag{font-size:0.55rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);opacity:0.65;margin-bottom:0.6rem;}
+.lb-title{font-size:2rem;font-weight:900;line-height:1.15;margin-bottom:0.5rem;letter-spacing:-0.5px;}
+.lb-title span{color:var(--accent);}
+.lb-sub{font-size:0.78rem;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:2rem;}
+.lb-features{display:flex;flex-direction:column;gap:0.6rem;}
+.lb-feat{display:flex;align-items:center;gap:0.65rem;font-size:0.73rem;color:rgba(255,255,255,0.5);}
+.lb-feat-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:0.7;flex-shrink:0;}
+.lb-footer{font-size:0.6rem;color:rgba(255,255,255,0.2);margin-top:auto;}
+.lb-secure{display:flex;align-items:center;gap:0.45rem;margin-top:1.5rem;}
+.lb-secure-ico{font-size:0.9rem;opacity:0.4;}
+.lb-secure-txt{font-size:0.62rem;color:rgba(255,255,255,0.28);}
+.login-form-side{padding:2.8rem 2.4rem;display:flex;flex-direction:column;justify-content:center;}
+.lf-eyebrow{font-size:0.58rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);opacity:0.7;margin-bottom:0.45rem;}
+.lf-title{font-size:1.4rem;font-weight:900;margin-bottom:0.25rem;}
+.lf-sub{font-size:0.76rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.55;}
+
+@media(max-width:520px){
+  .login-form-side{padding:2.2rem 1.3rem 2.5rem!important;}
+  .lf-title{font-size:1.2rem!important}
+  .btn{min-height:48px!important;font-size:.9rem!important}
+  .fi{font-size:16px!important}
+  .tabs{margin-bottom:1.2rem!important}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="login-wrap">
+
+    <!-- LADO ESQUERDO: Branding -->
+    <div class="login-brand">
+      <div>
+        <div class="lb-logo">
+          <img src="imagens/fundo.png" alt="Nexus" onerror="this.parentElement.innerHTML='✉️'"/>
+        </div>
+        <div class="lb-tag">Cartas de Recomendação</div>
+        <div class="lb-title">Agência <span>Nexus</span></div>
+        <div class="lb-sub">Sistema de geração e assinatura digital de cartas de recomendação e contratos.</div>
+        <div class="lb-features">
+          <div class="lb-feat"><div class="lb-feat-dot"></div>Cartas de recomendação digitais</div>
+          <div class="lb-feat"><div class="lb-feat-dot"></div>Assinatura eletrônica de contratos</div>
+          <div class="lb-feat"><div class="lb-feat-dot"></div>Geração automática de documentos</div>
+          <div class="lb-feat"><div class="lb-feat-dot"></div>Rastreamento por e-mail e WhatsApp</div>
+        </div>
+      </div>
+      <div>
+        <div class="lb-secure">
+          <span class="lb-secure-ico">🔒</span>
+          <span class="lb-secure-txt">Acesso protegido · Supabase Auth · Conexão segura</span>
+        </div>
+        <div class="lb-footer" style="margin-top:0.6rem;">Agência Nexus · Guaíba/RS</div>
+      </div>
+    </div>
+
+    <!-- LADO DIREITO: Formulário -->
+    <div class="login-form-side">
+      <div class="lf-eyebrow">Acesso restrito</div>
+      <div class="lf-title">Bem-vindo de volta</div>
+      <div class="lf-sub">Faça login para acessar o sistema.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab('login',this)">Entrar</div>
+        <div class="tab" onclick="showTab('reset',this)">Recuperar Senha</div>
+      </div>
+      <div class="msg err" id="msgErr"></div>
+      <div class="msg ok"  id="msgOk"></div>
+      <div id="tabLogin">
+        <div class="form-group"><label>E-mail</label><input class="fi" type="email" id="email" placeholder="seu@email.com" autocomplete="email" autofocus/></div>
+        <div class="form-group"><label>Senha</label>
+          <div class="pw-wrap">
+            <input class="fi" type="password" id="senha" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/>
+            <button class="pw-toggle" onclick="togglePw('senha')">👁</button>
+          </div>
+        </div>
+        <div style="text-align:right;margin:-.4rem 0 1rem">
+          <button class="btn-ghost" onclick="showTab('reset',document.querySelectorAll('.tab')[1])">Esqueci minha senha</button>
+        </div>
+        <button class="btn" id="btnLogin" onclick="login()">
+          <span id="btnTxt">Entrar no Sistema</span>
+          <div class="spinner" id="sp"></div>
+        </button>
+      </div>
+      <div id="tabReset" style="display:none">
+        <p style="font-size:.72rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">Digite seu e-mail para receber o link de recuperação.</p>
+        <div class="form-group"><label>E-mail</label><input class="fi" type="email" id="emailReset" placeholder="seu@email.com"/></div>
+        <button class="btn" id="btnReset" onclick="reset()">
+          <span id="btnResetTxt">Enviar Link</span>
+          <div class="spinner" id="spReset"></div>
+        </button>
+        <div style="text-align:center;margin-top:.8rem">
+          <button class="btn-ghost" onclick="showTab('login',document.querySelectorAll('.tab')[0])">← Voltar</button>
+        </div>
+      </div>
+      <div class="ft" style="margin-top:1.5rem">Acesso restrito · Agência Nexus<br/><a href="mailto:contato@agencianexus.com.br">contato@agencianexus.com.br</a></div>
+      <div class="sec"><div class="sec-dot"></div>Conexão segura · Supabase Auth</div>
+    </div>
+
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL='https://yunoxkembhskpnprffoi.supabase.co', SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bm94a2VtYmhza3BucHJmZm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5Nzg2MzksImV4cCI6MjA5NDU1NDYzOX0.WhkzrBCHThvJaMuLeo6oVPjrWvc_MvfCoyz9B90-Yms';
+const sb = supabase.createClient(SB_URL, SB_KEY, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession:   true,
+    detectSessionInUrl: true,
+  }
+});
+
+// ── Redireciona imediatamente se já tem sessão válida ──────────────
+(async()=>{
+  const {data:{session}} = await sb.auth.getSession();
+  if(session) goNext();
+})();
+
+// ── Rate limiting local (camada extra no cliente) ──────────────────
+const _RL_KEY  = 'ex_login_attempts';
+const _RL_MAX  = 5;
+const _RL_WIN  = 15 * 60 * 1000;
+
+function _rlLoad(){ try{ return JSON.parse(sessionStorage.getItem(_RL_KEY)||'{"n":0,"t":0}'); }catch{ return {n:0,t:0}; } }
+function _rlSave(o){ try{ sessionStorage.setItem(_RL_KEY, JSON.stringify(o)); }catch{} }
+
+function _rlCheck(){
+  const o = _rlLoad();
+  const agora = Date.now();
+  if(agora - o.t > _RL_WIN){ _rlSave({n:0,t:agora}); return true; }
+  if(o.n >= _RL_MAX) return false;
+  return true;
+}
+
+function _rlIncrement(){
+  const o = _rlLoad();
+  const agora = Date.now();
+  const base  = (agora - o.t > _RL_WIN) ? agora : o.t;
+  _rlSave({ n: o.n + 1, t: base });
+}
+
+function _rlReset(){
+  _rlSave({n:0,t:0});
+}
+
+function _rlRestanteMsg(){
+  const o = _rlLoad();
+  const seg = Math.ceil((_RL_WIN - (Date.now() - o.t)) / 1000);
+  const min = Math.ceil(seg / 60);
+  return `Muitas tentativas. Aguarde ${min} minuto${min>1?'s':''}.`;
+}
+
+// ── UI helpers ─────────────────────────────────────────────────────
+function showTab(n, el){
+  document.getElementById('tabLogin').style.display = n==='login' ? 'block' : 'none';
+  document.getElementById('tabReset').style.display = n==='reset' ? 'block' : 'none';
+  document.querySelectorAll('.tab').forEach((t,i) =>
+    t.classList.toggle('active',(n==='login'&&i===0)||(n==='reset'&&i===1)));
+  clearMsgs();
+}
+
+function togglePw(id){
+  const e = document.getElementById(id);
+  e.type = e.type==='password' ? 'text' : 'password';
+}
+
+function setLoad(btn, sp, txt, on){
+  document.getElementById(btn).disabled = on;
+  document.getElementById(sp).style.display  = on ? 'block' : 'none';
+  document.getElementById(txt).style.display = on ? 'none'  : 'inline';
+}
+
+function showErr(m){
+  const e = document.getElementById('msgErr');
+  e.textContent = m; e.classList.add('show');
+  document.getElementById('msgOk').classList.remove('show');
+}
+
+function showOk(m){
+  const e = document.getElementById('msgOk');
+  e.textContent = m; e.classList.add('show');
+  document.getElementById('msgErr').classList.remove('show');
+}
+
+function clearMsgs(){
+  document.getElementById('msgErr').classList.remove('show');
+  document.getElementById('msgOk').classList.remove('show');
+}
+
+function _delay(n){ return new Promise(r => setTimeout(r, Math.min(500 * Math.pow(2, n-1), 8000))); }
+
+// ── Login ──────────────────────────────────────────────────────────
+async function login(){
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const senha = document.getElementById('senha').value;
+
+  clearMsgs();
+
+  if(!email || !senha){ showErr('Preencha e-mail e senha.'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr('E-mail inválido.'); return; }
+
+  if(!_rlCheck()){ showErr(_rlRestanteMsg()); return; }
+
+  setLoad('btnLogin','sp','btnTxt', true);
+
+  const tentativas = _rlLoad().n;
+  if(tentativas > 0) await _delay(tentativas);
+
+  const { error } = await sb.auth.signInWithPassword({ email, password: senha });
+
+  setLoad('btnLogin','sp','btnTxt', false);
+
+  if(error){
+    _rlIncrement();
+    const restantes = _RL_MAX - _rlLoad().n;
+
+    const msg = restantes > 0
+      ? `E-mail ou senha incorretos. ${restantes} tentativa${restantes>1?'s':''} restante${restantes>1?'s':''}.`
+      : _rlRestanteMsg();
+
+    const mapeado = {
+      'Too many requests': 'Muitas tentativas no servidor. Aguarde alguns minutos.',
+      'Email not confirmed': 'Confirme seu e-mail antes de entrar. Verifique sua caixa de entrada.',
+    }[error.message];
+
+    showErr(mapeado || msg);
+    return;
+  }
+
+  _rlReset();
+  goNext();
+}
+
+// ── Recuperação de senha ───────────────────────────────────────────
+async function reset(){
+  const email = document.getElementById('emailReset').value.trim().toLowerCase();
+
+  clearMsgs();
+
+  if(!email){ showErr('Digite seu e-mail.'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr('E-mail inválido.'); return; }
+
+  setLoad('btnReset','spReset','btnResetTxt', true);
+
+  await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://agencianexus.github.io/cartas/reset-senha.html'
+  });
+
+  setLoad('btnReset','spReset','btnResetTxt', false);
+
+  showOk('Se esse e-mail estiver cadastrado, você receberá um link em instantes. Verifique também o spam.');
+  document.getElementById('emailReset').value = '';
+}
+
+// ── Redirecionamento pós-login ─────────────────────────────────────
+function goNext(){
+  const next = new URLSearchParams(window.location.search).get('next');
+  const destino = next && !next.includes('//') && !next.includes('login')
+    ? decodeURIComponent(next)
+    : './index.html';
+  window.location.replace(destino);
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Enter') return;
+  const tabLogin = document.getElementById('tabLogin');
+  const tabReset = document.getElementById('tabReset');
+  if(tabLogin.style.display !== 'none') login();
+  else if(tabReset.style.display !== 'none') reset();
+});
+</script>
+</body>
+</html>

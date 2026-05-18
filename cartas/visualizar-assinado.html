@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Termo de Compromisso de Estágio — Agência Nexus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap"/><style>
+:root{
+  --g1:#1e3a06;--g2:#2d5a0a;--g3:#3d7a10;--g4:#1e40af;--g5:#60a5fa;--g6:#b8e069;--g7:#d4f47c;
+  --ink:#0f1a05;--ink2:#2a3d12;--muted:#5a6e3a;--muted2:#8a9e6a;
+  --light:#f0f7e6;--lighter:#f8fdf2;--border:#c8dfa8;--border2:#dff0bb;
+  --fd:'Playfair Display',Georgia,serif;--fb:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+  
+html, body {
+  background: #b8c4ac;
+  font-family: var(--fb);
+  color: var(--ink);
+  font-size: 20px;
+}
+/* TOOLBAR */
+.toolbar{background:var(--g1);padding:.65rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--g5)}
+.tb-l{display:flex;align-items:center;gap:.7rem}
+.tb-logo{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--g4),var(--g5));overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;color:#fff;font-family:var(--fd);flex-shrink:0}
+.tb-txt{font-size:.7rem;color:rgba(255,255,255,.65)}.tb-txt strong{color:#fff}
+.tb-btns{display:flex;gap:.5rem}
+.btn{display:inline-flex;align-items:center;gap:.3rem;padding:.4rem .85rem;border-radius:6px;border:none;cursor:pointer;font-family:var(--fb);font-size:.7rem;font-weight:600;transition:all .15s;white-space:nowrap;text-decoration:none}
+.btn-p{background:linear-gradient(135deg,var(--g4),var(--g5));color:#fff;box-shadow:0 2px 8px rgba(30,64,175,.4)}
+.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-b{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.14)}
+.btn-b:hover{background:rgba(255,255,255,.15);color:#fff}
+
+/* LOADING */
+.loading{display:flex;align-items:center;justify-content:center;min-height:80vh;flex-direction:column;gap:1rem}
+.sp{width:44px;height:44px;border:3px solid rgba(30,64,175,.15);border-top-color:var(--g4);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* WRAPPER */
+.pw{padding:1.4rem .8rem 4rem;display:flex;flex-direction:column;align-items:center;gap:0}
+.pg-sep{height:10px;width:210mm;max-width:100%;display:flex;align-items:center;justify-content:center;font-size:.46rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#7a8a70;gap:.5rem}
+.pg-sep::before,.pg-sep::after{content:'';flex:1;height:1px;background:#9aaa8a}
+
+/* PÁGINA A4 */
+.pg{background:#fff;width:210mm;min-height:297mm;display:flex;flex-direction:column;box-shadow:0 4px 30px rgba(0,0,0,.28);overflow:hidden;position:relative}
+.pg::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--g3),var(--g5),var(--g7),var(--g5),var(--g3))}
+
+/* RODAPÉ PADRÃO */
+.rf{border-top:1px solid var(--border);padding:.4rem 1.6rem .4rem 1.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.25rem;background:linear-gradient(135deg,var(--lighter),var(--light));flex-shrink:0;margin-top:auto}
+.rf-i{font-size:.4rem;color:var(--muted);line-height:1.7}.rf-i strong{color:var(--g4);font-weight:600}
+.rf-r{display:flex;align-items:center;gap:.3rem;font-size:.4rem;color:var(--muted2)}
+.rf-dot{width:4px;height:4px;border-radius:50%;background:var(--g5);flex-shrink:0}
+.rf-n{font-size:.5rem;font-weight:700;color:var(--g4);background:var(--light);border:1px solid var(--border);border-radius:4px;padding:.1rem .32rem}
+
+/* ── BANNER PG1 ── */
+.b1{background:linear-gradient(145deg,var(--g1) 0%,var(--g2) 38%,var(--g4) 72%,#4a6a10 100%);padding:1.5rem 1.8rem 1.2rem 2rem;position:relative;overflow:hidden;flex-shrink:0}
+.b1::after{content:'';position:absolute;right:-25px;top:-25px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04)}
+.b1::before{content:'';position:absolute;right:55px;bottom:-45px;width:180px;height:180px;border-radius:50%;background:rgba(96,165,250,.05)}
+.b1-top{display:flex;align-items:flex-start;justify-content:space-between;position:relative;z-index:1;gap:.8rem}
+.b1-logo{display:flex;align-items:center;gap:.75rem}
+.b1-lb{width:50px;height:50px;border-radius:11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.b1-lb img{width:100%;height:100%;object-fit:contain;padding:4px}
+.b1-brand{font-family:var(--fd);font-size:1.05rem;font-weight:700;color:#fff}.b1-brand span{color:var(--g7)}
+.b1-sl{font-size:.42rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:2px;margin-top:.12rem}
+.b1-nb{text-align:right}
+.b1-nl{font-size:.42rem;text-transform:uppercase;letter-spacing:1.8px;color:rgba(255,255,255,.42)}
+.b1-nn{font-family:var(--fd);font-size:.78rem;font-weight:700;color:rgba(255,255,255,.9);margin-top:.08rem}
+.b1-nd{font-size:.48rem;color:rgba(255,255,255,.5);margin-top:.06rem}
+.b1-tb{margin-top:1rem;position:relative;z-index:1}
+.b1-dt{font-size:.42rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.42);margin-bottom:.25rem}
+.b1-dn{font-family:var(--fd);font-size:1.25rem;font-weight:700;color:#fff;line-height:1.15}
+.b1-ds{font-size:.5rem;color:var(--g6);margin-top:.3rem;letter-spacing:.6px}
+.b1-lei{font-size:.42rem;color:rgba(255,255,255,.38);margin-top:.12rem;text-transform:uppercase;letter-spacing:1.5px}
+.b1-sb{margin-top:.8rem;display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:.22rem .65rem;font-size:.48rem;color:rgba(255,255,255,.65)}
+.b1-sd{width:5px;height:5px;border-radius:50%;background:var(--g5);box-shadow:0 0 5px var(--g5);flex-shrink:0}
+.orn{height:3px;background:linear-gradient(90deg,var(--g5),var(--g7),var(--g5));flex-shrink:0}
+
+/* SEÇÕES */
+.body1{padding:.9rem 1.7rem 0 2rem;flex:1}
+.body2,.body3,.body4{padding:.75rem 1.7rem .4rem 2rem;flex:1}
+.sec{margin-bottom:.85rem}
+.sec-t{font-size:.46rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--g4);margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem}
+.sec-t::after{content:'';flex:1;height:1px;background:var(--border2)}
+
+/* GRADE DE DADOS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.28rem .75rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.28rem .6rem}
+.dado{display:flex;flex-direction:column;gap:.08rem;padding:.28rem .45rem;background:var(--lighter);border:1px solid var(--border2);border-radius:4px}
+.dl{font-size:.4rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}
+.dv{font-size:.6rem;font-weight:600;color:var(--ink);line-height:1.25}
+.dv.hi{color:var(--g4);font-weight:700}
+
+/* HEADER PÁGINAS 2-4 */
+.ph{background:linear-gradient(135deg,var(--g2),var(--g4));padding:.65rem 1.7rem .65rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.ph-t{font-family:var(--fd);font-size:.82rem;font-weight:700;color:#fff}
+.ph-s{font-size:.44rem;color:rgba(255,255,255,.58);margin-top:.08rem}
+.ph-n{font-size:.42rem;color:rgba(255,255,255,.45);text-align:right;line-height:1.5}
+
+/* CLÁUSULAS */
+.cl{margin-bottom:.5rem;padding-bottom:.5rem;border-bottom:1px solid var(--border2)}
+.cl:last-child{border-bottom:none}
+.cl-t{font-size:.52rem;font-weight:700;color:var(--g4);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.16rem;display:flex;align-items:center;gap:.32rem}
+.cl-n{width:15px;height:15px;border-radius:50%;background:linear-gradient(135deg,var(--g4),var(--g5));color:#fff;font-size:.4rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.cl-p{font-size:.60rem;color:var(--ink2);line-height:1.72;text-align:justify;padding-left:1.1rem}
+
+/* CAMPOS LINHA */
+.cg2{display:grid;grid-template-columns:1fr 1fr;gap:.22rem .7rem;margin-bottom:.5rem}
+.cg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.22rem .55rem;margin-bottom:.5rem}
+.cl-wrap{display:flex;flex-direction:column;gap:.06rem}
+.cl-lbl{font-size:.4rem;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px}
+.cl-line{border-bottom:1px solid var(--border);min-height:20px;display:flex;align-items:flex-end;padding-bottom:2px}
+.cl-line.ok{border-color:var(--g5);background:linear-gradient(90deg,rgba(96,165,250,.05),transparent)}
+.cl-val{font-size:.58rem;color:var(--ink);font-weight:500}
+
+/* CAMPO ASSINATURA VAZIO */
+.sc{border:1px solid var(--border);border-radius:5px;padding:.45rem .65rem .3rem;background:var(--lighter)}
+.sc-p{font-size:.42rem;text-transform:uppercase;letter-spacing:.8px;color:var(--g4);font-weight:700;margin-bottom:.08rem}
+.sc-n{font-size:.6rem;font-weight:700;color:var(--ink);margin-bottom:.25rem}
+.sc-l{height:24px;border-bottom:1.5px solid var(--ink2);margin-bottom:.18rem;position:relative}
+.sc-l::after{content:'Assinatura';position:absolute;bottom:2px;left:0;font-size:.36rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px}
+.sc-d{font-size:.42rem;color:var(--muted2)}
+.sg2{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.45rem}
+.sg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.38rem;margin-bottom:.45rem}
+
+/* CARTÃO ASSINATURA DIGITAL */
+.sk{display:flex;gap:.7rem;padding:.5rem .65rem;background:var(--lighter);border:1px solid var(--border2);border-left:3px solid var(--g5);border-radius:0 5px 5px 0;margin-bottom:.4rem;page-break-inside:avoid}
+.sk-e{flex:1;min-width:0}
+.sk-pb{font-size:.4rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--g4);margin-bottom:.12rem}
+.sk-n{font-size:.72rem;font-weight:700;color:var(--ink);line-height:1.2}
+.sk-m{font-size:.48rem;color:var(--muted);line-height:1.7;margin-top:.15rem}
+.sk-m span{display:block}
+.sk-ok{display:inline-flex;align-items:center;gap:.22rem;font-size:.46rem;font-weight:700;color:#2e7d32;background:rgba(46,125,50,.08);border:1px solid rgba(46,125,50,.2);border-radius:3px;padding:.12rem .38rem;margin-top:.2rem}
+.sk-pend{display:inline-flex;align-items:center;gap:.22rem;font-size:.46rem;font-weight:700;color:#e65100;background:rgba(230,81,0,.07);border:1px solid rgba(230,81,0,.18);border-radius:3px;padding:.12rem .38rem;margin-top:.2rem}
+.sk-d{width:105px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:.18rem}
+.sk-il{font-size:.4rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px}
+.sk-img{width:95px;height:48px;object-fit:contain;border:1px solid var(--border);border-radius:4px;background:#fff;padding:3px}
+.sk-ni{width:95px;height:48px;border:1.5px dashed var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.5rem;color:var(--muted2);text-align:center;line-height:1.4}
+
+/* AUDITORIA */
+.aud{background:linear-gradient(135deg,rgba(30,64,175,.03),rgba(96,165,250,.06));border:1px solid rgba(30,64,175,.12);border-left:3px solid var(--g5);border-radius:0 5px 5px 0;padding:.45rem .75rem;margin-top:.5rem;font-size:.48rem;color:var(--muted);line-height:1.8}
+.aud strong{color:var(--g4);font-weight:600;display:block;margin-bottom:.2rem}
+.aud-g{display:grid;grid-template-columns:1fr 1fr;gap:.05rem .7rem}
+.aud-r{display:flex;gap:.28rem;align-items:baseline}
+.aud-l{font-weight:600;color:var(--muted2);min-width:68px;flex-shrink:0;font-size:.44rem}
+
+/* PRINT */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  @page{size:A4 portrait;margin:0}
+  body,html{background:#fff!important}
+  .toolbar,.pg-sep{display:none!important}
+  .pw{padding:0!important;gap:0!important}
+  .pg{width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;page-break-after:always;break-after:page;box-shadow:none!important;overflow:hidden!important}
+  .pg:last-child{page-break-after:auto;break-after:auto}
+  .sk,.cl{page-break-inside:avoid;break-inside:avoid}
+}
+
+@media(max-width:680px){
+  .pw{padding:.5rem .2rem 2rem}
+  .pg{width:100%;min-height:auto}
+  .body1,.body2,.body3,.body4{padding:.7rem .9rem .4rem 1rem}
+  .b1{padding:.9rem 1rem .9rem 1.1rem}
+  .g2,.g3,.cg2,.cg3,.sg2,.sg3{grid-template-columns:1fr!important}
+  .sk{flex-direction:column}.sk-d{width:100%}
+  .sk-img,.sk-ni{width:100%;max-width:140px}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="tb-l">
+    <div class="tb-logo"><img src="imagens/fundo.png" alt="Nexus" style="width:22px;height:22px;object-fit:contain" onerror="this.outerHTML='EX'"/></div>
+    <div class="tb-txt"><strong id="tbt">Termo de Estágio</strong></div>
+  </div>
+  <div class="tb-btns">
+    <button class="btn btn-b" onclick="history.back()">&#8592; Voltar</button>
+    <button class="btn btn-p" onclick="window.print()">&#128424; Baixar PDF com Assinaturas</button>
+  </div>
+</div>
+
+<div class="loading" id="loading">
+  <div class="sp"></div>
+  <span style="font-size:.82rem;color:#5a6e3a;letter-spacing:.4px">Carregando documento...</span>
+</div>
+
+<div class="pw" id="pw" style="display:none"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL='https://yunoxkembhskpnprffoi.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bm94a2VtYmhza3BucHJmZm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5Nzg2MzksImV4cCI6MjA5NDU1NDYzOX0.WhkzrBCHThvJaMuLeo6oVPjrWvc_MvfCoyz9B90-Yms';
+const CNPJ_EX='46.599.025/0001-54',END_EX='Rua São José, nº 584, sala 202 — Centro, Guaíba/RS · CEP 92704-380',TEL_EX='(51) 99850-3183',EMAIL_EX='adm@agencianexus.com',CIDADE_EX='Guaíba/RS';
+const contratoId=new URLSearchParams(window.location.search).get('id');
+const PL={candidato:'Estagiário(a)',empresa_nexus:'Agência Nexus — Agente de Integração',empresa_cliente:'Empresa Concedente',instituicao:'Instituição de Ensino',supervisor:'Supervisor(a) de Estágio'};
+
+document.addEventListener('DOMContentLoaded',async()=>{
+  if(!contratoId){showErro('ID do contrato não informado.');return;}
+  try{
+    const sb=window.supabase.createClient(SB_URL,SB_KEY);
+    const[{data:c,error:e1},{data:sigs}]=await Promise.all([
+      sb.from('contratos_tce').select('*').eq('id',contratoId).single(),
+      sb.from('signatarios_tce').select('*').eq('contrato_id',contratoId).order('criado_em')
+    ]);
+    if(e1||!c){showErro('Contrato não encontrado.');return;}
+    render(c,sigs||[]);
+  }catch(err){showErro('Erro: '+err.message);}
+});
+
+function showErro(m){document.getElementById('loading').innerHTML=`<div style="font-size:2rem;margin-bottom:.5rem">&#9888;</div><div style="color:#c62828;font-weight:700">${m}</div>`;}
+
+
+function fmt(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso.includes(' ') ? iso.replace(' ', 'T') : iso);
+  if (isNaN(d.getTime())) return '—';
+  return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+
+function fmtC(iso) {
+  if (!iso) return '—';
+  if (/^\d{2}\/\d{2}\/\d{4}$/.test(iso)) return iso;
+  const d = new Date(iso.includes(' ') ? iso.replace(' ', 'T') : iso);
+  if (isNaN(d.getTime())) return '—';
+  return d.toLocaleDateString('pt-BR');
+}
+
+function fmtDH(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso.includes(' ') ? iso.replace(' ', 'T') : iso);
+  if (isNaN(d.getTime())) return '—';
+  return d.toLocaleString('pt-BR');
+}
+
+
+function brl(v){if(!v&&v!==0)return'—';return'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2});}
+
+function dado(l,v,hi=false){return`<div class="dado"><span class="dl">${l}</span><span class="dv${hi?' hi':''}">${v||'—'}</span></div>`;}
+
+function campoL(lbl,val=''){
+  const ok=val&&val!=='—';
+  return`<div class="cl-wrap"><span class="cl-lbl">${lbl}</span><div class="cl-line${ok?' ok':''}"><span class="cl-val">${ok?val:''}</span></div></div>`;
+}
+
+function sigCampo(papel,nome,info=''){
+  return`<div class="sc"><div class="sc-p">${papel}</div><div class="sc-n">${nome||'—'}</div><div class="sc-l"></div><div class="sc-d">${info||'Data: ___/___/______'}</div></div>`;
+}
+
+function rodape(n,t=4){
+  return`<div class="rf"><div class="rf-i"><strong>Agência Nexus Recrutamento e Seleção LTDA</strong> · CNPJ ${CNPJ_EX}<br/>${END_EX} · ${EMAIL_EX} · ${TEL_EX}</div><div class="rf-r"><div class="rf-dot"></div>Assinatura Eletrônica · Lei 14.063/2020&nbsp;<span class="rf-n">${n}/${t}</span></div></div>`;
+}
+
+function sep(txt){const d=document.createElement('div'); d.className='pg-sep'; d.textContent=txt; return d;}
+
+function pagina(html){const d=document.createElement('div'); d.className='pg'; d.innerHTML=html; return d;}
+
+function extrair(html){
+  const t=document.createElement('div'); t.innerHTML=html||'';
+  const tx=t.textContent;
+
+  // AJUSTE: Lê data-campo (contratos novos — fonte confiável e única)
+  const dc={};
+  t.querySelectorAll('[data-campo]').forEach(el=>{
+    dc[el.dataset.campo]=el.textContent.trim();
+  });
+  const g=campo=>dc[campo]||'';
+
+  // Regex fallback (apenas se não houver data-campo)
+  const b=r=>{ const m=tx.match(r); return m?m[1].trim():''; };
+
+  return{
+    estagiario: g('estagiario')||b(/ESTAGIÁRIO\(A\):\s*([^,\n]+)/i),
+    cpf:        g('cpf')||b(/CPF\s*(?:nº|n°|:)?\s*([\d.\-]+)/i),
+    endCand:    g('endCand')||b(/residente\s*(?:em|:)\s*([^\n,]+)/i),
+    empresa:    g('empresa')||b(/CONCEDENTE:\s*([^,\n]+)/i),
+    cnpj:       g('cnpj')||b(/CNPJ\s*(?:nº|n°|:)?\s*([\d.\-/]+)/i),
+    // AQUI O AJUSTE PARA PEGAR OS CAMPOS CERTOS
+    endEmp:     g('endEmp')||b(/sede\s*(?:em|:)\s*([^,\n.]+)/i),
+    telEmp:     g('telEmp')||b(/telefone[:\s]+([\d()\s\-+]+)/i),
+    emailEmp:   g('emailEmp')||b(/e-mail[:\s]+([\w.\-+]+@[\w.\-]+)/i),
+    repLegal:   g('repLegal')||b(/representada\s*por\s*([^,\n]+?)(?:,|\.)/i),
+    cargoRep:   g('cargoRep')||b(/cargo:\s*([^,\n.]+)/i),
+    supNome:    g('supNome')||b(/SUPERVISOR\(A\)\s*DE\s*ESTÁGIO:\s*([^,\n]+)/i),
+    supCargo:   g('supCargo')||b(/SUPERVISOR\(A\)\s*DE\s*ESTÁGIO:[^,\n]+,\s*([^,\n.]+)/i),
+    ies:        g('ies')||b(/INSTITUIÇÃO\s*DE\s*ENSINO:\s*([^,\n]+)/i),
+    cnpjIes:    g('cnpjIes')||'',
+    emailIes:   g('emailIes')||'',
+    curso:      g('curso')||b(/curso:\s*([^\n.]+)/i),
+    cargo:      g('cargo')||b(/atividades\s*de\s*([^\n]+)\s*na\s*concedente/i),
+    plano:      g('plano')||'',
+    inicio:     g('inicio')||b(/início\s*(?:em|:)\s*(\d{2}\/\d{2}\/\d{4})/i),
+    fim:        g('fim')||b(/término\s*(?:em|:)\s*(\d{2}\/\d{2}\/\d{4})/i),
+    carga:      g('carga')||b(/jornada.*?de\s*([\d\s\w\/]+(?:semanais|diárias|semanal|diária)[^,\n]*)/i),
+    bolsa:      g('bolsa')||b(/bolsa[^R]*(R\$\s*[\d.,]+)/i),
+    modalidade: g('modalidade')||'Estágio Não Obrigatório',
+  };
+}
+
+function render(c,sigs){
+  const pw=document.getElementById('pw');
+  const titulo=c.titulo||'Termo de Compromisso de Estágio';
+  document.getElementById('tbt').textContent=titulo;
+  document.title=titulo+' — Agência Nexus';
+
+  const assinados=sigs.filter(s=>s.status==='assinado');
+  const todos=assinados.length===sigs.length&&sigs.length>0;
+  const num=c.numero_contrato||'—';
+  const d=extrair(c.conteudo_html);
+
+  const est  = sigs.find(s=>s.papel==='candidato');
+  const conc = sigs.find(s=>s.papel==='empresa_cliente');
+  const ies  = sigs.find(s=>s.papel==='instituicao');
+  const sup  = sigs.find(s=>s.papel==='supervisor');
+
+  /* ══ PG 1 — CAPA + DADOS ══════════════════════════════ */
+  pw.appendChild(pagina(`
+    <div class="b1">
+      <div class="b1-top">
+        <div class="b1-logo">
+          <div class="b1-lb"><img src="imagens/fundo.png" alt="EX" onerror="this.outerHTML='<span style=\\'color:#fff;font-weight:900;font-size:.85rem;font-family:Georgia,serif\\'>EX</span>'"/></div>
+          <div><div class="b1-brand">Agência <span>Nexus</span></div><div class="b1-sl">Recrutamento · Seleção · Estágios</div></div>
+        </div>
+        <div class="b1-nb">
+          <div class="b1-nl">Nº do Termo</div>
+          <div class="b1-nn">${num}</div>
+          <div class="b1-nd">${fmt(c.criado_em)}</div>
+        </div>
+      </div>
+      <div class="b1-tb">
+        <div class="b1-dt">Documento Oficial — Agência Nexus</div>
+        <div class="b1-dn">${c.tipo==='clt'?'Contrato Individual<br/>de Trabalho — CLT':'Termo de Compromisso<br/>de Estágio'}</div>
+        <div class="b1-ds">${d.empresa||conc?.nome||'—'} · ${d.cargo||'—'}</div>
+        <div class="b1-lei">Lei nº 11.788/2008 · Assinatura Eletrônica · Lei 14.063/2020</div>
+        <div class="b1-sb"><div class="b1-sd"></div>${todos?'Documento totalmente assinado por todas as partes':'Processo de assinatura em andamento'}</div>
+      </div>
+    </div>
+    <div class="orn"></div>
+    <div class="body1">
+      <div class="sec">
+        <div class="sec-t">Identificação do Estagiário(a)</div>
+        <div class="g2">
+          ${dado('Nome completo',d.estagiario||est?.nome,true)}
+          ${dado('CPF',d.cpf||est?.assinatura_cpf)}
+          ${dado('E-mail',est?.email)}
+          ${dado('Endereço',d.endCand)}
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-t">Empresa Concedente</div>
+        <div class="g2">
+          ${dado('Razão Social',d.empresa||conc?.nome,true)}
+          ${dado('CNPJ',d.cnpj)}
+          ${dado('Endereço',d.endEmp)}
+          ${dado('Telefone',d.telEmp)}
+          ${dado('E-mail Corporativo',d.emailEmp)}
+          ${dado('Representante Legal',d.repLegal||conc?.nome)}
+          ${dado('Cargo do Representante',d.cargoRep)}
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-t">Instituição de Ensino</div>
+        <div class="g2">
+          ${dado('Nome da IES',d.ies||ies?.nome,true)}
+          ${dado('CNPJ da IES',d.cnpjIes)}
+          ${dado('Curso',d.curso)}
+          ${dado('E-mail IES',d.emailIes||ies?.email)}
+          ${dado('Agente de Integração','Agência Nexus')}
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-t">Condições do Estágio</div>
+        <div class="g3">
+          ${dado('Cargo / Função',d.cargo||c.cargo,true)}
+          ${dado('Início',d.inicio||fmtC(c.data_inicio))}
+          ${dado('Término',d.fim||fmtC(c.data_fim))}
+          ${dado('Carga Horária',d.carga||c.carga_horaria)}
+          ${dado('Bolsa-Auxílio',d.bolsa||brl(c.salario))}
+          ${dado('Modalidade',d.modalidade)}
+        </div>
+      </div>
+    </div>
+    ${rodape(1)}
+  `));
+
+  pw.appendChild(sep('Página 2 — Cláusulas Contratuais'));
+
+  /* ══ PG 2 — CLÁUSULAS ════════════════════════════════ */
+  const cls=[
+    ['Do Objeto',`O presente Termo tem por objeto proporcionar ao(à) estagiário(a) <strong>${d.estagiario||est?.nome||'—'}</strong> a complementação de seu ensino e aprendizagem prática, através do exercício das atividades de <strong>${d.cargo||'—'}</strong> na empresa concedente <strong>${d.empresa||conc?.nome||'—'}</strong>, em consonância com o Projeto Pedagógico do curso de <strong>${d.curso||'—'}</strong>.`],
+    ['Da Vigência',`O estágio terá início em <strong>${d.inicio||fmtC(c.data_inicio)||'—'}</strong> e término em <strong>${d.fim||fmtC(c.data_fim)||'—'}</strong>, podendo ser prorrogado por termo aditivo, respeitado o prazo máximo de 2 (dois) anos para estágio não obrigatório, conforme art. 11 da Lei nº 11.788/2008.`],
+    ['Da Jornada de Atividades',`A jornada de estágio será de <strong>${d.carga||c.carga_horaria||'—'}</strong>, compatível com o horário escolar, de segunda a sexta-feira. O horário não prejudicará as atividades acadêmicas do(a) estagiário(a), conforme art. 10 da Lei nº 11.788/2008.`],
+    ['Da Bolsa-Auxílio e Benefícios',`O(A) estagiário(a) receberá bolsa-auxílio mensal de <strong>${d.bolsa||brl(c.salario)||'—'}</strong>, paga até o 5º dia útil do mês subsequente, acrescida de auxílio-transporte. O não recebimento da bolsa, para estágio não obrigatório, descaracteriza o estágio nos termos do art. 12, §2º da Lei 11.788/2008.`],
+    ['Do Recesso Remunerado',`A cada 12 (doze) meses de estágio, o(a) estagiário(a) terá direito a 30 (trinta) dias de recesso remunerado, preferencialmente coincidindo com o recesso escolar, conforme art. 13 da Lei nº 11.788/2008. Em estágios inferiores a 12 meses, o recesso será proporcional.`],
+    ['Do Seguro contra Acidentes',`O(A) estagiário(a) estará coberto(a) por seguro de vida e acidentes pessoais durante toda a vigência deste Termo, contratado pela empresa concedente, nos termos do art. 9º, inciso IV da Lei nº 11.788/2008, com cobertura integral durante o período de estágio.`],
+    ['Das Obrigações da Concedente',`A empresa concedente compromete-se a: (i) oferecer instalações adequadas; (ii) indicar supervisor habilitado; (iii) contratar seguro contra acidentes; (iv) elaborar e encaminhar relatórios semestrais de atividades; (v) comunicar afastamentos ao agente de integração; (vi) não utilizar o estagiário como substituto de empregado.`],
+    ['Das Obrigações do Estagiário',`O(A) estagiário(a) compromete-se a: (i) cumprir fielmente as atividades do Plano de Atividades; (ii) observar as normas internas da empresa concedente; (iii) guardar sigilo de informações confidenciais; (iv) frequentar regularmente o curso de origem; (v) elaborar relatórios de atividades nos prazos estipulados.`],
+    ['Da Supervisão Acadêmica',`A Instituição de Ensino <strong>${d.ies||ies?.nome||'—'}</strong> indicará professor orientador responsável pelo acompanhamento e avaliação das atividades, realizando visitas periódicas à empresa concedente e atestando a compatibilidade do estágio com o currículo do curso.`],
+    ['Do Foro e Disposições Finais',`As partes elegem o foro da Comarca de ${CIDADE_EX} para dirimir quaisquer controvérsias oriundas deste Termo. A Agência Nexus atua exclusivamente como agente de integração, nos termos do art. 5º da Lei 11.788/2008, não configurando vínculo empregatício entre as partes.`],
+  ];
+
+  pw.appendChild(pagina(`
+    <div class="ph">
+      <div>
+        <div class="ph-t">Cláusulas Contratuais</div>
+        <div class="ph-s">Termo de Compromisso de Estágio · Lei nº 11.788/2008</div>
+      </div>
+      <div class="ph-n">${num}<br/>${fmt(c.criado_em)}</div>
+    </div>
+    <div class="orn"></div>
+    <div class="body2">
+      ${cls.map((cl,i)=>`
+        <div class="cl">
+          <div class="cl-t"><span class="cl-n">${i+1}</span>Cláusula ${['1ª','2ª','3ª','4ª','5ª','6ª','7ª','8ª','9ª','10ª'][i]} – ${cl[0]}</div>
+          <div class="cl-p">${cl[1]}</div>
+        </div>`).join('')}
+    </div>
+    ${rodape(2)}
+  `));
+
+  pw.appendChild(sep('Página 3 — Unidade Concedente, Atividades e Campos de Assinatura'));
+
+  /* ══ PG 3 — UNIDADE + ATIVIDADES + CAMPOS ════════════ */
+  pw.appendChild(pagina(`
+    <div class="ph">
+      <div>
+        <div class="ph-t">Unidade Concedente, Atividades e Assinaturas</div>
+        <div class="ph-s">Plano de Atividades · Comprometimento das Partes</div>
+      </div>
+      <div class="ph-n">${num}</div>
+    </div>
+    <div class="orn"></div>
+    <div class="body3">
+      <div class="sec">
+        <div class="sec-t">Dados da Unidade Concedente</div>
+        <div class="cg2">${campoL('Razão Social / Nome Fantasia',d.empresa||conc?.nome)}${campoL('CNPJ',d.cnpj)}</div>
+        <div class="cg3">${campoL('Endereço',d.endEmp)}${campoL('Telefone',d.telEmp)}${campoL('E-mail Corporativo',d.emailEmp||conc?.email||'')}</div>
+        <div class="cg2">${campoL('Representante Legal',d.repLegal||conc?.nome||'')}${campoL('Cargo do Representante',d.cargoRep||'')}</div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-t">Plano de Atividades de Estágio</div>
+        <div style="font-size:.5rem;color:var(--muted2);margin-bottom:.28rem;line-height:1.6">Atividades a serem desenvolvidas pelo(a) estagiário(a), em conformidade com o curso de origem:</div>
+        <div style="border:1px solid var(--border);border-radius:4px;min-height:48px;padding:.38rem .55rem;background:var(--lighter)">
+          <div style="font-size:.58rem;color:var(--ink2);line-height:1.72;white-space:pre-line">${d.plano||d.cargo||'Exercício das atividades correlatas à área do curso, de acordo com orientação do supervisor e necessidade operacional da empresa concedente.'}</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-t">Declaração e Assinaturas</div>
+        <div style="font-size:.5rem;color:var(--muted2);line-height:1.6;margin-bottom:.45rem">Os abaixo assinados declaram ter lido, compreendido e concordado com todas as cláusulas deste Termo, assumindo as obrigações nele constantes, nos termos da Lei 11.788/2008 e da Lei 14.063/2020 — Assinatura Eletrônica.</div>
+        <div class="sg2">
+          ${sigCampo('Estagiário(a)',d.estagiario||est?.nome,'CPF: '+(d.cpf||est?.assinatura_cpf||'___.___.___-__')+' · Data: ___/___/______')}
+          ${sigCampo('Empresa Concedente',conc?.nome||d.empresa,'CNPJ: '+(d.cnpj||'__.___.___/____-__')+' · Data: ___/___/______')}
+        </div>
+        <div class="sg3">
+          ${sigCampo('Instituição de Ensino',ies?.nome||d.ies||'—',(d.cnpjIes?'CNPJ: '+d.cnpjIes+' · ':'')+' Data: ___/___/______')}
+          ${sigCampo('Agente de Integração','Agência Nexus','CNPJ: '+CNPJ_EX+' · '+CIDADE_EX)}
+        </div>
+      </div>
+    </div>
+    ${rodape(3)}
+  `));
+
+  pw.appendChild(sep('Página 4 — Registro Digital de Assinaturas'));
+
+  /* ══ PG 4 — ASSINATURAS DIGITAIS ═════════════════════ */
+  const sigsHtml=sigs.map(s=>{
+    const ok=s.status==='assinado';
+    const img=ok&&s.assinatura_img
+      ?`<img class="sk-img" src="${s.assinatura_img}" alt="Assinatura de ${s.nome}"/>`
+      :`<div class="sk-ni">${ok?'Assinado':'Pendente'}</div>`;
+    return`<div class="sk">
+      <div class="sk-e">
+        <div class="sk-pb">${PL[s.papel]||s.papel}</div>
+        <div class="sk-n">${s.nome}</div>
+        <div class="sk-m">
+          ${s.email?`<span>E-mail: ${s.email}</span>`:''}
+          ${ok?`<span>Assinado em: ${fmtDH(s.assinado_em)}</span>`:''}
+          ${s.ip_assinatura&&s.ip_assinatura!=='—'?`<span>IP: ${s.ip_assinatura}</span>`:''}
+          ${s.assinatura_nome&&s.assinatura_nome!==s.nome?`<span>Nome confirmado: ${s.assinatura_nome}</span>`:''}
+          ${s.assinatura_cpf?`<span>CPF verificado: ${s.assinatura_cpf}</span>`:''}
+        </div>
+        ${ok?`<div class="sk-ok">&#10003; Assinado digitalmente — Lei 14.063/2020</div>`:`<div class="sk-pend">&#9203; Assinatura pendente</div>`}
+      </div>
+      <div class="sk-d"><div class="sk-il">Assinatura</div>${img}</div>
+    </div>`;
+  }).join('');
+
+  pw.appendChild(pagina(`
+    <div class="ph">
+      <div>
+        <div class="ph-t">Registro de Assinaturas Digitais</div>
+        <div class="ph-s">${assinados.length}/${sigs.length} assinaturas coletadas · ${todos?'Documento 100% assinado — Lei 14.063/2020':'Aguardando demais assinaturas'}</div>
+      </div>
+      <div class="ph-n">${num}<br/>${fmt(c.criado_em)}</div>
+    </div>
+    <div class="orn"></div>
+    <div class="body4">
+      ${sigsHtml}
+      <div class="aud">
+        <strong>Trilha de Auditoria — Validade Jurídica</strong>
+        <div class="aud-g">
+          <div class="aud-r"><span class="aud-l">Documento:</span><span>${c.titulo||'—'}</span></div>
+          <div class="aud-r"><span class="aud-l">Nº do Termo:</span><span>${num}</span></div>
+          <div class="aud-r"><span class="aud-l">Criado em:</span><span>${fmtDH(c.criado_em)}</span></div>
+          <div class="aud-r"><span class="aud-l">Status:</span><span>${todos?'Totalmente assinado':'Em andamento'}</span></div>
+          <div class="aud-r"><span class="aud-l">Exportado em:</span><span>${new Date().toLocaleString('pt-BR')}</span></div>
+          <div class="aud-r"><span class="aud-l">Base legal:</span><span>Lei 11.788/2008 · Lei 14.063/2020</span></div>
+          <div class="aud-r"><span class="aud-l">Plataforma:</span><span>Agência Nexus · agencianexus.com.br</span></div>
+          <div class="aud-r"><span class="aud-l">Banco de dados:</span><span>Supabase (TLS 1.3 · AES-256)</span></div>
+        </div>
+      </div>
+    </div>
+    ${rodape(4)}
+  `));
+
+  document.getElementById('loading').style.display='none';
+  pw.style.display='flex';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Novo Documento — Agência Nexus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap"/>
+<style>
+:root{--accent:#60a5fa;--primary:#1e40af;--bg:#080808;--card:#111;--card2:#141414;--border:rgba(96,165,250,.13);--border2:rgba(96,165,250,.28);--text:#f0f0f0;--muted:#666;--muted2:#333;--radius:16px;--sidebar:230px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-size:15px;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(96,165,250,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.025) 1px,transparent 1px);background-size:52px 52px}
+.app{display:flex;height:100vh;position:relative;z-index:1}
+.sidebar{width:var(--sidebar);flex-shrink:0;background:rgba(10,10,10,.97);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.sb-head{padding:1.1rem 1rem 1rem;display:flex;align-items:center;gap:.7rem;border-bottom:1px solid var(--border);}
+.sb-logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;box-shadow:0 0 14px rgba(96,165,250,.25);}
+.sb-name{font-size:.8rem;font-weight:800;line-height:1.2}
+.sb-name em{color:var(--accent);font-style:normal}
+.sb-sub{font-size:.52rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.8px;margin-top:.1rem}
+.sb-nav{flex:1;padding:.6rem .4rem;overflow-y:auto;scrollbar-width:none}
+.sb-nav::-webkit-scrollbar{display:none}
+.sb-sep{font-size:.48rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted2);padding:.8rem .7rem .3rem;}
+.sb-item{display:flex;align-items:center;gap:.6rem;padding:.48rem .65rem;border-radius:9px;cursor:pointer;text-decoration:none;color:var(--muted);font-size:.75rem;font-weight:600;transition:all .14s;position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sb-item:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.sb-item.active{background:rgba(96,165,250,.09);color:var(--accent)}
+.sb-item.active::before{content:'';position:absolute;left:0;top:18%;bottom:18%;width:2.5px;background:var(--accent);border-radius:99px;}
+.sb-ico{font-size:.85rem;flex-shrink:0;width:18px;text-align:center}
+.sb-back{display:flex;align-items:center;gap:.5rem;padding:.4rem .65rem .8rem;font-size:.65rem;color:var(--muted);cursor:pointer;text-decoration:none;opacity:.6;transition:opacity .14s;}
+.sb-back:hover{opacity:1;color:var(--text)}
+.sb-foot{padding:.7rem .8rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:.55rem;}
+.sb-av{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;flex-shrink:0;}
+.sb-uname{font-size:.7rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px}
+.sb-uemail{font-size:.58rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px}
+.sb-logout{background:none;border:none;cursor:pointer;color:var(--muted);font-size:.8rem;margin-left:auto;opacity:.45;transition:opacity .15s}
+.sb-logout:hover{opacity:1;color:var(--red)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(8,8,8,.9);flex-shrink:0}
+.tb-bc{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tb-bc a{color:var(--muted);text-decoration:none}.tb-bc a:hover{color:var(--accent)}
+.tb-bc strong{color:var(--text)}
+.content{flex:1;overflow-y:auto;padding:1.5rem}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-thumb{background:var(--muted2);border-radius:99px}
+.form-wrap{max-width:760px}
+.sec-title{font-size:1.3rem;font-weight:900;margin-bottom:.2rem}.sec-title span{color:var(--accent)}
+.sec-sub{font-size:.72rem;color:var(--muted);margin-bottom:1.4rem}
+.tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem}
+.tipo-item{display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:13px;cursor:pointer;transition:all .18s}
+.tipo-item:hover{background:rgba(255,255,255,.06)}
+.tipo-item.ativo{border-color:var(--accent);background:rgba(96,165,250,.07)}
+.tipo-ico{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.tipo-nome{font-size:.85rem;font-weight:700;margin-bottom:.1rem}
+.tipo-desc{font-size:.62rem;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem}
+.card-label{font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.card-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.05)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+.form-group{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.5rem}
+.fl{font-size:.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+.req{color:var(--accent)}
+.fi{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:.62rem .85rem;font-family:inherit;font-size:.82rem;color:var(--text);outline:none;transition:border .15s;width:100%}
+.fi:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(96,165,250,.07)}
+.fi::placeholder{color:var(--muted2)}
+select.fi option{background:#161616}
+textarea.fi{resize:vertical;line-height:1.7;min-height:80px}
+.fi-note{font-size:.6rem;color:var(--muted2);margin-top:.2rem}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-family:inherit;font-size:.8rem;font-weight:700;transition:all .15s;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:0 2px 12px rgba(96,165,250,.25)}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--muted);border-color:rgba(255,255,255,.08)}
+.btn-ghost:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.spinner{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#toast-ct{position:fixed;bottom:1.5rem;right:1.5rem;display:flex;flex-direction:column;gap:.4rem;z-index:999}
+.toast{padding:.65rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:#fff;animation:fadeUp .25s ease}
+.toast.ok{background:#2ecc71}.toast.err{background:#e74c3c}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── MOBILE OVERLAY SIDEBAR ── */
+.mob-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.65);z-index:200;
+  backdrop-filter:blur(2px);
+}
+.mob-overlay.open{display:block}
+.mob-menu-btn{
+  display:none;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;width:38px;height:38px;
+  align-items:center;justify-content:center;
+  cursor:pointer;font-size:1.1rem;color:var(--text);
+  flex-shrink:0;
+}
+
+@media(max-width:768px){
+  /* Layout base */
+  html,body{overflow:auto!important;height:auto!important}
+  .app{display:block!important;height:auto!important;min-height:100vh}
+  .main{height:auto!important;overflow:visible!important;display:block!important}
+  .content{overflow:visible!important;height:auto!important;padding:1rem .9rem 5rem!important}
+  .topbar{
+    padding:.55rem .9rem!important;
+    display:flex!important;align-items:center!important;
+    gap:.5rem!important;flex-wrap:wrap!important;
+    position:sticky;top:0;z-index:100;
+    background:rgba(8,8,8,.95);
+    backdrop-filter:blur(8px);
+  }
+  .tb-bc{font-size:.68rem!important;flex:1}
+  .tb-right{flex-wrap:wrap!important;gap:.3rem!important;margin-left:auto}
+  .tb-right .btn,.tb-right button{font-size:.65rem!important;padding:.3rem .55rem!important}
+
+  /* Sidebar como painel lateral sobre o conteúdo */
+  .sidebar{
+    position:fixed!important;
+    left:-280px!important;top:0!important;bottom:0!important;
+    width:260px!important;z-index:300!important;
+    transition:left .25s cubic-bezier(.4,0,.2,1)!important;
+    box-shadow:6px 0 30px rgba(0,0,0,.6)!important;
+    overflow-y:auto!important;
+  }
+  .sidebar.mob-open{left:0!important}
+  .mob-menu-btn{display:flex!important}
+}
+
+/* Form mobile */
+@media(max-width:768px){
+  .grid-2,.grid-3{grid-template-columns:1fr!important}
+  .tipo-grid{grid-template-columns:1fr 1fr!important}
+  .form-wrap{max-width:100%!important}
+  .card{padding:1rem 1.1rem!important;border-radius:12px!important}
+  .fi{font-size:16px!important}
+  .btn{font-size:.78rem!important}
+  .sec-title{font-size:1.1rem!important}
+  .sec-sub{font-size:.7rem!important}
+}
+@media(max-width:420px){
+  .tipo-grid{grid-template-columns:1fr!important}
+  .tipo-ico{width:36px!important;height:36px!important;font-size:1rem!important}
+  .tipo-nome{font-size:.78rem!important}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="sb-head">
+    <div class="sb-logo"><img src="imagens/fundo.png" alt="Nexus" style="width:22px;height:22px;object-fit:contain" onerror="this.parentElement.innerHTML='✉️'"/></div>
+    <div><div class="sb-name">Agência <em>Nexus</em></div><div class="sb-sub">Cartas Manuais</div></div>
+  </div>
+  <nav class="sb-nav">
+    <a class="sb-back" href="index.html">← Hub Central</a>
+    <div class="sb-sep">Painel</div>
+    <a class="sb-item" href="index-cartas.html">
+      <span class="sb-ico">📋</span>Painel de Cartas
+    </a>
+    <div class="sb-sep">Criar Carta</div>
+    <a class="sb-item active" href="nova-carta.html">
+      <span class="sb-ico">📄</span>Nova Carta PDF
+    </a>
+    <a class="sb-item" href="assinar-carta.html">
+      <span class="sb-ico">✍️</span>Carta + Assinatura
+    </a>
+    <a class="sb-item" href="nova-carta-cancelamento.html">
+      <span class="sb-ico">📋</span>Cancelamento &amp; Recesso
+    </a>
+  
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-av">EX</div>
+    <div><div class="sb-uname" id="user-nome">—</div><div class="sb-uemail" id="user-email">—</div></div>
+    <button class="sb-logout" onclick="doLogout()" title="Sair">⏻</button>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="mob-overlay" id="mobOverlay" onclick="closeSidebar()"></div>
+  <div class="topbar">
+    <button class="mob-menu-btn" onclick="toggleSidebar()">☰</button>
+    <div class="tb-bc"><a href="index.html">Hub</a> <span style="color:var(--muted2)">›</span> <a href="index-cartas.html">Cartas Manuais</a> <span style="color:var(--muted2)">›</span> <strong>Nova Carta PDF</strong></div>
+  </div>
+  <div class="content">
+    <div class="form-wrap">
+      <div class="sec-title">✍️ Novo <span>Documento</span></div>
+      <div class="sec-sub">Selecione o tipo e preencha os dados para gerar em PDF.</div>
+
+      <!-- TIPO -->
+      <div class="tipo-grid">
+        <div class="tipo-item ativo" id="btn-carta_recomendacao" onclick="setTipo('carta_recomendacao')">
+          <div class="tipo-ico" style="background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.22)">⭐</div>
+          <div><div class="tipo-nome">Recomendação</div><div class="tipo-desc">Estagiário ou efetivo</div></div>
+        </div>
+        <div class="tipo-item" id="btn-carta_cancelamento" onclick="setTipo('carta_cancelamento')">
+          <div class="tipo-ico" style="background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.22)">❌</div>
+          <div><div class="tipo-nome">Cancelamento</div><div class="tipo-desc">Encerramento de estágio</div></div>
+        </div>
+        <div class="tipo-item" id="btn-carta_recesso" onclick="setTipo('carta_recesso')">
+          <div class="tipo-ico" style="background:rgba(52,152,219,.12);border:1px solid rgba(52,152,219,.22)">🏖️</div>
+          <div><div class="tipo-nome">Recesso de Estágio</div><div class="tipo-desc">15 dias por Lei 11.788</div></div>
+        </div>
+        <div class="tipo-item" id="btn-tce" onclick="setTipo('tce')">
+          <div class="tipo-ico" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.22)">📄</div>
+          <div><div class="tipo-nome">TCE / Contrato</div><div class="tipo-desc">Termo de Compromisso</div></div>
+        </div>
+      </div>
+
+      <!-- DADOS DO ESTAGIÁRIO -->
+      <div class="card">
+        <div class="card-label">Dados do Estagiário / Profissional</div>
+        <div class="grid-2" style="margin-bottom:.8rem">
+          <div class="form-group"><label class="fl">Nome completo <span class="req">*</span></label><input class="fi" id="nome" placeholder="Nome completo"/></div>
+          <div class="form-group"><label class="fl">CPF</label><input class="fi" id="cpf" placeholder="000.000.000-00" oninput="maskCPF(this)"/></div>
+        </div>
+        <div class="grid-2" style="margin-bottom:.8rem" id="bloco-cargo">
+          <div class="form-group"><label class="fl">Cargo / Função</label><input class="fi" id="cargo" placeholder="Ex: Estagiária de Administração"/></div>
+          <div class="form-group"><label class="fl">Tipo de vínculo</label>
+            <select class="fi" id="vinculo_tipo"><option value="estagiario">Estagiário(a)</option><option value="efetivo">Efetivo(a) — CLT</option></select>
+          </div>
+        </div>
+        <div class="grid-2" id="bloco-curso" style="margin-bottom:.8rem">
+          <div class="form-group"><label class="fl">Curso</label><input class="fi" id="curso" placeholder="Ex: Bacharelado em Administração"/></div>
+          <div class="form-group"><label class="fl">Instituição de Ensino</label><input class="fi" id="instituicao" placeholder="Ex: Universidade Pitágoras Unopar"/></div>
+        </div>
+        <div class="grid-3" id="bloco-semestre">
+          <div class="form-group"><label class="fl">Semestre / Fase</label><input class="fi" id="semestre" placeholder="Ex: 7º semestre"/></div>
+          <div class="form-group"><label class="fl">Matrícula</label><input class="fi" id="matricula" placeholder="Ex: 2023001234"/></div>
+          <div class="form-group"><label class="fl">Endereço do estagiário</label><input class="fi" id="endereco_est" placeholder="Rua, nº, bairro, cidade/UF, CEP"/></div>
+        </div>
+      </div>
+
+      <!-- EMPRESA -->
+      <div class="card">
+        <div class="card-label">Empresa / Unidade Concedente</div>
+        <div class="grid-2" style="margin-bottom:.8rem">
+          <div class="form-group"><label class="fl">Nome da empresa <span class="req">*</span></label><input class="fi" id="empresa" placeholder="Razão social da empresa"/></div>
+          <div class="form-group"><label class="fl">CNPJ da empresa</label><input class="fi" id="cnpj_empresa" placeholder="00.000.000/0001-00" oninput="maskCNPJ(this)"/></div>
+        </div>
+        <div class="form-group"><label class="fl">Endereço da empresa</label><input class="fi" id="endereco_emp" placeholder="Rua, nº, sala, bairro, cidade/UF, CEP"/></div>
+      </div>
+
+      <!-- PERÍODO -->
+      <div class="card">
+        <div class="card-label">Período de Vigência</div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl" id="lbl-ini">Data de início</label><input type="date" class="fi" id="periodo_inicio"/></div>
+          <div class="form-group"><label class="fl" id="lbl-fim">Data de término</label><input type="date" class="fi" id="periodo_fim"/></div>
+        </div>
+      </div>
+
+      <!-- RECESSO -->
+      <div class="card" id="bloco-recesso" style="display:none">
+        <div class="card-label">Dados do Recesso</div>
+        <div class="grid-3">
+          <div class="form-group"><label class="fl">Início do recesso</label><input type="date" class="fi" id="recesso_inicio"/></div>
+          <div class="form-group"><label class="fl">Fim do recesso</label><input type="date" class="fi" id="recesso_fim"/></div>
+          <div class="form-group"><label class="fl">Nº de dias</label><input type="number" class="fi" id="dias_recesso" value="15" min="1" max="30"/></div>
+        </div>
+      </div>
+
+      <!-- FINANCEIRO -->
+      <div class="card">
+        <div class="card-label">Dados Financeiros</div>
+        <div class="grid-3">
+          <div class="form-group"><label class="fl">Valor da bolsa (R$)</label><input type="number" class="fi" id="valor_bolsa" placeholder="900.00" step="0.01"/></div>
+          <div class="form-group"><label class="fl">Valor do VT (R$/dia)</label><input type="number" class="fi" id="valor_vt" placeholder="0.00" step="0.01"/></div>
+          <div class="form-group" id="bloco-taxa"><label class="fl">Taxa administrativa (%)</label><input type="number" class="fi" id="taxa_admin" value="15"/></div>
+        </div>
+        <div class="form-group" id="bloco-valor-total" style="margin-top:.5rem;display:none">
+          <label class="fl">Valor total declarado (R$)</label>
+          <input type="number" class="fi" id="valor_total" placeholder="Ex: 900.00" step="0.01"/>
+          <span class="fi-note">Valor exato a ser declarado na carta de cancelamento</span>
+        </div>
+      </div>
+
+      <!-- SUPERVISOR -->
+      <div class="card">
+        <div class="card-label">Supervisor / Responsável</div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Nome do supervisor</label><input class="fi" id="supervisor_nome" placeholder="Ex: Elisa Soares Marçal dos Santos Nunes"/></div>
+          <div class="form-group"><label class="fl">Cargo do supervisor</label><input class="fi" id="supervisor_cargo" placeholder="Ex: Proprietária"/></div>
+        </div>
+      </div>
+
+      <!-- TCE EXTRA -->
+      <div class="card" id="bloco-tce" style="display:none">
+        <div class="card-label">Informações adicionais do TCE</div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Jornada semanal</label><input class="fi" id="jornada_horas" value="6 horas diárias / 30h semanais"/></div>
+          <div class="form-group"><label class="fl">Apólice de seguro</label><input class="fi" id="apolice_seguro" value="1018200561901 Capemisa Seguradora"/></div>
+        </div>
+      </div>
+
+      <!-- ATIVIDADES — visível em TCE e Cancelamento/Recesso (estagiário) -->
+      <div class="card" id="bloco-atividades" style="display:none">
+        <div class="card-label">Atividades do Estagiário</div>
+        <div class="form-group">
+          <label class="fl">Descrição das atividades exercidas</label>
+          <textarea class="fi" id="atividades_plano" rows="5" placeholder="Ex: atividades administrativas no setor, suporte no controle de agendamento, planilhas e processos administrativos diversos, auxiliar nas entrevistas, apoiar o acompanhamento de cronogramas, organização de documentos e controles internos..."></textarea>
+          <span style="font-size:.58rem;color:var(--muted2);margin-top:.3rem;display:block">Este campo aparece no Plano de Atividades (Anexo I) do TCE e pode ser usado como referência nas demais cartas.</span>
+        </div>
+      </div>
+
+      <!-- RECOMENDAÇÃO EXTRA -->
+      <div class="card" id="bloco-rec-extra" style="display:none">
+        <div class="card-label">Parágrafo adicional (opcional)</div>
+        <div class="form-group">
+          <textarea class="fi" id="texto_livre" rows="4" placeholder="Destaque habilidades, conquistas ou observações..."></textarea>
+        </div>
+      </div>
+
+      <!-- EMISSÃO -->
+      <div class="card">
+        <div class="card-label">Emissão do Documento</div>
+        <div class="grid-2">
+          <div class="form-group"><label class="fl">Cidade</label><input class="fi" id="cidade_emissao" value="Guaíba/RS"/></div>
+          <div class="form-group"><label class="fl">Data de emissão</label><input type="date" class="fi" id="data_emissao"/></div>
+        </div>
+      </div>
+
+      <!-- AÇÕES -->
+      <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.2rem;padding-bottom:3rem">
+        <button class="btn btn-primary" id="btnGerar" onclick="gerar()">
+          <span id="btnTxt">📄 Gerar Documento</span>
+        </button>
+        <button class="btn btn-ghost" onclick="previsualizar()">👁 Pré-visualizar</button>
+        <a href="index-cartas.html" class="btn btn-ghost">← Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div id="toast-ct"></div>
+<script src="assets/cr-auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+let _tipo='carta_recomendacao';
+document.getElementById('data_emissao').value=new Date().toISOString().slice(0,10);
+
+function setTipo(t){
+  _tipo=t;
+  document.querySelectorAll('.tipo-item').forEach(e=>e.classList.remove('ativo'));
+  document.getElementById('btn-'+t).classList.add('ativo');
+  const show=(id,on)=>{const e=document.getElementById(id);if(e)e.style.display=on?'':'none';};
+  show('bloco-recesso',     t==='carta_cancelamento'||t==='carta_recesso');
+  show('bloco-tce',         t==='tce');
+  show('bloco-atividades',  t==='tce'||t==='carta_cancelamento'||t==='carta_recesso');
+  show('bloco-rec-extra',   t==='carta_recomendacao');
+  show('bloco-valor-total', t==='carta_cancelamento');
+  show('bloco-cargo',       t==='carta_recomendacao');
+  show('bloco-curso',       t!=='carta_recomendacao');
+  show('bloco-semestre',    t==='tce'||t==='carta_cancelamento'||t==='carta_recesso');
+  const map={
+    carta_recomendacao:['Início do vínculo','Término do vínculo'],
+    carta_cancelamento:['Mês de referência (início)','Mês de referência (fim)'],
+    carta_recesso:['Início do contrato','Fim do contrato'],
+    tce:['Início do estágio','Fim do estágio']
+  };
+  document.getElementById('lbl-ini').textContent=map[t][0];
+  document.getElementById('lbl-fim').textContent=map[t][1];
+}
+setTipo('carta_recomendacao');
+
+function v(id){return(document.getElementById(id)?.value||'').trim();}
+
+function dadosForm(){
+  return{
+    tipo_doc:_tipo, tipo:v('vinculo_tipo')||'estagiario',
+    nome:v('nome'), cpf:v('cpf'), cargo:v('cargo'),
+    empresa:v('empresa'), cnpj_empresa:v('cnpj_empresa'), endereco_emp:v('endereco_emp'),
+    endereco_est:v('endereco_est'), curso:v('curso'), semestre:v('semestre'), matricula:v('matricula'), instituicao:v('instituicao'),
+    periodo_inicio:v('periodo_inicio')||null, periodo_fim:v('periodo_fim')||null,
+    recesso_inicio:v('recesso_inicio')||null, recesso_fim:v('recesso_fim')||null,
+    dias_recesso:parseInt(v('dias_recesso'))||15,
+    valor_bolsa:parseFloat(v('valor_bolsa'))||null, valor_vt:parseFloat(v('valor_vt'))||null,
+    taxa_admin:parseFloat(v('taxa_admin'))||15, valor_total:parseFloat(v('valor_total'))||null,
+    supervisor_nome:v('supervisor_nome'), supervisor_cargo:v('supervisor_cargo'),
+    texto_livre:v('texto_livre'), jornada_horas:v('jornada_horas')||'6 horas diárias / 30h semanais',
+    apolice_seguro:v('apolice_seguro')||'1018200561901 Capemisa Seguradora',
+    atividades_plano:v('atividades_plano'),
+    cidade_emissao:v('cidade_emissao')||'Guaíba/RS',
+    data_emissao:v('data_emissao')||new Date().toISOString().slice(0,10)
+  };
+}
+
+function previsualizar(){
+  const d=dadosForm();
+  if(!d.nome){toast('Informe o nome.','err');return;}
+  d.numero_carta='PRÉ-VISUALIZAÇÃO';
+  localStorage.setItem('cr_preview',JSON.stringify(d));
+  window.open('visualizar.html','_blank');
+  setTimeout(()=>localStorage.removeItem('cr_preview'),120000);
+}
+
+function gerar(){
+  const d=dadosForm();
+  if(!d.nome){toast('Informe o nome.','err');return;}
+  // Número de referência local — não salvo em lugar nenhum
+  const prefixos={carta_recomendacao:'REC',carta_cancelamento:'CAN',carta_recesso:'RCS',tce:'TCE'};
+  const agora=new Date();
+  d.numero_carta=`${prefixos[_tipo]||'DOC'}-${agora.getFullYear()}-${String(agora.getTime()).slice(-4)}`;
+  // Dados ficam só no localStorage temporariamente para renderizar o PDF
+  localStorage.setItem('cr_preview',JSON.stringify(d));
+  window.open('visualizar.html','_blank');
+  // Limpa após 2 minutos — tempo suficiente para gerar o PDF
+  setTimeout(()=>localStorage.removeItem('cr_preview'),120000);
+  toast('✅ Documento gerado! Nenhum dado salvo no sistema.');
+}
+
+function maskCPF(el){let v=el.value.replace(/\D/g,'');v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');el.value=v;}
+function maskCNPJ(el){let v=el.value.replace(/\D/g,'');v=v.replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1/$2').replace(/(\d{4})(\d{1,2})$/,'$1-$2');el.value=v;}
+function toast(msg,tipo='ok'){
+  const el=document.createElement('div');el.className=`toast ${tipo}`;el.textContent=msg;
+  document.getElementById('toast-ct').appendChild(el);setTimeout(()=>el.remove(),3500);
+}
+
+function toggleSidebar(){
+  document.querySelector('.sidebar').classList.toggle('mob-open');
+  document.getElementById('mobOverlay').classList.toggle('open');
+}
+function closeSidebar(){
+  document.querySelector('.sidebar').classList.remove('mob-open');
+  document.getElementById('mobOverlay').classList.remove('open');
+}
+// Fecha ao clicar em link da sidebar
+document.querySelectorAll('.sb-item').forEach(el=>{
+  el.addEventListener('click',()=>{if(window.innerWidth<=768)closeSidebar();});
+});
+
+async function doLogout(){
+  // Caminho absoluto para login, funciona em qualquer subdiretório
+  const loginUrl = window.location.href.replace(/\/[^\/]*$/, '/login.html');
+  try{
+    // Tenta usar _sb se disponível
+    if(window._sb){
+      await window._sb.auth.signOut();
+    } else {
+      // Fallback: cria cliente Supabase e desloga
+      const SB_URL='https://yunoxkembhskpnprffoi.supabase.co';
+      const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bm94a2VtYmhza3BucHJmZm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5Nzg2MzksImV4cCI6MjA5NDU1NDYzOX0.WhkzrBCHThvJaMuLeo6oVPjrWvc_MvfCoyz9B90-Yms';
+      const tmp = supabase.createClient(SB_URL, SB_KEY);
+      await tmp.auth.signOut();
+    }
+  }catch(e){ console.error('logout error', e); }
+  window.location.replace(loginUrl);
+}
+</script>
+</body>
+</html>

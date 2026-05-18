@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Documento — Agência Nexus</title>
+
+<!-- ═══ FONTES LOCAIS SORA ═══ -->
+<style>
+@font-face {
+  font-family: 'Sora';
+  src: url('fonts/Sora-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('fonts/Sora-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('fonts/Sora-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('fonts/Sora-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('fonts/Sora-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('fonts/Sora-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('fonts/Sora-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* ═══ VARIÁVEIS E RESET ═══ */
+:root{
+  --verde:#1e40af;
+  --verde2:#1e40af;
+  --verde3:#60a5fa;
+  --text:#1a1a1a;
+  --muted:#555;
+  --muted2:#888;
+  --border:#d0e4b0;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#d0d0d0;
+  font-family:'Sora',sans-serif;
+  color:var(--text);
+}
+
+/* TOOLBAR */
+.toolbar{background:#1e1e1e;padding:.65rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;position:sticky;top:0;z-index:100}
+.toolbar-title{font-size:.75rem;font-weight:700;color:#aaa}
+.toolbar-btns{display:flex;gap:.5rem}
+.btn{display:inline-flex;align-items:center;gap:.3rem;padding:.42rem .85rem;border-radius:7px;border:none;cursor:pointer;font-family:inherit;font-size:.72rem;font-weight:700;transition:all .15s;white-space:nowrap}
+.btn-print{background:linear-gradient(135deg,#1e40af,#60a5fa);color:#fff}
+.btn-back{background:rgba(255,255,255,.1);color:#ccc;border:1px solid rgba(255,255,255,.12)}
+.btn-back:hover{background:rgba(255,255,255,.18)}
+
+/* SCROLL */
+.pages-wrapper{padding:1.2rem .8rem 3rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+
+/* PÁGINA A4
+   Tela: largura fixa 210mm, altura auto (conteúdo varia)
+   Print: largura 210mm, altura EXATA 297mm = 1 folha A4  */
+.pagina{
+  background:#fff;
+  width:210mm;
+  min-height:297mm;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 3px 24px rgba(0,0,0,.22);
+  overflow:hidden;
+}
+
+/* SEPARADOR VISUAL (apenas tela) */
+.page-sep{
+  display:flex;align-items:center;gap:.8rem;
+  font-size:.55rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:#888;
+  width:210mm;max-width:100vw;
+}
+.page-sep::before,.page-sep::after{content:'';flex:1;height:1px;background:#b0b0b0}
+
+/* CABEÇALHO VERDE */
+.doc-header{
+  background:linear-gradient(135deg,var(--verde) 0%,var(--verde2) 55%,#3b82f6 100%);
+  padding:1.3rem 1.8rem 1.1rem;
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+.doc-header::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.06)}
+.hd-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;gap:.5rem}
+.hd-logo{display:flex;align-items:center;gap:.65rem}
+.hd-logo-box{width:48px;height:48px;border-radius:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.hd-logo-box img{width:100%;height:100%;object-fit:contain;padding:3px}
+.hd-logo-txt{font-size:1rem;font-weight:900;color:#fff}
+.hd-brand{font-size:.95rem;font-weight:900;color:#fff}.hd-brand span{color:var(--verde3)}
+.hd-slogan{font-size:.48rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1.8px;margin-top:.08rem}
+.hd-right{text-align:right;flex-shrink:0}
+.hd-num-label{font-size:.46rem;text-transform:uppercase;letter-spacing:1.8px;color:rgba(255,255,255,.5)}
+.hd-num{font-size:.72rem;font-weight:800;color:rgba(255,255,255,.92);letter-spacing:.8px;margin-top:.08rem}
+.hd-data{font-size:.52rem;color:rgba(255,255,255,.6);margin-top:.08rem}
+.hd-title{margin-top:.9rem;position:relative;z-index:1}
+.hd-title h2{font-size:1rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.7px}
+.hd-sub{font-size:.48rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:1.8px;margin-top:.2rem}
+.ornament{height:4px;background:linear-gradient(90deg,var(--verde3),#d4f47c,var(--verde3));flex-shrink:0}
+
+/* CABEÇALHO MINI (pág 2+) */
+.page-header-mini{background:linear-gradient(135deg,var(--verde),var(--verde2));padding:.6rem 1.8rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.phm-brand{font-size:.7rem;font-weight:800;color:#fff}.phm-brand span{color:var(--verde3)}
+.phm-right{font-size:.5rem;color:rgba(255,255,255,.65);text-align:right}
+
+/* CORPO */
+.doc-body{padding:1.3rem 1.8rem;flex:1}
+.doc-body p{font-size:.77rem;line-height:1.82;margin-bottom:.75em;text-align:justify}
+.doc-body strong{font-weight:700}
+
+/* DADOS */
+.dados-box{background:linear-gradient(135deg,rgba(30,64,175,.04),rgba(96,165,250,.06));border:1px solid rgba(30,64,175,.13);border-left:3px solid var(--verde3);border-radius:0 7px 7px 0;padding:.75rem 1rem;margin:.75rem 0}
+.db-nome{font-size:.9rem;font-weight:800;color:var(--verde2);margin-bottom:.45rem}
+.dados-grid{display:grid;grid-template-columns:1fr 1fr;gap:.3rem .6rem}
+.di{display:flex;flex-direction:column;gap:.06rem}
+.di-label{font-size:.45rem;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:1px}
+.di-val{font-size:.68rem;font-weight:600;color:var(--text)}
+
+/* CLÁUSULAS */
+.clausula{margin-bottom:.9rem}
+.clausula h3{font-size:.7rem;font-weight:800;color:var(--verde2);margin-bottom:.35rem;border-bottom:1px solid var(--border);padding-bottom:.2rem}
+.clausula p,.clausula li{font-size:.7rem;line-height:1.72;text-align:justify;margin-bottom:.3em}
+.clausula ul,.clausula ol{padding-left:1.1rem;margin:.2rem 0}
+
+/* ASSINATURAS */
+.assinaturas{margin-top:1.2rem;padding-top:.8rem;border-top:1px solid #e0e0e0}
+.ass-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:.7rem}
+.ass-4{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:.7rem}
+.ass-item{display:flex;flex-direction:column;align-items:center;text-align:center}
+.ass-line{width:82%;height:1px;background:#bbb;margin-bottom:.3rem}
+.ass-nome{font-size:.65rem;font-weight:700}
+.ass-cargo{font-size:.54rem;color:var(--muted);margin-top:.06rem}
+
+/* RODAPÉ */
+.doc-footer{background:linear-gradient(135deg,#f4f9ee,#ecf5e4);border-top:1px solid var(--border);padding:.6rem 1.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.35rem;flex-shrink:0}
+.ft-info{font-size:.49rem;color:var(--muted);line-height:1.65}
+.ft-info strong{color:var(--verde2)}
+.ft-badge{display:flex;align-items:center;gap:.28rem;font-size:.45rem;color:var(--muted2)}
+.ft-dot{width:4px;height:4px;border-radius:50%;background:var(--verde3);box-shadow:0 0 3px var(--verde3)}
+
+/* ═══ IMPRESSÃO — A4 EXATO ═══ */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  @page{size:A4 portrait;margin:0}
+  body{background:#fff;font-family:'Sora',sans-serif!important}
+  *{font-family:'Sora',sans-serif!important}
+  .toolbar,.page-sep{display:none!important}
+  .pages-wrapper{padding:0;gap:0}
+
+  /* Cada .pagina = 1 folha A4 exata */
+  .pagina{
+    width:210mm!important;
+    height:297mm!important;
+    min-height:297mm!important;
+    max-height:297mm!important;
+    page-break-after:always;
+    break-after:page;
+    box-shadow:none;
+    overflow:hidden;
+  }
+  .pagina:last-child{
+    page-break-after:auto;
+    break-after:auto;
+  }
+  /* Evita quebra no meio de blocos */
+  .clausula,.dados-box,.assinaturas,.ass-grid,.ass-4,.ass-item{
+    page-break-inside:avoid;break-inside:avoid;
+  }
+}
+
+/* ═══ MOBILE ═══ */
+@media(max-width:680px){
+  .pages-wrapper{padding:.6rem .3rem 2rem}
+  .pagina{width:100%;min-height:auto}
+  .doc-header{padding:.9rem 1rem .8rem}
+  .doc-body{padding:1rem}
+  .doc-footer{padding:.5rem 1rem}
+  .page-header-mini{padding:.5rem 1rem}
+  .hd-title h2{font-size:.85rem}
+  .dados-grid{grid-template-columns:1fr}
+  .ass-grid,.ass-4{grid-template-columns:1fr;gap:1rem}
+  .page-sep{width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-title">📄 <span id="toolbar-title">Documento</span></div>
+  <div class="toolbar-btns">
+    <button class="btn btn-back" onclick="history.back()">← Voltar</button>
+    <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+  </div>
+</div>
+
+<div class="pages-wrapper" id="pw"></div>
+
+<script>
+const meses=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const fD =i=>{if(!i)return'—';const[y,m,d]=String(i).split('-');return`${d}/${m}/${y}`;};
+const fDE=i=>{if(!i)return'—';const[y,m,d]=String(i).split('-');return`${d} de ${meses[+m-1]} de ${y}`;};
+const cap=s=>s?s.replace(/\b\w/g,l=>l.toUpperCase()):'';
+const brl=v=>v?Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}):'—';
+const brlX=v=>{
+  if(!v)return'';const n=Math.floor(Number(v));
+  const un=['','um','dois','três','quatro','cinco','seis','sete','oito','nove','dez','onze','doze','treze','quatorze','quinze','dezesseis','dezessete','dezoito','dezenove'];
+  const dz=['','dez','vinte','trinta','quarenta','cinquenta','sessenta','setenta','oitenta','noventa'];
+  const ct=['','cem','duzentos','trezentos','quatrocentos','quinhentos','seiscentos','setecentos','oitocentos','novecentos'];
+  let r='';if(n>=1000){const k=Math.floor(n/1000);r+=(k===1?'um mil':(un[k]||'')+' mil')+' ';}
+  const rs=n%1000;if(rs>=100){r+=ct[Math.floor(rs/100)];if(rs%100)r+=' e ';}
+  const r2=rs%100;if(r2>=20){r+=dz[Math.floor(r2/10)];if(r2%10)r+=' e '+un[r2%10];}else if(r2>0)r+=un[r2];
+  return r.trim();
+};
+
+const CNPJ='46.599.025/0001-54';
+const END ='Rua São José, nº 584, sala 202 — Centro, Guaíba/RS · CEP 92704-380';
+const TEL ='(51) 99850-3183';
+const EMAIL='adm@agencianexus.com';
+
+const logo=()=>`<div class="hd-logo-box"><img src="imagens/fundo.png" alt="Nexus" onerror="this.outerHTML='<span class=hd-logo-txt>EX</span>'"/></div>`;
+
+const cab=(d,t,s)=>{
+  const dt=d.data_emissao?fDE(d.data_emissao):fDE(new Date().toISOString().slice(0,10));
+  return `<div class="doc-header">
+    <div class="hd-top">
+      <div class="hd-logo">${logo()}<div><div class="hd-brand">Agência <span>Nexus</span></div><div class="hd-slogan">Recrutamento · Seleção · Estágios</div></div></div>
+      <div class="hd-right"><div class="hd-num-label">Nº do Documento</div><div class="hd-num">${d.numero_carta||'PRÉ-VISUALIZAÇÃO'}</div><div class="hd-data">${dt}</div></div>
+    </div>
+    <div class="hd-title"><h2>${t}</h2>${s?`<div class="hd-sub">${s}</div>`:''}</div>
+  </div><div class="ornament"></div>`;
+};
+
+const cabM=(pg,tot)=>`<div class="page-header-mini">
+  <div class="phm-brand">Agência <span>Nexus</span> — Recrutamento e Seleção</div>
+  <div class="phm-right">Pág. ${pg} de ${tot} · ${EMAIL} · ${TEL}</div>
+</div><div class="ornament"></div>`;
+
+const rod=()=>`<div class="doc-footer">
+  <div class="ft-info"><strong>Agência Nexus Recrutamento e Seleção LTDA</strong> · CNPJ ${CNPJ}<br/>${END}<br/>${EMAIL} · ${TEL}</div>
+  <div class="ft-badge"><div class="ft-dot"></div>Gerado eletronicamente · Sistema Agência Nexus</div>
+</div>`;
+
+const pag=(c)=>`<div class="pagina">${c}</div>`;
+const body=(h)=>`<div class="doc-body">${h}</div>`;
+const sep=(pg,tot)=>`<div class="page-sep">Página ${pg} de ${tot}</div>`;
+
+const assG=(itens,cls='ass-grid')=>`<div class="${cls}">${itens.map(i=>`
+  <div class="ass-item"><div class="ass-line"></div><div class="ass-nome">${i[0]}</div>
+  ${i.slice(1).map(x=>x?`<div class="ass-cargo"${x.startsWith('#')||x.startsWith('Agência')?` style="color:#1e40af;font-weight:600"`:'' }>${x}</div>`:'').join('')}
+  </div>`).join('')}</div>`;
+
+/* ── RECOMENDAÇÃO ── */
+function rec(d){
+  const nome=cap(d.nome||''),cargo=cap(d.cargo||''),emp=cap(d.empresa||''),prim=cap((d.nome||'').split(' ')[0]);
+  const ef=d.tipo==='efetivo';
+  let per='';
+  if(d.periodo_inicio&&d.periodo_fim)per=`, de ${fDE(d.periodo_inicio)} a ${fDE(d.periodo_fim)},`;
+  else if(d.periodo_inicio)per=`, a partir de ${fDE(d.periodo_inicio)},`;
+  const sup=d.supervisor_nome?cap(d.supervisor_nome):'Equipe Agência Nexus';
+  const supC=d.supervisor_cargo?cap(d.supervisor_cargo):'Departamento de Recursos Humanos';
+  const cidade=`${cap(d.cidade_emissao||'Guaíba/RS')}, ${fDE(d.data_emissao||new Date().toISOString().slice(0,10))}`;
+  const h=`
+    <p style="color:#777;font-size:.72rem;margin-bottom:.9rem">À quem possa interessar,</p>
+    <p>${ef
+      ?`A <strong>Agência Nexus Recrutamento e Seleção</strong> manifesta sua recomendação ao(à) profissional <strong>${nome}</strong>, que atuou como <strong>${cargo}</strong> na empresa <strong>${emp}</strong>${per} sendo acompanhado(a) por nossa agência.`
+      :`A <strong>Agência Nexus Recrutamento e Seleção</strong> emite a presente carta de recomendação em favor de <strong>${nome}</strong>, que atuou como <strong>${cargo||'Estagiário(a)'}</strong> junto à empresa <strong>${emp}</strong>${per} sob coordenação desta agência.`
+    }</p>
+    <div class="dados-box"><div class="db-nome">${nome}</div><div class="dados-grid">
+      <div class="di"><span class="di-label">Cargo / Função</span><span class="di-val">${cargo||'—'}</span></div>
+      <div class="di"><span class="di-label">Empresa</span><span class="di-val">${emp||'—'}</span></div>
+      ${d.periodo_inicio?`<div class="di"><span class="di-label">Período</span><span class="di-val">${fD(d.periodo_inicio)}${d.periodo_fim?' → '+fD(d.periodo_fim):''}</span></div>`:''}
+      ${d.supervisor_nome?`<div class="di"><span class="di-label">Supervisor</span><span class="di-val">${cap(d.supervisor_nome)}</span></div>`:''}
+    </div></div>
+    <p>${ef
+      ?`Ao longo de sua trajetória, ${prim} evidenciou elevado padrão de desempenho, ética profissional e comprometimento com os resultados da organização.</p><p>Avaliamos que ${prim} possui as competências necessárias para contribuir positivamente em novas oportunidades.`
+      :`Durante o estágio, ${prim} demonstrou comprometimento, responsabilidade e postura profissional exemplar. A Agência Nexus atesta que ${prim} cumpriu integralmente suas obrigações.</p><p>Recomendamos ${prim} com plena confiança, certos de que agregará valor a qualquer equipe.`
+    }</p>
+    ${d.texto_livre?`<p style="border-left:3px solid #d0e4b0;padding-left:.7rem;color:#555;font-style:italic;font-size:.72rem">${d.texto_livre}</p>`:''}
+    <p>Recomendamos ${prim} sem reservas. Estamos à disposição para quaisquer informações adicionais.</p>
+    <p style="margin-top:1rem">${cidade}</p>
+    <div class="assinaturas">${assG([[sup,supC,'Agência Nexus Recrutamento e Seleção'],[nome,ef?'Profissional':'Estagiário(a)']])}</div>`;
+  return pag(cab(d,'Carta de Recomendação',ef?'Profissional Efetivo':'Estágio Profissional')+body(h)+rod());
+}
+
+/* ── CANCELAMENTO ── */
+function can(d){
+  const nome=cap(d.nome||''),emp=cap(d.empresa||'');
+  const total=d.valor_total||d.valor_bolsa||0;
+  const cidade=cap(d.cidade_emissao||'Guaíba/RS');
+  const dataE=fDE(d.data_emissao||new Date().toISOString().slice(0,10));
+  const rP=d.recesso_inicio&&d.recesso_fim?`${fD(d.recesso_inicio)} a ${fD(d.recesso_fim)}`:'—';
+  const h=`
+    <p>A empresa <strong>Agência Nexus Recrutamento e Seleção, CNPJ ${CNPJ}</strong>, realiza o cancelamento de estágio não obrigatório com o(a) estagiário(a) <strong>${nome}${d.cpf?', CPF '+d.cpf:''}</strong>${d.curso?', estudante do curso '+d.curso:''}${d.instituicao?' na '+d.instituicao:''}.</p>
+    <p>A solicitação ocorreu em <strong>${dataE}</strong> através do agente integrador Agência Nexus.${total?` O valor correspondente ao período trabalhado é de <strong>${brl(total)} (${brlX(total)} reais)</strong>.`:''}</p>
+    ${d.recesso_inicio?`<p>De acordo com a Lei 11.788, o(a) estagiário(a) gozou recesso no período de <strong>${rP}</strong>.</p>`:''}
+    <div class="dados-box"><div class="db-nome">${nome}</div><div class="dados-grid">
+      ${d.cpf?`<div class="di"><span class="di-label">CPF</span><span class="di-val">${d.cpf}</span></div>`:''}
+      ${d.curso?`<div class="di"><span class="di-label">Curso</span><span class="di-val">${d.curso}</span></div>`:''}
+      ${d.instituicao?`<div class="di" style="grid-column:span 2"><span class="di-label">Instituição</span><span class="di-val">${d.instituicao}</span></div>`:''}
+      ${emp?`<div class="di"><span class="di-label">Empresa Concedente</span><span class="di-val">${emp}</span></div>`:''}
+      ${d.valor_bolsa?`<div class="di"><span class="di-label">Bolsa Mensal</span><span class="di-val">${brl(d.valor_bolsa)}</span></div>`:''}
+      ${total?`<div class="di"><span class="di-label">Valor Total</span><span class="di-val">${brl(total)}</span></div>`:''}
+      ${d.recesso_inicio?`<div class="di" style="grid-column:span 2"><span class="di-label">Recesso Gozado</span><span class="di-val">${rP}</span></div>`:''}
+    </div></div>
+    ${total?`<p><strong>Valor total: ${brl(total)}</strong></p>`:''}
+    <p style="margin-top:1rem">${cidade}, ${dataE}</p>
+    <div class="assinaturas">${assG([['Agência Nexus – Recrutamento e Seleção','CNPJ '+CNPJ],[nome,'Estagiário(a)']])}</div>
+    <p style="font-size:.5rem;color:#999;text-align:center;margin-top:.8rem">${EMAIL} · ${TEL}</p>`;
+  return pag(cab(d,'Carta de Cancelamento','Encerramento de Estágio Não Obrigatório')+body(h)+rod());
+}
+
+/* ── RECESSO ── */
+function rec2(d){
+  const nome=cap(d.nome||''),emp=cap(d.empresa||'');
+  const dias=d.dias_recesso||15;
+  const rI=fD(d.recesso_inicio)||'__/__/____',rF=fD(d.recesso_fim)||'__/__/____';
+  const cidade=cap(d.cidade_emissao||'Guaíba/RS');
+  const dataE=fDE(d.data_emissao||new Date().toISOString().slice(0,10));
+  const h=`
+    <p>O(A) estagiário(a) <strong>${nome}${d.cpf?', CPF '+d.cpf:''}</strong>${d.curso?', estudante do curso de '+d.curso:''}${d.instituicao?' na '+d.instituicao:''}${d.semestre?', cursando '+d.semestre:''}, de acordo com a <strong>Lei 11.788</strong>, tem direito a recesso de <strong>${dias} (${dias===15?'quinze':String(dias)}) dias</strong>, após seis meses de estágio, em descanso, sem prejuízo da bolsa auxílio.</p>
+    <p>A unidade concedente <strong>${emp||'Agência Nexus Recrutamento e Seleção'}${d.cnpj_empresa?', CNPJ nº '+d.cnpj_empresa:''}</strong> optará pelo recesso em descanso dos dias <strong>${rI} a ${rF}</strong>.</p>
+    <p>Este recesso corresponde aos primeiros seis meses do contrato de estágio junto ao agente integrador <strong>Agência Nexus – Recrutamento e Seleção</strong>.</p>
+    <div class="dados-box"><div class="db-nome">${nome}</div><div class="dados-grid">
+      ${d.cpf?`<div class="di"><span class="di-label">CPF</span><span class="di-val">${d.cpf}</span></div>`:''}
+      ${d.curso?`<div class="di"><span class="di-label">Curso</span><span class="di-val">${d.curso}</span></div>`:''}
+      ${emp?`<div class="di"><span class="di-label">Empresa</span><span class="di-val">${emp}</span></div>`:''}
+      <div class="di"><span class="di-label">Período de Recesso</span><span class="di-val">${rI} a ${rF} (${dias} dias)</span></div>
+      ${d.valor_bolsa?`<div class="di"><span class="di-label">Bolsa (mantida)</span><span class="di-val">${brl(d.valor_bolsa)}/mês</span></div>`:''}
+    </div></div>
+    <p style="margin-top:1rem">${cidade}, ${dataE}</p>
+    <div class="assinaturas">${assG([[nome,'Estagiário(a)'],['Agência Nexus – Recrutamento e Seleção',EMAIL+' · '+TEL]])}</div>`;
+  return pag(cab(d,'Carta de Recesso de Estágio','Lei 11.788/2008 — Estágio Não Obrigatório')+body(h)+rod());
+}
+
+/* ── TCE (3 PÁGINAS) ── */
+function tce(d){
+  const nome=cap(d.nome||''),emp=cap(d.empresa||'Agência Nexus Recrutamento e Seleção LTDA');
+  const cnpjE=d.cnpj_empresa||CNPJ,endE=d.endereco_emp||END,endEst=d.endereco_est||'—';
+  const inst=d.instituicao||'Instituição de Ensino',sem=d.semestre||'—',curso=d.curso||'—';
+  const ini=fD(d.periodo_inicio)||'__/__/____',fim=fD(d.periodo_fim)||'__/__/____';
+  const bolsa=d.valor_bolsa?brl(d.valor_bolsa):'R$_____',bolsaX=d.valor_bolsa?`(${brlX(d.valor_bolsa)} reais)`:'';
+  const jorn=d.jornada_horas||'6 horas diárias / 30h semanais';
+  const apol=d.apolice_seguro||'1018200561901 Capemisa Seguradora';
+  const sup=cap(d.supervisor_nome||'—'),supC=cap(d.supervisor_cargo||'—');
+  const ativ=d.atividades_plano||'atividades administrativas no setor, suporte no controle de agendamento, planilhas e processos administrativos, auxiliar nas entrevistas, organização de documentos e controles internos';
+  const cidade=cap(d.cidade_emissao||'Guaíba');
+  const dataE=fDE(d.data_emissao||new Date().toISOString().slice(0,10));
+  const taxa=d.taxa_admin||15;
+  const vt=d.valor_vt?` no valor de ${brl(d.valor_vt)} diário`:' conforme acordado';
+
+  const b1=`
+    <p>De acordo com a legislação pertinente, a Unidade Concedente <strong>${emp}</strong>, com endereço na <strong>${endE}</strong>, CNPJ nº <strong>${cnpjE}</strong>, e o(a) Estagiário(a) <strong>${nome}${d.cpf?', CPF '+d.cpf:''}</strong>, residente na <strong>${endEst}</strong>, matriculado(a) na <strong>${inst}</strong>, cursando <strong>${sem} de ${curso}</strong>, celebram este Termo de Compromisso de Estágio com intervenção da <strong>Agência Nexus Recrutamento e Seleção Ltda, CNPJ ${CNPJ}</strong>:</p>
+    <div class="clausula"><h3>Cláusula 1ª.</h3>
+      <p>1.1 Este TCE reger-se-á pela <strong>Lei nº 11.788/2008</strong>, que visa o aprendizado de competências profissionais e à contextualização curricular, objetivando o desenvolvimento do educando.</p>
+      <p>1.2 O estágio não gerará vínculo empregatício com a unidade concedente.</p>
+    </div>
+    <div class="clausula"><h3>Cláusula 2ª.</h3>
+      <p>2.1. Duração de <strong>06 (seis) meses</strong>, de <strong>${ini} a ${fim}</strong>, podendo ser rescindido ou prorrogado mediante Termos Aditivos.</p>
+      <p><strong>Parágrafo único</strong> – No término, a Unidade Concedente entregará ao Estagiário Termo de Realização do Estágio.</p>
+    </div>
+    <div class="clausula"><h3>Cláusula 3ª.</h3>
+      <p>3.1. Jornada: <strong>${jorn}</strong>.</p>
+      <p><strong>Parágrafo único:</strong> Nos períodos de avaliação, a jornada será reduzida à metade.</p>
+    </div>
+    <div class="clausula"><h3>Cláusula 4ª.</h3>
+      <p>4.1. O(A) Estagiário(a) entregará à Agência Nexus o Relatório de Atividades ao término dos 6 meses.</p>
+      <p>4.2. Deverá comunicar qualquer atraso no pagamento da bolsa-estágio.</p>
+    </div>`;
+
+  const b2=`
+    <div class="clausula"><h3>Cláusula 5ª.</h3>
+      <p>5.1. Caberá ao(à) Estagiário(a):</p>
+      <ul>
+        <li>Cumprir o Plano de Atividades (Anexo I);</li>
+        <li>Observar as normas internas da Unidade Concedente;</li>
+        <li>Comunicar fatos relevantes à Agência Nexus e à Instituição de Ensino;</li>
+        <li>Não divulgar informações confidenciais obtidas no Estágio;</li>
+        <li>Comunicar conclusão, abandono ou trancamento do curso durante a vigência.</li>
+      </ul>
+      <p><strong>Parágrafo único</strong> – O descumprimento pode ensejar rescisão imediata sem ônus para a Unidade Concedente ou Agência Nexus.</p>
+    </div>
+    <div class="clausula"><h3>Cláusula 6ª.</h3>
+      <p>6.1. O(A) Estagiário(a) estará coberto pelo Seguro contra Acidentes Pessoais, <strong>apólice nº ${apol}</strong>, contratada pela Agência Nexus.</p>
+    </div>
+    <div class="clausula"><h3>Cláusula 7ª.</h3>
+      <p>7.1. A Unidade Concedente pagará <strong>${bolsa} ${bolsaX}</strong> mensais a título de bolsa-auxílio.</p>
+      <p>7.2. Será fornecido auxílio-transporte${vt}.</p>
+      <p><strong>§1º:</strong> Faltas injustificadas serão descontadas proporcionalmente.</p>
+      <p><strong>§2º:</strong> É devida à Agência Nexus taxa administrativa de <strong>${taxa}%</strong> sobre a bolsa.</p>
+    </div>
+    <div class="clausula"><h3>Cláusula 8ª.</h3>
+      <p>8.1. Será concedido <strong>recesso de 15 (quinze) dias</strong>, sem prejuízo da bolsa, preferencialmente no período de férias escolares.</p>
+      <p><strong>Parágrafo único:</strong> Em rescisão antecipada, o recesso será indenizado na proporção de 1/12 por mês.</p>
+    </div>
+    <div class="clausula"><h3>Cláusula 9ª. — Causas de Interrupção</h3>
+      <ul>
+        <li>Conclusão, abandono ou trancamento de matrícula;</li>
+        <li>Descumprimento das cláusulas deste Termo;</li>
+        <li>Atraso de pagamento autoriza a Agência Nexus a suspender imediatamente o estágio.</li>
+      </ul>
+    </div>
+    <div class="clausula"><h3>Cláusula 10ª. — Responsabilidades da Agência Nexus</h3>
+      <ul>
+        <li>A Agência Nexus não se responsabiliza pela inadimplência da Unidade Concedente;</li>
+        <li>Não responde pelo descumprimento das obrigações pelas demais partes;</li>
+        <li>Interrompido este Termo, não se responsabiliza pela continuidade da relação entre estudante e Unidade Concedente.</li>
+      </ul>
+    </div>`;
+
+  const b3=`
+    <p>E por estarem de inteiro e comum acordo, as partes assinam em 04 (quatro) vias de igual teor.</p>
+    <p style="margin-top:.7rem"><strong>${cidade}, ${dataE}.</strong></p>
+    <div class="assinaturas">${assG([
+      [emp,'Unidade Concedente (Assinatura e Carimbo)'],
+      [nome,'Estagiário(a)'],
+      [inst,'Instituição de Ensino (Assinatura e Carimbo)'],
+      ['Agência Nexus – Recrutamento e Seleção','CNPJ '+CNPJ+' (Assinatura e Carimbo)'],
+    ],'ass-4')}</div>
+    <div style="margin-top:1.2rem;padding-top:1rem;border-top:2px solid #d0e4b0">
+      <p style="font-weight:800;font-size:.72rem;text-align:center;text-transform:uppercase;letter-spacing:1px;margin-bottom:.7rem">Anexo I — Plano de Atividades do(a) Estagiário(a)</p>
+      <div class="dados-box"><div class="dados-grid">
+        <div class="di"><span class="di-label">Estagiário(a)</span><span class="di-val">${nome}</span></div>
+        <div class="di"><span class="di-label">Período</span><span class="di-val">${ini} a ${fim}</span></div>
+        <div class="di" style="grid-column:span 2"><span class="di-label">Unidade Concedente</span><span class="di-val">${emp} · CNPJ ${cnpjE}</span></div>
+        <div class="di"><span class="di-label">Supervisor</span><span class="di-val">${sup}</span></div>
+        <div class="di"><span class="di-label">Cargo/Formação</span><span class="di-val">${supC}</span></div>
+        <div class="di" style="grid-column:span 2"><span class="di-label">Instituição de Ensino</span><span class="di-val">${inst}</span></div>
+      </div></div>
+      <p>As atividades a serem desenvolvidas são: <strong>${ativ}</strong>. Poderão ser alteradas conforme a progressividade do estágio.</p>
+      <p style="margin-top:.7rem">${cidade}, ${dataE}.</p>
+      ${assG([
+        [sup,'Supervisor(a) Empresa'],
+        [nome,'Estagiário(a)'],
+        ['Professor(a) Orientador(a)','Instituição de Ensino'],
+        ['Agência Nexus – Recrutamento e Seleção',EMAIL+' · '+TEL],
+      ],'ass-4')}
+    </div>`;
+
+  return [
+    pag(cab(d,'TCE — Termo de Compromisso de Estágio','Estágio Não Obrigatório · Lei 11.788/2008')+body(b1)+rod()),
+    sep(2,3),
+    pag(cabM(2,3)+body(b2)+rod()),
+    sep(3,3),
+    pag(cabM(3,3)+body(b3)+rod()),
+  ].join('');
+}
+
+/* ── RENDER ── */
+const d=JSON.parse(localStorage.getItem('cr_preview')||'{}');
+localStorage.removeItem('cr_preview');
+window.addEventListener('beforeunload',()=>localStorage.removeItem('cr_preview'));
+
+const nomes={carta_recomendacao:'Carta de Recomendação',carta_cancelamento:'Carta de Cancelamento',carta_recesso:'Carta de Recesso',tce:'TCE'};
+document.getElementById('toolbar-title').textContent=(nomes[d.tipo_doc]||'Documento')+(d.nome?' · '+d.nome:'');
+document.title=(nomes[d.tipo_doc]||'Documento')+(d.nome?' — '+d.nome:'');
+
+const pw=document.getElementById('pw');
+if(d.tipo_doc==='carta_cancelamento')pw.innerHTML=can(d);
+else if(d.tipo_doc==='carta_recesso') pw.innerHTML=rec2(d);
+else if(d.tipo_doc==='tce')           pw.innerHTML=tce(d);
+else                                  pw.innerHTML=rec(d);
+</script>
+</body>
+</html>

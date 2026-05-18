@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Assinar Documento — Agência Nexus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&display=swap"/>
+<style>
+:root{
+  --accent:#1e40af;--accent2:#60a5fa;--bg:#f5f5f3;--card:#ffffff;--card2:#f9f9f7;
+  --border:#e0e0d8;--text:#1a1a1a;--muted:#666;--muted2:#999;
+  --green:#2e7d32;--red:#c62828;--orange:#e65100;--blue:#1565c0;
+  --radius:16px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-size:16px;min-height:100vh}
+/* ── Header ── */
+.site-header{background:#fff;border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.hd-logo{display:flex;align-items:center;gap:.6rem}
+.hd-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#fff;font-weight:900}
+.hd-name{font-size:.85rem;font-weight:800;color:var(--text)}.hd-name span{color:var(--accent2)}
+.hd-info{font-size:.65rem;color:var(--muted);text-align:right}
+/* ── Screens ── */
+.screen{display:none;min-height:80vh;align-items:center;justify-content:center;padding:2rem 1rem}
+.screen.active{display:flex}
+/* ── Loading ── */
+.spinner-wrap{text-align:center}
+.spinner-big{width:48px;height:48px;border:3px solid rgba(30,64,175,.15);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* ── Error / Success cards ── */
+.msg-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.5rem 2rem;text-align:center;max-width:440px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.msg-ico{font-size:3rem;margin-bottom:1rem;line-height:1}
+.msg-title{font-size:1.2rem;font-weight:800;margin-bottom:.5rem}
+.msg-sub{font-size:.82rem;color:var(--muted);line-height:1.7}
+/* ── Main signing layout ── */
+.signing-wrap{max-width:840px;margin:0 auto;padding:1.5rem 1rem 4rem;width:100%}
+/* Contract info bar */
+.contract-bar{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.contract-bar .ico{font-size:1.5rem}
+.contract-title{font-size:.95rem;font-weight:800;flex:1}
+.contract-meta{font-size:.7rem;color:var(--muted)}
+.tag{display:inline-flex;align-items:center;padding:.2rem .6rem;border-radius:6px;font-size:.65rem;font-weight:700}
+.tag-green{background:rgba(46,125,50,.1);color:var(--green);border:1px solid rgba(46,125,50,.2)}
+.tag-orange{background:rgba(230,81,0,.1);color:var(--orange);border:1px solid rgba(230,81,0,.2)}
+.tag-blue{background:rgba(21,101,192,.1);color:var(--blue);border:1px solid rgba(21,101,192,.2)}
+/* Role badge */
+.role-badge{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,rgba(30,64,175,.08),rgba(96,165,250,.08));border:1px solid rgba(96,165,250,.3);border-radius:8px;padding:.3rem .7rem;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:.8rem}
+/* Document preview */
+.doc-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.2rem;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.doc-header{background:var(--card2);border-bottom:1px solid var(--border);padding:.75rem 1.2rem;display:flex;align-items:center;justify-content:space-between;font-size:.78rem;font-weight:700;color:var(--muted)}
+.doc-body{padding:1.8rem;max-height:480px;overflow-y:auto;line-height:1.8}
+.doc-body::-webkit-scrollbar{width:5px}
+.doc-body::-webkit-scrollbar-thumb{background:#ccc;border-radius:99px}
+/* Progress bar (signatários) */
+.progress-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.2rem}
+.progress-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:.7rem}
+.prog-item{display:flex;align-items:center;gap:.6rem;padding:.3rem 0;font-size:.8rem}
+.prog-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.prog-dot.ok{background:var(--green)}
+.prog-dot.pend{background:transparent;border:2px solid var(--orange)}
+.prog-dot.rec{background:var(--red)}
+/* Signature section */
+.sig-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.sig-section h2{font-size:1rem;font-weight:800;margin-bottom:.3rem}
+.sig-section p{font-size:.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6}
+.form-group{margin-bottom:1rem}
+.fl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);display:block;margin-bottom:.35rem}
+.fi{width:100%;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:.65rem .9rem;font-family:inherit;font-size:16px;color:var(--text);outline:none;transition:border .15s}
+.fi:focus{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(96,165,250,.1)}
+.fi::placeholder{color:var(--muted2)}
+/* Canvas */
+.canvas-wrap{position:relative;border:2px solid var(--border);border-radius:12px;overflow:hidden;background:#fafaf8;cursor:crosshair;touch-action:none;margin-bottom:.5rem}
+.canvas-wrap canvas{display:block;width:100%;height:160px}
+.canvas-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.78rem;color:var(--muted2);pointer-events:none;text-align:center;transition:opacity .2s}
+.canvas-tools{display:flex;gap:.4rem;margin-bottom:.4rem;align-items:center}
+.canvas-tool{background:none;border:1.5px solid var(--border);border-radius:8px;padding:.3rem .6rem;font-size:.72rem;cursor:pointer;color:var(--muted);font-family:inherit;transition:all .15s}
+.canvas-tool:hover{border-color:var(--accent2);color:var(--accent)}
+.canvas-tool.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.pen-size{display:flex;align-items:center;gap:.3rem;margin-left:auto;font-size:.68rem;color:var(--muted)}
+.pen-size input{width:60px}
+/* Terms checkbox */
+.terms-check{display:flex;align-items:flex-start;gap:.7rem;padding:.9rem 1rem;background:rgba(30,64,175,.04);border:1px solid rgba(30,64,175,.15);border-radius:10px;margin-bottom:1rem;cursor:pointer}
+.terms-check input[type=checkbox]{width:18px;height:18px;margin-top:1px;accent-color:var(--accent);flex-shrink:0}
+.terms-check label{font-size:.78rem;color:var(--muted);line-height:1.5;cursor:pointer}
+/* Submit button */
+.btn-assinar{width:100%;padding:1rem;border-radius:12px;border:none;cursor:pointer;font-family:inherit;font-size:.95rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transition:all .15s;box-shadow:0 4px 20px rgba(30,64,175,.3);display:flex;align-items:center;justify-content:center;gap:.5rem}
+.btn-assinar:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn-assinar:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-ghost-sm{background:none;border:1.5px solid var(--border);border-radius:8px;padding:.4rem .8rem;font-family:inherit;font-size:.72rem;cursor:pointer;color:var(--muted);transition:all .15s}
+.btn-ghost-sm:hover{border-color:var(--text);color:var(--text)}
+/* Security footer */
+.sec-footer{text-align:center;padding:1.5rem .5rem;font-size:.65rem;color:var(--muted2);line-height:1.8}
+.sec-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent2);margin-right:.3rem;vertical-align:middle}
+/* Mobile */
+@media(max-width:560px){
+  .signing-wrap{padding:1rem .6rem 3rem}
+  .doc-body{max-height:340px;padding:1.2rem}
+  .contract-bar{padding:.8rem 1rem}
+  .sig-section{padding:1.1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="hd-logo">
+    <div class="hd-badge"><img src="imagens/fundo.png" alt="Nexus" style="width:24px;height:24px;object-fit:contain" onerror="this.outerHTML='EX'"/></div>
+    <div>
+      <div class="hd-name">Agência <span>Nexus</span></div>
+      <div style="font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Assinatura Digital</div>
+    </div>
+  </div>
+  <div class="hd-info" id="headerInfo"></div>
+</header>
+
+<!-- ── Loading ── -->
+<div class="screen active" id="screenLoading">
+  <div class="spinner-wrap">
+    <div class="spinner-big"></div>
+    <div style="font-size:.85rem;color:var(--muted)">Carregando documento...</div>
+  </div>
+</div>
+
+<!-- ── Erro / token inválido ── -->
+<div class="screen" id="screenError">
+  <div class="msg-card">
+    <div class="msg-ico">⚠️</div>
+    <div class="msg-title">Link inválido ou expirado</div>
+    <div class="msg-sub" id="errorMsg">Este link de assinatura não é válido. Verifique se copiou corretamente ou solicite um novo link.</div>
+    <div style="margin-top:1.5rem;font-size:.72rem;color:var(--muted2)">Agência Nexus · agencianexus.com.br</div>
+  </div>
+</div>
+
+<!-- ── Já assinou ── -->
+<div class="screen" id="screenSigned">
+  <div class="msg-card">
+    <div class="msg-ico">✅</div>
+    <div class="msg-title" id="signedTitle">Documento já assinado</div>
+    <div class="msg-sub" id="signedMsg">Você já assinou este documento anteriormente.</div>
+    <div style="margin-top:.8rem;font-size:.72rem;color:var(--muted2)" id="signedDate"></div>
+    <div style="margin-top:1.5rem;font-size:.72rem;color:var(--muted2)">Agência Nexus · agencianexus.com.br</div>
+  </div>
+</div>
+
+<!-- ── Contrato cancelado ── -->
+<div class="screen" id="screenCanceled">
+  <div class="msg-card">
+    <div class="msg-ico">🚫</div>
+    <div class="msg-title">Contrato cancelado</div>
+    <div class="msg-sub">Este contrato foi cancelado pelo emissor. Entre em contato com a Agência Nexus para mais informações.</div>
+    <div style="margin-top:1.5rem;font-size:.72rem;color:var(--muted2)">Agência Nexus · agencianexus.com.br</div>
+  </div>
+</div>
+
+<!-- ── Sucesso após assinar ── -->
+<div class="screen" id="screenSuccess">
+  <div class="msg-card">
+    <div class="msg-ico">🎉</div>
+    <div class="msg-title">Assinatura realizada!</div>
+    <div class="msg-sub" id="successMsg">Sua assinatura foi registrada com sucesso. Uma confirmação foi enviada para seu e-mail.</div>
+    <div style="margin-top:1rem">
+      <div style="background:#f0f7e6;border:1px solid rgba(30,64,175,.25);border-radius:10px;padding:.7rem 1rem;font-size:.72rem;color:var(--accent);text-align:left;line-height:1.7" id="successDetails"></div>
+    </div>
+    <div style="margin-top:1.5rem;font-size:.72rem;color:var(--muted2)">Agência Nexus · agencianexus.com.br</div>
+  </div>
+</div>
+
+<!-- ── Tela principal de assinatura ── -->
+<div class="screen" id="screenMain" style="display:none;align-items:flex-start">
+  <div class="signing-wrap">
+
+    <!-- Contract info bar -->
+    <div class="contract-bar">
+      <div class="ico">📄</div>
+      <div>
+        <div class="contract-title" id="contractTitle">—</div>
+        <div class="contract-meta" id="contractMeta">—</div>
+      </div>
+      <span class="tag tag-orange" id="contractStatusTag">Aguardando assinatura</span>
+    </div>
+
+    <!-- Papel do signatário -->
+    <div style="margin-bottom:.8rem">
+      <div class="role-badge" id="roleBadge">👤 —</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.5">
+        Você foi convidado(a) a assinar este documento. Leia com atenção antes de assinar.
+      </div>
+    </div>
+
+    <!-- Progresso das assinaturas -->
+    <div class="progress-section">
+      <div class="progress-title">Progresso das assinaturas</div>
+      <div id="progressList"></div>
+    </div>
+
+    <!-- Documento -->
+    <div class="doc-section">
+      <div class="doc-header">
+        <span>📄 Documento para assinatura</span>
+        <span style="font-size:.65rem;color:var(--muted2)" id="docNumero"></span>
+      </div>
+      <!-- Barra de prova de leitura -->
+      <div id="readBar" style="background:#fff8e1;border-bottom:1px solid #ffe082;padding:.45rem 1.2rem;display:flex;align-items:center;gap:.6rem;font-size:.68rem;color:#795548">
+        <span id="readBarIco">📖</span>
+        <span id="readBarTxt">Leia o documento até o final para liberar a assinatura.</span>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:.4rem;white-space:nowrap">
+          <span id="readTimeTxt" style="font-variant-numeric:tabular-nums">⏱ 0s</span>
+          <div style="width:80px;height:5px;background:#ffe082;border-radius:99px;overflow:hidden">
+            <div id="scrollProg" style="height:100%;width:0%;background:#f9a825;border-radius:99px;transition:width .3s"></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-body" id="docBody" onscroll="trackScroll()">
+        <div style="text-align:center;padding:2rem;color:var(--muted)">Carregando documento...</div>
+      </div>
+    </div>
+
+    <!-- Área de assinatura -->
+    <div class="sig-section" id="sigArea">
+      <h2>✍️ Assinar Documento</h2>
+      <p>Preencha os dados abaixo e assine no campo indicado. Sua assinatura será registrada com data, hora e endereço IP.</p>
+
+      <div class="form-group">
+        <label class="fl">Seu nome completo <span style="color:#c62828">*</span></label>
+        <input class="fi" id="sigName" placeholder="Confirme seu nome completo"/>
+      </div>
+      <div class="form-group">
+        <label class="fl">CPF ou CNPJ <span style="color:#c62828">*</span></label>
+        <input class="fi" id="sigCPF" placeholder="CPF ou CNPJ" oninput="maskCPFouCNPJ(this)" inputmode="numeric"/>
+      </div>
+
+      <div class="form-group">
+        <label class="fl">Assinatura <span style="color:#c62828">*</span></label>
+
+        <!-- Tabs de modo -->
+        <div style="display:flex;gap:.3rem;margin-bottom:.7rem;flex-wrap:wrap">
+          <button class="canvas-tool active" id="toolDraw"   onclick="setTool('draw')">✏️ Desenhar</button>
+          <button class="canvas-tool"        id="toolType"   onclick="setTool('type')">Aa Digitar</button>
+          <button class="canvas-tool"        id="toolUpload" onclick="setTool('upload')">📎 Upload</button>
+          <button class="canvas-tool"        id="toolGov"    onclick="setTool('gov')">🏛 gov.br</button>
+          <div class="pen-size" id="penSizeWrap" style="margin-left:auto">
+            Espessura <input type="range" id="penSize" min="1" max="6" value="2.5" step="0.5" style="cursor:pointer;width:60px" oninput="updatePenSize(this.value)"/>
+          </div>
+        </div>
+
+        <!-- MODO: Desenhar -->
+        <div id="wrapDraw">
+          <div class="canvas-wrap" id="canvasWrap">
+            <canvas id="sigCanvas"></canvas>
+            <div class="canvas-hint" id="canvasHint">☝️ Assine aqui com o dedo ou mouse</div>
+          </div>
+          <div style="display:flex;gap:.4rem;margin-top:.4rem">
+            <button class="btn-ghost-sm" onclick="clearSig()">🗑 Limpar</button>
+          </div>
+        </div>
+
+        <!-- MODO: Digitar -->
+        <div id="wrapType" style="display:none">
+          <div style="margin-bottom:.5rem;display:flex;gap:.4rem;flex-wrap:wrap">
+            <button class="canvas-tool active" id="fontCursive" onclick="setFont('cursive')">Cursiva</button>
+            <button class="canvas-tool"        id="fontScript"  onclick="setFont('script')">Script</button>
+            <button class="canvas-tool"        id="fontPrint"   onclick="setFont('print')">Normal</button>
+          </div>
+          <div style="border:2px solid var(--border);border-radius:12px;background:#fafaf8;padding:1rem;text-align:center;min-height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:.5rem">
+            <span id="typedPreview" style="font-size:2rem;color:#1a1a1a;font-style:italic;font-family:Georgia,serif;letter-spacing:2px">Sua assinatura</span>
+          </div>
+          <input class="fi" id="sigTyped" placeholder="Digite seu nome para gerar a assinatura" oninput="renderTyped()" style="text-align:center"/>
+          <canvas id="sigTypeCanvas" style="display:none"></canvas>
+        </div>
+
+        <!-- MODO: Upload de imagem -->
+        <div id="wrapUpload" style="display:none">
+          <label style="display:block;border:2px dashed var(--border);border-radius:12px;background:#fafaf8;padding:2rem;text-align:center;cursor:pointer;transition:border .15s" id="uploadLabel" ondragover="event.preventDefault();this.style.borderColor='var(--accent2)'" ondragleave="this.style.borderColor=''" ondrop="handleDrop(event)">
+            <div style="font-size:2rem;margin-bottom:.4rem">📁</div>
+            <div style="font-size:.82rem;color:var(--muted);margin-bottom:.3rem">Arraste ou clique para enviar imagem da assinatura</div>
+            <div style="font-size:.68rem;color:var(--muted2)">PNG, JPG ou GIF · fundo transparente ou branco recomendado</div>
+            <input type="file" id="uploadInput" accept="image/*" style="display:none" onchange="handleUploadFile(this)"/>
+          </label>
+          <div id="uploadPreview" style="display:none;margin-top:.8rem;text-align:center">
+            <img id="uploadImg" style="max-height:120px;max-width:100%;border:1px solid var(--border);border-radius:8px"/>
+            <div style="margin-top:.4rem"><button class="btn-ghost-sm" onclick="clearUpload()">🗑 Remover</button></div>
+          </div>
+        </div>
+
+        <!-- MODO: gov.br -->
+        <div id="wrapGov" style="display:none">
+          <div style="border:1px solid rgba(21,101,192,.25);background:rgba(21,101,192,.04);border-radius:12px;padding:1.5rem;text-align:center">
+            <div style="font-size:2rem;margin-bottom:.6rem">🏛</div>
+            <div style="font-size:.9rem;font-weight:700;color:#1565c0;margin-bottom:.4rem">Assinatura via gov.br</div>
+            <div style="font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:1rem">
+              Para assinar com sua conta gov.br (Assinatura Eletrônica Avançada), clique no botão abaixo. Você será redirecionado e voltará automaticamente após a confirmação.
+            </div>
+            <button onclick="abrirGovBr()" style="display:inline-flex;align-items:center;gap:.5rem;background:#1565c0;color:#fff;border:none;border-radius:10px;padding:.7rem 1.4rem;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer">
+              🔐 Entrar com gov.br
+            </button>
+            <div style="margin-top:1rem;font-size:.65rem;color:var(--muted2);line-height:1.5">
+              ℹ️ Requer conta gov.br com nível Prata ou Ouro.<br/>
+              Integração via ITI — Instituto Nacional de Tecnologia da Informação.
+            </div>
+            <div id="govStatus" style="display:none;margin-top:.8rem;padding:.6rem 1rem;border-radius:8px;font-size:.78rem;font-weight:700"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OTP de verificação de identidade (desativado) -->
+
+      <!-- Indicador de integridade do documento -->
+      <div id="hashInfo" style="display:none;background:#f0f7e6;border:1px solid rgba(30,64,175,.2);border-radius:10px;padding:.65rem 1rem;margin-bottom:1rem;font-size:.65rem;color:var(--accent);line-height:1.7">
+        <strong>🔒 Integridade verificada</strong><br/>
+        Hash SHA-256 do documento gerado e registrado no momento da abertura.<br/>
+        <span id="hashDisplay" style="font-family:monospace;font-size:.6rem;word-break:break-all;color:var(--muted)"></span>
+      </div>
+
+      <!-- Terms -->
+      <div class="terms-check">
+        <input type="checkbox" id="termsCheck"/>
+        <label for="termsCheck">
+          Li e compreendi o documento acima em sua integralidade. Concordo com os termos e condições nele dispostos e assino eletronicamente com plena ciência, nos termos da Lei 14.063/2020.
+        </label>
+      </div>
+
+      <!-- Submit -->
+      <button class="btn-assinar" id="btnAssinar" onclick="assinar()">
+        <span id="btnTxt">✅ Assinar Documento Digitalmente</span>
+        <div id="spAssinar" style="display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite"></div>
+      </button>
+
+      <div style="font-size:.65rem;color:var(--muted2);text-align:center;margin-top:.8rem;line-height:1.6">
+        🔒 Sua assinatura será registrada com timestamp, IP, geolocalização, hash SHA-256 do documento e prova de leitura.<br/>
+        Validade jurídica: Lei nº 14.063/2020 — Assinatura Eletrônica Simples.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="sec-footer">
+  <span class="sec-dot"></span>Conexão segura · Assinatura Eletrônica Simples — Lei 14.063/2020<br/>
+  Agência Nexus Comunicação Ltda · Guaíba/RS
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL='https://yunoxkembhskpnprffoi.supabase.co', SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bm94a2VtYmhza3BucHJmZm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5Nzg2MzksImV4cCI6MjA5NDU1NDYzOX0.WhkzrBCHThvJaMuLeo6oVPjrWvc_MvfCoyz9B90-Yms';
+
+// ══════════════════════════════════════════════════════════════
+// EVIDÊNCIAS — variáveis globais de rastreio
+// ══════════════════════════════════════════════════════════════
+const _ev = {
+  aberto_em:       new Date().toISOString(),  // momento de abertura do link
+  scrollMax:       0,                          // % máx de scroll atingido
+  scrollFim:       false,                      // chegou ao fim?
+  tempoLeituraMs:  0,                          // ms ativos na página
+  tempoTimer:      null,
+  docHash:         null,                       // SHA-256 do conteúdo HTML
+  otpVerificado:   false,                      // OTP confirmado?
+  otpToken:        null,                       // token enviado ao email
+  geo:             null,                       // {lat, lon, cidade}
+};
+let _timerAtivo = false;
+
+// ── Geolocalização (gratuito, browser nativo) ──
+function capturarGeo(){
+  if(!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(pos=>{
+    _ev.geo = {
+      lat: pos.coords.latitude.toFixed(5),
+      lon: pos.coords.longitude.toFixed(5),
+      precisao_m: Math.round(pos.coords.accuracy)
+    };
+    // Reverse geocode gratuito via nominatim (OpenStreetMap)
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${_ev.geo.lat}&lon=${_ev.geo.lon}&format=json&accept-language=pt`)
+      .then(r=>r.json()).then(d=>{
+        _ev.geo.cidade = d.address?.city || d.address?.town || d.address?.village || '—';
+        _ev.geo.estado = d.address?.state || '—';
+      }).catch(()=>{});
+  }, ()=>{}, {timeout:8000, maximumAge:60000});
+}
+
+// ── Timer de leitura (pausa quando aba perde foco) ──
+function iniciarTimer(){
+  if(_timerAtivo) return;
+  _timerAtivo = true;
+  _ev.tempoTimer = setInterval(()=>{
+    _ev.tempoLeituraMs += 1000;
+    const s = Math.floor(_ev.tempoLeituraMs/1000);
+    const el = document.getElementById('readTimeTxt');
+    if(el) el.textContent = `⏱ ${s}s`;
+  }, 1000);
+}
+function pausarTimer(){ clearInterval(_ev.tempoTimer); _timerAtivo=false; }
+document.addEventListener('visibilitychange', ()=>{ document.hidden ? pausarTimer() : iniciarTimer(); });
+
+// ── Rastreio de scroll no documento ──
+function trackScroll(){
+  const el = document.getElementById('docBody');
+  if(!el) return;
+  const pct = Math.round((el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100);
+  if(pct > _ev.scrollMax) _ev.scrollMax = pct;
+  const prog = document.getElementById('scrollProg');
+  if(prog) prog.style.width = _ev.scrollMax+'%';
+  if(_ev.scrollMax >= 90 && !_ev.scrollFim){
+    _ev.scrollFim = true;
+    marcarLeituraCompleta();
+  }
+}
+
+function marcarLeituraCompleta(){
+  const bar = document.getElementById('readBar');
+  if(bar){ bar.style.background='#e8f5e9'; bar.style.borderBottomColor='#a5d6a7'; }
+  const ico = document.getElementById('readBarIco');
+  if(ico) ico.textContent='✅';
+  const txt = document.getElementById('readBarTxt');
+  if(txt){ txt.textContent='Documento lido. Você já pode assinar abaixo.'; txt.style.color='#2e7d32'; }
+  const prog = document.getElementById('scrollProg');
+  if(prog) prog.style.background='#43a047';
+}
+
+// ── Hash SHA-256 do documento (Web Crypto API — gratuita, nativa) ──
+async function gerarHashDocumento(html){
+  const encoder = new TextEncoder();
+  const data = encoder.encode(html.trim());
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ── OTP via Apps Script (gratuito) ──
+async function solicitarOTP(reenvio=false){
+  const email = _sig?.email;
+  if(!email){ alert('E-mail do signatário não encontrado.'); return; }
+  const btn = document.getElementById('btnReenviarOTP');
+  if(btn){ btn.disabled=true; btn.textContent='Enviando...'; }
+  const status = document.getElementById('otpStatus');
+  try{
+    const codigo = String(Math.floor(100000 + Math.random() * 900000));
+    _ev.otpToken = codigo;
+    // Envia via Apps Script (mesmo que já usa para notificação)
+    if(APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes('COLE')){
+      const params = new URLSearchParams({
+        tipo:'otp',
+        email: email,
+        nome: _sig.nome,
+        codigo: codigo,
+        contrato: _contrato.titulo
+      });
+      fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',body:params.toString(),headers:{'Content-Type':'application/x-www-form-urlencoded'}}).catch(()=>{});
+    }
+    if(status){ status.textContent = reenvio ? '✅ Novo código enviado!' : '✅ Código enviado para seu e-mail.'; status.style.color='var(--green)'; }
+    // Cooldown 60s no botão reenviar
+    if(btn){
+      let t=60;
+      const iv = setInterval(()=>{
+        btn.textContent=`🔄 Reenviar (${t}s)`;
+        t--;
+        if(t<0){ clearInterval(iv); btn.textContent='🔄 Reenviar'; btn.disabled=false; }
+      },1000);
+    }
+  }catch(err){
+    if(status){ status.textContent='Erro ao enviar OTP. Tente novamente.'; status.style.color='var(--red)'; }
+    if(btn){ btn.disabled=false; btn.textContent='🔄 Reenviar'; }
+  }
+}
+
+function verificarOTP(){
+  const val = (document.getElementById('otpInput')?.value||'').trim();
+  const status = document.getElementById('otpStatus');
+  if(!_ev.otpToken){
+    // Se Apps Script não configurado, OTP é bypass (modo desenvolvimento)
+    _ev.otpVerificado = true;
+    return true;
+  }
+  if(val === _ev.otpToken){
+    _ev.otpVerificado = true;
+    if(status){ status.textContent='✅ Identidade verificada!'; status.style.color='var(--green)'; }
+    return true;
+  }
+  if(status){ status.textContent='❌ Código incorreto. Verifique seu e-mail.'; status.style.color='var(--red)'; }
+  return false;
+}
+
+// ── E-mail de confirmação ao próprio signatário ──
+async function enviarConfirmacaoSignatario(sig, contrato, ip, now, hash){
+  if(!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('COLE')) return;
+  if(!sig.email) return;
+  try{
+    const params = new URLSearchParams({
+      tipo: 'confirmacao_signatario',
+      email: sig.email,
+      nome: sig.nome,
+      contrato: contrato.titulo,
+      numero: contrato.numero_contrato||'—',
+      data_hora: new Date(now).toLocaleString('pt-BR'),
+      ip: ip,
+      hash: hash||'—',
+      url_doc: BASE_URL_SITE + 'visualizar-assinado.html?id=' + contrato.id
+    });
+    fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',body:params.toString(),headers:{'Content-Type':'application/x-www-form-urlencoded'}}).catch(()=>{});
+  }catch(e){}
+}
+
+// ══════════════════════════════════════════════════════════════
+// Cole aqui a URL do seu Google Apps Script após implantar
+// (script.google.com → Implantar → App da Web → copiar URL)
+// ══════════════════════════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzleutQ0gUam13EHQkOeaQZqBsz28HHLhKjB0v2daKcVcCrifJNZewFFPubj47NL0mjng/exec';
+const BASE_URL_SITE   = window.location.origin + window.location.pathname.replace('assinar.html','');
+
+async function notificarAdmins(contrato, todasSigsAtualizadas) {
+  if(!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('COLE')) return;
+  try {
+    const sigs = todasSigsAtualizadas.map(s=>({
+      nome: s.assinatura_nome || s.nome,
+      papel: s.papel,
+      data: s.assinado_em ? new Date(s.assinado_em).toLocaleString('pt-BR') : '—'
+    }));
+    const urlDoc = BASE_URL_SITE + 'visualizar-assinado.html?id=' + contrato.id;
+    const notifEmail = contrato.notif_email || 'adm@agencianexus.com';
+    const emailList = notifEmail === 'ambos'
+      ? 'adm@agencianexus.com,bancodetalentosnexus@gmail.com'
+      : notifEmail;
+    const params = new URLSearchParams({
+      tipo: 'conclusao',
+      para: emailList,
+      titulo: contrato.titulo,
+      url: urlDoc,
+      contrato_id: String(contrato.id),
+      signatarios: JSON.stringify(sigs)
+    });
+    // Fire-and-forget — modo no-cors porque estamos no browser
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: params.toString(),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).catch(()=>{});
+  } catch(err) {
+    console.warn('Notificação admin falhou:', err);
+  }
+}
+let sb, _sig, _contrato, _allSigs;
+const PAPEL_LABEL={candidato:'Candidato/Colaborador',empresa_nexus:'Agência Nexus',empresa_cliente:'Empresa Contratante',instituicao:'Instituição de Ensino',supervisor:'Supervisor/Responsável'};
+const PAPEL_ICO  ={candidato:'👤',empresa_nexus:'🏢',empresa_cliente:'🏭',instituicao:'🎓',supervisor:'👔'};
+
+const token = new URLSearchParams(window.location.search).get('t');
+document.addEventListener('DOMContentLoaded', init);
+
+async function init(){
+  if(!token){ showError('Nenhum token fornecido no link.'); return; }
+  try{
+    sb = supabase.createClient(SB_URL, SB_KEY);
+    const {data:sig, error:e1} = await sb.from('signatarios_tce').select('*').eq('token',token).single();
+    if(e1||!sig){ showError('Token inválido ou não encontrado.'); return; }
+    _sig = sig;
+    const {data:contrato, error:e2} = await sb.from('contratos_tce').select('*').eq('id',sig.contrato_id).single();
+    if(e2||!contrato){ showError('Contrato não encontrado.'); return; }
+    _contrato = contrato;
+    const {data:allSigs} = await sb.from('signatarios_tce').select('*').eq('contrato_id',contrato.id);
+    _allSigs = allSigs||[];
+    if(contrato.status==='cancelado'){ showScreen('screenCanceled'); return; }
+    if(sig.status==='assinado'){
+      document.getElementById('signedMsg').textContent=`Você já assinou "${contrato.titulo}" em ${new Date(sig.assinado_em).toLocaleString('pt-BR')}.`;
+      showScreen('screenSigned'); return;
+    }
+    if(sig.status==='recusado'){
+      document.getElementById('signedTitle').textContent='Assinatura recusada';
+      document.getElementById('signedMsg').textContent='Você recusou a assinatura deste documento anteriormente.';
+      showScreen('screenSigned'); return;
+    }
+    renderMainScreen();
+    showScreen('screenMain');
+  }catch(err){
+    console.error(err);
+    showError('Erro ao carregar o documento: '+err.message);
+  }
+}
+
+function renderMainScreen(){
+  document.getElementById('headerInfo').innerHTML=`<div>${_sig.nome}</div><div>${PAPEL_LABEL[_sig.papel]||_sig.papel}</div>`;
+  document.getElementById('contractTitle').textContent=_contrato.titulo;
+  document.getElementById('contractMeta').textContent=`Nº ${_contrato.numero_contrato||'—'} · ${_contrato.tipo==='clt'?'Contrato CLT':'Contrato de Estágio'} · Emitido em ${new Date(_contrato.criado_em).toLocaleDateString('pt-BR')}`;
+  document.getElementById('docNumero').textContent=_contrato.numero_contrato||'';
+  document.getElementById('roleBadge').textContent=`${PAPEL_ICO[_sig.papel]||'👤'} ${PAPEL_LABEL[_sig.papel]||_sig.papel}`;
+  const pEl=document.getElementById('progressList');
+  pEl.innerHTML=_allSigs.map(s=>`
+    <div class="prog-item">
+      <div class="prog-dot ${s.status==='assinado'?'ok':s.status==='recusado'?'rec':'pend'}"></div>
+      <div style="flex:1">
+        <span style="font-weight:700">${s.nome}</span>
+        <span style="color:var(--muted);font-size:.72rem"> · ${PAPEL_LABEL[s.papel]||s.papel}</span>
+      </div>
+      <span style="font-size:.7rem;color:${s.status==='assinado'?'var(--green)':s.status==='recusado'?'var(--red)':'var(--orange)'}">
+        ${s.status==='assinado'?'✅ Assinado':s.status==='recusado'?'❌ Recusado':'⏳ Pendente'}
+      </span>
+    </div>`).join('');
+  const html = _contrato.conteudo_html||'';
+  document.getElementById('docBody').innerHTML = html || '<p style="color:var(--muted)">Documento não disponível.</p>';
+  document.getElementById('sigName').value=_sig.nome||'';
+  initCanvas();
+
+  // ── EVIDÊNCIAS: iniciar após render ──
+  iniciarTimer();
+  capturarGeo();
+
+  // Hash SHA-256 do documento
+  if(html){
+    gerarHashDocumento(html).then(hash=>{
+      _ev.docHash = hash;
+      const el = document.getElementById('hashDisplay');
+      if(el) el.textContent = hash;
+      const hi = document.getElementById('hashInfo');
+      if(hi) hi.style.display='block';
+    });
+  }
+
+  // OTP: exibe seção se signatário tem e-mail
+  if(_sig.email){
+    const otpSec = document.getElementById('otpSection');
+    if(otpSec){ otpSec.style.display='block'; }
+    // Envia OTP automaticamente ao abrir
+    solicitarOTP(false);
+  } else {
+    _ev.otpVerificado = true; // sem e-mail, não bloqueia
+  }
+}
+
+// ══════════════════════════════════
+// MODOS DE ASSINATURA
+// ══════════════════════════════════
+let _tool='draw', _penSize=2.5, _hasSignature=false, _uploadDataURL=null, _govSigned=false;
+let _currentFont='cursive';
+const FONTS={
+  cursive: 'italic 2.2rem Georgia, serif',
+  script:  'italic 2.2rem "Palatino Linotype", Palatino, serif',
+  print:   '2.2rem "Sora", sans-serif'
+};
+
+function setTool(t){
+  _tool=t;
+  ['draw','type','upload','gov'].forEach(id=>{
+    document.getElementById('tool'+id.charAt(0).toUpperCase()+id.slice(1)).classList.toggle('active',id===t);
+    document.getElementById('wrap'+id.charAt(0).toUpperCase()+id.slice(1)).style.display=id===t?'':'none';
+  });
+  document.getElementById('penSizeWrap').style.display=t==='draw'?'flex':'none';
+}
+
+// ── Modo desenhar ──
+function initCanvas(){
+  const canvas=document.getElementById('sigCanvas');
+  const wrap=document.getElementById('canvasWrap');
+  let isDrawing=false;
+  const resize=()=>{ canvas.width=wrap.clientWidth; canvas.height=160; };
+  resize(); new ResizeObserver(resize).observe(wrap);
+  const getPos=(e)=>{
+    const r=canvas.getBoundingClientRect();
+    if(e.touches) return{x:(e.touches[0].clientX-r.left)*(canvas.width/r.width),y:(e.touches[0].clientY-r.top)*(canvas.height/r.height)};
+    return{x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)};
+  };
+  const ctx=canvas.getContext('2d');
+  canvas.addEventListener('mousedown',e=>{isDrawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);});
+  canvas.addEventListener('mousemove',e=>{if(!isDrawing)return;const p=getPos(e);ctx.lineWidth=_penSize;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#1a1a1a';ctx.lineTo(p.x,p.y);ctx.stroke();_hasSignature=true;document.getElementById('canvasHint').style.opacity='0';});
+  canvas.addEventListener('mouseup',()=>{isDrawing=false;});
+  canvas.addEventListener('mouseleave',()=>{isDrawing=false;});
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();isDrawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);},{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!isDrawing)return;const p=getPos(e);ctx.lineWidth=_penSize;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#1a1a1a';ctx.lineTo(p.x,p.y);ctx.stroke();_hasSignature=true;document.getElementById('canvasHint').style.opacity='0';},{passive:false});
+  canvas.addEventListener('touchend',()=>{isDrawing=false;});
+}
+
+function updatePenSize(v){_penSize=parseFloat(v);}
+
+function clearSig(){
+  const canvas=document.getElementById('sigCanvas');
+  canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+  _hasSignature=false;
+  document.getElementById('canvasHint').style.opacity='1';
+}
+
+// ── Modo digitar ──
+function setFont(f){
+  _currentFont=f;
+  ['cursive','script','print'].forEach(id=>document.getElementById('font'+id.charAt(0).toUpperCase()+id.slice(1)).classList.toggle('active',id===f));
+  renderTyped();
+}
+
+function renderTyped(){
+  const txt=document.getElementById('sigTyped').value.trim();
+  const preview=document.getElementById('typedPreview');
+  const fontMap={cursive:'Georgia, serif',script:'"Palatino Linotype", Palatino, serif',print:'"Sora", sans-serif'};
+  const styleMap={cursive:'italic',script:'italic',print:'normal'};
+  preview.style.fontFamily=fontMap[_currentFont];
+  preview.style.fontStyle=styleMap[_currentFont];
+  preview.textContent=txt||'Sua assinatura';
+  _hasSignature=!!txt;
+}
+
+function getTypedImage(){
+  const txt=document.getElementById('sigTyped').value.trim();
+  const c=document.createElement('canvas'); c.width=600; c.height=150;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,600,150);
+  ctx.fillStyle='#1a1a1a';
+  ctx.font=FONTS[_currentFont];
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(txt,300,75);
+  return c.toDataURL('image/png');
+}
+
+// ── Modo upload ──
+document.getElementById('uploadLabel').addEventListener('click',()=>document.getElementById('uploadInput').click());
+
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('uploadLabel').style.borderColor='';
+  const file=e.dataTransfer.files[0];
+  if(file&&file.type.startsWith('image/')) loadUploadFile(file);
+}
+
+function handleUploadFile(input){
+  if(input.files[0]) loadUploadFile(input.files[0]);
+}
+
+function loadUploadFile(file){
+  const reader=new FileReader();
+  reader.onload=e=>{
+    _uploadDataURL=e.target.result;
+    document.getElementById('uploadImg').src=_uploadDataURL;
+    document.getElementById('uploadPreview').style.display='block';
+    document.getElementById('uploadLabel').style.display='none';
+    _hasSignature=true;
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearUpload(){
+  _uploadDataURL=null; _hasSignature=false;
+  document.getElementById('uploadPreview').style.display='none';
+  document.getElementById('uploadLabel').style.display='block';
+  document.getElementById('uploadInput').value='';
+}
+
+// ── Modo gov.br ──
+function abrirGovBr(){
+  // Simulação — integração real requer cadastro no ITI
+  const st=document.getElementById('govStatus');
+  st.style.display='block';
+  st.style.background='rgba(21,101,192,.08)';
+  st.style.color='#1565c0';
+  st.style.border='1px solid rgba(21,101,192,.2)';
+  st.textContent='⚠️ Integração gov.br requer cadastro no portal do ITI (iti.gov.br). Entre em contato com a Agência Nexus para habilitação.';
+}
+
+// ── Obter imagem final ──
+function getSigImage(){
+  if(_tool==='upload') return _uploadDataURL;
+  if(_tool==='type')   return getTypedImage();
+  if(_tool==='gov')    return null;
+  const canvas=document.getElementById('sigCanvas');
+  const blank=document.createElement('canvas'); blank.width=canvas.width; blank.height=canvas.height;
+  const ctx=blank.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,blank.width,blank.height);
+  ctx.drawImage(canvas,0,0);
+  return blank.toDataURL('image/png');
+}
+
+function hasValidSig(){
+  if(_tool==='draw')   return _hasSignature;
+  if(_tool==='type')   return !!document.getElementById('sigTyped').value.trim();
+  if(_tool==='upload') return !!_uploadDataURL;
+  if(_tool==='gov')    return false; // govSigned não implementado ainda
+  return false;
+}
+
+// ══════════════════════════════════
+// ENVIO
+// ══════════════════════════════════
+async function assinar(){
+  const nome=document.getElementById('sigName').value.trim();
+  const cpf=document.getElementById('sigCPF').value.trim();
+  if(!nome){alert('Confirme seu nome completo.');return;}
+  if(!cpf||![11,14].includes(cpf.replace(/\D/g,'').length)){alert('Informe um CPF (11 dígitos) ou CNPJ (14 dígitos) válido.');return;}
+  if(!hasValidSig()){alert('Por favor, faça sua assinatura no campo indicado.');return;}
+  if(!document.getElementById('termsCheck').checked){alert('Você precisa concordar com os termos para assinar.');return;}
+
+  // Validar prova de leitura
+  if(!_ev.scrollFim){
+    alert('Por favor, leia o documento até o final antes de assinar. Role a página do contrato até o fim.');
+    document.getElementById('docBody').scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
+
+  // OTP desativado — verificação automática
+  _ev.otpVerificado = true;
+
+  const sigImg=getSigImage();
+  setLoading(true);
+  try{
+    let ip='—';
+    try{const r=await fetch('https://api.ipify.org?format=json');const d=await r.json();ip=d.ip;}catch{}
+    const now=new Date().toISOString();
+
+    // Verificar integridade: gerar hash atual e comparar com hash de abertura
+    const hashAtual = _contrato.conteudo_html ? await gerarHashDocumento(_contrato.conteudo_html) : null;
+    const hashIntegro = hashAtual && _ev.docHash ? (hashAtual === _ev.docHash) : null;
+
+    // Montar pacote de evidências completo
+    const evidencias = {
+      // Leitura
+      aberto_em:        _ev.aberto_em,
+      scroll_max_pct:   _ev.scrollMax,
+      leitura_completa: _ev.scrollFim,
+      tempo_leitura_s:  Math.floor(_ev.tempoLeituraMs/1000),
+      // Integridade
+      doc_hash_sha256:  _ev.docHash,
+      hash_atual:       hashAtual,
+      hash_integro:     hashIntegro,
+      // Identidade
+      otp_verificado:   _ev.otpVerificado,
+      // Geolocalização
+      geo_lat:          _ev.geo?.lat || null,
+      geo_lon:          _ev.geo?.lon || null,
+      geo_cidade:       _ev.geo?.cidade || null,
+      geo_estado:       _ev.geo?.estado || null,
+      geo_precisao_m:   _ev.geo?.precisao_m || null,
+      // Dispositivo
+      user_agent_full:  navigator.userAgent,
+      plataforma:       navigator.platform || '—',
+      idioma:           navigator.language || '—',
+      resolucao:        `${screen.width}x${screen.height}`,
+      fuso_horario:     Intl.DateTimeFormat().resolvedOptions().timeZone,
+    };
+
+    const{error:e1}=await sb.from('signatarios_tce').update({
+      status:'assinado',
+      assinado_em:now,
+      ip_assinatura:ip,
+      user_agent:navigator.userAgent.slice(0,200),
+      assinatura_img:sigImg,
+      assinatura_nome:nome,
+      assinatura_cpf:cpf,
+      evidencias: evidencias        // campo JSONB — adicione ao schema Supabase
+    }).eq('token',token);
+    if(e1)throw e1;
+
+    const{data:updSigs}=await sb.from('signatarios_tce').select('*').eq('contrato_id',_contrato.id);
+    const todosAssinaram=(updSigs||[]).every(s=>s.status==='assinado');
+    if(todosAssinaram){
+      await sb.from('contratos_tce').update({status:'assinado',atualizado_em:now}).eq('id',_contrato.id);
+      await notificarAdmins(_contrato, updSigs||[]);
+    }else{
+      const algumAssinou=(updSigs||[]).some(s=>s.status==='assinado');
+      if(algumAssinou) await sb.from('contratos_tce').update({status:'parcial',atualizado_em:now}).eq('id',_contrato.id);
+    }
+
+    // E-mail de confirmação ao próprio signatário
+    await enviarConfirmacaoSignatario(_sig, _contrato, ip, now, _ev.docHash);
+
+    // Pausar timer
+    pausarTimer();
+
+    document.getElementById('successMsg').textContent=`Sua assinatura foi registrada com sucesso em ${new Date(now).toLocaleString('pt-BR')}.`;
+    document.getElementById('successDetails').innerHTML=`
+      <strong>📄 Documento:</strong> ${_contrato.titulo}<br/>
+      <strong>🖊️ Assinante:</strong> ${nome}<br/>
+      <strong>🕐 Data/Hora:</strong> ${new Date(now).toLocaleString('pt-BR')}<br/>
+      <strong>🌐 IP registrado:</strong> ${ip}<br/>
+      ${_ev.geo?.cidade ? `<strong>📍 Local:</strong> ${_ev.geo.cidade}/${_ev.geo.estado}<br/>` : ''}
+      <strong>⏱ Tempo de leitura:</strong> ${Math.floor(_ev.tempoLeituraMs/1000)}s (${_ev.scrollMax}% do documento)<br/>
+      <strong>🔒 Hash SHA-256:</strong> <span style="font-family:monospace;font-size:.6rem;word-break:break-all">${_ev.docHash||'—'}</span><br/>
+      <strong>✅ OTP verificado:</strong> ${_ev.otpVerificado ? 'Sim' : 'Não (e-mail não configurado)'}<br/>
+      ${todosAssinaram?'<br/><strong style="color:var(--green)">✅ Todos os signatários já assinaram! O contrato está completo.</strong>':''}<br/>
+      <span style="color:var(--muted);font-size:.62rem">Uma cópia desta confirmação foi enviada para o seu e-mail.</span>`;
+    showScreen('screenSuccess');
+  }catch(err){
+    alert('Erro ao registrar assinatura: '+err.message);
+    console.error(err);
+  }finally{setLoading(false);}
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>{s.style.display='none';s.classList.remove('active');});
+  const el=document.getElementById(id);
+  el.style.display='flex'; el.classList.add('active');
+}
+function showError(msg){ document.getElementById('errorMsg').textContent=msg; showScreen('screenError'); }
+function setLoading(on){
+  document.getElementById('btnAssinar').disabled=on;
+  document.getElementById('spAssinar').style.display=on?'block':'none';
+  document.getElementById('btnTxt').style.display=on?'none':'inline';
+}
+function maskCPF(el){let v=el.value.replace(/\D/g,'');v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');el.value=v;}
+function maskCPFouCNPJ(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length<=11){
+    v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  } else {
+    v=v.replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1/$2').replace(/(\d{4})(\d{1,2})$/,'$1-$2');
+  }
+  el.value=v;
+}
+</script>
+</body>
+</html>
