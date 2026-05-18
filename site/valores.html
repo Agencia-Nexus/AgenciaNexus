@@ -1378,13 +1378,13 @@ body.dark-mode .chip { background: #2a2a2a; }
       font-weight: 600;
       transition: all 0.3s ease;
       height: 50px;
-      display: none;
+      display: none !important;
       align-items: center;
       justify-content: center;
       white-space: nowrap;
       margin: 0;
     }
-    .topics-toggle-mobile { display: none; }
+    .topics-toggle-mobile { display: none !important; }
     .topics-dropdown-mobile { display: none; }
 
     @media (max-width: 768px) {
@@ -1982,8 +1982,7 @@ body.dark-mode .chip { background: #2a2a2a; }
   }
 
 
-  .back-button,
-  .topics-toggle-mobile {
+  .back-button {
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
@@ -2008,8 +2007,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     transform: translateX(-5px);
   }
 
-  .menu-toggle,
-  .topics-toggle-mobile {
+  .menu-toggle {
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
