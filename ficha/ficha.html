@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ficha de Abertura de Vaga | Agência Nexus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root {
+  --ink: #0f1117;
+  --ink2: #2a2d3a;
+  --ink3: #5a5e72;
+  --rule: #d8dae8;
+  --rule2: #eceef7;
+  --gold: #3b82f6;
+  --gold2: #60a5fa;
+  --gold-bg: #eff6ff;
+  --green: #1e40af;
+  --green2: #2563eb;
+  --green-bg: #dbeafe;
+  --white: #ffffff;
+  --page: #f7f8fc;
+  --card: #ffffff;
+  --shadow: 0 2px 20px rgba(15,17,23,0.07);
+  --shadow-lg: 0 8px 48px rgba(15,17,23,0.12);
+  --r: 12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--page);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--ink);
+  padding:0.75rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.topbar-brand{
+  font-family:'DM Serif Display',serif;
+  font-size:1.15rem;color:#fff;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.topbar-brand span{color:var(--gold2);}
+.topbar-actions{display:flex;gap:0.6rem;}
+.btn{
+  font-family:'DM Sans',sans-serif;
+  font-size:0.82rem;font-weight:600;
+  border-radius:8px;padding:0.55rem 1.1rem;
+  border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:0.4rem;
+  transition:all 0.2s;white-space:nowrap;
+}
+.btn-ghost{background:rgba(255,255,255,0.09);color:#fff;}
+.btn-ghost:hover{background:rgba(255,255,255,0.16);}
+.btn-gold{background:var(--gold);color:var(--ink);font-weight:700;}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-green{background:var(--green);color:#fff;font-weight:700;}
+.btn-green:hover{background:var(--green2);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--ink3);border:1.5px solid var(--rule);font-size:0.8rem;}
+.btn-outline:hover{border-color:var(--ink3);color:var(--ink);}
+
+/* ── LAYOUT ── */
+.shell{max-width:860px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
+
+/* ── HERO ── */
+.hero{
+  background:var(--ink);
+  border-radius:20px;
+  padding:2.8rem 2.8rem 2.4rem;
+  margin-bottom:2rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:-60px;right:-60px;
+  width:320px;height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(59,130,246,0.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  font-size:0.62rem;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold2);
+  margin-bottom:0.55rem;opacity:0.9;
+}
+.hero-title{
+  font-family:'DM Serif Display',serif;
+  font-size:2.2rem;line-height:1.15;
+  color:#fff;margin-bottom:0.4rem;
+}
+.hero-title em{color:var(--gold2);font-style:normal;}
+.hero-sub{font-size:0.85rem;color:rgba(255,255,255,0.5);max-width:500px;}
+.hero-meta{
+  display:flex;gap:1.2rem;margin-top:1.6rem;flex-wrap:wrap;
+}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:99px;padding:0.3rem 0.85rem;
+  font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.7);
+}
+.hero-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--gold2);}
+
+/* ── PROGRESS ── */
+.progress-bar{
+  display:flex;gap:0;margin-bottom:2rem;
+  border-radius:10px;overflow:hidden;
+  border:1px solid var(--rule);
+  background:var(--card);
+}
+.prog-step{
+  flex:1;padding:0.7rem 0.5rem;
+  display:flex;align-items:center;justify-content:center;
+  gap:0.4rem;font-size:0.72rem;font-weight:600;
+  color:var(--ink3);cursor:pointer;
+  border-right:1px solid var(--rule);
+  transition:all 0.2s;
+}
+.prog-step:last-child{border-right:none;}
+.prog-step.active{background:var(--ink);color:#fff;}
+.prog-step.done{background:var(--green-bg);color:var(--green);}
+.prog-step .step-num{
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.65rem;font-weight:700;
+  background:rgba(0,0,0,0.08);
+}
+.prog-step.active .step-num{background:rgba(255,255,255,0.2);}
+.prog-step.done .step-num{background:var(--green);color:#fff;}
+
+/* ── CARDS / SECTIONS ── */
+.section{
+  background:var(--card);border:1px solid var(--rule);
+  border-radius:var(--r);margin-bottom:1.2rem;
+  overflow:hidden;display:none;
+  animation:fadeUp 0.35s ease both;
+}
+.section.visible{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+.sec-hdr{
+  padding:1.1rem 1.4rem;
+  display:flex;align-items:center;gap:0.7rem;
+  border-bottom:1px solid var(--rule2);
+  background:linear-gradient(135deg,#fafbff 0%,#ffffff 100%);
+}
+.sec-icon{
+  width:36px;height:36px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.sec-icon.gold{background:var(--gold-bg);border:1px solid rgba(59,130,246,0.3);}
+.sec-icon.green{background:var(--green-bg);border:1px solid rgba(45,106,79,0.2);}
+.sec-icon.blue{background:#eef2ff;border:1px solid rgba(79,70,229,0.2);}
+.sec-icon.red{background:#fff0f0;border:1px solid rgba(220,53,69,0.2);}
+.sec-icon.purple{background:#f5f0ff;border:1px solid rgba(139,92,246,0.2);}
+.sec-icon.teal{background:#f0fafa;border:1px solid rgba(20,184,166,0.2);}
+
+.sec-info{flex:1;}
+.sec-title{font-size:0.92rem;font-weight:700;color:var(--ink);}
+.sec-sub{font-size:0.72rem;color:var(--ink3);margin-top:0.05rem;}
+.sec-body{padding:1.4rem;}
+
+/* ── GRID ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.9rem;}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.9rem;}
+/* ── MOBILE ── */
+@media(max-width:640px){
+  /* Topbar */
+  .topbar{
+    padding:0.6rem 0.85rem;
+    flex-wrap:wrap;
+    gap:0.5rem;
+  }
+  .topbar-brand{font-size:1rem;}
+  .topbar-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.4rem;
+    width:100%;
+  }
+  .topbar-actions .btn{
+    font-size:0.75rem;
+    padding:0.5rem 0.6rem;
+    justify-content:center;
+  }
+
+  /* Shell */
+  .shell{padding:1rem 0.85rem 5rem;}
+
+  /* Hero */
+  .hero{padding:1.5rem 1.2rem 1.3rem;border-radius:14px;}
+  .hero-title{font-size:1.55rem;}
+  .hero-sub{font-size:0.8rem;}
+  .hero-meta{gap:0.6rem;margin-top:1.1rem;}
+  .hero-chip{font-size:0.68rem;padding:0.25rem 0.7rem;}
+
+  /* Progress bar — scroll horizontal */
+  .progress-bar{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    flex-wrap:nowrap;
+    border-radius:8px;
+  }
+  .prog-step{
+    flex:0 0 auto;
+    min-width:72px;
+    padding:0.6rem 0.4rem;
+    font-size:0.65rem;
+    flex-direction:column;
+    gap:0.2rem;
+    text-align:center;
+  }
+
+  /* Grids */
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+
+  /* Inline sub-grids dentro de fields */
+  .field[style*="grid-template-columns"]{
+    display:grid;
+    grid-template-columns:1fr!important;
+  }
+
+  /* Seções */
+  .sec-body{padding:1rem;}
+  .sec-hdr{padding:0.9rem 1rem;}
+
+  /* Valor inline */
+  .valor-inline{flex-wrap:wrap;}
+  .valor-inline input{width:100%;}
+
+  /* Nav bottom */
+  .nav-bottom{
+    flex-direction:column-reverse;
+    gap:0.6rem;
+  }
+  .nav-bottom .btn{width:100%;justify-content:center;}
+
+  /* Modal */
+  .modal-box{
+    padding:1.4rem 1.1rem;
+    max-height:90vh;
+    overflow-y:auto;
+    border-radius:12px;
+  }
+
+  /* Toast — permite quebra de linha */
+  .toast{
+    white-space:normal;
+    text-align:center;
+    max-width:88vw;
+    font-size:0.78rem;
+    padding:0.6rem 1rem;
+  }
+
+  /* Comp-add (hard/soft skills) */
+  .comp-add{flex-direction:column;}
+  .comp-add .btn{width:100%;justify-content:center;}
+
+  /* Toggle grid */
+  .toggle-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
+
+  /* Status row */
+  .status-row{flex-direction:column;align-items:flex-start;gap:0.3rem;}
+
+  /* Assinatura */
+  .assin-box{min-height:64px;}
+
+  /* Inputs — tamanho de fonte mínimo 16px para evitar zoom no iOS */
+  input[type=text],input[type=email],input[type=tel],
+  input[type=number],input[type=date],select,textarea{
+    font-size:16px;
+  }
+}
+
+/* ── FIELDS ── */
+.field{display:flex;flex-direction:column;gap:0.3rem;}
+.label{
+  font-size:0.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.6px;
+  color:var(--ink3);
+}
+.label .req{color:#dc3545;margin-left:2px;}
+input[type=text],input[type=email],input[type=tel],input[type=number],
+input[type=date],select,textarea{
+  font-family:'DM Sans',sans-serif;
+  font-size:0.88rem;color:var(--ink);
+  background:#fff;
+  border:1.5px solid var(--rule);
+  border-radius:8px;
+  padding:0.58rem 0.8rem;
+  outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  width:100%;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(59,130,246,0.12);
+}
+input::placeholder,textarea::placeholder{color:#b0b5c8;}
+textarea{resize:vertical;min-height:90px;line-height:1.6;}
+select{cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 0.8rem center;
+  padding-right:2.2rem;
+}
+select option{background:#fff;color:var(--ink);}
+
+/* ── TOGGLE GRID ── */
+.toggle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.55rem;}
+.toggle-item{
+  display:flex;align-items:center;gap:0.5rem;
+  background:#fafbff;border:1.5px solid var(--rule);
+  border-radius:8px;padding:0.5rem 0.7rem;
+  cursor:pointer;transition:all 0.18s;
+  font-size:0.8rem;font-weight:500;color:var(--ink2);
+}
+.toggle-item:hover{border-color:var(--gold);background:var(--gold-bg);}
+.toggle-item input{display:none;}
+.toggle-item.checked{
+  background:var(--ink);color:#fff;border-color:var(--ink);
+}
+.toggle-chk{
+  width:16px;height:16px;border-radius:4px;flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.65rem;
+}
+.toggle-item:not(.checked) .toggle-chk{border-color:var(--rule);background:#fff;}
+.toggle-item.checked .toggle-chk{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+
+/* ── BENEFÍCIOS TAGS ── */
+.benef-grid{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.benef-tag{
+  display:inline-flex;align-items:center;gap:0.35rem;
+  padding:0.4rem 0.8rem;border-radius:99px;
+  border:1.5px solid var(--rule);background:#fafbff;
+  font-size:0.78rem;font-weight:500;cursor:pointer;
+  transition:all 0.18s;
+}
+.benef-tag:hover{border-color:var(--gold);color:var(--gold);}
+.benef-tag.active{
+  background:var(--green-bg);border-color:var(--gold);color:var(--gold);font-weight:600;
+}
+.benef-tag .ico{font-size:0.9rem;}
+
+/* ── VALOR INLINE ── */
+.valor-inline{
+  display:flex;align-items:center;gap:0.5rem;
+}
+.valor-inline input{width:120px;flex-shrink:0;}
+.valor-lbl{font-size:0.78rem;color:var(--ink3);}
+
+/* ── DIVIDER ── */
+.divider{
+  height:1px;background:var(--rule2);
+  margin:1rem 0;
+}
+.divider-label{
+  text-align:center;margin:1rem 0;position:relative;
+}
+.divider-label::before{
+  content:'';position:absolute;top:50%;left:0;right:0;
+  height:1px;background:var(--rule2);
+}
+.divider-label span{
+  position:relative;background:#fff;
+  padding:0 0.8rem;font-size:0.7rem;color:var(--ink3);font-weight:600;
+  text-transform:uppercase;letter-spacing:1px;
+}
+
+/* ── COMPETÊNCIAS ── */
+.comp-add{display:flex;gap:0.5rem;margin-bottom:0.7rem;}
+.comp-add input{flex:1;}
+.comp-list{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.comp-chip{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  background:var(--ink);color:#fff;
+  border-radius:99px;padding:0.28rem 0.65rem;
+  font-size:0.75rem;font-weight:600;
+}
+.comp-chip button{
+  background:none;border:none;color:rgba(255,255,255,0.6);
+  cursor:pointer;font-size:0.8rem;line-height:1;padding:0 0 0 0.1rem;
+}
+.comp-chip button:hover{color:#fff;}
+
+/* ── ESTRELAS PRIORIDADE ── */
+.star-row{display:flex;gap:0.25rem;}
+.star{font-size:1.1rem;cursor:pointer;transition:transform 0.1s;}
+.star:hover{transform:scale(1.2);}
+
+/* ── PRAZO/STATUS ── */
+.status-row{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:0.5rem;
+  padding:0.7rem 1rem;
+  background:var(--gold-bg);
+  border:1px solid rgba(59,130,246,0.3);
+  border-radius:8px;
+  margin-bottom:1rem;
+}
+.status-lbl{font-size:0.75rem;font-weight:700;color:var(--ink2);}
+.status-val{font-size:0.82rem;font-weight:600;color:var(--green);}
+
+/* ── ASSINATURA ── */
+.assin-box{
+  border:2px dashed var(--rule);
+  border-radius:10px;padding:1.2rem;
+  text-align:center;min-height:80px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:border-color 0.2s;
+  color:var(--ink3);font-size:0.8rem;
+}
+.assin-box:hover{border-color:var(--gold);}
+
+/* ── NAV BOTTOM ── */
+.nav-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 0 0;gap:1rem;flex-wrap:wrap;
+}
+
+/* ── MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(15,17,23,0.7);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;padding:1rem;
+}
+.modal-overlay.show{display:flex;}
+.modal-box{
+  background:#fff;border-radius:16px;
+  padding:2rem;width:100%;max-width:480px;
+  box-shadow:var(--shadow-lg);position:relative;
+  animation:fadeUp 0.3s ease both;
+}
+.modal-box h3{font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:0.3rem;}
+.modal-sub{font-size:0.82rem;color:var(--ink3);margin-bottom:1.4rem;}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;
+  background:rgba(0,0,0,0.06);border:none;border-radius:8px;
+  width:30px;height:30px;cursor:pointer;font-size:0.9rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.modal-close:hover{background:rgba(0,0,0,0.12);}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;
+  font-size:0.82rem;font-weight:600;
+  padding:0.65rem 1.4rem;border-radius:99px;
+  opacity:0;pointer-events:none;
+  transition:all 0.3s;z-index:9999;
+  white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.ok{background:var(--green);}
+.toast.err{background:#dc3545;}
+
+/* ── PREVIEW PDF ── */
+.preview-block{
+  background:var(--card);border:1px solid var(--rule);
+  border-radius:var(--r);padding:1.4rem;
+  margin-bottom:1.2rem;display:none;
+}
+.preview-block.visible{display:block;}
+
+/* ── PRINT STYLES ── */
+@media print{
+  .topbar,.progress-bar,.nav-bottom,.btn,.modal-overlay,.toast{display:none!important;}
+  .section{display:block!important;border:none;box-shadow:none;margin-bottom:0.5rem;}
+  .shell{padding:0;max-width:100%;}
+  body{background:#fff;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <span>✦</span> Agência <span>Nexus</span>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn btn-ghost" onclick="salvarRascunho()">💾 Salvar rascunho</button>
+    <button class="btn btn-ghost" onclick="abrirPreview()">👁 Preview</button>
+    <button class="btn btn-gold" onclick="gerarPDF(event)">⬇ Baixar PDF</button>
+    <button class="btn btn-green" onclick="abrirModalEmail()">✉ Enviar por e-mail</button>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Agência Nexus · Recrutamento & Seleção</div>
+    <div class="hero-title">Ficha de <em>Abertura</em> de Vaga</div>
+    <div class="hero-sub">Preencha todos os campos para cadastrar a vaga com precisão e agilidade no processo seletivo.</div>
+    <div class="hero-meta">
+      <div class="hero-chip"><div class="dot"></div> Documento confidencial</div>
+      <div class="hero-chip"><div class="dot"></div> Versão 2.0</div>
+      <div class="hero-chip" id="chipData"><div class="dot"></div> —</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar">
+    <div class="prog-step active" onclick="irPara(1)"><div class="step-num">1</div> Empresa</div>
+    <div class="prog-step" onclick="irPara(2)"><div class="step-num">2</div> Vaga</div>
+    <div class="prog-step" onclick="irPara(3)"><div class="step-num">3</div> Benefícios</div>
+    <div class="prog-step" onclick="irPara(4)"><div class="step-num">4</div> Perfil</div>
+    <div class="prog-step" onclick="irPara(5)"><div class="step-num">5</div> Processo</div>
+    <div class="prog-step" onclick="irPara(6)"><div class="step-num">6</div> Finalizar</div>
+  </div>
+
+  <!-- ════ ETAPA 1 — EMPRESA ════ -->
+  <div class="section visible" id="sec1">
+    <div class="sec-hdr">
+      <div class="sec-icon gold">🏢</div>
+      <div class="sec-info">
+        <div class="sec-title">Dados da Empresa Contratante</div>
+        <div class="sec-sub">Informações cadastrais e de contato da empresa</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Razão Social <span class="req">*</span></label>
+          <input type="text" id="razaoSocial" placeholder="Nome jurídico completo da empresa"/>
+        </div>
+        <div class="field">
+          <label class="label">Nome Fantasia</label>
+          <input type="text" id="nomeFantasia" placeholder="Como a empresa é conhecida"/>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">CNPJ <span class="req">*</span></label>
+          <input type="text" id="cnpj" placeholder="00.000.000/0001-00" maxlength="18"/>
+        </div>
+        <div class="field">
+          <label class="label">Inscrição Estadual</label>
+          <input type="text" id="inscEstadual" placeholder="000.000.000.000"/>
+        </div>
+        <div class="field">
+          <label class="label">Inscrição Municipal</label>
+          <input type="text" id="inscMunicipal" placeholder="000.000-0"/>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Segmento de Mercado <span class="req">*</span></label>
+          <select id="segmento">
+            <option value="">— Selecione —</option>
+            <option>Indústria / Manufatura</option>
+            <option>Comércio / Varejo</option>
+            <option>Serviços</option>
+            <option>Tecnologia / TI</option>
+            <option>Saúde / Farmácia</option>
+            <option>Agronegócio</option>
+            <option>Construção Civil</option>
+            <option>Logística / Transporte</option>
+            <option>Educação</option>
+            <option>Financeiro / Contabilidade</option>
+            <option>Alimentação / Food Service</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Porte da Empresa</label>
+          <select id="porte">
+            <option value="">— Selecione —</option>
+            <option>MEI (até 1 funcionário)</option>
+            <option>Microempresa (até 9 funcionários)</option>
+            <option>Pequena (10–49 funcionários)</option>
+            <option>Média (50–249 funcionários)</option>
+            <option>Grande (250+ funcionários)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="divider-label"><span>Endereço</span></div>
+
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Logradouro <span class="req">*</span></label>
+          <input type="text" id="logradouro" placeholder="Rua, Avenida, Estrada…"/>
+        </div>
+        <div class="field" style="display:grid;grid-template-columns:2fr 1fr;gap:0.5rem;">
+          <div class="field">
+            <label class="label">Bairro</label>
+            <input type="text" id="bairro" placeholder="Bairro"/>
+          </div>
+          <div class="field">
+            <label class="label">Número</label>
+            <input type="text" id="numero" placeholder="Nº"/>
+          </div>
+        </div>
+      </div>
+      <div class="grid-4" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Município <span class="req">*</span></label>
+          <input type="text" id="municipio" placeholder="Cidade"/>
+        </div>
+        <div class="field">
+          <label class="label">Estado</label>
+          <select id="estado">
+            <option value="">UF</option>
+            <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+            <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+            <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+            <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+            <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+            <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+            <option>SP</option><option>SE</option><option>TO</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">CEP</label>
+          <input type="text" id="cep" placeholder="00000-000" maxlength="9"/>
+        </div>
+        <div class="field">
+          <label class="label">Complemento</label>
+          <input type="text" id="complemento" placeholder="Sala, Galpão…"/>
+        </div>
+      </div>
+
+      <div class="divider-label"><span>Contato Responsável</span></div>
+
+      <div class="grid-3" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Nome do Responsável <span class="req">*</span></label>
+          <input type="text" id="responsavel" placeholder="Quem assina a ficha"/>
+        </div>
+        <div class="field">
+          <label class="label">Cargo / Departamento</label>
+          <input type="text" id="cargoResp" placeholder="Ex: Gerente de RH"/>
+        </div>
+        <div class="field">
+          <label class="label">E-mail do Responsável <span class="req">*</span></label>
+          <input type="email" id="emailEmpresa" placeholder="contato@empresa.com"/>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label class="label">Telefone / DDD</label>
+          <input type="tel" id="telefone" placeholder="(51) 9 9999-9999"/>
+        </div>
+        <div class="field">
+          <label class="label">WhatsApp para contato</label>
+          <input type="tel" id="whatsapp" placeholder="(51) 9 9999-9999"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 2 — VAGA ════ -->
+  <div class="section" id="sec2">
+    <div class="sec-hdr">
+      <div class="sec-icon blue">💼</div>
+      <div class="sec-info">
+        <div class="sec-title">Informações da Vaga</div>
+        <div class="sec-sub">Cargo, tipo de contratação e remuneração</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Título do Cargo <span class="req">*</span></label>
+          <input type="text" id="cargo" placeholder="Ex: Auxiliar Administrativo"/>
+        </div>
+        <div class="field">
+          <label class="label">CBO (Código Ocupação)</label>
+          <input type="text" id="cbo" placeholder="Ex: 4110-05"/>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Tipo de Contrato <span class="req">*</span></label>
+          <select id="tipoContrato">
+            <option value="">— Selecione —</option>
+            <option>CLT – Efetivo</option>
+            <option>CLT – Temporário</option>
+            <option>PJ – Pessoa Jurídica</option>
+            <option>Estágio</option>
+            <option>Jovem Aprendiz</option>
+            <option>Freelancer</option>
+            <option>Terceirizado</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Modalidade</label>
+          <select id="modalidade">
+            <option value="">— Selecione —</option>
+            <option>Presencial</option>
+            <option>Híbrido</option>
+            <option>Home Office</option>
+            <option>Externo / Campo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Número de Vagas</label>
+          <input type="number" id="numVagas" placeholder="1" min="1"/>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Salário / Remuneração</label>
+          <input type="text" id="salario" placeholder="Ex: R$ 2.150,00 ou A combinar"/>
+        </div>
+        <div class="field">
+          <label class="label">Divulgar Salário?</label>
+          <select id="divulgarSalario">
+            <option value="">— Selecione —</option>
+            <option>Sim — divulgar o valor</option>
+            <option>Não — manter confidencial</option>
+            <option>Divulgar faixa salarial</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Jornada de Trabalho</label>
+          <input type="text" id="jornada" placeholder="Ex: Seg–Sex 07:30–17:48 · 1h almoço"/>
+        </div>
+        <div class="field">
+          <label class="label">Local de Trabalho</label>
+          <input type="text" id="localTrabalho" placeholder="Cidade ou endereço da operação"/>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Insalubridade</label>
+          <select id="insalubridade">
+            <option value="">— Não se aplica —</option>
+            <option>10% (Grau Mínimo)</option>
+            <option>20% (Grau Médio)</option>
+            <option>40% (Grau Máximo)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Periculosidade</label>
+          <select id="periculosidade">
+            <option value="">— Não se aplica —</option>
+            <option>30% sobre o salário base</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Prazo para Preenchimento</label>
+          <input type="date" id="prazo"/>
+        </div>
+        <div class="field">
+          <label class="label">Urgência da Vaga</label>
+          <select id="urgencia">
+            <option value="">— Selecione —</option>
+            <option>🟢 Normal (30 dias)</option>
+            <option>🟡 Prioritária (15 dias)</option>
+            <option>🔴 Urgente (7 dias)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="divider-label"><span>Confidencialidade</span></div>
+      <div class="toggle-grid" style="margin-bottom:1rem;">
+        <label class="toggle-item" onclick="toggleItem(this)">
+          <div class="toggle-chk">✓</div> Vaga Confidencial
+        </label>
+        <label class="toggle-item" onclick="toggleItem(this)">
+          <div class="toggle-chk">✓</div> Divulgar Empresa
+        </label>
+        <label class="toggle-item" onclick="toggleItem(this)">
+          <div class="toggle-chk">✓</div> Divulgar Salário
+        </label>
+        <label class="toggle-item" onclick="toggleItem(this)">
+          <div class="toggle-chk">✓</div> Exclusividade Nexus
+        </label>
+      </div>
+
+      <div class="field">
+        <label class="label">Descrição Detalhada da Vaga <span class="req">*</span></label>
+        <textarea id="descricao" rows="5" placeholder="Descreva as principais atividades, responsabilidades e contexto da posição. Seja específico sobre o ambiente e os desafios do cargo…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 3 — BENEFÍCIOS ════ -->
+  <div class="section" id="sec3">
+    <div class="sec-hdr">
+      <div class="sec-icon green">🎁</div>
+      <div class="sec-info">
+        <div class="sec-title">Pacote de Benefícios</div>
+        <div class="sec-sub">Selecione e configure os benefícios oferecidos</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="benef-grid" id="benefGrid">
+        <!-- gerado via JS -->
+      </div>
+      <div id="benefValores" style="margin-top:1rem;display:flex;flex-direction:column;gap:0.6rem;"></div>
+      <div class="divider" style="margin-top:1rem;"></div>
+      <div class="field">
+        <label class="label">Outros benefícios não listados</label>
+        <textarea id="outrosBenef" rows="2" placeholder="Ex: Uniforme fornecido, Estacionamento gratuito, Academia conveniada…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 4 — PERFIL ════ -->
+  <div class="section" id="sec4">
+    <div class="sec-hdr">
+      <div class="sec-icon purple">👤</div>
+      <div class="sec-info">
+        <div class="sec-title">Perfil do Candidato</div>
+        <div class="sec-sub">Requisitos, competências e diversidade</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="grid-3" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Escolaridade Mínima <span class="req">*</span></label>
+          <select id="escolaridade">
+            <option value="">— Selecione —</option>
+            <option>Fundamental Incompleto</option>
+            <option>Fundamental Completo</option>
+            <option>Médio Incompleto</option>
+            <option>Médio Completo</option>
+            <option>Técnico</option>
+            <option>Superior Cursando</option>
+            <option>Superior Completo</option>
+            <option>Pós-Graduação</option>
+            <option>MBA</option>
+            <option>Mestrado</option>
+            <option>Doutorado</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Área de Formação</label>
+          <input type="text" id="areaFormacao" placeholder="Ex: Administração, Mecânica…"/>
+        </div>
+        <div class="field">
+          <label class="label">Cursos / Certificações</label>
+          <input type="text" id="cursos" placeholder="Ex: NR-10, Excel Avançado…"/>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Experiência Anterior</label>
+          <select id="experiencia">
+            <option value="">— Selecione —</option>
+            <option>Não exige experiência</option>
+            <option>6 meses</option>
+            <option>1 ano</option>
+            <option>2 anos</option>
+            <option>3 anos</option>
+            <option>5 anos ou mais</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Área de Experiência</label>
+          <input type="text" id="areaExp" placeholder="Ex: Manutenção industrial"/>
+        </div>
+        <div class="field">
+          <label class="label">CNH</label>
+          <select id="cnh">
+            <option value="">— Não exige —</option>
+            <option>A (moto)</option>
+            <option>B (carro)</option>
+            <option>AB</option>
+            <option>C (caminhão leve)</option>
+            <option>D (ônibus)</option>
+            <option>E (carreta)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0.9rem;">
+        <label class="label">Requisitos Obrigatórios</label>
+        <textarea id="requisitosObrig" rows="3" placeholder="Liste os requisitos indispensáveis que o candidato DEVE ter para ser considerado…"></textarea>
+      </div>
+      <div class="field" style="margin-bottom:1rem;">
+        <label class="label">Diferenciais / Desejáveis</label>
+        <textarea id="diferenciais" rows="2" placeholder="Competências que serão valorizadas, mas não são eliminatórias…"></textarea>
+      </div>
+
+      <div class="divider-label"><span>Competências Técnicas (Hard Skills)</span></div>
+      <div style="margin-bottom:1rem;">
+        <div class="comp-add">
+          <input type="text" id="hardInput" placeholder="Digite e pressione Enter ou clique +"
+            onkeydown="if(event.key==='Enter'){event.preventDefault();addComp('hard');}"/>
+          <button class="btn btn-outline" onclick="addComp('hard')">+ Adicionar</button>
+        </div>
+        <div class="comp-list" id="hardList"></div>
+      </div>
+
+      <div class="divider-label"><span>Competências Comportamentais (Soft Skills)</span></div>
+      <div style="margin-bottom:1rem;">
+        <div class="comp-add">
+          <input type="text" id="softInput" placeholder="Ex: Proatividade, Trabalho em equipe…"
+            onkeydown="if(event.key==='Enter'){event.preventDefault();addComp('soft');}"/>
+          <button class="btn btn-outline" onclick="addComp('soft')">+ Adicionar</button>
+        </div>
+        <div class="comp-list" id="softList"></div>
+      </div>
+
+      <div class="divider-label"><span>Diversidade & Inclusão</span></div>
+      <div class="toggle-grid">
+        <label class="toggle-item checked" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Feminino</label>
+        <label class="toggle-item checked" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Masculino</label>
+        <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> PCD</label>
+        <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Comunidade LGBTQIA+</label>
+        <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> 50+ anos</label>
+        <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Jovem Aprendiz</label>
+        <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Reintegração Social</label>
+        <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Refugiados</label>
+      </div>
+      <div style="margin-top:0.9rem;">
+        <div class="field">
+          <label class="label">Faixa Etária (opcional)</label>
+          <input type="text" id="faixaEtaria" placeholder="Ex: 18 a 35 anos, ou deixe em branco para não restringir"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 5 — PROCESSO SELETIVO ════ -->
+  <div class="section" id="sec5">
+    <div class="sec-hdr">
+      <div class="sec-icon teal">🔍</div>
+      <div class="sec-info">
+        <div class="sec-title">Processo Seletivo</div>
+        <div class="sec-sub">Etapas, testes e critérios de seleção</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Etapas do Processo</label>
+          <div class="toggle-grid" style="margin-top:0.3rem;">
+            <label class="toggle-item checked" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Triagem Curricular</label>
+            <label class="toggle-item checked" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> DISC Comportamental</label>
+            <label class="toggle-item checked" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Pré-entrevista</label>
+            <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Teste Técnico</label>
+            <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Dinâmica em Grupo</label>
+            <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Entrevista Final Empresa</label>
+            <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Exame Admissional</label>
+            <label class="toggle-item" onclick="toggleItem(this)"><div class="toggle-chk">✓</div> Análise de Referências</label>
+          </div>
+        </div>
+        <div>
+          <div class="field" style="margin-bottom:0.8rem;">
+            <label class="label">Perfil DISC Desejado</label>
+            <select id="discDesejado">
+              <option value="">— Sem preferência —</option>
+              <option>D — Dominância (perfil executor)</option>
+              <option>I — Influência (perfil comunicador)</option>
+              <option>S — Estabilidade (perfil colaborador)</option>
+              <option>C — Conformidade (perfil analítico)</option>
+              <option>D+I — Realizador Influente</option>
+              <option>D+C — Estrategista Analítico</option>
+              <option>S+C — Especialista Confiável</option>
+              <option>I+S — Comunicador Acolhedor</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0.8rem;">
+            <label class="label">Número de Candidatos Finalistas</label>
+            <input type="number" id="numFinalistas" placeholder="Ex: 3" min="1" max="20"/>
+          </div>
+          <div class="field">
+            <label class="label">Responsável pela Decisão Final</label>
+            <input type="text" id="decisorFinal" placeholder="Ex: Gerente de Operações"/>
+          </div>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0.9rem;">
+        <label class="label">Critérios Eliminatórios</label>
+        <textarea id="criteriosElim" rows="2" placeholder="Ex: Não ter CNH B válida, histórico de afastamento por alcoolismo, etc."></textarea>
+      </div>
+      <div class="field" style="margin-bottom:0.9rem;">
+        <label class="label">Observações para o Recrutador</label>
+        <textarea id="obsRecrutador" rows="3" placeholder="Informações sigilosas, contexto adicional, particularidades da vaga que auxiliarão no processo…"></textarea>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label class="label">Honorários da Agência</label>
+          <select id="honorarios">
+            <option value="">— A definir —</option>
+            <option>1 salário do contratado</option>
+            <option>1,5 salários do contratado</option>
+            <option>2 salários do contratado</option>
+            <option>Tabela personalizada</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Prazo de Garantia (reposição)</label>
+          <select id="garantia">
+            <option value="">— Selecione —</option>
+            <option>30 dias</option>
+            <option>60 dias</option>
+            <option>90 dias</option>
+            <option>Sem garantia</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ETAPA 6 — FINALIZAR ════ -->
+  <div class="section" id="sec6">
+    <div class="sec-hdr">
+      <div class="sec-icon red">✅</div>
+      <div class="sec-info">
+        <div class="sec-title">Confirmação & Assinatura</div>
+        <div class="sec-sub">Revisão final antes de gerar o documento</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="status-row">
+        <div>
+          <div class="status-lbl">Gerado em</div>
+          <div class="status-val" id="statusData">—</div>
+        </div>
+        <div>
+          <div class="status-lbl">Empresa</div>
+          <div class="status-val" id="statusEmpresa">—</div>
+        </div>
+        <div>
+          <div class="status-lbl">Cargo</div>
+          <div class="status-val" id="statusCargo">—</div>
+        </div>
+        <div>
+          <div class="status-lbl">Status</div>
+          <div class="status-val">🟡 Aguardando aprovação</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:0.9rem;">
+        <div class="field">
+          <label class="label">Consultor Responsável (Nexus)</label>
+          <input type="text" id="consultorExittus" placeholder="Nome do consultor"/>
+        </div>
+        <div class="field">
+          <label class="label">Data de Abertura</label>
+          <input type="date" id="dataAbertura"/>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:1rem;">
+        <label class="label">Observações Gerais / Acordo Comercial</label>
+        <textarea id="obsGerais" rows="3" placeholder="Condições especiais, descontos negociados, formas de pagamento dos honorários…"></textarea>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div class="label" style="margin-bottom:0.5rem;">Assinatura do Responsável pela Empresa</div>
+        <div class="assin-box" onclick="toast('Funcionalidade de assinatura digital disponível na versão Pro','err')">
+          🖊 Clique para assinar digitalmente (versão Pro)
+          <span style="font-size:0.7rem;margin-top:0.2rem;">ou imprima e assine manualmente</span>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0.7rem;flex-wrap:wrap;">
+        <button class="btn btn-gold" onclick="gerarPDF()" style="flex:1;justify-content:center;padding:0.9rem;">
+          ⬇ Baixar Ficha em PDF
+        </button>
+        <button class="btn btn-green" onclick="abrirModalEmail()" style="flex:1;justify-content:center;padding:0.9rem;">
+          ✉ Enviar por E-mail
+        </button>
+        <button class="btn btn-outline" onclick="window.print()" style="flex:1;justify-content:center;padding:0.9rem;">
+          🖨 Imprimir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV BOTTOM -->
+  <div class="nav-bottom" id="navBottom">
+    <button class="btn btn-outline" id="btnPrev" onclick="navPrev()" style="display:none;">← Anterior</button>
+    <div style="flex:1;"></div>
+    <button class="btn btn-gold" id="btnNext" onclick="navNext()">Próxima etapa →</button>
+  </div>
+
+</div><!-- /shell -->
+
+<!-- MODAL E-MAIL -->
+<div class="modal-overlay" id="modalEmail">
+  <div class="modal-box">
+    <button class="modal-close" onclick="fecharModalEmail()">✕</button>
+    <h3>Enviar Ficha por E-mail</h3>
+    <p class="modal-sub">O PDF será gerado e o e-mail aberto com os dados preenchidos.</p>
+    <div class="field" style="margin-bottom:0.8rem;">
+      <label class="label">Destinatário(s)</label>
+      <input type="email" id="emailDest" placeholder="empresa@email.com, outro@email.com"/>
+    </div>
+    <div class="field" style="margin-bottom:0.8rem;">
+      <label class="label">CC (cópia)</label>
+      <input type="email" id="emailCC" placeholder="curriculos.nexus@gmail.com"/>
+    </div>
+    <div class="field" style="margin-bottom:0.8rem;">
+      <label class="label">Assunto</label>
+      <input type="text" id="emailAssunto" value="Ficha de Abertura de Vaga — Agência Nexus"/>
+    </div>
+    <div class="field" style="margin-bottom:1.2rem;">
+      <label class="label">Mensagem</label>
+      <textarea id="emailCorpo" rows="5">Prezado(a),
+
+Segue em anexo a Ficha de Abertura de Vaga formalizada pela Agência Nexus, conforme combinado.
+
+Por favor, revise os dados e retorne com a aprovação para que possamos iniciar imediatamente o processo seletivo.
+
+Qualquer dúvida, estamos à disposição.
+
+Atenciosamente,
+Equipe Agência Nexus
+adm@agencianexus.com</textarea>
+    </div>
+    <div style="display:flex;gap:0.6rem;">
+      <button class="btn btn-green" onclick="enviarEmail()" style="flex:1;justify-content:center;">✉ Abrir no Gmail</button>
+      <button class="btn btn-outline" onclick="enviarOutlook()" style="flex:1;justify-content:center;">📨 Outlook Web</button>
+    </div>
+    <div style="margin-top:0.6rem;">
+      <button class="btn btn-outline" onclick="copiarCorpo()" style="width:100%;justify-content:center;font-size:0.78rem;">📋 Copiar texto do e-mail</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let etapaAtual = 1;
+const TOTAL_ETAPAS = 6;
+const hardSkills = [];
+const softSkills = [];
+
+// ══════════════════════════════════════════
+//  BENEFÍCIOS — declaração antecipada (usada no init)
+// ══════════════════════════════════════════
+const BENEFICIOS = [
+  {id:'vt',ico:'🚌',lbl:'Vale-Transporte',valor:false},
+  {id:'vr',ico:'🍽',lbl:'Vale-Refeição',valor:true,vlbl:'R$ por dia'},
+  {id:'va',ico:'🛒',lbl:'Vale-Alimentação',valor:true,vlbl:'R$ por mês'},
+  {id:'cesta',ico:'📦',lbl:'Cesta Básica',valor:false},
+  {id:'saude',ico:'🏥',lbl:'Plano de Saúde',valor:false},
+  {id:'odonto',ico:'🦷',lbl:'Plano Odontológico',valor:false},
+  {id:'vida',ico:'🛡',lbl:'Seguro de Vida',valor:false},
+  {id:'plr',ico:'📈',lbl:'Participação nos Lucros',valor:false},
+  {id:'bonus',ico:'💰',lbl:'Bônus / Comissão',valor:true,vlbl:'%'},
+  {id:'onibus',ico:'🏭',lbl:'Ônibus da Empresa',valor:false},
+  {id:'estacio',ico:'🅿',lbl:'Estacionamento',valor:false},
+  {id:'cafe',ico:'☕',lbl:'Café da Manhã',valor:false},
+  {id:'almoco',ico:'🍱',lbl:'Almoço no Local',valor:false},
+  {id:'unif',ico:'👕',lbl:'Uniforme Fornecido',valor:false},
+  {id:'epi',ico:'⛑',lbl:'EPI Fornecido',valor:false},
+  {id:'home',ico:'💻',lbl:'Auxílio Home Office',valor:true,vlbl:'R$ por mês'},
+  {id:'celular',ico:'📱',lbl:'Celular Corporativo',valor:false},
+  {id:'carro',ico:'🚗',lbl:'Carro Corporativo',valor:false},
+  {id:'academia',ico:'🏋',lbl:'Academia Conveniada',valor:false},
+  {id:'idioma',ico:'🌐',lbl:'Bolsa de Idiomas',valor:false},
+  {id:'facul',ico:'🎓',lbl:'Auxílio Faculdade',valor:true,vlbl:'%'},
+  {id:'creche',ico:'👶',lbl:'Auxílio Creche',valor:true,vlbl:'R$ por mês'},
+];
+const benefAtivos = new Set();
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+(function init(){
+  const hoje = new Date();
+  const dataFmt = hoje.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById('chipData').innerHTML = `<div class="dot"></div> ${dataFmt}`;
+  document.getElementById('statusData').textContent = dataFmt;
+  document.getElementById('dataAbertura').valueAsDate = hoje;
+
+  // Prazo padrão: 30 dias
+  const prazo = new Date(); prazo.setDate(prazo.getDate()+30);
+  document.getElementById('prazo').valueAsDate = prazo;
+
+  // Montar benefícios
+  renderBeneficios();
+
+  // Carregar rascunho
+  carregarRascunho();
+
+  // Formatar CNPJ ao digitar
+  document.getElementById('cnpj').addEventListener('input', function(){
+    let v = this.value.replace(/\D/g,'');
+    if(v.length>2) v=v.slice(0,2)+'.'+v.slice(2);
+    if(v.length>6) v=v.slice(0,6)+'.'+v.slice(6);
+    if(v.length>10) v=v.slice(0,10)+'/'+v.slice(10);
+    if(v.length>15) v=v.slice(0,15)+'-'+v.slice(15);
+    this.value = v.slice(0,18);
+  });
+  document.getElementById('cep').addEventListener('input', function(){
+    let v=this.value.replace(/\D/g,'');
+    if(v.length>5) v=v.slice(0,5)+'-'+v.slice(5);
+    this.value=v.slice(0,9);
+  });
+
+  // Atualizar status no finalizar
+  document.getElementById('razaoSocial').addEventListener('input',atualizarStatus);
+  document.getElementById('nomeFantasia').addEventListener('input',atualizarStatus);
+  document.getElementById('cargo').addEventListener('input',atualizarStatus);
+})();
+
+// ══════════════════════════════════════════
+//  BENEFÍCIOS
+// ══════════════════════════════════════════
+function renderBeneficios(){
+  const grid = document.getElementById('benefGrid');
+  grid.innerHTML = BENEFICIOS.map(b=>`
+    <div class="benef-tag" id="btag_${b.id}" onclick="toggleBenef('${b.id}')">
+      <span class="ico">${b.ico}</span> ${b.lbl}
+    </div>
+  `).join('');
+}
+
+function toggleBenef(id){
+  const tag = document.getElementById('btag_'+id);
+  const benef = BENEFICIOS.find(b=>b.id===id);
+  if(benefAtivos.has(id)){
+    benefAtivos.delete(id);
+    tag.classList.remove('active');
+    const vi = document.getElementById('bval_'+id);
+    if(vi) vi.remove();
+  } else {
+    benefAtivos.add(id);
+    tag.classList.add('active');
+    if(benef.valor){
+      const wrap = document.getElementById('benefValores');
+      const div = document.createElement('div');
+      div.id='bval_'+id;
+      div.className='valor-inline';
+      div.innerHTML=`
+        <span class="ico">${benef.ico}</span>
+        <span class="valor-lbl" style="min-width:160px;font-weight:600;">${benef.lbl}:</span>
+        <input type="text" placeholder="${benef.vlbl}" style="width:140px;" id="bvali_${id}"/>
+      `;
+      wrap.appendChild(div);
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+//  TOGGLE ITEMS
+// ══════════════════════════════════════════
+function toggleItem(el){
+  el.classList.toggle('checked');
+}
+
+// ══════════════════════════════════════════
+//  COMPETÊNCIAS
+// ══════════════════════════════════════════
+function addComp(tipo){
+  const inp = document.getElementById(tipo+'Input');
+  const val = inp.value.trim(); if(!val) return;
+  const list = tipo==='hard' ? hardSkills : softSkills;
+  if(list.includes(val)){ toast('Já adicionado','err'); return; }
+  list.push(val);
+  renderComps(tipo);
+  inp.value='';
+  inp.focus();
+}
+function removeComp(tipo,val){
+  const list = tipo==='hard' ? hardSkills : softSkills;
+  const idx = list.indexOf(val);
+  if(idx>=0) list.splice(idx,1);
+  renderComps(tipo);
+}
+function renderComps(tipo){
+  const list = tipo==='hard' ? hardSkills : softSkills;
+  const el = document.getElementById(tipo+'List');
+  el.innerHTML = list.map(v=>`
+    <div class="comp-chip">
+      ${v}
+      <button onclick="removeComp('${tipo}','${v.replace(/'/g,"\\'")}')">×</button>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════
+//  NAVEGAÇÃO ENTRE ETAPAS
+// ══════════════════════════════════════════
+function irPara(n){
+  // Esconde todas
+  for(let i=1;i<=TOTAL_ETAPAS;i++){
+    document.getElementById('sec'+i).classList.remove('visible');
+  }
+  // Mostra a etapa
+  document.getElementById('sec'+n).classList.add('visible');
+  etapaAtual = n;
+  atualizarProgress();
+  atualizarNav();
+  window.scrollTo({top:120,behavior:'smooth'});
+}
+function navNext(){
+  if(etapaAtual < TOTAL_ETAPAS) irPara(etapaAtual+1);
+}
+function navPrev(){
+  if(etapaAtual > 1) irPara(etapaAtual-1);
+}
+function atualizarProgress(){
+  const steps = document.querySelectorAll('.prog-step');
+  steps.forEach((s,i)=>{
+    s.classList.remove('active','done');
+    if(i+1===etapaAtual) s.classList.add('active');
+    else if(i+1<etapaAtual) s.classList.add('done');
+  });
+}
+function atualizarNav(){
+  document.getElementById('btnPrev').style.display = etapaAtual>1?'flex':'none';
+  document.getElementById('btnNext').style.display = etapaAtual<TOTAL_ETAPAS?'flex':'none';
+}
+
+// ══════════════════════════════════════════
+//  STATUS
+// ══════════════════════════════════════════
+function atualizarStatus(){
+  const emp = document.getElementById('nomeFantasia').value || document.getElementById('razaoSocial').value || '—';
+  const cargo = document.getElementById('cargo').value || '—';
+  document.getElementById('statusEmpresa').textContent = emp;
+  document.getElementById('statusCargo').textContent = cargo;
+  // Atualiza assunto do e-mail
+  document.getElementById('emailAssunto').value = `Ficha de Abertura de Vaga — ${cargo} | Agência Nexus`;
+}
+
+// ══════════════════════════════════════════
+//  RASCUNHO
+// ══════════════════════════════════════════
+function salvarRascunho(){
+  try{
+    const campos = ['razaoSocial','nomeFantasia','cnpj','inscEstadual','inscMunicipal',
+      'segmento','porte','logradouro','bairro','numero','municipio','estado','cep','complemento',
+      'responsavel','cargoResp','emailEmpresa','telefone','whatsapp',
+      'cargo','cbo','tipoContrato','modalidade','numVagas','salario','divulgarSalario',
+      'jornada','localTrabalho','insalubridade','periculosidade','prazo','urgencia','descricao',
+      'outrosBenef','escolaridade','areaFormacao','cursos','experiencia','areaExp','cnh',
+      'requisitosObrig','diferenciais','faixaEtaria','discDesejado','numFinalistas',
+      'decisorFinal','criteriosElim','obsRecrutador','honorarios','garantia',
+      'consultorExittus','dataAbertura','obsGerais'];
+    const data={};
+    campos.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) data[id]=el.value;
+    });
+    data._hard=hardSkills; data._soft=softSkills;
+    data._benefAtivos=[...benefAtivos];
+    localStorage.setItem('nexus_abertura_v1',JSON.stringify(data));
+    toast('💾 Rascunho salvo!','ok');
+  }catch(e){ toast('Erro ao salvar','err'); }
+}
+function carregarRascunho(){
+  try{
+    const saved=localStorage.getItem('nexus_abertura_v1');
+    if(!saved) return;
+    const data=JSON.parse(saved);
+    Object.keys(data).forEach(id=>{
+      if(id.startsWith('_')) return;
+      const el=document.getElementById(id);
+      if(el) el.value=data[id];
+    });
+    if(data._hard) { data._hard.forEach(v=>{if(!hardSkills.includes(v))hardSkills.push(v);}); renderComps('hard'); }
+    if(data._soft) { data._soft.forEach(v=>{if(!softSkills.includes(v))softSkills.push(v);}); renderComps('soft'); }
+    if(data._benefAtivos) data._benefAtivos.forEach(id=>{ if(!benefAtivos.has(id)) toggleBenef(id); });
+    atualizarStatus();
+    toast('Rascunho carregado!','ok');
+  }catch(e){}
+}
+
+// ══════════════════════════════════════════
+//  COLETAR TODOS OS DADOS
+// ══════════════════════════════════════════
+function coletarDados(){
+  const g = id => (document.getElementById(id)||{}).value||'';
+  const checkedToggles = (containerId) => {
+    const sec = document.getElementById(containerId);
+    if(!sec) return [];
+    return [...sec.querySelectorAll('.toggle-item.checked')].map(el=>el.textContent.trim());
+  };
+
+  // Benefícios com valores
+  const beneficiosList = [];
+  benefAtivos.forEach(id=>{
+    const b = BENEFICIOS.find(x=>x.id===id);
+    if(!b) return;
+    let str = b.lbl;
+    if(b.valor){
+      const inp=document.getElementById('bvali_'+id);
+      if(inp&&inp.value) str += ': '+inp.value+' '+b.vlbl;
+    }
+    beneficiosList.push(str);
+  });
+
+  return {
+    empresa:{
+      razaoSocial: g('razaoSocial'),
+      nomeFantasia: g('nomeFantasia'),
+      cnpj: g('cnpj'),
+      inscEstadual: g('inscEstadual'),
+      inscMunicipal: g('inscMunicipal'),
+      segmento: g('segmento'),
+      porte: g('porte'),
+      logradouro: g('logradouro'),
+      bairro: g('bairro'),
+      numero: g('numero'),
+      municipio: g('municipio'),
+      estado: g('estado'),
+      cep: g('cep'),
+      complemento: g('complemento'),
+      responsavel: g('responsavel'),
+      cargoResp: g('cargoResp'),
+      emailEmpresa: g('emailEmpresa'),
+      telefone: g('telefone'),
+      whatsapp: g('whatsapp'),
+    },
+    vaga:{
+      cargo: g('cargo'),
+      cbo: g('cbo'),
+      tipoContrato: g('tipoContrato'),
+      modalidade: g('modalidade'),
+      numVagas: g('numVagas')||'1',
+      salario: g('salario'),
+      divulgarSalario: g('divulgarSalario'),
+      jornada: g('jornada'),
+      localTrabalho: g('localTrabalho'),
+      insalubridade: g('insalubridade'),
+      periculosidade: g('periculosidade'),
+      prazo: g('prazo'),
+      urgencia: g('urgencia'),
+      descricao: g('descricao'),
+      confidencialidade: checkedToggles('sec2').filter(t=>['Vaga Confidencial','Divulgar Empresa','Divulgar Salário','Exclusividade Nexus'].some(x=>t.includes(x.split(' ')[0]))),
+    },
+    beneficios: beneficiosList,
+    outrosBenef: g('outrosBenef'),
+    perfil:{
+      escolaridade: g('escolaridade'),
+      areaFormacao: g('areaFormacao'),
+      cursos: g('cursos'),
+      experiencia: g('experiencia'),
+      areaExp: g('areaExp'),
+      cnh: g('cnh'),
+      requisitosObrig: g('requisitosObrig'),
+      diferenciais: g('diferenciais'),
+      hardSkills: [...hardSkills],
+      softSkills: [...softSkills],
+      diversidade: checkedToggles('sec4').filter(t=>['Feminino','Masculino','PCD','Comunidade','50+','Jovem','Reintegração','Refugiados'].some(x=>t.includes(x.split(' ')[0]))),
+      faixaEtaria: g('faixaEtaria'),
+    },
+    processo:{
+      etapas: checkedToggles('sec5').filter(t=>['Triagem','DISC','Pré','Teste','Dinâmica','Entrevista','Exame','Análise'].some(x=>t.includes(x.split(' ')[0]))),
+      discDesejado: g('discDesejado'),
+      numFinalistas: g('numFinalistas'),
+      decisorFinal: g('decisorFinal'),
+      criteriosElim: g('criteriosElim'),
+      obsRecrutador: g('obsRecrutador'),
+      honorarios: g('honorarios'),
+      garantia: g('garantia'),
+    },
+    finalizacao:{
+      consultorExittus: g('consultorExittus'),
+      dataAbertura: g('dataAbertura'),
+      obsGerais: g('obsGerais'),
+    }
+  };
+}
+
+// ══════════════════════════════════════════
+//  GERAR PDF (jsPDF)
+// ══════════════════════════════════════════
+async function gerarPDF(evt){
+  const btn = (evt && evt.target) || document.querySelector('.btn-gold');
+  btn.textContent = '⏳ Gerando...'; btn.disabled=true;
+  try{
+    const { jsPDF } = window.jspdf;
+    const d = coletarDados();
+    const doc = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    const W=210, M=18, CW=W-M*2;
+    let y=0;
+
+    // ── Paleta
+    const INK=[15,17,23], INK3=[90,94,114], GOLD=[59,130,246],
+          GREEN=[30,64,175], RULE=[216,218,232], WHITE=[255,255,255],
+          GREENL=[219,234,254], GOLDL=[239,246,255];
+
+    // ── Helpers
+    const fc=(r,g,b)=>doc.setTextColor(r,g,b);
+    const ff=(name,size,style='normal')=>{doc.setFont(name,style);doc.setFontSize(size);}
+    const line=(x1,y1,x2,y2,r,g,b,w=0.3)=>{doc.setDrawColor(r,g,b);doc.setLineWidth(w);doc.line(x1,y1,x2,y2);}
+    const rect=(x,y,w,h,r,g,b,fill=true)=>{
+      if(fill){ doc.setFillColor(r,g,b); doc.rect(x,y,w,h,'F'); }
+      else{ doc.setDrawColor(r,g,b); doc.rect(x,y,w,h,'S'); }
+    };
+    const checkY=(needed=10)=>{
+      if(y+needed>280){ doc.addPage(); y=20; }
+    };
+    const labelVal=(lbl,val,xl,xv,yr,maxW=70)=>{
+      if(!val) return;
+      ff('helvetica',7.5); fc(...INK3); doc.text(lbl,xl,yr);
+      ff('helvetica',8.5,'bold'); fc(...INK); doc.text(String(val).substring(0,60),xv,yr);
+    };
+
+    // ── Sanitize: remove chars unsupported by Helvetica in jsPDF
+    const san=(s)=>{
+      if(!s) return s;
+      return String(s)
+        .replace(/[—–]/g,'-')
+        .replace(/·/g,'.')
+        .replace(/[✓✔]/g,'+')
+        .replace(/[⚠]/g,'!')
+        .replace(/[✦★]/g,'*')
+        .replace(/[^\x00-\xFF]/g,'?');
+    };
+    // Patch doc.text to auto-sanitize all strings
+    const _origText = doc.text.bind(doc);
+    doc.text = (txt, ...args) => {
+      if(typeof txt === 'string') return _origText(san(txt), ...args);
+      if(Array.isArray(txt)) return _origText(txt.map(san), ...args);
+      return _origText(txt, ...args);
+    };
+
+    // ══ CAPA ══
+    // Header band
+    rect(0,0,W,46,...INK);
+    // Gold accent line
+    rect(0,46,W,1.5,...GOLD);
+
+    // Logo/Brand
+    ff('helvetica',9,'bold'); fc(...GOLD); doc.text('* AGENCIA NEXUS',M,14);
+    ff('helvetica',7); fc(180,185,200); doc.text('Recrutamento & Seleção de Talentos',M,19.5);
+
+    // Title
+    ff('helvetica',22,'bold'); fc(...WHITE); doc.text('FICHA DE ABERTURA',M,32);
+    ff('helvetica',11); fc(...GOLD); doc.text('DE VAGA',M,39);
+
+    // Date chip top-right
+    const dataStr = new Date().toLocaleDateString('pt-BR');
+    ff('helvetica',7.5); fc(180,185,200);
+    doc.text(`Emitido em ${dataStr}`,W-M-2,14,'right');
+    ff('helvetica',8,'bold'); fc(...GOLD);
+    doc.text(d.empresa.nomeFantasia||d.empresa.razaoSocial||'Empresa',W-M-2,20,'right');
+
+    y=56;
+
+    // ══ SEÇÃO EMPRESA ══
+    const secHdr=(titulo)=>{
+      checkY(14);
+      rect(M,y,CW,8,...INK);
+      ff('helvetica',9,'bold'); fc(...GOLD); doc.text('>> '+titulo.toUpperCase(),M+3,y+5.5);
+      y+=12;
+    };
+
+    const row2=(l1,v1,l2,v2)=>{
+      checkY(7);
+      ff('helvetica',7); fc(...INK3);
+      doc.text(l1,M,y); doc.text(l2,M+CW/2+3,y);
+      ff('helvetica',8.5,'bold'); fc(...INK);
+      const v1s=String(v1||'—');const v2s=String(v2||'—');
+      doc.text(v1s.substring(0,38),M,y+4.5);
+      doc.text(v2s.substring(0,38),M+CW/2+3,y+4.5);
+      y+=10; line(M,y-1.5,M+CW/2-2,y-1.5,...RULE);
+      line(M+CW/2+3,y-1.5,M+CW,y-1.5,...RULE);
+    };
+    const row1=(lbl,val,full=false)=>{
+      if(!val) return;
+      checkY(7);
+      ff('helvetica',7); fc(...INK3); doc.text(lbl,M,y);
+      ff('helvetica',8.5,'bold'); fc(...INK);
+      const lines=doc.splitTextToSize(String(val),full?CW:CW/2);
+      doc.text(lines,M,y+4.5); y+=(lines.length*4.5)+7;
+      line(M,y-2,M+CW,y-2,...RULE);
+    };
+
+    secHdr('Dados da Empresa');
+    row2('RAZÃO SOCIAL',d.empresa.razaoSocial,'NOME FANTASIA',d.empresa.nomeFantasia);
+    row2('CNPJ',d.empresa.cnpj,'SEGMENTO',d.empresa.segmento);
+    row2('INSCRIÇÃO ESTADUAL',d.empresa.inscEstadual,'INSCRIÇÃO MUNICIPAL',d.empresa.inscMunicipal);
+    row2('PORTE',d.empresa.porte,'','');
+
+    if(y>0) y+=3;
+    // Endereço inline
+    ff('helvetica',7); fc(...INK3); doc.text('ENDEREÇO',M,y);
+    const end = [d.empresa.logradouro,d.empresa.numero,d.empresa.bairro,d.empresa.municipio,d.empresa.estado,d.empresa.cep].filter(Boolean).join(', ');
+    ff('helvetica',8.5,'bold'); fc(...INK); doc.text(end||'—',M,y+4.5); y+=10;
+    line(M,y-1.5,M+CW,y-1.5,...RULE); y+=4;
+
+    row2('RESPONSÁVEL',d.empresa.responsavel,'CARGO',d.empresa.cargoResp);
+    row2('E-MAIL',d.empresa.emailEmpresa,'TELEFONE / WHATSAPP',d.empresa.telefone||d.empresa.whatsapp);
+
+    y+=4;
+
+    // ══ SEÇÃO VAGA ══
+    secHdr('Vaga Ofertada');
+    row2('CARGO / FUNÇÃO',d.vaga.cargo,'CBO',d.vaga.cbo);
+    row2('TIPO DE CONTRATO',d.vaga.tipoContrato,'MODALIDADE',d.vaga.modalidade);
+    row2('NÚMERO DE VAGAS',d.vaga.numVagas,'URGÊNCIA',d.vaga.urgencia||'Normal');
+    row2('SALÁRIO',d.vaga.salario,'DIVULGAR SALÁRIO',d.vaga.divulgarSalario);
+    row2('JORNADA',d.vaga.jornada,'LOCAL',d.vaga.localTrabalho);
+
+    const adicStr = [
+      d.vaga.insalubridade ? 'Insalubridade '+d.vaga.insalubridade : null,
+      d.vaga.periculosidade ? 'Periculosidade '+d.vaga.periculosidade : null,
+    ].filter(Boolean).join(' | ');
+    if(adicStr){ row2('ADICIONAIS',adicStr,'PRAZO',d.vaga.prazo?new Date(d.vaga.prazo+'T12:00').toLocaleDateString('pt-BR'):'—'); }
+
+    if(d.vaga.descricao){
+      y+=2; checkY(12);
+      ff('helvetica',7); fc(...INK3); doc.text('DESCRIÇÃO DA VAGA',M,y); y+=4.5;
+      ff('helvetica',8.5); fc(...INK);
+      const dlines=doc.splitTextToSize(d.vaga.descricao,CW);
+      dlines.forEach(l=>{ checkY(5); doc.text(l,M,y); y+=4.8; });
+      line(M,y,M+CW,y,...RULE); y+=5;
+    }
+
+    // ══ BENEFÍCIOS ══
+    if(d.beneficios.length){
+      secHdr('Pacote de Beneficios');
+      const cols=2, colW=CW/cols;
+      d.beneficios.forEach((b,idx)=>{
+        const col=idx%cols, row=Math.floor(idx/cols);
+        const bx=M+col*colW, by=y+row*7;
+        checkY(8);
+        if(col===0 && idx>0){ y+=7; }
+        rect(bx,y-4,colW-2,6,...GREENL);
+        ff('helvetica',8.5,'bold'); fc(...GREEN);
+        doc.text('+ '+b,bx+2,y);
+        if(col===cols-1||idx===d.beneficios.length-1) y+=3;
+      });
+      y+=8;
+      if(d.outrosBenef){ row1('OUTROS BENEFÍCIOS',d.outrosBenef,true); }
+    }
+
+    // ══ PERFIL ══
+    secHdr('Perfil do Candidato');
+    row2('ESCOLARIDADE',d.perfil.escolaridade,'ÁREA DE FORMAÇÃO',d.perfil.areaFormacao);
+    row2('EXPERIÊNCIA',d.perfil.experiencia,'ÁREA',d.perfil.areaExp);
+    row2('CURSOS / CERTIFICAÇÕES',d.perfil.cursos,'CNH',d.perfil.cnh);
+    if(d.perfil.requisitosObrig){ row1('REQUISITOS OBRIGATÓRIOS',d.perfil.requisitosObrig,true); }
+    if(d.perfil.diferenciais){ row1('DIFERENCIAIS / DESEJÁVEIS',d.perfil.diferenciais,true); }
+
+    if(d.perfil.hardSkills.length){
+      checkY(8); ff('helvetica',7); fc(...INK3); doc.text('HARD SKILLS',M,y); y+=4.5;
+      const hsLine=d.perfil.hardSkills.join('  ·  ');
+      const hsLines=doc.splitTextToSize(hsLine,CW);
+      ff('helvetica',8.5,'bold'); fc(...INK); doc.text(hsLines,M,y); y+=hsLines.length*5+4;
+    }
+    if(d.perfil.softSkills.length){
+      checkY(8); ff('helvetica',7); fc(...INK3); doc.text('SOFT SKILLS',M,y); y+=4.5;
+      const ssLine=d.perfil.softSkills.join('  ·  ');
+      const ssLines=doc.splitTextToSize(ssLine,CW);
+      ff('helvetica',8.5,'bold'); fc(...INK); doc.text(ssLines,M,y); y+=ssLines.length*5+4;
+    }
+    if(d.perfil.diversidade.length){
+      checkY(8); ff('helvetica',7); fc(...INK3); doc.text('DIVERSIDADE & INCLUSÃO',M,y); y+=4.5;
+      ff('helvetica',8.5,'bold'); fc(...INK); doc.text(d.perfil.diversidade.join('  ·  '),M,y); y+=9;
+    }
+    if(d.perfil.faixaEtaria){ row2('FAIXA ETÁRIA',d.perfil.faixaEtaria,'',''); }
+
+    // ══ PROCESSO ══
+    secHdr('Processo Seletivo');
+    if(d.processo.etapas.length){
+      checkY(10);
+      ff('helvetica',7); fc(...INK3); doc.text('ETAPAS DO PROCESSO',M,y); y+=5;
+      d.processo.etapas.forEach((e,i)=>{
+        ff('helvetica',8.5,'bold'); fc(...INK);
+        doc.text(`${i+1}. ${e}`,M+3,y); y+=5.5;
+      });
+      y+=2;
+    }
+    row2('PERFIL DISC DESEJADO',d.processo.discDesejado,'FINALISTAS ESPERADOS',d.processo.numFinalistas);
+    row2('DECISOR FINAL',d.processo.decisorFinal,'HONORÁRIOS',d.processo.honorarios);
+    row2('GARANTIA/REPOSIÇÃO',d.processo.garantia,'','');
+    if(d.processo.criteriosElim){ row1('CRITÉRIOS ELIMINATÓRIOS',d.processo.criteriosElim,true); }
+    if(d.processo.obsRecrutador){
+      checkY(12);
+      rect(M,y-2,CW,2,...GOLDL);
+      row1('! OBSERVACOES SIGILOSAS (somente recrutador)',d.processo.obsRecrutador,true);
+    }
+
+    // ══ RODAPÉ ══
+    const totalPages=doc.internal.getNumberOfPages();
+    for(let p=1;p<=totalPages;p++){
+      doc.setPage(p);
+      rect(0,287,W,10,...INK);
+      ff('helvetica',6.5); fc(160,165,180);
+      doc.text('Agência Nexus · Recrutamento & Seleção · adm@agencianexus.com',M,293);
+      doc.text(`Pág. ${p}/${totalPages}`,W-M,293,'right');
+      fc(...GOLD); doc.text('CONFIDENCIAL',W/2,293,'center');
+    }
+
+    // Salva
+    const nomeArq = `Ficha_Abertura_${(d.empresa.nomeFantasia||d.empresa.razaoSocial||'Empresa').replace(/\s/g,'_')}_${(d.vaga.cargo||'Vaga').replace(/\s/g,'_')}.pdf`;
+    doc.save(nomeArq);
+    toast('✅ PDF gerado com sucesso!','ok');
+  }catch(e){
+    console.error(e);
+    toast('Erro ao gerar PDF: '+e.message,'err');
+  }
+  btn.textContent='⬇ Baixar PDF'; btn.disabled=false;
+}
+
+// ══════════════════════════════════════════
+//  E-MAIL
+// ══════════════════════════════════════════
+function abrirModalEmail(){
+  const d=coletarDados();
+  // Auto-preencher destinatário
+  if(d.empresa.emailEmpresa)
+    document.getElementById('emailDest').value=d.empresa.emailEmpresa;
+  document.getElementById('emailAssunto').value=
+    `Ficha de Abertura de Vaga — ${d.vaga.cargo||'Vaga'} | Agência Nexus`;
+  document.getElementById('modalEmail').classList.add('show');
+}
+function fecharModalEmail(){
+  document.getElementById('modalEmail').classList.remove('show');
+}
+function montarCorpoEmail(){
+  const d=coletarDados();
+  const nome=d.empresa.nomeFantasia||d.empresa.razaoSocial||'Empresa';
+  const corpo=document.getElementById('emailCorpo').value;
+  return corpo;
+}
+function enviarEmail(){
+  const dest=document.getElementById('emailDest').value.trim();
+  const cc=document.getElementById('emailCC').value.trim();
+  const assunto=document.getElementById('emailAssunto').value.trim();
+  const corpo=montarCorpoEmail();
+  if(!dest){ toast('Informe o destinatário','err'); return; }
+  const url='https://mail.google.com/mail/?view=cm'
+    +'&to='+encodeURIComponent(dest)
+    +(cc?'&cc='+encodeURIComponent(cc):'')
+    +'&su='+encodeURIComponent(assunto)
+    +'&body='+encodeURIComponent(corpo);
+  window.open(url,'_blank');
+  toast('✅ Gmail aberto!','ok');
+  fecharModalEmail();
+}
+function enviarOutlook(){
+  const dest=document.getElementById('emailDest').value.trim();
+  const cc=document.getElementById('emailCC').value.trim();
+  const assunto=document.getElementById('emailAssunto').value.trim();
+  const corpo=montarCorpoEmail();
+  if(!dest){ toast('Informe o destinatário','err'); return; }
+  const url='https://outlook.live.com/mail/0/deeplink/compose'
+    +'?to='+encodeURIComponent(dest)
+    +(cc?'&cc='+encodeURIComponent(cc):'')
+    +'&subject='+encodeURIComponent(assunto)
+    +'&body='+encodeURIComponent(corpo);
+  window.open(url,'_blank');
+  toast('✅ Outlook aberto!','ok');
+  fecharModalEmail();
+}
+function copiarCorpo(){
+  const txt=montarCorpoEmail();
+  navigator.clipboard.writeText(txt).then(()=>toast('📋 Texto copiado!','ok')).catch(()=>toast('Erro ao copiar','err'));
+}
+
+// ══════════════════════════════════════════
+//  PREVIEW
+// ══════════════════════════════════════════
+function abrirPreview(){
+  irPara(6);
+  atualizarStatus();
+  toast('Etapa 6 — confira o resumo antes de gerar o PDF','ok');
+}
+
+// ══════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════
+function toast(msg,tipo='ok'){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show '+(tipo==='err'?'err':'ok');
+  clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),3200);
+}
+
+// ══════════════════════════════════════════
+//  MASK CEP — busca automática
+// ══════════════════════════════════════════
+document.getElementById('cep').addEventListener('blur',async function(){
+  const cep=this.value.replace(/\D/g,'');
+  if(cep.length!==8) return;
+  try{
+    const r=await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const data=await r.json();
+    if(data.erro) return;
+    document.getElementById('logradouro').value=data.logradouro||'';
+    document.getElementById('bairro').value=data.bairro||'';
+    document.getElementById('municipio').value=data.localidade||'';
+    document.getElementById('estado').value=data.uf||'';
+    toast('📍 Endereço preenchido via CEP','ok');
+  }catch(e){}
+});
+
+// Fechar modal clicando fora
+document.getElementById('modalEmail').addEventListener('click',function(e){
+  if(e.target===this) fecharModalEmail();
+});
+
+// Autosave a cada 60s
+setInterval(()=>{
+  try{
+    const campos=['razaoSocial','nomeFantasia','cnpj','cargo','tipoContrato','salario','descricao'];
+    const data={};
+    campos.forEach(id=>{const el=document.getElementById(id);if(el)data[id]=el.value;});
+    localStorage.setItem('nexus_abertura_autosave',JSON.stringify(data));
+  }catch(e){}
+}, 60000);
+</script>
+</body>
+</html>
