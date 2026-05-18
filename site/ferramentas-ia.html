@@ -257,10 +257,10 @@ body:not(.dark-mode) .theme-toggle {
     background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0,180,255,0.08) 0%, transparent 70%);
     pointer-events: none;
   }
-  .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 2.5rem 1rem 2rem; }
+  .header-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 2.5rem 1rem 2rem; width: 100%; text-align: center; }
 
   /* NEXUS LOGO SVG */
-  .nexus-logo-svg { display: block; margin: 0 auto; animation: fadeInDown 0.8s ease-out; }
+  .nexus-logo-svg { display: block; margin: 0 auto; animation: fadeInDown 0.8s ease-out; max-width: 500px; }
   .nexus-logo-svg.mobile { display: none; }
   .header-page-title {
     color: rgba(0,200,255,0.75);
@@ -1499,7 +1499,7 @@ body:not(.dark-mode) .theme-toggle {
     <div class="header-content">
 
       <!-- LOGO DESKTOP -->
-      <svg class="nexus-logo-svg desktop" width="500" height="100" viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
+      <svg class="nexus-logo-svg desktop" width="100%" height="100" preserveAspectRatio="xMidYMid meet" viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="glow-d">
             <feGaussianBlur stdDeviation="3" result="blur"/>
@@ -1524,7 +1524,7 @@ body:not(.dark-mode) .theme-toggle {
       </svg>
 
       <!-- LOGO MOBILE -->
-      <svg class="nexus-logo-svg mobile" width="280" height="78" viewBox="0 0 280 78" xmlns="http://www.w3.org/2000/svg">
+      <svg class="nexus-logo-svg mobile" width="100%" height="78" preserveAspectRatio="xMidYMid meet" viewBox="0 0 280 78" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="glow-m">
             <feGaussianBlur stdDeviation="2" result="blur"/>
