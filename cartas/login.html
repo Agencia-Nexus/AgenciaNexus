@@ -30,7 +30,6 @@ label{display:block;font-size:.65rem;font-weight:700;color:var(--muted);text-tra
 .fi:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(96,165,250,.08)}
 .fi::placeholder{color:var(--muted)}
 .pw-wrap{position:relative}
-.pw-toggle{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:.9rem}
 .btn{width:100%;padding:.8rem;border-radius:11px;border:none;cursor:pointer;font-family:inherit;font-size:.85rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;transition:all .15s;margin-top:.4rem;box-shadow:0 4px 20px rgba(96,165,250,.2)}
 .btn:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(96,165,250,.3)}
 .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
@@ -136,8 +135,7 @@ label{display:block;font-size:.65rem;font-weight:700;color:var(--muted);text-tra
         <div class="form-group"><label>E-mail</label><input class="fi" type="email" id="email" placeholder="seu@email.com" autocomplete="email" autofocus/></div>
         <div class="form-group"><label>Senha</label>
           <div class="pw-wrap">
-            <input class="fi" type="password" id="senha" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/>
-            <button class="pw-toggle" onclick="togglePw('senha')">👁</button>
+            <input class="fi" type="password" id="senha" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()"/>
           </div>
         </div>
         <div style="text-align:right;margin:-.4rem 0 1rem">
@@ -167,7 +165,7 @@ label{display:block;font-size:.65rem;font-weight:700;color:var(--muted);text-tra
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-const SB_URL='https://yunoxkembhskpnprffoi.supabase.co', SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bm94a2VtYmhza3BucHJmZm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5Nzg2MzksImV4cCI6MjA5NDU1NDYzOX0.WhkzrBCHThvJaMuLeo6oVPjrWvc_MvfCoyz9B90-Yms';
+const SB_URL='https://yunoxkembhskpnprffoi.supabase.co', SB_KEY='sb_publishable_fTW4FWKGvZsNe1o8DR4EOg_EhZ7uHTq';
 const sb = supabase.createClient(SB_URL, SB_KEY, {
   auth: {
     autoRefreshToken: true,
@@ -225,10 +223,6 @@ function showTab(n, el){
   clearMsgs();
 }
 
-function togglePw(id){
-  const e = document.getElementById(id);
-  e.type = e.type==='password' ? 'text' : 'password';
-}
 
 function setLoad(btn, sp, txt, on){
   document.getElementById(btn).disabled = on;
