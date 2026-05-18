@@ -1290,7 +1290,7 @@ function atualizarStatsCands(hist){
   const comFit = hist.filter(h=>h.fit_score||h.url_resultado_fit).length;
   const s = id => document.getElementById(id);
   // Mostra apenas candidatos da Entrada (não movidos para outras etapas)
-  const soEntrada = hist.filter(h=>!_idsEmEntrevistados.has(String(h.id)) && !_idsEmAreas.has(String(h.id)) && !_idsEmPendencias.has(String(h.id)) && !_idsEmInbox.has(String(h.id)));
+  const soEntrada = hist.filter(h=>!h.no_banco && !_idsEmEntrevistados.has(String(h.id)) && !_idsEmAreas.has(String(h.id)) && !_idsEmCargos.has(String(h.id)) && !_idsEmPendencias.has(String(h.id)) && !_idsEmInbox.has(String(h.id)));
   if(s('csTotal')) s('csTotal').textContent = soEntrada.length;
   if(s('csFit'))   s('csFit').textContent   = comFit;
   if(s('csD'))     s('csD').textContent     = p.D||0;
