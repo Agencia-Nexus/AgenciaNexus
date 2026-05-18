@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Status da Candidatura | Agência Exittus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --green:#8dc63f;--green-d:#4F7214;--green-glow:rgba(141,198,63,0.13);
+  --bg:#070709;--surface:#0e0f11;--surface2:#141518;--surface3:#1a1b1f;
+  --border:rgba(255,255,255,0.06);--border-a:rgba(141,198,63,0.22);
+  --text:#eeeef0;--text-2:#8a8b91;--text-3:#4a4b52;
+  --triagem:#4fa8e8;--pre:#a78bfa;--entrevista:#e8943a;
+  --finalista:#4fc87a;--aprovado:#8dc63f;
+  --recusado:#e05252;--recusado-cli:#c0392b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+
+/* grain overlay */
+body::after{content:'';position:fixed;inset:0;z-index:0;opacity:0.018;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px;}
+
+.page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
+
+/* PANORAMA */
+.panorama{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;}
+.pan-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:1rem;}
+.pan-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.pan-step{border-radius:12px;padding:0.9rem 0.75rem;border:1px solid var(--border);background:var(--surface2);text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.pan-step-icon{font-size:1.3rem;}
+.pan-step-label{font-size:10px;font-weight:700;color:var(--text-2);line-height:1.3;}
+.pan-step-msg{font-size:9.5px;color:var(--text-3);line-height:1.4;margin-top:2px;}
+
+/* AVISOS */
+.avisos-section{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+.aviso-card{border-radius:12px;padding:0.9rem 1.1rem;border:1px solid;display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.65;}
+.aviso-card.amarelo{background:rgba(232,148,58,0.08);border-color:rgba(232,148,58,0.25);color:rgba(232,148,58,0.95);}
+.aviso-card.azul{background:rgba(79,168,232,0.08);border-color:rgba(79,168,232,0.25);color:rgba(79,168,232,0.95);}
+.aviso-card.cinza{background:var(--surface);border-color:var(--border);color:var(--text-2);}
+.aviso-card b{color:inherit;font-weight:700;}
+.aviso-ico2{font-size:15px;flex-shrink:0;margin-top:1px;}
+
+/* HEADER */
+.logo-row{display:flex;align-items:center;gap:10px;margin-bottom:2.5rem;}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--green-d),var(--green));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;}
+.logo-name{font-size:13px;font-weight:700;color:var(--text-2);}
+
+/* BUSCA */
+.search-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;}
+.search-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);opacity:0.8;margin-bottom:0.4rem;}
+.search-title{font-size:1.25rem;font-weight:800;margin-bottom:0.35rem;line-height:1.3;}
+.search-sub{font-size:0.8rem;color:var(--text-2);line-height:1.6;margin-bottom:1.25rem;}
+.inp-row{display:flex;gap:8px;}
+.inp{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:border-color 0.15s;}
+.inp:focus{border-color:var(--border-a);}
+.inp::placeholder{color:var(--text-3);}
+.btn-buscar{background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:10px;padding:10px 20px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity 0.15s;flex-shrink:0;}
+.btn-buscar:hover{opacity:0.88;}
+
+/* RESULTADO */
+#resultado{display:none;}
+
+/* CANDIDATO INFO */
+.cand-header{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1rem;}
+.cand-avatar{width:48px;height:48px;border-radius:12px;background:var(--surface2);border:1px solid var(--border-a);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:var(--green);flex-shrink:0;font-family:'DM Mono',monospace;}
+.cand-nome{font-size:1rem;font-weight:800;margin-bottom:3px;}
+.cand-meta{font-size:11px;color:var(--text-2);}
+.cand-badges{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.badge{font-size:9.5px;font-weight:700;padding:2.5px 8px;border-radius:99px;border:1px solid;white-space:nowrap;}
+
+/* ETAPA ATUAL — destaque */
+.etapa-atual-card{border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1rem;border:1px solid;}
+.ea-eyebrow{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;opacity:0.7;margin-bottom:6px;}
+.ea-label{font-size:1.5rem;font-weight:900;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+.ea-desc{font-size:12px;line-height:1.65;opacity:0.85;}
+.ea-icon{font-size:1.4rem;}
+
+/* PIPELINE VISUAL */
+.pipe-wrap{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1rem;}
+.pipe-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:1rem;}
+
+.pipe-steps{display:flex;flex-direction:column;gap:0;}
+
+.step-row{display:flex;gap:14px;align-items:stretch;}
+.step-left{display:flex;flex-direction:column;align-items:center;width:28px;flex-shrink:0;}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;border:2px solid;transition:all 0.3s;}
+.step-line{flex:1;width:2px;background:var(--border);margin:3px 0;}
+.step-body{flex:1;padding-bottom:1.1rem;}
+.step-row:last-child .step-body{padding-bottom:0;}
+.step-row:last-child .step-line{display:none;}
+
+.step-name{font-size:12.5px;font-weight:700;margin-bottom:2px;line-height:1.3;}
+.step-info{font-size:11px;color:var(--text-2);line-height:1.5;}
+.step-chip{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;border:1px solid;margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
+
+/* Estados do step */
+.step-done .step-dot{color:#fff;}
+.step-active .step-dot{animation:pulso 2s ease-in-out infinite;}
+.step-locked .step-dot{background:var(--surface2);border-color:var(--border);color:var(--text-3);}
+.step-recusado .step-dot{background:rgba(224,82,82,0.15);border-color:rgba(224,82,82,0.4);color:#e05252;}
+
+@keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(141,198,63,0.4);}50%{box-shadow:0 0 0 7px rgba(141,198,63,0);}}
+
+/* BARRA PROGRESSO */
+.prog-wrap{margin-bottom:1rem;}
+.prog-bar{height:6px;background:var(--surface3);border-radius:99px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;border-radius:99px;transition:width 0.8s ease;}
+.prog-meta{display:flex;justify-content:space-between;font-size:10.5px;color:var(--text-3);}
+
+/* DISC (se tiver) */
+.disc-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.5rem;margin-bottom:1rem;}
+.disc-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:0.8rem;}
+.disc-bars{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.disc-item{display:flex;flex-direction:column;gap:4px;}
+.disc-label{font-size:10px;font-weight:700;display:flex;justify-content:space-between;}
+.disc-track{height:5px;background:var(--surface3);border-radius:99px;overflow:hidden;}
+.disc-fill{height:100%;border-radius:99px;}
+
+/* AVISO */
+.aviso{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.5rem;font-size:12px;color:var(--text-2);line-height:1.65;display:flex;gap:10px;align-items:flex-start;}
+.aviso-ico{font-size:14px;flex-shrink:0;margin-top:1px;}
+
+/* NOT FOUND */
+.not-found{text-align:center;padding:2.5rem 1rem;color:var(--text-3);}
+.nf-ico{font-size:2.5rem;opacity:0.2;margin-bottom:0.75rem;}
+.nf-title{font-size:15px;font-weight:700;color:var(--text-2);margin-bottom:0.4rem;}
+.nf-sub{font-size:12px;line-height:1.65;max-width:300px;margin:0 auto;}
+
+/* LOADING */
+.loading{display:flex;align-items:center;justify-content:center;padding:2.5rem;gap:10px;font-size:12px;color:var(--text-3);}
+.spinner{width:18px;height:18px;border:2px solid var(--surface3);border-top-color:var(--green);border-radius:50%;animation:spin 0.65s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* MOBILE */
+@media(max-width:700px){
+  .page{padding:1.25rem 0.85rem 4rem;}
+  .inp-row{flex-direction:column;}
+  .btn-buscar{width:100%;}
+  .disc-bars{grid-template-columns:1fr;}
+
+  /* Panorama: 3 colunas no mobile */
+  .pan-grid{grid-template-columns:repeat(3,1fr);gap:6px;}
+  .pan-step{padding:0.7rem 0.5rem;gap:4px;}
+  .pan-step-icon{font-size:1.1rem;}
+  .pan-step-label{font-size:9px;}
+  .pan-step-msg{font-size:8px;}
+
+  /* Encerramentos: empilha em coluna no mobile */
+  .encerramentos-grid{grid-template-columns:1fr !important;}
+
+  /* Search card */
+  .search-card{padding:1.1rem;}
+  .search-title{font-size:1.1rem;}
+
+  /* Panorama card */
+  .panorama{padding:1.1rem;}
+
+  /* Avisos */
+  .aviso-card{font-size:11.5px;}
+
+  /* Candidato header */
+  .cand-header{padding:1rem;}
+  .ea-label{font-size:1.2rem;}
+}
+
+@media(max-width:420px){
+  .pan-grid{grid-template-columns:repeat(3,1fr);}
+  .page{padding:1rem 0.75rem 4rem;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- LOGO -->
+  <div class="logo-row">
+    <div class="logo-mark">E</div>
+    <div class="logo-name">Agência Exittus</div>
+  </div>
+
+  <!-- BUSCA -->
+  <div class="search-card">
+    <div class="search-eyebrow">Acompanhamento</div>
+    <div class="search-title">Status da sua candidatura</div>
+    <div class="search-sub">Digite seu <strong style="color:var(--text);">nome completo</strong> ou <strong style="color:var(--text);">telefone</strong> cadastrado na inscrição para ver em qual etapa do processo você está.</div>
+    <div class="inp-row">
+      <input class="inp" id="inpBusca" type="text" placeholder="Nome ou telefone (ex: 51999...)" autocomplete="off" onkeydown="if(event.key==='Enter')buscar()"/>
+      <button class="btn-buscar" onclick="buscar()">Consultar</button>
+    </div>
+  </div>
+
+  <!-- PANORAMA DAS ETAPAS -->
+  <div class="panorama">
+    <div class="pan-title">📌 Como funciona o processo seletivo</div>
+    <div class="pan-grid">
+      <div class="pan-step">
+        <div class="pan-step-icon">🔍</div>
+        <div class="pan-step-label" style="color:#4fa8e8;">Triagem</div>
+        <div class="pan-step-msg">Currículo analisado pela equipe Exittus.</div>
+      </div>
+      <div class="pan-step">
+        <div class="pan-step-icon">⭐</div>
+        <div class="pan-step-label" style="color:#a78bfa;">Pré-seleção</div>
+        <div class="pan-step-msg">Perfil destacado para avaliação mais detalhada.</div>
+      </div>
+      <div class="pan-step">
+        <div class="pan-step-icon">🎙️</div>
+        <div class="pan-step-label" style="color:#e8943a;">Entrevista</div>
+        <div class="pan-step-msg">Entrevista com IA, equipe Exittus ou empresa cliente.</div>
+      </div>
+      <div class="pan-step">
+        <div class="pan-step-icon">🏆</div>
+        <div class="pan-step-label" style="color:#4fc87a;">Finalista</div>
+        <div class="pan-step-msg">Entre os últimos candidatos. Decisão em breve.</div>
+      </div>
+      <div class="pan-step">
+        <div class="pan-step-icon">✅</div>
+        <div class="pan-step-label" style="color:#8dc63f;">Aprovado</div>
+        <div class="pan-step-msg">Contratação confirmada! Entraremos em contato.</div>
+      </div>
+    </div>
+    <div style="height:8px;"></div>
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;">Encerramentos possíveis</div>
+    <div class="encerramentos-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div class="pan-step" style="border-color:rgba(224,82,82,0.25);background:rgba(224,82,82,0.06);text-align:left;align-items:flex-start;">
+        <div class="pan-step-icon">—</div>
+        <div class="pan-step-label" style="color:#e05252;">Não avançou (Agência)</div>
+        <div class="pan-step-msg" style="color:rgba(224,82,82,0.7);">Seu perfil não correspondeu ao requisito desta vaga. Seu cadastro fica no banco de talentos para novas oportunidades.</div>
+      </div>
+      <div class="pan-step" style="border-color:rgba(192,57,43,0.25);background:rgba(192,57,43,0.06);text-align:left;align-items:flex-start;">
+        <div class="pan-step-icon">—</div>
+        <div class="pan-step-label" style="color:#c0392b;">Não avançou (Cliente)</div>
+        <div class="pan-step-msg" style="color:rgba(192,57,43,0.7);">A empresa contratante optou por outro candidato. Isso não impede futuras oportunidades — fique atento!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVISOS IMPORTANTES -->
+  <div class="avisos-section">
+    <div class="aviso-card amarelo">
+      <div class="aviso-ico2">⚠️</div>
+      <div><b>Retorno apenas em caso de contratação:</b> Por alto volume de candidatos, entramos em contato somente com quem for aprovado. Se não receber retorno, seu perfil permanece no nosso banco de talentos para novas oportunidades.</div>
+    </div>
+    <div class="aviso-card azul">
+      <div class="aviso-ico2">⏱️</div>
+      <div><b>O prazo de resposta depende do cliente:</b> Cada empresa tem seu próprio ritmo de decisão. Acompanhe esta página regularmente para saber seu status atualizado — não há prazo fixo de retorno.</div>
+    </div>
+    <div class="aviso-card cinza">
+      <div class="aviso-ico2">💡</div>
+      <div><b>Se você for finalista:</b> Você verá o status <span style="color:#4fc87a;font-weight:700;">Finalista</span> aqui. Isso significa que está entre os últimos candidatos em avaliação — continue aguardando, a decisão está próxima!</div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="resultado"></div>
+
+</div>
+
+<script>
+const SUPABASE_URL = 'https://soyogedsgrvduygjsgqg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pEbfDDewFmXfBWXg4HtGNw_gb_nOMxb';
+
+const ETAPAS = [
+  {
+    id:'triagem',
+    label:'Triagem Inicial',
+    icon:'🔍',
+    cor:'#4fa8e8',
+    corBg:'rgba(79,168,232,0.12)',
+    corBorder:'rgba(79,168,232,0.3)',
+    desc:'Sua candidatura foi recebida e está sendo analisada pela nossa equipe. Verificamos seu perfil e currículo nessa etapa.',
+    chip:'Em análise'
+  },
+  {
+    id:'pre',
+    label:'Pré-seleção',
+    icon:'⭐',
+    cor:'#a78bfa',
+    corBg:'rgba(167,139,250,0.12)',
+    corBorder:'rgba(167,139,250,0.3)',
+    desc:'Parabéns! Você avançou para a pré-seleção. Seu perfil foi destacado entre os candidatos e está sendo avaliado com mais atenção.',
+    chip:'Avançou!'
+  },
+  {
+    id:'entrevista',
+    label:'Entrevista',
+    icon:'🎙️',
+    cor:'#e8943a',
+    corBg:'rgba(232,148,58,0.12)',
+    corBorder:'rgba(232,148,58,0.3)',
+    desc:'Você está na etapa de entrevista. Pode incluir entrevista com IA, com nossa equipe ou com o cliente contratante.',
+    chip:'Em andamento'
+  },
+  {
+    id:'finalista',
+    label:'Finalista',
+    icon:'🏆',
+    cor:'#4fc87a',
+    corBg:'rgba(79,200,122,0.12)',
+    corBorder:'rgba(79,200,122,0.3)',
+    desc:'Você está entre os finalistas! Apenas os melhores perfis chegam até aqui. A decisão final está sendo tomada.',
+    chip:'Top candidatos'
+  },
+  {
+    id:'aprovado',
+    label:'Aprovado',
+    icon:'✅',
+    cor:'#8dc63f',
+    corBg:'rgba(141,198,63,0.12)',
+    corBorder:'rgba(141,198,63,0.3)',
+    desc:'Aprovado! Nossa equipe ou o cliente entrarão em contato para os próximos passos da contratação.',
+    chip:'Aprovado!'
+  },
+  {
+    id:'recusado',
+    label:'Não avançou',
+    icon:'—',
+    cor:'#e05252',
+    corBg:'rgba(224,82,82,0.08)',
+    corBorder:'rgba(224,82,82,0.25)',
+    desc:'Infelizmente seu perfil não avançou nesta vaga. Mas seu cadastro está no nosso banco de talentos para novas oportunidades!',
+    chip:'Encerrado'
+  },
+  {
+    id:'recusado_cliente',
+    label:'Não avançou (cliente)',
+    icon:'—',
+    cor:'#c0392b',
+    corBg:'rgba(192,57,43,0.08)',
+    corBorder:'rgba(192,57,43,0.25)',
+    desc:'O cliente não avançou com sua candidatura nesta vaga. Fique atento a novas oportunidades — seu cadastro permanece conosco!',
+    chip:'Encerrado'
+  },
+];
+
+const ETAPA_IDX = {};
+ETAPAS.forEach((e,i) => ETAPA_IDX[e.id] = i);
+
+// Etapas "positivas" para cálculo de progresso (não inclui recusado)
+const ETAPAS_PROG = ['triagem','pre','entrevista','finalista','aprovado'];
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function iniciais(nome){
+  const p=(nome||'').trim().split(/\s+/);
+  if(p.length>=2) return (p[0][0]+(p[p.length-1][0])).toUpperCase();
+  return (p[0]||'?')[0].toUpperCase();
+}
+
+function buscar(){
+  const raw = document.getElementById('inpBusca').value.trim();
+  if(!raw){ shake(); return; }
+  const res = document.getElementById('resultado');
+  res.style.display='block';
+  res.innerHTML=`<div class="loading"><div class="spinner"></div> Consultando...</div>`;
+  setTimeout(()=>executarBusca(raw), 600);
+}
+
+async function executarBusca(termo){
+  const res = document.getElementById('resultado');
+  try {
+    // Campos reais do disc_historico: nome, telefone, vaga, dom, etc.
+    // Sem email nem CPF — busca por nome (ilike) ou telefone (só dígitos)
+    const soDigitos = termo.replace(/\D/g,'');
+    const parece_fone = soDigitos.length >= 8;
+
+    let url;
+    if(parece_fone){
+      // Tenta pelo telefone (campo 'telefone') com os dígitos limpos
+      url = `${SUPABASE_URL}/rest/v1/disc_historico?telefone=ilike.${encodeURIComponent('%'+soDigitos+'%')}&order=criado_em.desc&limit=5`;
+    } else {
+      // Busca por nome parcial (case-insensitive)
+      url = `${SUPABASE_URL}/rest/v1/disc_historico?nome=ilike.${encodeURIComponent('%'+termo+'%')}&order=criado_em.desc&limit=5`;
+    }
+
+    const r = await fetch(url, {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+    let cands = await r.json();
+
+    // Se buscou por fone e não achou, tenta pelo nome mesmo assim
+    if(parece_fone && (!Array.isArray(cands)||!cands.length)){
+      const r2 = await fetch(
+        `${SUPABASE_URL}/rest/v1/disc_historico?nome=ilike.${encodeURIComponent('%'+termo+'%')}&order=criado_em.desc&limit=5`,
+        {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}
+      );
+      cands = await r2.json();
+    }
+
+    if(!Array.isArray(cands)||!cands.length){
+      res.innerHTML = renderNotFound(termo);
+      return;
+    }
+
+    // Busca o pipeline para cada candidato encontrado
+    const ids = cands.map(c=>c.id);
+    const rp = await fetch(
+      `${SUPABASE_URL}/rest/v1/pipeline?candidato_id=in.(${ids.join(',')})&select=vaga_slug,candidato_id,etapa,fit_score`,
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}
+    );
+    const pipeRows = await rp.json();
+
+    // Busca vagas para nomes
+    const slugs = [...new Set((Array.isArray(pipeRows)?pipeRows:[]).map(p=>p.vaga_slug))];
+    let vagas = [];
+    if(slugs.length){
+      const rv = await fetch(
+        `${SUPABASE_URL}/rest/v1/vagas?slug=in.(${slugs.map(s=>`"${s}"`).join(',')})&select=slug,titulo,icone`,
+        {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}
+      );
+      vagas = await rv.json();
+      if(!Array.isArray(vagas)) vagas=[];
+    }
+
+    // Monta mapa candidato → pipelines
+    const pipeMap = {};
+    if(Array.isArray(pipeRows)) pipeRows.forEach(p=>{
+      if(!pipeMap[p.candidato_id]) pipeMap[p.candidato_id]=[];
+      pipeMap[p.candidato_id].push(p);
+    });
+
+    const vagaMap = {};
+    vagas.forEach(v=>vagaMap[v.slug]=v);
+
+    res.innerHTML = cands.map(c => renderCandidato(c, pipeMap[c.id]||[], vagaMap)).join('');
+
+  } catch(e){
+    res.innerHTML=`<div class="not-found">
+      <div class="nf-ico">⚠️</div>
+      <div class="nf-title">Erro ao consultar</div>
+      <div class="nf-sub">Tente novamente em alguns instantes ou entre em contato com nossa equipe.</div>
+    </div>`;
+  }
+}
+
+function renderNotFound(termo){
+  return `<div class="not-found">
+    <div class="nf-ico">🔍</div>
+    <div class="nf-title">Candidatura não encontrada</div>
+    <div class="nf-sub">Não encontramos nenhuma candidatura para "<strong>${esc(termo)}</strong>".<br><br>Verifique se o nome ou telefone está correto (exatamente como digitou na inscrição), ou <a href="https://agenciaexittus.github.io/agenciaexittus/vagas.html" style="color:var(--green);">cadastre-se em uma vaga</a>.</div>
+  </div>`;
+}
+
+function renderCandidato(c, pipes, vagaMap){
+  const nome = c.nome || 'Candidato';
+  const avat = iniciais(nome);
+
+  // Score DISC
+  const d=parseFloat(c.pct_d)||0,ii=parseFloat(c.pct_i)||0,s=parseFloat(c.pct_s)||0,cv=parseFloat(c.pct_c)||0;
+  const temDisc = d||ii||s||cv;
+
+  // Perfil DISC
+  let perfilDisc = '';
+  if(temDisc){
+    const arr=[{l:'D',v:d,cor:'#e05252'},{l:'I',v:ii,cor:'#e8943a'},{l:'S',v:s,cor:'#4fc87a'},{l:'C',v:cv,cor:'#4fa8e8'}];
+    arr.sort((a,b)=>b.v-a.v);
+    perfilDisc = arr[0].l + arr[1].l;
+  }
+
+  // Vaga principal (última atualizada)
+  const vagaPrincipal = pipes.sort((a,b)=>0)[0];
+
+  let htmlVagas = '';
+  if(pipes.length){
+    htmlVagas = pipes.map(p=>{
+      const v = vagaMap[p.vaga_slug];
+      const vNome = v ? v.titulo : formatSlug(p.vaga_slug);
+      return renderPipelineVaga(c, p, vNome, pipes.length > 1);
+    }).join('');
+  } else {
+    // Candidato existe mas não está no pipeline ainda
+    htmlVagas = renderSemPipeline();
+  }
+
+  // DISC card
+  let discHtml = '';
+  if(temDisc){
+    const arr=[{l:'Dominância (D)',v:d,cor:'#e05252'},{l:'Influência (I)',v:ii,cor:'#e8943a'},{l:'Estabilidade (S)',v:s,cor:'#4fc87a'},{l:'Conformidade (C)',v:cv,cor:'#4fa8e8'}];
+    discHtml=`<div class="disc-card">
+      <div class="disc-title">Perfil Comportamental DISC</div>
+      <div class="disc-bars">
+        ${arr.map(a=>`<div class="disc-item">
+          <div class="disc-label"><span>${a.l}</span><span style="color:${a.cor};font-family:'DM Mono',monospace;">${Math.round(a.v)}%</span></div>
+          <div class="disc-track"><div class="disc-fill" style="width:${a.v}%;background:${a.cor};"></div></div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  const vagaMetaText = pipes.length === 1
+    ? (vagaMap[pipes[0].vaga_slug]?.titulo || formatSlug(pipes[0].vaga_slug))
+    : `${pipes.length} candidaturas`;
+
+  return `
+    <div class="cand-header">
+      <div class="cand-avatar">${esc(avat)}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="cand-nome">${esc(nome)}</div>
+        <div class="cand-meta">${esc(c.telefone||c.vaga||'')}</div>
+        <div class="cand-badges">
+          ${perfilDisc?`<span class="badge" style="background:rgba(141,198,63,0.08);color:var(--green);border-color:var(--border-a);">DISC · ${perfilDisc}</span>`:''}
+          <span class="badge" style="background:var(--surface2);color:var(--text-2);border-color:var(--border);">${esc(vagaMetaText)}</span>
+        </div>
+      </div>
+    </div>
+    ${htmlVagas}
+    ${discHtml}
+    <div class="aviso">
+      <div class="aviso-ico">💬</div>
+      <div>Dúvidas sobre sua candidatura? Fale com nossa equipe pelo <a href="https://wa.me/5551998503183" style="color:var(--green);font-weight:600;">WhatsApp</a>.</div>
+    </div>
+  `;
+}
+
+function renderPipelineVaga(c, pipe, vagaNome, multiplas){
+  const etapaId = pipe.etapa;
+  const etapa = ETAPAS.find(e=>e.id===etapaId) || ETAPAS[0];
+  const isRecusado = etapaId==='recusado'||etapaId==='recusado_cliente';
+
+  // Progresso
+  const progIdx = isRecusado ? -1 : ETAPAS_PROG.indexOf(etapaId);
+  const progPct = isRecusado ? 100 : Math.round(((progIdx+1)/ETAPAS_PROG.length)*100);
+  const progCor = isRecusado ? etapa.cor : etapa.cor;
+
+  // Etapas a mostrar
+  const etapasVisiveis = isRecusado
+    ? [...ETAPAS_PROG, etapa]  // mostra o caminho + onde parou
+    : ETAPAS.filter(e=>e.id!=='recusado'&&e.id!=='recusado_cliente');
+
+  const stepHtml = etapasVisiveis.map(et=>{
+    const idx = ETAPAS_PROG.indexOf(etapaId);
+    const thisIdx = ETAPAS_PROG.indexOf(et.id);
+    const isAtual = et.id === etapaId;
+    const isDone = !isRecusado && thisIdx !== -1 && thisIdx < idx;
+    const isRec = (et.id==='recusado'||et.id==='recusado_cliente') && isRecusado && isAtual;
+
+    let dotStyle='', dotClass='', lineStyle='';
+
+    if(isRec){
+      dotClass='step-recusado';
+      dotStyle=``;
+    } else if(isAtual && !isRecusado){
+      dotClass='step-active';
+      dotStyle=`background:${et.corBg};border-color:${et.cor};color:${et.cor};box-shadow:0 0 0 4px ${et.corBg};`;
+    } else if(isDone){
+      dotClass='step-done';
+      dotStyle=`background:${et.cor};border-color:${et.cor};color:#fff;`;
+    } else {
+      dotClass='step-locked';
+    }
+
+    const lineColor = isDone ? et.cor : 'var(--border)';
+
+    return `<div class="step-row">
+      <div class="step-left">
+        <div class="step-dot ${dotClass}" style="${dotStyle}">${isDone?'✓':isRec?'✕':''}</div>
+        <div class="step-line" style="background:${lineColor};"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-name" style="color:${isAtual?et.cor:(isDone?'var(--text)':'var(--text-3)')}">${et.label}</div>
+        ${isAtual?`<div class="step-info">${et.desc}</div>
+        <span class="step-chip" style="background:${et.corBg};color:${et.cor};border-color:${et.corBorder};">${et.chip}</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+
+  const vagaLabel = multiplas ? `<div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-3);margin-bottom:0.7rem;">${esc(vagaNome)}</div>` : '';
+
+  return `
+    <!-- ETAPA ATUAL -->
+    <div class="etapa-atual-card" style="background:${etapa.corBg};border-color:${etapa.corBorder};margin-bottom:1rem;">
+      <div class="ea-eyebrow" style="color:${etapa.cor};">Etapa atual${multiplas?' · '+vagaNome:''}</div>
+      <div class="ea-label"><span class="ea-icon">${etapa.icon}</span><span style="color:${etapa.cor};">${etapa.label}</span></div>
+      <div class="ea-desc">${etapa.desc}</div>
+    </div>
+
+    <!-- BARRA PROGRESSO -->
+    ${!isRecusado?`<div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" style="width:${progPct}%;background:${progCor};"></div></div>
+      <div class="prog-meta"><span>Progresso</span><span style="color:${progCor};font-weight:700;">${progPct}%</span></div>
+    </div>`:''}
+
+    <!-- PIPELINE VISUAL -->
+    <div class="pipe-wrap" style="margin-bottom:1rem;">
+      <div class="pipe-title">Jornada do candidato</div>
+      ${vagaLabel}
+      <div class="pipe-steps">${stepHtml}</div>
+    </div>
+  `;
+}
+
+function renderSemPipeline(){
+  return `
+    <div class="etapa-atual-card" style="background:rgba(79,168,232,0.08);border-color:rgba(79,168,232,0.25);margin-bottom:1rem;">
+      <div class="ea-eyebrow" style="color:#4fa8e8;">Etapa atual</div>
+      <div class="ea-label"><span class="ea-icon">📋</span><span style="color:#4fa8e8;">Cadastro recebido</span></div>
+      <div class="ea-desc">Seu cadastro foi registrado com sucesso! Em breve nossa equipe irá analisar seu perfil e você aparecerá no pipeline de triagem.</div>
+    </div>
+  `;
+}
+
+function formatSlug(slug){
+  return slug.replace(/^vaga-ats-/,'').replace(/-[a-z0-9]{4,12}$/,'').split('-').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ')||slug;
+}
+
+function shake(){
+  const inp = document.getElementById('inpBusca');
+  inp.style.animation='none';
+  inp.style.borderColor='rgba(224,82,82,0.5)';
+  setTimeout(()=>{inp.style.borderColor='';},1200);
+}
+
+// Verificar se já tem parâmetro na URL
+(()=>{
+  const p = new URLSearchParams(location.search);
+  const id = p.get('email')||p.get('cpf');
+  if(id){
+    document.getElementById('inpBusca').value = id;
+    buscar();
+  }
+})();
+</script>
+</body>
+</html>
