@@ -1014,9 +1014,18 @@ body.dark-mode .chatbot-messages ol {
         max-height: 70vh;
       }
 
-      .content-container { padding: 1.5rem; }
+      .content-container { padding: 1rem; }
       .content-container h2 { font-size: 1.3rem; }
       .content-container h3 { font-size: 1rem; }
+      /* Novos componentes mobile */
+      .priv-card-header { padding: 1rem; gap: 0.7rem; }
+      .priv-card.open .priv-card-body { padding: 0 1rem 1rem; }
+      .priv-card-body { padding: 0 1rem; }
+      #counterBlock { padding: 1rem; }
+      #daysCounter { font-size: 2.2rem; }
+      .cookie-grid { grid-template-columns: repeat(2,1fr); gap: 0.6rem; }
+      .lgpd-grid { gap: 0.6rem; }
+      .content-section { padding: 0 0.5rem; margin: 1.5rem auto; }
 
       .btn {
         width: 100%;
@@ -1098,6 +1107,144 @@ body.dark-mode .chatbot-messages ol {
       --ft-accent:        #38bdf8;
       --ft-title:         #38bdf8;
     }
+
+    /* === NOVOS COMPONENTES INTERATIVOS === */
+    .priv-card {
+      border: 1px solid rgba(59,130,246,0.2); border-radius: 16px;
+      margin-bottom: 1rem; overflow: hidden;
+      transition: box-shadow 0.3s, border-color 0.3s; background: white;
+    }
+    body.dark-mode .priv-card { background: rgba(255,255,255,0.04); border-color: rgba(59,130,246,0.25); }
+    .priv-card.open { border-color: #3b82f6; box-shadow: 0 4px 24px rgba(59,130,246,0.15); }
+    .priv-card-header {
+      display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.4rem;
+      cursor: pointer; user-select: none; transition: background 0.2s;
+    }
+    .priv-card-header:hover { background: rgba(59,130,246,0.05); }
+    .priv-card-icon-wrap {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg,rgba(59,130,246,0.1),rgba(96,165,250,0.1));
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform 0.3s;
+    }
+    .priv-card.open .priv-card-icon-wrap { transform: rotate(-5deg) scale(1.1); }
+    .priv-card-icon { font-size: 1.3rem; }
+    .priv-card-title { font-weight: 700; color: var(--primary); font-size: 1rem; }
+    .priv-card-sub { font-size: 0.8rem; color: #888; margin-top: 2px; }
+    .priv-card-chevron { margin-left: auto; font-size: 1.5rem; color: var(--primary); transition: transform 0.3s; line-height: 1; flex-shrink: 0; }
+    .priv-card.open .priv-card-chevron { transform: rotate(90deg); }
+    .priv-card-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s; padding: 0 1.4rem; }
+    .priv-card.open .priv-card-body { max-height: 600px; padding: 0 1.4rem 1.4rem; }
+    .priv-card-body p, .priv-card-body li { font-size: 0.93rem; line-height: 1.7; color: var(--text-light); }
+    body.dark-mode .priv-card-body p, body.dark-mode .priv-card-body li { color: var(--text-dark); }
+    .priv-highlight { background: rgba(59,130,246,0.08); border-left: 4px solid #3b82f6; border-radius: 8px; padding: 0.9rem 1rem; margin-top: 1rem; font-size: 0.88rem; line-height: 1.6; }
+    .priv-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 600px) { .priv-two-col { grid-template-columns: 1fr; } }
+    .priv-card-body ul { padding-left: 1.2rem; margin: 0.5rem 0 0; }
+    .priv-card-body ul li { margin-bottom: 0.4rem; }
+
+    .cookie-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.8rem; margin-top: 0.5rem; }
+    @media (max-width: 480px) { .cookie-grid { grid-template-columns: 1fr; } }
+    .cookie-item { border-radius: 12px; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.7rem; flex-direction: column; text-align: center; border: 1px solid rgba(0,0,0,0.08); transition: transform 0.2s; }
+    .cookie-item:hover { transform: translateY(-2px); }
+    .cookie-item span { font-size: 1.4rem; }
+    .cookie-item strong { font-size: 0.85rem; display: block; }
+    .cookie-item small { font-size: 0.75rem; color: #888; }
+    .cookie-item.essential { background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.2); }
+    .cookie-item.pref { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.2); }
+    .cookie-item.analytics { background: rgba(168,85,247,0.08); border-color: rgba(168,85,247,0.2); }
+    .cookie-item.marketing { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.2); }
+
+    .lgpd-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1rem 0 2rem;
+    }
+    @media (max-width: 640px) { .lgpd-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 360px)  { .lgpd-grid { grid-template-columns: 1fr; } }
+
+    /* Wrapper que gira */
+    .lgpd-card {
+      height: 140px;
+      cursor: pointer;
+      position: relative;
+      -webkit-perspective: 900px;
+      perspective: 900px;
+    }
+    .lgpd-inner {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 14px;
+    }
+    .lgpd-card.flipped .lgpd-inner {
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+    }
+    .lgpd-front, .lgpd-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem;
+      text-align: center;
+    }
+    .lgpd-front {
+      background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(96,165,250,0.14));
+      border: 2px solid rgba(59,130,246,0.22);
+      transform: rotateY(0deg);
+    }
+    body.dark-mode .lgpd-front {
+      background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(96,165,250,0.22));
+      border-color: rgba(96,165,250,0.3);
+    }
+    .lgpd-card:hover .lgpd-front { border-color: #3b82f6; box-shadow: 0 4px 20px rgba(59,130,246,0.2); }
+    .lgpd-back {
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      color: white;
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+      font-size: 0.8rem;
+      line-height: 1.5;
+      overflow: hidden;
+    }
+    .lgpd-back strong { font-size: 0.85rem; display: block; margin-bottom: 0.35rem; }
+    .lgpd-back p { margin: 0; opacity: 0.92; font-size: 0.78rem; }
+    .lgpd-emoji { font-size: 1.8rem; margin-bottom: 0.35rem; display: block; }
+    .lgpd-name { font-weight: 700; color: var(--primary); font-size: 0.88rem; line-height: 1.2; }
+    body.dark-mode .lgpd-name { color: #60a5fa; }
+    .lgpd-hint { font-size: 0.65rem; color: #94a3b8; margin-top: 0.25rem; }
+
+    /* Mobile: em vez de flip 3D, usa toggle simples de conteúdo */
+    @media (max-width: 640px) {
+      .lgpd-card { height: auto; min-height: 110px; perspective: none; -webkit-perspective: none; }
+      .lgpd-inner { position: static; transform: none !important; -webkit-transform: none !important; transform-style: flat; transition: none; }
+      .lgpd-front, .lgpd-back {
+        position: static;
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
+        transform: none !important;
+        -webkit-transform: none !important;
+      }
+      .lgpd-back { display: none; border-radius: 0 0 14px 14px; }
+      .lgpd-front { border-radius: 14px; min-height: 110px; }
+      .lgpd-card.flipped .lgpd-front { border-radius: 14px 14px 0 0; border-bottom: none; }
+      .lgpd-card.flipped .lgpd-back { display: flex; padding: 0.9rem; }
+      .lgpd-inner { border-radius: 14px; overflow: hidden; border: 2px solid rgba(59,130,246,0.22); }
+      body.dark-mode .lgpd-inner { border-color: rgba(96,165,250,0.3); }
+      .lgpd-card.flipped .lgpd-inner { border-color: #3b82f6; }
+      .lgpd-front { border: none; background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(96,165,250,0.14)); }
+      body.dark-mode .lgpd-front { background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(96,165,250,0.22)); }
+    }
+    /* === FIM COMPONENTES === */
 
     .footer-top {
       max-width: 1100px;
@@ -2447,379 +2594,250 @@ body.dark-mode .voice-translator-toggle {
   </header>
 
 
+
+  <!-- BARRA DE PROGRESSO DE LEITURA -->
+  <div id="readProgress" style="position:fixed;top:0;left:0;width:0%;height:4px;background:linear-gradient(90deg,#00c8ff,#3b82f6);z-index:9999;transition:width 0.1s ease;border-radius:0 2px 2px 0;box-shadow:0 0 8px rgba(0,200,255,0.6);"></div>
+
   <section class="content-section">
     <div class="content-container">
 
-      <!-- ================================================ -->
-      <!-- POLÍTICA DE PRIVACIDADE                          -->
-      <!-- ================================================ -->
-
-      <h2 id="section-intro" data-i18n="priv-h2-intro">1. Introdução</h2>
-      <p>
-        A Agência Nexus ("nós", "nosso" ou "nossa") opera o website e aplicativos da Agência Nexus. Esta página informa você sobre nossas políticas sobre a coleta, uso e divulgação de dados pessoais quando você usa nossos serviços e as escolhas que você tem associadas com esses dados.
-      </p>
-      <p>
-        Estamos comprometidos em proteger sua privacidade e garantir que você tenha uma experiência positiva em nossa plataforma. Esta Política de Privacidade explica como coletamos, usamos, compartilhamos e protegemos suas informações pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD).
-      </p>
-
-      <h2 id="section-info" data-i18n="priv-h2-info">2. Informações que Coletamos</h2>
-      <p>Coletamos diferentes tipos de informações para fornecer e melhorar nossos serviços:</p>
-      
-      <h3>2.1 Informações Fornecidas Diretamente por Você</h3>
-      <ul>
-        <li><strong>Dados de Cadastro:</strong> Nome completo, e-mail, telefone, endereço</li>
-        <li><strong>Informações Profissionais:</strong> Currículo, experiência, qualificações, habilidades</li>
-        <li><strong>Dados Bancários:</strong> Informações para pagamento (apenas em casos de contrato)</li>
-        <li><strong>Mensagens e Comunicações:</strong> Mensagens enviadas através de formulários e chat</li>
-      </ul>
-
-      <h3>2.2 Informações Coletadas Automaticamente</h3>
-      <ul>
-        <li><strong>Dados de Navegação:</strong> Tipo de navegador, endereço IP, páginas visitadas</li>
-        <li><strong>Cookies:</strong> Informações armazenadas para melhorar sua experiência</li>
-        <li><strong>Analytics:</strong> Dados sobre como você interage com nosso site</li>
-        <li><strong>Dispositivo:</strong> Tipo de dispositivo, sistema operacional, identificadores únicos</li>
-      </ul>
-
-      <h2 id="section-uso" data-i18n="priv-h2-uso">3. Como Usamos Suas Informações</h2>
-      <p>Utilizamos as informações coletadas para diversos fins:</p>
-      <ul>
-        <li>Fornecer, manter e melhorar nossos serviços de recrutamento</li>
-        <li>Processar suas solicitações e responder aos seus questionamentos</li>
-        <li>Enviar notificações sobre vagas de emprego relevantes</li>
-        <li>Conduzir entrevistas, testes e processos seletivos</li>
-        <li>Realizar análises e pesquisas para melhorar nossos serviços</li>
-        <li>Cumprir obrigações legais e regulatórias</li>
-        <li>Detectar e prevenir fraudes</li>
-        <li>Personalizar sua experiência em nossa plataforma</li>
-      </ul>
-
-      <div class="highlight">
-        <strong>⚠️ Importante:</strong> Nunca usaremos suas informações para fins não autorizados ou as venderemos a terceiros sem seu consentimento explícito.
+      <!-- CONTADOR ANIMADO -->
+      <div id="counterBlock" style="text-align:center;margin-bottom:2.5rem;padding:1.5rem;background:linear-gradient(135deg,rgba(0,200,255,0.08),rgba(59,130,246,0.08));border-radius:16px;border:1px solid rgba(0,200,255,0.2);">
+        <div style="font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:#00c8ff;margin-bottom:0.5rem;font-weight:700;">🔐 Seus dados protegidos há</div>
+        <div id="daysCounter" style="font-size:3rem;font-weight:900;color:#3b82f6;line-height:1;font-variant-numeric:tabular-nums;">0</div>
+        <div style="font-size:0.85rem;color:var(--text-light);opacity:0.7;margin-top:0.3rem;">dias desde nossa fundação em 2025</div>
+        <div style="margin-top:0.8rem;display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+          <span style="font-size:0.8rem;color:#00c8ff;"><strong id="usersCount">0</strong> dados protegidos</span>
+          <span style="font-size:0.8rem;color:#3b82f6;"><strong>100%</strong> conformidade LGPD</span>
+          <span style="font-size:0.8rem;color:#60a5fa;"><strong>0</strong> vazamentos</span>
+        </div>
       </div>
 
-      <h2>4. Compartilhamento de Informações</h2>
-      <p>
-        Podemos compartilhar suas informações pessoais apenas quando necessário e apropriado:
-      </p>
-      <ul>
-        <li><strong>Com Empresas Clientes:</strong> Apenas seu currículo e informações profissionais relevantes para processos seletivos</li>
-        <li><strong>Com Fornecedores de Serviços:</strong> Plataformas de análise, hospedagem e comunicação</li>
-        <li><strong>Por Requisição Legal:</strong> Quando exigido por lei ou autoridades competentes</li>
-        <li><strong>Proteção de Direitos:</strong> Para proteger nossos direitos, privacidade, segurança ou propriedade</li>
-      </ul>
+      <!-- CARDS EXPANSÍVEIS -->
 
-      <h2 id="section-direitos" data-i18n="priv-h2-direitos">5. Seus Direitos sob a LGPD</h2>
-      <p>
-        A Agência Nexus está em total conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018). Seus direitos incluem:
-      </p>
-      <ul>
-        <li><strong>Direito de Acesso:</strong> Solicitar acesso aos seus dados pessoais armazenados</li>
-        <li><strong>Direito de Retificação:</strong> Corrigir dados inexatos ou incompletos</li>
-        <li><strong>Direito de Exclusão:</strong> Solicitar a exclusão de seus dados (direito ao esquecimento)</li>
-        <li><strong>Direito de Portabilidade:</strong> Receber seus dados em formato estruturado</li>
-        <li><strong>Direito de Revogação:</strong> Retirar seu consentimento a qualquer momento</li>
-        <li><strong>Direito de Oposição:</strong> Se opor ao processamento de seus dados</li>
-      </ul>
-
-      <h2 id="section-seguranca" data-i18n="priv-h2-seguranca">6. Segurança dos Dados</h2>
-      <p>
-        Implementamos medidas técnicas e organizacionais apropriadas para proteger suas informações pessoais contra acesso não autorizado, alteração, divulgação ou destruição. Essas medidas incluem:
-      </p>
-      <ul>
-        <li>Criptografia de dados em trânsito (SSL/TLS)</li>
-        <li>Senhas criptografadas em nossos sistemas</li>
-        <li>Acesso restrito aos dados pessoais (apenas pessoal autorizado)</li>
-        <li>Auditorias de segurança regulares</li>
-        <li>Manutenção de backups seguros</li>
-      </ul>
-      <p>
-        <strong>Observação:</strong> Nenhum método de transmissão pela internet ou armazenamento eletrônico é 100% seguro. Embora façamos nossos melhores esforços para proteger suas informações, não podemos garantir segurança absoluta.
-      </p>
-
-      <h2>7. Retenção de Dados</h2>
-      <p>
-        Reteremos suas informações pessoais apenas pelo tempo necessário para:
-      </p>
-      <ul>
-        <li>Fornecer nossos serviços</li>
-        <li>Cumprir obrigações legais</li>
-        <li>Resolver disputas</li>
-        <li>Estabelecer, exercer ou defender direitos legais</li>
-      </ul>
-      <p>
-        Você pode solicitar a exclusão de seus dados a qualquer momento através de nossos canais de contato. Após sua exclusão, seus dados não serão mais usados, exceto quando exigido por lei.
-      </p>
-
-      <h2 id="section-cookies" data-i18n="priv-h2-cookies">8. Cookies e Tecnologias de Rastreamento</h2>
-      <p>
-        Usamos cookies e tecnologias similares para aprimorar sua experiência:
-      </p>
-      <ul>
-        <li><strong>Cookies Essenciais:</strong> Necessários para o funcionamento básico do site</li>
-        <li><strong>Cookies de Preferência:</strong> Lembram suas escolhas e preferências</li>
-        <li><strong>Cookies de Analytics:</strong> Ajudam a entender como você usa nossos serviços</li>
-        <li><strong>Cookies de Marketing:</strong> Usados em publicidade direcionada (com seu consentimento)</li>
-      </ul>
-      <p>
-        Você pode controlar cookies através das configurações do seu navegador. Desabilitar cookies pode afetar a funcionalidade de nosso site.
-      </p>
-
-      <h2>9. Direitos de Crianças</h2>
-      <p>
-        Nossos serviços não são direcionados a menores de 18 anos. Não coletamos intencionalmente informações pessoais de menores. Se descobrirmos que coletamos informações de um menor sem consentimento parental apropriado, tomaremos medidas para deletar essas informações prontamente.
-      </p>
-
-      <h2>10. Links para Terceiros</h2>
-      <p>
-        Nosso website pode conter links para sites de terceiros. Esta Política de Privacidade se aplica apenas aos nossos serviços. Recomendamos revisar a política de privacidade de qualquer site de terceiro antes de fornecer suas informações pessoais.
-      </p>
-
-      <h2>11. Alterações nesta Política</h2>
-      <p>
-        Podemos atualizar nossa Política de Privacidade periodicamente para refletir mudanças em nossas práticas, tecnologia, requisitos legais ou outros fatores. Notificaremos você sobre quaisquer alterações materiais publicando a política atualizada em nosso website e atualizando a data de "Última Atualização" abaixo.
-      </p>
-      <p>
-        Seu uso continuado de nossos serviços após notificação de alterações constitui aceitação da Política de Privacidade revisada.
-      </p>
-
-
-      <h2>13. Responsável pela Proteção de Dados</h2>
-      <p>
-        A Agência Nexus designou um responsável pela proteção de dados para supervisionar nossas práticas de privacidade. Para questões relacionadas à privacidade, você pode entrar em contato através dos canais acima.
-      </p>
-
-      <div class="highlight">
-        <strong>✅ Compromisso:</strong> Estamos comprometidos em proteger seus direitos de privacidade e operar com transparência em todas as nossas práticas de dados.
+      <!-- 1. INTRODUÇÃO -->
+      <div class="priv-card" id="card-intro">
+        <div class="priv-card-header" onclick="toggleCard('card-intro')">
+          <div class="priv-card-icon-wrap"><span class="priv-card-icon">📖</span></div>
+          <div>
+            <div class="priv-card-title" id="section-intro" data-i18n="priv-h2-intro">1. Introdução</div>
+            <div class="priv-card-sub">Como protegemos você</div>
+          </div>
+          <span class="priv-card-chevron">›</span>
+        </div>
+        <div class="priv-card-body">
+          <p>A <strong>Agência Nexus</strong> está comprometida em proteger sua privacidade e garantir uma experiência positiva em nossa plataforma. Esta Política explica como coletamos, usamos e protegemos suas informações pessoais, em total conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD)</strong>.</p>
+          <div class="priv-highlight">⚠️ Nunca venderemos seus dados a terceiros sem seu consentimento explícito.</div>
+        </div>
       </div>
 
-      <p style="margin-top: 2rem; text-align: center; opacity: 0.7; font-size: 0.9rem;">
-        <strong>Última Atualização:</strong> Janeiro de 2026
-      </p>
-
-
-      <!-- ================================================ -->
-      <!-- DIVISOR VISUAL — INÍCIO DA SEÇÃO LGPD            -->
-      <!-- ================================================ -->
-      <hr class="section-divider">
-
-
-      <!-- ================================================ -->
-      <!-- LEI GERAL DE PROTEÇÃO DE DADOS (LGPD)            -->
-      <!-- ================================================ -->
-
-      <h2>O que é a LGPD?</h2>
-      <p>
-        A Lei Geral de Proteção de Dados (LGPD) é a legislação brasileira que regulamenta o tratamento de dados pessoais por pessoas físicas ou jurídicas de direito público ou privado. Entrou em vigor em 18 de setembro de 2020 e estabelece direitos, deveres e obrigações para todas as organizações que processam dados.
-      </p>
-
-      <!-- GIF 1 -->
-      <section class="topico-gif" style="margin-top: 2rem; text-align: center;">
-        <img src="gif1.gif" alt="Explicação LGPD" style="width: 80%; max-width: 400px; height: auto;">
-      </section>
-
-
-      <h2>Direitos dos Titulares de Dados</h2>
-      <p>
-        A LGPD garante diversos direitos aos titulares de dados pessoais:
-      </p>
-
-      <!-- GIF 2 -->
-      <section class="topico-gif" style="margin-top: 2rem; text-align: center;">
-        <img src="gif2.gif" alt="Direitos do titular" style="width: 80%; max-width: 400px; height: auto;">
-      </section>
-
-      <h3>📌 Direito de Acesso</h3>
-      <ul class="highlight-list">
-        <li>Obter confirmação de que seus dados estão sendo processados</li>
-        <li>Acessar dados em formato claro e legível</li>
-        <li>Conhecer a origem, uso e destinação dos dados</li>
-      </ul>
-
-      <h3>✏️ Direito de Retificação</h3>
-      <ul class="highlight-list">
-        <li>Corrigir dados incompletos ou inexatos</li>
-        <li>Atualizar informações desatualizadas</li>
-        <li>Solicitar complementação de dados</li>
-      </ul>
-
-      <h3>🗑️ Direito de Exclusão</h3>
-      <ul class="highlight-list">
-        <li>Solicitar apagamento de dados pessoais</li>
-        <li>Direito ao esquecimento em certas circunstâncias</li>
-        <li>Solicitação sem necessidade de justificativa</li>
-      </ul>
-
-      <h3>📤 Direito à Portabilidade</h3>
-      <ul class="highlight-list">
-        <li>Receber dados em formato estruturado e portável</li>
-        <li>Transferência entre controladores</li>
-        <li>Facilita mudanças de serviços</li>
-      </ul>
-
-      <h3>🚫 Direito de Oposição</h3>
-      <ul class="highlight-list">
-        <li>Opor-se ao tratamento por motivos legítimos</li>
-        <li>Recusar marketing direto</li>
-        <li>Contestar decisões automatizadas</li>
-      </ul>
-
-      <h3>🔍 Direito de Revisão</h3>
-      <ul class="highlight-list">
-        <li>Contestar decisões tomadas automaticamente</li>
-        <li>Solicitar revisão manual de decisões</li>
-        <li>Explicações sobre raciocínio lógico</li>
-      </ul>
-
-      <h2 id="section-obrigacoes">Obrigações da Agência Nexus</h2>
-      <p>
-        Como controladora de dados, a Agência Nexus assume as seguintes obrigações:
-      </p>
-
-      <h3>✅ Consentimento e Legitimidade</h3>
-      <ul class="highlight-list">
-        <li>Obter consentimento prévio para coleta de dados</li>
-        <li>Baseado em fundamento legal legítimo</li>
-        <li>Clareza e transparência nas políticas</li>
-      </ul>
-
-      <h3>✅ Segurança de Dados</h3>
-      <ul class="highlight-list">
-        <li>Implementar medidas técnicas e organizacionais de segurança</li>
-        <li>Proteger contra acessos não autorizados</li>
-        <li>Manter atualização de sistemas</li>
-      </ul>
-
-      <h3>✅ Notificação de Incidentes</h3>
-      <ul class="highlight-list">
-        <li>Notificar ANPD em caso de vazamento</li>
-        <li>Informar titulares em até 72 horas</li>
-        <li>Documentar todos os incidentes</li>
-      </ul>
-
-      <h3>✅ Avaliação de Impacto</h3>
-      <ul class="highlight-list">
-        <li>Realizar Avaliação de Impacto à Proteção de Dados (AIPD)</li>
-        <li>Identificar riscos antes de tratamento</li>
-        <li>Implementar mitigações necessárias</li>
-      </ul>
-
-      <h3>✅ Processadores de Dados</h3>
-      <ul class="highlight-list">
-        <li>Contratos claros com processadores</li>
-        <li>Responsabilidade compartilhada</li>
-        <li>Auditoria periódica</li>
-      </ul>
-
-      <h2>Consentimento na LGPD</h2>
-      <p>
-        O consentimento é um dos fundamentos legais principais para tratamento de dados:
-      </p>
-
-      <!-- GIF 3 -->
-      <section class="topico-gif" style="margin-top: 2rem; text-align: center;">
-        <img src="gif3.gif" alt="Tratamento de dados" style="width: 80%; max-width: 400px; height: auto;">
-      </section>
-
-      <div class="highlight-box">
-        <strong>🔑 Características do Consentimento Válido:</strong><br>
-        ✅ Livre: Sem coerção ou pressão<br>
-        ✅ Informado: Baseia-se em informações completas<br>
-        ✅ Inequívoco: Claramente fornecido (não tácito)<br>
-        ✅ Granular: Separado por finalidade<br>
-        ✅ Específico: Para cada tipo de tratamento<br>
-        ✅ Revogável: Pode ser retirado a qualquer tempo
+      <!-- 2. O QUE COLETAMOS -->
+      <div class="priv-card" id="card-info">
+        <div class="priv-card-header" onclick="toggleCard('card-info')">
+          <div class="priv-card-icon-wrap"><span class="priv-card-icon">📋</span></div>
+          <div>
+            <div class="priv-card-title" id="section-info" data-i18n="priv-h2-info">2. Informações que Coletamos</div>
+            <div class="priv-card-sub">Transparência total sobre seus dados</div>
+          </div>
+          <span class="priv-card-chevron">›</span>
+        </div>
+        <div class="priv-card-body">
+          <div class="priv-two-col">
+            <div>
+              <strong style="color:var(--primary);display:block;margin-bottom:0.5rem;">📝 Fornecidos por você</strong>
+              <ul>
+                <li>Nome, e-mail, telefone, endereço</li>
+                <li>Currículo, experiência e habilidades</li>
+                <li>Mensagens e comunicações</li>
+              </ul>
+            </div>
+            <div>
+              <strong style="color:var(--accent);display:block;margin-bottom:0.5rem;">🤖 Coletados automaticamente</strong>
+              <ul>
+                <li>Tipo de navegador e endereço IP</li>
+                <li>Cookies e dados de navegação</li>
+                <li>Tipo de dispositivo e sistema</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <h2>Fundamentos Legais para Tratamento</h2>
-      <p>
-        Além do consentimento, existem outros fundamentos legais válidos para processar dados:
-      </p>
-
-      <ul class="highlight-list">
-        <li><strong>Cumprimento de Obrigações Legais:</strong> Processar para cumprir lei ou ordem judicial</li>
-        <li><strong>Execução de Contrato:</strong> Necessário para prestar serviços contratados</li>
-        <li><strong>Interesses Legítimos:</strong> Processamento que não prejudica direitos do titular</li>
-        <li><strong>Proteção da Vida:</strong> Situações de emergência ou risco</li>
-        <li><strong>Políticas Públicas:</strong> Execução de políticas públicas</li>
-        <li><strong>Pesquisa Científica:</strong> Pesquisa com garantias de anonimização</li>
-      </ul>
-
-      <h2>ANPD — Autoridade Nacional de Proteção de Dados</h2>
-      <p>
-        A ANPD é o órgão responsável por fiscalizar e garantir o cumprimento da LGPD:
-      </p>
-
-      <h3>📋 Atribuições da ANPD</h3>
-      <ul class="highlight-list">
-        <li>Fiscalizar e aplicar sanções em caso de infrações</li>
-        <li>Orientar e esclarecer dúvidas sobre LGPD</li>
-        <li>Receber denúncias de violações</li>
-        <li>Emitir normativas complementares</li>
-        <li>Realizar auditorias em organizações</li>
-      </ul>
-
-      <h2>Penalidades por Não Conformidade</h2>
-      <p>
-        O não cumprimento da LGPD pode resultar em penalidades significativas:
-      </p>
-
-      <div class="highlight-box">
-        <strong>⚠️ Penalidades Administrativas:</strong><br>
-        • Multa de até 2% do faturamento anual (máx R$ 50 milhões) por infração<br>
-        • Multa de até 4% do faturamento anual (máx R$ 100 milhões) por infração grave<br>
-        • Publicação da infração em mídia de grande circulação<br>
-        • Bloqueio ou eliminação de dados<br>
-        • Suspensão de processamento de dados
+      <!-- 3. COMO USAMOS -->
+      <div class="priv-card" id="card-uso">
+        <div class="priv-card-header" onclick="toggleCard('card-uso')">
+          <div class="priv-card-icon-wrap"><span class="priv-card-icon">🔒</span></div>
+          <div>
+            <div class="priv-card-title" id="section-uso" data-i18n="priv-h2-uso">3. Como Usamos Suas Informações</div>
+            <div class="priv-card-sub">Finalidade de cada dado coletado</div>
+          </div>
+          <span class="priv-card-chevron">›</span>
+        </div>
+        <div class="priv-card-body">
+          <ul>
+            <li>Fornecer e melhorar nossos serviços de recrutamento</li>
+            <li>Processar candidaturas e responder questionamentos</li>
+            <li>Enviar notificações sobre vagas relevantes</li>
+            <li>Conduzir entrevistas e processos seletivos</li>
+            <li>Cumprir obrigações legais e regulatórias</li>
+            <li>Detectar e prevenir fraudes</li>
+          </ul>
+        </div>
       </div>
 
-      <h2>Conformidade da Agência Nexus com a LGPD</h2>
-      <p>
-        A Agência Nexus está totalmente em conformidade com a LGPD:
-      </p>
+      <!-- 4. SEGURANÇA -->
+      <div class="priv-card" id="card-seguranca">
+        <div class="priv-card-header" onclick="toggleCard('card-seguranca')">
+          <div class="priv-card-icon-wrap"><span class="priv-card-icon">🛡️</span></div>
+          <div>
+            <div class="priv-card-title" id="section-seguranca" data-i18n="priv-h2-seguranca">4. Segurança dos Dados</div>
+            <div class="priv-card-sub">Medidas técnicas de proteção</div>
+          </div>
+          <span class="priv-card-chevron">›</span>
+        </div>
+        <div class="priv-card-body">
+          <ul>
+            <li>Criptografia de dados em trânsito (SSL/TLS)</li>
+            <li>Senhas criptografadas em nossos sistemas</li>
+            <li>Acesso restrito (apenas pessoal autorizado)</li>
+            <li>Auditorias de segurança regulares</li>
+            <li>Backups seguros e redundantes</li>
+          </ul>
+          <div class="priv-highlight" style="border-color:#f59e0b;background:rgba(245,158,11,0.08);">
+            ⚠️ Nenhum método de transmissão online é 100% seguro. Fazemos nosso melhor para proteger suas informações.
+          </div>
+        </div>
+      </div>
 
-      <!-- GIF 4 -->
-      <section class="topico-gif" style="margin-top: 2rem; text-align: center;">
-        <img src="gif4.gif" alt="Segurança de dados" style="width: 80%; max-width: 400px; height: auto;">
-      </section>
+      <!-- 5. COOKIES -->
+      <div class="priv-card" id="card-cookies">
+        <div class="priv-card-header" onclick="toggleCard('card-cookies')">
+          <div class="priv-card-icon-wrap"><span class="priv-card-icon">🍪</span></div>
+          <div>
+            <div class="priv-card-title" id="section-cookies" data-i18n="priv-h2-cookies">5. Cookies e Rastreamento</div>
+            <div class="priv-card-sub">O que armazenamos no seu navegador</div>
+          </div>
+          <span class="priv-card-chevron">›</span>
+        </div>
+        <div class="priv-card-body">
+          <div class="cookie-grid">
+            <div class="cookie-item essential"><span>✅</span><strong>Essenciais</strong><small>Funcionamento básico</small></div>
+            <div class="cookie-item pref"><span>⚙️</span><strong>Preferência</strong><small>Suas escolhas salvas</small></div>
+            <div class="cookie-item analytics"><span>📊</span><strong>Analytics</strong><small>Como você usa o site</small></div>
+            <div class="cookie-item marketing"><span>📢</span><strong>Marketing</strong><small>Publicidade (com consentimento)</small></div>
+          </div>
+          <p style="margin-top:1rem;font-size:0.9rem;">Você pode controlar cookies nas configurações do seu navegador. <a href="indexcookies.html" style="color:var(--primary);">Veja nossa política de cookies →</a></p>
+        </div>
+      </div>
 
-      <h3>✅ Medidas Implementadas</h3>
-      <ul class="highlight-list">
-        <li>Política de privacidade clara e acessível</li>
-        <li>Coleta de dados baseada em consentimento explícito</li>
-        <li>Criptografia de dados em trânsito e em repouso</li>
-        <li>Acesso controlado e baseado em funções</li>
-        <li>Auditoria periódica de segurança</li>
-        <li>Notificação rápida de incidentes</li>
-        <li>Designação de DPO (Encarregado de Proteção de Dados)</li>
-        <li>Contratos com processadores em conformidade</li>
-        <li>Registro de atividades de processamento</li>
-        <li>Avaliação de impacto para tratamentos de risco</li>
-      </ul>
+      <!-- 6. CONTATO DPO -->
+      <div class="priv-card" id="card-contato">
+        <div class="priv-card-header" onclick="toggleCard('card-contato')">
+          <div class="priv-card-icon-wrap"><span class="priv-card-icon">📬</span></div>
+          <div>
+            <div class="priv-card-title">6. Fale com o DPO</div>
+            <div class="priv-card-sub">Encarregado de Proteção de Dados</div>
+          </div>
+          <span class="priv-card-chevron">›</span>
+        </div>
+        <div class="priv-card-body">
+          <p>Para exercer qualquer direito ou esclarecer dúvidas sobre privacidade, entre em contato:</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+            <a href="mailto:adm.agencianexus@outlook.com" class="btn btn-primary" style="font-size:0.85rem;padding:0.7rem 1.5rem;margin:0;">📧 Enviar E-mail</a>
+            <a href="https://wa.me/5551996976579" target="_blank" class="btn btn-secondary" style="font-size:0.85rem;padding:0.7rem 1.5rem;margin:0;">💬 WhatsApp</a>
+          </div>
+          <p style="margin-top:1rem;font-size:0.82rem;opacity:0.7;"><strong>Última atualização:</strong> Janeiro de 2026</p>
+        </div>
+      </div>
 
-      <h2>Recursos Adicionais</h2>
-      <p>
-        Para mais informações sobre a LGPD, você pode consultar:
-      </p>
+      <!-- DIVISOR LGPD -->
+      <hr class="section-divider" style="margin:3rem 0;">
 
-      <ul class="highlight-list">
-        <li><strong>Site da ANPD:</strong> www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd</li>
-        <li><strong>Legislação Completa:</strong> Lei nº 13.709, de 14 de agosto de 2018</li>
-        <li><strong>Orientações Técnicas:</strong> Guias publicados pela ANPD</li>
-        <li><strong>Jurisprudência:</strong> Decisões e precedentes relacionados</li>
-      </ul>
+      <!-- TÍTULO LGPD -->
+      <div style="text-align:center;margin-bottom:2rem;">
+        <div style="font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#00c8ff;margin-bottom:0.5rem;font-weight:700;">Lei nº 13.709/2018</div>
+        <h2 style="color:var(--primary);font-size:1.8rem;font-weight:900;margin:0;" id="section-direitos">Seus Direitos sob a LGPD</h2>
+        <p style="color:var(--text-light);opacity:0.7;margin-top:0.5rem;font-size:0.95rem;">Clique em cada direito para saber mais</p>
+      </div>
 
-      <p style="margin-top: 2rem; text-align: center; font-weight: 600; color: var(--primary);">
-        Sua privacidade é um direito fundamental. Estamos comprometidos com a LGPD! 🔐
-      </p>
+      <!-- CARDS DIREITOS LGPD INTERATIVOS -->
+      <p style="text-align:center;font-size:0.8rem;color:#94a3b8;margin-bottom:0.5rem;">👆 Toque para revelar cada direito</p>
+      <div class="lgpd-grid" id="lgpd-grid">
+        <div class="lgpd-card" onclick="flipCard(this)">
+          <div class="lgpd-inner">
+            <div class="lgpd-front"><span class="lgpd-emoji">📌</span><div class="lgpd-name">Acesso</div></div>
+            <div class="lgpd-back"><strong>Direito de Acesso</strong><p>Solicite confirmação e acesso a todos os seus dados pessoais armazenados pela Nexus.</p></div>
+          </div>
+        </div>
+        <div class="lgpd-card" onclick="flipCard(this)">
+          <div class="lgpd-inner">
+            <div class="lgpd-front"><span class="lgpd-emoji">✏️</span><div class="lgpd-name">Retificação</div></div>
+            <div class="lgpd-back"><strong>Direito de Retificação</strong><p>Corrija dados incompletos, inexatos ou desatualizados a qualquer momento.</p></div>
+          </div>
+        </div>
+        <div class="lgpd-card" onclick="flipCard(this)">
+          <div class="lgpd-inner">
+            <div class="lgpd-front"><span class="lgpd-emoji">🗑️</span><div class="lgpd-name">Exclusão</div></div>
+            <div class="lgpd-back"><strong>Direito ao Esquecimento</strong><p>Solicite o apagamento dos seus dados — sem precisar justificar o pedido.</p></div>
+          </div>
+        </div>
+        <div class="lgpd-card" onclick="flipCard(this)">
+          <div class="lgpd-inner">
+            <div class="lgpd-front"><span class="lgpd-emoji">📤</span><div class="lgpd-name">Portabilidade</div></div>
+            <div class="lgpd-back"><strong>Direito à Portabilidade</strong><p>Receba seus dados em formato estruturado para transferir a outro serviço.</p></div>
+          </div>
+        </div>
+        <div class="lgpd-card" onclick="flipCard(this)">
+          <div class="lgpd-inner">
+            <div class="lgpd-front"><span class="lgpd-emoji">🚫</span><div class="lgpd-name">Oposição</div></div>
+            <div class="lgpd-back"><strong>Direito de Oposição</strong><p>Recuse marketing direto e conteste decisões automatizadas que te afetem.</p></div>
+          </div>
+        </div>
+        <div class="lgpd-card" onclick="flipCard(this)">
+          <div class="lgpd-inner">
+            <div class="lgpd-front"><span class="lgpd-emoji">🔍</span><div class="lgpd-name">Revisão</div></div>
+            <div class="lgpd-back"><strong>Direito de Revisão</strong><p>Solicite revisão humana de qualquer decisão tomada automaticamente sobre você.</p></div>
+          </div>
+        </div>
+      </div>
 
-      <div style="text-align: center; margin-top: 2.5rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-        <a href="../index.html" class="btn btn-primary">Voltar</a>
+      <!-- OBRIGAÇÕES DA NEXUS -->
+      <div class="priv-card" id="card-obrigacoes" style="margin-top:2rem;">
+        <div class="priv-card-header" onclick="toggleCard('card-obrigacoes')">
+          <div class="priv-card-icon-wrap"><span class="priv-card-icon">📜</span></div>
+          <div>
+            <div class="priv-card-title" id="section-obrigacoes">Obrigações da Agência Nexus</div>
+            <div class="priv-card-sub">O que nos comprometemos a fazer</div>
+          </div>
+          <span class="priv-card-chevron">›</span>
+        </div>
+        <div class="priv-card-body">
+          <div class="priv-two-col">
+            <ul>
+              <li>✅ Consentimento prévio para coleta</li>
+              <li>✅ Criptografia ponta-a-ponta</li>
+              <li>✅ Acesso controlado por funções</li>
+              <li>✅ Notificação de incidentes em 72h</li>
+            </ul>
+            <ul>
+              <li>✅ DPO designado e disponível</li>
+              <li>✅ Avaliação de impacto (AIPD)</li>
+              <li>✅ Contratos com processadores</li>
+              <li>✅ Auditoria periódica de segurança</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÕES FINAIS -->
+      <div style="text-align:center;margin-top:2.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+        <a href="../index.html" class="btn btn-primary">← Voltar</a>
         <a href="contato.html" class="btn btn-secondary">Fale Conosco</a>
       </div>
 
     </div>
   </section>
+
 
    
 
@@ -3839,6 +3857,59 @@ let vtRecognition = null;
 
     document.addEventListener('DOMContentLoaded', initLanguage);
 
+
+    // === BARRA DE PROGRESSO DE LEITURA ===
+    window.addEventListener('scroll', function() {
+      var doc = document.documentElement;
+      var scrolled = doc.scrollTop || document.body.scrollTop;
+      var total = doc.scrollHeight - doc.clientHeight;
+      var pct = total > 0 ? (scrolled / total) * 100 : 0;
+      var bar = document.getElementById('readProgress');
+      if (bar) bar.style.width = pct + '%';
+    });
+
+    // === CARDS EXPANSIVEIS ===
+    function toggleCard(id) {
+      var card = document.getElementById(id);
+      if (!card) return;
+      var isOpen = card.classList.contains('open');
+      document.querySelectorAll('.priv-card.open').forEach(function(c) {
+        if (c.id !== id) c.classList.remove('open');
+      });
+      card.classList.toggle('open', !isOpen);
+    }
+
+    // Abrir primeiro card
+    setTimeout(function() {
+      var first = document.getElementById('card-intro');
+      if (first) first.classList.add('open');
+    }, 700);
+
+    // === CARDS LGPD FLIP ===
+    function flipCard(el) {
+      el.classList.toggle('flipped');
+    }
+
+    // === CONTADOR ANIMADO ===
+    (function() {
+      function animateNum(id, end, dur) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var start = 0, step = end / (dur / 16);
+        var t = setInterval(function() {
+          start += step;
+          if (start >= end) { el.textContent = end; clearInterval(t); return; }
+          el.textContent = Math.floor(start);
+        }, 16);
+      }
+      var founded = new Date('2025-01-01');
+      var now = new Date();
+      var days = Math.floor((now - founded) / 86400000);
+      setTimeout(function() {
+        animateNum('daysCounter', days, 1200);
+        animateNum('usersCount', 847, 1500);
+      }, 500);
+    })();
     </script>
 
 <script>
