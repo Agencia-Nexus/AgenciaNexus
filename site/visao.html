@@ -1857,13 +1857,32 @@ body.dark-mode .chip { background: #2a2a2a; }
     .header { min-height: 260px; align-items: flex-end; }
     .nexus-logo-svg.desktop { display: none; }
     .nexus-logo-svg.mobile { display: block; }
-    .header-content { padding: -20px 1rem 2rem !important; margin-top: -175px !important; }
+    .header-content { padding: -10px 1rem 2rem !important; margin-top: -60px !important; }
 
   }
   @media (max-width: 480px) {
     .header { min-height: 280px; }
-    .header-content { padding: -20px 1rem 2rem !important; margin-top: -175px !important; }
+    .header-content { padding: -10px 1rem 2rem !important; margin-top: -60px !important; }
   }
+      
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: pulse 15s ease-in-out infinite;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
 
 
   .back-button {
