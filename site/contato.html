@@ -2563,93 +2563,264 @@ body.dark-mode .voice-translator-toggle {
 
   </div>
 
-  <!-- ══ BANNER GERADOR DE CURRÍCULO ══ -->
-  <section style="
-    background: linear-gradient(135deg, #0d3d2b 0%, #1a5c3a 50%, #2d7a4f 100%);
-    padding: 3.5rem 2rem;
-    text-align: center;
-    border-top: 1px solid rgba(46,204,113,0.2);
-    border-bottom: 1px solid rgba(46,204,113,0.2);
-    position: relative;
-    overflow: hidden;
-  ">
-    <!-- Efeito de fundo -->
-    <div style="
-      position: absolute; inset: 0; pointer-events: none;
-      background-image: linear-gradient(rgba(46,204,113,0.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(46,204,113,0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-    "></div>
+  <!-- ══ BANNER EMPRESAS 3D ══ -->
+  <section id="sec-empresas" style="padding:5rem 1.5rem;background:#0a0a0a;position:relative;overflow:hidden;">
 
-    <div style="max-width: 680px; margin: 0 auto; position: relative; z-index: 1;">
-      <!-- Eyebrow -->
-      <p style="
-        font-size: 0.68rem; font-weight: 700; letter-spacing: 2.5px;
-        text-transform: uppercase; color: #2ecc71; opacity: 0.9;
-        margin-bottom: 0.7rem; font-family: 'Sora', sans-serif;
-      ">✦ Ferramenta Gratuita</p>
+    <!-- grade de fundo -->
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,200,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,255,0.03) 1px,transparent 1px);background-size:48px 48px;"></div>
 
-      <!-- Título -->
-      <h2 style="
-        font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 900;
-        color: #f0f0f0; margin-bottom: 0.5rem;
-        font-family: 'Sora', sans-serif; line-height: 1.2;
-      ">Ainda não tem currículo profissional?</h2>
+    <div style="max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1;">
+      <p style="font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#00c8ff;margin-bottom:0.5rem;">✦ Para Empresas</p>
+      <h2 style="font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;color:#f0f0f0;margin-bottom:0.4rem;">Sua empresa está <span style="color:#00c8ff;">contratando?</span></h2>
+      <p style="color:#777;font-size:0.9rem;margin-bottom:3rem;">Arraste o card para ver como podemos ajudar</p>
 
-      <!-- Subtítulo -->
-      <p style="
-        color: rgba(240,240,240,0.7); font-size: 0.98rem;
-        margin-bottom: 2rem; line-height: 1.65; max-width: 540px; margin-left: auto; margin-right: auto;
-        font-family: 'Sora', sans-serif;
-      ">
-        Preencha seus dados, experiências e habilidades. O sistema monta o currículo profissional e você baixa o PDF direto no celular.
-      </p>
+      <!-- CARD 3D -->
+      <div style="perspective:1200px;display:flex;justify-content:center;">
+        <div id="nexus-card" style="
+          width:100%;max-width:620px;height:clamp(480px,60vw,420px);position:relative;
+          transform-style:preserve-3d;transition:transform 0.08s linear;
+          cursor:grab;user-select:none;
+        ">
+          <!-- FRENTE -->
+          <div style="
+            position:absolute;inset:0;backface-visibility:hidden;
+            background:linear-gradient(135deg,#0a1628 0%,#0d2444 50%,#0a1628 100%);
+            border:1px solid rgba(0,200,255,0.25);border-radius:24px;
+            padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;
+            box-shadow:0 0 60px rgba(0,200,255,0.08),0 20px 60px rgba(0,0,0,0.5);
+            overflow:hidden;
+          " id="card-frente">
+            <!-- brilho que segue cursor -->
+            <div id="card-brilho" style="position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,255,0.12) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);transition:opacity 0.3s;"></div>
 
-      <!-- Badges -->
-      <div style="
-        display: flex; flex-wrap: wrap; gap: 0.5rem;
-        justify-content: center; margin-bottom: 2rem;
-      ">
-        <span style="
-          background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 99px; padding: 0.3rem 0.9rem; font-size: 0.78rem;
-          color: #f0f0f0; font-weight: 600; font-family: 'Sora', sans-serif;
-        ">✅ 100% gratuito</span>
-        <span style="
-          background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 99px; padding: 0.3rem 0.9rem; font-size: 0.78rem;
-          color: #f0f0f0; font-weight: 600; font-family: 'Sora', sans-serif;
-        ">📱 Funciona no celular</span>
-        <span style="
-          background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 99px; padding: 0.3rem 0.9rem; font-size: 0.78rem;
-          color: #f0f0f0; font-weight: 600; font-family: 'Sora', sans-serif;
-        ">⬇️ Baixa em PDF</span>
-        <span style="
-          background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 99px; padding: 0.3rem 0.9rem; font-size: 0.78rem;
-          color: #f0f0f0; font-weight: 600; font-family: 'Sora', sans-serif;
-        ">🤖 Otimizado para ATS</span>
+            <div>
+              <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.8rem;">
+                <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,200,255,0.15);border:1px solid rgba(0,200,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🏢</div>
+                <div style="text-align:left;">
+                  <div style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:#00c8ff;opacity:0.8;">Agência Nexus</div>
+                  <div style="font-size:0.95rem;font-weight:800;color:#f0f0f0;">Proposta Comercial</div>
+                </div>
+                <div style="margin-left:auto;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:rgba(0,200,255,0.1);border:1px solid rgba(0,200,255,0.3);border-radius:99px;padding:0.25rem 0.7rem;color:#00c8ff;">Premium</div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.8rem;text-align:left;">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:0.9rem;">
+                  <div style="font-size:1.3rem;margin-bottom:0.3rem;">🤖</div>
+                  <div style="font-size:0.75rem;font-weight:700;color:#f0f0f0;margin-bottom:0.2rem;">IA Avançada</div>
+                  <div style="font-size:0.68rem;color:#666;line-height:1.4;">ATS com Claude, Gemini & Meta AI</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:0.9rem;">
+                  <div style="font-size:1.3rem;margin-bottom:0.3rem;">🧠</div>
+                  <div style="font-size:0.75rem;font-weight:700;color:#f0f0f0;margin-bottom:0.2rem;">Teste DISC</div>
+                  <div style="font-size:0.68rem;color:#666;line-height:1.4;">Perfil comportamental de cada candidato</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:0.9rem;">
+                  <div style="font-size:1.3rem;margin-bottom:0.3rem;">📘</div>
+                  <div style="font-size:0.75rem;font-weight:700;color:#f0f0f0;margin-bottom:0.2rem;">2.7M Views/tri</div>
+                  <div style="font-size:0.68rem;color:#666;line-height:1.4;">Média no Facebook por trimestre</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:0.9rem;">
+                  <div style="font-size:1.3rem;margin-bottom:0.3rem;">🌐</div>
+                  <div style="font-size:0.75rem;font-weight:700;color:#f0f0f0;margin-bottom:0.2rem;">17k+ Pessoas</div>
+                  <div style="font-size:0.68rem;color:#666;line-height:1.4;">LinkedIn, WhatsApp & Instagram</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;">
+              <div style="font-size:0.68rem;color:#444;">Arraste para ver mais →</div>
+              <div style="display:flex;gap:0.4rem;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#00c8ff;animation:pulse-dot 1.5s infinite;"></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:rgba(0,200,255,0.3);"></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:rgba(0,200,255,0.3);"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VERSO — Terminal -->
+          <div style="
+            position:absolute;inset:0;backface-visibility:hidden;
+            transform:rotateY(180deg);
+            background:#0d0d0d;border:1px solid rgba(0,200,255,0.2);border-radius:24px;
+            padding:1.8rem;display:flex;flex-direction:column;
+            box-shadow:0 20px 60px rgba(0,0,0,0.6);overflow:hidden;
+          ">
+            <!-- barra do terminal -->
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1.2rem;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#e74c3c;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#f39c12;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#2ecc71;"></div>
+              <div style="margin-left:0.5rem;font-size:0.7rem;color:#444;font-family:monospace;">nexus-terminal — bash</div>
+            </div>
+
+            <div id="terminal-output" style="flex:1;font-family:monospace;font-size:clamp(0.62rem,2.5vw,0.78rem);color:#00c8ff;line-height:1.7;overflow:hidden;text-align:left;"></div>
+
+            <div style="margin-top:1rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
+              <a href="https://wa.me/5551999747808?text=Olá! Quero saber mais sobre contratar com a Nexus." target="_blank" style="flex:1;min-width:140px;background:linear-gradient(135deg,#00c8ff,#0a4f7a);color:#fff;text-decoration:none;border-radius:10px;padding:0.7rem;font-size:0.78rem;font-weight:700;text-align:center;font-family:inherit;">💬 WhatsApp agora</a>
+              <a href="mailto:adm.agencianexus@outlook.com?subject=Quero contratar com a Nexus" style="flex:1;min-width:140px;background:rgba(0,200,255,0.1);border:1px solid rgba(0,200,255,0.3);color:#00c8ff;text-decoration:none;border-radius:10px;padding:0.7rem;font-size:0.78rem;font-weight:700;text-align:center;font-family:inherit;">✉️ Enviar e-mail</a>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <!-- Botão CTA -->
-      <a href="https://agencia-nexus.github.io/AgenciaNexus/integracao/curriculo-nexus.html"
-        style="
-          display: inline-flex; align-items: center; gap: 0.5rem;
-          background: #fff; color: #0d3d2b;
-          padding: 1rem 2.2rem; border-radius: 50px;
-          font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 800;
-          text-decoration: none; transition: all 0.25s;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-        "
-        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.35)';"
-        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 24px rgba(0,0,0,0.25)';"
-      >
-        ✨ Criar meu currículo agora
-      </a>
     </div>
   </section>
-  <!-- ══ /BANNER GERADOR DE CURRÍCULO ══ -->
+
+  <style>
+  @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+  </style>
+
+  <script>
+  (function(){
+    var card = document.getElementById('nexus-card');
+    var brilho = document.getElementById('card-brilho');
+    var terminalEl = document.getElementById('terminal-output');
+    var rotX = 0, rotY = 0, flipped = false;
+    var dragging = false, startX = 0, startY = 0;
+    var lastX = 0, lastY = 0;
+
+    var linhas = [
+      {txt:'> Iniciando conexão com Agência Nexus...', cor:'#00c8ff', delay:0},
+      {txt:'> Verificando credenciais da empresa...', cor:'#00c8ff', delay:600},
+      {txt:'✔ Conexão estabelecida com sucesso', cor:'#2ecc71', delay:1200},
+      {txt:'', cor:'', delay:1600},
+      {txt:'> Carregando diferenciais...', cor:'#f39c12', delay:1800},
+      {txt:'  ✦ ATS com Claude AI + Gemini + Meta AI', cor:'#f0f0f0', delay:2200},
+      {txt:'  ✦ Teste DISC comportamental', cor:'#f0f0f0', delay:2600},
+      {txt:'  ✦ 2.7M views/tri no Facebook', cor:'#f0f0f0', delay:3000},
+      {txt:'  ✦ 10k conexões no LinkedIn', cor:'#f0f0f0', delay:3400},
+      {txt:'  ✦ 5k pessoas em grupos de WhatsApp', cor:'#f0f0f0', delay:3800},
+      {txt:'  ✦ 2k seguidores no Instagram', cor:'#f0f0f0', delay:4200},
+      {txt:'', cor:'', delay:4600},
+      {txt:'> STATUS: PRONTO PARA CONTRATAR ✔', cor:'#2ecc71', delay:5000},
+      {txt:'> Escolha um canal abaixo para conectar:', cor:'#00c8ff', delay:5500},
+    ];
+
+    function rodarTerminal(){
+      terminalEl.innerHTML = '';
+      linhas.forEach(function(l){
+        setTimeout(function(){
+          if(!l.txt){terminalEl.innerHTML += '<br>';return;}
+          var span = document.createElement('div');
+          span.textContent = l.txt;
+          span.style.color = l.cor || '#00c8ff';
+          span.style.opacity = '0';
+          span.style.transform = 'translateX(-8px)';
+          span.style.transition = 'all 0.3s ease';
+          terminalEl.appendChild(span);
+          requestAnimationFrame(function(){
+            setTimeout(function(){span.style.opacity='1';span.style.transform='translateX(0)';},20);
+          });
+        }, l.delay);
+      });
+    }
+
+    function applyTransform(){
+      card.style.transform = 'rotateX('+rotX+'deg) rotateY('+rotY+'deg)';
+    }
+
+    card.addEventListener('mousedown', function(e){
+      dragging = true; startX = e.clientX; startY = e.clientY;
+      lastX = rotY; lastY = rotX;
+      card.style.cursor = 'grabbing';
+      card.style.transition = 'none';
+    });
+
+    window.addEventListener('mousemove', function(e){
+      if(!dragging) return;
+      var dx = e.clientX - startX;
+      var dy = e.clientY - startY;
+      rotY = lastX + dx * 0.4;
+      rotX = lastY - dy * 0.2;
+      rotX = Math.max(-25, Math.min(25, rotX));
+      applyTransform();
+
+      // brilho
+      var rect = document.getElementById('card-frente').getBoundingClientRect();
+      brilho.style.left = (e.clientX - rect.left) + 'px';
+      brilho.style.top = (e.clientY - rect.top) + 'px';
+    });
+
+    window.addEventListener('mouseup', function(){
+      if(!dragging) return;
+      dragging = false;
+      card.style.cursor = 'grab';
+      card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+
+      var absY = Math.abs(rotY % 360);
+      if(absY > 90 && absY < 270){
+        if(!flipped){flipped=true; rodarTerminal();}
+        var target = rotY > 0 ? 180 : -180;
+        rotY = target; rotX = 0;
+      } else {
+        flipped = false;
+        rotY = 0; rotX = 0;
+      }
+      applyTransform();
+    });
+
+    // touch
+    card.addEventListener('touchstart', function(e){
+      var t = e.touches[0];
+      dragging = true; startX = t.clientX; startY = t.clientY;
+      lastX = rotY; lastY = rotX;
+      card.style.transition = 'none';
+    },{passive:true});
+
+    window.addEventListener('touchmove', function(e){
+      if(!dragging) return;
+      var t = e.touches[0];
+      var dx = t.clientX - startX;
+      var dy = t.clientY - startY;
+      rotY = lastX + dx * 0.5;
+      rotX = lastY - dy * 0.2;
+      rotX = Math.max(-25, Math.min(25, rotX));
+      applyTransform();
+    },{passive:true});
+
+    window.addEventListener('touchend', function(){
+      if(!dragging) return;
+      dragging = false;
+      card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+      var absY = Math.abs(rotY % 360);
+      if(absY > 90 && absY < 270){
+        if(!flipped){flipped=true; rodarTerminal();}
+        var target = rotY > 0 ? 180 : -180;
+        rotY = target; rotX = 0;
+      } else {
+        flipped = false;
+        rotY = 0; rotX = 0;
+      }
+      applyTransform();
+    });
+
+    // hover brilho sem drag
+    document.getElementById('card-frente').addEventListener('mousemove', function(e){
+      if(dragging) return;
+      var rect = this.getBoundingClientRect();
+      brilho.style.left = (e.clientX - rect.left) + 'px';
+      brilho.style.top = (e.clientY - rect.top) + 'px';
+      brilho.style.opacity = '1';
+      var cx = rect.width/2, cy = rect.height/2;
+      var dx = (e.clientX - rect.left - cx)/cx;
+      var dy = (e.clientY - rect.top - cy)/cy;
+      if(!flipped){
+        rotY = dx * 12; rotX = -dy * 8;
+        card.style.transition = 'transform 0.1s ease';
+        applyTransform();
+      }
+    });
+
+    document.getElementById('card-frente').addEventListener('mouseleave', function(){
+      if(!dragging && !flipped){
+        rotY = 0; rotX = 0;
+        card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+        applyTransform();
+      }
+      brilho.style.opacity = '0';
+    });
+  })();
+  </script>
+  <!-- ══ /BANNER EMPRESAS 3D ══ -->
 
   <!-- Mapa Section -->
   <section class="map-section" id="sec-mapa">
