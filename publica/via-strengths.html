@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Teste VIA Strengths | Descubra suas Forças de Caráter — Grátis e Online</title>
+
+<!-- SEO Essencial -->
+<meta name="description" content="Teste VIA Strengths gratuito em português. Descubra suas 24 forças de caráter em 30 perguntas — sem cadastro, resultado na hora com gráfico e PDF. Baseado na psicologia positiva de Seligman & Peterson."/>
+<meta name="keywords" content="teste VIA strengths, forças de caráter, psicologia positiva, VIA character strengths, autoconhecimento, forças de assinatura, teste de personalidade, seligman peterson, forças pessoais, teste grátis"/>
+<meta name="author" content="VIA Strengths"/>
+<meta name="robots" content="index, follow"/>
+<meta name="language" content="pt-BR"/>
+<link rel="canonical" href="https://agencia-nexus.github.io/AgenciaNexus/via-strengths/"/>
+
+<!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Teste VIA Strengths — Descubra suas Forças de Caráter Grátis"/>
+<meta property="og:description" content="30 perguntas, resultado completo com gráfico radar e PDF. Baseado na psicologia positiva. Sem cadastro, 100% gratuito."/>
+<meta property="og:url" content="https://agencia-nexus.github.io/AgenciaNexus/via-strengths/"/>
+<meta property="og:locale" content="pt_BR"/>
+<meta property="og:site_name" content="VIA Strengths"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Teste VIA Strengths — Descubra suas Forças de Caráter"/>
+<meta name="twitter:description" content="30 perguntas. Resultado completo com gráfico e PDF. Grátis, sem cadastro."/>
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Teste VIA Strengths",
+  "description": "Teste gratuito de forças de caráter baseado no modelo VIA da psicologia positiva. Descubra suas 24 forças em 30 perguntas.",
+  "url": "https://agencia-nexus.github.io/AgenciaNexus/via-strengths/",
+  "applicationCategory": "PsychologyApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+  "inLanguage": "pt-BR",
+  "keywords": "VIA strengths, forças de caráter, psicologia positiva, autoconhecimento"
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png"/>
+<link rel="shortcut icon" href="../imagens/icone.png" type="image/png"/>
+<link rel="apple-touch-icon" href="../imagens/icone.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+window.addEventListener('error',function(e){if(e.message&&e.message.includes('html2canvas'))window.html2canvas=null;},true);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" onerror="window.html2canvas=null;"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" onerror="window.jspdf=null;"></script>
+<style>
+:root{
+  --gold:#d4af37;
+  --gold-light:#e8cc6a;
+  --gold-dim:rgba(212,175,55,0.15);
+  --gold-border:rgba(212,175,55,0.22);
+  --bg:#080808;
+  --surface:#0f0f0f;
+  --card:#121212;
+  --border:rgba(255,255,255,0.07);
+  --border-gold:rgba(212,175,55,0.25);
+  --text:#f0ece4;
+  --text-secondary:#b0a898;
+  --muted:#5c564e;
+  --radius:18px;
+  --radius-sm:12px;
+  --shadow:0 4px 40px rgba(0,0,0,0.6);
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(212,175,55,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 110%,rgba(212,175,55,0.04) 0%,transparent 50%);pointer-events:none;}
+body::after{content:'';position:fixed;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(212,175,55,0.035) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;opacity:0.7;}
+.wrapper{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:2.5rem 1.4rem 6rem;}
+
+/* HEADER */
+.via-header{text-align:center;padding:3.5rem 0 2.8rem;}
+.logo-wrap{display:flex;align-items:center;justify-content:center;gap:0.9rem;margin-bottom:1.6rem;}
+.logo-ico{width:56px;height:56px;background:linear-gradient(135deg,#b8960c,#d4af37,#e8cc6a);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 4px 20px rgba(212,175,55,0.3),inset 0 1px 0 rgba(255,255,255,0.15);}
+.logo-name{font-family:var(--font-display);font-size:1.25rem;font-weight:600;color:var(--gold);letter-spacing:0.02em;}
+.free-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(212,175,55,0.08);border:1px solid var(--border-gold);border-radius:99px;padding:0.38rem 1.3rem;font-size:0.75rem;color:var(--gold-light);font-weight:500;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:1.4rem;}
+.via-header h1{font-family:var(--font-display);font-size:2.6rem;font-weight:700;line-height:1.18;margin-bottom:0.8rem;color:var(--text);letter-spacing:-0.01em;}
+.via-header h1 span{color:var(--gold);font-style:italic;}
+.via-header p{color:var(--text-secondary);font-size:0.875rem;max-width:440px;margin:0 auto;line-height:1.7;}
+.header-ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin:2rem 0 0;}
+.header-ornament span{height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--gold-border),transparent);}
+.header-ornament i{font-style:normal;color:var(--gold);font-size:0.6rem;letter-spacing:4px;}
+
+/* PROGRESS */
+.progress-wrap{margin:1.8rem 0 0.5rem;}
+.progress-track{height:3px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#b8960c,#d4af37,#e8cc6a);border-radius:99px;transition:width 0.5s cubic-bezier(.4,0,.2,1);width:0%;box-shadow:0 0 8px rgba(212,175,55,0.5);}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-top:0.6rem;font-size:0.72rem;color:var(--muted);font-weight:500;letter-spacing:0.03em;}
+
+/* INTRO CARD */
+.intro-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.4rem;position:relative;overflow:hidden;}
+.intro-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-border),transparent);}
+.intro-card h2{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--gold);margin-bottom:0.9rem;letter-spacing:0.01em;}
+.intro-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.75;margin-bottom:0.75rem;}
+.intro-card p:last-child{margin-bottom:0;}
+.via-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.2rem;}
+.via-pill{padding:0.3rem 0.85rem;border-radius:99px;font-size:0.73rem;font-weight:600;letter-spacing:0.02em;}
+
+/* NAME */
+.name-section{margin-bottom:1.4rem;}
+.name-section label{display:block;font-size:0.75rem;font-weight:600;color:var(--gold);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;}
+.name-section input{width:100%;padding:0.9rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:0.95rem;outline:none;transition:border-color 0.3s,box-shadow 0.3s;}
+.name-section input:focus{border-color:rgba(212,175,55,0.5);box-shadow:0 0 0 3px rgba(212,175,55,0.07);}
+.name-section input::placeholder{color:var(--muted);}
+.name-hint{font-size:0.7rem;color:var(--muted);margin-top:0.4rem;display:flex;align-items:center;gap:0.3rem;}
+
+/* QUESTION */
+.question-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1rem;position:relative;overflow:hidden;}
+#questionsContainer{overflow-anchor:none;}
+.q-number{font-size:0.68rem;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.6rem;}
+.q-text{font-family:var(--font-display);font-size:1.02rem;font-weight:600;margin-bottom:1.3rem;line-height:1.55;color:var(--text);}
+.q-scale{display:flex;flex-direction:column;gap:0.45rem;}
+.q-scale-item{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1.1rem;cursor:pointer;transition:all 0.22s ease;font-size:0.855rem;color:var(--text-secondary);user-select:none;scroll-margin:0;outline:none;}
+.q-scale-item:hover{border-color:var(--border-gold);background:rgba(212,175,55,0.04);color:var(--text);}
+.q-scale-item.selected{border-color:var(--gold);background:rgba(212,175,55,0.08);color:var(--text);font-weight:500;}
+.q-dot{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);flex-shrink:0;transition:all 0.22s;position:relative;}
+.q-scale-item.selected .q-dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px rgba(212,175,55,0.4);}
+.q-scale-item.selected .q-dot::after{content:'';position:absolute;inset:3px;border-radius:50%;background:rgba(0,0,0,0.4);}
+.scale-label{font-size:0.68rem;color:var(--muted);font-weight:500;margin-left:auto;flex-shrink:0;}
+
+/* NAV */
+.nav-buttons{display:flex;gap:0.8rem;margin-top:1.3rem;justify-content:flex-end;}
+.btn-prev{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:var(--radius-sm);padding:0.78rem 1.6rem;font-family:var(--font-body);font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.btn-prev:hover{border-color:var(--border-gold);color:var(--gold);}
+.btn-next{background:linear-gradient(135deg,#b8960c,#d4af37);color:#0a0a0a;border:none;border-radius:var(--radius-sm);padding:0.78rem 2rem;font-family:var(--font-body);font-size:0.875rem;font-weight:700;cursor:pointer;transition:all 0.22s;letter-spacing:0.02em;box-shadow:0 4px 16px rgba(212,175,55,0.25);}
+.btn-next:hover{box-shadow:0 6px 24px rgba(212,175,55,0.35);transform:translateY(-1px);}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* ENCOURAGE */
+.encourage{text-align:center;margin:0.6rem 0;display:none;}
+.encourage span{background:rgba(212,175,55,0.08);border:1px solid var(--border-gold);border-radius:99px;padding:0.35rem 1.2rem;font-size:0.78rem;color:var(--gold-light);font-weight:500;}
+
+/* SPINNER */
+.spinner-wrap{text-align:center;padding:4rem 2rem;}
+.spinner{width:44px;height:44px;border:3px solid rgba(212,175,55,0.12);border-top-color:var(--gold);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 1.2rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* RESULT */
+#resultSection{display:none;animation:fadeUp 0.5s ease both;}
+.result-header{text-align:center;padding:2.5rem 0 1.8rem;}
+.result-header h2{font-family:var(--font-display);font-size:1.8rem;font-weight:700;margin-bottom:0.4rem;letter-spacing:-0.01em;}
+.result-header p{color:var(--text-secondary);font-size:0.85rem;}
+.result-name{color:var(--gold);font-style:italic;}
+
+/* RESULT CARDS */
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem;margin-bottom:1rem;position:relative;overflow:hidden;transition:border-color 0.3s;}
+.result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-border),transparent);}
+.result-card:hover{border-color:rgba(212,175,55,0.18);}
+.result-card h4{font-size:0.68rem;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.3rem;display:flex;align-items:center;gap:0.5rem;}
+
+/* STRENGTHS GRID */
+.strength-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+@media(max-width:520px){.strength-grid{grid-template-columns:1fr;}}
+.strength-item{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;transition:border-color 0.2s;}
+.strength-item:hover{border-color:var(--border-gold);}
+.strength-rank{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.3rem;}
+.strength-name{font-size:0.92rem;font-weight:600;color:var(--text);margin-bottom:0.3rem;}
+.strength-desc{font-size:0.75rem;color:var(--text-secondary);line-height:1.55;}
+.strength-bar-track{height:3px;background:rgba(255,255,255,0.05);border-radius:99px;margin-top:0.6rem;overflow:hidden;}
+.strength-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#b8960c,#d4af37);}
+
+/* VIRTUE BADGES */
+.virtue-badges{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.2rem;}
+.virtue-badge{padding:0.3rem 0.85rem;border-radius:99px;font-size:0.73rem;font-weight:600;}
+
+/* CARGO PILLS */
+.cargo-pills{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:1.2rem;}
+.cargo-pill{padding:0.3rem 0.85rem;border-radius:99px;font-size:0.75rem;font-weight:500;background:rgba(212,175,55,0.07);border:1px solid var(--border-gold);color:var(--gold-light);}
+
+/* FIT GRID */
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+@media(max-width:520px){.fit-grid{grid-template-columns:1fr;}}
+.fit-item{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.9rem 1rem;transition:border-color 0.2s;}
+.fit-item:hover{border-color:var(--border-gold);}
+.fit-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+.fit-name{font-size:0.8rem;font-weight:600;}
+.fit-score{font-size:0.88rem;font-weight:700;}
+.fit-track{height:4px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.fit-fill{height:100%;border-radius:99px;}
+
+/* PRESSURE */
+.pressure-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+@media(max-width:520px){.pressure-grid{grid-template-columns:1fr;}}
+.pressure-item{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;}
+.pressure-item h6{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;color:var(--gold);}
+.pressure-item p,.pressure-item li{font-size:0.82rem;color:var(--text-secondary);line-height:1.6;}
+
+/* PDF BAR */
+.pdf-bar{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(8,8,8,0.97);border-top:1px solid var(--border-gold);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:1rem 1.5rem;display:none;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;}
+.pdf-bar.visible{display:flex;}
+.btn-pdf{display:inline-flex;align-items:center;gap:0.55rem;background:linear-gradient(135deg,#b8960c,#d4af37);color:#0a0a0a;border:none;border-radius:var(--radius-sm);padding:0.78rem 2rem;font-family:var(--font-body);font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.22s;box-shadow:0 4px 16px rgba(212,175,55,0.25);letter-spacing:0.02em;}
+.btn-pdf:hover{box-shadow:0 6px 24px rgba(212,175,55,0.35);transform:translateY(-1px);}
+.btn-pdf:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-refazer{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.04);color:var(--text-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1.4rem;font-family:var(--font-body);font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.btn-refazer:hover{background:rgba(255,255,255,0.07);color:var(--text);}
+.pdf-hint{font-size:0.7rem;color:var(--muted);}
+.share-bar{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:1rem;}
+.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1.1rem;border-radius:99px;font-size:0.78rem;font-weight:600;cursor:pointer;border:1px solid;transition:all 0.2s;font-family:var(--font-body);}
+.share-btn:hover{opacity:0.8;transform:translateY(-1px);}
+
+@media(max-width:520px){
+  .wrapper{padding:1.2rem 1rem 6rem;}
+  .via-header h1{font-size:1.9rem;}
+  .nav-buttons{flex-direction:column-reverse;}
+  .btn-prev,.btn-next{width:100%;text-align:center;justify-content:center;}
+  .result-header h2{font-size:1.45rem;}
+}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  body::before,body::after,.via-header,.intro-card,.name-section,.progress-wrap,#testSection,#loadingSection,.pdf-bar,.share-bar,.btn-refazer,#toast{display:none!important;}
+  html,body{background:#fff!important;color:#1a1a1a!important;}
+  .wrapper{max-width:100%!important;padding:0!important;}
+  #resultSection{display:block!important;}
+  .result-card{background:#f5f5f5!important;border-color:#ddd!important;break-inside:avoid;margin-bottom:0.8rem!important;}
+  .strength-item,.fit-item,.pressure-item{background:#efefef!important;border-color:#ddd!important;}
+  .result-card *,.strength-item *,.fit-item *,.pressure-item *{color:#1a1a1a!important;}
+  .strength-bar-track,.fit-track{background:#ddd!important;}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<div class="via-header">
+  <div class="logo-wrap">
+    <div class="logo-ico">✦</div>
+    <div class="logo-name">VIA Strengths</div>
+  </div>
+  <div class="free-badge">✦ 100% gratuito &nbsp;·&nbsp; Sem cadastro &nbsp;·&nbsp; Resultado na hora</div>
+  <h1>Descubra suas <span>Forças</span> de Caráter</h1>
+  <p>24 forças · 30 perguntas · ~5 minutos<br>Resultado completo com gráficos e PDF</p>
+  <div class="header-ornament"><span></span><i>◆ ◆ ◆</i><span></span></div>
+</div>
+
+<div id="testSection">
+  <div class="intro-card">
+    <h2>O que é o VIA Character Strengths?</h2>
+    <p>Desenvolvido pela psicologia positiva (Martin Seligman & Christopher Peterson), o VIA identifica suas 24 forças de caráter — as qualidades que são mais naturais e autênticas em você.</p>
+    <p>Ao contrário de testes que apontam problemas, o VIA foca no que você <em>já tem de melhor</em>. Suas 5 principais forças são chamadas de <strong style="color:var(--gold-light)">forças de assinatura</strong>: quando você as usa, sente energia, autenticidade e propósito.</p>
+    <p style="background:rgba(212,175,55,0.05);border-left:2px solid var(--gold);border-radius:0 8px 8px 0;padding:0.7rem 1rem;"><strong style="color:var(--gold-light)">Dica:</strong> Responda como você <em>realmente é</em> — não como gostaria de ser. Pense em como você age na maioria das situações.</p>
+    <div class="via-pills">
+      <span class="via-pill" style="background:rgba(212,175,55,0.1);color:#e8cc6a;border:1px solid rgba(212,175,55,0.25);">🧠 Sabedoria</span>
+      <span class="via-pill" style="background:rgba(220,80,80,0.1);color:#e88080;border:1px solid rgba(220,80,80,0.25);">🦁 Coragem</span>
+      <span class="via-pill" style="background:rgba(80,180,160,0.1);color:#80d4c4;border:1px solid rgba(80,180,160,0.25);">💛 Humanidade</span>
+      <span class="via-pill" style="background:rgba(100,160,220,0.1);color:#90c0e8;border:1px solid rgba(100,160,220,0.25);">⚖️ Justiça</span>
+      <span class="via-pill" style="background:rgba(160,120,200,0.1);color:#c0a0e0;border:1px solid rgba(160,120,200,0.25);">🌿 Temperança</span>
+      <span class="via-pill" style="background:rgba(200,160,80,0.1);color:#d8c080;border:1px solid rgba(200,160,80,0.25);">✨ Transcendência</span>
+    </div>
+  </div>
+
+  <div class="name-section">
+    <label for="nomePessoa">Como você se chama?</label>
+    <input type="text" id="nomePessoa" placeholder="Seu primeiro nome" autocomplete="given-name"/>
+    <div class="name-hint">🔒 Não coletamos seus dados. Seu nome aparece só no resultado.</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-meta">
+      <span id="progressLabel">Pergunta 1 de 48</span>
+      <span id="progressPct">0%</span>
+    </div>
+  </div>
+
+  <div id="questionsContainer">
+    <div class="question-card" id="questionCard">
+      <div class="q-number" id="qNumber"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="q-scale" id="scaleOpts"></div>
+    </div>
+  </div>
+
+  <div class="encourage" id="encourage">
+    <span>Ótimo progresso! Você está na metade 💪</span>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn-prev" id="btnPrev" onclick="prevQ()" style="display:none;">← Anterior</button>
+    <button class="btn-next" id="btnNext" onclick="nextQ()" disabled>Próxima →</button>
+  </div>
+</div>
+
+<div id="loadingSection" style="display:none;">
+  <div class="spinner-wrap">
+    <div class="spinner"></div>
+    <div style="font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--gold);">Calculando suas forças…</div>
+    <div style="font-size:0.8rem;color:var(--muted);margin-top:0.4rem;">Identificando seu perfil de caráter</div>
+  </div>
+</div>
+
+<div id="resultSection">
+  <div class="result-header">
+    <h2>Suas Forças de Caráter, <span class="result-name" id="resultNome">—</span></h2>
+    <p>Resultado baseado nas suas <strong>30</strong> respostas</p>
+  </div>
+
+  <div class="result-card" id="cardPerfil"></div>
+  <div class="result-card" id="cardTop5"></div>
+  <div class="result-card" id="cardGrafico"></div>
+  <div class="result-card" id="cardVirtudes"></div>
+  <div class="result-card" id="cardCargos"></div>
+  <div class="result-card" id="cardFit"></div>
+  <div class="result-card" id="cardCrescimento"></div>
+  <div class="result-card" style="text-align:center;">
+    <h4>🔗 Compartilhar</h4>
+    <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem;">Convide alguém para descobrir as forças dele também</p>
+    <div class="share-bar" style="justify-content:center;">
+      <button class="share-btn" style="background:rgba(37,211,102,0.08);color:#25D366;border-color:rgba(37,211,102,0.25);" onclick="compartilharWA()">💬 WhatsApp</button>
+      <button class="share-btn" style="background:rgba(212,175,55,0.08);color:var(--gold-light);border-color:var(--border-gold);" onclick="copiarLink()">🔗 Copiar link</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<div class="pdf-bar" id="pdfBar">
+  <button class="btn-pdf" id="btnPdf" onclick="baixarPDF()">⬇ Baixar resultado em PDF</button>
+  <button class="btn-refazer" onclick="refazer()">↺ Refazer o teste</button>
+  <span class="pdf-hint">PDF gratuito · sem cadastro</span>
+</div>
+
+<div id="toast" style="position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gold);color:#0a0a0a;font-family:var(--font-body);font-size:0.85rem;font-weight:700;padding:0.65rem 1.6rem;border-radius:99px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:9999;box-shadow:0 4px 20px rgba(212,175,55,0.3);"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// FORÇAS VIA — 24 forças, 2 perguntas cada = 48 total
+// Escala 1-5: 1=Muito diferente de mim … 5=Exatamente como eu sou
+// ═══════════════════════════════════════════════
+const FORCAS = {
+  criatividade:{nome:'Criatividade',emoji:'🎨',virtude:'Sabedoria',cor:'#d4af37',desc:'Você encontra formas novas e originais de fazer as coisas. Pensa fora do padrão naturalmente.'},
+  curiosidade:{nome:'Curiosidade',emoji:'🔍',virtude:'Sabedoria',cor:'#d4af37',desc:'Você ama aprender e explorar. Temas novos e experiências diferentes te fascinam.'},
+  julgamento:{nome:'Julgamento Crítico',emoji:'⚖️',virtude:'Sabedoria',cor:'#d4af37',desc:'Você pensa as coisas com cuidado, considera múltiplas perspectivas antes de decidir.'},
+  amor_aprendizado:{nome:'Amor pelo Aprendizado',emoji:'📚',virtude:'Sabedoria',cor:'#d4af37',desc:'Você domina novas habilidades e conhecimentos constantemente — vai além do que é obrigado.'},
+  perspectiva:{nome:'Perspectiva',emoji:'🌐',virtude:'Sabedoria',cor:'#d4af37',desc:'Você enxerga o quadro maior. As pessoas buscam você para conselhos e para entender situações complexas.'},
+  coragem:{nome:'Coragem',emoji:'🦁',virtude:'Coragem',cor:'#e05c4e',desc:'Você não se deixa intimidar por desafios. Age com convicção mesmo quando é difícil.'},
+  perseveranca:{nome:'Perseverança',emoji:'🏃',virtude:'Coragem',cor:'#e05c4e',desc:'Você termina o que começa. Trabalha duro e supera obstáculos sem desistir.'},
+  honestidade:{nome:'Honestidade',emoji:'✊',virtude:'Coragem',cor:'#e05c4e',desc:'Você fala a verdade e vive de forma autêntica. Não gosta de aparências.'},
+  entusiasmo:{nome:'Entusiasmo',emoji:'⚡',virtude:'Coragem',cor:'#e05c4e',desc:'Você aborda a vida com energia e empolgação. Faz as coisas com comprometimento total.'},
+  amor:{nome:'Amor',emoji:'💛',virtude:'Humanidade',cor:'#80d4c4',desc:'Você valoriza relações profundas. Cuida das pessoas com genuína atenção e afeto.'},
+  bondade:{nome:'Bondade',emoji:'🤲',virtude:'Humanidade',cor:'#80d4c4',desc:'Você faz coisas boas pelas pessoas. Generoso, prestativo sem esperar nada em troca.'},
+  inteligencia_social:{nome:'Inteligência Social',emoji:'🧩',virtude:'Humanidade',cor:'#80d4c4',desc:'Você percebe o que as pessoas sentem e precisa. Adapta seu jeito a diferentes situações sociais.'},
+  trabalho_equipe:{nome:'Trabalho em Equipe',emoji:'🤝',virtude:'Justiça',cor:'#90c0e8',desc:'Você é leal ao grupo e trabalha bem com outros. Sente que pertencer a algo maior é importante.'},
+  equidade:{nome:'Equidade',emoji:'🏛️',virtude:'Justiça',cor:'#90c0e8',desc:'Você trata as pessoas com igualdade e justiça. Não deixa sentimentos pessoais distorcer decisões.'},
+  lideranca:{nome:'Liderança',emoji:'👑',virtude:'Justiça',cor:'#90c0e8',desc:'Você organiza atividades e motiva o grupo. Garante que todos estejam bem e que o trabalho aconteça.'},
+  perdao:{nome:'Perdão',emoji:'🕊️',virtude:'Temperança',cor:'#c0a0e0',desc:'Você perdoa erros. Não guarda rancor. Dá segunda chance às pessoas.'},
+  humildade:{nome:'Humildade',emoji:'🌱',virtude:'Temperança',cor:'#c0a0e0',desc:'Você não se coloca no centro. Deixa que suas conquistas falem por si.'},
+  prudencia:{nome:'Prudência',emoji:'🛡️',virtude:'Temperança',cor:'#c0a0e0',desc:'Você pensa antes de agir. Evita riscos desnecessários. Age com cuidado.'},
+  autorregulacao:{nome:'Autorregulação',emoji:'⚙️',virtude:'Temperança',cor:'#c0a0e0',desc:'Você controla seus impulsos e emoções. Disciplinado e consistente.'},
+  apreciacao_beleza:{nome:'Apreciação da Beleza',emoji:'🌸',virtude:'Transcendência',cor:'#d8c080',desc:'Você percebe e aprecia a beleza, excelência e habilidade em todas as áreas da vida.'},
+  gratidao:{nome:'Gratidão',emoji:'🙏',virtude:'Transcendência',cor:'#d8c080',desc:'Você é consciente das coisas boas que acontecem e expressa agradecimento.'},
+  esperanca:{nome:'Esperança',emoji:'🌅',virtude:'Transcendência',cor:'#d8c080',desc:'Você espera o melhor e trabalha para conquistar. Otimista em relação ao futuro.'},
+  humor:{nome:'Humor',emoji:'😄',virtude:'Transcendência',cor:'#d8c080',desc:'Você adora rir e trazer leveza. Vê o lado engraçado das coisas.'},
+  espiritualidade:{nome:'Espiritualidade',emoji:'✨',virtude:'Transcendência',cor:'#d8c080',desc:'Você tem crenças sobre um propósito maior na vida que moldam suas ações.'},
+};
+
+// 30 perguntas — 24 forças (1 cada) + 6 extras nas forças mais diagnósticas
+const PERGUNTAS = [
+  {id:'criatividade_1',forca:'criatividade',texto:'Frequentemente penso em formas novas e originais de resolver problemas.'},
+  {id:'criatividade_2',forca:'criatividade',texto:'Quando faço algo, gosto de acrescentar um toque criativo — raramente faço do jeito convencional.'},
+  {id:'curiosidade_1',forca:'curiosidade',texto:'Adoro aprender sobre assuntos novos, mesmo fora da minha área.'},
+  {id:'julgamento_1',forca:'julgamento',texto:'Antes de decidir, costumo analisar diferentes perspectivas e questionar argumentos.'},
+  {id:'amor_aprendizado_1',forca:'amor_aprendizado',texto:'Me sinto realizado quando domino uma nova habilidade ou área de conhecimento.'},
+  {id:'perspectiva_1',forca:'perspectiva',texto:'As pessoas frequentemente me pedem conselho porque consigo enxergar o todo da situação.'},
+  {id:'coragem_1',forca:'coragem',texto:'Defendo o que acredito ser certo, mesmo quando é difícil ou impopular.'},
+  {id:'perseveranca_1',forca:'perseveranca',texto:'Termino o que começo, mesmo quando fica difícil no meio do caminho.'},
+  {id:'honestidade_1',forca:'honestidade',texto:'Ajo de acordo com meus valores, mesmo quando ninguém está olhando.'},
+  {id:'entusiasmo_1',forca:'entusiasmo',texto:'As pessoas ao meu redor percebem minha energia — ela costuma contagiar o grupo.'},
+  {id:'amor_1',forca:'amor',texto:'Valorizo muito minhas relações próximas e invisto tempo e cuidado nelas.'},
+  {id:'bondade_1',forca:'bondade',texto:'Faço coisas para ajudar outros mesmo quando não terei nenhum benefício direto.'},
+  {id:'inteligencia_social_1',forca:'inteligencia_social',texto:'Percebo facilmente como as pessoas estão se sentindo, mesmo quando não falam diretamente.'},
+  {id:'trabalho_equipe_1',forca:'trabalho_equipe',texto:'Trabalhar em grupo me dá energia — me sinto parte de algo maior.'},
+  {id:'equidade_1',forca:'equidade',texto:'Trato todas as pessoas de forma justa, independentemente de quem sejam.'},
+  {id:'lideranca_1',forca:'lideranca',texto:'Naturalmente me vejo organizando atividades e ajudando grupos a funcionar melhor.'},
+  {id:'perdao_1',forca:'perdao',texto:'Consigo perdoar as pessoas que erraram comigo e seguir em frente sem rancor.'},
+  {id:'humildade_1',forca:'humildade',texto:'Não preciso de reconhecimento público pelas minhas conquistas para me sentir bem.'},
+  {id:'prudencia_1',forca:'prudencia',texto:'Penso bem nas consequências antes de agir ou tomar decisões importantes.'},
+  {id:'autorregulacao_1',forca:'autorregulacao',texto:'Consigo controlar minhas emoções e impulsos mesmo em situações de pressão.'},
+  {id:'apreciacao_beleza_1',forca:'apreciacao_beleza',texto:'Me emociono com coisas belas — arte, natureza, música, arquitetura, design.'},
+  {id:'gratidao_1',forca:'gratidao',texto:'Me sinto grato pelas coisas boas da minha vida, mesmo nas épocas difíceis.'},
+  {id:'esperanca_1',forca:'esperanca',texto:'Mesmo em momentos difíceis, encontro razões para ser otimista em relação ao futuro.'},
+  {id:'humor_1',forca:'humor',texto:'Usar humor para aliviar tensões e criar conexão com as pessoas vem naturalmente para mim.'},
+  {id:'espiritualidade_1',forca:'espiritualidade',texto:'Sinto que há um propósito maior guiando minha vida, além das coisas materiais.'},
+  // 6 perguntas extras para maior precisão nas forças mais diagnósticas
+  {id:'criatividade_2',forca:'criatividade',texto:'Quando faço algo, gosto de acrescentar um toque criativo — raramente faço do jeito convencional.'},
+  {id:'lideranca_2',forca:'lideranca',texto:'Cuido para que o grupo esteja bem e que todos se sintam incluídos e motivados.'},
+  {id:'inteligencia_social_2',forca:'inteligencia_social',texto:'Sei adaptar meu jeito de ser dependendo da pessoa ou situação em que estou.'},
+  {id:'perseveranca_2',forca:'perseveranca',texto:'Trabalho com afinco e os obstáculos não me fazem desistir do que comecei.'},
+  {id:'honestidade_2',forca:'honestidade',texto:'Digo a verdade mesmo quando seria mais fácil esconder ou distorcer algo.'},
+  {id:'bondade_2',forca:'bondade',texto:'Me sinto bem quando posso fazer algo positivo pela vida de outras pessoas.'},
+];
+
+const OPCOES_ESCALA = [
+  {valor:5,label:'Exatamente como eu sou'},
+  {valor:4,label:'Muito parecido comigo'},
+  {valor:3,label:'Às vezes sou assim'},
+  {valor:2,label:'Pouco parecido comigo'},
+  {valor:1,label:'Nada a ver comigo'},
+];
+
+const CARGOS_VIA = {
+  criatividade:['Designer','Diretor de Arte','Redator','UX Writer','Estrategista'],
+  curiosidade:['Pesquisador','Analista','Jornalista','Cientista de Dados','Consultor'],
+  julgamento:['Advogado','Analista de Dados','Estrategista','Gerente de Produto'],
+  amor_aprendizado:['Professor','Consultor','Treinador','Especialista','Gestor de Conhecimento'],
+  perspectiva:['Mentor','Consultor Sênior','Diretor','Coach Executivo','Estrategista'],
+  coragem:['Empreendedor','Líder Comercial','Gestor de Crise','Diretor Executivo'],
+  perseveranca:['Gerente de Projetos','Operações','Engenheiro','Desenvolvedor'],
+  honestidade:['Auditor','Compliance','Ética e Sustentabilidade','Gestor de Qualidade'],
+  entusiasmo:['Vendas','Apresentador','Evangelista de Marca','Influencer Corporativo'],
+  amor:['RH','Psicólogo Organizacional','Gestor de Pessoas','Assistente Social'],
+  bondade:['Voluntariado','Terceiro Setor','Saúde','Assistência Social','RH'],
+  inteligencia_social:['RH','Relações Públicas','Atendimento','Account Manager'],
+  trabalho_equipe:['Scrum Master','Coordenador','Operações','Gestor de Projetos'],
+  equidade:['Líder de Equipe','Gestor de RH','Mediador','Compliance'],
+  lideranca:['Gerente','Diretor','C-Level','Líder de Squad','Empreendedor'],
+  perdao:['Mediador','RH','Counselor','Gestor de Conflitos'],
+  humildade:['Mentor','Facilitador','Gestor Colaborativo','Coach'],
+  prudencia:['Jurídico','Financeiro','Gestão de Riscos','Compliance'],
+  autorregulacao:['Trader','Cirurgião','Piloto','Gestão de Crises'],
+  apreciacao_beleza:['Curador','Designer','Editor','Fotógrafo','Produtor Cultural'],
+  gratidao:['Relações Públicas','Comunicação Interna','Cultura Organizacional'],
+  esperanca:['Empreendedor','Inovação','Fundraising','Liderança Visionária'],
+  humor:['Apresentador','Facilitador','Comunicação','Marketing','Treinamento'],
+  espiritualidade:['Propósito e Cultura','ESG','Voluntariado','Coaching'],
+};
+
+const FIT_AREAS = [
+  {nome:'Criatividade & Design',forcas:['criatividade','apreciacao_beleza','entusiasmo','curiosidade']},
+  {nome:'Liderança & Gestão',forcas:['lideranca','perspectiva','trabalho_equipe','autorregulacao']},
+  {nome:'Dados & Análise',forcas:['curiosidade','julgamento','amor_aprendizado','prudencia']},
+  {nome:'Vendas & Negócios',forcas:['entusiasmo','inteligencia_social','esperanca','coragem']},
+  {nome:'Pessoas & RH',forcas:['amor','bondade','inteligencia_social','equidade']},
+  {nome:'Estratégia',forcas:['perspectiva','julgamento','prudencia','amor_aprendizado']},
+  {nome:'Inovação',forcas:['criatividade','curiosidade','coragem','esperanca']},
+  {nome:'Operações',forcas:['perseveranca','autorregulacao','trabalho_equipe','prudencia']},
+];
+
+let respostas = {};
+let qAtual = 0;
+let nomeUsuario = '';
+
+function renderQ(){
+  const q = PERGUNTAS[qAtual];
+  const total = PERGUNTAS.length;
+  const pct = Math.round((qAtual/total)*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = `Pergunta ${qAtual+1} de ${total}`;
+  document.getElementById('progressPct').textContent = pct+'%';
+  document.getElementById('encourage').style.display = (qAtual===Math.floor(total/2)) ? 'block':'none';
+
+  const forca = FORCAS[q.forca];
+  document.getElementById('qNumber').innerHTML = `Pergunta ${qAtual+1} de ${total} · <span style="color:${forca.cor};">${forca.emoji} ${forca.nome}</span>`;
+  document.getElementById('qText').textContent = q.texto;
+
+  // Atualiza opções sem recriar o container — evita qualquer scroll
+  const scale = document.getElementById('scaleOpts');
+  const items = scale.querySelectorAll('.q-scale-item');
+
+  if(items.length === 0){
+    // Primeira vez: cria os itens
+    OPCOES_ESCALA.forEach(op=>{
+      const item = document.createElement('div');
+      item.className = 'q-scale-item' + (respostas[q.id]===op.valor?' selected':'');
+      item.setAttribute('tabindex','-1');
+      item.dataset.valor = op.valor;
+      item.innerHTML = `<div class="q-dot"></div><span>${op.label}</span><span class="scale-label">${op.valor}/5</span>`;
+      item.addEventListener('mousedown', (e)=>{ e.preventDefault(); e.stopPropagation(); });
+      item.addEventListener('click', (e)=>{
+        e.preventDefault(); e.stopPropagation();
+        respostas[q.id] = op.valor;
+        scale.querySelectorAll('.q-scale-item').forEach(el=>el.classList.remove('selected'));
+        item.classList.add('selected');
+        document.getElementById('btnNext').removeAttribute('disabled');
+      });
+      scale.appendChild(item);
+    });
+  } else {
+    // Já existem: só atualiza classe selected
+    items.forEach(item=>{
+      const val = parseInt(item.dataset.valor);
+      item.classList.toggle('selected', respostas[q.id]===val);
+      // Reescreve o listener para a pergunta atual
+      item.onmousedown = (e)=>{ e.preventDefault(); e.stopPropagation(); };
+      item.onclick = (e)=>{
+        e.preventDefault(); e.stopPropagation();
+        respostas[q.id] = val;
+        scale.querySelectorAll('.q-scale-item').forEach(el=>el.classList.remove('selected'));
+        item.classList.add('selected');
+        document.getElementById('btnNext').removeAttribute('disabled');
+      };
+    });
+  }
+
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  btnPrev.style.display = qAtual>0 ? 'inline-flex':'none';
+  btnNext.textContent = qAtual===total-1 ? 'Ver resultado →' : 'Próxima →';
+  // Não desabilita o botão — evita scroll do navegador ao habilitar
+  btnNext.onclick = ()=>nextQ();
+}
+
+function nextQ(){
+  const q = PERGUNTAS[qAtual];
+  if(respostas[q.id]===undefined){
+    // Pisca o card para indicar que precisa responder
+    const card = document.getElementById('questionCard');
+    card.style.borderColor='rgba(212,175,55,0.6)';
+    setTimeout(()=>card.style.borderColor='',600);
+    return;
+  }
+  nomeUsuario = document.getElementById('nomePessoa').value.trim()||'';
+  if(qAtual < PERGUNTAS.length-1){
+    qAtual++;
+    renderQ();
+  } else {
+    calcular();
+  }
+}
+
+function prevQ(){
+  if(qAtual>0){qAtual--;renderQ();}
+}
+
+function calcular(){
+  document.getElementById('testSection').style.display='none';
+  document.getElementById('loadingSection').style.display='block';
+  setTimeout(mostrarResultado, 1800);
+}
+
+function mostrarResultado(){
+  // Calcular scores por força
+  const scores = {};
+  Object.keys(FORCAS).forEach(f=>{
+    const q1 = respostas[f+'_1']||3;
+    const q2 = respostas[f+'_2'];
+    scores[f] = q2 !== undefined ? (q1+q2)/2 : q1;
+  });
+
+  // Ordenar forças
+  const ranking = Object.entries(scores).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({key:k,score:v,...FORCAS[k]}));
+  const top5 = ranking.slice(0,5);
+  const top1 = ranking[0];
+
+  document.getElementById('loadingSection').style.display='none';
+  const rs = document.getElementById('resultSection');
+  rs.style.display='block';
+  document.getElementById('resultNome').textContent = nomeUsuario||'você';
+
+  // CARD PERFIL
+  document.getElementById('cardPerfil').innerHTML = `
+    <h4>✦ Sua Força de Assinatura Principal</h4>
+    <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
+      <div style="width:80px;height:80px;border-radius:50%;background:${top1.cor}20;border:2px solid ${top1.cor}40;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;">${top1.emoji}</div>
+      <div style="flex:1;min-width:160px;">
+        <div style="font-size:0.65rem;font-weight:700;color:${top1.cor};text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.2rem;">${top1.virtude}</div>
+        <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:${top1.cor};margin-bottom:0.4rem;">${top1.nome}</div>
+        <div style="font-size:0.85rem;color:var(--text-secondary);line-height:1.65;">${top1.desc}</div>
+      </div>
+    </div>
+  `;
+
+  // TOP 5
+  let top5html = '<h4>🏆 Suas 5 Forças de Assinatura</h4>';
+  top5html += '<p style="font-size:0.8rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6;">Estas são as forças mais autênticas em você. Quando as usa, sente energia e significado — são o seu jeito natural de ser.</p>';
+  top5html += '<div class="strength-grid">';
+  top5.forEach((f,i)=>{
+    const pct = Math.round((f.score/5)*100);
+    top5html += `
+      <div class="strength-item">
+        <div class="strength-rank" style="color:${f.cor};">#${i+1} · ${f.virtude}</div>
+        <div class="strength-name">${f.emoji} ${f.nome}</div>
+        <div class="strength-desc">${f.desc}</div>
+        <div class="strength-bar-track"><div class="strength-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${f.cor}99,${f.cor});"></div></div>
+      </div>
+    `;
+  });
+  top5html += '</div>';
+  document.getElementById('cardTop5').innerHTML = top5html;
+
+  // GRÁFICO RADAR
+  document.getElementById('cardGrafico').innerHTML = `
+    <h4>📊 Seu Perfil Completo de Forças</h4>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.2rem;">Intensidade de cada uma das 24 forças de caráter</p>
+    <canvas id="viaRadar" height="280"></canvas>
+  `;
+  setTimeout(()=>{
+    const ctx = document.getElementById('viaRadar');
+    if(!ctx) return;
+    new Chart(ctx,{
+      type:'radar',
+      data:{
+        labels: ranking.map(f=>f.nome),
+        datasets:[{
+          label:'Suas Forças',
+          data: ranking.map(f=>f.score),
+          borderColor:'#d4af37',
+          backgroundColor:'rgba(212,175,55,0.08)',
+          borderWidth:1.5,
+          pointBackgroundColor:'#d4af37',
+          pointRadius:3,
+        }]
+      },
+      options:{
+        responsive:true,
+        plugins:{legend:{display:false}},
+        scales:{r:{
+          min:0,max:5,ticks:{display:false,stepSize:1},
+          grid:{color:'rgba(255,255,255,0.06)'},
+          pointLabels:{color:'#b0a898',font:{size:10,family:'DM Sans'}},
+          angleLines:{color:'rgba(255,255,255,0.04)'},
+        }},
+      }
+    });
+  },100);
+
+  // VIRTUDES
+  const virtudes = {};
+  ranking.forEach(f=>{if(!virtudes[f.virtude])virtudes[f.virtude]=[];virtudes[f.virtude].push(f);});
+  const virtCores = {'Sabedoria':'#d4af37','Coragem':'#e05c4e','Humanidade':'#80d4c4','Justiça':'#90c0e8','Temperança':'#c0a0e0','Transcendência':'#d8c080'};
+  let virtHtml = '<h4>🌟 Suas Virtudes em Destaque</h4><p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.2rem;">As 6 virtudes universais agrupam suas 24 forças. Veja onde você pontua mais.</p>';
+  virtHtml += '<div style="display:flex;flex-direction:column;gap:0.6rem;">';
+  Object.entries(virtudes).sort((a,b)=>{
+    const avg = arr=>arr.reduce((s,f)=>s+f.score,0)/arr.length;
+    return avg(b[1])-avg(a[1]);
+  }).forEach(([virt,forcas])=>{
+    const avg = forcas.reduce((s,f)=>s+f.score,0)/forcas.length;
+    const pct = Math.round((avg/5)*100);
+    const cor = virtCores[virt]||'#d4af37';
+    virtHtml += `
+      <div style="background:rgba(255,255,255,0.02);border:1px solid ${cor}22;border-radius:10px;padding:0.8rem 1rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+          <span style="font-size:0.82rem;font-weight:600;color:${cor};">${virt}</span>
+          <span style="font-size:0.78rem;font-weight:700;color:${cor};">${pct}%</span>
+        </div>
+        <div style="height:3px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;margin-bottom:0.4rem;">
+          <div style="height:100%;width:${pct}%;background:${cor};border-radius:99px;"></div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--muted);">${forcas.map(f=>f.emoji+' '+f.nome).join(' · ')}</div>
+      </div>
+    `;
+  });
+  virtHtml += '</div>';
+  document.getElementById('cardVirtudes').innerHTML = virtHtml;
+
+  // CARGOS
+  const todosCargos = new Set();
+  top5.forEach(f=>{ (CARGOS_VIA[f.key]||[]).forEach(c=>todosCargos.add(c)); });
+  document.getElementById('cardCargos').innerHTML = `
+    <h4>💼 Cargos com Maior Afinidade</h4>
+    <p style="font-size:0.75rem;color:var(--muted);margin-bottom:1rem;line-height:1.55;">Funções onde suas forças naturais tendem a brilhar mais.</p>
+    <div class="cargo-pills">${[...todosCargos].slice(0,12).map(c=>`<span class="cargo-pill">${c}</span>`).join('')}</div>
+  `;
+
+  // FIT POR ÁREA
+  const fitScores = FIT_AREAS.map(area=>{
+    const score = area.forcas.reduce((s,fk)=>s+(scores[fk]||3),0)/area.forcas.length;
+    return{nome:area.nome,score:Math.round((score/5)*100)};
+  }).sort((a,b)=>b.score-a.score);
+  const corFit = s=>s>=78?'#2ecc71':s>=58?'#f39c12':'#e74c3c';
+  document.getElementById('cardFit').innerHTML = `
+    <h4>🎯 Afinidade por Área Profissional</h4>
+    <p style="font-size:0.75rem;color:var(--muted);margin-bottom:1rem;line-height:1.55;">Calculado com base na intensidade das suas forças em cada área.</p>
+    <div class="fit-grid">${fitScores.map(v=>`
+      <div class="fit-item">
+        <div class="fit-top"><span class="fit-name">${v.nome}</span><span class="fit-score" style="color:${corFit(v.score)}">${v.score}%</span></div>
+        <div class="fit-track"><div class="fit-fill" style="width:${v.score}%;background:${corFit(v.score)};"></div></div>
+      </div>`).join('')}
+    </div>
+  `;
+
+  // DESENVOLVIMENTO
+  const bottom3 = ranking.slice(-3);
+  document.getElementById('cardCrescimento').innerHTML = `
+    <h4>🌱 Forças para Desenvolver</h4>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6;">Estas forças aparecem com menos intensidade. Não são fraquezas — são oportunidades de crescimento.</p>
+    <div class="pressure-grid">
+      ${bottom3.map(f=>`
+        <div class="pressure-item" style="border-color:${f.cor}22;">
+          <h6 style="color:${f.cor};">${f.emoji} ${f.nome}</h6>
+          <p>${f.desc}</p>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  document.getElementById('pdfBar').classList.add('visible');
+}
+
+async function baixarPDF(){
+  const btn = document.getElementById('btnPdf');
+  btn.disabled=true;btn.textContent='⏳ Gerando PDF…';
+  const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(isMobile){btn.disabled=false;btn.textContent='⬇ Baixar resultado em PDF';mostrarPrint();return;}
+  if(!window.html2canvas||!window.jspdf){btn.disabled=false;btn.textContent='⬇ Baixar resultado em PDF';mostrarPrint();return;}
+  try{
+    const {jsPDF}=window.jspdf;
+    const el=document.getElementById('resultSection');
+    document.getElementById('pdfBar').style.display='none';
+    const pdfStyle=document.createElement('style');
+    pdfStyle.textContent=`#resultSection{background:#ffffff!important;}#resultSection,#resultSection *{color:#1a1a1a!important;border-color:#d0d0d0!important;}#resultSection .result-card,#resultSection .strength-item,#resultSection .fit-item,#resultSection .pressure-item{background:#f5f5f5!important;border-color:#d8d8d8!important;}#resultSection .strength-bar-track,#resultSection .fit-track{background:#e0e0e0!important;}`;
+    document.head.appendChild(pdfStyle);
+    const canvas=await html2canvas(el,{backgroundColor:'#ffffff',scale:2,useCORS:true,logging:false});
+    pdfStyle.remove();
+    document.getElementById('pdfBar').classList.add('visible');
+    document.getElementById('pdfBar').style.display='';
+    const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    const pW=pdf.internal.pageSize.getWidth(),pH=pdf.internal.pageSize.getHeight();
+    const iW=canvas.width,iH=canvas.height,ratio=iW/pW,pageHpx=pH*ratio;
+    let posY=0,page=0;
+    while(posY<iH){
+      if(page>0)pdf.addPage();
+      const h=Math.min(pageHpx,iH-posY);
+      const c2=document.createElement('canvas');c2.width=iW;c2.height=h;
+      c2.getContext('2d').drawImage(canvas,0,posY,iW,h,0,0,iW,h);
+      pdf.addImage(c2.toDataURL('image/jpeg',0.92),'JPEG',0,0,pW,h/ratio);
+      posY+=pageHpx;page++;
+    }
+    const nome=(nomeUsuario||'resultado').toLowerCase().replace(/\s/g,'-');
+    pdf.save(`via-strengths-${nome}.pdf`);
+    toast('✅ PDF baixado com sucesso!');
+  }catch(e){
+    const s=document.querySelector('style[data-pdf]');if(s)s.remove();
+    document.getElementById('pdfBar').classList.add('visible');
+    document.getElementById('pdfBar').style.display='';
+    mostrarPrint();
+  }
+  btn.disabled=false;btn.textContent='⬇ Baixar resultado em PDF';
+}
+
+function mostrarPrint(){toast('📄 Abrindo opção de salvar como PDF…');setTimeout(()=>window.print(),600);}
+
+function refazer(){if(!confirm('Tem certeza? Seu resultado atual será perdido.'))return;location.reload();}
+
+function compartilharWA(){
+  const url=window.location.href.split('?')[0];
+  const nome=nomeUsuario||'eu';
+  const txt=`Fiz o teste VIA Strengths e descobri minhas forças de caráter! 🌟\n\nFaça o seu também (grátis, sem cadastro):\n${url}`;
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+function copiarLink(){
+  navigator.clipboard.writeText(window.location.href.split('?')[0]).then(()=>toast('🔗 Link copiado!')).catch(()=>toast('Copie manualmente'));
+}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.background='#2ecc71';t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';
+  clearTimeout(t._t);t._t=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-50%) translateY(20px)';},3200);
+}
+
+renderQ();
+</script>
+</body>
+</html>

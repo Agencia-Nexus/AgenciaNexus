@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<!-- SEO -->
+<title>Teste de Personalidade MBTI Gratuito | Descubra seu Tipo em 30 Perguntas</title>
+<meta name="description" content="Descubra seu tipo de personalidade entre os 16 tipos MBTI com apenas 30 perguntas. Teste gratuito, sem cadastro, resultado completo com gráficos e PDF. Desenvolvido pela Agência Nexus."/>
+<meta name="keywords" content="teste de personalidade, MBTI, 16 tipos, personalidade, introvertido, extrovertido, teste gratuito, descobrir personalidade"/>
+<meta name="author" content="Agência Nexus"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://agencia-nexus.github.io/AgenciaNexus/"/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://agencia-nexus.github.io/AgenciaNexus/"/>
+<meta property="og:title" content="Teste de Personalidade MBTI Gratuito | 16 Tipos em 30 Perguntas"/>
+<meta property="og:description" content="Descubra seu tipo de personalidade em minutos. 30 perguntas, resultado completo, PDF gratuito. Sem cadastro."/>
+<meta property="og:image" content="https://agencia-nexus.github.io/AgenciaNexus/imagens/favicon-192x192.png"/>
+<meta property="og:site_name" content="Agência Nexus"/>
+<meta property="og:locale" content="pt_BR"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Teste de Personalidade MBTI Gratuito | 16 Tipos"/>
+<meta name="twitter:description" content="Descubra seu tipo de personalidade em 30 perguntas. Gratuito, sem cadastro."/>
+<meta name="twitter:image" content="https://agencia-nexus.github.io/AgenciaNexus/imagens/favicon-192x192.png"/>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="../imagens/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="../imagens/favicon-192x192.png"/>
+<link rel="shortcut icon" href="../imagens/icone.png" type="image/png"/>
+<link rel="apple-touch-icon" href="../imagens/icone.png"/>
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Teste de Personalidade MBTI",
+  "url": "https://agencia-nexus.github.io/AgenciaNexus/",
+  "description": "Teste gratuito de personalidade baseado no modelo MBTI com 30 perguntas e 16 tipos de resultado.",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "All",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"},
+  "author": {"@type": "Organization", "name": "Agência Nexus", "url": "https://agencia-nexus.github.io/AgenciaNexus/"}
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="window.Chart=null;" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" onerror="window.html2canvas=null;" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" onerror="window.jspdf=null;" defer></script>
+<style>
+:root{
+  --gold:#d4af37;--gold-light:#e8cc6a;--gold-border:rgba(212,175,55,0.22);
+  --bg:#080808;--card:#121212;--border:rgba(255,255,255,0.07);
+  --border-gold:rgba(212,175,55,0.25);--text:#f0ece4;--text-secondary:#b0a898;--muted:#5c564e;
+  --radius:18px;--radius-sm:12px;
+  --font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(212,175,55,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 110%,rgba(212,175,55,0.04) 0%,transparent 50%);pointer-events:none;}
+body::after{content:'';position:fixed;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(212,175,55,0.035) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;opacity:0.7;}
+.wrapper{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:2.5rem 1.4rem 6rem;}
+
+.p16-header{text-align:center;padding:3.5rem 0 2.8rem;}
+.logo-wrap{display:flex;align-items:center;justify-content:center;gap:0.9rem;margin-bottom:1.6rem;}
+.logo-ico{width:56px;height:56px;background:linear-gradient(135deg,#b8960c,#d4af37,#e8cc6a);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 4px 20px rgba(212,175,55,0.3);}
+.logo-name{font-family:var(--font-display);font-size:1.25rem;font-weight:600;color:var(--gold);}
+.free-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(212,175,55,0.08);border:1px solid var(--border-gold);border-radius:99px;padding:0.38rem 1.3rem;font-size:0.75rem;color:var(--gold-light);font-weight:500;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:1.4rem;}
+.p16-header h1{font-family:var(--font-display);font-size:2.6rem;font-weight:700;line-height:1.18;margin-bottom:0.8rem;}
+.p16-header h1 span{color:var(--gold);font-style:italic;}
+.p16-header p{color:var(--text-secondary);font-size:0.875rem;max-width:440px;margin:0 auto;line-height:1.7;}
+.header-ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin:2rem 0 0;}
+.header-ornament span{height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--gold-border),transparent);}
+.header-ornament i{font-style:normal;color:var(--gold);font-size:0.6rem;letter-spacing:4px;}
+
+.progress-wrap{margin:1.8rem 0 0.5rem;}
+.progress-track{height:3px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#b8960c,#d4af37,#e8cc6a);border-radius:99px;transition:width 0.5s cubic-bezier(.4,0,.2,1);width:0%;box-shadow:0 0 8px rgba(212,175,55,0.5);}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-top:0.6rem;font-size:0.72rem;color:var(--muted);font-weight:500;}
+
+.intro-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.4rem;position:relative;overflow:hidden;}
+.intro-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-border),transparent);}
+.intro-card h2{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--gold);margin-bottom:0.9rem;}
+.intro-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.75;margin-bottom:0.75rem;}
+.intro-card p:last-child{margin-bottom:0;}
+.dim-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.2rem;}
+.dim-pill{padding:0.3rem 0.85rem;border-radius:99px;font-size:0.73rem;font-weight:600;}
+
+.name-section{margin-bottom:1.4rem;}
+.name-section label{display:block;font-size:0.75rem;font-weight:600;color:var(--gold);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;}
+.name-section input{width:100%;padding:0.9rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:0.95rem;outline:none;transition:border-color 0.3s,box-shadow 0.3s;}
+.name-section input:focus{border-color:rgba(212,175,55,0.5);box-shadow:0 0 0 3px rgba(212,175,55,0.07);}
+.name-section input::placeholder{color:var(--muted);}
+.name-hint{font-size:0.7rem;color:var(--muted);margin-top:0.4rem;}
+
+.question-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1rem;animation:fadeUp 0.35s cubic-bezier(.4,0,.2,1) both;position:relative;overflow:hidden;}
+.question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.15),transparent);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.q-number{font-size:0.68rem;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.6rem;}
+.q-text{font-family:var(--font-display);font-size:1.02rem;font-weight:600;margin-bottom:1.6rem;line-height:1.55;}
+
+/* SLIDER ESCALA */
+.q-slider-wrap{padding:0 0.2rem;}
+.q-poles{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.9rem;}
+.q-pole{font-size:0.78rem;font-weight:600;color:var(--text-secondary);line-height:1.5;padding:0.6rem 0.8rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;}
+.q-pole.right{text-align:right;}
+.q-circles{display:flex;justify-content:space-between;align-items:center;gap:0.3rem;margin-bottom:0.5rem;}
+.q-circle{flex:1;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:10px;border:1px solid var(--border);transition:all 0.2s;background:rgba(255,255,255,0.02);}
+.q-circle:hover{border-color:var(--border-gold);background:rgba(212,175,55,0.04);}
+.q-circle.selected{border-color:var(--gold);background:rgba(212,175,55,0.1);}
+.q-circle-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.2);transition:all 0.2s;}
+.q-circle.selected .q-circle-dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px rgba(212,175,55,0.4);}
+.q-circle-dot.big{width:20px;height:20px;}
+.q-labels{display:flex;justify-content:space-between;}
+.q-label{font-size:0.6rem;color:var(--muted);text-align:center;flex:1;}
+
+.nav-buttons{display:flex;gap:0.8rem;margin-top:1.3rem;justify-content:flex-end;}
+.btn-prev{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:var(--radius-sm);padding:0.78rem 1.6rem;font-family:var(--font-body);font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.btn-prev:hover{border-color:var(--border-gold);color:var(--gold);}
+.btn-next{background:linear-gradient(135deg,#b8960c,#d4af37);color:#0a0a0a;border:none;border-radius:var(--radius-sm);padding:0.78rem 2rem;font-family:var(--font-body);font-size:0.875rem;font-weight:700;cursor:pointer;transition:all 0.22s;letter-spacing:0.02em;box-shadow:0 4px 16px rgba(212,175,55,0.25);}
+.btn-next:hover{box-shadow:0 6px 24px rgba(212,175,55,0.35);transform:translateY(-1px);}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.encourage{text-align:center;margin:0.6rem 0;display:none;}
+.encourage span{background:rgba(212,175,55,0.08);border:1px solid var(--border-gold);border-radius:99px;padding:0.35rem 1.2rem;font-size:0.78rem;color:var(--gold-light);font-weight:500;}
+
+.spinner-wrap{text-align:center;padding:4rem 2rem;}
+.spinner{width:44px;height:44px;border:3px solid rgba(212,175,55,0.12);border-top-color:var(--gold);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 1.2rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+#resultSection{display:none;animation:fadeUp 0.5s ease both;}
+.result-header{text-align:center;padding:2.5rem 0 1.8rem;}
+.result-header h2{font-family:var(--font-display);font-size:1.8rem;font-weight:700;margin-bottom:0.4rem;}
+.result-header p{color:var(--text-secondary);font-size:0.85rem;}
+.result-name{color:var(--gold);font-style:italic;}
+
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem;margin-bottom:1rem;position:relative;overflow:hidden;transition:border-color 0.3s;}
+.result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-border),transparent);}
+.result-card:hover{border-color:rgba(212,175,55,0.18);}
+.result-card h4{font-size:0.68rem;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.3rem;display:flex;align-items:center;gap:0.5rem;}
+#tipoRadar{max-width:100%;height:auto!important;}
+
+.dim-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:0.9rem;}
+.dim-bar-label{width:160px;font-size:0.8rem;font-weight:600;flex-shrink:0;color:var(--text-secondary);}
+.dim-bar-track{flex:1;height:7px;background:rgba(255,255,255,0.05);border-radius:99px;overflow:hidden;position:relative;}
+.dim-bar-fill{height:100%;border-radius:99px;transition:width 1.4s cubic-bezier(.4,0,.2,1);}
+.dim-bar-pct{width:50px;font-size:0.78rem;font-weight:700;text-align:right;flex-shrink:0;}
+
+.trait-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.6rem;}
+@media(max-width:520px){.trait-grid{grid-template-columns:1fr;}}
+.trait-item{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;}
+.trait-item h6{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;color:var(--gold);}
+.trait-item p,.trait-item li{font-size:0.82rem;color:var(--text-secondary);line-height:1.6;}
+.trait-item ul{list-style:none;padding:0;}
+.trait-item ul li{padding:0.18rem 0;display:flex;gap:0.4rem;}
+.trait-item ul li::before{content:'—';font-size:0.7rem;color:var(--gold);flex-shrink:0;margin-top:0.1rem;opacity:0.7;}
+
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+@media(max-width:520px){.fit-grid{grid-template-columns:1fr;}}
+.fit-item{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.9rem 1rem;transition:border-color 0.2s;}
+.fit-item:hover{border-color:var(--border-gold);}
+.fit-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+.fit-name{font-size:0.8rem;font-weight:600;}
+.fit-score{font-size:0.88rem;font-weight:700;}
+.fit-track{height:4px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.fit-fill{height:100%;border-radius:99px;}
+
+.cargo-pills{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:1.2rem;}
+.cargo-pill{padding:0.3rem 0.85rem;border-radius:99px;font-size:0.75rem;font-weight:500;background:rgba(212,175,55,0.07);border:1px solid var(--border-gold);color:var(--gold-light);}
+
+.pdf-bar{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(8,8,8,0.97);border-top:1px solid var(--border-gold);backdrop-filter:blur(16px);padding:1rem 1.5rem;display:none;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;}
+.pdf-bar.visible{display:flex!important;}
+.btn-pdf{display:inline-flex;align-items:center;gap:0.55rem;background:linear-gradient(135deg,#b8960c,#d4af37);color:#0a0a0a;border:none;border-radius:var(--radius-sm);padding:0.78rem 2rem;font-family:var(--font-body);font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.22s;box-shadow:0 4px 16px rgba(212,175,55,0.25);}
+.btn-pdf:hover{box-shadow:0 6px 24px rgba(212,175,55,0.35);transform:translateY(-1px);}
+.btn-pdf:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-refazer{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.04);color:var(--text-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1.4rem;font-family:var(--font-body);font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.btn-refazer:hover{background:rgba(255,255,255,0.07);color:var(--text);}
+.pdf-hint{font-size:0.7rem;color:var(--muted);}
+.share-bar{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:1rem;}
+.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1.1rem;border-radius:99px;font-size:0.78rem;font-weight:600;cursor:pointer;border:1px solid;transition:all 0.2s;font-family:var(--font-body);}
+.share-btn:hover{opacity:0.8;transform:translateY(-1px);}
+
+@media(max-width:520px){
+  .wrapper{padding:1rem 0.8rem 6rem;}
+  .p16-header{padding:2rem 0 1.8rem;}
+  .p16-header h1{font-size:1.75rem;}
+  .intro-card{padding:1.4rem;}
+  .question-card{padding:1.4rem;}
+  .q-poles{grid-template-columns:1fr;gap:0.5rem;}
+  .q-pole.right{text-align:left;}
+  .q-circles{gap:0.2rem;}
+  .q-circle{height:44px;border-radius:8px;}
+  .q-circle-dot{width:12px;height:12px;}
+  .q-circle-dot.big{width:18px;height:18px;}
+  .nav-buttons{flex-direction:column-reverse;}
+  .btn-prev,.btn-next{width:100%;text-align:center;justify-content:center;}
+  .result-header h2{font-size:1.35rem;}
+  .result-card{padding:1.3rem;}
+  .trait-grid{grid-template-columns:1fr;}
+  .fit-grid{grid-template-columns:1fr;}
+  .dim-bar-row{flex-wrap:wrap;gap:6px;}
+  .dim-bar-label{width:100%;font-size:0.78rem;}
+  .dim-bar-pct{width:auto;}
+  .pdf-bar{padding:0.8rem 1rem;gap:0.6rem;}
+  .btn-pdf,.btn-refazer{width:100%;justify-content:center;}
+  .logo-ico{width:44px;height:44px;font-size:1.4rem;}
+  .free-badge{font-size:0.7rem;padding:0.3rem 1rem;}
+}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  body::before,body::after,.p16-header,.intro-card,.name-section,.progress-wrap,#testSection,#loadingSection,.pdf-bar,.share-bar,.btn-refazer,#toast{display:none!important;}
+  html,body{background:#fff!important;color:#1a1a1a!important;}
+  .wrapper{max-width:100%!important;padding:0!important;}
+  #resultSection{display:block!important;}
+  .result-card{background:#f5f5f5!important;border-color:#ddd!important;break-inside:avoid;margin-bottom:0.8rem!important;}
+  .trait-item,.fit-item{background:#efefef!important;border-color:#ddd!important;}
+  .result-card *,.trait-item *,.fit-item *{color:#1a1a1a!important;}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<div class="p16-header">
+  <div class="logo-wrap">
+    <div class="logo-ico">🧠</div>
+    <div class="logo-name">Tipo de Personalidade</div>
+  </div>
+  <div class="free-badge">✦ 100% gratuito &nbsp;·&nbsp; Sem cadastro &nbsp;·&nbsp; Resultado na hora</div>
+  <h1>Descubra seu <span>Tipo</span> de Personalidade</h1>
+  <p>4 dimensões · 30 perguntas · ~5 minutos<br>16 tipos · Resultado completo com gráficos e PDF</p>
+  <div class="header-ornament"><span></span><i>◆ ◆ ◆</i><span></span></div>
+</div>
+
+<div id="testSection">
+  <div class="intro-card">
+    <h2>Como funciona este teste?</h2>
+    <p>Baseado no modelo de personalidade de Myers-Briggs (MBTI), este teste identifica seu tipo a partir de <strong style="color:var(--gold-light)">4 dimensões</strong> do seu jeito de pensar, agir e se relacionar.</p>
+    <p>Cada dimensão é um espectro — você pode ser mais para um lado ou outro. O resultado final combina as quatro letras para formar um dos <strong style="color:var(--gold-light)">16 tipos de personalidade</strong>.</p>
+    <p style="background:rgba(212,175,55,0.05);border-left:2px solid var(--gold);border-radius:0 8px 8px 0;padding:0.7rem 1rem;"><strong style="color:var(--gold-light)">Dica:</strong> Responda pelo que você <em>naturalmente prefere</em> — não pelo que você acha que deveria ser ou o que é mais valorizado no trabalho.</p>
+    <div class="dim-pills">
+      <span class="dim-pill" style="background:rgba(100,160,240,0.12);color:#90c8f0;border:1px solid rgba(100,160,240,0.25);">E/I · Energia</span>
+      <span class="dim-pill" style="background:rgba(80,200,140,0.12);color:#80d4a0;border:1px solid rgba(80,200,140,0.25);">S/N · Percepção</span>
+      <span class="dim-pill" style="background:rgba(220,160,80,0.12);color:#e0c080;border:1px solid rgba(220,160,80,0.25);">T/F · Decisão</span>
+      <span class="dim-pill" style="background:rgba(200,120,200,0.12);color:#d0a0d0;border:1px solid rgba(200,120,200,0.25);">J/P · Estilo de Vida</span>
+    </div>
+  </div>
+
+  <div class="name-section">
+    <label for="nomePessoa">Como você se chama?</label>
+    <input type="text" id="nomePessoa" placeholder="Seu primeiro nome" autocomplete="given-name"/>
+    <div class="name-hint">🔒 Não coletamos seus dados. Seu nome aparece só no resultado.</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-meta">
+      <span id="progressLabel">Pergunta 1 de 30</span>
+      <span id="progressPct">0%</span>
+    </div>
+  </div>
+
+  <div id="questionsContainer"></div>
+  <div class="encourage" id="encourage"><span>Ótimo progresso! Você está na metade 💪</span></div>
+
+  <div class="nav-buttons">
+    <button class="btn-prev" id="btnPrev" onclick="prevQ()" style="display:none;">← Anterior</button>
+    <button class="btn-next" id="btnNext" onclick="nextQ()" disabled>Próxima →</button>
+  </div>
+</div>
+
+<div id="loadingSection" style="display:none;">
+  <div class="spinner-wrap">
+    <div class="spinner"></div>
+    <div style="font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--gold);">Calculando seu tipo…</div>
+    <div style="font-size:0.8rem;color:var(--muted);margin-top:0.4rem;">Analisando suas 4 dimensões</div>
+  </div>
+</div>
+
+<div id="resultSection">
+  <div class="result-header">
+    <h2>Seu Tipo de Personalidade, <span class="result-name" id="resultNome">—</span></h2>
+    <p>Resultado gerado com base nas suas <strong>30</strong> respostas</p>
+  </div>
+  <div class="result-card" id="cardPerfil"></div>
+  <div class="result-card" id="cardDims"></div>
+  <div class="result-card" id="cardGrafico"></div>
+  <div class="result-card" id="cardTraits"></div>
+  <div class="result-card" id="cardCargos"></div>
+  <div class="result-card" id="cardFit"></div>
+  <div class="result-card" id="cardDicas"></div>
+  <div class="result-card" style="text-align:center;">
+    <h4>🔗 Compartilhar</h4>
+    <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem;">Convide alguém para descobrir o tipo dele também</p>
+    <div class="share-bar" style="justify-content:center;">
+      <button class="share-btn" style="background:rgba(37,211,102,0.08);color:#25D366;border-color:rgba(37,211,102,0.25);" onclick="compartilharWA()">💬 WhatsApp</button>
+      <button class="share-btn" style="background:rgba(212,175,55,0.08);color:var(--gold-light);border-color:var(--border-gold);" onclick="copiarLink()">🔗 Copiar link</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="pdf-bar" id="pdfBar">
+  <button class="btn-pdf" id="btnPdf" onclick="baixarPDF()">⬇ Baixar resultado em PDF</button>
+  <button class="btn-refazer" onclick="refazer()">↺ Refazer o teste</button>
+  <span class="pdf-hint">PDF gratuito · sem cadastro</span>
+</div>
+
+<div id="toast" style="position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gold);color:#0a0a0a;font-family:var(--font-body);font-size:0.85rem;font-weight:700;padding:0.65rem 1.6rem;border-radius:99px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:9999;box-shadow:0 4px 20px rgba(212,175,55,0.3);"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DIMENSÕES: E/I, S/N, T/F, J/P
+// Cada pergunta tem um polo A e um polo B
+// Valor: 1=totalmente A, 7=totalmente B
+// ═══════════════════════════════════════════════
+
+const PERGUNTAS = [
+  // E/I — Extroversão vs Introversão (8 perguntas)
+  {dim:'EI',poloA:'E',poloB:'I',a:'Prefiro trabalhar em ambientes agitados com muitas pessoas por perto',b:'Prefiro ambientes silenciosos onde posso me concentrar sozinho'},
+  {dim:'EI',poloA:'E',poloB:'I',a:'Fico energizado depois de socializar muito com pessoas',b:'Fico esgotado depois de muito tempo social e preciso recarregar sozinho'},
+  {dim:'EI',poloA:'E',poloB:'I',a:'Gosto de pensar em voz alta e desenvolver ideias em conversas',b:'Prefiro pensar bem antes de falar'},
+  {dim:'EI',poloA:'E',poloB:'I',a:'Em festas e eventos, gosto de conhecer pessoas novas',b:'Em festas, prefiro ficar com pessoas que já conheço bem'},
+  {dim:'EI',poloA:'E',poloB:'I',a:'Me sinto confortável sendo o centro das atenções',b:'Prefiro ficar nos bastidores'},
+  {dim:'EI',poloA:'E',poloB:'I',a:'Tenho uma rede ampla de conhecidos e amigos',b:'Tenho poucos amigos, mas relações muito profundas'},
+  {dim:'EI',poloA:'E',poloB:'I',a:'Busco interação social quando estou estressado',b:'Busco solidão quando estou estressado'},
+  {dim:'EI',poloA:'E',poloB:'I',a:'Me entedio facilmente quando estou muito tempo sozinho',b:'Me sinto bem e produtivo passando longos períodos sozinho'},
+  // S/N — Sensorial vs Intuitivo (8 perguntas)
+  {dim:'SN',poloA:'S',poloB:'N',a:'Confio mais nos meus sentidos e no que é concreto',b:'Confio mais na minha intuição e em padrões que percebo'},
+  {dim:'SN',poloA:'S',poloB:'N',a:'Gosto de instruções claras e passo a passo',b:'Prefiro entender a ideia geral e descobrir o caminho sozinho'},
+  {dim:'SN',poloA:'S',poloB:'N',a:'Prefiro problemas concretos a questões abstratas',b:'Adoro questões abstratas, teóricas e filosóficas'},
+  {dim:'SN',poloA:'S',poloB:'N',a:'Gosto de rotinas estabelecidas e métodos que funcionam',b:'Fico entediado com rotinas — prefiro tentar formas novas'},
+  {dim:'SN',poloA:'S',poloB:'N',a:'Me concentro no presente — o que existe agora',b:'Me concentro no futuro — o que pode vir a ser'},
+  {dim:'SN',poloA:'S',poloB:'N',a:'Prefiro soluções testadas e comprovadas',b:'Prefiro soluções criativas e inovadoras'},
+  {dim:'SN',poloA:'S',poloB:'N',a:'Sou realista e pragmático',b:'Sou visionário e idealista'},
+  {dim:'SN',poloA:'S',poloB:'N',a:'Descrevo as coisas de forma literal e direta',b:'Uso muito metáforas e linguagem figurada'},
+  // T/F — Lógico vs Sentimental (7 perguntas)
+  {dim:'TF',poloA:'T',poloB:'F',a:'Tomo decisões com base em lógica e análise objetiva',b:'Tomo decisões com base em valores pessoais e impacto nas pessoas'},
+  {dim:'TF',poloA:'T',poloB:'F',a:'Prefiro uma crítica honesta a um elogio vazio',b:'Me importo com como as pessoas se sentem ao dar ou receber feedback'},
+  {dim:'TF',poloA:'T',poloB:'F',a:'Num conflito, procuro o que é mais justo e correto',b:'Num conflito, procuro harmonia e o que é melhor para o relacionamento'},
+  {dim:'TF',poloA:'T',poloB:'F',a:'Valorizo competência acima de tudo numa equipe',b:'Valorizo harmonia e colaboração acima de tudo numa equipe'},
+  {dim:'TF',poloA:'T',poloB:'F',a:'Sou mais cabeça do que coração',b:'Sou mais coração do que cabeça'},
+  {dim:'TF',poloA:'T',poloB:'F',a:'Quando alguém me conta um problema, ofereço soluções práticas',b:'Quando alguém me conta um problema, ofereço apoio emocional primeiro'},
+  {dim:'TF',poloA:'T',poloB:'F',a:'Valorizo mais a verdade do que a gentileza',b:'Prefiro ser gentil a ter razão'},
+  // J/P — Julgamento vs Percepção (7 perguntas)
+  {dim:'JP',poloA:'J',poloB:'P',a:'Prefiro planejar com antecedência a improvisar',b:'Prefiro manter as opções abertas e improvisar conforme necessário'},
+  {dim:'JP',poloA:'J',poloB:'P',a:'Gosto de ter as coisas resolvidas e decididas',b:'Gosto de manter as possibilidades em aberto'},
+  {dim:'JP',poloA:'J',poloB:'P',a:'Prazos me ajudam a me organizar',b:'Prazos me estressam — trabalho melhor no meu próprio ritmo'},
+  {dim:'JP',poloA:'J',poloB:'P',a:'Me incomoda quando planos mudam de última hora',b:'Me adapto bem a mudanças de última hora'},
+  {dim:'JP',poloA:'J',poloB:'P',a:'Minha mesa, arquivos e espaço de trabalho são organizados',b:'Meu espaço de trabalho parece caótico mas eu sei onde está tudo'},
+  {dim:'JP',poloA:'J',poloB:'P',a:'Antes de uma viagem, planejo detalhes com antecedência',b:'Prefiro viajar sem planos fixos — aproveitar o que aparecer'},
+  {dim:'JP',poloA:'J',poloB:'P',a:'Me sinto melhor quando tenho tudo sob controle',b:'Me sinto melhor quando tenho liberdade e flexibilidade'},
+];
+
+const TIPOS = {
+  INTJ:{nome:'Arquiteto',emoji:'🏛️',cor:'#5c8fd6',apelido:'O Estrategista Visionário',desc:'Pensador independente, estratégico e perfeccionista. Você combina visão de longo prazo com rigor intelectual. Raro e determinado.',forcas:['Visão estratégica','Raciocínio independente','Determinação','Precisão intelectual'],desafios:['Pode parecer frio ou arrogante','Dificuldade de delegar','Impaciência com ineficiência'],cargos:['Estrategista','Arquiteto de Sistemas','Diretor de Tecnologia','Cientista','Consultor Sênior'],lideranca:'Lidera com visão clara e alta exigência. Prefere equipes autônomas e competentes.',comunicacao:'Direta, precisa e analítica. Vai direto ao ponto e espera o mesmo.'},
+  INTP:{nome:'Lógico',emoji:'🔬',cor:'#5c8fd6',apelido:'O Pensador Analítico',desc:'Curioso, lógico e apaixonado por teorias. Você vive para entender como tudo funciona. Criativo e inovador.',forcas:['Pensamento lógico','Criatividade conceitual','Autonomia intelectual','Resolução de problemas complexos'],desafios:['Dificuldade de tomar decisões práticas','Pode ser percebido como distante','Procrastinação em tarefas rotineiras'],cargos:['Cientista de Dados','Desenvolvedor','Filósofo Corporativo','Pesquisador','Engenheiro'],lideranca:'Lidera pela competência. Prefere autonomia e liberdade intelectual.',comunicacao:'Precisa e conceitual. Pensa enquanto fala e pode parecer indeciso.'},
+  ENTJ:{nome:'Comandante',emoji:'👑',cor:'#5c8fd6',apelido:'O Líder Natural',desc:'Carismático, estratégico e orientado a resultados. Você nasce para liderar e transformar organizações.',forcas:['Liderança assertiva','Visão estratégica','Capacidade de execução','Decisão rápida'],desafios:['Pode atropelar sentimentos alheios','Impaciência com falta de visão','Alta exigência'],cargos:['CEO','Diretor Executivo','Empreendedor','Gestor de Alto Impacto','Consultor'],lideranca:'Lidera com autoridade e visão clara. Transforma estruturas e inspira pelo resultado.',comunicacao:'Direta, assertiva e orientada a resultados. Vai ao ponto rapidamente.'},
+  ENTP:{nome:'Inovador',emoji:'⚡',cor:'#5c8fd6',apelido:'O Debatedor Criativo',desc:'Engenhoso, rápido e apaixonado por ideias. Você adora desafiar o status quo e encontrar soluções inesperadas.',forcas:['Pensamento divergente','Adaptabilidade','Capacidade de debater','Criatividade estratégica'],desafios:['Dificuldade de executar até o fim','Pode parecer confrontador','Muitos projetos ao mesmo tempo'],cargos:['Empreendedor','Estrategista de Inovação','Consultor','Produto','Marketing Estratégico'],lideranca:'Lidera pelo entusiasmo e visão disruptiva. Inspira mas precisa de parceiros de execução.',comunicacao:'Eloquente, rápida e estimulante. Adora um bom debate.'},
+  INFJ:{nome:'Advogado',emoji:'🌿',cor:'#4caf7d',apelido:'O Idealista Profundo',desc:'Raro, empático e visionário. Você combina intuição com profundo comprometimento com seus valores.',forcas:['Empatia profunda','Visão de longo prazo','Comprometimento com causas','Intuição aguçada'],desafios:['Perfeccionismo','Sobrecarga emocional','Dificuldade de abrir mão de ideais'],cargos:['Psicólogo','Escritor','Líder de Propósito','Consultor de RH','Mentor'],lideranca:'Lidera com visão e propósito. Inspira através de valores.',comunicacao:'Profunda, reflexiva e cuidadosa. Fala menos mas cada palavra tem peso.'},
+  INFP:{nome:'Mediador',emoji:'🌸',cor:'#4caf7d',apelido:'O Idealista Criativo',desc:'Criativo, empático e guiado por valores profundos. Você vê o potencial em tudo e em todos.',forcas:['Criatividade','Empatia','Autenticidade','Comprometimento com valores'],desafios:['Evita conflitos','Pode ser muito idealista','Dificuldade com críticas'],cargos:['Designer','Escritor','Terapeuta','Arte e Cultura','Educador'],lideranca:'Lidera pelo exemplo e pelo propósito. Não impõe — inspira.',comunicacao:'Gentil, profunda e metafórica. Prefere conversas com significado.'},
+  ENFJ:{nome:'Protagonista',emoji:'🌟',cor:'#4caf7d',apelido:'O Líder Carismático',desc:'Carismático, empático e orientado ao crescimento dos outros. Você nasce para inspirar e desenvolver pessoas.',forcas:['Liderança empática','Comunicação','Visão de futuro','Desenvolvimento de pessoas'],desafios:['Sacrifica o próprio bem-estar pelos outros','Pode ser excessivamente idealista','Dificuldade de receber críticas'],cargos:['RH','Treinamento & Desenvolvimento','Liderança','Educação','Comunicação'],lideranca:'Lidera com carisma e propósito. Desenvolve cada pessoa individualmente.',comunicacao:'Calorosa, entusiasmada e motivadora. Sabe falar o que as pessoas precisam ouvir.'},
+  ENFP:{nome:'Ativista',emoji:'✨',cor:'#4caf7d',apelido:'O Entusiasta Criativo',desc:'Criativo, otimista e contagiante. Você inspira os outros com sua energia e paixão pelo possível.',forcas:['Criatividade','Entusiasmo','Conexão com pessoas','Pensamento inovador'],desafios:['Dificuldade com rotinas','Começa mais do que termina','Pode ser disperso'],cargos:['Marketing','Comunicação','Inovação','Criação de Conteúdo','Empreendedorismo'],lideranca:'Lidera pela paixão e energia. Conecta e mobiliza pessoas em torno de ideias.',comunicacao:'Animada, criativa e inspiradora. Usa histórias e metáforas com maestria.'},
+  ISTJ:{nome:'Inspetor',emoji:'📋',cor:'#e8a020',apelido:'O Guardião Confiável',desc:'Responsável, organizado e confiável. Você é o alicerce de qualquer time — cumpre o que promete.',forcas:['Confiabilidade','Organização','Atenção ao detalhe','Disciplina'],desafios:['Resistência a mudanças','Pode ser inflexível','Dificuldade com ambiguidade'],cargos:['Gestão de Projetos','Contabilidade','Jurídico','Operações','Compliance'],lideranca:'Lidera com consistência e estrutura. Justo e previsível.',comunicacao:'Clara, direta e factual. Vai ao ponto sem rodeios.'},
+  ISFJ:{nome:'Protetor',emoji:'🛡️',cor:'#e8a020',apelido:'O Cuidador Dedicado',desc:'Atencioso, confiável e dedicado. Você cuida dos outros com uma generosidade que muitas vezes passa despercebida.',forcas:['Lealdade','Empatia prática','Organização','Dedicação'],desafios:['Dificuldade de dizer não','Evita conflitos','Pode ser muito autocrítico'],cargos:['RH','Assistência Social','Saúde','Educação','Atendimento ao Cliente'],lideranca:'Lidera apoiando e protegendo o time. Cria ambientes seguros e acolhedores.',comunicacao:'Gentil, cuidadosa e atenciosa. Ouve muito antes de falar.'},
+  ESTJ:{nome:'Executivo',emoji:'⚙️',cor:'#e8a020',apelido:'O Organizador Decisivo',desc:'Organizado, decisivo e orientado a resultados. Você implementa ordem onde há caos e entrega o que promete.',forcas:['Organização','Liderança prática','Decisão rápida','Eficiência'],desafios:['Pode ser inflexível','Dificuldade com o lado emocional','Resistência a abordagens não convencionais'],cargos:['Gerente','Diretor de Operações','Gestor Comercial','Administrador'],lideranca:'Lidera com autoridade e clareza. Define expectativas e cobra resultados.',comunicacao:'Direta, factual e assertiva. Não gosta de rodeios.'},
+  ESFJ:{nome:'Cônsul',emoji:'🤝',cor:'#e8a020',apelido:'O Conector Social',desc:'Caloroso, organizado e orientado às pessoas. Você cria harmonia e cuida para que todos se sintam bem.',forcas:['Conexão interpessoal','Organização','Lealdade','Empatia ativa'],desafios:['Precisa de aprovação','Dificuldade com conflitos diretos','Pode negliger as próprias necessidades'],cargos:['RH','Atendimento','Eventos','Coordenação','Educação'],lideranca:'Lidera criando harmonia e cuidando do time. Muito leal e presente.',comunicacao:'Calorosa, atenciosa e social. Faz as pessoas se sentirem bem-vindas.'},
+  ISTP:{nome:'Virtuoso',emoji:'🔧',cor:'#c0a0e0',apelido:'O Especialista Pragmático',desc:'Analítico, prático e habilidoso. Você entende como as coisas funcionam e sabe consertá-las.',forcas:['Resolução prática de problemas','Calma sob pressão','Habilidade técnica','Independência'],desafios:['Pode parecer distante','Dificuldade com compromissos longos','Evita emoções no trabalho'],cargos:['Engenheiro','Técnico Especialista','Piloto','Mecânico','Analista Técnico'],lideranca:'Lidera pela competência técnica. Calmo em crises, direto na solução.',comunicacao:'Concisa, factual e prática. Fala quando tem algo relevante a dizer.'},
+  ISFP:{nome:'Aventureiro',emoji:'🎨',cor:'#c0a0e0',apelido:'O Artista Sensível',desc:'Criativo, sensível e genuíno. Você tem gosto refinado e age de acordo com seus valores mais profundos.',forcas:['Criatividade','Autenticidade','Empatia','Adaptabilidade'],desafios:['Evita conflitos','Dificuldade com planejamento longo','Pode ser muito autocrítico'],cargos:['Design','Fotografia','Moda','Arte','Terapia Ocupacional'],lideranca:'Lidera pelo exemplo e pela autenticidade. Não impõe — demonstra.',comunicacao:'Gentil, observadora e profunda. Expressa-se melhor pela ação do que pelas palavras.'},
+  ESTP:{nome:'Empreendedor',emoji:'🚀',cor:'#c0a0e0',apelido:'O Executivo Ágil',desc:'Ágil, audacioso e orientado à ação. Você vive no presente e é o primeiro a agir quando a oportunidade aparece.',forcas:['Ação rápida','Adaptabilidade','Persuasão','Energia contagiante'],desafios:['Pode ser impulsivo','Dificuldade com planejamento longo','Pouca paciência com teoria'],cargos:['Vendas','Empreendedor','Trader','Gestão Comercial','Relações Públicas'],lideranca:'Lidera pela ação e exemplo. Energiza o time e enfrenta crises de frente.',comunicacao:'Direta, animada e persuasiva. Adora contar histórias e convencer.'},
+  ESFP:{nome:'Animador',emoji:'🎭',cor:'#c0a0e0',apelido:'O Entusiasta Social',desc:'Energético, espontâneo e contagiante. Você traz alegria onde vai e faz as pessoas se sentirem especiais.',forcas:['Energia social','Espontaneidade','Empatia no momento','Adaptabilidade'],desafios:['Dificuldade com rotinas','Pode evitar situações difíceis','Vive muito no presente'],cargos:['Comunicação','Eventos','Entretenimento','Vendas','Educação Dinâmica'],lideranca:'Lidera pela energia e pelo entusiasmo. Cria ambientes leves e motivadores.',comunicacao:'Calorosa, espontânea e expressiva. Transforma qualquer conversa em algo agradável.'},
+};
+
+const GRUPOS = {
+  INTJ:'Analistas',INTP:'Analistas',ENTJ:'Analistas',ENTP:'Analistas',
+  INFJ:'Diplomatas',INFP:'Diplomatas',ENFJ:'Diplomatas',ENFP:'Diplomatas',
+  ISTJ:'Sentinelas',ISFJ:'Sentinelas',ESTJ:'Sentinelas',ESFJ:'Sentinelas',
+  ISTP:'Exploradores',ISFP:'Exploradores',ESTP:'Exploradores',ESFP:'Exploradores',
+};
+
+const FIT_AREAS_16 = [
+  {nome:'Liderança & Gestão',tipos:{ENTJ:95,ESTJ:90,ENFJ:88,INTJ:82,ISTJ:78,ENTP:72,INFJ:70,ESTP:68,INTP:60,INFP:55,ISFJ:52,ESFJ:50,ISTP:48,ISFP:42,ENFP:65,ESFP:45}},
+  {nome:'Dados & Tecnologia',tipos:{INTJ:95,INTP:93,ENTP:85,ISTJ:80,ENTJ:78,ISTP:75,INFJ:65,INFP:55,ESTJ:60,INTP:93,ISFP:42,ENFP:50,ESTP:55,ESFP:38,ISFJ:45,ESFJ:40}},
+  {nome:'Criatividade & Design',tipos:{INFP:92,ENFP:90,ISFP:88,ENTP:82,INTP:78,INFJ:75,ESFP:70,ENFJ:65,ESTP:60,INTJ:62,ENTJ:55,ISTJ:45,ESFJ:50,ISFJ:48,ESTJ:42,ISTP:58}},
+  {nome:'Vendas & Negócios',tipos:{ESTP:95,ENTP:90,ENTJ:88,ENFP:85,ESFP:80,ESTJ:78,ENFJ:75,ESFJ:70,INFJ:58,INTJ:65,ISTP:62,ISTJ:60,INTP:52,ISFJ:48,INFP:45,ISFP:42}},
+  {nome:'Pessoas & RH',tipos:{ENFJ:95,ESFJ:92,INFJ:88,ISFJ:85,ENFP:80,INFP:75,ESFP:70,ESTJ:65,ISFP:62,ENTJ:60,INTP:45,ESTP:55,INTJ:48,ENTP:58,ISTJ:62,ISTP:42}},
+  {nome:'Estratégia & Inovação',tipos:{INTJ:95,ENTJ:92,ENTP:90,INFJ:82,INTP:80,ENFJ:72,ENFP:70,ISTJ:65,ESTJ:68,ISTP:62,INFP:58,ESTP:60,ESFP:42,ISFP:45,ESFJ:48,ISFJ:50}},
+  {nome:'Operações & Processos',tipos:{ISTJ:95,ESTJ:92,ISFJ:82,INTJ:80,ESFJ:75,ENTJ:78,INTP:65,ISTP:70,ENFJ:60,INFJ:58,ESTP:62,ENTP:55,INFP:48,ENFP:45,ESFP:42,ISFP:40}},
+  {nome:'Comunicação & Marketing',tipos:{ENFP:92,ESFP:88,ENFJ:85,ENTP:82,ESTP:80,INFP:72,ESFJ:70,INFJ:65,ISFP:60,ENTJ:68,INTJ:55,INTP:50,ISTJ:45,ISFJ:52,ESTJ:60,ISTP:42}},
+];
+
+let respostas = {};
+let qAtual = 0;
+let nomeUsuario = '';
+
+function renderQ(){
+  const q = PERGUNTAS[qAtual];
+  const total = PERGUNTAS.length;
+  const pct = Math.round((qAtual/total)*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = 'Pergunta '+(qAtual+1)+' de '+total;
+  document.getElementById('progressPct').textContent = pct+'%';
+  document.getElementById('encourage').style.display = (qAtual===Math.floor(total/2)) ? 'block':'none';
+
+  const dimCores = {EI:'#90c8f0',SN:'#80d4a0',TF:'#e0c080',JP:'#d0a0d0'};
+  const dimNomes = {EI:'Energia',SN:'Percepção',TF:'Decisão',JP:'Estilo de Vida'};
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML='';
+
+  const card = document.createElement('div');
+  card.className='question-card';
+
+  // Criar os círculos separadamente
+  const circleRow = document.createElement('div');
+  circleRow.className = 'q-circles';
+
+  [1,2,3,4,5].forEach(function(v){
+    const c = document.createElement('div');
+    c.className='q-circle'+(respostas[qAtual]===v?' selected':'');
+    const dot = document.createElement('div');
+    dot.className='q-circle-dot'+(v===3?' big':'');
+    c.appendChild(dot);
+    c.addEventListener('click', function(){
+      respostas[qAtual]=v;
+      circleRow.querySelectorAll('.q-circle').forEach(function(el){el.classList.remove('selected');});
+      c.classList.add('selected');
+      document.getElementById('btnNext').disabled=false;
+    });
+    circleRow.appendChild(c);
+  });
+
+  // Montar o card
+  const numDiv = document.createElement('div');
+  numDiv.className = 'q-number';
+  numDiv.innerHTML = 'Pergunta '+(qAtual+1)+' de '+total+' · <span style="color:'+dimCores[q.dim]+';">'+dimNomes[q.dim]+'</span>';
+
+  const txtDiv = document.createElement('div');
+  txtDiv.className = 'q-text';
+  txtDiv.textContent = 'Qual se aproxima mais do seu jeito de ser?';
+
+  const sliderWrap = document.createElement('div');
+  sliderWrap.className = 'q-slider-wrap';
+
+  const poles = document.createElement('div');
+  poles.className = 'q-poles';
+  const poleA = document.createElement('span');
+  poleA.className = 'q-pole';
+  poleA.textContent = q.a;
+  const poleB = document.createElement('span');
+  poleB.className = 'q-pole right';
+  poleB.textContent = q.b;
+  poles.appendChild(poleA);
+  poles.appendChild(poleB);
+
+  const labels = document.createElement('div');
+  labels.className = 'q-labels';
+  ['Totalmente A','','Neutro','','Totalmente B'].forEach(function(t){
+    const s = document.createElement('span');
+    s.className = 'q-label';
+    s.textContent = t;
+    labels.appendChild(s);
+  });
+
+  sliderWrap.appendChild(poles);
+  sliderWrap.appendChild(circleRow);
+  sliderWrap.appendChild(labels);
+
+  card.appendChild(numDiv);
+  card.appendChild(txtDiv);
+  card.appendChild(sliderWrap);
+  container.appendChild(card);
+
+  const btnPrev=document.getElementById('btnPrev');
+  const btnNext=document.getElementById('btnNext');
+  btnPrev.style.display=qAtual>0?'inline-flex':'none';
+  btnNext.textContent=qAtual===total-1?'Ver resultado →':'Próxima →';
+  btnNext.disabled=respostas[qAtual]===undefined;
+}
+
+function nextQ(){
+  if(respostas[qAtual]===undefined)return;
+  nomeUsuario=document.getElementById('nomePessoa').value.trim()||'';
+  if(qAtual<PERGUNTAS.length-1){
+    qAtual++;renderQ();
+  } else {
+    calcular();
+  }
+}
+function prevQ(){if(qAtual>0){qAtual--;renderQ();}}
+
+function calcular(){
+  document.getElementById('testSection').style.display='none';
+  document.getElementById('loadingSection').style.display='block';
+  setTimeout(mostrarResultado,1800);
+}
+
+function mostrarResultado(){
+  // Calcular scores por dimensão
+  // Valor 1=forte A(E/S/T/J), 5=forte B(I/N/F/P)
+  const dims={EI:{A:0,B:0,n:0},SN:{A:0,B:0,n:0},TF:{A:0,B:0,n:0},JP:{A:0,B:0,n:0}};
+  PERGUNTAS.forEach((q,i)=>{
+    const v=respostas[i]||3;
+    dims[q.dim].n++;
+    if(v<=2){dims[q.dim].A+=v===1?2:1;}
+    else if(v>=4){dims[q.dim].B+=v===5?2:1;}
+  });
+
+  const tipo_letras = {};
+  const pcts = {};
+  ['EI','SN','TF','JP'].forEach(dim=>{
+    const total=dims[dim].A+dims[dim].B||1;
+    const pctB=Math.round((dims[dim].B/total)*100);
+    pcts[dim]=pctB;
+    if(dim==='EI') tipo_letras[dim]=pctB>=50?'I':'E';
+    else if(dim==='SN') tipo_letras[dim]=pctB>=50?'N':'S';
+    else if(dim==='TF') tipo_letras[dim]=pctB>=50?'F':'T';
+    else tipo_letras[dim]=pctB>=50?'P':'J';
+  });
+
+  const tipoStr=tipo_letras.EI+tipo_letras.SN+tipo_letras.TF+tipo_letras.JP;
+  const tipo=TIPOS[tipoStr]||TIPOS['INTJ'];
+
+  document.getElementById('loadingSection').style.display='none';
+  const rs=document.getElementById('resultSection');
+  rs.style.display='block';
+  document.getElementById('resultNome').textContent=nomeUsuario||'você';
+
+  // PERFIL
+  document.getElementById('cardPerfil').innerHTML=`
+    <h4>✦ Seu Tipo de Personalidade</h4>
+    <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
+      <div style="width:80px;height:80px;border-radius:50%;background:${tipo.cor}20;border:2px solid ${tipo.cor}40;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;">${tipo.emoji}</div>
+      <div style="flex:1;min-width:160px;">
+        <div style="font-size:0.65rem;font-weight:700;color:${tipo.cor};text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.2rem;">${GRUPOS[tipoStr]||''} · ${tipoStr}</div>
+        <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:${tipo.cor};margin-bottom:0.2rem;">${tipo.nome}</div>
+        <div style="font-size:0.78rem;color:var(--text-secondary);font-style:italic;margin-bottom:0.5rem;">${tipo.apelido}</div>
+        <div style="font-size:0.85rem;color:var(--text-secondary);line-height:1.65;">${tipo.desc}</div>
+      </div>
+    </div>
+  `;
+
+  // DIMENSÕES COM BARRAS
+  const dimLabels={EI:['Extroversão','Introversão'],SN:['Sensorial','Intuitivo'],TF:['Lógico','Sentimental'],JP:['Julgamento','Percepção']};
+  const dimCores={EI:'#90c8f0',SN:'#80d4a0',TF:'#e0c080',JP:'#d0a0d0'};
+  let dimsHtml='<h4>📊 Suas 4 Dimensões</h4>';
+
+  ['EI','SN','TF','JP'].forEach(dim=>{
+    const pctB=pcts[dim];
+    const pctA=100-pctB;
+    const vencedor=pctA>=pctB?dimLabels[dim][0]:dimLabels[dim][1];
+    const pctVenc=pctA>=pctB?pctA:pctB;
+    dimsHtml+=`
+      <div class="dim-bar-row">
+        <div class="dim-bar-label">${dimLabels[dim][0]} / ${dimLabels[dim][1]}</div>
+        <div class="dim-bar-track">
+          <div class="dim-bar-fill" id="bar_${dim}" style="width:0%;background:${dimCores[dim]};"></div>
+        </div>
+        <div class="dim-bar-pct" style="color:${dimCores[dim]};">${pctVenc}% ${vencedor.split(' ')[0]}</div>
+      </div>
+    `;
+  });
+  document.getElementById('cardDims').innerHTML=dimsHtml;
+  setTimeout(()=>{
+    ['EI','SN','TF','JP'].forEach(dim=>{
+      const pctB=pcts[dim];
+      const pctA=100-pctB;
+      document.getElementById('bar_'+dim).style.width=Math.max(pctA,pctB)+'%';
+    });
+  },100);
+
+  // GRÁFICO RADAR
+  document.getElementById('cardGrafico').innerHTML=`
+    <h4>🧭 Radar das Dimensões</h4>
+    <canvas id="tipoRadar" height="240"></canvas>
+  `;
+  setTimeout(()=>{
+    const ctx=document.getElementById('tipoRadar');
+    if(!ctx)return;
+    const dEI=Math.abs(pcts.EI-50);
+    const dSN=Math.abs(pcts.SN-50);
+    const dTF=Math.abs(pcts.TF-50);
+    const dJP=Math.abs(pcts.JP-50);
+    if(typeof Chart === 'undefined'){ ctx.parentElement.innerHTML='<p style="color:var(--muted);font-size:0.8rem;text-align:center;">Gráfico indisponível (requer conexão à internet)</p>'; return; }
+    new Chart(ctx,{
+      type:'radar',
+      data:{
+        labels:['Extroversão','Sensorial','Lógico','Julgamento','Introversão','Intuitivo','Sentimental','Percepção'],
+        datasets:[{
+          label:'Você',
+          data:[
+            pcts.EI<50?(50-pcts.EI)*2:0,
+            pcts.SN<50?(50-pcts.SN)*2:0,
+            pcts.TF<50?(50-pcts.TF)*2:0,
+            pcts.JP<50?(50-pcts.JP)*2:0,
+            pcts.EI>=50?(pcts.EI-50)*2:0,
+            pcts.SN>=50?(pcts.SN-50)*2:0,
+            pcts.TF>=50?(pcts.TF-50)*2:0,
+            pcts.JP>=50?(pcts.JP-50)*2:0,
+          ],
+          borderColor:tipo.cor,
+          backgroundColor:tipo.cor+'18',
+          borderWidth:1.5,
+          pointBackgroundColor:tipo.cor,
+          pointRadius:3,
+        }]
+      },
+      options:{responsive:true,plugins:{legend:{display:false}},scales:{r:{min:0,max:50,ticks:{display:false},grid:{color:'rgba(255,255,255,0.06)'},pointLabels:{color:'#b0a898',font:{size:10,family:'DM Sans'}},angleLines:{color:'rgba(255,255,255,0.04)'}}}}
+    });
+  },100);
+
+  // TRAITS
+  document.getElementById('cardTraits').innerHTML=`
+    <h4>🌟 Pontos Fortes & Desafios</h4>
+    <div class="trait-grid">
+      <div class="trait-item">
+        <h6 style="color:#2ecc71;">✓ Pontos Fortes</h6>
+        <ul>${tipo.forcas.map(f=>`<li>${f}</li>`).join('')}</ul>
+      </div>
+      <div class="trait-item">
+        <h6 style="color:#e74c3c;">✗ Desafios</h6>
+        <ul>${tipo.desafios.map(d=>`<li>${d}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `;
+
+  // CARGOS
+  document.getElementById('cardCargos').innerHTML=`
+    <h4>💼 Cargos com Maior Afinidade</h4>
+    <p style="font-size:0.75rem;color:var(--muted);margin-bottom:1rem;line-height:1.55;">Funções onde seu tipo de personalidade tende a brilhar.</p>
+    <div class="cargo-pills">${tipo.cargos.map(c=>`<span class="cargo-pill">${c}</span>`).join('')}</div>
+  `;
+
+  // FIT ÁREAS
+  const fitScores=FIT_AREAS_16.map(area=>{
+    const score=area.tipos[tipoStr]||50;
+    return{nome:area.nome,score};
+  }).sort((a,b)=>b.score-a.score);
+  const corFit=s=>s>=78?'#2ecc71':s>=58?'#f39c12':'#e74c3c';
+  document.getElementById('cardFit').innerHTML=`
+    <h4>🎯 Afinidade por Área Profissional</h4>
+    <p style="font-size:0.75rem;color:var(--muted);margin-bottom:1rem;line-height:1.55;">Calculado com base nas características do seu tipo.</p>
+    <div class="fit-grid">${fitScores.map(v=>`
+      <div class="fit-item">
+        <div class="fit-top"><span class="fit-name">${v.nome}</span><span class="fit-score" style="color:${corFit(v.score)}">${v.score}%</span></div>
+        <div class="fit-track"><div class="fit-fill" style="width:${v.score}%;background:${corFit(v.score)};"></div></div>
+      </div>`).join('')}
+    </div>
+  `;
+
+  // DICAS
+  document.getElementById('cardDicas').innerHTML=`
+    <h4>💬 Comunicação & Liderança</h4>
+    <div class="trait-grid">
+      <div class="trait-item">
+        <h6>Como você lidera</h6>
+        <p>${tipo.lideranca}</p>
+      </div>
+      <div class="trait-item">
+        <h6>Seu estilo de comunicação</h6>
+        <p>${tipo.comunicacao}</p>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('pdfBar').classList.add('visible');
+}
+
+async function baixarPDF(){
+  const btn=document.getElementById('btnPdf');
+  btn.disabled=true;btn.textContent='⏳ Gerando PDF…';
+  const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(isMobile){btn.disabled=false;btn.textContent='⬇ Baixar resultado em PDF';mostrarPrint();return;}
+  if(!window.html2canvas||!window.jspdf){btn.disabled=false;btn.textContent='⬇ Baixar resultado em PDF';mostrarPrint();return;}
+  try{
+    const {jsPDF}=window.jspdf;
+    const el=document.getElementById('resultSection');
+    document.getElementById('pdfBar').style.display='none';
+    const pdfStyle=document.createElement('style');
+    pdfStyle.textContent=`#resultSection{background:#ffffff!important;}#resultSection,#resultSection *{color:#1a1a1a!important;border-color:#d0d0d0!important;}#resultSection .result-card,#resultSection .trait-item,#resultSection .fit-item{background:#f5f5f5!important;border-color:#d8d8d8!important;}`;
+    document.head.appendChild(pdfStyle);
+    const canvas=await html2canvas(el,{backgroundColor:'#ffffff',scale:2,useCORS:true,logging:false});
+    pdfStyle.remove();
+    document.getElementById('pdfBar').classList.add('visible');
+    document.getElementById('pdfBar').style.display='';
+    const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    const pW=pdf.internal.pageSize.getWidth(),pH=pdf.internal.pageSize.getHeight();
+    const iW=canvas.width,iH=canvas.height,ratio=iW/pW,pageHpx=pH*ratio;
+    let posY=0,page=0;
+    while(posY<iH){
+      if(page>0)pdf.addPage();
+      const h=Math.min(pageHpx,iH-posY);
+      const c2=document.createElement('canvas');c2.width=iW;c2.height=h;
+      c2.getContext('2d').drawImage(canvas,0,posY,iW,h,0,0,iW,h);
+      pdf.addImage(c2.toDataURL('image/jpeg',0.92),'JPEG',0,0,pW,h/ratio);
+      posY+=pageHpx;page++;
+    }
+    const nome=(nomeUsuario||'resultado').toLowerCase().replace(/\s/g,'-');
+    pdf.save(`personalidade-${nome}.pdf`);
+    toast('✅ PDF baixado com sucesso!');
+  }catch(e){
+    document.getElementById('pdfBar').classList.add('visible');
+    document.getElementById('pdfBar').style.display='';
+    mostrarPrint();
+  }
+  btn.disabled=false;btn.textContent='⬇ Baixar resultado em PDF';
+}
+
+function mostrarPrint(){toast('📄 Abrindo opção de salvar como PDF…');setTimeout(()=>window.print(),600);}
+function refazer(){if(!confirm('Tem certeza? Seu resultado atual será perdido.'))return;location.reload();}
+function compartilharWA(){
+  const url=window.location.href.split('?')[0];
+  const txt=`Fiz o teste de personalidade e descobri meu tipo! 🧠\n\nFaça o seu também (grátis, sem cadastro):\n${url}`;
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+function copiarLink(){navigator.clipboard.writeText(window.location.href.split('?')[0]).then(()=>toast('🔗 Link copiado!')).catch(()=>toast('Copie manualmente'));}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.background='#2ecc71';t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';
+  clearTimeout(t._t);t._t=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-50%) translateY(20px)';},3200);
+}
+
+// Inicialização robusta — garante que renderQ() só roda depois que tudo está pronto
+function iniciar(){
+  try {
+    if(typeof PERGUNTAS === 'undefined' || !PERGUNTAS.length){
+      setTimeout(iniciar, 100); return;
+    }
+    var container = document.getElementById('questionsContainer');
+    if(!container){ setTimeout(iniciar, 100); return; }
+    renderQ();
+  } catch(e) {
+    console.error('Erro ao iniciar:', e);
+    setTimeout(iniciar, 200);
+  }
+}
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', iniciar);
+} else {
+  iniciar();
+}
+</script>
+</body>
+</html>
