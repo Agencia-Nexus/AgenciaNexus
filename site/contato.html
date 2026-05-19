@@ -2577,7 +2577,7 @@ body.dark-mode .voice-translator-toggle {
       <!-- CARD 3D -->
       <div style="perspective:1200px;display:flex;justify-content:center;">
         <div id="nexus-card" style="
-          width:100%;max-width:620px;height:clamp(480px,60vw,420px);position:relative;
+          width:100%;max-width:95%;height:clamp(460px,60vw,460px);position:relative;
           transform-style:preserve-3d;transition:transform 0.08s linear;
           cursor:grab;user-select:none;
         ">
@@ -2653,7 +2653,10 @@ body.dark-mode .voice-translator-toggle {
               <div style="margin-left:0.5rem;font-size:0.7rem;color:#444;font-family:monospace;">nexus-terminal — bash</div>
             </div>
 
-            <div id="terminal-output" style="flex:1;font-family:monospace;font-size:clamp(0.62rem,2.5vw,0.78rem);color:#00c8ff;line-height:1.7;overflow:hidden;text-align:left;"></div>
+            <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 1.5rem;overflow:hidden;">
+              <div id="terminal-col1" style="font-family:monospace;font-size:clamp(0.62rem,2vw,0.75rem);color:#00c8ff;line-height:1.75;text-align:left;"></div>
+              <div id="terminal-col2" style="font-family:monospace;font-size:clamp(0.62rem,2vw,0.75rem);color:#00c8ff;line-height:1.75;text-align:left;"></div>
+            </div>
 
             <div style="margin-top:1rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
               <a href="https://wa.me/5551999747808?text=Olá! Quero saber mais sobre contratar com a Nexus." target="_blank" style="flex:1;min-width:140px;background:linear-gradient(135deg,#00c8ff,#0a4f7a);color:#fff;text-decoration:none;border-radius:10px;padding:0.7rem;font-size:0.78rem;font-weight:700;text-align:center;font-family:inherit;">💬 WhatsApp agora</a>
@@ -2667,6 +2670,9 @@ body.dark-mode .voice-translator-toggle {
 
   <style>
   @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+    @media(max-width:640px){
+    #nexus-card { height: 500px !important; }
+  }
   </style>
 
   <script>
@@ -2678,38 +2684,58 @@ body.dark-mode .voice-translator-toggle {
     var dragging = false, startX = 0, startY = 0;
     var lastX = 0, lastY = 0;
 
-    var linhas = [
-      {txt:'> Iniciando conexão com Agência Nexus...', cor:'#00c8ff', delay:0},
-      {txt:'> Verificando credenciais da empresa...', cor:'#00c8ff', delay:600},
-      {txt:'✔ Conexão estabelecida com sucesso', cor:'#2ecc71', delay:1200},
+    // Linhas divididas em 2 colunas
+    var col1 = [
+      {txt:'> Iniciando conexão...', cor:'#00c8ff', delay:0},
+      {txt:'> Verificando credenciais...', cor:'#00c8ff', delay:600},
+      {txt:'✔ Conexão estabelecida', cor:'#2ecc71', delay:1200},
       {txt:'', cor:'', delay:1600},
-      {txt:'> Carregando diferenciais...', cor:'#f39c12', delay:1800},
-      {txt:'  ✦ ATS com Claude AI + Gemini + Meta AI', cor:'#f0f0f0', delay:2200},
-      {txt:'  ✦ Teste DISC comportamental', cor:'#f0f0f0', delay:2600},
-      {txt:'  ✦ 2.7M views/tri no Facebook', cor:'#f0f0f0', delay:3000},
-      {txt:'  ✦ 10k conexões no LinkedIn', cor:'#f0f0f0', delay:3400},
-      {txt:'  ✦ 5k pessoas em grupos de WhatsApp', cor:'#f0f0f0', delay:3800},
-      {txt:'  ✦ 2k seguidores no Instagram', cor:'#f0f0f0', delay:4200},
-      {txt:'', cor:'', delay:4600},
-      {txt:'> STATUS: PRONTO PARA CONTRATAR ✔', cor:'#2ecc71', delay:5000},
-      {txt:'> Escolha um canal abaixo para conectar:', cor:'#00c8ff', delay:5500},
+      {txt:'> Diferenciais:', cor:'#f39c12', delay:1800},
+      {txt:'✦ ATS: Claude + Gemini + Meta AI', cor:'#f0f0f0', delay:2200},
+      {txt:'✦ Teste DISC comportamental', cor:'#f0f0f0', delay:2600},
+      {txt:'✦ 2.7M views/tri no Facebook', cor:'#f0f0f0', delay:3000},
     ];
+    var col2 = [
+      {txt:'✦ 10k conexões no LinkedIn', cor:'#f0f0f0', delay:3400},
+      {txt:'✦ 5k pessoas em grupos WhatsApp', cor:'#f0f0f0', delay:3800},
+      {txt:'✦ 2k seguidores no Instagram', cor:'#f0f0f0', delay:4200},
+      {txt:'', cor:'', delay:4600},
+      {txt:'> STATUS: PRONTO ✔', cor:'#2ecc71', delay:5000},
+      {txt:'> Escolha um canal:', cor:'#00c8ff', delay:5500},
+    ];
+    var linhas = col1.concat(col2);
 
     function rodarTerminal(){
-      terminalEl.innerHTML = '';
-      linhas.forEach(function(l){
+      var c1 = document.getElementById('terminal-col1');
+      var c2 = document.getElementById('terminal-col2');
+      if(c1) c1.innerHTML = '';
+      if(c2) c2.innerHTML = '';
+      col1.forEach(function(l){
         setTimeout(function(){
-          if(!l.txt){terminalEl.innerHTML += '<br>';return;}
+          if(!c1) return;
+          if(!l.txt){c1.innerHTML += '<br>';return;}
           var span = document.createElement('div');
           span.textContent = l.txt;
           span.style.color = l.cor || '#00c8ff';
           span.style.opacity = '0';
-          span.style.transform = 'translateX(-8px)';
+          span.style.transform = 'translateX(-6px)';
           span.style.transition = 'all 0.3s ease';
-          terminalEl.appendChild(span);
-          requestAnimationFrame(function(){
-            setTimeout(function(){span.style.opacity='1';span.style.transform='translateX(0)';},20);
-          });
+          c1.appendChild(span);
+          requestAnimationFrame(function(){setTimeout(function(){span.style.opacity='1';span.style.transform='translateX(0)';},20);});
+        }, l.delay);
+      });
+      col2.forEach(function(l){
+        setTimeout(function(){
+          if(!c2) return;
+          if(!l.txt){c2.innerHTML += '<br>';return;}
+          var span = document.createElement('div');
+          span.textContent = l.txt;
+          span.style.color = l.cor || '#00c8ff';
+          span.style.opacity = '0';
+          span.style.transform = 'translateX(-6px)';
+          span.style.transition = 'all 0.3s ease';
+          c2.appendChild(span);
+          requestAnimationFrame(function(){setTimeout(function(){span.style.opacity='1';span.style.transform='translateX(0)';},20);});
         }, l.delay);
       });
     }
