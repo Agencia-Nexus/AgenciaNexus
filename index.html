@@ -3,38 +3,101 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Agência Nexus | Sistema de Gestão</title>
-
-<!-- Favicon -->
+<!-- ═══════════ FAVICON ═══════════ -->
 <link rel="icon" type="image/png" sizes="32x32" href="imagens/favicon-32x32.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="imagens/favicon-192x192.png"/>
 <link rel="shortcut icon" href="imagens/icone.png" type="image/png"/>
 <link rel="apple-touch-icon" href="imagens/icone.png"/>
 
-<!-- SEO -->
-<meta name="description" content="Agência Nexus — Recrutamento e Seleção com tecnologia, IA e empatia. Conectamos talentos ao futuro."/>
-<meta name="keywords" content="Agência Nexus, recrutamento, seleção, RH, tecnologia, IA, vagas"/>
+<!-- ═══════════ SEO PRIMÁRIO ═══════════ -->
+<title>Agência Nexus | Recrutamento e Seleção com IA</title>
+<meta name="description" content="Agência Nexus: recrutamento e seleção com IA, empatia e tecnologia. Testes de perfil comportamental gratuitos — DISC, VIA Strengths e mais. Sem cadastro, resultado na hora."/>
 <meta name="author" content="Agência Nexus"/>
-<meta name="robots" content="index, follow"/>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 <meta name="theme-color" content="#00e5ff"/>
 <link rel="canonical" href="https://agencia-nexus.github.io/AgenciaNexus/"/>
-<meta property="og:type" content="website"/>
-<meta property="og:title" content="Agência Nexus | Conectando Talentos ao Futuro"/>
-<meta property="og:description" content="Recrutamento e Seleção com tecnologia, IA e empatia."/>
-<meta property="og:image" content="https://agencia-nexus.github.io/AgenciaNexus/imagens/nexuslogo.png"/>
-<meta property="og:url" content="https://agencia-nexus.github.io/AgenciaNexus/"/>
-<meta property="og:site_name" content="Agência Nexus"/>
-<meta property="og:locale" content="pt_BR"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Agência Nexus"/>
-<meta name="twitter:image" content="https://agencia-nexus.github.io/AgenciaNexus/imagens/fundo.png"/>
 
+<!-- ═══════════ OPEN GRAPH ═══════════ -->
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="pt_BR"/>
+<meta property="og:site_name" content="Agência Nexus"/>
+<meta property="og:title" content="Agência Nexus | Recrutamento e Seleção com IA"/>
+<meta property="og:description" content="Conectamos talentos ao futuro com tecnologia, IA e empatia. Testes de perfil comportamental gratuitos: DISC, VIA Strengths e mais. Sem cadastro."/>
+<meta property="og:url" content="https://agencia-nexus.github.io/AgenciaNexus/"/>
+<meta property="og:image" content="https://agencia-nexus.github.io/AgenciaNexus/imagens/fundo.png"/>
+<meta property="og:image:type" content="image/png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Agência Nexus — Recrutamento e Testes Comportamentais"/>
+
+<!-- ═══════════ TWITTER / X ═══════════ -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Agência Nexus | Recrutamento e Seleção com IA"/>
+<meta name="twitter:description" content="Testes DISC e VIA Strengths gratuitos + recrutamento com IA e empatia. Conectamos talentos ao futuro."/>
+<meta name="twitter:image" content="https://agencia-nexus.github.io/AgenciaNexus/imagens/fundo.png"/>
+<meta name="twitter:image:alt" content="Agência Nexus — Conectando Talentos ao Futuro"/>
+
+
+<!-- ═══════════ SCHEMA.ORG ═══════════ -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"Agência Nexus","url":"https://agencia-nexus.github.io/AgenciaNexus/","logo":"https://agencia-nexus.github.io/AgenciaNexus/imagens/fundo.png"}
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agencia-nexus.github.io/AgenciaNexus/#organization",
+      "name": "Agência Nexus",
+      "url": "https://agencia-nexus.github.io/AgenciaNexus/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agencia-nexus.github.io/AgenciaNexus/imagens/nexuslogo.png"
+      },
+      "description": "Agência de Recrutamento e Seleção com tecnologia, IA e empatia. Testes de perfil comportamental gratuitos: DISC e VIA Strengths.",
+      "inLanguage": "pt-BR",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Testes de Perfil Comportamental Gratuitos",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Teste DISC Gratuito",
+              "description": "Perfil comportamental DISC: Dominância, Influência, Estabilidade e Conformidade.",
+              "url": "https://agencia-nexus.github.io/AgenciaNexus/disc/"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Teste VIA Strengths Gratuito",
+              "description": "Descubra suas 24 forças de caráter com o VIA Strengths baseado na psicologia positiva.",
+              "url": "https://agencia-nexus.github.io/AgenciaNexus/via/"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://agencia-nexus.github.io/AgenciaNexus/"
+        }
+      ]
+    }
+  ]
+}
 </script>
 
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
-
+  
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{width:100%;height:100%;background:#050810;color:#00e5ff;font-family:'Share Tech Mono',monospace;overflow:hidden;user-select:none;}
@@ -253,6 +316,8 @@ html,body{width:100%;height:100%;background:#050810;color:#00e5ff;font-family:'S
   <div class="btns">
     <a href="site/index.html" class="btn btn-p">Acessar o Site <span class="arr">→</span></a>
     <a href="site/vagas.html" class="btn btn-s">Vagas de Emprego <span class="arr">→</span></a>
+    <a href="publica/painel.html" class="btn btn-s">Testes Comportamento <span class="arr">→</span></a>
+
   </div>
 
 </div>
