@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- Redireciona para home.html na primeira visita -->
+  <script>
+    (function() {
+      if (!sessionStorage.getItem('nexus_visited')) {
+        sessionStorage.setItem('nexus_visited', '1');
+        window.location.replace('home.html');
+      }
+    })();
+  </script>
+
   <!-- Meta Tags Essenciais -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
