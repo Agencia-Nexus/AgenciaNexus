@@ -677,7 +677,7 @@ body.dark-mode .btn-secondary {
       border-radius: 7px;
       margin-bottom: 0.28rem;
       transition: all 0.3s ease;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.875rem;
     }
 
@@ -692,14 +692,14 @@ body.dark-mode .btn-secondary {
     }
 
     .menu-link.active-page {
-      background: rgba(30, 64, 175, 0.12);
+      background: rgba(29, 78, 216, 0.15);
       color: var(--primary);
       font-weight: 700;
     }
 
     body.dark-mode .menu-link.active-page {
       color: #38bdf8;
-      background: rgba(30, 64, 175, 0.2);
+      background: rgba(29, 78, 216, 0.15);
     }
 
     /* Contact Section */
@@ -857,7 +857,7 @@ body.dark-mode .btn-secondary {
       margin-top: 0.4rem;
       font-size: 0.8rem;
       color: #888;
-      font-weight: 500;
+      font-weight: 700;
     }
 
     body.dark-mode .download-counter {
@@ -2388,7 +2388,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       background: white;
       color: #333;
       font-family: inherit;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -2586,7 +2586,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     </div>
     <div class="menu-section">
       <h3>Carreira</h3>
-      <a href="candidato.html" class="menu-link active-page">Candidatos</a>
+      <a href="candidato.html" class="menu-link">Candidatos</a>
       <a href="tutorial.html" class="menu-link">Vídeos</a>
       <a href="vagas.html" class="menu-link">Vagas</a>
       <a href="ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
@@ -4503,6 +4503,15 @@ loadSavedTheme();
     }
 
     document.addEventListener('DOMContentLoaded', initLanguage);
+</script>
+<script>
+(function(){
+  var page = window.location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".menu-link").forEach(function(link){
+    var href = (link.getAttribute("href") || "").replace("./","");
+    if(href === page) link.classList.add("active-page");
+  });
+})();
 </script>
 </body>
 </html>

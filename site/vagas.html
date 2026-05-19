@@ -296,7 +296,7 @@ body.menu-open .theme-toggle {
       border-radius: 7px;
       margin-bottom: 0.28rem;
       transition: all 0.3s ease;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.875rem;
     }
 
@@ -311,14 +311,14 @@ body.menu-open .theme-toggle {
     }
 
     .menu-link.active-page {
-      background: rgba(30, 64, 175, 0.12);
+      background: rgba(29, 78, 216, 0.15);
       color: var(--primary);
       font-weight: 700;
     }
 
     body.dark-mode .menu-link.active-page {
       color: #93c5fd;
-      background: rgba(30, 64, 175, 0.2);
+      background: rgba(29, 78, 216, 0.15);
     }
 
     .search-section { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; position: relative; z-index: 10; }
@@ -399,7 +399,7 @@ body.menu-open .theme-toggle {
 
 .vaga-company { color: var(--accent); font-weight: 600; font-size: 0.82rem; margin-top: 0.4rem; }
     
-    .vaga-segment { font-size: 0.75rem; color: #999; margin: 0; font-weight: 500; }
+    .vaga-segment { font-size: 0.75rem; color: #999; margin: 0; font-weight: 700; }
     body.dark-mode .vaga-segment { color: #bbb; }
 
     .vaga-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
@@ -686,7 +686,7 @@ body.dark-mode .share-btn.copy { background: rgba(255,255,255,0.1); color: #f0f0
       position: absolute; bottom: calc(100% + 10px); left: 50%;
       transform: translateX(-50%);
       background: #18182a; color: #f0f0f0;
-      font-size: 0.71rem; font-weight: 500; letter-spacing: 0.01em;
+      font-size: 0.71rem; font-weight: 700; letter-spacing: 0.01em;
       text-transform: none; line-height: 1.45;
       padding: 0.5rem 0.9rem; border-radius: 8px;
       white-space: nowrap; z-index: 9999;
@@ -1795,7 +1795,7 @@ body.dark-mode .accordion-icon.descricao {
       background: white;
       color: #333;
       font-family: inherit;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -2560,7 +2560,7 @@ body.dark-mode .accordion-icon.descricao {
       <h3>Carreira</h3>
       <a href="candidato.html" class="menu-link">Candidatos</a>
       <a href="tutorial.html" class="menu-link">Vídeos</a>
-      <a href="vagas.html" class="menu-link active-page">Vagas</a>
+      <a href="vagas.html" class="menu-link">Vagas</a>
       <a href="ferramentas-ia.html" class="menu-link">Ferramentas IA</a>
       <a href="utilidades.html" class="menu-link">Utilidades</a>
     </div>
@@ -5887,7 +5887,16 @@ function baixarVagasWord() {
       });
     });
 
-    html.push('</div></body></html>');
+    html.push('</div><script>
+(function(){
+  var page = window.location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".menu-link").forEach(function(link){
+    var href = (link.getAttribute("href") || "").replace("./","");
+    if(href === page) link.classList.add("active-page");
+  });
+})();
+</script>
+</body></html>');
 
     var blob = new Blob([html.join('\n')], {type:'application/msword'});
     var link = document.createElement('a');
@@ -6736,5 +6745,14 @@ let vtRecognition = null;
 
     </script>
 
+<script>
+(function(){
+  var page = window.location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".menu-link").forEach(function(link){
+    var href = (link.getAttribute("href") || "").replace("./","");
+    if(href === page) link.classList.add("active-page");
+  });
+})();
+</script>
 </body>
 </html>

@@ -393,7 +393,7 @@ body.dark-mode .chatbot-messages ol {
       border-radius: 7px;
       margin-bottom: 0.28rem;
       transition: all 0.3s ease;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.875rem;
     }
 
@@ -408,14 +408,14 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .menu-link.active-page {
-      background: rgba(79, 114, 20, 0.12);
+      background: rgba(29, 78, 216, 0.15);
       color: var(--primary);
       font-weight: 700;
     }
 
     body.dark-mode .menu-link.active-page {
       color: #38bdf8;
-      background: rgba(79, 114, 20, 0.2);
+      background: rgba(29, 78, 216, 0.15);
     }
 
     .content-section {
@@ -2468,7 +2468,7 @@ body.dark-mode .chip { background: #2a2a2a; }
     </div>
     <div class="menu-section">
       <h3>Atendimento</h3>
-      <a href="servicos.html" class="menu-link active-page">Serviços</a>
+      <a href="servicos.html" class="menu-link">Serviços</a>
       <a href="contato.html" class="menu-link">Contato</a>
     </div>
     <div class="menu-section">
@@ -3044,7 +3044,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         background: #fafbff; border: 1.5px solid var(--fv-rule);
         border-radius: 8px; padding: 0.48rem 0.65rem;
         cursor: pointer; transition: all 0.18s;
-        font-size: 0.78rem; font-weight: 500; color: #2a2d3a;
+        font-size: 0.78rem; font-weight: 700; color: #2a2d3a;
         user-select: none;
       }
       body.dark-mode .fv-toggle { background: #1e1e1e; color: #f0f0f0; }
@@ -3064,7 +3064,7 @@ body.dark-mode .chip { background: #2a2a2a; }
         display: inline-flex; align-items: center; gap: 0.3rem;
         padding: 0.38rem 0.75rem; border-radius: 99px;
         border: 1.5px solid var(--fv-rule); background: #fafbff;
-        font-size: 0.76rem; font-weight: 500; cursor: pointer;
+        font-size: 0.76rem; font-weight: 700; cursor: pointer;
         transition: all 0.18s; color: #2a2d3a;
       }
       body.dark-mode .fv-benef-tag { background: #1e1e1e; color: #f0f0f0; }
@@ -3272,7 +3272,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       background: white;
       color: #333;
       font-family: inherit;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -5124,5 +5124,14 @@ let vtRecognition = null;
 
     </script>
 
+<script>
+(function(){
+  var page = window.location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".menu-link").forEach(function(link){
+    var href = (link.getAttribute("href") || "").replace("./","");
+    if(href === page) link.classList.add("active-page");
+  });
+})();
+</script>
 </body>
 </html>

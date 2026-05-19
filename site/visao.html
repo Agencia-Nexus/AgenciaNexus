@@ -386,7 +386,7 @@ body.dark-mode .chatbot-messages ol {
       border-radius: 7px;
       margin-bottom: 0.28rem;
       transition: all 0.3s ease;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.875rem;
     }
 
@@ -401,14 +401,14 @@ body.dark-mode .chatbot-messages ol {
     }
 
     .menu-link.active-page {
-      background: rgba(30, 64, 175, 0.12);
+      background: rgba(29, 78, 216, 0.15);
       color: var(--primary);
       font-weight: 700;
     }
 
     body.dark-mode .menu-link.active-page {
       color: #38bdf8;
-      background: rgba(30, 64, 175, 0.2);
+      background: rgba(29, 78, 216, 0.15);
     }
 
     .content-section {
@@ -1559,7 +1559,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       background: white;
       color: #333;
       font-family: inherit;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -1965,12 +1965,12 @@ body.dark-mode .chip { background: #2a2a2a; }
     display: block; padding: 0.6rem 0.8rem;
     color: var(--text-light); text-decoration: none;
     border-radius: 7px; margin-bottom: 0.28rem;
-    transition: all 0.3s ease; font-weight: 500; font-size: 0.875rem;
+    transition: all 0.3s ease; font-weight: 700; font-size: 0.875rem;
   }
   body.dark-mode .menu-link { color: var(--text-dark); }
   .menu-link:hover { background: var(--primary); color: white; transform: translateX(8px); }
-  .menu-link.active-page { background: rgba(30,64,175,0.12); color: var(--primary); font-weight: 700; }
-  body.dark-mode .menu-link.active-page { color: #38bdf8; background: rgba(30,64,175,0.2); }
+  .menu-link.active-page { background: rgba(29, 78, 216, 0.15); color: var(--primary); font-weight: 700; }
+  body.dark-mode .menu-link.active-page { color: #38bdf8; background: rgba(29, 78, 216, 0.15); }
 
   /* HEADER */
   .header {
@@ -2232,7 +2232,7 @@ body.dark-mode .chip { background: #2a2a2a; }
       <h3>Bem-Vindo</h3>
       <a href="sobre.html" class="menu-link">Sobre</a>
       <a href="missao.html" class="menu-link">Missão</a>
-      <a href="visao.html" class="menu-link active-page">Visão</a>
+      <a href="visao.html" class="menu-link">Visão</a>
       <a href="valores.html" class="menu-link">Valores</a>
     </div>
     <div class="menu-section">
@@ -4192,5 +4192,14 @@ let vtRecognition = null;
 
 </script>
 
+<script>
+(function(){
+  var page = window.location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".menu-link").forEach(function(link){
+    var href = (link.getAttribute("href") || "").replace("./","");
+    if(href === page) link.classList.add("active-page");
+  });
+})();
+</script>
 </body>
 </html>
