@@ -1672,6 +1672,57 @@ body.dark-mode .groq-key-input { background: #1a1a1a; border-color: #555; color:
     }
 
   </style>
+
+<style>
+/* BOTÕES VOLTAR / MENU / TOPICS - MODO CLARO AZUL NEXUS */
+body:not(.dark-mode) .back-button,
+body:not(.dark-mode) .menu-toggle,
+body:not(.dark-mode) .topics-toggle,
+body:not(.dark-mode) .topics-toggle-mobile {
+  background: rgba(0, 180, 255, 0.15) !important;
+  border: 2px solid #00c8ff !important;
+  color: #00c8ff !important;
+  backdrop-filter: blur(10px);
+}
+
+body:not(.dark-mode) .back-button:hover,
+body:not(.dark-mode) .menu-toggle:hover,
+body:not(.dark-mode) .topics-toggle:hover,
+body:not(.dark-mode) .topics-toggle-mobile:hover {
+  background: rgba(0, 180, 255, 0.3) !important;
+  border-color: #00e5ff !important;
+  color: #00e5ff !important;
+}
+</style>
+
+<style>
+/* BOTÕES TEMA E IDIOMA - MODO CLARO AZUL NEXUS */
+body:not(.dark-mode) .theme-toggle,
+body:not(.dark-mode) .voice-translator-toggle {
+  background: rgba(0, 180, 255, 0.15) !important;
+  border: 2px solid #00c8ff !important;
+  color: #00c8ff !important;
+}
+
+body:not(.dark-mode) .theme-toggle:hover,
+body:not(.dark-mode) .voice-translator-toggle:hover {
+  background: rgba(0, 180, 255, 0.3) !important;
+  border-color: #00e5ff !important;
+  color: #00e5ff !important;
+}
+</style>
+
+<style>
+/* BORDAS AZUL NEXUS - MODO ESCURO */
+body.dark-mode .back-button,
+body.dark-mode .menu-toggle,
+body.dark-mode .topics-toggle,
+body.dark-mode .topics-toggle-mobile,
+body.dark-mode .theme-toggle,
+body.dark-mode .voice-translator-toggle {
+  border: 2px solid #00c8ff !important;
+}
+</style>
 </head>
 <body>
 
